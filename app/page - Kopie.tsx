@@ -41,19 +41,11 @@ type SavedPlanRow = {
   effective_radius_km: number | null;
   sort_mode: string;
   active_level: string | null;
-  slots: any;
-  share_token?: string | null;
+  slots: any; // jsonb
 };
 
 function toRad(v: number) {
   return (v * Math.PI) / 180;
-}
-
-// URL-safe Token (hex)
-function generateShareToken(len = 18) {
-  const bytes = new Uint8Array(len);
-  crypto.getRandomValues(bytes);
-  return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 // Haversine Distanz in KM
@@ -78,7 +70,9 @@ function norm(s: string | null | undefined) {
   return (s ?? "").toLowerCase().trim();
 }
 
-/** Heuristik: kategorisiert type/name grob. */
+/**
+ * Heuristik: kategorisiert type/name grob.
+ */
 function classify(loc: LocationRow) {
   const t = `${norm(loc.type)} ${norm(loc.name)}`;
   const has = (...words: string[]) => words.some((w) => t.includes(w));
@@ -108,7 +102,22 @@ function classify(loc: LocationRow) {
     return "cafe";
   if (has("museum", "galerie", "theater", "kino", "cinema", "denkmal", "kirche", "castle", "schloss", "aussicht"))
     return "culture";
-  if (has("park", "wander", "hike", "trail", "see", "lake", "boot", "zoo", "freizeitpark", "klettern", "sport", "bowling"))
+  if (
+    has(
+      "park",
+      "wander",
+      "hike",
+      "trail",
+      "see",
+      "lake",
+      "boot",
+      "zoo",
+      "freizeitpark",
+      "klettern",
+      "sport",
+      "bowling"
+    )
+  )
     return "activity";
   if (has("event", "konzert", "concert", "festival", "show", "ticket")) return "event";
 
@@ -216,9 +225,10 @@ export default function Home() {
   const [planTitle, setPlanTitle] = useState("");
   const [selectedPlan, setSelectedPlan] = useState<SavedPlanRow | null>(null);
 
+  // ✅ mounted sauber setzen (fehlte bei dir zuletzt)
   useEffect(() => setMounted(true), []);
 
-  // Auth init + Listener (stabil)
+  // ✅ Auth init + Listener (stabil)
   useEffect(() => {
     if (!mounted) return;
 
@@ -267,7 +277,7 @@ export default function Home() {
 
   // Locations laden
   useEffect(() => {
-    (async () => {
+    async function loadData() {
       setLoading(true);
       const { data, error } = await supabase.from("locations").select("*");
       if (error) {
@@ -278,7 +288,8 @@ export default function Home() {
       }
       setLocations((data as LocationRow[]) ?? []);
       setLoading(false);
-    })();
+    }
+    loadData();
   }, []);
 
   // Geolocation
@@ -450,6 +461,7 @@ export default function Home() {
     setLoadingPlans(false);
   }
 
+  // Auto-load sobald Auth steht
   useEffect(() => {
     if (!authReady) return;
     loadPlans();
@@ -510,46 +522,6 @@ export default function Home() {
     setPlanTitle("");
     await loadPlans();
     setSaving(false);
-  }
-
-  // ✅ Share Plan (muss AUßERHALB von savePlan stehen)
-  async function sharePlan(plan: SavedPlanRow) {
-    if (!authReady) {
-      console.error("Auth noch nicht ready.");
-      return;
-    }
-    if (!userId) {
-      console.error("Kein User vorhanden.");
-      return;
-    }
-
-    let token = plan.share_token ?? null;
-
-    if (!token) {
-      token = generateShareToken(18);
-
-      const { error } = await supabase
-        .from("plans")
-        .update({ share_token: token })
-        .eq("id", plan.id)
-        .eq("user_id", userId);
-
-      if (error) {
-        console.error("Share Token Update Fehler:", error);
-        return;
-      }
-
-      await loadPlans();
-    }
-
-    const shareUrl = `${window.location.origin}/p/${token}`;
-
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      alert("Share-Link kopiert ✅");
-    } catch {
-      prompt("Kopiere diesen Link:", shareUrl);
-    }
   }
 
   const relaxedText =
@@ -632,7 +604,11 @@ export default function Home() {
             className="border p-2 rounded flex-1 min-w-[240px]"
           />
 
-          <button onClick={savePlan} disabled={!authReady || saving} className="px-4 py-2 rounded bg-black text-white text-sm disabled:opacity-60">
+          <button
+            onClick={savePlan}
+            disabled={!authReady || saving}
+            className="px-4 py-2 rounded bg-black text-white text-sm disabled:opacity-60"
+          >
             {!authReady ? "Auth…" : saving ? "Speichern…" : "💾 Plan speichern"}
           </button>
 
@@ -646,7 +622,7 @@ export default function Home() {
         ) : !authReady ? (
           <div className="text-sm text-gray-600">Auth wird vorbereitet…</div>
         ) : (
-          <div className="text-sm text-gray-600">Auth bereit, aber keine User-ID – Console prüfen.</div>
+          <div className="text-sm text-gray-600">Auth bereit, aber keine User-ID (ungewöhnlich) – Console prüfen.</div>
         )}
       </div>
 
@@ -686,7 +662,12 @@ export default function Home() {
                     </button>
 
                     {slot.item?.reservation_url ? (
-                      <a href={slot.item.reservation_url} target="_blank" rel="noreferrer" className="px-3 py-2 rounded border text-sm">
+                      <a
+                        href={slot.item.reservation_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="px-3 py-2 rounded border text-sm"
+                      >
                         Reservieren
                       </a>
                     ) : null}
@@ -703,22 +684,22 @@ export default function Home() {
           ) : (
             <div className="space-y-3 mb-6">
               {plans.map((p) => (
-                <div key={p.id} className="p-4 border rounded-lg hover:bg-gray-50 flex items-start justify-between gap-4">
-                  <button onClick={() => setSelectedPlan(p)} className="text-left flex-1">
-                    <div className="font-semibold">{p.title || "Untitled Plan"}</div>
-                    <div className="text-xs text-gray-500">
-                      {new Date(p.created_at).toLocaleString()} • Budget: {p.filters?.budget} • Occasion: {p.filters?.occasion}
+                <button
+                  key={p.id}
+                  onClick={() => setSelectedPlan(p)}
+                  className="w-full text-left p-4 border rounded-lg hover:bg-gray-50"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <div className="font-semibold">{p.title || "Untitled Plan"}</div>
+                      <div className="text-xs text-gray-500">
+                        {new Date(p.created_at).toLocaleString()} • Budget: {p.filters?.budget} • Occasion:{" "}
+                        {p.filters?.occasion}
+                      </div>
                     </div>
-                    <div className="mt-2 inline-block text-xs px-2 py-1 rounded border">{p.active_level || "n/a"}</div>
-                  </button>
-
-                  <div className="flex flex-col items-end gap-2">
-                    <button onClick={() => sharePlan(p)} className="px-3 py-2 rounded bg-black text-white text-sm">
-                      🔗 Teilen
-                    </button>
-                    {p.share_token ? <div className="text-[11px] text-gray-500">/p/{String(p.share_token).slice(0, 6)}…</div> : null}
+                    <div className="text-xs px-2 py-1 rounded border">{p.active_level || "n/a"}</div>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           )}
