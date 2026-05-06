@@ -1,0 +1,1759 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-04T06:19:23.166Z",
+  "candidatesFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\jga_image_candidates.json",
+  "candidatesGeneratedAt": "2026-05-04T06:19:15.473Z",
+  "instructions": [
+    "Setze approved=true fuer jedes Bild, das live verwendet werden darf.",
+    "selectedCandidateId kann auf einen anderen Kandidaten aus candidates gesetzt werden.",
+    "approved=false oder selectedCandidateId=null bedeutet: beim Apply ueberspringen.",
+    "Vor Freigabe bitte Motiv, Landingpage, Lizenz und Attribution pruefen."
+  ],
+  "routes": [
+    {
+      "citySlug": "berlin-berlin",
+      "cityLabel": "Berlin",
+      "routeSlug": "berlin-jga-spree-karaoke-rooftop-night",
+      "routeTitle": "Spree Karaoke & Rooftop JGA Night",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": []
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "East Side Gallery",
+          "type": "sight",
+          "approved": true,
+          "selectedCandidateId": "3980eecd06933895",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "3980eecd06933895",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Berlin Wall near East Side Gallery",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Berlin_Wall_near_East_Side_Gallery.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Berlin_Wall_near_East_Side_Gallery.JPG/1280px-Berlin_Wall_near_East_Side_Gallery.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Berlin_Wall_near_East_Side_Gallery.JPG",
+              "width": 2592,
+              "height": 1944,
+              "license": "CC BY-SA 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+              "creator": "Pudelek (Marcin Szala)",
+              "creatorUrl": null,
+              "attributionText": "\"Berlin Wall near East Side Gallery\" by Pudelek (Marcin Szala), CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Berlin_Wall_near_East_Side_Gallery.JPG).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "a973133f78addad7",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Spree und East Side Gallery, Berlin, 170331, ako",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/94/Spree_und_East_Side_Gallery%2C_Berlin%2C_170331%2C_ako.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Spree_und_East_Side_Gallery%2C_Berlin%2C_170331%2C_ako.jpg/1280px-Spree_und_East_Side_Gallery%2C_Berlin%2C_170331%2C_ako.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Spree_und_East_Side_Gallery,_Berlin,_170331,_ako.jpg",
+              "width": 5139,
+              "height": 3426,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Ansgar Koreng",
+              "creatorUrl": null,
+              "attributionText": "\"Spree und East Side Gallery, Berlin, 170331, ako\" by Ansgar Koreng, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Spree_und_East_Side_Gallery,_Berlin,_170331,_ako.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "e5f529a870cb374f",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "East Side Gallery - Dmitri Vrubel - Le baiser (Berlin)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9d/East_Side_Gallery_-_Dmitri_Vrubel_-_Le_baiser_%28Berlin%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/East_Side_Gallery_-_Dmitri_Vrubel_-_Le_baiser_%28Berlin%29.jpg/1280px-East_Side_Gallery_-_Dmitri_Vrubel_-_Le_baiser_%28Berlin%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:East_Side_Gallery_-_Dmitri_Vrubel_-_Le_baiser_(Berlin).jpg",
+              "width": 4900,
+              "height": 3648,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Gzen92",
+              "creatorUrl": null,
+              "attributionText": "\"East Side Gallery - Dmitri Vrubel - Le baiser (Berlin)\" by Gzen92, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:East_Side_Gallery_-_Dmitri_Vrubel_-_Le_baiser_(Berlin).jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Holzmarkt 25",
+          "type": "food",
+          "approved": true,
+          "selectedCandidateId": "2c83e4a7f09d548f",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "2c83e4a7f09d548f",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Holzmarkt 25, Berlin, 2017 (1)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/33/Holzmarkt_25%2C_Berlin%2C_2017_%281%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/357cb386-451d-4884-806c-1986ca8d372b/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=139081545",
+              "width": 6016,
+              "height": 4000,
+              "license": "cc0",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+              "creator": "DimiTalen",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:DimiTalen",
+              "attributionText": "\"Holzmarkt 25, Berlin, 2017 (1)\" by DimiTalen, cc0 1.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=139081545).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "b90ab0a23dbaea49",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Holzmarkt 25, Berlin, 2017 (2)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/01/Holzmarkt_25%2C_Berlin%2C_2017_%282%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/41b38c4b-a1b7-4d25-a3c0-5d19377c75c0/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=139081543",
+              "width": 6016,
+              "height": 3494,
+              "license": "cc0",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+              "creator": "DimiTalen",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:DimiTalen",
+              "attributionText": "\"Holzmarkt 25, Berlin, 2017 (2)\" by DimiTalen, cc0 1.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=139081543).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "989db1446d518e28",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Holzmarkt Berlin Spree View",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Holzmarkt_Berlin_Spree_View.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Holzmarkt_Berlin_Spree_View.jpg/1280px-Holzmarkt_Berlin_Spree_View.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Holzmarkt_Berlin_Spree_View.jpg",
+              "width": 6615,
+              "height": 2806,
+              "license": "CC BY 2.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+              "creator": "Felix Winkelnkemper",
+              "creatorUrl": null,
+              "attributionText": "\"Holzmarkt Berlin Spree View\" by Felix Winkelnkemper, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Holzmarkt_Berlin_Spree_View.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Monster Ronson's Ichiban Karaoke",
+          "type": "activity",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 4,
+          "title": "Klunkerkranich",
+          "type": "bar",
+          "approved": true,
+          "selectedCandidateId": "bf3514d12a588e49",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "bf3514d12a588e49",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Klunkerkranich - Berlin",
+              "imageUrl": "https://live.staticflickr.com/7753/18276788235_94e078e0de_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/469358c7-fa5c-4e27-b31b-ebe7c48a7fe0/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/132866551@N06/18276788235",
+              "width": 1024,
+              "height": 683,
+              "license": "pdm",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+              "creator": "niko.posner",
+              "creatorUrl": "https://www.flickr.com/photos/132866551@N06",
+              "attributionText": "\"Klunkerkranich - Berlin\" by niko.posner, pdm 1.0, via Openverse (https://www.flickr.com/photos/132866551@N06/18276788235).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "493ebf7e5b5548d0",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Klunkerkranich - Roof Top - Berlin Neuk\u00f6lln",
+              "imageUrl": "https://live.staticflickr.com/7433/9903044754_1d24621878_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/6173eb79-c237-4e99-8390-d31202a193c5/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/31715625@N00/9903044754",
+              "width": 1024,
+              "height": 769,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "rundenreisen.org",
+              "creatorUrl": "https://www.flickr.com/photos/31715625@N00",
+              "attributionText": "\"Klunkerkranich - Roof Top - Berlin Neuk\u00f6lln\" by rundenreisen.org, by 2.0, via Openverse (https://www.flickr.com/photos/31715625@N00/9903044754).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "ab4a29b54523b7ee",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Klunkerkranich - Roof Top - Berlin Neuk\u00f6lln",
+              "imageUrl": "https://live.staticflickr.com/5473/9903068374_db5a466169_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/e86d4a26-fbb8-4a64-ac65-42f49ecb555b/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/31715625@N00/9903068374",
+              "width": 1024,
+              "height": 683,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "rundenreisen.org",
+              "creatorUrl": "https://www.flickr.com/photos/31715625@N00",
+              "attributionText": "\"Klunkerkranich - Roof Top - Berlin Neuk\u00f6lln\" by rundenreisen.org, by 2.0, via Openverse (https://www.flickr.com/photos/31715625@N00/9903068374).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-jga-harbour-kiez-sunset-night",
+      "routeTitle": "Harbour Sunset & Kiez JGA Night",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": []
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "Speicherstadt Wasserschloss Photo Stop",
+          "type": "sight",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 2,
+          "title": "Elbphilharmonie Plaza",
+          "type": "viewpoint",
+          "approved": true,
+          "selectedCandidateId": "7b04c486cbcb8d35",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "7b04c486cbcb8d35",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Elbphilharmonie Plaza, Hamburg",
+              "imageUrl": "https://live.staticflickr.com/4611/39622628594_b90560b598_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/bd600bf1-49c3-4053-8caf-096fc9fea7d8/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/84292292@N00/39622628594",
+              "width": 1024,
+              "height": 768,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Aleksandr Zykov",
+              "creatorUrl": "https://www.flickr.com/photos/84292292@N00",
+              "attributionText": "\"Elbphilharmonie Plaza, Hamburg\" by Aleksandr Zykov, by-sa 2.0, via Openverse (https://www.flickr.com/photos/84292292@N00/39622628594).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "aa63bf5a13af15e6",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Elbphilharmonie Plaza, Hamburg",
+              "imageUrl": "https://live.staticflickr.com/4620/26462260268_0a3e4d8946_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/2b007307-7753-4096-90ff-f17fc9c11ea7/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/84292292@N00/26462260268",
+              "width": 1024,
+              "height": 768,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Aleksandr Zykov",
+              "creatorUrl": "https://www.flickr.com/photos/84292292@N00",
+              "attributionText": "\"Elbphilharmonie Plaza, Hamburg\" by Aleksandr Zykov, by-sa 2.0, via Openverse (https://www.flickr.com/photos/84292292@N00/26462260268).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "b3612dd156a9d669",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Elbphilharmonie Plaza, Hamburg",
+              "imageUrl": "https://live.staticflickr.com/4747/38524586640_4e7bbd6633_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/512fd376-11fb-4ffd-872b-b750177a81ab/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/84292292@N00/38524586640",
+              "width": 1024,
+              "height": 768,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Aleksandr Zykov",
+              "creatorUrl": "https://www.flickr.com/photos/84292292@N00",
+              "attributionText": "\"Elbphilharmonie Plaza, Hamburg\" by Aleksandr Zykov, by-sa 2.0, via Openverse (https://www.flickr.com/photos/84292292@N00/38524586640).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "StrandPauli",
+          "type": "bar",
+          "approved": true,
+          "selectedCandidateId": "6668129195455576",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "6668129195455576",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Beachbar Strandpauli Hamburg Hafen (20193870253)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Beachbar_Strandpauli_Hamburg_Hafen_%2820193870253%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Beachbar_Strandpauli_Hamburg_Hafen_%2820193870253%29.jpg/1280px-Beachbar_Strandpauli_Hamburg_Hafen_%2820193870253%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Beachbar_Strandpauli_Hamburg_Hafen_(20193870253).jpg",
+              "width": 3264,
+              "height": 2448,
+              "license": "CC BY 2.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+              "creator": "dronepicr",
+              "creatorUrl": null,
+              "attributionText": "\"Beachbar Strandpauli Hamburg Hafen (20193870253)\" by dronepicr, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Beachbar_Strandpauli_Hamburg_Hafen_(20193870253).jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "c0c9ee8cfabfa9aa",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "<div class='fn'> Beachbar Strandpauli Hamburg Hafen</div>",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Beachbar_Strandpauli_Hamburg_Hafen_%28119236161%29.jpeg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/65374692-3ec8-4f36-b806-db4ced7755fb/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=75348365",
+              "width": 2048,
+              "height": 1536,
+              "license": "by",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+              "creator": "Dronepicr",
+              "creatorUrl": "https://500px.com/dronepicr",
+              "attributionText": "\"<div class='fn'> Beachbar Strandpauli Hamburg Hafen</div>\" by Dronepicr, by 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=75348365).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "8238c37da3073aa7",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "File:Beachbar Strandpauli Hamburg Hafen (20626878088).jpg",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Beachbar_Strandpauli_Hamburg_Hafen_%2820626878088%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/2001beb1-f56b-49a1-a0a7-fbb961aa9ac5/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=45111216",
+              "width": 3264,
+              "height": 2448,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "dronepicr",
+              "creatorUrl": "https://www.flickr.com/people/132646954@N02",
+              "attributionText": "\"File:Beachbar Strandpauli Hamburg Hafen (20626878088).jpg\" by dronepicr, by 2.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=45111216).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Reeperbahn and Hans-Albers-Platz",
+          "type": "nightlife",
+          "approved": true,
+          "selectedCandidateId": "b78b7b86a3dc2a21",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "b78b7b86a3dc2a21",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Hans Albers Platz, Reeperbahn, Hamburg",
+              "imageUrl": "https://live.staticflickr.com/65535/49162833093_7132c2ec10_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/2a2a55d4-21e0-4be1-b3f9-9a2dca9fd32d/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/24470821@N04/49162833093",
+              "width": 1024,
+              "height": 683,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "Andrew Milligan sumo",
+              "creatorUrl": "https://www.flickr.com/photos/24470821@N04",
+              "attributionText": "\"Hans Albers Platz, Reeperbahn, Hamburg\" by Andrew Milligan sumo, by 2.0, via Openverse (https://www.flickr.com/photos/24470821@N04/49162833093).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "1ca5b3a8f128b4f9",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Hans Albers Platz, Reeperbahn, Hamburg",
+              "imageUrl": "https://live.staticflickr.com/65535/49162829138_2f00d64652_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/5538516c-c35a-4f4b-a259-d48b8bb9a8cd/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/24470821@N04/49162829138",
+              "width": 1024,
+              "height": 683,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "Andrew Milligan sumo",
+              "creatorUrl": "https://www.flickr.com/photos/24470821@N04",
+              "attributionText": "\"Hans Albers Platz, Reeperbahn, Hamburg\" by Andrew Milligan sumo, by 2.0, via Openverse (https://www.flickr.com/photos/24470821@N04/49162829138).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "f058689b7b64b96d",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Hamburg, Friedrichstra\u00dfe, Hans-Albers-Platz, Kneipe,",
+              "imageUrl": "https://live.staticflickr.com/4283/35126289276_5b3b7a2db2_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/5bb36bc7-e38d-4f0d-8cca-aa7b33376705/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/131549928@N03/35126289276",
+              "width": 1024,
+              "height": 724,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "Uwe Herold",
+              "creatorUrl": "https://www.flickr.com/photos/131549928@N03",
+              "attributionText": "\"Hamburg, Friedrichstra\u00dfe, Hans-Albers-Platz, Kneipe,\" by Uwe Herold, by 2.0, via Openverse (https://www.flickr.com/photos/131549928@N03/35126289276).",
+              "score": 89,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "duesseldorf",
+      "cityLabel": "Duesseldorf",
+      "routeSlug": "duesseldorf-jga-rhine-altbier-glow-up",
+      "routeTitle": "Rhine Views & Altbier Glow-Up",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": []
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "Koenigsallee",
+          "type": "sight",
+          "approved": true,
+          "selectedCandidateId": "1f962f2a3114eb3a",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "1f962f2a3114eb3a",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Br\u00fccke auf der K\u00f6nigsallee, D\u00fcsseldorf",
+              "imageUrl": "https://live.staticflickr.com/5544/10882477576_7927b73b6c_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/a89cf7cb-27ee-4496-8871-947386d555f0/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/74168400@N04/10882477576",
+              "width": 1024,
+              "height": 430,
+              "license": "cc0",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+              "creator": "TagThis",
+              "creatorUrl": "https://www.flickr.com/photos/74168400@N04",
+              "attributionText": "\"Br\u00fccke auf der K\u00f6nigsallee, D\u00fcsseldorf\" by TagThis, cc0 1.0, via Openverse (https://www.flickr.com/photos/74168400@N04/10882477576).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "ea10d2b952fece1c",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "K\u00f6nigsallee D\u00fcsseldorf 2010-08-08",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/K%C3%B6nigsallee_D%C3%BCsseldorf_2010-08-08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/K%C3%B6nigsallee_D%C3%BCsseldorf_2010-08-08.jpg/1280px-K%C3%B6nigsallee_D%C3%BCsseldorf_2010-08-08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:K%C3%B6nigsallee_D%C3%BCsseldorf_2010-08-08.jpg",
+              "width": 1900,
+              "height": 1337,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "St\u00f6hrfall ( talk ) 18:38, 8 August 2010 (UTC)",
+              "creatorUrl": null,
+              "attributionText": "\"K\u00f6nigsallee D\u00fcsseldorf 2010-08-08\" by St\u00f6hrfall ( talk ) 18:38, 8 August 2010 (UTC), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:K%C3%B6nigsallee_D%C3%BCsseldorf_2010-08-08.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "99135967f96032f9",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "K\u00f6-Sittich (toter Halsbandsittich, D\u00fcsseldorf, K\u00f6nigsallee), 2016",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3f/K%C3%B6-Sittich_%28toter_Halsbandsittich%2C_D%C3%BCsseldorf%2C_K%C3%B6nigsallee%29%2C_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/K%C3%B6-Sittich_%28toter_Halsbandsittich%2C_D%C3%BCsseldorf%2C_K%C3%B6nigsallee%29%2C_2016.jpg/1280px-K%C3%B6-Sittich_%28toter_Halsbandsittich%2C_D%C3%BCsseldorf%2C_K%C3%B6nigsallee%29%2C_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:K%C3%B6-Sittich_(toter_Halsbandsittich,_D%C3%BCsseldorf,_K%C3%B6nigsallee),_2016.jpg",
+              "width": 4745,
+              "height": 2444,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "K\u00fcrschner ( talk ) 07:35, 8 August 2016 (UTC)",
+              "creatorUrl": null,
+              "attributionText": "\"K\u00f6-Sittich (toter Halsbandsittich, D\u00fcsseldorf, K\u00f6nigsallee), 2016\" by K\u00fcrschner ( talk ) 07:35, 8 August 2016 (UTC), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:K%C3%B6-Sittich_(toter_Halsbandsittich,_D%C3%BCsseldorf,_K%C3%B6nigsallee),_2016.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Rheinturm M168",
+          "type": "viewpoint",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "MedienHafen Gehry Buildings",
+          "type": "sight",
+          "approved": true,
+          "selectedCandidateId": "6073b16ec1e9fb5c",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "6073b16ec1e9fb5c",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Du\u0308sseldorf, MedienHafen, Neuer Zollhof (office buildings river bank fac\u0327ade)",
+              "imageUrl": "https://live.staticflickr.com/3794/10511527744_8fb4204f77_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/54e1e34b-877b-4a9f-9499-2626c4334c07/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/69460501@N04/10511527744",
+              "width": 1024,
+              "height": 695,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Polybert49",
+              "creatorUrl": "https://www.flickr.com/photos/69460501@N04",
+              "attributionText": "\"Du\u0308sseldorf, MedienHafen, Neuer Zollhof (office buildings river bank fac\u0327ade)\" by Polybert49, by-sa 2.0, via Openverse (https://www.flickr.com/photos/69460501@N04/10511527744).",
+              "score": 88,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "38fb31317da1c7f5",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Gehry Medienhafen 7th floor",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Gehry_Medienhafen_7th_floor.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Gehry_Medienhafen_7th_floor.jpg/1280px-Gehry_Medienhafen_7th_floor.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Gehry_Medienhafen_7th_floor.jpg",
+              "width": 2848,
+              "height": 4062,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "H005",
+              "creatorUrl": null,
+              "attributionText": "\"Gehry Medienhafen 7th floor\" by H005, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Gehry_Medienhafen_7th_floor.jpg).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "02ae0dc7ab1c5548",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Medienhafen-Gehry-2005",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/09/Medienhafen-Gehry-2005.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Medienhafen-Gehry-2005.jpg/1280px-Medienhafen-Gehry-2005.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Medienhafen-Gehry-2005.jpg",
+              "width": 1536,
+              "height": 2048,
+              "license": "CC BY 2.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+              "creator": "anika on flickr",
+              "creatorUrl": null,
+              "attributionText": "\"Medienhafen-Gehry-2005\" by anika on flickr, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Medienhafen-Gehry-2005.jpg).",
+              "score": 82,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Uerige",
+          "type": "bar",
+          "approved": true,
+          "selectedCandidateId": "b137d540041587eb",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "b137d540041587eb",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Nieuwe Venlosche Courant vol 074 no 224",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Nieuwe_Venlosche_Courant_vol_074_no_224.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Nieuwe_Venlosche_Courant_vol_074_no_224.pdf/page1-1280px-Nieuwe_Venlosche_Courant_vol_074_no_224.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Nieuwe_Venlosche_Courant_vol_074_no_224.pdf",
+              "width": 9247,
+              "height": 13877,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Anonymous Unknown author",
+              "creatorUrl": null,
+              "attributionText": "\"Nieuwe Venlosche Courant vol 074 no 224\" by Anonymous Unknown author, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Nieuwe_Venlosche_Courant_vol_074_no_224.pdf).",
+              "score": 72,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "bb5e1921c775d43d",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Uerige Reliefs 2024-01-27",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/14/Uerige_Reliefs_2024-01-27.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Uerige_Reliefs_2024-01-27.jpg/1280px-Uerige_Reliefs_2024-01-27.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Uerige_Reliefs_2024-01-27.jpg",
+              "width": 4032,
+              "height": 2268,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Seriengucker",
+              "creatorUrl": null,
+              "attributionText": "\"Uerige Reliefs 2024-01-27\" by Seriengucker, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Uerige_Reliefs_2024-01-27.jpg).",
+              "score": 72,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Duesseldorf Altstadt",
+          "type": "nightlife",
+          "approved": true,
+          "selectedCandidateId": "ebfabfa3803789c4",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "ebfabfa3803789c4",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "D\u00fcsseldorf, Altstadt -- 2015 -- 8216",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ca/D%C3%BCsseldorf%2C_Altstadt_--_2015_--_8216.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/D%C3%BCsseldorf%2C_Altstadt_--_2015_--_8216.jpg/1280px-D%C3%BCsseldorf%2C_Altstadt_--_2015_--_8216.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:D%C3%BCsseldorf,_Altstadt_--_2015_--_8216.jpg",
+              "width": 5468,
+              "height": 2946,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Dietmar Rabich",
+              "creatorUrl": null,
+              "attributionText": "\"D\u00fcsseldorf, Altstadt -- 2015 -- 8216\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:D%C3%BCsseldorf,_Altstadt_--_2015_--_8216.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "91c9c6e616df0c22",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "River Rhein D\u00fcsseldorf Bird's eye view - Rathausufer vor histor. Altstadt - Rheinufer NRW Wolfgang Pehlemann DSCN1026",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/River_Rhein_D%C3%BCsseldorf_Bird%27s_eye_view_-_Rathausufer_vor_histor._Altstadt_-_Rheinufer_NRW_Wolfgang_Pehlemann_DSCN1026.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/971350d1-f3f9-4ecd-9e24-007a7d965340/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=87777574",
+              "width": 2500,
+              "height": 1650,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en/",
+              "creator": "Wolfgang Pehlemann",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Wolfgang_Pehlemann",
+              "attributionText": "\"River Rhein D\u00fcsseldorf Bird's eye view - Rathausufer vor histor. Altstadt - Rheinufer NRW Wolfgang Pehlemann DSCN1026\" by Wolfgang Pehlemann, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=87777574).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "2bed2f57ea5d45e8",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "D\u00fcsseldorf (DE), Rathausufer -- 2014 -- 2154",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/D%C3%BCsseldorf_%28DE%29%2C_Rathausufer_--_2014_--_2154.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/D%C3%BCsseldorf_%28DE%29%2C_Rathausufer_--_2014_--_2154.jpg/1280px-D%C3%BCsseldorf_%28DE%29%2C_Rathausufer_--_2014_--_2154.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:D%C3%BCsseldorf_(DE),_Rathausufer_--_2014_--_2154.jpg",
+              "width": 3916,
+              "height": 2448,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "An\u0131l \u00d6zta\u015f",
+              "creatorUrl": null,
+              "attributionText": "\"D\u00fcsseldorf (DE), Rathausufer -- 2014 -- 2154\" by An\u0131l \u00d6zta\u015f, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:D%C3%BCsseldorf_(DE),_Rathausufer_--_2014_--_2154.jpg).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "cityLabel": "Koeln",
+      "routeSlug": "koeln-jga-rhine-belgian-quarter-night",
+      "routeTitle": "Rhine Panorama & Belgian Quarter JGA",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": []
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "KoelnTriangle Panorama",
+          "type": "viewpoint",
+          "approved": true,
+          "selectedCandidateId": "731f5fa239cbefd8",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "731f5fa239cbefd8",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "K\u00f6ln Panorama",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2e/K%C3%B6ln_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/K%C3%B6ln_Panorama.jpg/1280px-K%C3%B6ln_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:K%C3%B6ln_Panorama.jpg",
+              "width": 2500,
+              "height": 1632,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Raimond Spekking",
+              "creatorUrl": null,
+              "attributionText": "\"K\u00f6ln Panorama\" by Raimond Spekking, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:K%C3%B6ln_Panorama.jpg).",
+              "score": 92,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "3bc2d23cb2db2155",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "K\u00f6ln Panorama bei Nacht-172239350",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/25/K%C3%B6ln_Panorama_bei_Nacht-172239350.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/K%C3%B6ln_Panorama_bei_Nacht-172239350.jpg/1280px-K%C3%B6ln_Panorama_bei_Nacht-172239350.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:K%C3%B6ln_Panorama_bei_Nacht-172239350.jpg",
+              "width": 4087,
+              "height": 2299,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Raimond Spekking",
+              "creatorUrl": null,
+              "attributionText": "\"K\u00f6ln Panorama bei Nacht-172239350\" by Raimond Spekking, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:K%C3%B6ln_Panorama_bei_Nacht-172239350.jpg).",
+              "score": 92,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "7f2ae75adb9f6b03",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Stadtbild K\u00f6ln",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Stadtbild_K%C3%B6ln.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Stadtbild_K%C3%B6ln.jpg/1280px-Stadtbild_K%C3%B6ln.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Stadtbild_K%C3%B6ln.jpg",
+              "width": 12565,
+              "height": 9130,
+              "license": "CC BY-SA 3.0 de",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+              "creator": "Thomas Wolf , www.foto-tw.de",
+              "creatorUrl": null,
+              "attributionText": "\"Stadtbild K\u00f6ln\" by Thomas Wolf , www.foto-tw.de, CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Stadtbild_K%C3%B6ln.jpg).",
+              "score": 82,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Rheinboulevard and Hohenzollernbruecke View",
+          "type": "sight",
+          "approved": true,
+          "selectedCandidateId": "2516d2a956e4f9bc",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "2516d2a956e4f9bc",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "K\u00f6ln - Rheinpanorama von Deutzer Br\u00fccke mit Rheinboulevard-8214-17",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/14/K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8214-17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8214-17.jpg/1280px-K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8214-17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8214-17.jpg",
+              "width": 11593,
+              "height": 3067,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Raimond Spekking",
+              "creatorUrl": null,
+              "attributionText": "\"K\u00f6ln - Rheinpanorama von Deutzer Br\u00fccke mit Rheinboulevard-8214-17\" by Raimond Spekking, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8214-17.jpg).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "4d283bc78a10e029",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "K\u00f6ln - Rheinpanorama von Deutzer Br\u00fccke mit Rheinboulevard-8224-26",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/83/K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8224-26.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8224-26.jpg/1280px-K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8224-26.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8224-26.jpg",
+              "width": 9345,
+              "height": 2626,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Raimond Spekking",
+              "creatorUrl": null,
+              "attributionText": "\"K\u00f6ln - Rheinpanorama von Deutzer Br\u00fccke mit Rheinboulevard-8224-26\" by Raimond Spekking, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8224-26.jpg).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "80d6f62761e3cbb8",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "K\u00f6ln - Rheinpanorama von Deutzer Br\u00fccke mit Rheinboulevard-8231-33",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8231-33.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8231-33.jpg/1280px-K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8231-33.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8231-33.jpg",
+              "width": 9008,
+              "height": 2878,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Raimond Spekking",
+              "creatorUrl": null,
+              "attributionText": "\"K\u00f6ln - Rheinpanorama von Deutzer Br\u00fccke mit Rheinboulevard-8231-33\" by Raimond Spekking, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:K%C3%B6ln_-_Rheinpanorama_von_Deutzer_Br%C3%BCcke_mit_Rheinboulevard-8231-33.jpg).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Balthasar Belgisches Viertel",
+          "type": "restaurant",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 4,
+          "title": "Lorbass Bar",
+          "type": "bar",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 5,
+          "title": "Belgisches Viertel Night Walk",
+          "type": "nightlife",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "Muenchen",
+      "routeSlug": "muenchen-jga-altstadt-beer-garden-glockenbach",
+      "routeTitle": "Altstadt Beer Garden & Glockenbach JGA",
+      "cover": {
+        "approved": true,
+        "selectedCandidateId": "219cd5a501f1e9c1",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "219cd5a501f1e9c1",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "<div class='fn'> <b><span class='language de'><b>Hitler-Putsch, M\u00fcnchen, Marienplatz</b></span></b> <abbr class='BArchtooltips' title='Short title assigned by the archive'><span typeof='mw:File'><span><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Info_non-talk.svg/15px-Info_non-talk.svg.png' decoding='async' width='15' height='15' class='mw-file-element' srcset='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Info_non-talk.svg/23px-Info_non-talk.svg.png 1.5x, https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Info_non-talk.svg/30px-Info_non-talk.svg.png 2x' data-file-width='62' data-file-height='62'></span></span></abbr></div>",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Bundesarchiv_Bild_119-1486%2C_Hitler-Putsch%2C_M%C3%BCnchen%2C_Marienplatz.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/0348eb3d-d303-4057-8091-b5e410d0b73f/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=5415949",
+            "width": 790,
+            "height": 467,
+            "license": "by-sa",
+            "licenseVersion": "3.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en/",
+            "creator": "UnknownUnknown",
+            "creatorUrl": null,
+            "attributionText": "\"<div class='fn'> <b><span class='language de'><b>Hitler-Putsch, M\u00fcnchen, Marienplatz</b></span></b> <abbr class='BArchtooltips' title='Short title assigned by the archive'><span typeof='mw:File'><span><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Info_non-talk.svg/15px-Info_non-talk.svg.png' decoding='async' width='15' height='15' class='mw-file-element' srcset='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Info_non-talk.svg/23px-Info_non-talk.svg.png 1.5x, https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Info_non-talk.svg/30px-Info_non-talk.svg.png 2x' data-file-width='62' data-file-height='62'></span></span></abbr></div>\" by UnknownUnknown, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=5415949).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ca21cfdfddd46e54",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "M\u00fcnchen Marienplatz Rathaus Frauenkirche Liebfrauendom",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/60/M%C3%BCnchen_Marienplatz_Rathaus_Frauenkirche_Liebfrauendom.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/ff1939ea-df1f-4b62-8f50-2aa743b9cae4/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=7723971",
+            "width": 800,
+            "height": 600,
+            "license": "by-sa",
+            "licenseVersion": "3.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en/",
+            "creator": "Wolfgang Pehlemann Wiesbaden Germany",
+            "creatorUrl": null,
+            "attributionText": "\"M\u00fcnchen Marienplatz Rathaus Frauenkirche Liebfrauendom\" by Wolfgang Pehlemann Wiesbaden Germany, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=7723971).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "a66f0f768666443d",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "M\u00fcnchen - Marienplatz (Luftbild)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/62/M%C3%BCnchen_-_Marienplatz_%28Luftbild%29.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/b7bede54-dfd5-4873-bd43-b1a227c6913f/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=2266591",
+            "width": 2272,
+            "height": 1704,
+            "license": "by-sa",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+            "creator": "Maximilian D\u00f6rrbecker (Chumwa)",
+            "creatorUrl": "https://de.wikipedia.org/wiki/User:Chumwa",
+            "attributionText": "\"M\u00fcnchen - Marienplatz (Luftbild)\" by Maximilian D\u00f6rrbecker (Chumwa), by-sa 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=2266591).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "Marienplatz",
+          "type": "sight",
+          "approved": true,
+          "selectedCandidateId": "b9a29b527a084957",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "b9a29b527a084957",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Neues Rathaus und Marienplatz M\u00fcnchen",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/62/Neues_Rathaus_und_Marienplatz_M%C3%BCnchen.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/dc596a08-3ba3-4e44-ad27-5aec0b3b7bfe/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=542152",
+              "width": 3477,
+              "height": 2400,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "Chris 73",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Chris_73",
+              "attributionText": "\"Neues Rathaus und Marienplatz M\u00fcnchen\" by Chris 73, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=542152).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "4f20ef021f9d367a",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Marienplatz - M\u00fcnchen - Pantomime",
+              "imageUrl": "https://live.staticflickr.com/6134/6029839671_666d056354_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/8e8013e1-d4e9-473b-92c6-6f719b4c0bfc/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/14646075@N03/6029839671",
+              "width": 1024,
+              "height": 681,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "digital cat \uf8ff",
+              "creatorUrl": "https://www.flickr.com/photos/14646075@N03",
+              "attributionText": "\"Marienplatz - M\u00fcnchen - Pantomime\" by digital cat \uf8ff, by 2.0, via Openverse (https://www.flickr.com/photos/14646075@N03/6029839671).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "de91b57bc5a6c354",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Marienplatz - M\u00fcnchen",
+              "imageUrl": "https://live.staticflickr.com/6148/6030395234_a000314271_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/cb5207b2-841e-4ded-ac81-81ef7e66e43e/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/14646075@N03/6030395234",
+              "width": 806,
+              "height": 1024,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "digital cat \uf8ff",
+              "creatorUrl": "https://www.flickr.com/photos/14646075@N03",
+              "attributionText": "\"Marienplatz - M\u00fcnchen\" by digital cat \uf8ff, by 2.0, via Openverse (https://www.flickr.com/photos/14646075@N03/6030395234).",
+              "score": 90,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Viktualienmarkt Beer Garden",
+          "type": "food",
+          "approved": true,
+          "selectedCandidateId": "c9a5e823681b3b69",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "c9a5e823681b3b69",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "M\u00fcnchen, beer garden",
+              "imageUrl": "https://live.staticflickr.com/8009/6959407190_012f623e21_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/d06d30cf-2d91-4beb-ac79-7db98c8ff38f/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/49539505@N04/6959407190",
+              "width": 1024,
+              "height": 768,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "La Citta Vita",
+              "creatorUrl": "https://www.flickr.com/photos/49539505@N04",
+              "attributionText": "\"M\u00fcnchen, beer garden\" by La Citta Vita, by-sa 2.0, via Openverse (https://www.flickr.com/photos/49539505@N04/6959407190).",
+              "score": 88,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Hofbraeuhaus Muenchen",
+          "type": "bar",
+          "approved": true,
+          "selectedCandidateId": "85e96dace7aafe27",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "85e96dace7aafe27",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Mu\u0308nchen, Englischer Garten, Kleinhesseloher See (LR 5.4)",
+              "imageUrl": "https://live.staticflickr.com/3704/13759035573_fb238af5c2_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/fada0520-c91a-4963-89fa-33dd7829580e/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/69460501@N04/13759035573",
+              "width": 1024,
+              "height": 680,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Polybert49",
+              "creatorUrl": "https://www.flickr.com/photos/69460501@N04",
+              "attributionText": "\"Mu\u0308nchen, Englischer Garten, Kleinhesseloher See (LR 5.4)\" by Polybert49, by-sa 2.0, via Openverse (https://www.flickr.com/photos/69460501@N04/13759035573).",
+              "score": 80,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "71ca3b43fb4ea549",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Mu\u0308nchen, Rathaus, Impressionen aus dem Flur im zweiten Stockwerk",
+              "imageUrl": "https://live.staticflickr.com/3780/14288944322_ec4ca74f0c_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/25f4fda7-da64-42b8-97a9-90649f09dc21/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/69460501@N04/14288944322",
+              "width": 751,
+              "height": 1024,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Polybert49",
+              "creatorUrl": "https://www.flickr.com/photos/69460501@N04",
+              "attributionText": "\"Mu\u0308nchen, Rathaus, Impressionen aus dem Flur im zweiten Stockwerk\" by Polybert49, by-sa 2.0, via Openverse (https://www.flickr.com/photos/69460501@N04/14288944322).",
+              "score": 75,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "42045204ae57c0b8",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Mu\u0308nchen, Alter Hof, spa\u0308tgotischer Torturm und Erker am Affenturm",
+              "imageUrl": "https://live.staticflickr.com/2900/14282908665_3f41cbb5d9_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/8279b50d-579a-488f-933b-fdc6992e6bd9/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/69460501@N04/14282908665",
+              "width": 567,
+              "height": 1024,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Polybert49",
+              "creatorUrl": "https://www.flickr.com/photos/69460501@N04",
+              "attributionText": "\"Mu\u0308nchen, Alter Hof, spa\u0308tgotischer Torturm und Erker am Affenturm\" by Polybert49, by-sa 2.0, via Openverse (https://www.flickr.com/photos/69460501@N04/14282908665).",
+              "score": 75,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Gaertnerplatz and Glockenbachviertel",
+          "type": "nightlife",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 5,
+          "title": "Milla Club",
+          "type": "club",
+          "approved": true,
+          "selectedCandidateId": "cbd5b22eebce679f",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "cbd5b22eebce679f",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Botanisches Centralblatt. \u2013 Referirendes Organ f\u00fcr das Gesammtgebiet der Botanik des In- und Auslandes. Zugleich Organ des Botanischen Vereins in M\u00fcnchen, der Botaniska S\u00e4llskapet i Stockholm, der botanischen Section des naturwissenschaftlichen Vereins zu Hamburg, der botanischen Section der Schlesischen Gesellschaft f\u00fcr Vaterl\u00e4ndische Cultur zu Breslau, der Botaniska Sektionen af Naturvetenskapliga Students\u00e4llskapet i Upsala, der k. k. zoologisch-botanischen Gesellschaft in Wien, des Botanischen Vereins in Lund und der Societas pro Fauna et Flora Fennica in Helsingfors.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/Botanisches_Centralblatt._Bd._053%2C_1893_%28IA_botanischeszentr1453bota%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Botanisches_Centralblatt._Bd._053%2C_1893_%28IA_botanischeszentr1453bota%29.pdf/page1-500px-Botanisches_Centralblatt._Bd._053%2C_1893_%28IA_botanischeszentr1453bota%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Botanisches_Centralblatt._Bd._053,_1893_(IA_botanischeszentr1453bota).pdf",
+              "width": 908,
+              "height": 1356,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "various authors",
+              "creatorUrl": null,
+              "attributionText": "\"Botanisches Centralblatt. \u2013 Referirendes Organ f\u00fcr das Gesammtgebiet der Botanik des In- und Auslandes. Zugleich Organ des Botanischen Vereins in M\u00fcnchen, der Botaniska S\u00e4llskapet i Stockholm, der botanischen Section des naturwissenschaftlichen Vereins zu Hamburg, der botanischen Section der Schlesischen Gesellschaft f\u00fcr Vaterl\u00e4ndische Cultur zu Breslau, der Botaniska Sektionen af Naturvetenskapliga Students\u00e4llskapet i Upsala, der k. k. zoologisch-botanischen Gesellschaft in Wien, des Botanischen Vereins in Lund und der Societas pro Fauna et Flora Fennica in Helsingfors.\" by various authors, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Botanisches_Centralblatt._Bd._053,_1893_(IA_botanischeszentr1453bota).pdf).",
+              "score": 82,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "4184c699692a852d",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Felix Kramer in M\u00fcnchen, 2024",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Felix_Kramer_in_M%C3%BCnchen%2C_2024.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/8988f762-a38a-499a-a494-a7ecda0aafc8/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=163441441",
+              "width": 3925,
+              "height": 5887,
+              "license": "cc0",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+              "creator": "Philip.Hyndman",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Philip.Hyndman&action=edit&redlink=1",
+              "attributionText": "\"Felix Kramer in M\u00fcnchen, 2024\" by Philip.Hyndman, cc0 1.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=163441441).",
+              "score": 75,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "fa4366f93c15646a",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Annalen des K.K. Naturhistorischen Hofmuseums",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Annalen_des_K.K._Naturhistorischen_Hofmuseums_%28IA_annalendeskknatu05kkna%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Annalen_des_K.K._Naturhistorischen_Hofmuseums_%28IA_annalendeskknatu05kkna%29.pdf/page1-500px-Annalen_des_K.K._Naturhistorischen_Hofmuseums_%28IA_annalendeskknatu05kkna%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Annalen_des_K.K._Naturhistorischen_Hofmuseums_(IA_annalendeskknatu05kkna).pdf",
+              "width": 958,
+              "height": 1570,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Emil von Marenzeller / Karl Fritsch / Alfred Wilhelm Stelzner / Alexander Zahlbruckner / Franz Friedrich Kohl / Nicolai Ivanovich Andrusov / Gottlieb Marktanner-Turneretscher / Ludwig Hans Fischer / Felix Koerber / Aristides Brezina / August von Pelzeln / G\u00fcnther Beck von Mannagetta und Lerchenau",
+              "creatorUrl": null,
+              "attributionText": "\"Annalen des K.K. Naturhistorischen Hofmuseums\" by Emil von Marenzeller / Karl Fritsch / Alfred Wilhelm Stelzner / Alexander Zahlbruckner / Franz Friedrich Kohl / Nicolai Ivanovich Andrusov / Gottlieb Marktanner-Turneretscher / Ludwig Hans Fischer / Felix Koerber / Aristides Brezina / August von Pelzeln / G\u00fcnther Beck von Mannagetta und Lerchenau, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Annalen_des_K.K._Naturhistorischen_Hofmuseums_(IA_annalendeskknatu05kkna).pdf).",
+              "score": 72,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-jga-skyline-main-sachsenhausen-night",
+      "routeTitle": "Skyline Main & Sachsenhausen JGA Night",
+      "cover": {
+        "approved": true,
+        "selectedCandidateId": "6f4aa89290b6f7a0",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "6f4aa89290b6f7a0",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "View of Frankfurt's skyline from Eiserner Steg(Iron Footbridge) (Ank Kumar) 01",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/View_of_Frankfurt%27s_skyline_from_Eiserner_Steg%28Iron_Footbridge%29_%28Ank_Kumar%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/View_of_Frankfurt%27s_skyline_from_Eiserner_Steg%28Iron_Footbridge%29_%28Ank_Kumar%29_01.jpg/1280px-View_of_Frankfurt%27s_skyline_from_Eiserner_Steg%28Iron_Footbridge%29_%28Ank_Kumar%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:View_of_Frankfurt%27s_skyline_from_Eiserner_Steg(Iron_Footbridge)_(Ank_Kumar)_01.jpg",
+            "width": 6000,
+            "height": 4000,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Ank Kumar",
+            "creatorUrl": null,
+            "attributionText": "\"View of Frankfurt's skyline from Eiserner Steg(Iron Footbridge) (Ank Kumar) 01\" by Ank Kumar, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:View_of_Frankfurt%27s_skyline_from_Eiserner_Steg(Iron_Footbridge)_(Ank_Kumar)_01.jpg).",
+            "score": 90,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "f65784ad4d61939c",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "View of Frankfurt's skyline from Eiserner Steg(Iron Footbridge) (Ank Kumar) 03",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/View_of_Frankfurt%27s_skyline_from_Eiserner_Steg%28Iron_Footbridge%29_%28Ank_Kumar%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/View_of_Frankfurt%27s_skyline_from_Eiserner_Steg%28Iron_Footbridge%29_%28Ank_Kumar%29_03.jpg/1280px-View_of_Frankfurt%27s_skyline_from_Eiserner_Steg%28Iron_Footbridge%29_%28Ank_Kumar%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:View_of_Frankfurt%27s_skyline_from_Eiserner_Steg(Iron_Footbridge)_(Ank_Kumar)_03.jpg",
+            "width": 4546,
+            "height": 3031,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Ank Kumar",
+            "creatorUrl": null,
+            "attributionText": "\"View of Frankfurt's skyline from Eiserner Steg(Iron Footbridge) (Ank Kumar) 03\" by Ank Kumar, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:View_of_Frankfurt%27s_skyline_from_Eiserner_Steg(Iron_Footbridge)_(Ank_Kumar)_03.jpg).",
+            "score": 90,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "4cdc93cbf43189b6",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "View of Frankfurt's skyline from Eiserner Steg(Iron Footbridge) (Ank Kumar) 08",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/View_of_Frankfurt%27s_skyline_from_Eiserner_Steg%28Iron_Footbridge%29_%28Ank_Kumar%29_08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/View_of_Frankfurt%27s_skyline_from_Eiserner_Steg%28Iron_Footbridge%29_%28Ank_Kumar%29_08.jpg/1280px-View_of_Frankfurt%27s_skyline_from_Eiserner_Steg%28Iron_Footbridge%29_%28Ank_Kumar%29_08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:View_of_Frankfurt%27s_skyline_from_Eiserner_Steg(Iron_Footbridge)_(Ank_Kumar)_08.jpg",
+            "width": 5179,
+            "height": 3453,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Ank Kumar",
+            "creatorUrl": null,
+            "attributionText": "\"View of Frankfurt's skyline from Eiserner Steg(Iron Footbridge) (Ank Kumar) 08\" by Ank Kumar, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:View_of_Frankfurt%27s_skyline_from_Eiserner_Steg(Iron_Footbridge)_(Ank_Kumar)_08.jpg).",
+            "score": 90,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "Main Tower",
+          "type": "viewpoint",
+          "approved": true,
+          "selectedCandidateId": "a7a1878041ed5bc2",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "a7a1878041ed5bc2",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Frankfurt Am Main-Peter Becker-Frankfurts Vorstadt Sachsenhausen zu Anfang des 17 Jahrhunderts-1889",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/af/Frankfurt_Am_Main-Peter_Becker-Frankfurts_Vorstadt_Sachsenhausen_zu_Anfang_des_17_Jahrhunderts-1889.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Frankfurt_Am_Main-Peter_Becker-Frankfurts_Vorstadt_Sachsenhausen_zu_Anfang_des_17_Jahrhunderts-1889.jpg/1280px-Frankfurt_Am_Main-Peter_Becker-Frankfurts_Vorstadt_Sachsenhausen_zu_Anfang_des_17_Jahrhunderts-1889.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_Am_Main-Peter_Becker-Frankfurts_Vorstadt_Sachsenhausen_zu_Anfang_des_17_Jahrhunderts-1889.jpg",
+              "width": 5000,
+              "height": 1422,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Peter Becker",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt Am Main-Peter Becker-Frankfurts Vorstadt Sachsenhausen zu Anfang des 17 Jahrhunderts-1889\" by Peter Becker, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_Am_Main-Peter_Becker-Frankfurts_Vorstadt_Sachsenhausen_zu_Anfang_des_17_Jahrhunderts-1889.jpg).",
+              "score": 97,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "4f83dd67b6a9e363",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Commerzbank Tower from Main Tower",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/Commerzbank_Tower_from_Main_Tower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/Commerzbank_Tower_from_Main_Tower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Commerzbank_Tower_from_Main_Tower.jpg",
+              "width": 800,
+              "height": 1134,
+              "license": "CC BY-SA 2.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+              "creator": "T. Gozdziewicz",
+              "creatorUrl": null,
+              "attributionText": "\"Commerzbank Tower from Main Tower\" by T. Gozdziewicz, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Commerzbank_Tower_from_Main_Tower.jpg).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "60b26707d2793ea3",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "01-01-2014 - Messeturm - trade fair tower - Frankfurt- Germany - 01",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/60/01-01-2014_-_Messeturm_-_trade_fair_tower_-_Frankfurt-_Germany_-_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/01-01-2014_-_Messeturm_-_trade_fair_tower_-_Frankfurt-_Germany_-_01.jpg/1280px-01-01-2014_-_Messeturm_-_trade_fair_tower_-_Frankfurt-_Germany_-_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:01-01-2014_-_Messeturm_-_trade_fair_tower_-_Frankfurt-_Germany_-_01.jpg",
+              "width": 3661,
+              "height": 6001,
+              "license": "CC BY-SA 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+              "creator": "Norbert Nagel",
+              "creatorUrl": null,
+              "attributionText": "\"01-01-2014 - Messeturm - trade fair tower - Frankfurt- Germany - 01\" by Norbert Nagel, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:01-01-2014_-_Messeturm_-_trade_fair_tower_-_Frankfurt-_Germany_-_01.jpg).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Kleinmarkthalle Frankfurt",
+          "type": "food",
+          "approved": true,
+          "selectedCandidateId": "02643e2bd55be1c5",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "02643e2bd55be1c5",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "An der Kleinmarkthalle, 1, Altstadt, Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c5/An_der_Kleinmarkthalle%2C_1%2C_Altstadt%2C_Frankfurt_am_Main.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/An_der_Kleinmarkthalle%2C_1%2C_Altstadt%2C_Frankfurt_am_Main.jpg/1280px-An_der_Kleinmarkthalle%2C_1%2C_Altstadt%2C_Frankfurt_am_Main.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:An_der_Kleinmarkthalle,_1,_Altstadt,_Frankfurt_am_Main.jpg",
+              "width": 3456,
+              "height": 2592,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "GeorgDerReisende",
+              "creatorUrl": null,
+              "attributionText": "\"An der Kleinmarkthalle, 1, Altstadt, Frankfurt am Main\" by GeorgDerReisende, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:An_der_Kleinmarkthalle,_1,_Altstadt,_Frankfurt_am_Main.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "f34e5ff486fa95e3",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Kleinmarkthalle, Frankfurt, Interior view 20190914 1",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Kleinmarkthalle%2C_Frankfurt%2C_Interior_view_20190914_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Kleinmarkthalle%2C_Frankfurt%2C_Interior_view_20190914_1.jpg/1280px-Kleinmarkthalle%2C_Frankfurt%2C_Interior_view_20190914_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Kleinmarkthalle,_Frankfurt,_Interior_view_20190914_1.jpg",
+              "width": 9829,
+              "height": 7863,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "DXR",
+              "creatorUrl": null,
+              "attributionText": "\"Kleinmarkthalle, Frankfurt, Interior view 20190914 1\" by DXR, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kleinmarkthalle,_Frankfurt,_Interior_view_20190914_1.jpg).",
+              "score": 92,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "944d2d2e3be31ca0",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Frankfurt Kleinmarkthalle Galerie",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/Frankfurt_Kleinmarkthalle_Galerie.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Frankfurt_Kleinmarkthalle_Galerie.JPG/1280px-Frankfurt_Kleinmarkthalle_Galerie.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_Kleinmarkthalle_Galerie.JPG",
+              "width": 1512,
+              "height": 2016,
+              "license": "CC BY 2.5",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+              "creator": "Flibbertigibbet",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt Kleinmarkthalle Galerie\" by Flibbertigibbet, CC BY 2.5, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_Kleinmarkthalle_Galerie.JPG).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Eiserner Steg",
+          "type": "sight",
+          "approved": true,
+          "selectedCandidateId": "4663ec9563b87c17",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "4663ec9563b87c17",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Eiserner Steg (Frankfurt am Main)",
+              "imageUrl": "https://live.staticflickr.com/4596/25647084168_c25fe81231_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/866a2913-bfdb-4ca0-8c30-a105ab24fe19/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/151926991@N02/25647084168",
+              "width": 1024,
+              "height": 683,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "simonmalz",
+              "creatorUrl": "https://www.flickr.com/photos/151926991@N02",
+              "attributionText": "\"Eiserner Steg (Frankfurt am Main)\" by simonmalz, by-sa 2.0, via Openverse (https://www.flickr.com/photos/151926991@N02/25647084168).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "c84145d8d3e0c6a1",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Eiserner Steg, Frankfurt am Main",
+              "imageUrl": "https://live.staticflickr.com/4850/32171423868_2752a1efe5_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/2aa10426-4c0d-4814-a3de-dd0821b8de15/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/48837722@N04/32171423868",
+              "width": 1024,
+              "height": 693,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Much Ramblings",
+              "creatorUrl": "https://www.flickr.com/photos/48837722@N04",
+              "attributionText": "\"Eiserner Steg, Frankfurt am Main\" by Much Ramblings, by-sa 2.0, via Openverse (https://www.flickr.com/photos/48837722@N04/32171423868).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "cbf5c8f80c6b8918",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Frankfurt am Main, skyline met der Eiserne Steg op de voorgrond foto3 2016-08-12 09.50",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Frankfurt_am_Main%2C_skyline_met_der_Eiserne_Steg_op_de_voorgrond_foto3_2016-08-12_09.50.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Frankfurt_am_Main%2C_skyline_met_der_Eiserne_Steg_op_de_voorgrond_foto3_2016-08-12_09.50.jpg/1280px-Frankfurt_am_Main%2C_skyline_met_der_Eiserne_Steg_op_de_voorgrond_foto3_2016-08-12_09.50.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_skyline_met_der_Eiserne_Steg_op_de_voorgrond_foto3_2016-08-12_09.50.jpg",
+              "width": 4352,
+              "height": 3264,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Michielverbeek",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt am Main, skyline met der Eiserne Steg op de voorgrond foto3 2016-08-12 09.50\" by Michielverbeek, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_skyline_met_der_Eiserne_Steg_op_de_voorgrond_foto3_2016-08-12_09.50.jpg).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Oosten Rooftop Bar",
+          "type": "bar",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 5,
+          "title": "Alt-Sachsenhausen",
+          "type": "nightlife",
+          "approved": true,
+          "selectedCandidateId": "d9c09bae95f5d226",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "d9c09bae95f5d226",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Domain of the imperial city Frankfurt a. Main with markings of the milita along with many old lanes and field places based upon the \u201eHaupt\u00fcbersichtskarte von Frankfurt a.M.\u201c (General Map of Frankfurt a.M.) of the publishing house of the Magistrate, ed. 1888",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Frankfurt_Am_Main-Kuehhornshof-Karte-Pelissier.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Frankfurt_Am_Main-Kuehhornshof-Karte-Pelissier.jpg/1280px-Frankfurt_Am_Main-Kuehhornshof-Karte-Pelissier.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_Am_Main-Kuehhornshof-Karte-Pelissier.jpg",
+              "width": 4500,
+              "height": 4148,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Eduard Pelissier",
+              "creatorUrl": null,
+              "attributionText": "\"Domain of the imperial city Frankfurt a. Main with markings of the milita along with many old lanes and field places based upon the \u201eHaupt\u00fcbersichtskarte von Frankfurt a.M.\u201c (General Map of Frankfurt a.M.) of the publishing house of the Magistrate, ed. 1888\" by Eduard Pelissier, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_Am_Main-Kuehhornshof-Karte-Pelissier.jpg).",
+              "score": 97,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "1f0383a6f50c0022",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Frankfurt Eiserner Steg Alt Sachsenhausen Br\u00fccke 1905",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Frankfurt_Eiserner_Steg_Alt_Sachsenhausen_Br%C3%BCcke_1905.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Frankfurt_Eiserner_Steg_Alt_Sachsenhausen_Br%C3%BCcke_1905.jpg/1280px-Frankfurt_Eiserner_Steg_Alt_Sachsenhausen_Br%C3%BCcke_1905.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_Eiserner_Steg_Alt_Sachsenhausen_Br%C3%BCcke_1905.jpg",
+              "width": 2166,
+              "height": 1372,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "L. Klement, Frankfurt a. Main",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt Eiserner Steg Alt Sachsenhausen Br\u00fccke 1905\" by L. Klement, Frankfurt a. Main, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_Eiserner_Steg_Alt_Sachsenhausen_Br%C3%BCcke_1905.jpg).",
+              "score": 97,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "c0984868cc747820",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "6. Alt-Sachsenhausen as seen across the Main.",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/50/Frankfurt_Am_Main-Carl_Theodor_Reiffenstein-FFMDFSIBUS-Heft_01-1894-019-Tafel_06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Frankfurt_Am_Main-Carl_Theodor_Reiffenstein-FFMDFSIBUS-Heft_01-1894-019-Tafel_06.jpg/1280px-Frankfurt_Am_Main-Carl_Theodor_Reiffenstein-FFMDFSIBUS-Heft_01-1894-019-Tafel_06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_Am_Main-Carl_Theodor_Reiffenstein-FFMDFSIBUS-Heft_01-1894-019-Tafel_06.jpg",
+              "width": 5669,
+              "height": 4252,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Carl Theodor Reiffenstein",
+              "creatorUrl": null,
+              "attributionText": "\"6. Alt-Sachsenhausen as seen across the Main.\" by Carl Theodor Reiffenstein, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_Am_Main-Carl_Theodor_Reiffenstein-FFMDFSIBUS-Heft_01-1894-019-Tafel_06.jpg).",
+              "score": 97,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+name: Events Refresh
+
+on:
+  schedule:
+    # Ticketmaster: every 12 hours.
+    - cron: "17 */12 * * *"
+    # Official city sources: nightly.
+    - cron: "43 2 * * *"
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: "Which event refresh to run"
+        required: true
+        default: "ticketmaster"
+        type: choice
+        options:
+          - ticketmaster
+          - official
+          - all
+
+concurrency:
+  group: events-refresh
+  cancel-in-progress: false
+
+jobs:
+  ticketmaster:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      (github.event.inputs.refresh == 'ticketmaster' || github.event.inputs.refresh == 'all') ||
+      github.event_name == 'schedule' && github.event.schedule == '17 */12 * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify event env
+        run: |
+          test -n "$NEXT_PUBLIC_SUPABASE_URL"
+          test -n "$SUPABASE_SERVICE_ROLE_KEY"
+          test -n "$TICKETMASTER_API_KEY"
+
+      - name: Refresh Ticketmaster events
+        run: npm run events:refresh:ticketmaster
+
+  official:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      (github.event.inputs.refresh == 'official' || github.event.inputs.refresh == 'all') ||
+      github.event_name == 'schedule' && github.event.schedule == '43 2 * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify event env
+        run: |
+          test -n "$NEXT_PUBLIC_SUPABASE_URL"
+          test -n "$SUPABASE_SERVICE_ROLE_KEY"
+
+      - name: Refresh official city events
+        run: npm run events:refresh:official

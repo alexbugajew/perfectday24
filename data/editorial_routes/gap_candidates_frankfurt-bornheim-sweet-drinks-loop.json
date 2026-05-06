@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:16:03.261Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\pilot_top5_influencer_routes.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 4,
+    "candidates": 4,
+    "providers": {
+      "wikimedia": 4
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-bornheim-sweet-drinks-loop",
+      "routeTitle": "Bornheim Sweet & Drinks Loop",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Anna Reckmann - Patisserie",
+          "type": "bakery",
+          "recommendedCandidateId": "ec1cf6fffba19d94",
+          "candidates": [
+            {
+              "id": "ec1cf6fffba19d94",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Frankfurt, Reuterweg 57 Ecke",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Frankfurt%2C_Reuterweg_57_Ecke.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Frankfurt%2C_Reuterweg_57_Ecke.JPG/1280px-Frankfurt%2C_Reuterweg_57_Ecke.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_57_Ecke.JPG",
+              "width": 2875,
+              "height": 2522,
+              "license": "CC0",
+              "licenseVersion": null,
+              "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt, Reuterweg 57 Ecke\" by Karsten Ratzke, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_57_Ecke.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 100
+            },
+            {
+              "id": "4679cea886253ef1",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Frankfurt, Reuterweg 57",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Frankfurt%2C_Reuterweg_57.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Frankfurt%2C_Reuterweg_57.JPG/1280px-Frankfurt%2C_Reuterweg_57.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_57.JPG",
+              "width": 2848,
+              "height": 4288,
+              "license": "CC0",
+              "licenseVersion": null,
+              "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt, Reuterweg 57\" by Karsten Ratzke, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_57.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 100
+            },
+            {
+              "id": "0eea71a1d6dfc184",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Frankfurt, Reuterweg 96",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/Frankfurt%2C_Reuterweg_96.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Frankfurt%2C_Reuterweg_96.JPG/1280px-Frankfurt%2C_Reuterweg_96.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_96.JPG",
+              "width": 2848,
+              "height": 4288,
+              "license": "CC0",
+              "licenseVersion": null,
+              "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt, Reuterweg 96\" by Karsten Ratzke, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_96.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 100
+            },
+            {
+              "id": "04ba3e3f4e1d08a2",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Reuterweg 69",
+              "title": "Reuterweg - panoramio",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Reuterweg_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Reuterweg_-_panoramio.jpg/1280px-Reuterweg_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Reuterweg_-_panoramio.jpg",
+              "width": 3648,
+              "height": 2736,
+              "license": "CC BY 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+              "creator": "Richard Mayer",
+              "creatorUrl": null,
+              "attributionText": "\"Reuterweg - panoramio\" by Richard Mayer, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Reuterweg_-_panoramio.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 100
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "MokkaTeeria",
+          "type": "coffee",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "MokkaTeeria Bread & Sweets",
+          "type": "bakery",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 5,
+          "title": "Rot & Vogel Feines Trinken",
+          "type": "bar",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    }
+  ]
+}

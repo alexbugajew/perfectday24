@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:23:11.565Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\pilot_top5_influencer_routes.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 2,
+    "candidates": 4,
+    "providers": {
+      "openverse": 4
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-city-culture-bites",
+      "routeTitle": "City Culture & Bites",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 2,
+          "title": "Dulce Chocolate & Ice Cream",
+          "type": "coffee",
+          "recommendedCandidateId": "c73ebaf7180ff776",
+          "candidates": [
+            {
+              "id": "c73ebaf7180ff776",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "MyZeil",
+              "title": "MyZeil",
+              "imageUrl": "https://live.staticflickr.com/1660/24550821569_4c147ef48b_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/7869d12d-c3c3-47c3-a169-a30e2d3c8769/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/41346951@N05/24550821569",
+              "width": 1024,
+              "height": 683,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "Thomas Leuthard",
+              "creatorUrl": "https://www.flickr.com/photos/41346951@N05",
+              "attributionText": "\"MyZeil\" by Thomas Leuthard, by 2.0, via Openverse (https://www.flickr.com/photos/41346951@N05/24550821569).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            },
+            {
+              "id": "3fd87754db7a8d94",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "MyZeil",
+              "title": "Myzeil Escalator",
+              "imageUrl": "https://live.staticflickr.com/3769/11272824425_3602343c92_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/126d4755-781f-43a8-abdb-fbeac11b57b6/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/93212986@N03/11272824425",
+              "width": 1024,
+              "height": 1024,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Casey Hugelfink",
+              "creatorUrl": "https://www.flickr.com/photos/93212986@N03",
+              "attributionText": "\"Myzeil Escalator\" by Casey Hugelfink, by-sa 2.0, via Openverse (https://www.flickr.com/photos/93212986@N03/11272824425).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "82f427f809a87bf2",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "MyZeil",
+              "title": "Myzeil Wonderland",
+              "imageUrl": "https://live.staticflickr.com/5513/11290623425_c4c9302a77_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/2d3c6519-cbfd-4a38-936d-dc915b441f04/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/93212986@N03/11290623425",
+              "width": 1024,
+              "height": 1024,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Casey Hugelfink",
+              "creatorUrl": "https://www.flickr.com/photos/93212986@N03",
+              "attributionText": "\"Myzeil Wonderland\" by Casey Hugelfink, by-sa 2.0, via Openverse (https://www.flickr.com/photos/93212986@N03/11290623425).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "102bc6748bf3a413",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "MyZeil",
+              "title": "MyZeil Frankfurt Nacht",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/MyZeil_Frankfurt_Nacht.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/f5c59f4a-128a-41de-b9f5-7d1c931a0689/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=23367058",
+              "width": 1613,
+              "height": 1210,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "Pedelecs",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Pedelecs",
+              "attributionText": "\"MyZeil Frankfurt Nacht\" by Pedelecs, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=23367058).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Roseli Cafe & Bar",
+          "type": "coffee",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    }
+  ]
+}

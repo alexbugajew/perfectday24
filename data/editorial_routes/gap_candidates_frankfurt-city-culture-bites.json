@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:18:10.257Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\pilot_top5_influencer_routes.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 2,
+    "candidates": 6,
+    "providers": {
+      "wikimedia": 6
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-city-culture-bites",
+      "routeTitle": "City Culture & Bites",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 2,
+          "title": "Dulce Chocolate & Ice Cream",
+          "type": "coffee",
+          "recommendedCandidateId": "c78486c0066b4b41",
+          "candidates": [
+            {
+              "id": "c78486c0066b4b41",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "MyZeil, Zeil , Frankfurt am Main",
+              "title": "Zeil-Gallery-MyZeil-staircase- with-escalators-in-Frankfurt-am-Main-P1330167N",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg/1280px-Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg",
+              "width": 4584,
+              "height": 3442,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Ermell",
+              "creatorUrl": null,
+              "attributionText": "\"Zeil-Gallery-MyZeil-staircase- with-escalators-in-Frankfurt-am-Main-P1330167N\" by Ermell, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "c56e429fbf4bfb23",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "MyZeil",
+              "title": "MyZeil Frankfurt Nacht",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/MyZeil_Frankfurt_Nacht.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/MyZeil_Frankfurt_Nacht.jpg/1280px-MyZeil_Frankfurt_Nacht.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:MyZeil_Frankfurt_Nacht.jpg",
+              "width": 1613,
+              "height": 1210,
+              "license": "CC BY-SA 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+              "creator": "Pedelecs",
+              "creatorUrl": null,
+              "attributionText": "\"MyZeil Frankfurt Nacht\" by Pedelecs, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:MyZeil_Frankfurt_Nacht.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "5af4284162651199",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "MyZeil",
+              "title": "Frankfurt am Main, MyZeil -- 2015 -- 6765",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Frankfurt_am_Main%2C_MyZeil_--_2015_--_6765.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Frankfurt_am_Main%2C_MyZeil_--_2015_--_6765.jpg/1280px-Frankfurt_am_Main%2C_MyZeil_--_2015_--_6765.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_MyZeil_--_2015_--_6765.jpg",
+              "width": 5472,
+              "height": 3648,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Dietmar Rabich",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt am Main, MyZeil -- 2015 -- 6765\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_MyZeil_--_2015_--_6765.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "e027c26ab43262e9",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "MyZeil",
+              "title": "Frankfurt am Main, MyZeil -- 2015 -- 6767",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Frankfurt_am_Main%2C_MyZeil_--_2015_--_6767.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Frankfurt_am_Main%2C_MyZeil_--_2015_--_6767.jpg/1280px-Frankfurt_am_Main%2C_MyZeil_--_2015_--_6767.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_MyZeil_--_2015_--_6767.jpg",
+              "width": 3648,
+              "height": 5472,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Dietmar Rabich",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt am Main, MyZeil -- 2015 -- 6767\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_MyZeil_--_2015_--_6767.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Roseli Cafe & Bar",
+          "type": "coffee",
+          "recommendedCandidateId": "779968b036068e18",
+          "candidates": [
+            {
+              "id": "779968b036068e18",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Weissadlergasse 9",
+              "title": "Wetzlar, Wei\u00dfadlergasse 9-001",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Wetzlar%2C_Wei%C3%9Fadlergasse_9-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Wetzlar%2C_Wei%C3%9Fadlergasse_9-001.jpg/1280px-Wetzlar%2C_Wei%C3%9Fadlergasse_9-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Wetzlar,_Wei%C3%9Fadlergasse_9-001.jpg",
+              "width": 3264,
+              "height": 4928,
+              "license": "CC BY-SA 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+              "creator": "Tilman2007",
+              "creatorUrl": null,
+              "attributionText": "\"Wetzlar, Wei\u00dfadlergasse 9-001\" by Tilman2007, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wetzlar,_Wei%C3%9Fadlergasse_9-001.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 67
+            },
+            {
+              "id": "1471bf4b7db360a1",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Weissadlergasse 9",
+              "title": "Wetzlar, Wei\u00dfadlergasse 9-20160801-001",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Wetzlar%2C_Wei%C3%9Fadlergasse_9-20160801-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Wetzlar%2C_Wei%C3%9Fadlergasse_9-20160801-001.jpg/1280px-Wetzlar%2C_Wei%C3%9Fadlergasse_9-20160801-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Wetzlar,_Wei%C3%9Fadlergasse_9-20160801-001.jpg",
+              "width": 4003,
+              "height": 5996,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Tilman2007",
+              "creatorUrl": null,
+              "attributionText": "\"Wetzlar, Wei\u00dfadlergasse 9-20160801-001\" by Tilman2007, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wetzlar,_Wei%C3%9Fadlergasse_9-20160801-001.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 67
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

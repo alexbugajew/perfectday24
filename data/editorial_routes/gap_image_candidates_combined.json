@@ -1,0 +1,1457 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:24:31.344Z",
+  "seedVersion": null,
+  "seedFile": "reports/route-image-gaps-latest.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Merged gap-only candidates from Wikimedia Commons and Openverse.",
+      "Apply only after checking that contextual photos are acceptable for business stops."
+    ]
+  },
+  "summary": {
+    "routeTargets": 15,
+    "stopTargets": 29,
+    "candidates": 44,
+    "providers": {
+      "openverse": 22,
+      "wikimedia": 22
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "berlin-berlin",
+      "cityLabel": "Berlin",
+      "routeSlug": "berlin-jga-spree-karaoke-rooftop-night",
+      "routeTitle": "Spree Karaoke & Rooftop JGA Night",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 3,
+          "title": "Monster Ronson's Ichiban Karaoke",
+          "type": "activity",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "cityLabel": "Berlin",
+      "routeSlug": "berlin-mitte-museums-cafe-loop",
+      "routeTitle": "Mitte Museums & Coffee Loop",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bruehgruppe Kaffeebar",
+          "type": "coffee",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "cityLabel": "Berlin",
+      "routeSlug": "berlin-spree-street-art-photo-walk",
+      "routeTitle": "Spree Street-Art Photo Walk",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 3,
+          "title": "Poropati",
+          "type": "bar",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "duesseldorf",
+      "cityLabel": "Duesseldorf",
+      "routeSlug": "duesseldorf-jga-rhine-altbier-glow-up",
+      "routeTitle": "Rhine Views & Altbier Glow-Up",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 2,
+          "title": "Rheinturm M168",
+          "type": "viewpoint",
+          "recommendedCandidateId": "0f4b12c582b1f057",
+          "candidates": [
+            {
+              "id": "0f4b12c582b1f057",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Stromstraße 20, 40221 Düsseldorf",
+              "title": "Rheinturm Düsseldorf",
+              "imageUrl": "https://live.staticflickr.com/65535/50128002118_ce9d472fd1_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/891676f0-019b-46fc-9a75-9c4c7dfdbb16/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/32569229@N06/50128002118",
+              "width": 683,
+              "height": 1024,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Alexandre Prevot",
+              "creatorUrl": "https://www.flickr.com/photos/32569229@N06",
+              "attributionText": "\"Rheinturm Düsseldorf\" by Alexandre Prevot, by-sa 2.0, via Openverse (https://www.flickr.com/photos/32569229@N06/50128002118).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 70
+            },
+            {
+              "id": "bd159706fb2ae815",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Stromstraße 20, 40221 Düsseldorf",
+              "title": "Rheinturm Düsseldorf (50128002118)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/84/Rheinturm_D%C3%BCsseldorf_%2850128002118%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/ba3ef723-d220-453e-a1a4-9529d413c07d/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=115656641",
+              "width": 2000,
+              "height": 3000,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Alexandre Prevot from Nancy, France",
+              "creatorUrl": "https://www.flickr.com/people/32569229@N06",
+              "attributionText": "\"Rheinturm Düsseldorf (50128002118)\" by Alexandre Prevot from Nancy, France, by-sa 2.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=115656641).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-bornheim-sweet-drinks-loop",
+      "routeTitle": "Bornheim Sweet & Drinks Loop",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Anna Reckmann - Patisserie",
+          "type": "bakery",
+          "recommendedCandidateId": "ec1cf6fffba19d94",
+          "candidates": [
+            {
+              "id": "ec1cf6fffba19d94",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Frankfurt, Reuterweg 57 Ecke",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Frankfurt%2C_Reuterweg_57_Ecke.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Frankfurt%2C_Reuterweg_57_Ecke.JPG/1280px-Frankfurt%2C_Reuterweg_57_Ecke.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_57_Ecke.JPG",
+              "width": 2875,
+              "height": 2522,
+              "license": "CC0",
+              "licenseVersion": null,
+              "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt, Reuterweg 57 Ecke\" by Karsten Ratzke, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_57_Ecke.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 100
+            },
+            {
+              "id": "4679cea886253ef1",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Frankfurt, Reuterweg 57",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Frankfurt%2C_Reuterweg_57.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Frankfurt%2C_Reuterweg_57.JPG/1280px-Frankfurt%2C_Reuterweg_57.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_57.JPG",
+              "width": 2848,
+              "height": 4288,
+              "license": "CC0",
+              "licenseVersion": null,
+              "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt, Reuterweg 57\" by Karsten Ratzke, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_57.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 100
+            },
+            {
+              "id": "0eea71a1d6dfc184",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Frankfurt, Reuterweg 96",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/Frankfurt%2C_Reuterweg_96.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Frankfurt%2C_Reuterweg_96.JPG/1280px-Frankfurt%2C_Reuterweg_96.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_96.JPG",
+              "width": 2848,
+              "height": 4288,
+              "license": "CC0",
+              "licenseVersion": null,
+              "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt, Reuterweg 96\" by Karsten Ratzke, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt,_Reuterweg_96.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 100
+            },
+            {
+              "id": "04ba3e3f4e1d08a2",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Reuterweg 69",
+              "title": "Reuterweg - panoramio",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Reuterweg_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Reuterweg_-_panoramio.jpg/1280px-Reuterweg_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Reuterweg_-_panoramio.jpg",
+              "width": 3648,
+              "height": 2736,
+              "license": "CC BY 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+              "creator": "Richard Mayer",
+              "creatorUrl": null,
+              "attributionText": "\"Reuterweg - panoramio\" by Richard Mayer, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Reuterweg_-_panoramio.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 100
+            },
+            {
+              "id": "c5df646dfef4f5eb",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Frankfurt, Reuterweg 14",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Frankfurt%2C_Reuterweg_14.JPG",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/cb0a0b61-49ce-4db4-88a2-ce8a119a5c41/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=18856249",
+              "width": 4288,
+              "height": 2848,
+              "license": "cc0",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Karsten11",
+              "attributionText": "\"Frankfurt, Reuterweg 14\" by Karsten Ratzke, cc0 1.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=18856249).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 100
+            },
+            {
+              "id": "23b5e62c70123c01",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Stolperstein Ilse Fuchs, 1, Reuterweg 94, Westend, Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/82/Stolperstein_Ilse_Fuchs%2C_1%2C_Reuterweg_94%2C_Westend%2C_Frankfurt_am_Main.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/c860438d-ec71-4408-89be-f83702579933/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=151849429",
+              "width": 4608,
+              "height": 3456,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "GeorgDerReisende",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:GeorgDerReisende&action=edit&redlink=1",
+              "attributionText": "\"Stolperstein Ilse Fuchs, 1, Reuterweg 94, Westend, Frankfurt am Main\" by GeorgDerReisende, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=151849429).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "MokkaTeeria",
+          "type": "coffee",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "MokkaTeeria Bread & Sweets",
+          "type": "bakery",
+          "recommendedCandidateId": "e09ed9a8b4e0a025",
+          "candidates": [
+            {
+              "id": "e09ed9a8b4e0a025",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Sandweg , Frankfurt am Main",
+              "title": "Frankfurt am Main - Buddha Bar Kiosk, Sandweg",
+              "imageUrl": "https://live.staticflickr.com/2899/14465172346_dd0ca5a4bd_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/eed0cd3f-f781-4a86-bad8-68bb2729acc8/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/59923990@N05/14465172346",
+              "width": 1024,
+              "height": 683,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "Picturepest",
+              "creatorUrl": "https://www.flickr.com/photos/59923990@N05",
+              "attributionText": "\"Frankfurt am Main - Buddha Bar Kiosk, Sandweg\" by Picturepest, by 2.0, via Openverse (https://www.flickr.com/photos/59923990@N05/14465172346).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            },
+            {
+              "id": "5c232dbbb2ae6854",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Sandweg , Frankfurt am Main",
+              "title": "Stolperstein Balbina Steigerwald, 1, Sandweg 76, Ostend, Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Stolperstein_Balbina_Steigerwald%2C_1%2C_Sandweg_76%2C_Ostend%2C_Frankfurt_am_Main.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/f115caf5-a78e-4a9c-8d09-2c32d1da023c/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=152043956",
+              "width": 4608,
+              "height": 3456,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "GeorgDerReisende",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:GeorgDerReisende&action=edit&redlink=1",
+              "attributionText": "\"Stolperstein Balbina Steigerwald, 1, Sandweg 76, Ostend, Frankfurt am Main\" by GeorgDerReisende, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=152043956).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "a398124e615b968b",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Sandweg , Frankfurt am Main",
+              "title": "Stolpersteinlage, 1, Sandweg 76, Ostend, Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Stolpersteinlage%2C_1%2C_Sandweg_76%2C_Ostend%2C_Frankfurt_am_Main.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/94bc9126-5d37-46e6-9ec2-c8c0e6efb96a/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=152043953",
+              "width": 4608,
+              "height": 3456,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "GeorgDerReisende",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:GeorgDerReisende&action=edit&redlink=1",
+              "attributionText": "\"Stolpersteinlage, 1, Sandweg 76, Ostend, Frankfurt am Main\" by GeorgDerReisende, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=152043953).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "6aa433533d0dceba",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Sandweg 10",
+              "title": "Frankfurt, Sandweg 10",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Frankfurt%2C_Sandweg_10.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/b1fb0bdb-656b-4678-ab4d-048000052dc7/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=31812278",
+              "width": 2629,
+              "height": 4796,
+              "license": "cc0",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Karsten11",
+              "attributionText": "\"Frankfurt, Sandweg 10\" by Karsten Ratzke, cc0 1.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=31812278).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Rot & Vogel Feines Trinken",
+          "type": "bar",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-city-culture-bites",
+      "routeTitle": "City Culture & Bites",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 2,
+          "title": "Dulce Chocolate & Ice Cream",
+          "type": "coffee",
+          "recommendedCandidateId": "c78486c0066b4b41",
+          "candidates": [
+            {
+              "id": "c78486c0066b4b41",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "MyZeil, Zeil , Frankfurt am Main",
+              "title": "Zeil-Gallery-MyZeil-staircase- with-escalators-in-Frankfurt-am-Main-P1330167N",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg/1280px-Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg",
+              "width": 4584,
+              "height": 3442,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Ermell",
+              "creatorUrl": null,
+              "attributionText": "\"Zeil-Gallery-MyZeil-staircase- with-escalators-in-Frankfurt-am-Main-P1330167N\" by Ermell, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Zeil-Gallery-MyZeil-staircase-_with-escalators-in-Frankfurt-am-Main-P1330167N.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "c56e429fbf4bfb23",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "MyZeil",
+              "title": "MyZeil Frankfurt Nacht",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/MyZeil_Frankfurt_Nacht.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/MyZeil_Frankfurt_Nacht.jpg/1280px-MyZeil_Frankfurt_Nacht.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:MyZeil_Frankfurt_Nacht.jpg",
+              "width": 1613,
+              "height": 1210,
+              "license": "CC BY-SA 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+              "creator": "Pedelecs",
+              "creatorUrl": null,
+              "attributionText": "\"MyZeil Frankfurt Nacht\" by Pedelecs, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:MyZeil_Frankfurt_Nacht.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "5af4284162651199",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "MyZeil",
+              "title": "Frankfurt am Main, MyZeil -- 2015 -- 6765",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Frankfurt_am_Main%2C_MyZeil_--_2015_--_6765.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Frankfurt_am_Main%2C_MyZeil_--_2015_--_6765.jpg/1280px-Frankfurt_am_Main%2C_MyZeil_--_2015_--_6765.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_MyZeil_--_2015_--_6765.jpg",
+              "width": 5472,
+              "height": 3648,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Dietmar Rabich",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt am Main, MyZeil -- 2015 -- 6765\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_MyZeil_--_2015_--_6765.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "e027c26ab43262e9",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "MyZeil",
+              "title": "Frankfurt am Main, MyZeil -- 2015 -- 6767",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Frankfurt_am_Main%2C_MyZeil_--_2015_--_6767.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Frankfurt_am_Main%2C_MyZeil_--_2015_--_6767.jpg/1280px-Frankfurt_am_Main%2C_MyZeil_--_2015_--_6767.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_MyZeil_--_2015_--_6767.jpg",
+              "width": 3648,
+              "height": 5472,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Dietmar Rabich",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt am Main, MyZeil -- 2015 -- 6767\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_MyZeil_--_2015_--_6767.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            },
+            {
+              "id": "c73ebaf7180ff776",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "MyZeil",
+              "title": "MyZeil",
+              "imageUrl": "https://live.staticflickr.com/1660/24550821569_4c147ef48b_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/7869d12d-c3c3-47c3-a169-a30e2d3c8769/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/41346951@N05/24550821569",
+              "width": 1024,
+              "height": 683,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "Thomas Leuthard",
+              "creatorUrl": "https://www.flickr.com/photos/41346951@N05",
+              "attributionText": "\"MyZeil\" by Thomas Leuthard, by 2.0, via Openverse (https://www.flickr.com/photos/41346951@N05/24550821569).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            },
+            {
+              "id": "3fd87754db7a8d94",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "MyZeil",
+              "title": "Myzeil Escalator",
+              "imageUrl": "https://live.staticflickr.com/3769/11272824425_3602343c92_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/126d4755-781f-43a8-abdb-fbeac11b57b6/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/93212986@N03/11272824425",
+              "width": 1024,
+              "height": 1024,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Casey Hugelfink",
+              "creatorUrl": "https://www.flickr.com/photos/93212986@N03",
+              "attributionText": "\"Myzeil Escalator\" by Casey Hugelfink, by-sa 2.0, via Openverse (https://www.flickr.com/photos/93212986@N03/11272824425).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Roseli Cafe & Bar",
+          "type": "coffee",
+          "recommendedCandidateId": "779968b036068e18",
+          "candidates": [
+            {
+              "id": "779968b036068e18",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Weissadlergasse 9",
+              "title": "Wetzlar, Weißadlergasse 9-001",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Wetzlar%2C_Wei%C3%9Fadlergasse_9-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Wetzlar%2C_Wei%C3%9Fadlergasse_9-001.jpg/1280px-Wetzlar%2C_Wei%C3%9Fadlergasse_9-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Wetzlar,_Wei%C3%9Fadlergasse_9-001.jpg",
+              "width": 3264,
+              "height": 4928,
+              "license": "CC BY-SA 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+              "creator": "Tilman2007",
+              "creatorUrl": null,
+              "attributionText": "\"Wetzlar, Weißadlergasse 9-001\" by Tilman2007, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wetzlar,_Wei%C3%9Fadlergasse_9-001.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 67
+            },
+            {
+              "id": "1471bf4b7db360a1",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Weissadlergasse 9",
+              "title": "Wetzlar, Weißadlergasse 9-20160801-001",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Wetzlar%2C_Wei%C3%9Fadlergasse_9-20160801-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Wetzlar%2C_Wei%C3%9Fadlergasse_9-20160801-001.jpg/1280px-Wetzlar%2C_Wei%C3%9Fadlergasse_9-20160801-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Wetzlar,_Wei%C3%9Fadlergasse_9-20160801-001.jpg",
+              "width": 4003,
+              "height": 5996,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Tilman2007",
+              "creatorUrl": null,
+              "attributionText": "\"Wetzlar, Weißadlergasse 9-20160801-001\" by Tilman2007, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wetzlar,_Wei%C3%9Fadlergasse_9-20160801-001.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 67
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-jga-skyline-main-sachsenhausen-night",
+      "routeTitle": "Skyline Main & Sachsenhausen JGA Night",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 4,
+          "title": "Oosten Rooftop Bar",
+          "type": "bar",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-city-food-under-10-loop",
+      "routeTitle": "City Food & Quick Bites Loop",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 2,
+          "title": "raabowls Rathaus",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "Amita Pizzeria Romana",
+          "type": "restaurant",
+          "recommendedCandidateId": "c2025b73b79c263f",
+          "candidates": [
+            {
+              "id": "c2025b73b79c263f",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Brandstwiete , Hamburg",
+              "title": "Hamburg. Brandstwiete",
+              "imageUrl": "https://live.staticflickr.com/530/32358453091_58499b0aeb_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/ebc93cba-0fdc-4bb0-9dcf-645d8e44a29d/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/96171980@N02/32358453091",
+              "width": 1024,
+              "height": 679,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "max.stolbinsky",
+              "creatorUrl": "https://www.flickr.com/photos/96171980@N02",
+              "attributionText": "\"Hamburg. Brandstwiete\" by max.stolbinsky, by 2.0, via Openverse (https://www.flickr.com/photos/96171980@N02/32358453091).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            },
+            {
+              "id": "fb77cb689aca99db",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Brandstwiete , Hamburg",
+              "title": "Brandstwiete 42 (Hamburg-Altstadt).11787.ajb",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/56263d99-55c1-4849-b7fa-23404d945272/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=35741608",
+              "width": 2399,
+              "height": 2999,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en/",
+              "creator": "Ajepbah",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Ajepbah",
+              "attributionText": "\"Brandstwiete 42 (Hamburg-Altstadt).11787.ajb\" by Ajepbah, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=35741608).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 90
+            },
+            {
+              "id": "57e3439e5050b79f",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Brandstwiete , Hamburg",
+              "title": "Spiegel-Kantine, Hamburg (2006)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/Spiegel-Kantine%2C_Hamburg_%282006%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/f873fe55-b440-4304-b2bf-8511f4ba83c2/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=25496080",
+              "width": 1230,
+              "height": 906,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "Gregor Julien Straube",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Gregor_Julien_Straube",
+              "attributionText": "\"Spiegel-Kantine, Hamburg (2006)\" by Gregor Julien Straube, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=25496080).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 80
+            },
+            {
+              "id": "87aeb99e7b09b199",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Brandstwiete , Hamburg",
+              "title": "St. Katharinen",
+              "imageUrl": "https://live.staticflickr.com/1653/24430583731_c37fbb6f8b_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/df0ad566-610b-471f-b255-b7ff4b5d07c0/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/25115960@N08/24430583731",
+              "width": 677,
+              "height": 1024,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "MoWePhoto.de",
+              "creatorUrl": "https://www.flickr.com/photos/25115960@N08",
+              "attributionText": "\"St. Katharinen\" by MoWePhoto.de, by 2.0, via Openverse (https://www.flickr.com/photos/25115960@N08/24430583731).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 60
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Burrico",
+          "type": "restaurant",
+          "recommendedCandidateId": "e3555cc122814fef",
+          "candidates": [
+            {
+              "id": "e3555cc122814fef",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Stolperstein Brandstwiete 4 (Bela Levy) in Hamburg-Altstadt",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/50/Stolperstein_Brandstwiete_4_%28Bela_Levy%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/5/50/Stolperstein_Brandstwiete_4_%28Bela_Levy%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Bela_Levy)_in_Hamburg-Altstadt.JPG",
+              "width": 954,
+              "height": 980,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Hinnerk11",
+              "creatorUrl": null,
+              "attributionText": "\"Stolperstein Brandstwiete 4 (Bela Levy) in Hamburg-Altstadt\" by Hinnerk11, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Bela_Levy)_in_Hamburg-Altstadt.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            },
+            {
+              "id": "f28590b38820f212",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Stolperstein Brandstwiete 4 (Lilly Levy) in Hamburg-Altstadt",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Stolperstein_Brandstwiete_4_%28Lilly_Levy%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Stolperstein_Brandstwiete_4_%28Lilly_Levy%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Lilly_Levy)_in_Hamburg-Altstadt.JPG",
+              "width": 987,
+              "height": 988,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Hinnerk11",
+              "creatorUrl": null,
+              "attributionText": "\"Stolperstein Brandstwiete 4 (Lilly Levy) in Hamburg-Altstadt\" by Hinnerk11, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Lilly_Levy)_in_Hamburg-Altstadt.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            },
+            {
+              "id": "6e7edadc8d7a52fc",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Stolperstein Brandstwiete 4 (Leopold Peine) in Hamburg-Altstadt",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Stolperstein_Brandstwiete_4_%28Leopold_Peine%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Stolperstein_Brandstwiete_4_%28Leopold_Peine%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Leopold_Peine)_in_Hamburg-Altstadt.JPG",
+              "width": 996,
+              "height": 1020,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Hinnerk11",
+              "creatorUrl": null,
+              "attributionText": "\"Stolperstein Brandstwiete 4 (Leopold Peine) in Hamburg-Altstadt\" by Hinnerk11, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Leopold_Peine)_in_Hamburg-Altstadt.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            },
+            {
+              "id": "eeaa108814d77f39",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Brandstwiete 42 (Hamburg-Altstadt).11787.ajb",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg/1280px-Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Brandstwiete_42_(Hamburg-Altstadt).11787.ajb.jpg",
+              "width": 2399,
+              "height": 2999,
+              "license": "CC BY-SA 3.0 de",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+              "creator": "Ajepbah",
+              "creatorUrl": null,
+              "attributionText": "\"Brandstwiete 42 (Hamburg-Altstadt).11787.ajb\" by Ajepbah, CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Brandstwiete_42_(Hamburg-Altstadt).11787.ajb.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            },
+            {
+              "id": "c2025b73b79c263f",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Hamburg. Brandstwiete",
+              "imageUrl": "https://live.staticflickr.com/530/32358453091_58499b0aeb_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/ebc93cba-0fdc-4bb0-9dcf-645d8e44a29d/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/96171980@N02/32358453091",
+              "width": 1024,
+              "height": 679,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "max.stolbinsky",
+              "creatorUrl": "https://www.flickr.com/photos/96171980@N02",
+              "attributionText": "\"Hamburg. Brandstwiete\" by max.stolbinsky, by 2.0, via Openverse (https://www.flickr.com/photos/96171980@N02/32358453091).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            },
+            {
+              "id": "fb77cb689aca99db",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Brandstwiete 42 (Hamburg-Altstadt).11787.ajb",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/56263d99-55c1-4849-b7fa-23404d945272/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=35741608",
+              "width": 2399,
+              "height": 2999,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en/",
+              "creator": "Ajepbah",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Ajepbah",
+              "attributionText": "\"Brandstwiete 42 (Hamburg-Altstadt).11787.ajb\" by Ajepbah, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=35741608).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 90
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "title": "kofookoo yam'cha",
+          "type": "restaurant",
+          "recommendedCandidateId": "54f3f8974f1f2da2",
+          "candidates": [
+            {
+              "id": "54f3f8974f1f2da2",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Hamburg Gerhart-Hauptmann-Platz DS273n",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg/1280px-Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg",
+              "width": 4286,
+              "height": 2968,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "AltSylt",
+              "creatorUrl": null,
+              "attributionText": "\"Hamburg Gerhart-Hauptmann-Platz DS273n\" by AltSylt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "066e76de594aae06",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Hamburg Gerhart-Hauptmann-Platz DS742n",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg/1280px-Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg",
+              "width": 1920,
+              "height": 960,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "AltSylt",
+              "creatorUrl": null,
+              "attributionText": "\"Hamburg Gerhart-Hauptmann-Platz DS742n\" by AltSylt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "f232b3b0cf84ceeb",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Hamburg Gerhart-Hauptmann-Platz DS273n",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/80c97916-cc8b-4b19-9eee-a5ecf92b687b/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=42667291",
+              "width": 4286,
+              "height": 2968,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "AltSylt",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:AltSylt",
+              "attributionText": "\"Hamburg Gerhart-Hauptmann-Platz DS273n\" by AltSylt, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=42667291).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "0c75d21e77e50ef3",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Thalia-Gerhard-Hauptmann-Platz",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Thalia-Gerhard-Hauptmann-Platz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Thalia-Gerhard-Hauptmann-Platz.jpg/1280px-Thalia-Gerhard-Hauptmann-Platz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Thalia-Gerhard-Hauptmann-Platz.jpg",
+              "width": 4000,
+              "height": 3000,
+              "license": "CC0",
+              "licenseVersion": null,
+              "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Matthias v.d. Elbe",
+              "creatorUrl": null,
+              "attributionText": "\"Thalia-Gerhard-Hauptmann-Platz\" by Matthias v.d. Elbe, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thalia-Gerhard-Hauptmann-Platz.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 92
+            },
+            {
+              "id": "904fdbde8d7d82ba",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Pincerno - Gerhart-Hauptmann-Platz",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Pincerno_-_Gerhart-Hauptmann-Platz.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Pincerno_-_Gerhart-Hauptmann-Platz.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Pincerno_-_Gerhart-Hauptmann-Platz.png",
+              "width": 1267,
+              "height": 1333,
+              "license": "CC BY-SA 3.0 de",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+              "creator": "de:Benutzer:Pincerno",
+              "creatorUrl": null,
+              "attributionText": "\"Pincerno - Gerhart-Hauptmann-Platz\" by de:Benutzer:Pincerno, CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Pincerno_-_Gerhart-Hauptmann-Platz.png).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 90
+            },
+            {
+              "id": "f67e07ee3c1dad79",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Hamburg.Thalia",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/59/Hamburg.Thalia.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/36cf3b46-4f68-425e-b9af-dcd7d5d7c914/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=797953",
+              "width": 643,
+              "height": 858,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "You may select the license of your choice.",
+              "creatorUrl": null,
+              "attributionText": "\"Hamburg.Thalia\" by You may select the license of your choice., by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=797953).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 68
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-jga-harbour-kiez-sunset-night",
+      "routeTitle": "Harbour Sunset & Kiez JGA Night",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Speicherstadt Wasserschloss Photo Stop",
+          "type": "sight",
+          "recommendedCandidateId": "b1d5cc18bba070f1",
+          "candidates": [
+            {
+              "id": "b1d5cc18bba070f1",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Dienerreihe , Hamburg",
+              "title": "Freie und Hansestadt Hamburg (7256228590)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/41/Freie_und_Hansestadt_Hamburg_%287256228590%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/86f87cd8-a620-45e4-aa75-7f1acb03b3f2/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=34100815",
+              "width": 1492,
+              "height": 969,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Heribert Pohl --- Thanks for half a million clicks! from Germering bei München, Bayern",
+              "creatorUrl": "https://www.flickr.com/people/69460501@N04",
+              "attributionText": "\"Freie und Hansestadt Hamburg (7256228590)\" by Heribert Pohl --- Thanks for half a million clicks! from Germering bei München, Bayern, by-sa 2.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=34100815).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 80
+            },
+            {
+              "id": "533072a5cd62b460",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Dienerreihe , Hamburg",
+              "title": "Dienerreihe bei Nacht",
+              "imageUrl": "https://live.staticflickr.com/7326/9475877379_2b4da778fd_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/94896db0-d8d4-4a84-bad3-516e4072ccf3/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/37454700@N03/9475877379",
+              "width": 1024,
+              "height": 680,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Grille1991",
+              "creatorUrl": "https://www.flickr.com/photos/37454700@N03",
+              "attributionText": "\"Dienerreihe bei Nacht\" by Grille1991, by-sa 2.0, via Openverse (https://www.flickr.com/photos/37454700@N03/9475877379).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 80
+            },
+            {
+              "id": "69cb2c414de5237d",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Dienerreihe , Hamburg",
+              "title": "Dienerreihe 2 (2)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Dienerreihe_2_%282%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/63f3bf69-9625-4e9a-a8b3-69843394fdee/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=60008610",
+              "width": 3456,
+              "height": 4608,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "Pauli-Pirat",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Pauli-Pirat",
+              "attributionText": "\"Dienerreihe 2 (2)\" by Pauli-Pirat, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=60008610).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 75
+            },
+            {
+              "id": "9ed9d5e7294088fe",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Dienerreihe 4, 20457 Hamburg",
+              "title": "Speicherstadt-Wasserschloss",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Speicherstadt-Wasserschloss.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/216d83dc-e607-4b51-9af4-4328cf4f5992/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=73072293",
+              "width": 1918,
+              "height": 1080,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "Kalle Kompakt",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Kalle_Kompakt&action=edit&redlink=1",
+              "attributionText": "\"Speicherstadt-Wasserschloss\" by Kalle Kompakt, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=73072293).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 65
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "cityLabel": "Koeln",
+      "routeSlug": "koeln-belgian-quarter-food-crawl",
+      "routeTitle": "Belgian Quarter Food Crawl",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "farang cafe",
+          "type": "coffee",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 2,
+          "title": "District 10 - Saigon Street Food",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "cityLabel": "Koeln",
+      "routeSlug": "koeln-jga-rhine-belgian-quarter-night",
+      "routeTitle": "Rhine Panorama & Belgian Quarter JGA",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 3,
+          "title": "Balthasar Belgisches Viertel",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 4,
+          "title": "Lorbass Bar",
+          "type": "bar",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 5,
+          "title": "Belgisches Viertel Night Walk",
+          "type": "nightlife",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "cityLabel": "Koeln",
+      "routeSlug": "koeln-nippes-suelz-neighborhood-bites",
+      "routeTitle": "Nippes & Suelz Neighborhood Bites",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 2,
+          "title": "HornOchse Hamburger-Manufaktur",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "Tasty India",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "Muenchen",
+      "routeSlug": "muenchen-au-giesing-easy-bites",
+      "routeTitle": "Au & Giesing Easy Bites",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "mom's healthy kitchen",
+          "type": "coffee",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "Koshari Ahl Kairo",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 4,
+          "title": "Bos Vietdeli",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "Muenchen",
+      "routeSlug": "muenchen-jga-altstadt-beer-garden-glockenbach",
+      "routeTitle": "Altstadt Beer Garden & Glockenbach JGA",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 4,
+          "title": "Gaertnerplatz and Glockenbachviertel",
+          "type": "nightlife",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "Muenchen",
+      "routeSlug": "muenchen-maxvorstadt-art-brunch",
+      "routeTitle": "Maxvorstadt Art & Brunch",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Die Waldmeister",
+          "type": "coffee",
+          "recommendedCandidateId": "8cbc3a0a69b47b90",
+          "candidates": [
+            {
+              "id": "8cbc3a0a69b47b90",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Die Waldmeister München",
+              "title": "Die Gartenwelt",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Die_Gartenwelt_vol.11_%28IA_diegartenweltvol00unse_0%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Die_Gartenwelt_vol.11_%28IA_diegartenweltvol00unse_0%29.pdf/page1-1280px-Die_Gartenwelt_vol.11_%28IA_diegartenweltvol00unse_0%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Die_Gartenwelt_vol.11_(IA_diegartenweltvol00unse_0).pdf",
+              "width": 1483,
+              "height": 2029,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Hesdrffers, Max, b. 1863 Hesdrffers, Max, b. 1863. Monatshefte fr Blumen und Gartenfreunde",
+              "creatorUrl": null,
+              "attributionText": "\"Die Gartenwelt\" by Hesdrffers, Max, b. 1863 Hesdrffers, Max, b. 1863. Monatshefte fr Blumen und Gartenfreunde, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Die_Gartenwelt_vol.11_(IA_diegartenweltvol00unse_0).pdf).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 72
+            },
+            {
+              "id": "0ca38da85b712c60",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Die Waldmeister München",
+              "title": "Verhandlungen des zoologisch-botanischen Vereins in Wien",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_%28IA_bub_gb_zrPxAAAAMAAJ%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_%28IA_bub_gb_zrPxAAAAMAAJ%29.pdf/page1-500px-Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_%28IA_bub_gb_zrPxAAAAMAAJ%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_(IA_bub_gb_zrPxAAAAMAAJ).pdf",
+              "width": 625,
+              "height": 962,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Zoologisch-botanischer Verein in Wien",
+              "creatorUrl": null,
+              "attributionText": "\"Verhandlungen des zoologisch-botanischen Vereins in Wien\" by Zoologisch-botanischer Verein in Wien, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_(IA_bub_gb_zrPxAAAAMAAJ).pdf).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 72
+            },
+            {
+              "id": "4d1b6ca20bfd04f0",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Die Waldmeister München",
+              "title": "Wolfgang Hausmann Sonntagskind - Gödekes Jahre 1933 - 1953, Archiv der Zeitzeugen, Bd. 20, Münster, Verlags-Haus Monsenstein und Vannerdat, 2010",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953%2C_Archiv_der_Zeitzeugen%2C_Bd._20%2C_M%C3%BCnster%2C_Verlags-Haus_Monsenstein_und_Vannerdat%2C_2010.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953%2C_Archiv_der_Zeitzeugen%2C_Bd._20%2C_M%C3%BCnster%2C_Verlags-Haus_Monsenstein_und_Vannerdat%2C_2010.pdf/page1-500px-Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953%2C_Archiv_der_Zeitzeugen%2C_Bd._20%2C_M%C3%BCnster%2C_Verlags-Haus_Monsenstein_und_Vannerdat%2C_2010.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953,_Archiv_der_Zeitzeugen,_Bd._20,_M%C3%BCnster,_Verlags-Haus_Monsenstein_und_Vannerdat,_2010.pdf",
+              "width": 795,
+              "height": 1210,
+              "license": "CC BY 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+              "creator": "Wolfgang Hausmann",
+              "creatorUrl": null,
+              "attributionText": "\"Wolfgang Hausmann Sonntagskind - Gödekes Jahre 1933 - 1953, Archiv der Zeitzeugen, Bd. 20, Münster, Verlags-Haus Monsenstein und Vannerdat, 2010\" by Wolfgang Hausmann, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953,_Archiv_der_Zeitzeugen,_Bd._20,_M%C3%BCnster,_Verlags-Haus_Monsenstein_und_Vannerdat,_2010.pdf).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 67
+            },
+            {
+              "id": "190850efd3938053",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Die Waldmeister München",
+              "title": "WLE-Germany Flora-Calendar-Poster 2016-2017",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/16/WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf/page1-1280px-WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf",
+              "width": 3506,
+              "height": 4960,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "compiled by Dr. Bernd Gross",
+              "creatorUrl": null,
+              "attributionText": "\"WLE-Germany Flora-Calendar-Poster 2016-2017\" by compiled by Dr. Bernd Gross, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 67
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "SIGGIS v/gan burger & co - Maxvorstadt",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    }
+  ]
+}

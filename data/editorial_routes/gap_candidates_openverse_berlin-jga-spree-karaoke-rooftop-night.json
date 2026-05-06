@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:24:14.863Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\jga_influencer_routes_draft.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 1,
+    "candidates": 0,
+    "providers": {}
+  },
+  "routes": [
+    {
+      "citySlug": "berlin-berlin",
+      "cityLabel": "Berlin",
+      "routeSlug": "berlin-jga-spree-karaoke-rooftop-night",
+      "routeTitle": "Spree Karaoke & Rooftop JGA Night",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 3,
+          "title": "Monster Ronson's Ichiban Karaoke",
+          "type": "activity",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    }
+  ]
+}

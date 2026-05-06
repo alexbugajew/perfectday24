@@ -1,8 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-canvas: #edf2f4;
+  --bg-surface: #f8fafc;
+  --bg-panel: #e5eaee;
+  --bg-panel-strong: #ffffff;
+
+  --text-strong: #111827;
+  --text-muted: #586373;
+  --text-soft: #7c8797;
+
+  --brand-accent: #5a7688;
+  --brand-accent-soft: #d8e1e7;
+  --brand-accent-alt: #7c90a0;
+  --brand-accent-cloud: #e7eef3;
+
+  --state-success: #4f6b5b;
+  --state-warning: #9a6b2f;
+  --state-error: #a14b45;
+  --state-info: #4d6d86;
+
+  --line-subtle: rgba(17, 24, 39, 0.1);
+  --line-strong: rgba(17, 24, 39, 0.16);
+
+  --shadow-soft: 0 18px 44px rgba(15, 23, 42, 0.06);
+  --shadow-large: 0 24px 70px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 18px 46px rgba(15, 23, 42, 0.1);
+  --focus-ring: 0 0 0 3px rgba(216, 225, 231, 0.95);
+
+  --radius-shell: 28px;
+  --radius-card: 24px;
+  --radius-card-sm: 20px;
+  --radius-control: 16px;
+
+  /* Backward-compatible aliases for existing screens */
+  --background: var(--bg-canvas);
+  --foreground: var(--text-strong);
+  --surface: rgba(248, 250, 252, 0.86);
+  --surface-strong: var(--bg-panel-strong);
+  --line: var(--line-subtle);
+  --accent: var(--brand-accent);
+  --accent-soft: var(--brand-accent-soft);
+  --ink-soft: var(--text-muted);
 }
 
 @theme inline {
@@ -12,15 +51,214 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-canvas);
+  color: var(--text-strong);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(circle at top left, rgba(90, 118, 136, 0.12), transparent 30%),
+    radial-gradient(circle at 85% 12%, rgba(124, 144, 160, 0.1), transparent 26%),
+    linear-gradient(180deg, #f8fafc 0%, #edf2f4 42%, #e7edf1 100%);
+  background-attachment: fixed;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a,
+button,
+input,
+select,
+textarea,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: rgba(90, 118, 136, 0.24);
+}
+
+.glass-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-large);
+  backdrop-filter: blur(18px);
+}
+
+.section-shell {
+  border-radius: var(--radius-shell);
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+
+.warm-chip {
+  border: 1px solid rgba(90, 118, 136, 0.18);
+  background: rgba(231, 238, 243, 0.88);
+  color: #48606e;
+}
+
+.pd24-shell {
+  border-radius: var(--radius-shell);
+  border: 1px solid var(--line-subtle);
+  background: rgba(248, 250, 252, 0.9);
+  box-shadow: var(--shadow-soft);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.pd24-card {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line-subtle);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-soft);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.pd24-card-muted {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line-subtle);
+  background: rgba(229, 234, 238, 0.58);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.pd24-card-interactive:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+
+.pd24-control {
+  min-height: 76px;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--line-subtle);
+  background: var(--bg-surface);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.pd24-control:hover {
+  border-color: var(--line-strong);
+  background: var(--bg-panel-strong);
+  box-shadow: var(--shadow-hover);
+}
+
+.pd24-control:focus-visible {
+  box-shadow: var(--focus-ring), var(--shadow-hover);
+}
+
+.pd24-control:disabled {
+  background: rgba(229, 234, 238, 0.72);
+  color: var(--text-soft);
+  box-shadow: none;
+}
+
+.pd24-control:disabled:hover {
+  border-color: var(--line-subtle);
+  background: rgba(229, 234, 238, 0.72);
+}
+
+.pd24-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--brand-accent);
+}
+
+.pd24-meta {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.pd24-status-info {
+  border: 1px solid rgba(90, 118, 136, 0.16);
+  background: rgba(231, 238, 243, 0.84);
+  color: var(--state-info);
+}
+
+.pd24-status-success {
+  border: 1px solid rgba(79, 107, 91, 0.18);
+  background: rgba(79, 107, 91, 0.08);
+  color: var(--state-success);
+}
+
+.pd24-status-warning {
+  border: 1px solid rgba(154, 107, 47, 0.18);
+  background: rgba(154, 107, 47, 0.08);
+  color: var(--state-warning);
+}
+
+.pd24-status-error {
+  border: 1px solid rgba(161, 75, 69, 0.18);
+  background: rgba(161, 75, 69, 0.08);
+  color: var(--state-error);
+}
+
+.pd24-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(17, 24, 39, 0), var(--line-subtle), rgba(17, 24, 39, 0));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,0 +1,1078 @@
+{
+  "version": 1,
+  "createdAt": "2026-04-28",
+  "status": "research_seed",
+  "scope": {
+    "description": "Pilot block for editorial, influencer-inspired PerfectDay24 route content.",
+    "citySlugs": [
+      "berlin-berlin",
+      "hamburg-hamburg",
+      "muenchen",
+      "koeln",
+      "frankfurt-am-main"
+    ],
+    "routesPerCity": 3
+  },
+  "importNotes": {
+    "targetTables": [
+      "public.user_routes",
+      "public.user_route_stops"
+    ],
+    "recommendedCreatorType": "creator",
+    "recommendedVisibility": "public",
+    "recommendedMetaFields": [
+      "source_urls",
+      "source_type",
+      "editorial_status",
+      "needs_geocoding",
+      "rights_note"
+    ],
+    "rightsNote": "Own route copy written for PerfectDay24. Public source URLs are used for attribution and verification only; do not copy third-party captions, article text, or images. Mark editorial intent in tags/meta; use creator_type=creator until the live DB allows editorial."
+  },
+  "routes": [
+    {
+      "citySlug": "berlin-berlin",
+      "slug": "berlin-spree-street-art-photo-walk",
+      "title": "Spree Street-Art Photo Walk",
+      "description": "A compact Berlin creator route for color, river views, street art, and casual evening content between Friedrichshain and Kreuzberg.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "photo",
+        "street-art",
+        "spree",
+        "creator"
+      ],
+      "sourceUrls": [
+        "https://www.travel2berlin.com/post/the-most-instagrammable-spots-in-berlin-in-2025-where-to-capture-the-city-s-magic",
+        "https://www.enjoytravel.com/en/travel-news/places-to-visit/the-7-most-instagrammable-spots-in-berlin",
+        "https://www.influencer-city-guide.net/place-city/berlin/"
+      ],
+      "sourceType": "photo-guide+influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "East Side Gallery",
+          "type": "sight",
+          "address": "Muehlenstrasse 3-100, 10243 Berlin",
+          "durationMin": 45,
+          "note": "Start with the longest, most recognizable color wall in the city and shoot wide angles before the route gets busier.",
+          "sourceUrls": [
+            "https://www.travel2berlin.com/post/the-most-instagrammable-spots-in-berlin-in-2025-where-to-capture-the-city-s-magic",
+            "https://www.enjoytravel.com/en/travel-news/places-to-visit/the-7-most-instagrammable-spots-in-berlin"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Oberbaumbruecke",
+          "type": "sight",
+          "address": "Oberbaumbruecke, 10243 Berlin",
+          "durationMin": 25,
+          "note": "Use the bridge for a clean Spree transition shot with brick arches, trains, and evening light.",
+          "sourceUrls": [
+            "https://www.travel2berlin.com/post/the-most-instagrammable-spots-in-berlin-in-2025-where-to-capture-the-city-s-magic"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Poropati",
+          "type": "bar",
+          "address": "Weserstrasse 79, Berlin-Neukoelln, Germany",
+          "durationMin": 60,
+          "note": "Shift from outdoor visuals into a neighborhood bar stop with a relaxed local-feed feel.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/berlin/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "The WOW! Gallery Berlin",
+          "type": "museum",
+          "address": "East Side Mall, Tamara-Danz-Strasse 11, Berlin",
+          "durationMin": 75,
+          "note": "Finish with a purpose-built photo/video stop if the route should lean heavily into Reels content.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/berlin/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "slug": "berlin-mitte-museums-cafe-loop",
+      "title": "Mitte Museums & Coffee Loop",
+      "description": "A rainy-day-friendly Berlin route around museums, polished interiors, and short walking distances in Mitte.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "museum",
+        "coffee",
+        "culture",
+        "mitte"
+      ],
+      "sourceUrls": [
+        "https://www.influencer-city-guide.net/place-city/berlin/"
+      ],
+      "sourceType": "influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bruehgruppe Kaffeebar",
+          "type": "coffee",
+          "address": "Rathenower Strasse 34, 10559 Berlin",
+          "durationMin": 35,
+          "note": "A calm coffee opener before moving into denser museum content.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/berlin/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Museum fuer Naturkunde",
+          "type": "museum",
+          "address": "Invalidenstrasse 43, Berlin",
+          "durationMin": 90,
+          "note": "Strong visual anchor for science, architecture, and indoor story frames.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/berlin/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Deutsches Spionagemuseum",
+          "type": "museum",
+          "address": "Leipziger Platz 9, 10117 Berlin",
+          "durationMin": 75,
+          "note": "Adds a playful interactive stop and keeps the route useful for couples or friends.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/berlin/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Museum fuer Kommunikation Berlin",
+          "type": "museum",
+          "address": "Leipziger Strasse 16, Berlin",
+          "durationMin": 60,
+          "note": "A final culture stop with a natural thematic bridge to social content and messaging.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/berlin/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "slug": "berlin-classic-icons-golden-hour",
+      "title": "Classic Icons at Golden Hour",
+      "description": "A first-time Berlin route built around the recognizable shots people expect: gate, dome, river, and a compact finish near Alexanderplatz.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "landmarks",
+        "golden-hour",
+        "first-visit",
+        "photo"
+      ],
+      "sourceUrls": [
+        "https://www.travel2berlin.com/post/the-most-instagrammable-spots-in-berlin-in-2025-where-to-capture-the-city-s-magic",
+        "https://www.enjoytravel.com/en/travel-news/places-to-visit/the-7-most-instagrammable-spots-in-berlin",
+        "https://www.influencer-city-guide.net/place-city/berlin/"
+      ],
+      "sourceType": "photo-guide+influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Brandenburg Gate",
+          "type": "sight",
+          "address": "Pariser Platz, 10117 Berlin",
+          "durationMin": 30,
+          "note": "Start with the clean hero shot and leave room for crowd-free angles from the back side.",
+          "sourceUrls": [
+            "https://www.travel2berlin.com/post/the-most-instagrammable-spots-in-berlin-in-2025-where-to-capture-the-city-s-magic",
+            "https://www.enjoytravel.com/en/travel-news/places-to-visit/the-7-most-instagrammable-spots-in-berlin"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Berlin Cathedral and Museum Island",
+          "type": "sight",
+          "address": "Am Lustgarten, 10178 Berlin",
+          "durationMin": 45,
+          "note": "Use the dome, Lustgarten, and river edge for a softer contrast after the gate.",
+          "sourceUrls": [
+            "https://www.travel2berlin.com/post/the-most-instagrammable-spots-in-berlin-in-2025-where-to-capture-the-city-s-magic"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "DDR Museum",
+          "type": "museum",
+          "address": "Karl-Liebknecht-Strasse 1, 10178 Berlin",
+          "durationMin": 60,
+          "note": "Drop into a compact interactive museum stop right by the river.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/berlin/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "BODY WORLDS Berlin",
+          "type": "museum",
+          "address": "Panoramastrasse 1A, 10178 Berlin",
+          "durationMin": 60,
+          "note": "Close near Alexanderplatz with an indoor option that still feels distinctive.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/berlin/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "slug": "hamburg-speicherstadt-harbour-photo-walk",
+      "title": "Speicherstadt & Harbour Photo Walk",
+      "description": "A Hamburg route for classic water, brick, harbour, and city-hall visuals, designed for a half-day creator walk.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "photo",
+        "harbour",
+        "speicherstadt",
+        "landmarks"
+      ],
+      "sourceUrls": [
+        "https://www.meininger-hotels.com/blog/en/hamburg-instagram-spots/",
+        "https://www.enjoytravel.com/en/travel-news/places-to-visit/instagrammable-spots-hamburg",
+        "https://www.influencer-city-guide.net/place-city/hamburg/"
+      ],
+      "sourceType": "photo-guide+influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Hamburg Rathaus",
+          "type": "sight",
+          "address": "Rathausmarkt 1, 20095 Hamburg",
+          "durationMin": 30,
+          "note": "Start central with a polished architectural shot and easy public transport access.",
+          "sourceUrls": [
+            "https://www.meininger-hotels.com/blog/en/hamburg-instagram-spots/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Nikolaifleet and Deichstrasse",
+          "type": "sight",
+          "address": "Deichstrasse, 20459 Hamburg",
+          "durationMin": 35,
+          "note": "Move into canal edges, historic facades, and cozy street-level frames.",
+          "sourceUrls": [
+            "https://www.meininger-hotels.com/blog/en/hamburg-instagram-spots/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Miniatur Wunderland",
+          "type": "museum",
+          "address": "Kehrwieder 2/Block D, 20457 Hamburg",
+          "durationMin": 90,
+          "note": "A strong indoor content stop in Speicherstadt with plenty of detail shots.",
+          "sourceUrls": [
+            "https://www.enjoytravel.com/en/travel-news/places-to-visit/instagrammable-spots-hamburg"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Spicy's Spice Museum",
+          "type": "museum",
+          "address": "Am Sandtorkai 34, Hamburg",
+          "durationMin": 45,
+          "note": "Adds a sensory, local-feeling stop before the harbour finish.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/hamburg/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Elbphilharmonie Plaza",
+          "type": "sight",
+          "address": "Platz der Deutschen Einheit 4, 20457 Hamburg",
+          "durationMin": 45,
+          "note": "End with skyline, harbour, and sunset shots from the Plaza.",
+          "sourceUrls": [
+            "https://www.enjoytravel.com/en/travel-news/places-to-visit/instagrammable-spots-hamburg"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "slug": "hamburg-city-food-under-10-loop",
+      "title": "City Food & Quick Bites Loop",
+      "description": "A central Hamburg route for fast, colorful lunch content around Rathaus, Altstadt, and Speicherstadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food",
+        "lunch",
+        "city-center",
+        "quick-bites"
+      ],
+      "sourceUrls": [
+        "https://www.influencer-city-guide.net/place-city/hamburg/",
+        "https://www.influencer-city-guide.net/place-categories/food-drink/?city=hamburg"
+      ],
+      "sourceType": "influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Grand Cafe Roncalli",
+          "type": "coffee",
+          "address": "Moenckebergstrasse 7, 20095 Hamburg",
+          "durationMin": 35,
+          "note": "A central coffee opener that works well before shopping or old-town stops.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-categories/food-drink/?city=hamburg"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "raabowls Rathaus",
+          "type": "restaurant",
+          "address": "Grosse Johannisstrasse 19, 20457 Hamburg",
+          "durationMin": 45,
+          "note": "Fresh bowls give the route a bright lunch-content anchor.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/hamburg/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Amita Pizzeria Romana",
+          "type": "restaurant",
+          "address": "Brandstwiete 42, 20457 Hamburg",
+          "durationMin": 50,
+          "note": "A second savory option close enough to compare lunch moods without a long transfer.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/hamburg/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Burrico",
+          "type": "restaurant",
+          "address": "Brandstwiete 42-44, 20457 Hamburg",
+          "durationMin": 40,
+          "note": "A budget-friendly street-food style stop for a quick route variant.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/hamburg/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "kofookoo yam'cha",
+          "type": "restaurant",
+          "address": "Gerhart-Hauptmann-Platz 48a, 20095 Hamburg",
+          "durationMin": 60,
+          "note": "Finish back in the center with a social dinner option.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/hamburg/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "slug": "hamburg-eimsbuettel-eppendorf-cafe-afternoon",
+      "title": "Eimsbuettel & Eppendorf Cafe Afternoon",
+      "description": "A quieter Hamburg afternoon route for cafe interiors, neighborhood walking, and a soft dinner finish.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "cafe",
+        "neighborhood",
+        "afternoon",
+        "food"
+      ],
+      "sourceUrls": [
+        "https://www.influencer-city-guide.net/place-city/hamburg/",
+        "https://www.hamburg-magazin.de/artikel/instagrammable-cafes-in-hamburg"
+      ],
+      "sourceType": "influencer-city-guide+photo-cafe-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Cafe Noem",
+          "type": "coffee",
+          "address": "Lindenallee 48, 20259 Hamburg, Eimsbuettel",
+          "durationMin": 45,
+          "note": "Start in Eimsbuettel with a neighborhood cafe that keeps the route relaxed.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/hamburg/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Cafe Eppendorf",
+          "type": "coffee",
+          "address": "Eppendorfer Marktplatz, 20251 Hamburg-Nord",
+          "durationMin": 45,
+          "note": "Move north for a second cafe stop and a slower local rhythm.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-categories/food-drink/?city=hamburg"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Eppendorfer Insel",
+          "type": "restaurant",
+          "address": "Eppendorfer Landstrasse 176, 20251 Hamburg",
+          "durationMin": 75,
+          "note": "Turn the cafe route into an early dinner with a waterside-neighborhood feel.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/hamburg/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "EL&N London Hamburg",
+          "type": "coffee",
+          "address": "Neuer Wall 11, 20354 Hamburg",
+          "durationMin": 45,
+          "note": "Optional city-center add-on for a more explicitly Instagrammable cafe interior.",
+          "sourceUrls": [
+            "https://www.hamburg-magazin.de/artikel/instagrammable-cafes-in-hamburg"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-altstadt-photo-classics",
+      "title": "Altstadt Photo Classics",
+      "description": "A Munich first-visit route for old-town architecture, viewpoints, gardens, and a classic outdoor finish.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "photo",
+        "altstadt",
+        "landmarks",
+        "viewpoint"
+      ],
+      "sourceUrls": [
+        "https://geheimtippmuenchen.de/geheimtipp/geheimtipp-guide-fuer-instagram-lover-touristen-co-die-besten-selfie-spots-in-muenchen/",
+        "https://www.enjoytravel.com/en/travel-news/places-to-visit/the-7-most-instagrammable-spots-in-munich",
+        "https://www.influencer-city-guide.net/place-city/munich/"
+      ],
+      "sourceType": "photo-guide+influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Marienplatz",
+          "type": "sight",
+          "address": "Marienplatz, 80331 Munich",
+          "durationMin": 25,
+          "note": "Start with the central Munich frame before the streets get too full.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/munich/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Alter Peter",
+          "type": "viewpoint",
+          "address": "Rindermarkt 1, 80331 Munich",
+          "durationMin": 45,
+          "note": "Use the tower as the route's skyline shot over the old town.",
+          "sourceUrls": [
+            "https://geheimtippmuenchen.de/geheimtipp/geheimtipp-guide-fuer-instagram-lover-touristen-co-die-besten-selfie-spots-in-muenchen/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Munich Residenz",
+          "type": "museum",
+          "address": "Residenzstrasse 1, 80333 Munich",
+          "durationMin": 90,
+          "note": "Add an opulent indoor contrast with strong ceiling and hall details.",
+          "sourceUrls": [
+            "https://www.enjoytravel.com/en/travel-news/places-to-visit/the-7-most-instagrammable-spots-in-munich"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Englischer Garten Monopteros",
+          "type": "sight",
+          "address": "Englischer Garten, 80538 Munich",
+          "durationMin": 45,
+          "note": "Finish with softer park visuals and a natural golden-hour option.",
+          "sourceUrls": [
+            "https://geheimtippmuenchen.de/geheimtipp/geheimtipp-guide-fuer-instagram-lover-touristen-co-die-besten-selfie-spots-in-muenchen/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-maxvorstadt-art-brunch",
+      "title": "Maxvorstadt Art & Brunch",
+      "description": "A creator-friendly Munich route for vegan lunch, brunch, museums, and compact culture stops around Maxvorstadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "brunch",
+        "vegan",
+        "art",
+        "maxvorstadt"
+      ],
+      "sourceUrls": [
+        "https://www.influencer-city-guide.net/place-city/munich/"
+      ],
+      "sourceType": "influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Die Waldmeister",
+          "type": "coffee",
+          "address": "Barer Strasse 74, 80779 Munich-Maxvorstadt",
+          "durationMin": 50,
+          "note": "Begin with brunch in the museum-neighborhood before the culture stops.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/munich/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "SIGGIS v/gan burger & co - Maxvorstadt",
+          "type": "restaurant",
+          "address": "Augustenstrasse 4, Munich-Maxvorstadt",
+          "durationMin": 50,
+          "note": "A plant-based lunch stop that fits a modern creator route.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/munich/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "State Museum of Egyptian Art",
+          "type": "museum",
+          "address": "Gabelsbergerstrasse 35, 80333 Munich",
+          "durationMin": 75,
+          "note": "A visually distinct museum stop within the same cultural cluster.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/munich/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Lenbachhaus",
+          "type": "museum",
+          "address": "Luisenstrasse 33, Munich",
+          "durationMin": 90,
+          "note": "Close with a strong art anchor and an easy transition back toward Koenigsplatz.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/munich/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-au-giesing-easy-bites",
+      "title": "Au & Giesing Easy Bites",
+      "description": "A relaxed Munich neighborhood route with healthy bowls, cafe energy, Egyptian street food, and an optional vegan sushi signal from local food content.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food",
+        "giesing",
+        "au",
+        "casual"
+      ],
+      "sourceUrls": [
+        "https://www.influencer-city-guide.net/place-city/munich/",
+        "https://www.modash.io/find-influencers/germany/munich/food"
+      ],
+      "sourceType": "influencer-city-guide+creator-index",
+      "stops": [
+        {
+          "order": 1,
+          "title": "mom's healthy kitchen",
+          "type": "coffee",
+          "address": "Humboldtstrasse 23, 81543 Munich",
+          "durationMin": 50,
+          "note": "Open with a health-forward cafe stop near the Isar-side neighborhoods.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/munich/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Cafe Voila",
+          "type": "coffee",
+          "address": "Woerthstrasse 5, 81667 Munich-Au-Haidhausen",
+          "durationMin": 45,
+          "note": "Add a classic cafe/pub hybrid for a more local Munich rhythm.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/munich/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Koshari Ahl Kairo",
+          "type": "restaurant",
+          "address": "Emil-Riedel-Strasse 9, 80538 Munich",
+          "durationMin": 55,
+          "note": "Bring in a street-food angle that makes the route less obvious than the old-town loop.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/munich/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Bos Vietdeli",
+          "type": "restaurant",
+          "address": "Martin-Luther-Strasse 8, 81539 Munich",
+          "durationMin": 70,
+          "note": "Use as an optional vegan/Asian dinner anchor because it appears in local food creator content; verify current opening hours before import.",
+          "sourceUrls": [
+            "https://www.modash.io/find-influencers/germany/munich/food"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "slug": "koeln-rhine-skyline-content-walk",
+      "title": "Rhine Skyline Content Walk",
+      "description": "A Cologne photo route that connects the triangle view, bridge, river steps, harbour architecture, and chocolate museum.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "photo",
+        "rhine",
+        "skyline",
+        "first-visit"
+      ],
+      "sourceUrls": [
+        "https://www.enjoytravel.com/en/travel-news/places-to-visit/instagrammable-spots-cologne",
+        "https://www.influencer-city-guide.net/place-city/cologne/"
+      ],
+      "sourceType": "photo-guide+influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "KoelnTriangle",
+          "type": "viewpoint",
+          "address": "Ottoplatz 1, 50679 Koeln",
+          "durationMin": 45,
+          "note": "Start in Deutz for the skyline overview before crossing back into the old-town side.",
+          "sourceUrls": [
+            "https://www.enjoytravel.com/en/travel-news/places-to-visit/instagrammable-spots-cologne"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Hohenzollernbruecke",
+          "type": "sight",
+          "address": "Hohenzollernbruecke, 50679 Koeln",
+          "durationMin": 30,
+          "note": "Use the bridge crossing for movement shots with cathedral and rail energy.",
+          "sourceUrls": [
+            "https://www.enjoytravel.com/en/travel-news/places-to-visit/instagrammable-spots-cologne"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Rheinboulevard",
+          "type": "sight",
+          "address": "Hermann-Puender-Strasse, 50679 Koeln",
+          "durationMin": 35,
+          "note": "A clean riverbank stop with the cathedral view people expect from Cologne.",
+          "sourceUrls": [
+            "https://www.enjoytravel.com/en/travel-news/places-to-visit/instagrammable-spots-cologne"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Rheinauhafen",
+          "type": "sight",
+          "address": "Rheinauhafen, 50678 Koeln",
+          "durationMin": 40,
+          "note": "Add modern waterfront architecture for sunset or blue-hour frames.",
+          "sourceUrls": [
+            "https://www.enjoytravel.com/en/travel-news/places-to-visit/instagrammable-spots-cologne"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Chocolate Museum Cologne",
+          "type": "museum",
+          "address": "Am Schokoladenmuseum 1a, 50679 Koeln",
+          "durationMin": 75,
+          "note": "Close with an indoor attraction that keeps the route useful in mixed weather.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/cologne/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "slug": "koeln-belgian-quarter-food-crawl",
+      "title": "Belgian Quarter Food Crawl",
+      "description": "A compact Cologne food route around Brabanter, Aachener, and Zuelpicher Strasse with casual stops and easy social pacing.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food",
+        "belgian-quarter",
+        "friends",
+        "casual"
+      ],
+      "sourceUrls": [
+        "https://www.influencer-city-guide.net/place-city/cologne/",
+        "https://www.influencer-city-guide.net/place-categories/food-drink/?city=cologne"
+      ],
+      "sourceType": "influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "farang cafe",
+          "type": "coffee",
+          "address": "Aachener Strasse 51, 50674 Koeln",
+          "durationMin": 40,
+          "note": "Begin with a cafe stop close to the quarter's street-life core.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/cologne/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "District 10 - Saigon Street Food",
+          "type": "restaurant",
+          "address": "Brabanter Strasse 9, 50674 Koeln",
+          "durationMin": 55,
+          "note": "A colorful, casual food anchor that fits a friends route.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/cologne/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Borsalino",
+          "type": "restaurant",
+          "address": "Zuelpicher Strasse 7, 50674 Koeln",
+          "durationMin": 60,
+          "note": "Use as the warm dinner stop after the Brabanter/Aachener area.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/cologne/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "The Burger House",
+          "type": "restaurant",
+          "address": "Zuelpicher Strasse 56, 50674 Koeln",
+          "durationMin": 50,
+          "note": "Optional second savory stop for a more playful crawl version.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/cologne/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "slug": "koeln-nippes-suelz-neighborhood-bites",
+      "title": "Nippes & Suelz Neighborhood Bites",
+      "description": "A local-feeling Cologne route for coffee, burgers, drinks, and a quieter alternative to the Dom/Rhine circuit.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food",
+        "neighborhood",
+        "nippes",
+        "suelz"
+      ],
+      "sourceUrls": [
+        "https://www.influencer-city-guide.net/place-city/cologne/"
+      ],
+      "sourceType": "influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Frau Mexi",
+          "type": "coffee",
+          "address": "Niehler Strasse 76, 50733 Koeln-Nippes",
+          "durationMin": 45,
+          "note": "Start with a personality-led cafe stop in Nippes.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/cologne/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "HornOchse Hamburger-Manufaktur",
+          "type": "restaurant",
+          "address": "Neusser Strasse 304, 50733 Koeln-Nippes",
+          "durationMin": 60,
+          "note": "Keep the route hyperlocal with a nearby handmade burger stop.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/cologne/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Tasty India",
+          "type": "restaurant",
+          "address": "Zuelpicher Strasse 251, 50937 Koeln-Lindenthal",
+          "durationMin": 60,
+          "note": "Bridge toward Suelz/Lindenthal for a spiced dinner option.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/cologne/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "KONSTANTIN",
+          "type": "bar",
+          "address": "Berrenrather Strasse 377, 50937 Koeln-Lindenthal",
+          "durationMin": 75,
+          "note": "Finish with a wine/cocktail stop that turns the food route into an evening plan.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/cologne/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-skyline-main-photo-loop",
+      "title": "Skyline & Main Photo Loop",
+      "description": "A Frankfurt content route for the city's strongest contrast: skyline, river, old town, garden, and local hill view.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "photo",
+        "skyline",
+        "main",
+        "viewpoint"
+      ],
+      "sourceUrls": [
+        "https://tripwithsalnia.com/most-instagrammable-places-in-frankfurt/",
+        "https://www.girlontheeast.com/frankfurt-instagram-spots/"
+      ],
+      "sourceType": "photo-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Main Tower",
+          "type": "viewpoint",
+          "address": "Neue Mainzer Strasse 52-58, 60311 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Start high for a skyline overview and a clear Frankfurt identity shot.",
+          "sourceUrls": [
+            "https://tripwithsalnia.com/most-instagrammable-places-in-frankfurt/",
+            "https://www.girlontheeast.com/frankfurt-instagram-spots/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Eiserner Steg",
+          "type": "sight",
+          "address": "Eiserner Steg, 60311 Frankfurt am Main",
+          "durationMin": 25,
+          "note": "Cross the Main with skyline, river, and bridge detail in one stop.",
+          "sourceUrls": [
+            "https://tripwithsalnia.com/most-instagrammable-places-in-frankfurt/",
+            "https://www.girlontheeast.com/frankfurt-instagram-spots/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Roemerberg",
+          "type": "sight",
+          "address": "Roemerberg, 60311 Frankfurt am Main",
+          "durationMin": 35,
+          "note": "Add the half-timbered old-town contrast after the modern skyline.",
+          "sourceUrls": [
+            "https://www.girlontheeast.com/frankfurt-instagram-spots/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Palmengarten",
+          "type": "garden",
+          "address": "Siesmayerstrasse 61, 60323 Frankfurt am Main",
+          "durationMin": 90,
+          "note": "Use greenery and greenhouse textures for a softer second half.",
+          "sourceUrls": [
+            "https://tripwithsalnia.com/most-instagrammable-places-in-frankfurt/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Lohrberg",
+          "type": "viewpoint",
+          "address": "Berger Weg, 60389 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Finish with a wider skyline-and-nature frame if the group has time for the transfer.",
+          "sourceUrls": [
+            "https://tripwithsalnia.com/most-instagrammable-places-in-frankfurt/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-bornheim-sweet-drinks-loop",
+      "title": "Bornheim Sweet & Drinks Loop",
+      "description": "A Frankfurt route with pastry, coffee, dinner, and cocktails around Nordend/Bornheim.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food",
+        "coffee",
+        "bar",
+        "bornheim"
+      ],
+      "sourceUrls": [
+        "https://www.influencer-city-guide.net/place-city/frankfurt/"
+      ],
+      "sourceType": "influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Anna Reckmann - Patisserie",
+          "type": "bakery",
+          "address": "Reuterweg 69, 60323 Frankfurt",
+          "durationMin": 45,
+          "note": "Open with a polished sweet stop before the route gets more casual.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "MokkaTeeria",
+          "type": "coffee",
+          "address": "Heidestrasse 149, 60385 Frankfurt am Main",
+          "durationMin": 45,
+          "note": "Lean into warm cafe visuals and an orient-occident flavor angle.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "MokkaTeeria Bread & Sweets",
+          "type": "bakery",
+          "address": "Sandweg 10, 60316 Frankfurt am Main",
+          "durationMin": 40,
+          "note": "Keep the sweet theme but move closer to the evening section.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Antony's Bar",
+          "type": "bar",
+          "address": "Berger Strasse 14, 60316 Frankfurt am Main",
+          "durationMin": 75,
+          "note": "Finish with cocktails on Berger Strasse for a social-night ending.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Rot & Vogel Feines Trinken",
+          "type": "bar",
+          "address": "Rotlintstrasse 28, 60316 Frankfurt am Main",
+          "durationMin": 75,
+          "note": "Optional second drinks stop if the route should feel more like a bar crawl.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-city-culture-bites",
+      "title": "City Culture & Bites",
+      "description": "A central Frankfurt route combining quick food, a sweet stop, interactive history, and a compact museum finish.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "food",
+        "city-center",
+        "rainy-day"
+      ],
+      "sourceUrls": [
+        "https://www.influencer-city-guide.net/place-city/frankfurt/"
+      ],
+      "sourceType": "influencer-city-guide",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Green Thai",
+          "type": "restaurant",
+          "address": "Zeil 13, 60313 Frankfurt",
+          "durationMin": 50,
+          "note": "Start with a central lunch stop near Zeil for easy access.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Dulce Chocolate & Ice Cream",
+          "type": "coffee",
+          "address": "MyZeil, Zeil 106, 60313 Frankfurt am Main",
+          "durationMin": 35,
+          "note": "Add a dessert stop that is simple to fit into a shopping/city route.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Roseli Cafe & Bar",
+          "type": "coffee",
+          "address": "Weissadlergasse 9, 60311 Frankfurt am Main",
+          "durationMin": 45,
+          "note": "A small central pause before the interactive culture part.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "TIMERIDE Frankfurt",
+          "type": "activity",
+          "address": "Berliner Strasse 42A, Frankfurt",
+          "durationMin": 60,
+          "note": "Bring in an easy interactive/history element without leaving the center.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Archaeological Museum Frankfurt",
+          "type": "museum",
+          "address": "Karmelitergasse 1, 60311 Frankfurt",
+          "durationMin": 75,
+          "note": "Close with a substantial museum stop that is still walkable from the old town.",
+          "sourceUrls": [
+            "https://www.influencer-city-guide.net/place-city/frankfurt/"
+          ]
+        }
+      ]
+    }
+  ]
+}

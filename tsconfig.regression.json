@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": ".codex-regression-dist",
+    "rootDir": ".",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "declaration": false,
+    "sourceMap": false,
+    "incremental": false
+  },
+  "include": [
+    "scripts/planner-trace-regression.ts",
+    "scripts/planner-preference-regression.ts",
+    "scripts/planner-city-core-regression.ts",
+    "scripts/planner-quality-check.ts",
+    "lib/planner/**/*.ts",
+    "lib/events/**/*.ts"
+  ]
+}

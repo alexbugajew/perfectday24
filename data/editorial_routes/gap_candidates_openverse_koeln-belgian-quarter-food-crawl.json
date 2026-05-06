@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:23:23.717Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\pilot_top5_influencer_routes.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 2,
+    "candidates": 0,
+    "providers": {}
+  },
+  "routes": [
+    {
+      "citySlug": "koeln",
+      "cityLabel": "Koeln",
+      "routeSlug": "koeln-belgian-quarter-food-crawl",
+      "routeTitle": "Belgian Quarter Food Crawl",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "farang cafe",
+          "type": "coffee",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 2,
+          "title": "District 10 - Saigon Street Food",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    }
+  ]
+}

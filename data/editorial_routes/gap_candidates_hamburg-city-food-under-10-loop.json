@@ -1,0 +1,262 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:20:04.550Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\pilot_top5_influencer_routes.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 4,
+    "candidates": 8,
+    "providers": {
+      "wikimedia": 8
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-city-food-under-10-loop",
+      "routeTitle": "City Food & Quick Bites Loop",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 2,
+          "title": "raabowls Rathaus",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "Amita Pizzeria Romana",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 4,
+          "title": "Burrico",
+          "type": "restaurant",
+          "recommendedCandidateId": "e3555cc122814fef",
+          "candidates": [
+            {
+              "id": "e3555cc122814fef",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Stolperstein Brandstwiete 4 (Bela Levy) in Hamburg-Altstadt",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/50/Stolperstein_Brandstwiete_4_%28Bela_Levy%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/5/50/Stolperstein_Brandstwiete_4_%28Bela_Levy%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Bela_Levy)_in_Hamburg-Altstadt.JPG",
+              "width": 954,
+              "height": 980,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Hinnerk11",
+              "creatorUrl": null,
+              "attributionText": "\"Stolperstein Brandstwiete 4 (Bela Levy) in Hamburg-Altstadt\" by Hinnerk11, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Bela_Levy)_in_Hamburg-Altstadt.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            },
+            {
+              "id": "f28590b38820f212",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Stolperstein Brandstwiete 4 (Lilly Levy) in Hamburg-Altstadt",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Stolperstein_Brandstwiete_4_%28Lilly_Levy%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Stolperstein_Brandstwiete_4_%28Lilly_Levy%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Lilly_Levy)_in_Hamburg-Altstadt.JPG",
+              "width": 987,
+              "height": 988,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Hinnerk11",
+              "creatorUrl": null,
+              "attributionText": "\"Stolperstein Brandstwiete 4 (Lilly Levy) in Hamburg-Altstadt\" by Hinnerk11, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Lilly_Levy)_in_Hamburg-Altstadt.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            },
+            {
+              "id": "6e7edadc8d7a52fc",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Stolperstein Brandstwiete 4 (Leopold Peine) in Hamburg-Altstadt",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Stolperstein_Brandstwiete_4_%28Leopold_Peine%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Stolperstein_Brandstwiete_4_%28Leopold_Peine%29_in_Hamburg-Altstadt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Leopold_Peine)_in_Hamburg-Altstadt.JPG",
+              "width": 996,
+              "height": 1020,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Hinnerk11",
+              "creatorUrl": null,
+              "attributionText": "\"Stolperstein Brandstwiete 4 (Leopold Peine) in Hamburg-Altstadt\" by Hinnerk11, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Stolperstein_Brandstwiete_4_(Leopold_Peine)_in_Hamburg-Altstadt.JPG).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            },
+            {
+              "id": "eeaa108814d77f39",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Brandstwiete 42 (Hamburg-Altstadt).11787.ajb",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg/1280px-Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Brandstwiete_42_(Hamburg-Altstadt).11787.ajb.jpg",
+              "width": 2399,
+              "height": 2999,
+              "license": "CC BY-SA 3.0 de",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+              "creator": "Ajepbah",
+              "creatorUrl": null,
+              "attributionText": "\"Brandstwiete 42 (Hamburg-Altstadt).11787.ajb\" by Ajepbah, CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Brandstwiete_42_(Hamburg-Altstadt).11787.ajb.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 97
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "title": "kofookoo yam'cha",
+          "type": "restaurant",
+          "recommendedCandidateId": "54f3f8974f1f2da2",
+          "candidates": [
+            {
+              "id": "54f3f8974f1f2da2",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Hamburg Gerhart-Hauptmann-Platz DS273n",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg/1280px-Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg",
+              "width": 4286,
+              "height": 2968,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "AltSylt",
+              "creatorUrl": null,
+              "attributionText": "\"Hamburg Gerhart-Hauptmann-Platz DS273n\" by AltSylt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "066e76de594aae06",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Hamburg Gerhart-Hauptmann-Platz DS742n",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg/1280px-Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg",
+              "width": 1920,
+              "height": 960,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "AltSylt",
+              "creatorUrl": null,
+              "attributionText": "\"Hamburg Gerhart-Hauptmann-Platz DS742n\" by AltSylt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Hamburg_Gerhart-Hauptmann-Platz_DS742n.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 100
+            },
+            {
+              "id": "0c75d21e77e50ef3",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Thalia-Gerhard-Hauptmann-Platz",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Thalia-Gerhard-Hauptmann-Platz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Thalia-Gerhard-Hauptmann-Platz.jpg/1280px-Thalia-Gerhard-Hauptmann-Platz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Thalia-Gerhard-Hauptmann-Platz.jpg",
+              "width": 4000,
+              "height": 3000,
+              "license": "CC0",
+              "licenseVersion": null,
+              "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Matthias v.d. Elbe",
+              "creatorUrl": null,
+              "attributionText": "\"Thalia-Gerhard-Hauptmann-Platz\" by Matthias v.d. Elbe, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thalia-Gerhard-Hauptmann-Platz.jpg).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 92
+            },
+            {
+              "id": "904fdbde8d7d82ba",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Pincerno - Gerhart-Hauptmann-Platz",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Pincerno_-_Gerhart-Hauptmann-Platz.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Pincerno_-_Gerhart-Hauptmann-Platz.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Pincerno_-_Gerhart-Hauptmann-Platz.png",
+              "width": 1267,
+              "height": 1333,
+              "license": "CC BY-SA 3.0 de",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+              "creator": "de:Benutzer:Pincerno",
+              "creatorUrl": null,
+              "attributionText": "\"Pincerno - Gerhart-Hauptmann-Platz\" by de:Benutzer:Pincerno, CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Pincerno_-_Gerhart-Hauptmann-Platz.png).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 90
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

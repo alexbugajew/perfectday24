@@ -1,0 +1,56 @@
+name: Planner Regression
+
+on:
+  pull_request:
+    paths:
+      - "lib/planner/**"
+      - "lib/events/**"
+      - "scripts/planner-trace-regression.ts"
+      - "scripts/planner-preference-regression.ts"
+      - "scripts/planner-city-core-regression.ts"
+      - "scripts/planner-quality-check.ts"
+      - "tsconfig.regression.json"
+      - "package.json"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - ".github/workflows/planner-regression.yml"
+  workflow_dispatch:
+
+jobs:
+  planner-regression:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify planner env
+        run: |
+          test -n "$NEXT_PUBLIC_SUPABASE_URL"
+          test -n "$SUPABASE_SERVICE_ROLE_KEY"
+
+      - name: Run planner regression stack
+        run: npm run check:planner
+
+      - name: Upload planner reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: planner-regression-reports
+          path: |
+            reports/planner-trace-regression-*.*
+            reports/planner-city-core-regression-*.*
+            reports/planner-quality-check-*.*
+          if-no-files-found: ignore

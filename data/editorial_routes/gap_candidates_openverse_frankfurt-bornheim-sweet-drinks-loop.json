@@ -1,0 +1,268 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:22:33.199Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\pilot_top5_influencer_routes.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 4,
+    "candidates": 8,
+    "providers": {
+      "openverse": 8
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-bornheim-sweet-drinks-loop",
+      "routeTitle": "Bornheim Sweet & Drinks Loop",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Anna Reckmann - Patisserie",
+          "type": "bakery",
+          "recommendedCandidateId": "c5df646dfef4f5eb",
+          "candidates": [
+            {
+              "id": "c5df646dfef4f5eb",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Frankfurt, Reuterweg 14",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Frankfurt%2C_Reuterweg_14.JPG",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/cb0a0b61-49ce-4db4-88a2-ce8a119a5c41/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=18856249",
+              "width": 4288,
+              "height": 2848,
+              "license": "cc0",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Karsten11",
+              "attributionText": "\"Frankfurt, Reuterweg 14\" by Karsten Ratzke, cc0 1.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=18856249).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 100
+            },
+            {
+              "id": "23b5e62c70123c01",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Stolperstein Ilse Fuchs, 1, Reuterweg 94, Westend, Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/82/Stolperstein_Ilse_Fuchs%2C_1%2C_Reuterweg_94%2C_Westend%2C_Frankfurt_am_Main.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/c860438d-ec71-4408-89be-f83702579933/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=151849429",
+              "width": 4608,
+              "height": 3456,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "GeorgDerReisende",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:GeorgDerReisende&action=edit&redlink=1",
+              "attributionText": "\"Stolperstein Ilse Fuchs, 1, Reuterweg 94, Westend, Frankfurt am Main\" by GeorgDerReisende, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=151849429).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "f1075cc7bded1b34",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Stolperstein Leopold Gl\u00fccksmann, 1, Reuterweg 94, Westend, Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Stolperstein_Leopold_Gl%C3%BCcksmann%2C_1%2C_Reuterweg_94%2C_Westend%2C_Frankfurt_am_Main.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/1c3225a3-ed41-4e6d-83e8-3a689913bd7e/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=148289037",
+              "width": 3456,
+              "height": 2592,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "GeorgDerReisende",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:GeorgDerReisende&action=edit&redlink=1",
+              "attributionText": "\"Stolperstein Leopold Gl\u00fccksmann, 1, Reuterweg 94, Westend, Frankfurt am Main\" by GeorgDerReisende, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=148289037).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "a939778ba653c21d",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Reuterweg , Frankfurt",
+              "title": "Stolperstein Siegmund Heymann, 1, Reuterweg 94, Westend, Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/af/Stolperstein_Siegmund_Heymann%2C_1%2C_Reuterweg_94%2C_Westend%2C_Frankfurt_am_Main.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/35d194d3-6aad-4bb5-a0ab-2f04ad0bc2bc/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=148289031",
+              "width": 3456,
+              "height": 2592,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "GeorgDerReisende",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:GeorgDerReisende&action=edit&redlink=1",
+              "attributionText": "\"Stolperstein Siegmund Heymann, 1, Reuterweg 94, Westend, Frankfurt am Main\" by GeorgDerReisende, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=148289031).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "MokkaTeeria",
+          "type": "coffee",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "MokkaTeeria Bread & Sweets",
+          "type": "bakery",
+          "recommendedCandidateId": "e09ed9a8b4e0a025",
+          "candidates": [
+            {
+              "id": "e09ed9a8b4e0a025",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Sandweg , Frankfurt am Main",
+              "title": "Frankfurt am Main - Buddha Bar Kiosk, Sandweg",
+              "imageUrl": "https://live.staticflickr.com/2899/14465172346_dd0ca5a4bd_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/eed0cd3f-f781-4a86-bad8-68bb2729acc8/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/59923990@N05/14465172346",
+              "width": 1024,
+              "height": 683,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "Picturepest",
+              "creatorUrl": "https://www.flickr.com/photos/59923990@N05",
+              "attributionText": "\"Frankfurt am Main - Buddha Bar Kiosk, Sandweg\" by Picturepest, by 2.0, via Openverse (https://www.flickr.com/photos/59923990@N05/14465172346).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            },
+            {
+              "id": "5c232dbbb2ae6854",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Sandweg , Frankfurt am Main",
+              "title": "Stolperstein Balbina Steigerwald, 1, Sandweg 76, Ostend, Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Stolperstein_Balbina_Steigerwald%2C_1%2C_Sandweg_76%2C_Ostend%2C_Frankfurt_am_Main.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/f115caf5-a78e-4a9c-8d09-2c32d1da023c/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=152043956",
+              "width": 4608,
+              "height": 3456,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "GeorgDerReisende",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:GeorgDerReisende&action=edit&redlink=1",
+              "attributionText": "\"Stolperstein Balbina Steigerwald, 1, Sandweg 76, Ostend, Frankfurt am Main\" by GeorgDerReisende, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=152043956).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "a398124e615b968b",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Sandweg , Frankfurt am Main",
+              "title": "Stolpersteinlage, 1, Sandweg 76, Ostend, Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Stolpersteinlage%2C_1%2C_Sandweg_76%2C_Ostend%2C_Frankfurt_am_Main.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/94bc9126-5d37-46e6-9ec2-c8c0e6efb96a/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=152043953",
+              "width": 4608,
+              "height": 3456,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "GeorgDerReisende",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:GeorgDerReisende&action=edit&redlink=1",
+              "attributionText": "\"Stolpersteinlage, 1, Sandweg 76, Ostend, Frankfurt am Main\" by GeorgDerReisende, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=152043953).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "6aa433533d0dceba",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Sandweg 10",
+              "title": "Frankfurt, Sandweg 10",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Frankfurt%2C_Sandweg_10.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/b1fb0bdb-656b-4678-ab4d-048000052dc7/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=31812278",
+              "width": 2629,
+              "height": 4796,
+              "license": "cc0",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Karsten Ratzke",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Karsten11",
+              "attributionText": "\"Frankfurt, Sandweg 10\" by Karsten Ratzke, cc0 1.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=31812278).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Rot & Vogel Feines Trinken",
+          "type": "bar",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    }
+  ]
+}

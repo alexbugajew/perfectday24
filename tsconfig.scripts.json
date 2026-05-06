@@ -1,0 +1,39 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": ".codex-scripts-dist",
+    "rootDir": ".",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "declaration": false,
+    "sourceMap": false,
+    "incremental": false
+  },
+  "include": [
+    "scripts/ingest-city-location-seeds.ts",
+    "scripts/ingest-top10-city-rollout.ts",
+    "scripts/ingest-top33-city-rollout.ts",
+    "scripts/ingest-ticketmaster-events.ts",
+    "scripts/ingest-openagenda-events.ts",
+    "scripts/ingest-official-city-events.ts",
+    "scripts/report-event-coverage.ts",
+    "scripts/ingest-editorial-routes.ts",
+    "scripts/suggest-route-images.ts",
+    "scripts/create-route-image-review.ts",
+    "scripts/apply-route-images.ts",
+    "scripts/backfill-route-covers-from-stop-photos.ts",
+    "scripts/backfill-stop-photos-from-route-context.ts",
+    "scripts/report-route-image-gaps.ts",
+    "scripts/check-planner-visible-cities.ts",
+    "scripts/check-planner-rollout-scope.ts",
+    "scripts/planner-live-check.ts",
+    "scripts/planner-wave1-audit.ts",
+    "scripts/planner-wave2-audit.ts",
+    "scripts/planner-top13-event-check.ts",
+    "lib/cities/**/*.ts",
+    "lib/events/**/*.ts",
+    "lib/planner/**/*.ts"
+  ]
+}

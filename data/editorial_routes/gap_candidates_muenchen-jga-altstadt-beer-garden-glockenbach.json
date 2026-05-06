@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:21:09.818Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\jga_influencer_routes_draft.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 1,
+    "candidates": 0,
+    "providers": {}
+  },
+  "routes": [
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "Muenchen",
+      "routeSlug": "muenchen-jga-altstadt-beer-garden-glockenbach",
+      "routeTitle": "Altstadt Beer Garden & Glockenbach JGA",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 4,
+          "title": "Gaertnerplatz and Glockenbachviertel",
+          "type": "nightlife",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    }
+  ]
+}

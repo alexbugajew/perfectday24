@@ -1,0 +1,499 @@
+{
+  "version": 1,
+  "createdAt": "2026-05-04",
+  "status": "research_seed",
+  "scope": {
+    "description": "Draft block for JGA-friendly, influencer-ready PerfectDay24 routes. Routes are original editorial combinations based on public source verification, not copied third-party itineraries.",
+    "citySlugs": [
+      "berlin-berlin",
+      "hamburg-hamburg",
+      "duesseldorf",
+      "koeln",
+      "muenchen",
+      "frankfurt-am-main"
+    ],
+    "routesPerCity": 1
+  },
+  "importNotes": {
+    "targetTables": [
+      "public.user_routes",
+      "public.user_route_stops"
+    ],
+    "recommendedCreatorType": "creator",
+    "recommendedVisibility": "public",
+    "rightsNote": "Own route copy written for PerfectDay24. Public source URLs are used for verification only; do not copy third-party text, captions, or images. JGA suitability is editorially inferred from group-friendly activities, nightlife context, viewpoints, and venue positioning."
+  },
+  "routes": [
+    {
+      "citySlug": "berlin-berlin",
+      "slug": "berlin-jga-spree-karaoke-rooftop-night",
+      "title": "Spree Karaoke & Rooftop JGA Night",
+      "description": "A Berlin JGA route for street-art photos, a creative river stop, private-karaoke chaos, and a rooftop finale over Neukoelln.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "jga",
+        "group",
+        "photo",
+        "karaoke",
+        "rooftop",
+        "nightlife",
+        "creator"
+      ],
+      "sourceType": "online_research_jga_editorial_draft",
+      "sourceUrls": [
+        "https://www.visitberlin.de/en/east-side-gallery",
+        "https://www.holzmarkt.com/en",
+        "https://www.visitberlin.de/en/monster-ronsons-ichiban-karaoke",
+        "https://klunkerkranich.org/contact/"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "East Side Gallery",
+          "type": "sight",
+          "address": "Muehlenstrasse 70-71, 10243 Berlin",
+          "durationMin": 35,
+          "note": "Open-air gallery warm-up for group reels and wall-art shots before the evening gets louder.",
+          "sourceUrls": [
+            "https://www.visitberlin.de/en/east-side-gallery"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Holzmarkt 25",
+          "type": "food",
+          "address": "Holzmarktstrasse 25, 10243 Berlin",
+          "durationMin": 60,
+          "note": "Creative riverside quarter for casual food, drinks, and relaxed group content by the Spree.",
+          "sourceUrls": [
+            "https://www.holzmarkt.com/en"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Monster Ronson's Ichiban Karaoke",
+          "type": "activity",
+          "address": "Warschauer Strasse 34, 10243 Berlin",
+          "durationMin": 90,
+          "note": "Private karaoke cabins make this the high-energy JGA anchor; reserve ahead for groups.",
+          "sourceUrls": [
+            "https://www.visitberlin.de/en/monster-ronsons-ichiban-karaoke"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Klunkerkranich",
+          "type": "bar",
+          "address": "Karl-Marx-Strasse 66, 12043 Berlin",
+          "durationMin": 90,
+          "note": "Rooftop-garden finale with skyline content and late drinks; check current programme and entry rules.",
+          "sourceUrls": [
+            "https://klunkerkranich.org/contact/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "slug": "hamburg-jga-harbour-kiez-sunset-night",
+      "title": "Harbour Sunset & Kiez JGA Night",
+      "description": "A Hamburg JGA route from Speicherstadt visuals to harbour sunset drinks and the Reeperbahn after dark.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "jga",
+        "harbour",
+        "photo",
+        "sunset",
+        "reeperbahn",
+        "nightlife",
+        "creator"
+      ],
+      "sourceType": "online_research_jga_editorial_draft",
+      "sourceUrls": [
+        "https://www.hamburg.de/tourismus/sehenswuerdigkeiten/speicherstadt-301600",
+        "https://www.elbphilharmonie.de/en/plaza",
+        "https://www.strandpauli.de/",
+        "https://www.hamburg.de/tourismus/sehenswuerdigkeiten/reeperbahn"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Speicherstadt Wasserschloss Photo Stop",
+          "type": "sight",
+          "address": "Dienerreihe 4, 20457 Hamburg",
+          "durationMin": 30,
+          "note": "Classic brick-and-canal opener for matching outfits, group portraits, and Hamburg context.",
+          "sourceUrls": [
+            "https://www.hamburg.de/tourismus/sehenswuerdigkeiten/speicherstadt-301600"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Elbphilharmonie Plaza",
+          "type": "viewpoint",
+          "address": "Platz der Deutschen Einheit 4, 20457 Hamburg",
+          "durationMin": 45,
+          "note": "Public viewing platform for harbour panorama, outfit shots, and a polished city signal.",
+          "sourceUrls": [
+            "https://www.elbphilharmonie.de/en/plaza"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "StrandPauli",
+          "type": "bar",
+          "address": "St. Pauli Hafenstrasse 89, 20359 Hamburg",
+          "durationMin": 75,
+          "note": "Beachclub-style harbour drinks before the Kiez; especially strong for sunset groups.",
+          "sourceUrls": [
+            "https://www.strandpauli.de/",
+            "https://www.strandpauli.de/impressum/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Reeperbahn and Hans-Albers-Platz",
+          "type": "nightlife",
+          "address": "Reeperbahn, 20359 Hamburg",
+          "durationMin": 90,
+          "note": "Finale in Hamburg's best-known nightlife district; keep the route flexible for group taste and door policies.",
+          "sourceUrls": [
+            "https://www.hamburg.de/tourismus/sehenswuerdigkeiten/reeperbahn"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "duesseldorf",
+      "slug": "duesseldorf-jga-rhine-altbier-glow-up",
+      "title": "Rhine Views & Altbier Glow-Up",
+      "description": "A Duesseldorf JGA route with luxury-street photos, Rhine skyline, Media Harbour architecture, and an Altstadt beer finale.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "jga",
+        "rhine",
+        "altbier",
+        "old-town",
+        "photo",
+        "nightlife",
+        "creator"
+      ],
+      "sourceType": "online_research_jga_editorial_draft",
+      "sourceUrls": [
+        "https://www.duesseldorf.de/int/tourism/discover/koe",
+        "https://www.rheinturm.de/en/",
+        "https://www.duesseldorf.de/int/tourism/discover/media-harbour",
+        "https://www.visitduesseldorf.de/en/experience/sights/altstadt-old-town",
+        "https://www.uerige.de/en/"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Koenigsallee",
+          "type": "sight",
+          "address": "Koenigsallee, 40212 Duesseldorf",
+          "durationMin": 30,
+          "note": "Polished pre-party photo strip for group looks and luxury-street B-roll.",
+          "sourceUrls": [
+            "https://www.duesseldorf.de/int/tourism/discover/koe"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Rheinturm M168",
+          "type": "viewpoint",
+          "address": "Stromstrasse 20, 40221 Duesseldorf",
+          "durationMin": 60,
+          "note": "High-view drinks and skyline setup; check any private-event closures before planning.",
+          "sourceUrls": [
+            "https://www.rheinturm.de/en/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "MedienHafen Gehry Buildings",
+          "type": "sight",
+          "address": "Neuer Zollhof, 40221 Duesseldorf",
+          "durationMin": 35,
+          "note": "Architectural content stop between tower and old town, ideal for reels and portraits.",
+          "sourceUrls": [
+            "https://www.duesseldorf.de/int/tourism/discover/media-harbour"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Uerige",
+          "type": "bar",
+          "address": "Berger Strasse 1, 40213 Duesseldorf",
+          "durationMin": 60,
+          "note": "Altbier anchor in the historic center; good pre-final stop for groups who want local flavor.",
+          "sourceUrls": [
+            "https://www.uerige.de/en/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Duesseldorf Altstadt",
+          "type": "nightlife",
+          "address": "Bolkerstrasse, 40213 Duesseldorf",
+          "durationMin": 90,
+          "note": "Flexible nightlife finale in the 'longest bar in the world' quarter.",
+          "sourceUrls": [
+            "https://www.visitduesseldorf.de/en/experience/sights/altstadt-old-town"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "slug": "koeln-jga-rhine-belgian-quarter-night",
+      "title": "Rhine Panorama & Belgian Quarter JGA",
+      "description": "A Cologne JGA route from skyline photos to Belgian Quarter dinner, cocktails, and a late Veedel vibe.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "jga",
+        "rhine",
+        "belgian-quarter",
+        "cocktails",
+        "photo",
+        "nightlife",
+        "creator"
+      ],
+      "sourceType": "online_research_jga_editorial_draft",
+      "sourceUrls": [
+        "https://www.koeln.de/tourismus/sehenswertes/koelntriangle/",
+        "https://willkommen.koelntourismus.de/sehenswuerdigkeiten/belgisches-viertel",
+        "https://balthasar-cafe.de/belgisches-viertel/",
+        "https://lorbass-bar.de/"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "KoelnTriangle Panorama",
+          "type": "viewpoint",
+          "address": "Ottoplatz 1, 50679 Koeln",
+          "durationMin": 45,
+          "note": "Rooftop-level panorama for the cleanest Dom-and-river group opener.",
+          "sourceUrls": [
+            "https://www.koeln.de/tourismus/sehenswertes/koelntriangle/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Rheinboulevard and Hohenzollernbruecke View",
+          "type": "sight",
+          "address": "Hermann-Puender-Strasse, 50679 Koeln",
+          "durationMin": 35,
+          "note": "Walkable bridge-and-skyline content stop before crossing into the city.",
+          "sourceUrls": [
+            "https://www.koelntourismus.de/buchen/stadtfuehrungen/gruppenfuehrungen/detail/koelntriangle-panoramafuehrung-hoch-ueber-den-daechern-koelns",
+            "https://fotogoals.com/en/spot/rheinboulevard-blick-koelner-dom-hohenzollernbruecke/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Balthasar Belgisches Viertel",
+          "type": "restaurant",
+          "address": "Aachener Strasse 18, 50674 Koeln",
+          "durationMin": 75,
+          "note": "Dinner base in the Belgian Quarter before switching into cocktail mode.",
+          "sourceUrls": [
+            "https://balthasar-cafe.de/belgisches-viertel/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Lorbass Bar",
+          "type": "bar",
+          "address": "Antwerpener Strasse 34, 50672 Koeln",
+          "durationMin": 90,
+          "note": "Cocktail stop with explicit event/JGA fit and a small-group speakeasy feel.",
+          "sourceUrls": [
+            "https://lorbass-bar.de/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Belgisches Viertel Night Walk",
+          "type": "nightlife",
+          "address": "Bruesseler Platz, 50674 Koeln",
+          "durationMin": 45,
+          "note": "Flexible Veedel finale for late bars, group photos, and neighbourhood energy.",
+          "sourceUrls": [
+            "https://willkommen.koelntourismus.de/sehenswuerdigkeiten/belgisches-viertel"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-jga-altstadt-beer-garden-glockenbach",
+      "title": "Altstadt Beer Garden & Glockenbach JGA",
+      "description": "A Munich JGA route with classic city photos, central beer-garden energy, Hofbraeuhaus tradition, and a Glockenbach nightlife finish.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "jga",
+        "beer-garden",
+        "altstadt",
+        "glockenbach",
+        "nightlife",
+        "photo",
+        "creator"
+      ],
+      "sourceType": "online_research_jga_editorial_draft",
+      "sourceUrls": [
+        "https://www.munich.travel/en/pois/urban-districts/marienplatz",
+        "https://www.viktualienmarkt-muenchen.de/en/beer-garden-on-the-viktualienmarkt/",
+        "https://www.hofbraeuhaus.de/en/opening-hours/",
+        "https://www.munich.travel/en/topics/urban-districts/districts-of-munich/glockenbachviertel-and-gaertnerplatz-trendy-and-nightlife-neighborhood",
+        "https://www.muenchen.de/veranstaltungen/veranstaltungsorte/milla"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Marienplatz",
+          "type": "sight",
+          "address": "Marienplatz, 80331 Munich",
+          "durationMin": 30,
+          "note": "Central meet-up and classic Rathaus backdrop for the group intro.",
+          "sourceUrls": [
+            "https://www.munich.travel/en/pois/urban-districts/marienplatz"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Viktualienmarkt Beer Garden",
+          "type": "food",
+          "address": "Viktualienmarkt, 80331 Munich",
+          "durationMin": 75,
+          "note": "Casual group-friendly beer-garden stop with market food around it.",
+          "sourceUrls": [
+            "https://www.viktualienmarkt-muenchen.de/en/beer-garden-on-the-viktualienmarkt/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Hofbraeuhaus Muenchen",
+          "type": "bar",
+          "address": "Platzl 9, 80331 Munich",
+          "durationMin": 75,
+          "note": "Traditional beer-hall chapter for groups that want the Munich classic.",
+          "sourceUrls": [
+            "https://www.hofbraeuhaus.de/en/opening-hours/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Gaertnerplatz and Glockenbachviertel",
+          "type": "nightlife",
+          "address": "Gaertnerplatz, 80469 Munich",
+          "durationMin": 45,
+          "note": "Neighbourhood transition into a younger bar-and-nightlife zone.",
+          "sourceUrls": [
+            "https://www.munich.travel/en/topics/urban-districts/districts-of-munich/glockenbachviertel-and-gaertnerplatz-trendy-and-nightlife-neighborhood"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Milla Club",
+          "type": "club",
+          "address": "Holzstrasse 28, 80469 Munich",
+          "durationMin": 90,
+          "note": "Live-music/club finale; check programme and ticketing before finalising a JGA date.",
+          "sourceUrls": [
+            "https://www.muenchen.de/veranstaltungen/veranstaltungsorte/milla"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-jga-skyline-main-sachsenhausen-night",
+      "title": "Skyline Main & Sachsenhausen JGA Night",
+      "description": "A Frankfurt JGA route for skyline photos, market bites, Main river content, rooftop drinks, and a Sachsenhausen finale.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "jga",
+        "skyline",
+        "main",
+        "rooftop",
+        "sachsenhausen",
+        "nightlife",
+        "creator"
+      ],
+      "sourceType": "online_research_jga_editorial_draft",
+      "sourceUrls": [
+        "https://frankfurt.de/english/discover-and-experience/sightseeing/historical-buildings/main-tower",
+        "https://www.kleinmarkthalle.com/",
+        "https://frankfurt.de/frankfurt-entdecken-und-erleben/sehenswuerdigkeiten/aussichtspunkte/main-bruecken/eiserner-steg",
+        "https://oosten-frankfurt.com/",
+        "https://frankfurt.de/sachsenhausen"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Main Tower",
+          "type": "viewpoint",
+          "address": "Neue Mainzer Strasse 52-58, 60311 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Start above the skyline with a clear visual hook for the route.",
+          "sourceUrls": [
+            "https://frankfurt.de/english/discover-and-experience/sightseeing/historical-buildings/main-tower"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Kleinmarkthalle Frankfurt",
+          "type": "food",
+          "address": "Hasengasse 5-7, 60311 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Market-bites stop for groups that want a food base before river and nightlife.",
+          "sourceUrls": [
+            "https://www.kleinmarkthalle.com/",
+            "https://frankfurt.de/frankfurt-entdecken-und-erleben/maerkte-und-einkaufsstrassen/maerkte-und-flohmaerkte/kleinmarkthalle"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Eiserner Steg",
+          "type": "sight",
+          "address": "Mainkai, 60311 Frankfurt am Main",
+          "durationMin": 30,
+          "note": "Quick bridge stop for skyline, river, and group shots before crossing south.",
+          "sourceUrls": [
+            "https://frankfurt.de/frankfurt-entdecken-und-erleben/sehenswuerdigkeiten/aussichtspunkte/main-bruecken/eiserner-steg"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Oosten Rooftop Bar",
+          "type": "bar",
+          "address": "Mayfarthstrasse 4, 60314 Frankfurt am Main",
+          "durationMin": 90,
+          "note": "Rooftop drinks with skyline and Main view; weather and private events should be checked.",
+          "sourceUrls": [
+            "https://oosten-frankfurt.com/",
+            "https://oosten-frankfurt.com/rooftopbar"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Alt-Sachsenhausen",
+          "type": "nightlife",
+          "address": "Klappergasse, 60594 Frankfurt am Main",
+          "durationMin": 90,
+          "note": "Flexible final district for Apfelwein pubs, bars, and late-night group energy.",
+          "sourceUrls": [
+            "https://frankfurt.de/sachsenhausen"
+          ]
+        }
+      ]
+    }
+  ]
+}

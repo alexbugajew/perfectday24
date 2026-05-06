@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:24:10.662Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\jga_influencer_routes_draft.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 1,
+    "candidates": 4,
+    "providers": {
+      "openverse": 4
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-jga-harbour-kiez-sunset-night",
+      "routeTitle": "Harbour Sunset & Kiez JGA Night",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Speicherstadt Wasserschloss Photo Stop",
+          "type": "sight",
+          "recommendedCandidateId": "b1d5cc18bba070f1",
+          "candidates": [
+            {
+              "id": "b1d5cc18bba070f1",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Dienerreihe , Hamburg",
+              "title": "Freie und Hansestadt Hamburg (7256228590)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/41/Freie_und_Hansestadt_Hamburg_%287256228590%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/86f87cd8-a620-45e4-aa75-7f1acb03b3f2/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=34100815",
+              "width": 1492,
+              "height": 969,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Heribert Pohl --- Thanks for half a million clicks! from Germering bei M\u00fcnchen, Bayern",
+              "creatorUrl": "https://www.flickr.com/people/69460501@N04",
+              "attributionText": "\"Freie und Hansestadt Hamburg (7256228590)\" by Heribert Pohl --- Thanks for half a million clicks! from Germering bei M\u00fcnchen, Bayern, by-sa 2.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=34100815).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 80
+            },
+            {
+              "id": "533072a5cd62b460",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Dienerreihe , Hamburg",
+              "title": "Dienerreihe bei Nacht",
+              "imageUrl": "https://live.staticflickr.com/7326/9475877379_2b4da778fd_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/94896db0-d8d4-4a84-bad3-516e4072ccf3/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/37454700@N03/9475877379",
+              "width": 1024,
+              "height": 680,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Grille1991",
+              "creatorUrl": "https://www.flickr.com/photos/37454700@N03",
+              "attributionText": "\"Dienerreihe bei Nacht\" by Grille1991, by-sa 2.0, via Openverse (https://www.flickr.com/photos/37454700@N03/9475877379).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 80
+            },
+            {
+              "id": "69cb2c414de5237d",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Dienerreihe , Hamburg",
+              "title": "Dienerreihe 2 (2)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Dienerreihe_2_%282%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/63f3bf69-9625-4e9a-a8b3-69843394fdee/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=60008610",
+              "width": 3456,
+              "height": 4608,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "Pauli-Pirat",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Pauli-Pirat",
+              "attributionText": "\"Dienerreihe 2 (2)\" by Pauli-Pirat, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=60008610).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 75
+            },
+            {
+              "id": "9ed9d5e7294088fe",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Dienerreihe 4, 20457 Hamburg",
+              "title": "Speicherstadt-Wasserschloss",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Speicherstadt-Wasserschloss.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/216d83dc-e607-4b51-9af4-4328cf4f5992/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=73072293",
+              "width": 1918,
+              "height": 1080,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "Kalle Kompakt",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Kalle_Kompakt&action=edit&redlink=1",
+              "attributionText": "\"Speicherstadt-Wasserschloss\" by Kalle Kompakt, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=73072293).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 65
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

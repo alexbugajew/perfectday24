@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:21:06.322Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\jga_influencer_routes_draft.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 3,
+    "candidates": 0,
+    "providers": {}
+  },
+  "routes": [
+    {
+      "citySlug": "koeln",
+      "cityLabel": "Koeln",
+      "routeSlug": "koeln-jga-rhine-belgian-quarter-night",
+      "routeTitle": "Rhine Panorama & Belgian Quarter JGA",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 3,
+          "title": "Balthasar Belgisches Viertel",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 4,
+          "title": "Lorbass Bar",
+          "type": "bar",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 5,
+          "title": "Belgisches Viertel Night Walk",
+          "type": "nightlife",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    }
+  ]
+}

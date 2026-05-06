@@ -1,0 +1,367 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:23:44.723Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\pilot_top5_influencer_routes.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 4,
+    "candidates": 12,
+    "providers": {
+      "openverse": 12
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-city-food-under-10-loop",
+      "routeTitle": "City Food & Quick Bites Loop",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 2,
+          "title": "raabowls Rathaus",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "Amita Pizzeria Romana",
+          "type": "restaurant",
+          "recommendedCandidateId": "c2025b73b79c263f",
+          "candidates": [
+            {
+              "id": "c2025b73b79c263f",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Brandstwiete , Hamburg",
+              "title": "Hamburg. Brandstwiete",
+              "imageUrl": "https://live.staticflickr.com/530/32358453091_58499b0aeb_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/ebc93cba-0fdc-4bb0-9dcf-645d8e44a29d/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/96171980@N02/32358453091",
+              "width": 1024,
+              "height": 679,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "max.stolbinsky",
+              "creatorUrl": "https://www.flickr.com/photos/96171980@N02",
+              "attributionText": "\"Hamburg. Brandstwiete\" by max.stolbinsky, by 2.0, via Openverse (https://www.flickr.com/photos/96171980@N02/32358453091).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            },
+            {
+              "id": "fb77cb689aca99db",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Brandstwiete , Hamburg",
+              "title": "Brandstwiete 42 (Hamburg-Altstadt).11787.ajb",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/56263d99-55c1-4849-b7fa-23404d945272/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=35741608",
+              "width": 2399,
+              "height": 2999,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en/",
+              "creator": "Ajepbah",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Ajepbah",
+              "attributionText": "\"Brandstwiete 42 (Hamburg-Altstadt).11787.ajb\" by Ajepbah, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=35741608).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 90
+            },
+            {
+              "id": "57e3439e5050b79f",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Brandstwiete , Hamburg",
+              "title": "Spiegel-Kantine, Hamburg (2006)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/Spiegel-Kantine%2C_Hamburg_%282006%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/f873fe55-b440-4304-b2bf-8511f4ba83c2/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=25496080",
+              "width": 1230,
+              "height": 906,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "Gregor Julien Straube",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Gregor_Julien_Straube",
+              "attributionText": "\"Spiegel-Kantine, Hamburg (2006)\" by Gregor Julien Straube, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=25496080).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 80
+            },
+            {
+              "id": "87aeb99e7b09b199",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Brandstwiete , Hamburg",
+              "title": "St. Katharinen",
+              "imageUrl": "https://live.staticflickr.com/1653/24430583731_c37fbb6f8b_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/df0ad566-610b-471f-b255-b7ff4b5d07c0/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/25115960@N08/24430583731",
+              "width": 677,
+              "height": 1024,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "MoWePhoto.de",
+              "creatorUrl": "https://www.flickr.com/photos/25115960@N08",
+              "attributionText": "\"St. Katharinen\" by MoWePhoto.de, by 2.0, via Openverse (https://www.flickr.com/photos/25115960@N08/24430583731).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 60
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Burrico",
+          "type": "restaurant",
+          "recommendedCandidateId": "c2025b73b79c263f",
+          "candidates": [
+            {
+              "id": "c2025b73b79c263f",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Hamburg. Brandstwiete",
+              "imageUrl": "https://live.staticflickr.com/530/32358453091_58499b0aeb_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/ebc93cba-0fdc-4bb0-9dcf-645d8e44a29d/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/96171980@N02/32358453091",
+              "width": 1024,
+              "height": 679,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "max.stolbinsky",
+              "creatorUrl": "https://www.flickr.com/photos/96171980@N02",
+              "attributionText": "\"Hamburg. Brandstwiete\" by max.stolbinsky, by 2.0, via Openverse (https://www.flickr.com/photos/96171980@N02/32358453091).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 95
+            },
+            {
+              "id": "fb77cb689aca99db",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Brandstwiete 42 (Hamburg-Altstadt).11787.ajb",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/79/Brandstwiete_42_%28Hamburg-Altstadt%29.11787.ajb.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/56263d99-55c1-4849-b7fa-23404d945272/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=35741608",
+              "width": 2399,
+              "height": 2999,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en/",
+              "creator": "Ajepbah",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Ajepbah",
+              "attributionText": "\"Brandstwiete 42 (Hamburg-Altstadt).11787.ajb\" by Ajepbah, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=35741608).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 90
+            },
+            {
+              "id": "57e3439e5050b79f",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "Spiegel-Kantine, Hamburg (2006)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/Spiegel-Kantine%2C_Hamburg_%282006%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/f873fe55-b440-4304-b2bf-8511f4ba83c2/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=25496080",
+              "width": 1230,
+              "height": 906,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "Gregor Julien Straube",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Gregor_Julien_Straube",
+              "attributionText": "\"Spiegel-Kantine, Hamburg (2006)\" by Gregor Julien Straube, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=25496080).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 80
+            },
+            {
+              "id": "87aeb99e7b09b199",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Brandstwiete -, Hamburg",
+              "title": "St. Katharinen",
+              "imageUrl": "https://live.staticflickr.com/1653/24430583731_c37fbb6f8b_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/df0ad566-610b-471f-b255-b7ff4b5d07c0/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/25115960@N08/24430583731",
+              "width": 677,
+              "height": 1024,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "MoWePhoto.de",
+              "creatorUrl": "https://www.flickr.com/photos/25115960@N08",
+              "attributionText": "\"St. Katharinen\" by MoWePhoto.de, by 2.0, via Openverse (https://www.flickr.com/photos/25115960@N08/24430583731).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 60
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "title": "kofookoo yam'cha",
+          "type": "restaurant",
+          "recommendedCandidateId": "f232b3b0cf84ceeb",
+          "candidates": [
+            {
+              "id": "f232b3b0cf84ceeb",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Hamburg Gerhart-Hauptmann-Platz DS273n",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Hamburg_Gerhart-Hauptmann-Platz_DS273n.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/80c97916-cc8b-4b19-9eee-a5ecf92b687b/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=42667291",
+              "width": 4286,
+              "height": 2968,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "AltSylt",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:AltSylt",
+              "attributionText": "\"Hamburg Gerhart-Hauptmann-Platz DS273n\" by AltSylt, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=42667291).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 95
+            },
+            {
+              "id": "f67e07ee3c1dad79",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Hamburg.Thalia",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/59/Hamburg.Thalia.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/36cf3b46-4f68-425e-b9af-dcd7d5d7c914/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=797953",
+              "width": 643,
+              "height": 858,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "You may select the license of your choice.",
+              "creatorUrl": null,
+              "attributionText": "\"Hamburg.Thalia\" by You may select the license of your choice., by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=797953).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 68
+            },
+            {
+              "id": "0a90e8acb6814910",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "File:Cerro-rico-aktion-1982-wiki.jpg",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Cerro-rico-aktion-1982-wiki.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/bf997f8b-8821-4eee-a6ba-28aa49eb7549/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=6935172",
+              "width": 1160,
+              "height": 700,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "Nicolaus.schmidt",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Nicolaus.schmidt&action=edit&redlink=1",
+              "attributionText": "\"File:Cerro-rico-aktion-1982-wiki.jpg\" by Nicolaus.schmidt, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=6935172).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 65
+            },
+            {
+              "id": "1947d7bfa4912a0b",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Gerhart-Hauptmann-Platz , Hamburg",
+              "title": "Fitness in the City",
+              "imageUrl": "https://live.staticflickr.com/957/27852697058_b331bdef06_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/0cdb25ac-3b38-405b-b409-88e02fe1b15c/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/94212497@N00/27852697058",
+              "width": 900,
+              "height": 1024,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "Rosmarie Voegtli",
+              "creatorUrl": "https://www.flickr.com/photos/94212497@N00",
+              "attributionText": "\"Fitness in the City\" by Rosmarie Voegtli, by 2.0, via Openverse (https://www.flickr.com/photos/94212497@N00/27852697058).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ],
+              "score": 60
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

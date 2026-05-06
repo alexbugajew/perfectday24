@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:16:17.839Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\pilot_top5_influencer_routes.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 2,
+    "candidates": 4,
+    "providers": {
+      "wikimedia": 4
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "Muenchen",
+      "routeSlug": "muenchen-maxvorstadt-art-brunch",
+      "routeTitle": "Maxvorstadt Art & Brunch",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Die Waldmeister",
+          "type": "coffee",
+          "recommendedCandidateId": "8cbc3a0a69b47b90",
+          "candidates": [
+            {
+              "id": "8cbc3a0a69b47b90",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Die Waldmeister M\u00fcnchen",
+              "title": "Die Gartenwelt",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Die_Gartenwelt_vol.11_%28IA_diegartenweltvol00unse_0%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Die_Gartenwelt_vol.11_%28IA_diegartenweltvol00unse_0%29.pdf/page1-1280px-Die_Gartenwelt_vol.11_%28IA_diegartenweltvol00unse_0%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Die_Gartenwelt_vol.11_(IA_diegartenweltvol00unse_0).pdf",
+              "width": 1483,
+              "height": 2029,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Hesdrffers, Max, b. 1863 Hesdrffers, Max, b. 1863. Monatshefte fr Blumen und Gartenfreunde",
+              "creatorUrl": null,
+              "attributionText": "\"Die Gartenwelt\" by Hesdrffers, Max, b. 1863 Hesdrffers, Max, b. 1863. Monatshefte fr Blumen und Gartenfreunde, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Die_Gartenwelt_vol.11_(IA_diegartenweltvol00unse_0).pdf).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 72
+            },
+            {
+              "id": "0ca38da85b712c60",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Die Waldmeister M\u00fcnchen",
+              "title": "Verhandlungen des zoologisch-botanischen Vereins in Wien",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_%28IA_bub_gb_zrPxAAAAMAAJ%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_%28IA_bub_gb_zrPxAAAAMAAJ%29.pdf/page1-500px-Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_%28IA_bub_gb_zrPxAAAAMAAJ%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_(IA_bub_gb_zrPxAAAAMAAJ).pdf",
+              "width": 625,
+              "height": 962,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Zoologisch-botanischer Verein in Wien",
+              "creatorUrl": null,
+              "attributionText": "\"Verhandlungen des zoologisch-botanischen Vereins in Wien\" by Zoologisch-botanischer Verein in Wien, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Verhandlungen_des_Zoologisch-Botanischen_Vereins_in_Wien_(IA_bub_gb_zrPxAAAAMAAJ).pdf).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 72
+            },
+            {
+              "id": "4d1b6ca20bfd04f0",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Die Waldmeister M\u00fcnchen",
+              "title": "Wolfgang Hausmann Sonntagskind - G\u00f6dekes Jahre 1933 - 1953, Archiv der Zeitzeugen, Bd. 20, M\u00fcnster, Verlags-Haus Monsenstein und Vannerdat, 2010",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953%2C_Archiv_der_Zeitzeugen%2C_Bd._20%2C_M%C3%BCnster%2C_Verlags-Haus_Monsenstein_und_Vannerdat%2C_2010.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953%2C_Archiv_der_Zeitzeugen%2C_Bd._20%2C_M%C3%BCnster%2C_Verlags-Haus_Monsenstein_und_Vannerdat%2C_2010.pdf/page1-500px-Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953%2C_Archiv_der_Zeitzeugen%2C_Bd._20%2C_M%C3%BCnster%2C_Verlags-Haus_Monsenstein_und_Vannerdat%2C_2010.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953,_Archiv_der_Zeitzeugen,_Bd._20,_M%C3%BCnster,_Verlags-Haus_Monsenstein_und_Vannerdat,_2010.pdf",
+              "width": 795,
+              "height": 1210,
+              "license": "CC BY 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+              "creator": "Wolfgang Hausmann",
+              "creatorUrl": null,
+              "attributionText": "\"Wolfgang Hausmann Sonntagskind - G\u00f6dekes Jahre 1933 - 1953, Archiv der Zeitzeugen, Bd. 20, M\u00fcnster, Verlags-Haus Monsenstein und Vannerdat, 2010\" by Wolfgang Hausmann, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wolfgang_Hausmann_Sonntagskind_-_G%C3%B6dekes_Jahre_1933_-_1953,_Archiv_der_Zeitzeugen,_Bd._20,_M%C3%BCnster,_Verlags-Haus_Monsenstein_und_Vannerdat,_2010.pdf).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ],
+              "score": 67
+            },
+            {
+              "id": "190850efd3938053",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "query": "Die Waldmeister M\u00fcnchen",
+              "title": "WLE-Germany Flora-Calendar-Poster 2016-2017",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/16/WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf/page1-1280px-WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf",
+              "width": 3506,
+              "height": 4960,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "compiled by Dr. Bernd Gross",
+              "creatorUrl": null,
+              "attributionText": "\"WLE-Germany Flora-Calendar-Poster 2016-2017\" by compiled by Dr. Bernd Gross, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WLE-Germany_Flora-Calendar-Poster_2016-2017.pdf).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 67
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "SIGGIS v/gan burger & co - Maxvorstadt",
+          "type": "restaurant",
+          "recommendedCandidateId": null,
+          "candidates": []
+        }
+      ]
+    }
+  ]
+}

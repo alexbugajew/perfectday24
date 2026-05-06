@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-05T07:24:18.904Z",
+  "seedVersion": 1,
+  "seedFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\jga_influencer_routes_draft.json",
+  "sourcePolicy": {
+    "autoPublished": false,
+    "allowedLicensesQueried": [
+      "CC0",
+      "Public Domain Mark",
+      "CC BY",
+      "CC BY-SA"
+    ],
+    "reviewRequired": true,
+    "notes": [
+      "Diese Datei ist eine redaktionelle Shortlist, kein automatischer Rechte-Release.",
+      "Vor Nutzung immer Landingpage, Lizenz, Autor und Motiv pruefen.",
+      "CC BY-SA-Kandidaten bewusst freigeben, weil Share-Alike-Pflichten relevant sein koennen."
+    ]
+  },
+  "summary": {
+    "routeTargets": 1,
+    "stopTargets": 1,
+    "candidates": 2,
+    "providers": {
+      "openverse": 2
+    }
+  },
+  "routes": [
+    {
+      "citySlug": "duesseldorf",
+      "cityLabel": "Duesseldorf",
+      "routeSlug": "duesseldorf-jga-rhine-altbier-glow-up",
+      "routeTitle": "Rhine Views & Altbier Glow-Up",
+      "recommendedCoverCandidateId": null,
+      "coverCandidates": [],
+      "stops": [
+        {
+          "order": 2,
+          "title": "Rheinturm M168",
+          "type": "viewpoint",
+          "recommendedCandidateId": "0f4b12c582b1f057",
+          "candidates": [
+            {
+              "id": "0f4b12c582b1f057",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "query": "Stromstra\u00dfe 20, 40221 D\u00fcsseldorf",
+              "title": "Rheinturm D\u00fcsseldorf",
+              "imageUrl": "https://live.staticflickr.com/65535/50128002118_ce9d472fd1_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/891676f0-019b-46fc-9a75-9c4c7dfdbb16/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/32569229@N06/50128002118",
+              "width": 683,
+              "height": 1024,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Alexandre Prevot",
+              "creatorUrl": "https://www.flickr.com/photos/32569229@N06",
+              "attributionText": "\"Rheinturm D\u00fcsseldorf\" by Alexandre Prevot, by-sa 2.0, via Openverse (https://www.flickr.com/photos/32569229@N06/50128002118).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 70
+            },
+            {
+              "id": "bd159706fb2ae815",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "query": "Stromstra\u00dfe 20, 40221 D\u00fcsseldorf",
+              "title": "Rheinturm D\u00fcsseldorf (50128002118)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/84/Rheinturm_D%C3%BCsseldorf_%2850128002118%29.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/ba3ef723-d220-453e-a1a4-9529d413c07d/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=115656641",
+              "width": 2000,
+              "height": 3000,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "Alexandre Prevot from Nancy, France",
+              "creatorUrl": "https://www.flickr.com/people/32569229@N06",
+              "attributionText": "\"Rheinturm D\u00fcsseldorf (50128002118)\" by Alexandre Prevot from Nancy, France, by-sa 2.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=115656641).",
+              "reviewRequired": true,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ],
+              "score": 70
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
