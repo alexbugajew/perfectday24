@@ -165,6 +165,14 @@ export function usePlannerPersistence({
   const loadPlans = useCallback(async () => {
     if (!authReady) return;
 
+    if (!userId) {
+      setPlans([]);
+      setPlanChoiceReactions({});
+      setPlanEditSuggestions({});
+      setLoadingPlans(false);
+      return;
+    }
+
     setLoadingPlans(true);
     try {
       let query = supabase
@@ -173,7 +181,7 @@ export function usePlannerPersistence({
         .order("created_at", { ascending: false })
         .limit(20);
 
-      if (userId) query = query.eq("user_id", userId);
+      query = query.eq("user_id", userId);
 
       const { data, error } = await query;
       if (error) {

@@ -312,7 +312,7 @@ export default function PlannerOutputSection({
               {plans.map((plan, index) => {
                 const familySummary = familySummaryByKey.get(savedPlanFamilyKey(plan));
                 return (
-                  <div key={plan.id}>
+                  <div key={`${plan.id}-${savedPlanFamilyKey(plan)}-${index}`}>
                     {index === 0 || savedPlanFamilyKey(plans[index - 1]) !== savedPlanFamilyKey(plan) ? (
                       <div className="mb-3 rounded-xl border border-dashed bg-[var(--bg-panel)] px-4 py-3 text-sm text-[var(--text-muted)]">
                         <div className="font-semibold">

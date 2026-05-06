@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { canonicalCitySlug } from "@/lib/cities/canonical";
+import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
 
 type SearchSuggestion = {
   label: string;
@@ -19,6 +20,14 @@ type CityStartPreset = {
   type: SearchSuggestion["type"];
   subtitle: string;
   aliases: string[];
+};
+
+type CitySearchRow = {
+  slug: string | null;
+  name: string | null;
+  center_lat: number | null;
+  center_lng: number | null;
+  country_code?: string | null;
 };
 
 const CITY_PRESET_SUGGESTIONS: Record<string, CityStartPreset[]> = {
@@ -367,9 +376,7 @@ function getSupabaseAdmin() {
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceRole) {
-    throw new Error(
-      "Supabase env vars fehlen: NEXT_PUBLIC_SUPABASE_URL oder SUPABASE_SERVICE_ROLE_KEY"
-    );
+    return null;
   }
 
   return createClient(url, serviceRole, {
@@ -561,6 +568,32 @@ function buildCityPresetSuggestions(
   return suggestions;
 }
 
+function rolloutCityRows(citySlug: string | null, query: string): CitySearchRow[] {
+  const normalizedQuery = normalizeSearchKey(query);
+
+  return PLANNER_33_ROLLOUT.filter((city) => {
+    if (citySlug) {
+      return city.slug === citySlug;
+    }
+
+    if (!normalizedQuery) {
+      return false;
+    }
+
+    const label = normalizeSearchKey(city.label);
+    const slug = normalizeSearchKey(city.slug);
+    return label.includes(normalizedQuery) || slug.includes(normalizedQuery);
+  })
+    .slice(0, citySlug ? 1 : 5)
+    .map((city) => ({
+      slug: city.slug,
+      name: city.label,
+      center_lat: city.lat,
+      center_lng: city.lng,
+      country_code: city.countryCode,
+    }));
+}
+
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
@@ -588,8 +621,9 @@ export async function GET(req: Request) {
           popularity_score: number | null;
         }>
       | null = [];
+    let cityRows: CitySearchRow[] | null = rolloutCityRows(citySlug, q);
 
-    if (q.length >= 2) {
+    if (supabase && q.length >= 2) {
       let locationQuery = supabase
         .from("locations")
         .select(
@@ -607,34 +641,38 @@ export async function GET(req: Request) {
       const { data, error: locationError } = await locationQuery;
 
       if (locationError) {
-        throw new Error(`Geocode location search failed: ${locationError.message}`);
+        console.warn("Geocode location search fallback:", locationError.message);
+      } else {
+        locationRows = data;
       }
-
-      locationRows = data;
     }
 
-    const cityQuery = citySlug
-      ? supabase
-          .from("cities")
-          .select("slug,name,center_lat,center_lng,country_code")
-          .not("center_lat", "is", null)
-          .not("center_lng", "is", null)
-          .eq("slug", citySlug)
-          .eq("is_active", true)
-          .limit(1)
-      : supabase
-          .from("cities")
-          .select("slug,name,center_lat,center_lng,country_code")
-          .not("center_lat", "is", null)
-          .not("center_lng", "is", null)
-          .ilike("name", `%${q}%`)
-          .eq("is_active", true)
-          .limit(5);
+    if (supabase) {
+      const cityQuery = citySlug
+        ? supabase
+            .from("cities")
+            .select("slug,name,center_lat,center_lng,country_code")
+            .not("center_lat", "is", null)
+            .not("center_lng", "is", null)
+            .eq("slug", citySlug)
+            .eq("is_active", true)
+            .limit(1)
+        : supabase
+            .from("cities")
+            .select("slug,name,center_lat,center_lng,country_code")
+            .not("center_lat", "is", null)
+            .not("center_lng", "is", null)
+            .ilike("name", `%${q}%`)
+            .eq("is_active", true)
+            .limit(5);
 
-    const { data: cityRows, error: cityError } = await cityQuery;
+      const { data, error: cityError } = await cityQuery;
 
-    if (cityError) {
-      throw new Error(`Geocode city search failed: ${cityError.message}`);
+      if (cityError) {
+        console.warn("Geocode city search fallback:", cityError.message);
+      } else if (data && data.length > 0) {
+        cityRows = data;
+      }
     }
 
     const locationSuggestions: Array<SearchSuggestion & { _score: number }> = (locationRows ?? [])
