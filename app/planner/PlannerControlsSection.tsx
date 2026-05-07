@@ -57,6 +57,7 @@ type PlannerControlsSectionProps = {
   groupEnabled: boolean;
   groupMembers: GroupMember[];
   eventCandidates: PlannerEventRow[];
+  showQuickEventPicker: boolean;
   citiesLoading: boolean;
   selectedCountryCode: string;
   setSelectedCountryCode: Dispatch<SetStateAction<string>>;
@@ -176,6 +177,7 @@ export default function PlannerControlsSection({
   groupEnabled,
   groupMembers,
   eventCandidates,
+  showQuickEventPicker,
   citiesLoading,
   selectedCountryCode,
   setSelectedCountryCode,
@@ -853,7 +855,7 @@ export default function PlannerControlsSection({
             </div>
           ) : null}
 
-          {experienceMode !== "classic" ? (
+          {!showQuickEventPicker && experienceMode !== "classic" ? (
             <div className="space-y-2 rounded-lg border border-[var(--state-warning)]/25 bg-[var(--brand-accent-cloud)] p-3">
               <div className="flex items-center justify-between gap-3 flex-wrap">
                 <div>

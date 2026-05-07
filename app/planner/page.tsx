@@ -25,6 +25,7 @@ import {
 import type { RouteSummary } from "@/components/PlanMap";
 import PlannerActionPanel from "./PlannerActionPanel";
 import PlannerControlsSection from "./PlannerControlsSection";
+import PlannerEventCandidatesStrip from "./PlannerEventCandidatesStrip";
 import PlannerMapPanel from "./PlannerMapPanel";
 import PlannerOutputSection from "./PlannerOutputSection";
 import PlannerVariantPanel from "./PlannerVariantPanel";
@@ -1439,6 +1440,7 @@ function PlannerPageContent() {
               Fokus
             </div>
             <select
+              data-testid="planner-quick-experience-mode"
               value={experienceMode}
               onChange={(e) => setExperienceMode(e.target.value as ExperienceMode)}
               className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
@@ -1463,6 +1465,20 @@ function PlannerPageContent() {
             />
           </label>
         </div>
+
+        <PlannerEventCandidatesStrip
+          experienceMode={experienceMode}
+          occasion={occasion}
+          cityLabel={cityLabel}
+          planDate={planDate}
+          eventCandidates={eventCandidates}
+          eventPlanningMode={eventPlanningMode}
+          setEventPlanningMode={setEventPlanningMode}
+          selectedEventId={selectedEventId}
+          setSelectedEventId={setSelectedEventId}
+          resetPlan={resetPlan}
+          showToast={showToast}
+        />
 
         <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--text-muted)]">
           <div>
@@ -1609,6 +1625,7 @@ function PlannerPageContent() {
         groupEnabled={groupEnabled}
         groupMembers={groupMembers}
         eventCandidates={eventCandidates}
+        showQuickEventPicker={true}
         citiesLoading={citiesLoading}
         selectedCountryCode={selectedCountryCode}
         setSelectedCountryCode={setSelectedCountryCode}
