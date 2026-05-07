@@ -47,23 +47,6 @@ type PlannerVariantPanelProps = {
   showPlanHeader?: boolean;
 };
 
-function occasionFallbackVariantLabel(occasion: string) {
-  if (occasion === "date") return "Date";
-  if (occasion === "family") return "Family";
-  if (occasion === "friends") return "Friends";
-  if (occasion === "tourism") return "Tourism";
-  if (occasion === "party") return "Party";
-  return "Variante";
-}
-
-function occasionFlowTitle(occasion: string) {
-  if (occasion === "date") return "Date-Dramaturgie";
-  if (occasion === "family") return "Familien-Dramaturgie";
-  if (occasion === "friends") return "Freunde-Dramaturgie";
-  if (occasion === "tourism") return "Tourism-Dramaturgie";
-  return "Party-Dramaturgie";
-}
-
 function occasionFlowDescription(occasion: string) {
   if (occasion === "date") {
     return "Der Plan folgt einer bewusst aufgebauten Abfolge statt nur einzelne passende Orte zu listen.";
@@ -78,6 +61,13 @@ function occasionFlowDescription(occasion: string) {
     return "Der Plan priorisiert Must-sees, kurze Wege und bewusste Genussphasen statt hektischem Zick-Zack-Sightseeing.";
   }
   return "Der Plan steigert die Nacht bewusst vom Warm-up über Pre-Drinks bis zum Peak und hält danach den Late Flow zusammen.";
+}
+
+function cleanOccasionFlowDescription(description: string) {
+  return description
+    .replace(/^Diese\s+[^:]+:\s*/i, "")
+    .replace(/^Der Plan folgt einer bewusst aufgebauten Abfolge statt nur einzelne passende Orte zu listen\.\s*/i, "")
+    .trim();
 }
 
 function variantDramaValues(variant: PlanVariant | null, count: number) {
@@ -433,43 +423,40 @@ export default function PlannerVariantPanel({
                     : "bg-fuchsia-50/60"
           }`}
         >
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div className="max-w-4xl">
-              <div className="font-semibold">{occasionFlowTitle(occasion)}</div>
-              <div className="mt-1 text-sm text-[var(--text-muted)]">
-                {activeVariant?.reason ?? occasionFlowDescription(occasion)}
-              </div>
-            </div>
-            <div className="text-xs text-[var(--text-muted)]">
-              Variante: {activeVariant?.label ?? occasionFallbackVariantLabel(occasion)}
-            </div>
+          <div className="text-sm leading-relaxed text-[var(--text-muted)]">
+            {cleanOccasionFlowDescription(activeVariant?.reason ?? occasionFlowDescription(occasion))}
           </div>
 
-          <div className="mt-4 flex min-h-[220px] gap-3 overflow-x-auto rounded-lg border bg-white/70 px-3 py-3">
+          <div className="mt-3 max-w-full overflow-hidden rounded-lg border bg-white/70 px-2 py-3">
+            <div
+              className="grid min-h-[190px] items-end gap-2"
+              style={{ gridTemplateColumns: `repeat(${occasionFlow.length}, minmax(0, 1fr))` }}
+            >
             {occasionFlow.map(({ stop, meta, phaseGoal }, idx) => {
               const value = variantDramaValues(activeVariant, occasionFlow.length)[idx] ?? 56;
-              const lift = Math.max(0, Math.round((value - 40) * 0.9));
-              const topOffset = Math.max(0, 58 - lift);
-              const cardHeight = Math.round(132 + value * 0.46);
+              const cardHeight = Math.round(104 + value * 0.8);
 
               return (
                 <div
                   key={`${stop.index}-${idx}`}
-                  className="flex min-w-[168px] flex-1 flex-col justify-end rounded-lg border bg-white p-3 shadow-[0_10px_24px_rgba(49,39,27,0.04)]"
-                  style={{ marginTop: `${topOffset}px`, minHeight: `${cardHeight}px` }}
+                  className="flex min-w-0 flex-col justify-between rounded-lg border bg-white p-2 shadow-[0_10px_24px_rgba(49,39,27,0.04)] sm:p-3"
+                  style={{ height: `${cardHeight}px` }}
                 >
-                  <div className="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
+                  <div className="min-w-0">
+                    <div className="line-clamp-2 text-xs font-semibold leading-snug text-[var(--text-strong)] sm:text-sm">
+                      {stop.item?.name ?? stop.label}
+                    </div>
+                    <div className="mt-1 line-clamp-2 text-[11px] leading-4 text-[var(--text-muted)] sm:text-xs">
+                      {phaseGoal ?? meta?.short ?? stop.hint}
+                    </div>
+                  </div>
+                  <div className="mt-2 break-words text-[10px] font-semibold uppercase leading-tight tracking-wide text-[var(--text-muted)] sm:text-[11px]">
                     {meta?.label ?? stop.label}
-                  </div>
-                  <div className="mt-2 font-semibold text-sm text-[var(--text-strong)]">
-                    {stop.item?.name ?? stop.label}
-                  </div>
-                  <div className="mt-2 text-xs leading-5 text-[var(--text-muted)]">
-                    {phaseGoal ?? meta?.short ?? stop.hint}
                   </div>
                 </div>
               );
             })}
+            </div>
           </div>
         </div>
       ) : null}
