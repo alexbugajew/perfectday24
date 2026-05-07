@@ -1704,13 +1704,10 @@ function PlannerPageContent() {
           plannerTemplateInterests={plannerTemplateInterests}
           editingPlanId={editingPlanId}
           selectedPlan={selectedPlan}
-          planTitle={planTitle}
-          onPlanTitleChange={setPlanTitle}
           plannedStopsCount={plannedStops.length}
           groupEnabled={groupEnabled}
           groupPlanningSignals={groupPlanningSignals}
           groupPlanSummary={groupPlanSummary}
-          aiText={aiText}
         />
       <PlannerOutputSection
         routeProfile={routeProfile}

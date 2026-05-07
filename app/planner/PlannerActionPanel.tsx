@@ -7,13 +7,10 @@ type PlannerActionPanelProps = {
   plannerTemplateInterests: string[];
   editingPlanId: string | null;
   selectedPlan: SavedPlanRow | null;
-  planTitle: string;
-  onPlanTitleChange: (value: string) => void;
   plannedStopsCount: number;
   groupEnabled: boolean;
   groupPlanningSignals: GroupPlanningSignals;
   groupPlanSummary: GroupPlanSummary;
-  aiText: string | null;
 };
 
 export default function PlannerActionPanel({
@@ -22,15 +19,17 @@ export default function PlannerActionPanel({
   plannerTemplateInterests,
   editingPlanId,
   selectedPlan,
-  planTitle,
-  onPlanTitleChange,
   plannedStopsCount,
   groupEnabled,
   groupPlanningSignals,
   groupPlanSummary,
-  aiText,
 }: PlannerActionPanelProps) {
   const isEditingSelectedPlan = Boolean(editingPlanId && selectedPlan?.id === editingPlanId);
+  const showGroupSummary = plannedStopsCount > 0 && groupEnabled;
+
+  if (!plannerTemplateLoadedLabel && !isEditingSelectedPlan && !showGroupSummary) {
+    return null;
+  }
 
   return (
     <div className="space-y-3 rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">
@@ -90,39 +89,7 @@ export default function PlannerActionPanel({
         </div>
       ) : null}
 
-      <div className="space-y-3 rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3">
-        <div className="grid gap-3 lg:grid-cols-[minmax(220px,0.8fr)_minmax(0,1.4fr)]">
-          <label className="block">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-              Titel
-            </span>
-            <input
-              value={planTitle}
-              onChange={(e) => onPlanTitleChange(e.target.value)}
-              placeholder="Optionaler Titel (z.B. Date in Berlin)"
-              className="mt-1 min-h-10 w-full rounded-md border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm"
-            />
-          </label>
-
-          <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-              Beschreibung
-            </div>
-            <div className="mt-1 min-h-20 rounded-md border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm leading-relaxed text-[var(--text-muted)]">
-              {aiText ? (
-                <div className="whitespace-pre-wrap">{aiText}</div>
-              ) : (
-                <span>
-                  Noch keine Beschreibung erzeugt. Den KI-Text kannst du im Route-Builder direkt unter der
-                  Beschreibung erstellen und in die Creator-Route übernehmen.
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {plannedStopsCount > 0 && groupEnabled ? (
+      {showGroupSummary ? (
         <div className="rounded-2xl border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)]/70 px-4 py-3 text-sm text-[var(--brand-accent)]">
           <div className="font-semibold">Fuer eure Gruppe priorisiert</div>
           <div className="mt-1 text-[var(--brand-accent)]">
