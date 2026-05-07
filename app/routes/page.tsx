@@ -431,6 +431,7 @@ function RoutesPageContent() {
 
   const [savingRoute, setSavingRoute] = useState(false);
   const [savingStops, setSavingStops] = useState(false);
+  const [routeDescriptionLoading, setRouteDescriptionLoading] = useState(false);
 
   const [tab, setTab] = useState<BuilderTab>("builder");
 
@@ -802,6 +803,81 @@ function RoutesPageContent() {
     setStartLat(route.start_lat != null ? String(route.start_lat) : "");
     setStartLng(route.start_lng != null ? String(route.start_lng) : "");
     setTab("builder");
+  }
+
+  async function generateRouteDescription() {
+    if (!title.trim() && draftStops.length === 0) {
+      showToast("Für KI-Text brauchst du mindestens einen Routentitel oder einen Stop.", "error");
+      return;
+    }
+
+    setRouteDescriptionLoading(true);
+    try {
+      const interests = Array.from(
+        new Set(
+          [
+            ...normalizeRouteTags(routeTagsInput),
+            ...plannerImportInterests,
+            routeTheme !== "none" ? routeThemeLabel(routeTheme) : null,
+            routeOccasion !== "none" ? routeOccasionLabel(routeOccasion) : null,
+          ]
+            .filter(Boolean)
+            .map((value) => String(value))
+        )
+      );
+
+      const res = await fetch("/api/generate-plan-text", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          purpose: "route_description",
+          routeTitle: title.trim() || "Neue Route",
+          cityLabel: cities.find((city) => city.slug === selectedCitySlug)?.name ?? selectedCitySlug,
+          filters: {
+            planMode: computeDurationBucket(draftStops.length),
+            budget: "offen",
+            occasion: routeOccasionLabel(routeOccasion),
+            routeProfile: routeProfileLabel(routeProfileMode),
+            theme: routeThemeLabel(routeTheme),
+            groupEnabled: plannerImportMembers.length > 0,
+          },
+          interests,
+          slots: draftStops.map((stop, index) => ({
+            index: index + 1,
+            label: stop.subtitle || stop.title || `Stop ${index + 1}`,
+            hint: stop.note || stop.subtitle || "Teil der Route",
+            durationMin: numOrNull(stop.duration_min),
+            travelMinFromPrev: null,
+            location: {
+              id: stop.location_id ?? stop.localId,
+              name: stop.title || `Stop ${index + 1}`,
+              type: stop.subtitle || routeThemeLabel(routeTheme),
+              reservation_url: stop.external_url.trim() || null,
+            },
+          })),
+        }),
+      });
+
+      if (!res.ok) {
+        showToast(`KI-Text konnte nicht erzeugt werden (${res.status})`, "error");
+        return;
+      }
+
+      const json = (await res.json()) as { text?: unknown };
+      const text = typeof json.text === "string" ? json.text.trim() : "";
+      if (!text) {
+        showToast("Die KI hat keinen Text zurückgegeben.", "error");
+        return;
+      }
+
+      setDescription(text);
+      showToast("Beschreibung wurde automatisch gefüllt.", "success");
+    } catch (error) {
+      console.error("Route description generation failed:", error);
+      showToast("KI-Text konnte nicht erzeugt werden.", "error");
+    } finally {
+      setRouteDescriptionLoading(false);
+    }
   }
 
   async function handleCreateOrUpdateRoute() {
@@ -1700,6 +1776,20 @@ async function handleDeleteRoute(routeId: string) {
                   placeholder="Beschreibung / Story / Hook"
                   className="min-h-[120px] w-full rounded-xl border border-[var(--line-subtle)] bg-white p-3"
                 />
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => void generateRouteDescription()}
+                    disabled={routeDescriptionLoading || (!title.trim() && draftStops.length === 0)}
+                    className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {routeDescriptionLoading ? "KI generiert..." : "KI-Text erzeugen"}
+                  </button>
+                  <span className="text-xs text-[var(--text-muted)]">
+                    Füllt die Beschreibung aus Titel, Anlass, Tags und Stops.
+                  </span>
+                </div>
 
                 <select
                   value={selectedCitySlug}

@@ -9,8 +9,6 @@ type PlannerActionPanelProps = {
   selectedPlan: SavedPlanRow | null;
   planTitle: string;
   onPlanTitleChange: (value: string) => void;
-  aiLoading: boolean;
-  onGenerateAIText: () => unknown;
   plannedStopsCount: number;
   groupEnabled: boolean;
   groupPlanningSignals: GroupPlanningSignals;
@@ -26,8 +24,6 @@ export default function PlannerActionPanel({
   selectedPlan,
   planTitle,
   onPlanTitleChange,
-  aiLoading,
-  onGenerateAIText,
   plannedStopsCount,
   groupEnabled,
   groupPlanningSignals,
@@ -117,22 +113,12 @@ export default function PlannerActionPanel({
                 <div className="whitespace-pre-wrap">{aiText}</div>
               ) : (
                 <span>
-                  Noch keine Beschreibung erzeugt. Sobald dein Plan steht, kannst du den KI-Text direkt hier erzeugen.
+                  Noch keine Beschreibung erzeugt. Den KI-Text kannst du im Route-Builder direkt unter der
+                  Beschreibung erstellen und in die Creator-Route übernehmen.
                 </span>
               )}
             </div>
           </div>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => void onGenerateAIText()}
-            disabled={aiLoading || plannedStopsCount === 0}
-            className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] disabled:opacity-60"
-          >
-            {aiLoading ? "KI generiert..." : "KI-Text erzeugen"}
-          </button>
         </div>
       </div>
 

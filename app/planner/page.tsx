@@ -112,7 +112,6 @@ function PlannerPageContent() {
   const [sortMode, setSortMode] = useState<"match" | "distance">("match");
 
   const [aiText, setAiText] = useState<string | null>(null);
-  const [aiLoading, setAiLoading] = useState(false);
 
   const [toast, setToast] = useState<string | null>(null);
   const [activePlanGroupChatId, setActivePlanGroupChatId] = useState<string | null>(null);
@@ -1026,85 +1025,6 @@ function PlannerPageContent() {
     setDraggedStopPosition(null);
   }, [activeVariant?.variantId, plannerData]);
 
-  async function generateAIText() {
-    try {
-      setAiLoading(true);
-      setAiText(null);
-
-      const payloadStops = plannedStops.map((s) => ({
-        index: s.index,
-        label: s.label,
-        hint: s.hint,
-        durationMin: s.durationMin,
-        travelMinFromPrev: s.travelMinFromPrev,
-        scheduledStartAt: s.scheduledStartAt ?? null,
-        scheduledEndAt: s.scheduledEndAt ?? null,
-        reasons: s.reasons ?? [],
-        location: s.item
-          ? {
-              id: s.item.id,
-              name: s.item.name,
-              type: s.item.type,
-              duration_min: s.item.duration_min ?? null,
-              reservation_url: s.item.reservation_url ?? null,
-              lat: s.item.lat ?? null,
-              lng: s.item.lng ?? null,
-              distanceKm: s.item.distanceFromOriginKm ?? null,
-              baseScore: s.item.score ?? 0,
-              prefBoost: s.item.prefBoost ?? 0,
-              totalScore: s.item.totalScore ?? 0,
-              matchLevel: s.item.matchLevel ?? null,
-            }
-          : null,
-      }));
-
-      const res = await fetch("/api/generate-plan-text", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          filters: {
-            budget,
-            occasion,
-            experienceMode,
-            eventStrictness: eventStrictnessForExperienceMode(experienceMode),
-            planDate,
-            planMode,
-            stopsCount,
-            interests,
-            groupEnabled,
-            groupMembers,
-            fullDayActsAfterBreakfast,
-            fullDayActsAfterLunch,
-            citySlug: effectiveCitySlug,
-            startPoint: effectiveStartPoint,
-          },
-          radiusKm,
-          sortMode,
-          activeLevel,
-          effectiveRadiusKm,
-          slots: payloadStops,
-          stops: payloadStops,
-          interests: mergeInterests(interests, groupMembers, groupEnabled),
-        }),
-      });
-
-      if (!res.ok) {
-        const t = await res.text();
-        console.error("AI endpoint error:", res.status, t);
-        setAiText(`Fehler beim Generieren (API): ${res.status}`);
-        return;
-      }
-
-      const json = await res.json();
-      setAiText(typeof json?.text === "string" ? json.text : "");
-    } catch (e) {
-      console.error("generateAIText failed:", e);
-      setAiText("Fehler beim Generieren (Client).");
-    } finally {
-      setAiLoading(false);
-    }
-  }
-
   async function copyPinnedChoiceSummary() {
     const choice = pinnedVariant ?? activeVariant;
     if (!choice) {
@@ -1786,8 +1706,6 @@ function PlannerPageContent() {
           selectedPlan={selectedPlan}
           planTitle={planTitle}
           onPlanTitleChange={setPlanTitle}
-          aiLoading={aiLoading}
-          onGenerateAIText={generateAIText}
           plannedStopsCount={plannedStops.length}
           groupEnabled={groupEnabled}
           groupPlanningSignals={groupPlanningSignals}

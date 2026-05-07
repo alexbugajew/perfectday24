@@ -51,8 +51,9 @@ export async function POST(req: Request) {
     const budget = safeStr(filters?.budget, "—");
     const occasion = safeStr(filters?.occasion, "—");
 
-    const interests = Array.isArray(body?.interests) ? body.interests.map((x: any) => safeStr(x, "")).filter(Boolean) : [];
+    const interests = Array.isArray(body?.interests) ? body.interests.map((x: unknown) => safeStr(x, "")).filter(Boolean) : [];
     const groupEnabled = Boolean(filters?.groupEnabled);
+    const isRouteDescription = body?.purpose === "route_description";
 
     const stops: SlotPayload[] = Array.isArray(body?.slots) ? body.slots : [];
 
@@ -84,7 +85,19 @@ export async function POST(req: Request) {
       return `${s.index}. ${safeStr(s.label)} – ${safeStr(s.hint)}\n   Vorschlag: ${loc}${dist}${dur}${travel}${scoreDbg}${ex}`;
     });
 
-    const systemStyle = `
+    const routeDescriptionStyle = `
+Du schreibst kurze Creator-Routenbeschreibungen auf Deutsch.
+
+Ziel:
+- Eine hochwertige Beschreibung fuer ein Route-Builder-Feld.
+- 4-6 Saetze, fluessig, konkret, einladend.
+- Keine Ueberschriften, keine Bulletpoints, keine Markdown-Listen.
+- Nenne die Route nicht technisch als "Plan" oder "Slot-Liste".
+- Beschreibe Stimmung, Anlass, Ablauf und warum die Stops zusammenpassen.
+- Wenn Stops fehlen, bleibe allgemein und schreibe trotzdem veroeffentlichungsnah.
+    `.trim();
+
+    const plannerTextStyle = `
 Du bist ein lokaler Tagesplaner. Schreibe auf Deutsch, klar, freundlich, strukturiert.
 
 Harte Regeln:
@@ -105,7 +118,22 @@ Output Format:
 - Am Ende: kurze Zusammenfassung (Gesamtgefühl + 2–3 Tipps).
     `.trim();
 
-    const userPrompt = `
+    const systemStyle = isRouteDescription ? routeDescriptionStyle : plannerTextStyle;
+
+    const routeDescriptionPrompt = `
+Routentitel: ${safeStr(body?.routeTitle, "Neue Route")}
+Stadt: ${safeStr(body?.cityLabel ?? filters?.citySlug, "â€”")}
+Anlass: ${occasion}
+Route-Profil: ${safeStr(filters?.routeProfile ?? filters?.planMode, "â€”")}
+Thema: ${safeStr(filters?.theme, "â€”")}
+Vorlieben/Tags: ${interests.length ? interests.join(", ") : "â€”"}
+Gruppe: ${groupEnabled ? "ja" : "nein"}
+
+Stops:
+${lines.join("\n\n") || "Noch keine Stops hinterlegt."}
+    `.trim();
+
+    const plannerTextPrompt = `
 Plan-Modus: ${planMode}
 Budget: ${budget}
 Anlass: ${occasion}
@@ -116,6 +144,8 @@ Slots:
 ${lines.join("\n\n")}
     `.trim();
 
+    const userPrompt = isRouteDescription ? routeDescriptionPrompt : plannerTextPrompt;
+
     const resp = await client.responses.create({
       model: "gpt-5.2",
       instructions: systemStyle,
@@ -123,7 +153,7 @@ ${lines.join("\n\n")}
     });
 
     return NextResponse.json({ text: resp.output_text ?? "" });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error(e);
     return NextResponse.json({ text: "Fehler beim Generieren." }, { status: 500 });
   }
