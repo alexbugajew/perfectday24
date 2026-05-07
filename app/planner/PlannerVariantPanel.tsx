@@ -322,16 +322,13 @@ export default function PlannerVariantPanel({
                       {voteCount} von {reactionParticipants.length || 0}
                     </div>
                   ) : null}
-                  {active ? (
-                    <div className="mt-1 text-[11px] text-white/75">Beschreibung v</div>
-                  ) : null}
                 </button>
               );
             })}
           </div>
 
           {activeVariant?.reason ? (
-            <details className="p-3 border rounded-lg text-sm text-[var(--text-muted)]">
+            <details className="hidden">
               <summary className="cursor-pointer list-none font-medium text-[var(--text-strong)]">
                 Beschreibung der Variante anzeigen v
               </summary>
@@ -437,45 +434,42 @@ export default function PlannerVariantPanel({
           }`}
         >
           <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div>
+            <div className="max-w-4xl">
               <div className="font-semibold">{occasionFlowTitle(occasion)}</div>
-              <div className="text-sm text-[var(--text-muted)]">{occasionFlowDescription(occasion)}</div>
+              <div className="mt-1 text-sm text-[var(--text-muted)]">
+                {activeVariant?.reason ?? occasionFlowDescription(occasion)}
+              </div>
             </div>
             <div className="text-xs text-[var(--text-muted)]">
               Variante: {activeVariant?.label ?? occasionFallbackVariantLabel(occasion)}
             </div>
           </div>
 
-          <div className="mt-4 flex h-28 items-end gap-2 rounded-lg border bg-white/80 px-3 py-3">
-            {variantDramaValues(activeVariant, occasionFlow.length).map((value, idx) => {
-              const entry = occasionFlow[idx];
+          <div className="mt-4 flex min-h-[220px] gap-3 overflow-x-auto rounded-lg border bg-white/70 px-3 py-3">
+            {occasionFlow.map(({ stop, meta, phaseGoal }, idx) => {
+              const value = variantDramaValues(activeVariant, occasionFlow.length)[idx] ?? 56;
+              const lift = Math.max(0, Math.round((value - 40) * 0.9));
+              const topOffset = Math.max(0, 58 - lift);
+              const cardHeight = Math.round(132 + value * 0.46);
+
               return (
-                <div key={`${entry?.stop.index ?? idx}-drama`} className="flex min-w-0 flex-1 flex-col items-center gap-2">
-                  <div
-                    className="w-full rounded-t-md bg-[var(--text-strong)] transition-all"
-                    style={{ height: `${value}%` }}
-                    aria-label={`${entry?.meta?.label ?? `Stop ${idx + 1}`}: Dramaturgie ${value}`}
-                  />
-                  <div className="w-full truncate text-center text-[10px] font-medium uppercase tracking-[0.08em] text-[var(--text-muted)]">
-                    {entry?.meta?.label ?? `Stop ${idx + 1}`}
+                <div
+                  key={`${stop.index}-${idx}`}
+                  className="flex min-w-[168px] flex-1 flex-col justify-end rounded-lg border bg-white p-3 shadow-[0_10px_24px_rgba(49,39,27,0.04)]"
+                  style={{ marginTop: `${topOffset}px`, minHeight: `${cardHeight}px` }}
+                >
+                  <div className="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
+                    {meta?.label ?? stop.label}
+                  </div>
+                  <div className="mt-2 font-semibold text-sm text-[var(--text-strong)]">
+                    {stop.item?.name ?? stop.label}
+                  </div>
+                  <div className="mt-2 text-xs leading-5 text-[var(--text-muted)]">
+                    {phaseGoal ?? meta?.short ?? stop.hint}
                   </div>
                 </div>
               );
             })}
-          </div>
-
-          <div className="mt-3 grid md:grid-cols-5 gap-3">
-            {occasionFlow.map(({ stop, meta, phaseGoal }, idx) => (
-              <div key={`${stop.index}-${idx}`} className="rounded-lg border bg-white p-3">
-                <div className="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
-                  {meta?.label ?? stop.label}
-                </div>
-                <div className="mt-1 font-semibold text-sm">{stop.item?.name ?? stop.label}</div>
-                <div className="mt-1 text-xs text-[var(--text-muted)]">
-                  {phaseGoal ?? meta?.short ?? stop.hint}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       ) : null}
