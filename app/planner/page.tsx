@@ -621,7 +621,11 @@ function PlannerPageContent() {
   }
 
   function continueEditingSavedPlan(plan: SavedPlanRow) {
-    const filters = (plan.filters ?? {}) as Record<string, any>;
+    const filters = (plan.filters ?? {}) as Record<string, unknown>;
+    const startPointFilter =
+      filters.startPoint && typeof filters.startPoint === "object"
+        ? (filters.startPoint as Record<string, unknown>)
+        : null;
 
     if (typeof filters.budget === "string") setBudget(filters.budget);
     if (typeof filters.occasion === "string") setOccasion(filters.occasion);
@@ -643,23 +647,24 @@ function PlannerPageContent() {
       if (typeof filters.citySlug === "string" || filters.citySlug === null) {
         setSelectedCitySlug(canonicalCitySlug(filters.citySlug ?? null));
       }
-    if (filters.startPoint && typeof filters.startPoint === "object") {
+    if (startPointFilter) {
       setStartPoint({
         mode:
-          filters.startPoint.mode === "custom" || filters.startPoint.type !== "current_location"
+          startPointFilter.mode === "custom" || startPointFilter.type !== "current_location"
             ? "custom"
             : "current_location",
         type:
-          filters.startPoint.type === "home" ||
-          filters.startPoint.type === "hotel" ||
-          filters.startPoint.type === "venue" ||
-          filters.startPoint.type === "city_center" ||
-          filters.startPoint.type === "current_location"
-            ? filters.startPoint.type
-            : "current_location",
-        label: typeof filters.startPoint.label === "string" ? filters.startPoint.label : "Startpunkt",
-        lat: typeof filters.startPoint.lat === "number" ? filters.startPoint.lat : null,
-        lng: typeof filters.startPoint.lng === "number" ? filters.startPoint.lng : null,
+          startPointFilter.type === "current_location" ||
+          startPointFilter.type === "address" ||
+          startPointFilter.type === "hotel" ||
+          startPointFilter.type === "station" ||
+          startPointFilter.type === "airport" ||
+          startPointFilter.type === "other"
+            ? startPointFilter.type
+            : "other",
+        label: typeof startPointFilter.label === "string" ? startPointFilter.label : "Startpunkt",
+        lat: typeof startPointFilter.lat === "number" ? startPointFilter.lat : null,
+        lng: typeof startPointFilter.lng === "number" ? startPointFilter.lng : null,
       });
     }
     if (typeof plan.radius_km === "number") setRadiusKm(plan.radius_km);
@@ -783,7 +788,6 @@ function PlannerPageContent() {
     setPlannerData,
     selectedVariantId,
     setSelectedVariantId,
-    pinnedVariantId,
     setPinnedVariantId,
     variantVotes,
     setVariantVotes,
@@ -835,7 +839,6 @@ function PlannerPageContent() {
     planChoiceReactions,
     planEditSuggestions,
     saving,
-    loadingPlans,
     planTitle,
     setPlanTitle,
     selectedPlan,
@@ -844,13 +847,11 @@ function PlannerPageContent() {
     setResumedPlanId,
     editingPlanId,
     setEditingPlanId,
-    loadPlans,
     savePlan,
     sharePlan,
     sendFinalPlanToFriends,
     openPlanGroupChat,
     resolveEditSuggestion,
-    openCurrentPlannerGroupChat,
   } = usePlannerPersistence({
     authReady,
     userId,
@@ -1550,10 +1551,34 @@ function PlannerPageContent() {
             >
               Neu wuerfeln
             </button>
+            <button
+              type="button"
+              onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
+              disabled={!authReady || !userId || saving || plannedStops.length === 0}
+              className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] disabled:opacity-60"
+            >
+              {!authReady
+                ? "Auth..."
+                : !userId
+                  ? "Login noetig"
+                  : saving
+                    ? "Speichern..."
+                    : editingPlanId
+                      ? "Als neuen Stand speichern"
+                      : "Plan speichern"}
+            </button>
             <button type="button" onClick={resetPlan} className="rounded-md border px-3 py-1.5 text-xs">
               Plan zuruecksetzen
             </button>
-            {activeVariant ? (
+            <button
+              type="button"
+              onClick={handoffPlanToRouteBuilder}
+              disabled={plannedStops.length === 0}
+              className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
+            >
+              Als Creator-Route vorbereiten
+            </button>
+            {groupEnabled && activeVariant ? (
               <button
                 type="button"
                 onClick={() => setPinnedVariantId((prev) => (prev === activeVariant.variantId ? null : activeVariant.variantId))}
@@ -1566,12 +1591,12 @@ function PlannerPageContent() {
                 {pinnedVariant?.variantId === activeVariant.variantId ? "Unsere Wahl" : "Als Wahl markieren"}
               </button>
             ) : null}
-            {(pinnedVariant ?? activeVariant) ? (
+            {groupEnabled && (pinnedVariant ?? activeVariant) ? (
               <button type="button" onClick={copyPinnedChoiceSummary} className="rounded-md border px-3 py-1.5 text-xs">
                 Wahltext kopieren
               </button>
             ) : null}
-            {(pinnedVariant ?? activeVariant) ? (
+            {groupEnabled && (pinnedVariant ?? activeVariant) ? (
               <button type="button" onClick={openChoiceInChat} className="rounded-md border px-3 py-1.5 text-xs">
                 Chat vorbereiten
               </button>
@@ -1763,21 +1788,8 @@ function PlannerPageContent() {
           onPlanTitleChange={setPlanTitle}
           aiLoading={aiLoading}
           onGenerateAIText={generateAIText}
-          authReady={authReady}
-          userId={userId}
-          saving={saving}
           plannedStopsCount={plannedStops.length}
           groupEnabled={groupEnabled}
-          finalChoiceExists={Boolean(finalChoice)}
-          loadingPlans={loadingPlans}
-          authLoading={authLoading}
-          onSaveDefault={() => savePlan(false, editingPlanId ? "new_version" : "default")}
-          onSaveVariant={() => savePlan(false, "new_variant")}
-          onSaveFinal={() => savePlan(true, editingPlanId ? "new_version" : "default")}
-          onOpenCurrentPlannerGroupChat={openCurrentPlannerGroupChat}
-          onHandoffPlanToRouteBuilder={handoffPlanToRouteBuilder}
-          onLoadPlans={loadPlans}
-          onContinueAsGuest={continueAsGuest}
           groupPlanningSignals={groupPlanningSignals}
           groupPlanSummary={groupPlanSummary}
           aiText={aiText}
