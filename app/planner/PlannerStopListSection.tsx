@@ -1,3 +1,4 @@
+import Image from "next/image";
 import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLink";
 import { plannerEventLabel, type PlannedStop, type RouteProfile } from "@/lib/planner";
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
@@ -41,6 +42,71 @@ function plannerStopEventKind(stop: PlannedStop) {
   if (lowerSubtypes.some((value) => value.includes("food"))) return "food_event";
   if (lowerSubtypes.some((value) => value.includes("seasonal"))) return "seasonal";
   return "other";
+}
+
+function stringField(source: unknown, key: string) {
+  if (!source || typeof source !== "object") return null;
+  const value = (source as Record<string, unknown>)[key];
+  return typeof value === "string" && value.trim().length > 0 ? value.trim() : null;
+}
+
+function firstNestedImageUrl(source: unknown) {
+  if (!source || typeof source !== "object") return null;
+  const payload = (source as Record<string, unknown>).source_payload;
+  if (!payload || typeof payload !== "object") return null;
+  const images = (payload as Record<string, unknown>).images;
+  if (!Array.isArray(images)) return null;
+
+  for (const image of images) {
+    const url =
+      stringField(image, "url") ??
+      stringField(image, "src") ??
+      stringField(image, "image_url") ??
+      stringField(image, "photo_url");
+    if (url) return url;
+  }
+
+  return null;
+}
+
+function plannerStopImageUrl(stop: PlannedStop) {
+  const item = stop.item;
+  if (!item) return null;
+
+  return (
+    stringField(item, "photo_url") ??
+    stringField(item, "image_url") ??
+    stringField(item, "cover_image_url") ??
+    stringField(item, "thumbnail_url") ??
+    stringField(item, "picture_url") ??
+    firstNestedImageUrl(item)
+  );
+}
+
+function plannerStopVisualMeta(stop: PlannedStop) {
+  const category = stop.item?.category ?? stop.item?.manual_category ?? null;
+  const type = stop.item?.type?.toLowerCase() ?? "";
+
+  if (stop.item?.source_primary === "planner_event" || category === "event") {
+    return { icon: "EV", label: "Event" };
+  }
+  if (category === "restaurant" || type.includes("restaurant") || type.includes("food")) {
+    return { icon: "FO", label: "Food" };
+  }
+  if (category === "cafe" || type.includes("cafe") || type.includes("coffee")) {
+    return { icon: "CA", label: "Cafe" };
+  }
+  if (category === "nightlife" || type.includes("bar") || type.includes("club")) {
+    return { icon: "NI", label: "Nightlife" };
+  }
+  if (category === "culture" || type.includes("museum") || type.includes("gallery")) {
+    return { icon: "CU", label: "Kultur" };
+  }
+  if (category === "activity" || type.includes("park") || type.includes("tour")) {
+    return { icon: "AC", label: "Aktivitaet" };
+  }
+
+  return { icon: "ST", label: "Stop" };
 }
 
 export default function PlannerStopListSection({
@@ -90,6 +156,8 @@ export default function PlannerStopListSection({
         {plannedStops.map((stop, i) => {
           const sourceRefs = readEventSourceRefs(stop.item?.source_refs);
           const eventTravelNote = eventTravelPriorityNote(stop, i, routeProfile);
+          const imageUrl = plannerStopImageUrl(stop);
+          const visualMeta = plannerStopVisualMeta(stop);
 
           return (
             <div
@@ -119,7 +187,35 @@ export default function PlannerStopListSection({
               }`}
             >
               <div className="pointer-events-none absolute right-0 top-0 h-24 w-24 rounded-full bg-[rgba(199,104,60,0.08)] blur-2xl" />
-              <div className="relative flex items-start justify-between gap-4">
+              <div className="relative flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div className="relative h-36 overflow-hidden rounded-lg border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] md:h-32 md:w-36 md:shrink-0">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-[linear-gradient(135deg,rgba(248,244,237,0.96),rgba(231,238,242,0.92))] text-center">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-md border border-[rgba(68,57,46,0.12)] bg-white text-sm font-semibold tracking-[0.14em] text-[var(--text-strong)] shadow-sm">
+                      {visualMeta.icon}
+                    </div>
+                    <div className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                      {visualMeta.label}
+                    </div>
+                  </div>
+                  {imageUrl ? (
+                    <Image
+                      src={imageUrl}
+                      alt={stop.item?.name ? `Bild von ${stop.item.name}` : `${visualMeta.label} Bild`}
+                      fill
+                      sizes="(min-width: 768px) 144px, 100vw"
+                      className="object-cover"
+                      loading="lazy"
+                      unoptimized
+                      onError={(event) => {
+                        event.currentTarget.style.display = "none";
+                      }}
+                    />
+                  ) : null}
+                  <div className="absolute left-2 top-2 rounded-md bg-white/90 px-2 py-1 text-[10px] font-semibold text-[var(--text-strong)] shadow-sm">
+                    Slot {i + 1}
+                  </div>
+                </div>
+
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-3 flex-wrap">
                     <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--text-strong)] text-xs font-semibold text-white shadow-sm">
