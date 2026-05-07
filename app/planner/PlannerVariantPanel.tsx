@@ -136,7 +136,7 @@ export default function PlannerVariantPanel({
 
         <div className="flex flex-wrap gap-2">
           <button onClick={onRerollPlan} className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white">
-            Neu wuerfeln
+            neu generieren
           </button>
 
           <button onClick={onResetPlan} className="rounded-md border px-3 py-1.5 text-xs">

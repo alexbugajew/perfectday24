@@ -13,6 +13,7 @@ import {
   consumePlannerRouteTemplate,
   writeRouteBuilderDraft,
 } from "@/lib/routes/planner-route-bridge";
+import { writePlannerRunDraft } from "@/lib/routes/planner-run-bridge";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
 import { resolvePublicAffiliateLinksClient } from "@/lib/monetization/public-affiliate-client";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
@@ -1165,6 +1166,43 @@ function PlannerPageContent() {
     window.location.href = "/routes";
   }
 
+  function startPlannerRouteRun() {
+    if (!plannedStops.length) {
+      showToast("Erstelle zuerst einen Tagesplan.");
+      return;
+    }
+
+    writePlannerRunDraft({
+      id: `planner-${Date.now()}`,
+      title:
+        planTitle.trim() ||
+        `${occasionLabel(occasion)} in ${selectedCity?.name ?? effectiveCitySlug ?? "deiner Stadt"}`,
+      cityLabel: selectedCity?.name ?? effectiveCitySlug ?? null,
+      occasionLabel: occasionLabel(occasion),
+      routeProfileLabel: routeProfileLabel(routeProfile),
+      startedAt: new Date().toISOString(),
+      start: {
+        label: effectiveStartPoint.label || null,
+        lat: effectiveStartPoint.lat ?? null,
+        lng: effectiveStartPoint.lng ?? null,
+      },
+      stops: plannedStops.map((stop, index) => ({
+        id: `${stop.item?.id ?? "planner"}-${index + 1}`,
+        order: index + 1,
+        title: stop.item?.name || stop.label || `Stop ${index + 1}`,
+        label: stop.label || stop.item?.type || "Stop",
+        note: [stop.hint, ...(stop.reasons ?? [])].filter(Boolean).join("\n"),
+        durationMin: stop.durationMin ?? stop.item?.duration_min ?? null,
+        externalUrl: stop.item?.reservation_url ?? null,
+        lat: stop.item?.lat ?? null,
+        lng: stop.item?.lng ?? null,
+        isRequired: stop.index === 1,
+      })),
+    });
+
+    window.location.href = "/run";
+  }
+
   const relaxedText =
     activeLevel === "strict"
       ? null
@@ -1466,10 +1504,18 @@ function PlannerPageContent() {
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
+              onClick={startPlannerRouteRun}
+              disabled={plannedStops.length === 0}
+              className="rounded-md bg-[var(--state-success)] px-3 py-1.5 text-xs font-medium text-white disabled:opacity-60"
+            >
+              Route Starten
+            </button>
+            <button
+              type="button"
               onClick={rerollPlan}
               className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white"
             >
-              Neu wuerfeln
+              neu generieren
             </button>
             <button
               type="button"
