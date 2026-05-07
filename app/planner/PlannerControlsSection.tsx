@@ -434,7 +434,7 @@ export default function PlannerControlsSection({
               </select>
             </label>
 
-            <label className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+            <label className="hidden">
               <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
                 Stadt
               </div>
@@ -508,7 +508,7 @@ export default function PlannerControlsSection({
                   </select>
                 </label>
 
-                <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
+                <label className="hidden">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Anlass</div>
                   <select value={occasion} onChange={(e) => setOccasion(e.target.value)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
                     <option value="date">Date</option>
@@ -519,7 +519,7 @@ export default function PlannerControlsSection({
                   </select>
                 </label>
 
-                <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
+                <label className="hidden">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Fokus</div>
                   <select value={experienceMode} onChange={(e) => setExperienceMode(e.target.value as ExperienceMode)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
                     {experienceOptions.map((option) => (
@@ -535,7 +535,7 @@ export default function PlannerControlsSection({
                   ) : null}
                 </label>
 
-                <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
+                <label className="hidden">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Datum</div>
                   <input type="date" value={planDate} onChange={(e) => setPlanDate(e.target.value)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none" />
                 </label>
@@ -648,7 +648,7 @@ export default function PlannerControlsSection({
             </div>
           ) : null}
 
-          <div className="rounded-[28px] border border-[rgba(68,57,46,0.08)] bg-[rgba(255,252,247,0.92)] p-4 shadow-[0_18px_45px_rgba(49,39,27,0.05)] space-y-3 sm:p-5">
+          <div className="hidden">
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <div>
                 <div className="font-semibold text-[var(--text-strong)]">Startpunkt der Reise</div>

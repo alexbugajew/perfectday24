@@ -49,6 +49,8 @@ import {
   readEventSourceRefs,
   routeProfileLabel,
   cityStartFallbackLabel,
+  startPointSuggestionSourceLabel,
+  startPointSuggestionTypeLabel,
   todayDateInputValue,
 } from "./helpers";
 import { usePlannerGeneration } from "./usePlannerGeneration";
@@ -1274,6 +1276,15 @@ function PlannerPageContent() {
     budgetLabel(budget),
     plannerDateLabel(planDate),
   ].join(" · ");
+  const quickExperienceOptions = eventModesAvailable
+    ? experienceOptionsForOccasion(occasion)
+    : experienceOptionsForOccasion(occasion).filter(
+        (option) => option.value !== "event_visit" && option.value !== "market_festival"
+      );
+  const displayedStartPointLabel =
+    startPoint.mode === "current_location" && !shouldUseCurrentLocationAsOrigin
+      ? effectiveStartPoint.label
+      : startPoint.label;
 
   return (
     <main className="space-y-4">
@@ -1336,6 +1347,183 @@ function PlannerPageContent() {
               </span>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">
+        <div className="flex gap-2 overflow-x-auto pb-1 lg:overflow-visible">
+          <label className="min-w-[150px] flex-[0_0_150px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-1">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Stadt
+            </div>
+            <select
+              value={selectedCitySlug ?? "__auto__"}
+              onChange={(e) => {
+                const nextValue = e.target.value;
+                setSelectedCitySlug(nextValue === "__auto__" ? null : nextValue);
+                resetStartPointForSelectedCity();
+                resetPlan();
+              }}
+              className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
+              disabled={citiesLoading}
+            >
+              <option value="__auto__">Auto</option>
+              {visibleCities.map((city) => (
+                <option key={city.slug} value={city.slug}>
+                  {city.name}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <div className="relative min-w-[240px] flex-[0_0_240px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-[1.5]">
+            <label htmlFor="planner-quick-start" className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Startpunkt
+            </label>
+            <input
+              id="planner-quick-start"
+              value={displayedStartPointLabel}
+              onFocus={() =>
+                setStartPoint((prev) =>
+                  prev.mode === "custom"
+                    ? prev
+                    : {
+                        ...prev,
+                        mode: "custom",
+                        type: "address",
+                        label:
+                          prev.mode === "current_location"
+                            ? shouldUseCurrentLocationAsOrigin
+                              ? ""
+                              : effectiveStartPoint.label
+                            : prev.label,
+                        lat: null,
+                        lng: null,
+                      }
+                )
+              }
+              onChange={(e) =>
+                setStartPoint((prev) => ({
+                  ...prev,
+                  mode: "custom",
+                  type: prev.mode === "custom" ? prev.type : "address",
+                  label: e.target.value,
+                  lat: null,
+                  lng: null,
+                }))
+              }
+              placeholder="Hotel, Bahnhof, Adresse..."
+              className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none placeholder:text-[var(--text-muted)]"
+            />
+
+            {startPoint.mode === "custom" &&
+            (startPointSearchLoading || startPointSuggestions.length > 0 || startPointSearchError) ? (
+              <div className="absolute left-0 right-0 top-[calc(100%+0.25rem)] z-30 overflow-hidden rounded-md border border-[var(--line-subtle)] bg-white shadow-lg">
+                {startPointSearchLoading ? (
+                  <div className="px-3 py-2 text-sm text-[var(--text-muted)]">Suche Startpunkte...</div>
+                ) : startPointSearchError ? (
+                  <div className="px-3 py-2 text-sm text-red-600">{startPointSearchError}</div>
+                ) : (
+                  startPointSuggestions.map((suggestion) => (
+                    <button
+                      key={`${suggestion.label}-${suggestion.lat}-${suggestion.lng}`}
+                      type="button"
+                      onClick={() => applyStartPointSuggestion(suggestion)}
+                      className="block w-full border-b border-[var(--line-subtle)] px-3 py-2 text-left hover:bg-[var(--bg-panel)] last:border-b-0"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="text-sm font-medium text-[var(--text-strong)]">
+                            {suggestion.label}
+                          </div>
+                          {suggestion.subtitle ? (
+                            <div className="mt-1 text-xs text-[var(--text-muted)]">
+                              {suggestion.subtitle}
+                            </div>
+                          ) : null}
+                        </div>
+                        <div className="flex shrink-0 flex-wrap justify-end gap-1.5">
+                          <span className="rounded-full bg-[rgba(193,124,74,0.12)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent-strong)]">
+                            {startPointSuggestionTypeLabel(suggestion.type)}
+                          </span>
+                          <span className="rounded-full bg-[rgba(68,57,46,0.07)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                            {startPointSuggestionSourceLabel(suggestion.source)}
+                          </span>
+                        </div>
+                      </div>
+                    </button>
+                  ))
+                )}
+              </div>
+            ) : null}
+          </div>
+
+          <label className="min-w-[125px] flex-[0_0_125px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-[0.8]">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Anlass
+            </div>
+            <select
+              value={occasion}
+              onChange={(e) => setOccasion(e.target.value)}
+              className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
+            >
+              <option value="date">Date</option>
+              <option value="friends">Freunde</option>
+              <option value="family">Familie</option>
+              <option value="party">Party</option>
+              <option value="tourism">Tourismus</option>
+            </select>
+          </label>
+
+          <label className="min-w-[160px] flex-[0_0_160px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-1">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Fokus
+            </div>
+            <select
+              value={experienceMode}
+              onChange={(e) => setExperienceMode(e.target.value as ExperienceMode)}
+              className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
+            >
+              {quickExperienceOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="min-w-[145px] flex-[0_0_145px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-[0.85]">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Datum
+            </div>
+            <input
+              type="date"
+              value={planDate}
+              onChange={(e) => setPlanDate(e.target.value)}
+              className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
+            />
+          </label>
+        </div>
+
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--text-muted)]">
+          <div>
+            {manualStartFallsBackToCityCenter && selectedCity ? (
+              <>
+                Bis zur genauen Auswahl planen wir ab <span className="font-semibold">{selectedCityFallbackLabel}</span>.
+              </>
+            ) : (
+              <>
+                Start: <span className="font-semibold">{effectiveStartPoint.label || "-"}</span>
+              </>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={useCurrentLocationAsStartPoint}
+            className="rounded-md border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+          >
+            Aktueller Standort
+          </button>
         </div>
       </section>
 
