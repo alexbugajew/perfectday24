@@ -44,6 +44,7 @@ type PlannerVariantPanelProps = {
   onContinueAsGuest: () => void | Promise<void>;
   onSelectVariant: (variantId: string) => void;
   onToggleVariantReaction: (variantId: string, participantName: string) => void;
+  showPlanHeader?: boolean;
 };
 
 function occasionFallbackVariantLabel(occasion: string) {
@@ -79,6 +80,22 @@ function occasionFlowDescription(occasion: string) {
   return "Der Plan steigert die Nacht bewusst vom Warm-up über Pre-Drinks bis zum Peak und hält danach den Late Flow zusammen.";
 }
 
+function variantDramaValues(variant: PlanVariant | null, count: number) {
+  const patterns: Record<PlanVariant["goal"], number[]> = {
+    best_match: [42, 56, 72, 88, 68],
+    shortest_route: [50, 58, 64, 70, 56],
+    more_diverse: [48, 78, 54, 90, 64],
+    premium: [38, 58, 76, 96, 72],
+  };
+  const pattern = patterns[variant?.goal ?? "best_match"];
+
+  return Array.from({ length: count }, (_, index) => {
+    if (count <= 1) return pattern[0] ?? 56;
+    const scaledIndex = Math.round((index / Math.max(1, count - 1)) * (pattern.length - 1));
+    return pattern[Math.min(pattern.length - 1, scaledIndex)] ?? 56;
+  });
+}
+
 export default function PlannerVariantPanel({
   activeVariant,
   pinnedVariant,
@@ -109,9 +126,11 @@ export default function PlannerVariantPanel({
   onContinueAsGuest,
   onSelectVariant,
   onToggleVariantReaction,
+  showPlanHeader = true,
 }: PlannerVariantPanelProps) {
   return (
     <>
+      {showPlanHeader ? (
       <div className="mb-3 rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -173,6 +192,7 @@ export default function PlannerVariantPanel({
         </div>
       </div>
       </div>
+      ) : null}
 
       {(leadingVariant || currentShareChoiceSummary) && (
         <div className="mb-4 rounded-xl border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)]/70 p-4 text-sm text-[var(--brand-accent)]">
@@ -302,13 +322,20 @@ export default function PlannerVariantPanel({
                       {voteCount} von {reactionParticipants.length || 0}
                     </div>
                   ) : null}
+                  {active ? (
+                    <div className="mt-1 text-[11px] text-white/75">Beschreibung v</div>
+                  ) : null}
                 </button>
               );
             })}
           </div>
 
           {activeVariant?.reason ? (
-            <div className="p-3 border rounded-lg text-sm text-[var(--text-muted)]">
+            <details className="p-3 border rounded-lg text-sm text-[var(--text-muted)]">
+              <summary className="cursor-pointer list-none font-medium text-[var(--text-strong)]">
+                Beschreibung der Variante anzeigen v
+              </summary>
+              <div className="mt-3">
               {pinnedVariant?.variantId === activeVariant.variantId ? (
                 <div className="mb-2 inline-flex rounded-full border border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)] px-2 py-1 text-[11px] font-medium text-[var(--state-success)]">
                   Unsere Wahl
@@ -384,7 +411,8 @@ export default function PlannerVariantPanel({
                   ))}
                 </div>
               ) : null}
-            </div>
+              </div>
+            </details>
           ) : null}
         </div>
       ) : null}
@@ -418,7 +446,25 @@ export default function PlannerVariantPanel({
             </div>
           </div>
 
-          <div className="mt-4 grid md:grid-cols-5 gap-3">
+          <div className="mt-4 flex h-28 items-end gap-2 rounded-lg border bg-white/80 px-3 py-3">
+            {variantDramaValues(activeVariant, occasionFlow.length).map((value, idx) => {
+              const entry = occasionFlow[idx];
+              return (
+                <div key={`${entry?.stop.index ?? idx}-drama`} className="flex min-w-0 flex-1 flex-col items-center gap-2">
+                  <div
+                    className="w-full rounded-t-md bg-[var(--text-strong)] transition-all"
+                    style={{ height: `${value}%` }}
+                    aria-label={`${entry?.meta?.label ?? `Stop ${idx + 1}`}: Dramaturgie ${value}`}
+                  />
+                  <div className="w-full truncate text-center text-[10px] font-medium uppercase tracking-[0.08em] text-[var(--text-muted)]">
+                    {entry?.meta?.label ?? `Stop ${idx + 1}`}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-3 grid md:grid-cols-5 gap-3">
             {occasionFlow.map(({ stop, meta, phaseGoal }, idx) => (
               <div key={`${stop.index}-${idx}`} className="rounded-lg border bg-white p-3">
                 <div className="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">

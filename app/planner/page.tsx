@@ -1525,6 +1525,69 @@ function PlannerPageContent() {
             Aktueller Standort
           </button>
         </div>
+
+        <div className="mt-3 flex flex-col gap-3 border-t border-[rgba(68,57,46,0.08)] pt-3 lg:flex-row lg:items-center lg:justify-between">
+          <div className="min-w-0">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+              Dein Plan
+            </div>
+            {activeVariant ? (
+              <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
+                {activeVariant.label}
+                {typeof activeVariant.totalScore === "number" ? ` | Score ${activeVariant.totalScore}` : ""}
+                {pinnedVariant?.variantId === activeVariant.variantId ? " | Unsere Wahl" : ""}
+              </div>
+            ) : (
+              <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">Noch kein Plan erstellt</div>
+            )}
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={rerollPlan}
+              className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white"
+            >
+              Neu wuerfeln
+            </button>
+            <button type="button" onClick={resetPlan} className="rounded-md border px-3 py-1.5 text-xs">
+              Plan zuruecksetzen
+            </button>
+            {activeVariant ? (
+              <button
+                type="button"
+                onClick={() => setPinnedVariantId((prev) => (prev === activeVariant.variantId ? null : activeVariant.variantId))}
+                className={`rounded-md border px-3 py-1.5 text-xs ${
+                  pinnedVariant?.variantId === activeVariant.variantId
+                    ? "border-[var(--state-success)]/35 bg-[var(--brand-accent-cloud)] text-[var(--state-success)]"
+                    : ""
+                }`}
+              >
+                {pinnedVariant?.variantId === activeVariant.variantId ? "Unsere Wahl" : "Als Wahl markieren"}
+              </button>
+            ) : null}
+            {(pinnedVariant ?? activeVariant) ? (
+              <button type="button" onClick={copyPinnedChoiceSummary} className="rounded-md border px-3 py-1.5 text-xs">
+                Wahltext kopieren
+              </button>
+            ) : null}
+            {(pinnedVariant ?? activeVariant) ? (
+              <button type="button" onClick={openChoiceInChat} className="rounded-md border px-3 py-1.5 text-xs">
+                Chat vorbereiten
+              </button>
+            ) : null}
+            {!userId && authReady ? (
+              <button
+                type="button"
+                onClick={() => void continueAsGuest()}
+                disabled={authLoading}
+                className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
+              >
+                {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
+              </button>
+            ) : null}
+          </div>
+        </div>
       </section>
 
       <div className="grid gap-4 xl:grid-cols-[340px_minmax(0,1fr)] xl:items-start">
@@ -1687,6 +1750,7 @@ function PlannerPageContent() {
         onContinueAsGuest={continueAsGuest}
         onSelectVariant={setSelectedVariantId}
         onToggleVariantReaction={toggleVariantReaction}
+        showPlanHeader={false}
       />
 
       <PlannerActionPanel

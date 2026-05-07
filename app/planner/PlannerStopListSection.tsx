@@ -209,10 +209,6 @@ export default function PlannerStopListSection({
                         ) : null}
                       </div>
 
-                      <p className="mt-2 text-xs text-[var(--text-muted)]">
-                        Base: {stop.item.score} | Pref: +{stop.item.prefBoost} | Total: {stop.item.totalScore}
-                      </p>
-
                       {stop.scheduledStartAt ? (
                         <p className="mt-2 text-xs text-[var(--state-warning)]">
                           Zeitfenster: {formatPlannerTime(stop.scheduledStartAt)}
@@ -226,6 +222,15 @@ export default function PlannerStopListSection({
                           Details und Begruendung
                         </summary>
                         <div className="mt-3 space-y-3">
+                      <details className="rounded-lg border border-dashed border-[rgba(68,57,46,0.14)] bg-white px-3 py-2">
+                        <summary className="cursor-pointer text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
+                          Scoring
+                        </summary>
+                        <div className="mt-2 text-xs text-[var(--text-muted)]">
+                          Base: {stop.item.score} | Pref: +{stop.item.prefBoost} | Total: {stop.item.totalScore}
+                        </div>
+                      </details>
+
                       {stop.groupDecision && groupEnabled && groupMembersCount > 0 ? (
                         <div className="mt-4 rounded-2xl border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)]/70 p-3 text-xs text-[var(--brand-accent)]">
                           <div className="font-semibold">Gruppenentscheidung</div>
