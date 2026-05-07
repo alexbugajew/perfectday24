@@ -112,9 +112,10 @@ export default function PlannerVariantPanel({
 }: PlannerVariantPanelProps) {
   return (
     <>
-      <div className="flex items-center justify-between gap-4 mb-3">
+      <div className="mb-3 rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-2xl font-semibold">Dein Plan</h2>
+          <h2 className="text-xl font-semibold">Dein Plan</h2>
           {activeVariant ? (
             <div className="mt-1 text-sm text-[var(--text-muted)]">
               <span className="font-semibold">{activeVariant.label}</span>
@@ -124,19 +125,19 @@ export default function PlannerVariantPanel({
           ) : null}
         </div>
 
-        <div className="flex gap-2">
-          <button onClick={onRerollPlan} className="px-3 py-2 rounded bg-[var(--text-strong)] text-white text-sm">
+        <div className="flex flex-wrap gap-2">
+          <button onClick={onRerollPlan} className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white">
             Neu wuerfeln
           </button>
 
-          <button onClick={onResetPlan} className="px-3 py-2 rounded border text-sm">
+          <button onClick={onResetPlan} className="rounded-md border px-3 py-1.5 text-xs">
             Plan zurücksetzen
           </button>
 
           {activeVariant ? (
             <button
               onClick={() => onTogglePinnedVariant(activeVariant.variantId)}
-              className={`px-3 py-2 rounded border text-sm ${
+              className={`rounded-md border px-3 py-1.5 text-xs ${
                 pinnedVariant?.variantId === activeVariant.variantId
                   ? "bg-[var(--brand-accent-cloud)] border-[var(--state-success)]/35 text-[var(--state-success)]"
                   : ""
@@ -149,13 +150,13 @@ export default function PlannerVariantPanel({
           ) : null}
 
           {(pinnedVariant ?? activeVariant) ? (
-            <button onClick={onCopyPinnedChoiceSummary} className="px-3 py-2 rounded border text-sm">
+            <button onClick={onCopyPinnedChoiceSummary} className="rounded-md border px-3 py-1.5 text-xs">
               Wahltext kopieren
             </button>
           ) : null}
 
           {(pinnedVariant ?? activeVariant) ? (
-            <button onClick={onOpenChoiceInChat} className="px-3 py-2 rounded border text-sm">
+            <button onClick={onOpenChoiceInChat} className="rounded-md border px-3 py-1.5 text-xs">
               Im Chat vorbereiten
             </button>
           ) : null}
@@ -164,12 +165,13 @@ export default function PlannerVariantPanel({
             <button
               onClick={() => void onContinueAsGuest()}
               disabled={authLoading}
-              className="px-4 py-2 rounded border text-sm disabled:opacity-60"
+              className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
             >
               {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
             </button>
           ) : null}
         </div>
+      </div>
       </div>
 
       {(leadingVariant || currentShareChoiceSummary) && (

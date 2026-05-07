@@ -384,34 +384,34 @@ export default function PlannerControlsSection({
         </div>
       ) : null}
 
-      <section className="section-shell mb-6 overflow-hidden p-4 sm:p-6">
-        <div className="mb-5 flex flex-col gap-4 border-b border-[rgba(68,57,46,0.08)] pb-4 sm:flex-row sm:items-end sm:justify-between">
+      <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">
+        <div className="mb-3 flex flex-col gap-3 border-b border-[rgba(68,57,46,0.08)] pb-3">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
-              Planner Studio
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+              Filter
             </div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
-              Kontext setzen, dann baut der Planner den Tag.
+            <h2 className="mt-1 text-base font-semibold tracking-tight text-[var(--text-strong)]">
+              Suche anpassen
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+            <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
               Stadt, Anlass, Event-Fokus, Gruppe und Mobilitaet definieren. Danach wird aus den starken lokalen Kandidaten ein plausibler Ablauf statt nur einer Liste von Orten.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            <span className="warm-chip rounded-full px-3 py-1 text-xs">{cityLabel}</span>
-            <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-3 py-1 text-xs text-[var(--text-muted)]">
+          <div className="flex flex-wrap gap-1.5">
+            <span className="warm-chip rounded-md px-2 py-1 text-[11px]">{cityLabel}</span>
+            <span className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]">
               {groupEnabled ? "Gruppenplanung aktiv" : "Persoenlicher Plan"}
             </span>
-            <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-3 py-1 text-xs text-[var(--text-muted)]">
+            <span className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]">
               {eventCandidates.length} Event-Kandidaten
             </span>
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="grid gap-3 xl:grid-cols-[220px_minmax(320px,1fr)_320px]">
-            <label className="rounded-[22px] border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-[var(--shadow-soft)]">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+        <div className="space-y-3">
+          <div className="grid gap-2">
+            <label className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
                 Land
               </div>
               <select
@@ -422,7 +422,7 @@ export default function PlannerControlsSection({
                   resetStartPointForSelectedCity();
                   resetPlan();
                 }}
-                className="mt-2 w-full bg-transparent text-lg font-medium text-[var(--text-strong)] outline-none"
+                className="mt-1 w-full bg-transparent text-sm font-medium text-[var(--text-strong)] outline-none"
                 disabled={citiesLoading}
               >
                 <option value="all">Alle Laender</option>
@@ -434,8 +434,8 @@ export default function PlannerControlsSection({
               </select>
             </label>
 
-            <label className="rounded-[22px] border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-[var(--shadow-soft)]">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+            <label className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
                 Stadt
               </div>
               <select
@@ -446,7 +446,7 @@ export default function PlannerControlsSection({
                   resetStartPointForSelectedCity();
                   resetPlan();
                 }}
-                className="mt-2 w-full bg-transparent text-lg font-medium text-[var(--text-strong)] outline-none"
+                className="mt-1 w-full bg-transparent text-sm font-medium text-[var(--text-strong)] outline-none"
                 disabled={citiesLoading}
               >
                 <option value="__auto__">Auto (Standort)</option>
@@ -462,17 +462,17 @@ export default function PlannerControlsSection({
             <button
               type="button"
               onClick={() => setShowPlannerConfig((current) => !current)}
-              className="rounded-[22px] border border-[var(--line-subtle)] bg-white px-4 py-3 text-left shadow-[var(--shadow-soft)] transition hover:border-[var(--line-strong)] hover:bg-[var(--bg-surface)]"
+              className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-left transition hover:border-[var(--line-strong)] hover:bg-white"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
                     Planung
                   </div>
-                  <div className="mt-2 truncate text-lg font-semibold tracking-tight text-[var(--text-strong)]">
+                  <div className="mt-1 truncate text-sm font-semibold tracking-tight text-[var(--text-strong)]">
                     {plannerAudienceLabel}
                   </div>
-                  <div className="mt-1 line-clamp-2 text-sm leading-5 text-[var(--text-muted)]">
+                  <div className="mt-0.5 line-clamp-2 text-xs leading-4 text-[var(--text-muted)]">
                     {plannerSummaryLine}
                   </div>
                 </div>
@@ -497,7 +497,7 @@ export default function PlannerControlsSection({
                 </div>
               </div>
 
-              <div className="grid gap-3 lg:grid-cols-4">
+              <div className="grid gap-2">
                 <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Budget</div>
                   <select value={budget} onChange={(e) => setBudget(e.target.value)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
@@ -627,7 +627,7 @@ export default function PlannerControlsSection({
                 </label>
               </div>
 
-              <div className="mt-3 grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto_auto]">
+              <div className="mt-3 grid gap-2">
                 <button onClick={() => setShowPrefsModal(true)} className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-left text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]">
                   Vorlieben bearbeiten
                   <div className="mt-1 text-xs font-normal text-[var(--text-muted)]">
@@ -1250,7 +1250,7 @@ export default function PlannerControlsSection({
                   </div>
                 </div>
 
-                <div className="grid gap-2 md:grid-cols-3">
+                <div className="grid gap-2">
                   <input
                     value={memberName}
                     onChange={(e) => setMemberName(e.target.value)}
@@ -1378,7 +1378,7 @@ export default function PlannerControlsSection({
 
         {monetizationDebug ? (
           <div className="mb-6 space-y-4">
-            <div className="grid gap-4 xl:grid-cols-2">
+            <div className="grid gap-3">
               <InternalMonetizationSlot
                 enabled={monetizationDebug}
                 slotKey="planner_featured_event_module"

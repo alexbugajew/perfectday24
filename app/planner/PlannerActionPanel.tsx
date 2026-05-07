@@ -63,7 +63,7 @@ export default function PlannerActionPanel({
   const isEditingSelectedPlan = Boolean(editingPlanId && selectedPlan?.id === editingPlanId);
 
   return (
-    <div className="p-4 border rounded-lg mb-6 space-y-4">
+    <div className="space-y-3 rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">
       {plannerTemplateLoadedLabel ? (
         <div className="rounded-2xl border border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)] px-4 py-3 text-sm text-[var(--state-success)]">
           <div className="font-medium">Diese Vorlage in Planner geladen</div>
@@ -120,18 +120,18 @@ export default function PlannerActionPanel({
         </div>
       ) : null}
 
-      <div className="flex gap-3 flex-wrap items-center">
+      <div className="flex flex-wrap items-center gap-2">
         <input
           value={planTitle}
           onChange={(e) => onPlanTitleChange(e.target.value)}
           placeholder="Optionaler Titel (z.B. Date in Berlin)"
-          className="border p-2 rounded flex-1 min-w-[240px]"
+          className="min-h-9 min-w-[220px] flex-1 rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-sm"
         />
 
         <button
           onClick={() => void onGenerateAIText()}
           disabled={aiLoading || plannedStopsCount === 0}
-          className="px-4 py-2 rounded border text-sm disabled:opacity-60"
+          className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
         >
           {aiLoading ? "KI generiert..." : "KI-Text erzeugen"}
         </button>
@@ -139,7 +139,7 @@ export default function PlannerActionPanel({
         <button
           onClick={() => void onSaveDefault()}
           disabled={!authReady || !userId || saving || plannedStopsCount === 0}
-          className="px-4 py-2 rounded bg-[var(--text-strong)] text-white text-sm disabled:opacity-60"
+          className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white disabled:opacity-60"
         >
           {!authReady
             ? "Auth..."
@@ -156,7 +156,7 @@ export default function PlannerActionPanel({
           <button
             onClick={() => void onSaveVariant()}
             disabled={!authReady || !userId || saving || plannedStopsCount === 0}
-            className="px-4 py-2 rounded border text-sm disabled:opacity-60"
+            className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
           >
             {!authReady
               ? "Auth..."
@@ -172,7 +172,7 @@ export default function PlannerActionPanel({
           <button
             onClick={() => void onSaveFinal()}
             disabled={!authReady || !userId || saving || plannedStopsCount === 0}
-            className="px-4 py-2 rounded border text-sm disabled:opacity-60"
+            className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
           >
             {!authReady
               ? "Auth..."
@@ -188,7 +188,7 @@ export default function PlannerActionPanel({
           <button
             onClick={() => void onOpenCurrentPlannerGroupChat()}
             disabled={!authReady || !userId || saving || plannedStopsCount === 0}
-            className="px-4 py-2 rounded border text-sm disabled:opacity-60"
+            className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
           >
             Gruppenchat zu diesem Plan öffnen
           </button>
@@ -197,7 +197,7 @@ export default function PlannerActionPanel({
         <button
           onClick={onHandoffPlanToRouteBuilder}
           disabled={plannedStopsCount === 0}
-          className="px-4 py-2 rounded border text-sm disabled:opacity-60"
+          className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
         >
           Als Creator-Route vorbereiten
         </button>
@@ -205,7 +205,7 @@ export default function PlannerActionPanel({
         <button
           onClick={() => void onLoadPlans()}
           disabled={!authReady || !userId || loadingPlans}
-          className="px-4 py-2 rounded border text-sm"
+          className="rounded-md border px-3 py-1.5 text-xs"
         >
           {!authReady ? "Auth..." : loadingPlans ? "Lade..." : "Meine Pläne"}
         </button>
@@ -214,7 +214,7 @@ export default function PlannerActionPanel({
           <button
             onClick={() => void onContinueAsGuest()}
             disabled={authLoading}
-            className="px-4 py-2 rounded border text-sm disabled:opacity-60"
+            className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
           >
             {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
           </button>

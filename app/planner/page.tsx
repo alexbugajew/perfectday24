@@ -24,6 +24,7 @@ import {
 import type { RouteSummary } from "@/components/PlanMap";
 import PlannerActionPanel from "./PlannerActionPanel";
 import PlannerControlsSection from "./PlannerControlsSection";
+import PlannerMapPanel from "./PlannerMapPanel";
 import PlannerOutputSection from "./PlannerOutputSection";
 import PlannerVariantPanel from "./PlannerVariantPanel";
 import {
@@ -121,7 +122,7 @@ function PlannerPageContent() {
   const [plannerTemplateLoadedLabel, setPlannerTemplateLoadedLabel] = useState<string | null>(null);
   const [plannerTemplateSourceSlug, setPlannerTemplateSourceSlug] = useState<string | null>(null);
   const [plannerTemplateInterests, setPlannerTemplateInterests] = useState<string[]>([]);
-  const [showPlannerConfig, setShowPlannerConfig] = useState(false);
+  const [showPlannerConfig, setShowPlannerConfig] = useState(true);
 
   const [stopOffsets, setStopOffsets] = useState<number[]>([]);
 
@@ -1275,45 +1276,45 @@ function PlannerPageContent() {
   ].join(" · ");
 
   return (
-    <main className="space-y-6">
-      <section className="relative overflow-hidden rounded-[32px] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(229,234,238,0.92))] px-6 py-7 shadow-[var(--shadow-large)] sm:px-8">
+    <main className="space-y-4">
+      <section className="relative overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
         <div className="pointer-events-none absolute right-[-4rem] top-[-4rem] h-40 w-40 rounded-full bg-[rgba(90,118,136,0.14)] blur-3xl" />
         <div className="pointer-events-none absolute bottom-[-3rem] left-[16%] h-32 w-32 rounded-full bg-[rgba(124,144,160,0.12)] blur-3xl" />
-        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div className="relative flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-3xl">
-            <div className="mb-4 flex flex-wrap gap-2">
-              <span className="warm-chip rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]">
+            <div className="mb-2 flex flex-wrap gap-2">
+              <span className="warm-chip rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em]">
                 Real local planning
               </span>
-              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
                 {cityLabel}
               </span>
-              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
                 {experienceModeLabel(experienceMode, occasion)}
               </span>
             </div>
-            <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-5xl">
-              Ein Tag, der sich wirklich nach euch und eurer Stadt anfuehlt.
+            <h1 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
+              Planner
             </h1>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--text-muted)] sm:text-lg">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
               PerfectDay24 verbindet Stadtwissen, echte Events, Gruppenentscheidungen und sinnvolle Wegezeiten
               zu einem Plan, der nicht nach Formular aussieht, sondern nach einem richtig guten Tag.
             </p>
           </div>
 
-          <div className="glass-panel w-full max-w-md rounded-[28px] p-4 sm:p-5">
+          <div className="w-full max-w-md rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3">
             <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--text-muted)]">
               Heute im Fokus
             </div>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-[rgba(68,57,46,0.08)] bg-white/90 p-4">
+            <div className="mt-2 grid gap-2 sm:grid-cols-2">
+              <div className="rounded-md border border-[rgba(68,57,46,0.08)] bg-white p-3">
                 <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Planner-Modus</div>
                 <div className="mt-2 text-sm font-semibold text-[var(--text-strong)]">
                   {experienceModeLabel(experienceMode, occasion)}
                 </div>
                 <div className="mt-1 text-xs leading-5 text-[var(--text-muted)]">{experienceModeHint(experienceMode, occasion)}</div>
               </div>
-              <div className="rounded-2xl border border-[rgba(68,57,46,0.08)] bg-white/90 p-4">
+              <div className="rounded-md border border-[rgba(68,57,46,0.08)] bg-white p-3">
                 <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Aktive Signale</div>
                 <div className="mt-2 text-sm font-semibold text-[var(--text-strong)]">
                   {groupEnabled ? `${groupMembers.length + 1} Personen` : "Solo-Planung"}
@@ -1323,14 +1324,14 @@ function PlannerPageContent() {
                 </div>
               </div>
             </div>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-3 flex flex-wrap gap-2">
               <Link
                 href="/routes"
-                className="rounded-full bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#1f2937]"
+                className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-[#1f2937]"
               >
                 Creator Routes ansehen
               </Link>
-              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-muted)]">
+              <span className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)]">
                 {routeProfileLabel(routeProfile)} · {planMode}
               </span>
             </div>
@@ -1338,7 +1339,21 @@ function PlannerPageContent() {
         </div>
       </section>
 
-      <PlannerControlsSection
+      <div className="grid gap-4 xl:grid-cols-[340px_minmax(0,1fr)] xl:items-start">
+        <aside className="space-y-4 xl:sticky xl:top-24 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto xl:pr-1">
+          <PlannerMapPanel
+            routeProfile={routeProfile}
+            onRouteProfileChange={setRouteProfile}
+            googleRouteUrl={googleRouteUrl}
+            effectiveStartPointLabel={effectiveStartPoint.label || null}
+            mapStops={mapStops}
+            routeSummary={routeSummary}
+            onRouteSummaryChange={setRouteSummary}
+            plannerLoading={plannerLoading}
+            fallbackSummary={fallbackSummary}
+          />
+
+          <PlannerControlsSection
         showPrefsModal={showPrefsModal}
         setShowPrefsModal={setShowPrefsModal}
         profileRequired={profileRequired}
@@ -1446,10 +1461,13 @@ function PlannerPageContent() {
         effectiveCitySlug={effectiveCitySlug}
         eventDebugRows={eventDebugRows}
         eventDebugGroupCounts={eventDebugGroupCounts}
-        monetizationDebug={monetizationDebug}
-      />
+            monetizationDebug={monetizationDebug}
+          />
 
-      <PlannerVariantPanel
+        </aside>
+
+        <section className="min-w-0 space-y-4">
+          <PlannerVariantPanel
         activeVariant={activeVariant}
         pinnedVariant={pinnedVariant}
         leadingVariant={leadingVariant}
@@ -1547,6 +1565,8 @@ function PlannerPageContent() {
         planChoiceReactions={planChoiceReactions}
         planEditSuggestions={planEditSuggestions}
       />
+        </section>
+      </div>
 
       {toast ? (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-[var(--text-strong)] text-white text-sm px-4 py-2 rounded-lg shadow-lg z-50">

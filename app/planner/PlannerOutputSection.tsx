@@ -1,7 +1,5 @@
-"use client";
-
-import dynamic from "next/dynamic";
 import { useMemo } from "react";
+import dynamic from "next/dynamic";
 import type { RouteSummary, PlanMapStop } from "@/components/PlanMap";
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
 import type { PlannedStop, RouteProfile, RouteSummaryLite } from "@/lib/planner";
@@ -20,11 +18,6 @@ import type {
   SavedPlanRow,
   SharedPlanChoiceReactionSummary,
 } from "./types";
-
-const PlanMap = dynamic(
-  () => import("@/components/PlanMap").then((module) => module.default),
-  { ssr: false }
-);
 
 type PlannerOutputSectionProps = {
   routeProfile: RouteProfile;
@@ -61,6 +54,11 @@ type PlannerOutputSectionProps = {
   planChoiceReactions: Record<string, SharedPlanChoiceReactionSummary>;
   planEditSuggestions: Record<string, PlanEditSuggestionSummary[]>;
 };
+
+const PlanMap = dynamic(
+  () => import("@/components/PlanMap").then((module) => module.default),
+  { ssr: false }
+);
 
 export default function PlannerOutputSection({
   routeProfile,
@@ -192,7 +190,7 @@ export default function PlannerOutputSection({
 
   return (
     <>
-      <div className="mb-6 space-y-3 rounded-lg border p-4">
+      <div className="hidden">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="font-semibold">Route</div>
