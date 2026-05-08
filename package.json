@@ -33,7 +33,7 @@
     "events:ingest:official": "node .codex-scripts-dist/scripts/ingest-official-city-events.js",
     "events:coverage": "node .codex-scripts-dist/scripts/report-event-coverage.js",
     "events:refresh:ticketmaster": "npm run events:build && npm run events:ingest:ticketmaster:rollout33 && npm run events:coverage",
-    "events:refresh:official": "npm run events:build && npm run events:ingest:official -- --provider=all && npm run events:coverage",
+    "events:refresh:official": "npm run events:build && npm run events:ingest:official -- --provider=all --delay-ms=1500 --continue-on-error=true && npm run events:coverage",
     "routes:ingest:editorial": "node .codex-scripts-dist/scripts/ingest-editorial-routes.js",
     "routes:images:suggest": "node .codex-scripts-dist/scripts/suggest-route-images.js",
     "routes:images:review": "node .codex-scripts-dist/scripts/create-route-image-review.js",

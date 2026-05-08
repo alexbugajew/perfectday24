@@ -197,6 +197,10 @@ function chunkItems<T>(items: T[], size: number) {
   return chunks;
 }
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function main() {
   const envPath = resolve(process.cwd(), ".env.local");
   loadEnvFile(envPath);
@@ -210,6 +214,8 @@ async function main() {
 
   const providerArg = parseArg("provider") ?? "visitberlin";
   const cityArg = parseArg("city");
+  const delayMs = Math.max(0, Number(parseArg("delay-ms") ?? "1000"));
+  const continueOnError = parseArg("continue-on-error") !== "false";
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
@@ -243,8 +249,15 @@ async function main() {
   let totalNormalized = 0;
   const cleanedSources = new Set<string>();
   const touchedCities = new Set<string>();
+  const failedSources: string[] = [];
 
-  for (const config of configs) {
+  for (let configIndex = 0; configIndex < configs.length; configIndex++) {
+    const config = configs[configIndex];
+    if (configIndex > 0 && delayMs > 0) {
+      await sleep(delayMs);
+    }
+
+    try {
     let normalized: NonNullable<ReturnType<typeof normalizeVisitBerlinEvent>>[] = [];
     let rawCount = 0;
 
@@ -519,6 +532,14 @@ async function main() {
     console.log(
       `[official] ${config.provider}/${config.city_slug}: ${normalized.length} Events gespeichert`
     );
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      failedSources.push(`${config.provider}/${config.city_slug}: ${message}`);
+      console.error(`[official] ${config.provider}/${config.city_slug}: Import fehlgeschlagen: ${message}`);
+      if (!continueOnError) {
+        throw error;
+      }
+    }
   }
 
   for (const citySlug of touchedCities) {
@@ -531,6 +552,13 @@ async function main() {
   console.log(
     `[official] fertig: ${configs.length} Quellen, ${totalFetched} raw events, ${totalNormalized} normalisiert`
   );
+
+  if (failedSources.length > 0) {
+    console.log(`[official] fehlgeschlagen: ${failedSources.join(" | ")}`);
+    if (failedSources.length === configs.length) {
+      process.exitCode = 1;
+    }
+  }
 }
 
 main().catch((error) => {
