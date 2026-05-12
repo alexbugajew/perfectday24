@@ -54,6 +54,43 @@ const PlanMap = dynamic(() => import("@/components/PlanMap").then((m) => m.defau
   ssr: false,
 });
 
+function PlayPauseIcon({ isPaused = false }: { isPaused?: boolean }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none">
+      {isPaused ? (
+        <>
+          <rect x="7" y="5" width="3.2" height="14" rx="1.2" fill="currentColor" />
+          <rect x="13.8" y="5" width="3.2" height="14" rx="1.2" fill="currentColor" />
+        </>
+      ) : (
+        <path d="M8 5.8c0-1.05 1.14-1.72 2.06-1.2l9.2 5.25c.92.52.92 1.85 0 2.37l-9.2 5.25C9.14 18 8 17.33 8 16.28V5.8Z" fill="currentColor" />
+      )}
+    </svg>
+  );
+}
+
+function CopyRouteIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none">
+      <rect x="7.5" y="4" width="11" height="11" rx="2.4" className="fill-current opacity-35" />
+      <rect x="4.5" y="7.5" width="12" height="12" rx="2.6" fill="currentColor" />
+    </svg>
+  );
+}
+
+function SliderRouteIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <path d="M5 6h14" />
+      <path d="M5 12h14" />
+      <path d="M5 18h14" />
+      <circle cx="9" cy="6" r="2" fill="currentColor" stroke="none" />
+      <circle cx="15" cy="12" r="2" fill="currentColor" stroke="none" />
+      <circle cx="11" cy="18" r="2" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 type UserRouteRow = {
   id: string;
   user_id: string;
@@ -2116,25 +2153,34 @@ function RouteDetailPageContent() {
           <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
             <Link
               href={`/routes/${route.slug ?? slug}/run`}
+              aria-label={hasRouteRunProgress ? "Route fortsetzen" : "Route starten"}
+              title={hasRouteRunProgress ? "Route fortsetzen" : "Route starten"}
               className={`flex min-h-12 items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-semibold shadow-sm transition ${
                 hasRouteRunProgress
                   ? "border bg-white text-gray-950 hover:bg-gray-50"
                   : "bg-black text-white hover:opacity-95"
               }`}
             >
-              {hasRouteRunProgress ? "Route fortsetzen" : "Route starten"}
+              <PlayPauseIcon isPaused={hasRouteRunProgress} />
+              <span className="sr-only">{hasRouteRunProgress ? "Route fortsetzen" : "Route starten"}</span>
             </Link>
             <button
               onClick={handoffRouteToPlanner}
+              aria-label={plannerTemplateQueued ? "Vorlage wird geladen" : "Als Vorlage planen"}
+              title={plannerTemplateQueued ? "Vorlage wird geladen" : "Als Vorlage planen"}
               className="flex min-h-12 items-center justify-center rounded-2xl border bg-white px-3 py-3 text-center text-sm font-semibold text-gray-950 shadow-sm transition hover:bg-gray-50"
             >
-              {plannerTemplateQueued ? "Vorlage wird geladen..." : "Als Vorlage planen"}
+              <CopyRouteIcon />
+              <span className="sr-only">{plannerTemplateQueued ? "Vorlage wird geladen..." : "Als Vorlage planen"}</span>
             </button>
             <button
               onClick={() => void personalizeRouteForInterests()}
+              aria-label={groupMemberCount > 0 ? "An unsere Vorlieben anpassen" : "An meine Vorlieben anpassen"}
+              title={groupMemberCount > 0 ? "An unsere Vorlieben anpassen" : "An meine Vorlieben anpassen"}
               className="flex min-h-12 items-center justify-center rounded-2xl border border-amber-200 bg-amber-50 px-3 py-3 text-center text-sm font-semibold text-amber-950 shadow-sm transition hover:bg-amber-100"
             >
-              {groupMemberCount > 0 ? "An unsere Vorlieben anpassen" : "An meine Vorlieben anpassen"}
+              <SliderRouteIcon />
+              <span className="sr-only">{groupMemberCount > 0 ? "An unsere Vorlieben anpassen" : "An meine Vorlieben anpassen"}</span>
             </button>
             <button
               type="button"
