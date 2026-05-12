@@ -501,6 +501,20 @@ function formatDate(iso: string | null | undefined) {
   });
 }
 
+function compactCount(value: number | null | undefined) {
+  return new Intl.NumberFormat("de-DE", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value ?? 0);
+}
+
+function compactRating(value: number | null | undefined) {
+  const rating = Number.isFinite(value ?? Number.NaN) ? value ?? 0 : 0;
+  return new Intl.NumberFormat("de-DE", {
+    maximumFractionDigits: 1,
+  }).format(rating);
+}
+
 function visibilityLabel(v: UserRouteRow["visibility"]) {
   if (v === "public") return "Ã–ffentlich";
   if (v === "unlisted") return "Nicht gelistet";
@@ -2027,37 +2041,55 @@ function RouteDetailPageContent() {
               ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 sm:flex sm:flex-wrap sm:items-center">
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-center">{route.avg_rating} / 5</span>
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-center">{route.rating_count} Bewertungen</span>
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-center">{route.like_count} Likes</span>
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-center">{route.bookmark_count} Saves</span>
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs text-gray-600">
+              <span
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-[12px] font-semibold text-gray-950"
+                title={`${compactRating(route.avg_rating)} von 5`}
+              >
+                {compactRating(route.avg_rating)}/5
+              </span>
               <a
                 href="#route-rating"
-                aria-label="Route bewerten"
-                className="flex h-9 items-center justify-center rounded-full border border-black/10 bg-white text-base text-gray-900 transition hover:bg-gray-50 sm:w-9"
+                aria-label={`${route.rating_count} Bewertungen. Route bewerten`}
+                title={`${route.rating_count} Bewertungen`}
+                className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-lg text-gray-900 transition hover:bg-gray-50"
               >
                 <span aria-hidden="true">☆</span>
+                <span className="absolute -right-0.5 -top-0.5 min-w-5 rounded-full bg-gray-950 px-1 text-center text-[10px] font-semibold leading-5 text-white">
+                  {compactCount(route.rating_count)}
+                </span>
               </a>
               <button
                 onClick={toggleLike}
                 disabled={busyLike}
-                aria-label={liked ? "Like entfernen" : "Route liken"}
-                className={`flex h-9 items-center justify-center rounded-full border text-base transition disabled:opacity-60 sm:w-9 ${
+                aria-label={liked ? `${route.like_count} Likes. Like entfernen` : `${route.like_count} Likes. Route liken`}
+                title={`${route.like_count} Likes`}
+                className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-lg transition disabled:opacity-60 ${
                   liked ? "border-black bg-black text-white" : "border-black/10 bg-white text-gray-900 hover:bg-gray-50"
                 }`}
               >
                 <span aria-hidden="true">♥</span>
+                <span className={`absolute -right-0.5 -top-0.5 min-w-5 rounded-full px-1 text-center text-[10px] font-semibold leading-5 ${
+                  liked ? "bg-white text-gray-950" : "bg-gray-950 text-white"
+                }`}>
+                  {compactCount(route.like_count)}
+                </span>
               </button>
               <button
                 onClick={toggleBookmark}
                 disabled={busyBookmark}
-                aria-label={bookmarked ? "Gespeichert" : "Route speichern"}
-                className={`flex h-9 items-center justify-center rounded-full border text-base transition disabled:opacity-60 sm:w-9 ${
+                aria-label={bookmarked ? `${route.bookmark_count} Saves. Gespeichert` : `${route.bookmark_count} Saves. Route speichern`}
+                title={`${route.bookmark_count} Saves`}
+                className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-base transition disabled:opacity-60 ${
                   bookmarked ? "border-black bg-black text-white" : "border-black/10 bg-white text-gray-900 hover:bg-gray-50"
                 }`}
               >
                 <span aria-hidden="true">🔖</span>
+                <span className={`absolute -right-0.5 -top-0.5 min-w-5 rounded-full px-1 text-center text-[10px] font-semibold leading-5 ${
+                  bookmarked ? "bg-white text-gray-950" : "bg-gray-950 text-white"
+                }`}>
+                  {compactCount(route.bookmark_count)}
+                </span>
               </button>
             </div>
 
@@ -2120,29 +2152,25 @@ function RouteDetailPageContent() {
             </div>
 
             {personalizationMembers.length > 0 ? (
-              <div className="rounded-2xl border border-amber-200 bg-amber-50 px-3 py-3 text-xs text-amber-950">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="font-medium text-amber-950">Vorlieben</div>
-                  <div className="rounded-full bg-white px-2 py-0.5 text-[11px] text-amber-900">
-                    {effectivePersonalizationInterests.length} Signale
-                  </div>
-                </div>
-                <div className="mt-2 flex flex-wrap gap-1.5">
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 px-2.5 py-2 text-xs text-amber-950">
+                <div className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
+                  <span className="shrink-0 font-medium text-amber-950">Vorlieben</span>
                   {personalizationMembers.map((member) => (
-                    <span key={member.name} className={`rounded-full px-2.5 py-1 ${member.isCurrentUser ? "bg-black text-white" : "border border-black/10 bg-white text-gray-700"}`}>
+                    <span key={member.name} className={`shrink-0 rounded-full px-2.5 py-1 ${member.isCurrentUser ? "bg-black text-white" : "border border-black/10 bg-white text-gray-700"}`}>
                       {member.name}
                     </span>
                   ))}
+                  {effectivePersonalizationInterests.slice(0, 3).map((interest) => (
+                    <span key={interest} className="shrink-0 rounded-full border border-black/10 bg-white px-2.5 py-1 text-gray-700">
+                      {interest}
+                    </span>
+                  ))}
+                  {effectivePersonalizationInterests.length > 3 ? (
+                    <span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-amber-900">
+                      +{effectivePersonalizationInterests.length - 3}
+                    </span>
+                  ) : null}
                 </div>
-                {effectivePersonalizationInterests.length > 0 ? (
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {effectivePersonalizationInterests.slice(0, 6).map((interest) => (
-                      <span key={interest} className="rounded-full border border-black/10 bg-white px-2.5 py-1 text-gray-700">
-                        {interest}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
               </div>
             ) : null}
 
@@ -2189,12 +2217,7 @@ function RouteDetailPageContent() {
               onClick={() => setRouteInfoOpen((open) => !open)}
               className="flex min-h-12 items-center justify-center rounded-2xl border bg-white px-3 py-3 text-center text-sm font-semibold text-gray-950 shadow-sm transition hover:bg-gray-50"
             >
-              <div className="flex items-center gap-2">
-                <span>Infos zur Route</span>
-                <span className="rounded-full border border-black/10 bg-gray-50 px-2 py-0.5 text-[11px] font-medium text-gray-600">
-                  {routeInfoOpen ? "Zuklappen" : "Aufklappen"}
-                </span>
-              </div>
+              Infos
             </button>
           </div>
 
