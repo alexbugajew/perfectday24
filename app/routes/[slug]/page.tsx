@@ -25,7 +25,6 @@ import {
 import {
   compareVariantOrder,
   matchesVariantFilter,
-  routeVariantMeta,
   routeVariantRoleLabel,
   type VariantFilter,
   type VariantSort,
@@ -75,8 +74,8 @@ type UserRouteRow = {
   rating_count: number;
   bookmark_count: number;
   like_count: number;
-  tags?: any;
-  meta?: any;
+  tags?: unknown;
+  meta?: unknown;
   created_at: string;
   updated_at: string;
 };
@@ -94,14 +93,8 @@ type RouteStopRow = {
   lat: number | null;
   lng: number | null;
   photo_url: string | null;
-  meta?: any;
+  meta?: unknown;
   created_at: string;
-};
-
-type RouteLikeRow = {
-  id: string;
-  route_id: string;
-  user_id: string;
 };
 
 type RouteBookmarkRow = {
@@ -1166,19 +1159,20 @@ function RouteDetailPageContent() {
       rows.sort((a, b) => b.score - a.score);
       setSimilarRoutes(rows.slice(0, 4).map((row) => row.candidate));
     })();
-  }, [route?.id, route?.city_slug, route?.creator_type, route?.meta, route?.tags]);
+  }, [route]);
 
   useEffect(() => {
     if (!route?.id) return;
 
     (async () => {
+      const meta = route.meta && typeof route.meta === "object" ? (route.meta as Record<string, unknown>) : {};
+      const personalizedVariant =
+        meta.personalizedVariant && typeof meta.personalizedVariant === "object"
+          ? (meta.personalizedVariant as Record<string, unknown>)
+          : null;
       const baseRouteId =
-        route.meta &&
-        typeof route.meta === "object" &&
-        route.meta.personalizedVariant &&
-        typeof route.meta.personalizedVariant === "object" &&
-        typeof (route.meta.personalizedVariant as Record<string, unknown>).baseRouteId === "string"
-          ? ((route.meta.personalizedVariant as Record<string, unknown>).baseRouteId as string)
+        typeof personalizedVariant?.baseRouteId === "string"
+          ? personalizedVariant.baseRouteId
           : null;
 
       const { data, error } = await supabase
@@ -1431,7 +1425,7 @@ function RouteDetailPageContent() {
 
       setCoSavedRoutes(ordered.slice(0, 4));
     })();
-  }, [route?.id]);
+  }, [route?.city_slug, route?.id]);
 
   useEffect(() => {
     if (!authReady || !route?.id || !userId) return;
@@ -1985,24 +1979,26 @@ function RouteDetailPageContent() {
           </div>
         )}
 
-        <div className="grid gap-6 px-6 pt-6 lg:grid-cols-[minmax(0,1fr)_320px] md:px-8 md:pt-8">
-          <div className="space-y-5">
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 px-4 pt-4 lg:grid-cols-[minmax(0,1fr)_280px] md:px-8 md:pt-6">
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
               {routeQuickFacts.map((fact) => (
-                <div key={fact.label} className="rounded-2xl border bg-gray-50 p-4">
-                  <div className="text-xs uppercase tracking-wide text-gray-500">{fact.label}</div>
-                  <div className="mt-1 text-lg font-semibold text-gray-950">{fact.value}</div>
+                <div key={fact.label} className="min-w-0 rounded-2xl border bg-gray-50 px-3 py-2.5">
+                  <div className="text-[10px] uppercase tracking-[0.16em] text-gray-500">{fact.label}</div>
+                  <div className="mt-0.5 truncate text-sm font-semibold text-gray-950 sm:text-base">{fact.value}</div>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600">
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1">{route.avg_rating} / 5</span>
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1">{route.rating_count} Bewertungen</span>
+            <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 sm:flex sm:flex-wrap sm:items-center">
+              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-center">{route.avg_rating} / 5</span>
+              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-center">{route.rating_count} Bewertungen</span>
+              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-center">{route.like_count} Likes</span>
+              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-center">{route.bookmark_count} Saves</span>
               <a
                 href="#route-rating"
                 aria-label="Route bewerten"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-lg text-gray-900 transition hover:bg-gray-50"
+                className="flex h-9 items-center justify-center rounded-full border border-black/10 bg-white text-base text-gray-900 transition hover:bg-gray-50 sm:w-9"
               >
                 <span aria-hidden="true">☆</span>
               </a>
@@ -2010,30 +2006,33 @@ function RouteDetailPageContent() {
                 onClick={toggleLike}
                 disabled={busyLike}
                 aria-label={liked ? "Like entfernen" : "Route liken"}
-                className={`flex h-10 w-10 items-center justify-center rounded-full border text-lg transition disabled:opacity-60 ${
+                className={`flex h-9 items-center justify-center rounded-full border text-base transition disabled:opacity-60 sm:w-9 ${
                   liked ? "border-black bg-black text-white" : "border-black/10 bg-white text-gray-900 hover:bg-gray-50"
                 }`}
               >
                 <span aria-hidden="true">♥</span>
               </button>
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1">{route.like_count} Likes</span>
               <button
                 onClick={toggleBookmark}
                 disabled={busyBookmark}
                 aria-label={bookmarked ? "Gespeichert" : "Route speichern"}
-                className={`flex h-10 w-10 items-center justify-center rounded-full border text-lg transition disabled:opacity-60 ${
+                className={`flex h-9 items-center justify-center rounded-full border text-base transition disabled:opacity-60 sm:w-9 ${
                   bookmarked ? "border-black bg-black text-white" : "border-black/10 bg-white text-gray-900 hover:bg-gray-50"
                 }`}
               >
                 <span aria-hidden="true">🔖</span>
               </button>
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1">{route.bookmark_count} Saves</span>
             </div>
 
             {route.description ? (
-              <p className="text-base leading-7 text-gray-700 whitespace-pre-wrap">{route.description}</p>
+              <details className="rounded-2xl border border-black/10 bg-white px-3 py-3 text-sm text-gray-700">
+                <summary className="cursor-pointer list-none font-medium text-gray-950">
+                  Kurzbeschreibung
+                </summary>
+                <p className="mt-2 line-clamp-4 whitespace-pre-wrap leading-6">{route.description}</p>
+              </details>
             ) : (
-              <p className="text-base leading-7 text-gray-500">Diese Route hat noch keine längere Beschreibung. Die Stop-Reihenfolge und Hinweise unten geben dir trotzdem einen guten Überblick.</p>
+              <p className="rounded-2xl border border-black/10 bg-white px-3 py-3 text-sm leading-6 text-gray-500">Diese Route hat noch keine längere Beschreibung. Die Stop-Reihenfolge und Hinweise unten geben dir trotzdem einen guten Überblick.</p>
             )}
 
             {personalizedVariantMeta ? (
@@ -2060,59 +2059,64 @@ function RouteDetailPageContent() {
 
           </div>
 
-          <aside className="space-y-4">
-            <div className="rounded-2xl border bg-gray-50 p-5">
-              <div className="text-xs uppercase tracking-wide text-gray-500">Creator</div>
-              <div className="mt-3 flex items-center gap-4">
-                <div className="h-14 w-14 overflow-hidden rounded-full border bg-white">
+          <aside className="space-y-3">
+            <div className="rounded-2xl border bg-gray-50 p-3">
+              <div className="flex items-center gap-3">
+                <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border bg-white">
                   {creator?.avatar_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={creator.avatar_url} alt={creatorName} className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-lg font-semibold text-gray-500">{creatorName.slice(0, 1).toUpperCase()}</div>
+                    <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-gray-500">{creatorName.slice(0, 1).toUpperCase()}</div>
                   )}
                 </div>
-                <div><div className="font-semibold">{creatorName}</div><div className="text-sm text-gray-500">{niceCreatorType(route.creator_type)}</div></div>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-sm font-semibold">{creatorName}</div>
+                  <div className="text-xs text-gray-500">{niceCreatorType(route.creator_type)}</div>
+                </div>
+                {creatorProfileHref ? (
+                  <Link href={creatorProfileHref} className="shrink-0 text-xs underline underline-offset-4">
+                    Profil
+                  </Link>
+                ) : null}
               </div>
-              {creator?.bio ? <p className="mt-3 text-sm text-gray-600 line-clamp-4">{creator.bio}</p> : null}
-              {creatorProfileHref ? <div className="mt-4"><Link href={creatorProfileHref} className="text-sm underline underline-offset-4">Öffentliches Profil ansehen</Link></div> : null}
             </div>
 
             {personalizationMembers.length > 0 ? (
-              <div className="rounded-2xl border bg-amber-50 px-4 py-4 text-sm text-amber-950">
-                <div className="font-medium text-amber-950">Wessen Vorlieben gerade einfließen</div>
-                <div className="mt-3 flex flex-wrap gap-2">
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 px-3 py-3 text-xs text-amber-950">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="font-medium text-amber-950">Vorlieben</div>
+                  <div className="rounded-full bg-white px-2 py-0.5 text-[11px] text-amber-900">
+                    {effectivePersonalizationInterests.length} Signale
+                  </div>
+                </div>
+                <div className="mt-2 flex flex-wrap gap-1.5">
                   {personalizationMembers.map((member) => (
-                    <span key={member.name} className={`rounded-full px-3 py-1 text-xs ${member.isCurrentUser ? "bg-black text-white" : "border border-black/10 bg-white text-gray-700"}`}>
+                    <span key={member.name} className={`rounded-full px-2.5 py-1 ${member.isCurrentUser ? "bg-black text-white" : "border border-black/10 bg-white text-gray-700"}`}>
                       {member.name}
                     </span>
                   ))}
                 </div>
                 {effectivePersonalizationInterests.length > 0 ? (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {effectivePersonalizationInterests.slice(0, 10).map((interest) => (
-                      <span key={interest} className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-gray-700">
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {effectivePersonalizationInterests.slice(0, 6).map((interest) => (
+                      <span key={interest} className="rounded-full border border-black/10 bg-white px-2.5 py-1 text-gray-700">
                         {interest}
                       </span>
                     ))}
                   </div>
                 ) : null}
-                <div className="mt-3 text-sm leading-6 text-amber-900">
-                  {groupMemberCount > 0
-                    ? "Die Personalisierung kombiniert dein Profil mit den Interessen deiner eingeladenen Gruppe."
-                    : "Die Personalisierung nutzt aktuell deine gespeicherten Profil-Interessen."}
-                </div>
               </div>
             ) : null}
 
           </aside>
         </div>
 
-        <div className="mt-6 space-y-4 px-6 pb-6 md:px-8 md:pb-8">
-          <div className="grid gap-3 lg:grid-cols-4">
+        <div className="mt-5 space-y-4 px-4 pb-5 md:px-8 md:pb-8">
+          <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
             <Link
               href={`/routes/${route.slug ?? slug}/run`}
-              className={`flex min-h-[88px] items-center justify-start rounded-2xl px-5 py-4 text-left text-base font-semibold shadow-sm transition ${
+              className={`flex min-h-12 items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-semibold shadow-sm transition ${
                 hasRouteRunProgress
                   ? "border bg-white text-gray-950 hover:bg-gray-50"
                   : "bg-black text-white hover:opacity-95"
@@ -2122,13 +2126,13 @@ function RouteDetailPageContent() {
             </Link>
             <button
               onClick={handoffRouteToPlanner}
-              className="flex min-h-[88px] items-center justify-start rounded-2xl border bg-white px-5 py-4 text-left text-base font-semibold text-gray-950 shadow-sm transition hover:bg-gray-50"
+              className="flex min-h-12 items-center justify-center rounded-2xl border bg-white px-3 py-3 text-center text-sm font-semibold text-gray-950 shadow-sm transition hover:bg-gray-50"
             >
               {plannerTemplateQueued ? "Vorlage wird geladen..." : "Als Vorlage planen"}
             </button>
             <button
               onClick={() => void personalizeRouteForInterests()}
-              className="flex min-h-[88px] items-center justify-start rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-left text-base font-semibold text-amber-950 shadow-sm transition hover:bg-amber-100"
+              className="flex min-h-12 items-center justify-center rounded-2xl border border-amber-200 bg-amber-50 px-3 py-3 text-center text-sm font-semibold text-amber-950 shadow-sm transition hover:bg-amber-100"
             >
               {groupMemberCount > 0 ? "An unsere Vorlieben anpassen" : "An meine Vorlieben anpassen"}
             </button>
@@ -2137,11 +2141,11 @@ function RouteDetailPageContent() {
               aria-expanded={routeInfoOpen}
               aria-controls="route-personalization"
               onClick={() => setRouteInfoOpen((open) => !open)}
-              className="flex min-h-[88px] items-center justify-start rounded-2xl border bg-white px-5 py-4 text-left text-base font-semibold text-gray-950 shadow-sm transition hover:bg-gray-50"
+              className="flex min-h-12 items-center justify-center rounded-2xl border bg-white px-3 py-3 text-center text-sm font-semibold text-gray-950 shadow-sm transition hover:bg-gray-50"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <span>Infos zur Route</span>
-                <span className="rounded-full border border-black/10 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-600">
+                <span className="rounded-full border border-black/10 bg-gray-50 px-2 py-0.5 text-[11px] font-medium text-gray-600">
                   {routeInfoOpen ? "Zuklappen" : "Aufklappen"}
                 </span>
               </div>
@@ -2346,34 +2350,56 @@ function RouteDetailPageContent() {
               const stopPhotoUrl = renderableImageUrl(rawStopPhotoUrl);
               const stopPhotoAttributionMeta = rawStopPhotoUrl && rawStopPhotoUrl === stop.photo_url ? stop.meta : null;
               return (
-              <div key={stop.id} className="rounded-2xl border bg-white p-5 shadow-sm">
-                <div className="flex items-start justify-between gap-4 flex-wrap">
-                  <div className="max-w-3xl">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <div className="rounded-full border px-3 py-1 text-xs">Stop {stop.stop_order}</div>
-                      {stop.is_required ? <div className="rounded-full bg-black px-3 py-1 text-xs text-white">Pflicht-Stop</div> : null}
-                      {stop.duration_min != null ? <div className="rounded-full border px-3 py-1 text-xs">{stop.duration_min} Min</div> : null}
+              <div key={stop.id} className="rounded-2xl border bg-white p-4 shadow-sm">
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex min-w-0 flex-wrap items-center gap-1.5">
+                      <div className="rounded-full border px-2.5 py-1 text-[11px]">Stop {stop.stop_order}</div>
+                      {stop.is_required ? <div className="rounded-full bg-black px-2.5 py-1 text-[11px] text-white">Pflicht</div> : null}
+                      {stop.duration_min != null ? <div className="rounded-full border px-2.5 py-1 text-[11px]">{stop.duration_min} Min</div> : null}
                       {adjustable ? (
-                        <div className={`rounded-full px-3 py-1 text-xs ${kindTone(personalizationKind)}`}>↔ {kindLabel(personalizationKind)} anpassbar</div>
+                        <div className={`rounded-full px-2.5 py-1 text-[11px] ${kindTone(personalizationKind)}`}>↔ {kindLabel(personalizationKind)}</div>
                       ) : (
-                        <div className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-800">● Fixiert</div>
+                        <div className="rounded-full bg-emerald-100 px-2.5 py-1 text-[11px] text-emerald-800">● Fixiert</div>
                       )}
                     </div>
-                    <div className="mt-3 flex items-start gap-3">
+                    {externalTargetUrl ? (
+                      <MonetizedExternalLink
+                        href={externalTargetUrl}
+                        targetUrl={externalTargetUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium hover:bg-gray-50"
+                        routeId={route?.id ?? null}
+                        locationId={resolvedLocationId}
+                        partnerProfileId={affiliateMatch?.partnerProfileId ?? null}
+                        affiliateLinkId={affiliateMatch?.id ?? null}
+                        creatorProfileId={route?.creator_profile_id ?? creator?.id ?? null}
+                        citySlug={route?.city_slug ?? null}
+                        surface="route_detail_stop"
+                        label={adjustable ? displayCandidate.title : stop.title ?? `Stop ${stop.stop_order}`}
+                        source={affiliateMatch ? "route_detail_affiliate_cta" : "route_detail_stop_cta"}
+                      >
+                        {affiliateMatch ? `${affiliateMatch.providerName} oeffnen` : "Link"}
+                      </MonetizedExternalLink>
+                    ) : null}
+                  </div>
+
+                  <div className="flex items-start gap-2">
                       {hasInlineSwitch ? (
                         <button
                           type="button"
                           onClick={() => cycleInlineCandidate(stop.id, "prev")}
-                          className="mt-1 rounded-full border px-2 py-1 text-sm hover:bg-gray-50"
+                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border text-sm hover:bg-gray-50"
                           aria-label="Vorheriger Vorschlag"
                         >
                           ‹
                         </button>
                       ) : null}
                       <div className="min-w-0 flex-1">
-                        <div className="text-2xl font-semibold">{displayCandidate.title || `Stop ${stop.stop_order}`}</div>
+                        <div className="text-xl font-semibold leading-tight text-gray-950 sm:text-2xl">{displayCandidate.title || `Stop ${stop.stop_order}`}</div>
                         {adjustable ? (
-                          <div className="mt-1 text-xs text-amber-700">
+                          <div className="mt-1 text-xs text-amber-700 line-clamp-1">
                             {inlineSwapLoading
                               ? "Passende Alternativen werden geladen..."
                               : hasInlineSwitch
@@ -2386,14 +2412,16 @@ function RouteDetailPageContent() {
                         <button
                           type="button"
                           onClick={() => cycleInlineCandidate(stop.id, "next")}
-                          className="mt-1 rounded-full border px-2 py-1 text-sm hover:bg-gray-50"
+                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border text-sm hover:bg-gray-50"
                           aria-label="Nächster Vorschlag"
                         >
                           ›
                         </button>
                       ) : null}
-                    </div>
-                    <div className="mt-2 text-sm text-gray-500">
+                  </div>
+
+                  <div className="grid gap-2 text-xs text-gray-500 sm:grid-cols-2">
+                    <div className="rounded-xl bg-gray-50 px-3 py-2">
                       {displayCandidate.lat && displayCandidate.lng
                         ? `${Number(displayCandidate.lat).toFixed(4)}, ${Number(displayCandidate.lng).toFixed(4)}`
                         : stop.lat != null && stop.lng != null
@@ -2401,42 +2429,23 @@ function RouteDetailPageContent() {
                           : "Ohne Kartenkoordinaten"}
                     </div>
                     {adjustable && displayCandidate.subtitle ? (
-                      <div className="mt-2 text-sm text-amber-700">{displayCandidate.subtitle}</div>
+                      <div className="rounded-xl bg-amber-50 px-3 py-2 text-amber-800">{displayCandidate.subtitle}</div>
                     ) : null}
-                    <div className="mt-3 text-sm text-gray-600">
-                      {reasonTextForKind(personalizationKind)}
-                    </div>
                   </div>
-                  {externalTargetUrl ? (
-                    <MonetizedExternalLink
-                      href={externalTargetUrl}
-                      targetUrl={externalTargetUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="rounded-xl border px-4 py-3 text-sm hover:bg-gray-50"
-                      routeId={route?.id ?? null}
-                      locationId={resolvedLocationId}
-                      partnerProfileId={affiliateMatch?.partnerProfileId ?? null}
-                      affiliateLinkId={affiliateMatch?.id ?? null}
-                      creatorProfileId={route?.creator_profile_id ?? creator?.id ?? null}
-                      citySlug={route?.city_slug ?? null}
-                      surface="route_detail_stop"
-                      label={adjustable ? displayCandidate.title : stop.title ?? `Stop ${stop.stop_order}`}
-                      source={affiliateMatch ? "route_detail_affiliate_cta" : "route_detail_stop_cta"}
-                    >
-                      {affiliateMatch ? `${affiliateMatch.providerName} oeffnen` : "Externer Link"}
-                    </MonetizedExternalLink>
-                  ) : null}
+
+                  <div className="line-clamp-2 text-sm leading-6 text-gray-600">
+                      {reasonTextForKind(personalizationKind)}
+                  </div>
                 </div>
                 {stopPhotoUrl ? (
-                  <div className="relative mt-4 overflow-hidden rounded-2xl border bg-gray-100">
+                  <div className="relative mt-3 overflow-hidden rounded-2xl border bg-gray-100">
                     <div className="absolute left-3 top-3 z-10">
                       {adjustable ? (
-                        <div className="rounded-full border border-amber-200 bg-amber-100/95 px-3 py-1 text-xs font-medium text-amber-900 shadow-sm backdrop-blur">
+                        <div className="rounded-full border border-amber-200 bg-amber-100/95 px-2.5 py-1 text-[11px] font-medium text-amber-900 shadow-sm backdrop-blur">
                           ↔ Anpassbar
                         </div>
                       ) : (
-                        <div className="rounded-full border border-emerald-200 bg-emerald-100/95 px-3 py-1 text-xs font-medium text-emerald-900 shadow-sm backdrop-blur">
+                        <div className="rounded-full border border-emerald-200 bg-emerald-100/95 px-2.5 py-1 text-[11px] font-medium text-emerald-900 shadow-sm backdrop-blur">
                           ● Fixiert
                         </div>
                       )}
@@ -2445,7 +2454,7 @@ function RouteDetailPageContent() {
                     <img
                       src={stopPhotoUrl}
                       alt={displayCandidate.title || stop.title || `Stop ${stop.stop_order}`}
-                      className="h-[260px] w-full object-cover"
+                      className="h-[210px] w-full object-cover sm:h-[260px]"
                     />
                     <ImageAttribution
                       meta={stopPhotoAttributionMeta}
@@ -2455,19 +2464,19 @@ function RouteDetailPageContent() {
                     />
                   </div>
                 ) : adjustable ? (
-                  <div className="relative mt-4 overflow-hidden rounded-2xl border bg-gradient-to-br from-amber-50 via-white to-stone-100 p-6">
+                  <div className="relative mt-3 overflow-hidden rounded-2xl border bg-gradient-to-br from-amber-50 via-white to-stone-100 p-4">
                     <div className="absolute left-3 top-3 z-10 rounded-full border border-amber-200 bg-amber-100/95 px-3 py-1 text-xs font-medium text-amber-900 shadow-sm backdrop-blur">
                       ↔ Anpassbar
                     </div>
-                    <div className="mt-10">
+                    <div className="mt-9">
                       <div className="text-xs uppercase tracking-wide text-amber-700">Aktueller Vorschlag</div>
-                      <div className="mt-2 text-2xl font-semibold text-gray-950">{displayCandidate.title}</div>
+                      <div className="mt-2 text-xl font-semibold text-gray-950">{displayCandidate.title}</div>
                       {displayCandidate.subtitle ? <div className="mt-2 text-sm text-gray-600">{displayCandidate.subtitle}</div> : null}
                     </div>
                   </div>
                 ) : null}
                 {(adjustable ? displayCandidate.note : stop.note) ? (
-                  <div className="mt-4 rounded-2xl bg-gray-50 p-4 text-sm leading-7 text-gray-700 whitespace-pre-wrap">
+                  <div className="mt-3 line-clamp-3 rounded-xl bg-gray-50 px-3 py-2 text-sm leading-6 text-gray-700 whitespace-pre-wrap">
                     {adjustable ? displayCandidate.note : stop.note}
                   </div>
                 ) : null}
