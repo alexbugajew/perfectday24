@@ -20,7 +20,6 @@ import {
   type VariantFilter,
   type VariantSort,
 } from "@/lib/routes/variant-family";
-import RecommendationReason from "@/components/RecommendationReason";
 import {
   buildInterestReasonBadges,
   explainInterestMatch,
@@ -233,19 +232,8 @@ function RouteCard({
   reason?: string | null;
   reasonBadges?: string[];
 }) {
-  if (!route) return null;
-
-  const href = routeHref(route);
-  const title = route.title?.trim() || "Unbenannte Route";
-  const desc = route.description?.trim() || "Noch keine Beschreibung vorhanden.";
-  const city = formatCityWithCountry(route.city_slug, cityMap);
-  const creatorLabel = creator?.display_name || niceCreatorType(route.creator_type);
-  const creatorLink = creatorHref(creator);
-  const cover = renderableImageUrl(route.cover_image_url);
-  const shortDesc = desc.length > 120 ? `${desc.slice(0, 117).trim()}...` : desc;
-  const durationLabel = estimateDurationLabel(route);
-  const idealFor = idealForLabel(route);
   const badges = useMemo(() => {
+    if (!route) return [];
     const seen = new Set<string>();
     return inferPublicRouteBadges(route).filter((badge) => {
       const key = `${badge.label}::${badge.tone}`;
@@ -254,10 +242,13 @@ function RouteCard({
       return true;
     });
   }, [route]);
-  const variantRole = routeVariantRoleLabel(route);
   const [miniStops, setMiniStops] = useState<Array<{ label: string; name: string; lat: number; lng: number }>>([]);
 
   useEffect(() => {
+    if (!route) {
+      return;
+    }
+
     let active = true;
 
     (async () => {
@@ -304,7 +295,21 @@ function RouteCard({
     return () => {
       active = false;
     };
-  }, [route.id, route.start_label, route.start_lat, route.start_lng]);
+  }, [route]);
+
+  if (!route) return null;
+
+  const href = routeHref(route);
+  const title = route.title?.trim() || "Unbenannte Route";
+  const desc = route.description?.trim() || "Noch keine Beschreibung vorhanden.";
+  const city = formatCityWithCountry(route.city_slug, cityMap);
+  const creatorLabel = creator?.display_name || niceCreatorType(route.creator_type);
+  const creatorLink = creatorHref(creator);
+  const cover = renderableImageUrl(route.cover_image_url);
+  const shortDesc = desc.length > 120 ? `${desc.slice(0, 117).trim()}...` : desc;
+  const durationLabel = estimateDurationLabel(route);
+  const idealFor = idealForLabel(route);
+  const variantRole = routeVariantRoleLabel(route);
 
   const content = (
     <>
@@ -361,60 +366,71 @@ function RouteCard({
       </div>
 
       <div className="space-y-3 p-4">
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <h3 className="text-[1.06rem] font-semibold leading-snug text-gray-950 line-clamp-2 sm:text-[1.12rem]">
             {title}
           </h3>
-          <p className="text-[13px] leading-6 text-gray-600 sm:text-sm">{shortDesc}</p>
+          <p className="line-clamp-2 text-[13px] leading-5 text-gray-600 sm:text-sm">{shortDesc}</p>
         </div>
 
-        <RecommendationReason reason={reason} reasonBadges={reasonBadges} compact />
-
-        {badges.length > 0 ? (
-          <div className="flex flex-wrap gap-2">
-            {badges.map((badge, index) => (
+        {reason || reasonBadges?.length ? (
+          <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+            {reason ? (
+              <span className="rounded-full border border-black/10 bg-white px-2.5 py-1 text-gray-600">
+                {reason}
+              </span>
+            ) : null}
+            {reasonBadges?.slice(0, 2).map((badge) => (
               <span
-                key={`${badge.label}-${badge.tone}-${index}`}
-                className={`rounded-full px-3 py-1 text-[11px] font-medium ${
-                  badge.tone === "dark"
-                    ? "bg-black text-white"
-                    : badge.tone === "soft"
-                      ? "border border-black/10 bg-stone-100 text-gray-700"
-                      : "border border-black/10 bg-white text-gray-700"
-                }`}
+                key={badge}
+                className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 font-medium text-amber-900"
               >
-                {badge.label}
+                {badge}
               </span>
             ))}
           </div>
         ) : null}
 
-        <div className="flex flex-wrap gap-2 text-xs text-gray-700">
-          <span className="rounded-full border border-black/10 bg-gray-50 px-3 py-1.5">
-            Dauer: <span className="font-medium text-gray-900">{durationLabel}</span>
+        <div className="flex flex-wrap gap-1.5 text-[11px] text-gray-700">
+          <span className="rounded-full border border-black/10 bg-gray-50 px-2.5 py-1">
+            {durationLabel}
           </span>
-          <span className="rounded-full border border-black/10 bg-gray-50 px-3 py-1.5">
-            Stopps: <span className="font-medium text-gray-900">{route.stop_count ?? 0}</span>
+          <span className="rounded-full border border-black/10 bg-gray-50 px-2.5 py-1">
+            {route.stop_count ?? 0} Stopps
           </span>
-          <span className="rounded-full border border-black/10 bg-gray-50 px-3 py-1.5">
-            Perfekt fuer: <span className="font-medium text-gray-900">{idealFor}</span>
+          <span className="rounded-full border border-black/10 bg-gray-50 px-2.5 py-1">
+            {route.photo_count ?? 0} Fotos
           </span>
+          <span className="rounded-full border border-black/10 bg-gray-50 px-2.5 py-1">
+            {idealFor}
+          </span>
+          {badges.slice(0, 2).map((badge, index) => (
+            <span
+              key={`${badge.label}-${badge.tone}-${index}`}
+              className={`rounded-full px-2.5 py-1 font-medium ${
+                badge.tone === "dark"
+                  ? "bg-black text-white"
+                  : badge.tone === "soft"
+                    ? "border border-black/10 bg-stone-100 text-gray-700"
+                    : "border border-black/10 bg-white text-gray-700"
+              }`}
+            >
+              {badge.label}
+            </span>
+          ))}
         </div>
 
-        <div className="overflow-hidden rounded-[22px] border border-black/5 bg-white">
-          <div className="flex items-start justify-between gap-3 px-4 pt-4">
+        <div className="overflow-hidden rounded-2xl border border-black/5 bg-white">
+          <div className="flex items-center justify-between gap-3 px-3 pt-3">
             <div className="min-w-0">
-              <div className="text-[10.5px] uppercase tracking-[0.22em] text-gray-400">Kompaktansicht</div>
-              <div className="mt-1 line-clamp-1 text-sm font-medium text-gray-900">
+              <div className="text-[10px] uppercase tracking-[0.18em] text-gray-400">Route</div>
+              <div className="mt-0.5 line-clamp-1 text-sm font-medium text-gray-900">
                 {route.start_label ? `Start bei ${route.start_label}` : `Route in ${city}`}
               </div>
             </div>
-            <div className="shrink-0 rounded-full border border-black/10 bg-stone-50 px-3 py-1 text-[11px] text-gray-600">
-              {route.photo_count ?? 0} Fotos
-            </div>
           </div>
-          <div className="mt-3 border-t border-black/5 p-3">
-            <RouteMiniMapClient stops={miniStops} height={96} />
+          <div className="mt-2 border-t border-black/5 p-2.5">
+            <RouteMiniMapClient stops={miniStops} height={82} />
           </div>
         </div>
 
@@ -433,7 +449,7 @@ function RouteCard({
           </div>
         </details>
 
-        <div className="flex items-center justify-between gap-3 border-t border-black/5 pt-1">
+        <div className="flex items-center justify-between gap-3 border-t border-black/5 pt-2">
           <div className="min-w-0 space-y-1">
             <div className="truncate text-xs text-gray-500">{creatorLabel}</div>
             {creatorLink ? (
@@ -866,30 +882,32 @@ function ExplorePageContent() {
     () => shouldShowInternalMonetization(searchParams.get("monetization")),
     [searchParams]
   );
+  const filterControlClass =
+    "h-11 w-full min-w-0 rounded-2xl border border-black/10 bg-white px-3 text-sm text-[var(--text-strong)] shadow-sm outline-none transition focus:border-[var(--text-strong)]";
 
   return (
     <main className="mx-auto max-w-7xl px-1 py-4 sm:px-2 lg:px-4">
-      <div className="mb-8 overflow-hidden rounded-[36px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
-        <div className="bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(229,234,238,0.92))] p-8">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
+      <div className="mb-6 overflow-hidden rounded-3xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
+        <div className="bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(229,234,238,0.92))] p-4 sm:p-6 lg:p-8">
+          <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-3xl">
               <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
                 Öffentliche Discovery
               </div>
-              <h1 className="mt-4 text-4xl font-bold tracking-tight text-[var(--text-strong)]">Explore</h1>
-              <p className="mt-3 text-[var(--text-muted)]">
+              <h1 className="mt-3 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Explore</h1>
+              <p className="mt-2 hidden max-w-2xl text-sm leading-6 text-[var(--text-muted)] sm:block sm:text-base">
                 Entdecke kuratierte Creator-, Influencer- und Brand-Routen. Sortiert nach Trending,
                 Qualität, Bewertungen und Relevanz.
               </p>
 
-              <div className="mt-4 flex gap-4 flex-wrap text-sm text-[var(--text-muted)]">
-                <span>Public Routen: {totalPublic}</span>
-                <span>Aktuelle Treffer: {filteredRoutes.length}</span>
-                <span>Aufrufbar: {callableCount}</span>
+              <div className="mt-3 flex flex-wrap gap-2 text-xs text-[var(--text-muted)] sm:text-sm">
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">Public {totalPublic}</span>
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">Treffer {filteredRoutes.length}</span>
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">Aufrufbar {callableCount}</span>
               </div>
             </div>
 
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex flex-wrap gap-2">
                <Link href="/planner" className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
                 ← Planner
               </Link>
@@ -899,13 +917,13 @@ function ExplorePageContent() {
             </div>
           </div>
 
-          <div className="mt-8 grid gap-3 md:grid-cols-7">
+          <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7">
             <input
               aria-label="Routen suchen"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               placeholder="Suche nach Titel, Creator, Beschreibung, Startpunkt..."
-              className="rounded-2xl border border-black/10 bg-white p-3"
+              className={`${filterControlClass} col-span-2 sm:col-span-3 lg:col-span-2`}
             />
 
             <select
@@ -915,7 +933,7 @@ function ExplorePageContent() {
                 setSelectedCountryCode(e.target.value);
                 setSelectedCitySlug("all");
               }}
-              className="rounded-2xl border border-black/10 bg-white p-3"
+              className={filterControlClass}
               disabled={citiesLoading}
             >
               <option value="all">Alle Länder</option>
@@ -930,7 +948,7 @@ function ExplorePageContent() {
               aria-label="Stadt filtern"
               value={selectedCitySlug}
               onChange={(e) => setSelectedCitySlug(e.target.value)}
-              className="rounded-2xl border border-black/10 bg-white p-3"
+              className={filterControlClass}
               disabled={citiesLoading}
             >
               <option value="all">Alle Städte</option>
@@ -945,7 +963,7 @@ function ExplorePageContent() {
               aria-label="Creator-Typ filtern"
               value={creatorFilter}
               onChange={(e) => setCreatorFilter(e.target.value as CreatorType | "all")}
-              className="rounded-2xl border border-black/10 bg-white p-3"
+              className={filterControlClass}
             >
               <option value="all">Alle Typen</option>
               <option value="user">User</option>
@@ -959,7 +977,7 @@ function ExplorePageContent() {
               aria-label="Sortierung auswaehlen"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-              className="rounded-2xl border border-black/10 bg-white p-3"
+              className={filterControlClass}
             >
               <option value="trending">Sort: Trending</option>
               <option value="top">Sort: Top Ranked</option>
@@ -971,7 +989,7 @@ function ExplorePageContent() {
               aria-label="Varianten filtern"
               value={variantFilter}
               onChange={(e) => setVariantFilter(e.target.value as VariantFilter)}
-              className="rounded-2xl border border-black/10 bg-white p-3"
+              className={filterControlClass}
             >
               <option value="all">Alle Varianten</option>
               <option value="original">Nur Originale</option>
@@ -982,7 +1000,7 @@ function ExplorePageContent() {
               aria-label="Varianten-Sortierung auswaehlen"
               value={variantSort}
               onChange={(e) => setVariantSort(e.target.value as VariantSort)}
-              className="rounded-2xl border border-black/10 bg-white p-3"
+              className={filterControlClass}
             >
               <option value="default">Varianten-Sortierung: Standard</option>
               <option value="original-first">Originale zuerst</option>
@@ -990,12 +1008,12 @@ function ExplorePageContent() {
             </select>
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-3">
+          <div className="mt-3 flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => setPersonalizedSort((value) => !value)}
               disabled={myInterests.length === 0}
-              className={`rounded-full border px-4 py-2 text-sm transition ${
+              className={`rounded-full border px-3 py-1.5 text-xs font-medium transition sm:text-sm ${
                 personalizedSort
                   ? "border-black bg-black text-white"
                   : "border-black/10 bg-white text-gray-700 hover:bg-gray-50"
@@ -1004,7 +1022,7 @@ function ExplorePageContent() {
               {personalizedSort ? "Für mich sortieren: an" : "Für mich sortieren: aus"}
             </button>
             <span
-              className={`rounded-full px-3 py-1 text-[11px] font-medium ${
+              className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
                 personalizedSort
                   ? "bg-black text-white"
                   : "border border-black/10 bg-white text-gray-700"
@@ -1012,7 +1030,7 @@ function ExplorePageContent() {
             >
               {personalizedSort ? "Aktuell personalisiert" : "Aktuell allgemein sortiert"}
             </span>
-            <div className="text-xs text-gray-500">
+            <div className="basis-full text-xs text-gray-500 sm:basis-auto">
               {myInterests.length > 0
                 ? "Nutzen deine gespeicherten Interessen für die Reihenfolge."
                 : "Lege Interessen im Profil an, um persönliche Sortierung zu aktivieren."}

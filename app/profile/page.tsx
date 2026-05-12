@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { getInterestCatalog, norm, type GroupMember } from "@/lib/planner";
+import { getInterestCatalog, norm } from "@/lib/planner";
 import { supabase } from "@/lib/supabaseClient";
 import { friendshipPeerUserId, type FriendProfileRow, type FriendshipRow } from "@/lib/social/friends";
 import { queuePlannerInviteDraft, type PlannerInviteMemberDraft } from "@/lib/social/planner-group";
@@ -1525,35 +1525,57 @@ export default function ProfilePage() {
 
   return (
     <div className="space-y-6">
-      <section className="pd24-shell p-6">
+      <section className="pd24-shell p-4 sm:p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
-            <h1 className="text-3xl font-semibold">Konto & Zugang</h1>
-            <p className="mt-2 max-w-2xl text-sm text-[var(--text-muted)]">
+            <h1 className="text-2xl font-semibold sm:text-3xl">Konto & Zugang</h1>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
               Verbinde hier dein Konto, sichere dein Profil dauerhaft und behalte im Blick, wie viele Routen,
               Freunde und Social-Verbindungen aktuell aktiv sind.
             </p>
           </div>
 
-          <div className="w-full max-w-xl rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-4">
-            <div className="text-sm font-medium">Klassische Registrierung</div>
-            <div className="mt-3 grid gap-3 md:grid-cols-2">
-              <input value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
-              <input type="password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
+          <div className="w-full max-w-xl rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-3 sm:p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-sm font-medium">Klassische Registrierung</div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => void startOAuth("google")}
+                  disabled={authLoading}
+                  aria-label="Mit Google anmelden"
+                  title="Mit Google anmelden"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white text-sm font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] disabled:opacity-50"
+                >
+                  G
+                </button>
+                <button
+                  onClick={() => void startOAuth("azure")}
+                  disabled={authLoading}
+                  aria-label="Mit Microsoft anmelden"
+                  title="Mit Microsoft anmelden"
+                  className="inline-grid h-10 w-10 grid-cols-2 gap-0.5 rounded-xl border border-[var(--line-subtle)] bg-white p-2 transition hover:bg-[var(--bg-panel)] disabled:opacity-50"
+                >
+                  <span className="rounded-[2px] bg-[#f25022]" />
+                  <span className="rounded-[2px] bg-[#7fba00]" />
+                  <span className="rounded-[2px] bg-[#00a4ef]" />
+                  <span className="rounded-[2px] bg-[#ffb900]" />
+                </button>
+              </div>
+            </div>
+            <div className="mt-3 grid gap-2 md:grid-cols-2">
+              <input value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm" />
+              <input type="password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort" className="h-11 rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm" />
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+              <button onClick={() => void signUpWithEmail()} disabled={authLoading} className="min-h-10 rounded-xl bg-[var(--text-strong)] px-3 py-2 text-sm text-white transition hover:opacity-95 disabled:opacity-50">Registrieren</button>
+              <button onClick={() => void signInWithEmail()} disabled={authLoading} className="min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50">Einloggen</button>
+              <button onClick={() => void resetPassword()} disabled={authLoading} className="col-span-2 min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50 sm:col-span-1">Passwort reset</button>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              <button onClick={() => void signUpWithEmail()} disabled={authLoading} className="rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm text-white transition hover:opacity-95 disabled:opacity-50">Registrieren</button>
-              <button onClick={() => void signInWithEmail()} disabled={authLoading} className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-white disabled:opacity-50">Mit E-Mail anmelden</button>
-              <button onClick={() => void resetPassword()} disabled={authLoading} className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-white disabled:opacity-50">Passwort zuruecksetzen</button>
+              <button onClick={() => void signOut()} disabled={authLoading || !authReady || !userId} className="min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50">Abmelden</button>
+              <button onClick={() => void continueAsGuest()} disabled={authLoading} className="min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50">Gastmodus</button>
             </div>
-            <div className="mt-4 text-sm font-medium">Oder per OAuth</div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <button onClick={() => void startOAuth("google")} disabled={authLoading} className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-white disabled:opacity-50">Mit Google anmelden</button>
-              <button onClick={() => void startOAuth("azure")} disabled={authLoading} className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-white disabled:opacity-50">Mit Microsoft anmelden</button>
-              <button onClick={() => void signOut()} disabled={authLoading || !authReady || !userId} className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-white disabled:opacity-50">Abmelden</button>
-              <button onClick={() => void continueAsGuest()} disabled={authLoading} className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-white disabled:opacity-50">Als Gast fortfahren</button>
-            </div>
-            <div className="mt-3 text-xs text-[var(--text-muted)]">Der Gastzugang ist optional. Für ein dauerhaftes Profil empfehlen wir E-Mail, Google oder Microsoft.</div>
+            <div className="mt-3 text-xs leading-5 text-[var(--text-muted)]">Gastzugang optional. Für ein dauerhaftes Profil: E-Mail, Google oder Microsoft.</div>
           </div>
         </div>
 
