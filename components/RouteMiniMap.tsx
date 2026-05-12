@@ -107,7 +107,7 @@ export default function RouteMiniMap({
         ] as [number, number]);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-black/5" style={{ height }}>
+    <div className="relative z-0 isolate overflow-hidden rounded-2xl border border-black/5" style={{ height }}>
       <MapContainer
         center={center}
         zoom={13}

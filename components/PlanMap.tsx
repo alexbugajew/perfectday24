@@ -377,7 +377,7 @@ export default function PlanMap({
         </div>
       ) : null}
 
-      <div className="overflow-hidden rounded-lg border" style={{ height }}>
+      <div className="relative z-0 isolate overflow-hidden rounded-lg border" style={{ height }}>
         <MapContainer
           center={center}
           zoom={zoom}
