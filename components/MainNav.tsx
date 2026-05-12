@@ -96,7 +96,7 @@ export default function MainNav() {
   return (
     <nav
       aria-label="Hauptnavigation"
-      className="sticky top-0 z-40 border-b border-[var(--line-subtle)] bg-[rgba(248,250,252,0.9)] backdrop-blur-xl"
+      className="sticky top-0 z-[1200] border-b border-[var(--line-subtle)] bg-[rgba(248,250,252,0.9)] backdrop-blur-xl"
     >
       <div
         className={`mx-auto flex max-w-7xl flex-col px-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6 sm:py-4 lg:px-8 ${

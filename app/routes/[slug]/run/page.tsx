@@ -574,7 +574,7 @@ export default function RouteRunPage() {
       </div>
 
       {currentStop ? (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--line-subtle)] bg-white/95 px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 shadow-[0_-18px_40px_rgba(49,39,27,0.12)] backdrop-blur sm:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-[1200] border-t border-[var(--line-subtle)] bg-white/95 px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 shadow-[0_-18px_40px_rgba(49,39,27,0.12)] backdrop-blur sm:hidden">
           <div className="mx-auto w-full max-w-7xl px-1 sm:px-6 lg:px-8">
             <div className="mb-2 flex items-center justify-between gap-3">
               <div className="min-w-0">

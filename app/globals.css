@@ -107,6 +107,18 @@ textarea:focus-visible {
   display: none;
 }
 
+.pd24-map-shell {
+  isolation: isolate;
+  position: relative;
+  z-index: 0;
+}
+
+.pd24-map-shell .leaflet-container,
+.pd24-map-shell .leaflet-control-container {
+  position: relative;
+  z-index: 0;
+}
+
 button:disabled,
 input:disabled,
 select:disabled,
