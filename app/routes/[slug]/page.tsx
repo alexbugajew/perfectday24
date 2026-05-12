@@ -1849,18 +1849,15 @@ function RouteDetailPageContent() {
     `Eine öffentliche Route in ${routeCityLabel} mit ${stops.length} Stop${stops.length === 1 ? "" : "s"} und ${
       routeProfile === "foot" ? "kompaktem Fußprofil" : "offenerem Stadtprofil"
     }.`;
+  const routeCityShortLabel = routeCityLabel.split(",")[0]?.trim() || routeCityLabel;
+  const routeDurationLabel =
+    durationBadge ||
+    (fallbackSummary.totalMin > 0 ? `${Math.max(1, Math.round(fallbackSummary.totalMin / 60))} h+` : "Offen");
+  const routeStartLabel = route?.start_label?.trim() || "Flexibler Einstieg";
   const routeQuickFacts = [
-    { label: "Stadt", value: routeCityLabel },
-    {
-      label: "Dauer",
-      value:
-        durationBadge ||
-        (fallbackSummary.totalMin > 0 ? `${Math.max(1, Math.round(fallbackSummary.totalMin / 60))} h+` : "Offen"),
-    },
-    {
-      label: "Start",
-      value: route?.start_label?.trim() || "Flexibler Einstieg",
-    },
+    { label: "Stadt", value: routeCityShortLabel, title: routeCityLabel },
+    { label: "Dauer", value: routeDurationLabel },
+    { label: "Start", value: routeStartLabel },
     {
       label: "Profil",
       value: routeProfile === "foot" ? "Zu Fuß" : "Auto",
@@ -1886,11 +1883,11 @@ function RouteDetailPageContent() {
                 <div className="h-10 w-4/5 animate-pulse rounded-2xl bg-stone-100" />
                 <div className="h-4 w-full animate-pulse rounded-full bg-stone-100" />
                 <div className="h-4 w-3/4 animate-pulse rounded-full bg-stone-100" />
-                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                <div className="grid grid-cols-4 gap-1.5">
                   {Array.from({ length: 4 }).map((_, index) => (
-                    <div key={index} className="rounded-2xl border bg-stone-50 p-4">
-                      <div className="h-3 w-16 animate-pulse rounded-full bg-stone-100" />
-                      <div className="mt-3 h-6 w-24 animate-pulse rounded-full bg-stone-100" />
+                    <div key={index} className="min-w-0 rounded-xl border bg-stone-50 px-1.5 py-2">
+                      <div className="mx-auto h-2 w-8 animate-pulse rounded-full bg-stone-100" />
+                      <div className="mx-auto mt-2 h-3 w-10 animate-pulse rounded-full bg-stone-100" />
                     </div>
                   ))}
                 </div>
@@ -2032,11 +2029,19 @@ function RouteDetailPageContent() {
 
         <div className="grid gap-4 px-4 pt-4 lg:grid-cols-[minmax(0,1fr)_280px] md:px-8 md:pt-6">
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
+            <div className="grid grid-cols-4 gap-1.5">
               {routeQuickFacts.map((fact) => (
-                <div key={fact.label} className="min-w-0 rounded-2xl border bg-gray-50 px-3 py-2.5">
-                  <div className="text-[10px] uppercase tracking-[0.16em] text-gray-500">{fact.label}</div>
-                  <div className="mt-0.5 truncate text-sm font-semibold text-gray-950 sm:text-base">{fact.value}</div>
+                <div
+                  key={fact.label}
+                  title={fact.title ?? fact.value}
+                  className="min-w-0 overflow-hidden rounded-xl border bg-gray-50 px-1.5 py-2 text-center"
+                >
+                  <div className="truncate text-[8.5px] font-medium uppercase tracking-[0.08em] text-gray-500 sm:text-[10px]">
+                    {fact.label}
+                  </div>
+                  <div className="mt-0.5 truncate text-[11px] font-semibold leading-tight text-gray-950 sm:text-sm">
+                    {fact.value}
+                  </div>
                 </div>
               ))}
             </div>
