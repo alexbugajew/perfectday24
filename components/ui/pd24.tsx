@@ -209,19 +209,22 @@ export function PD24SiteHeader({
   return (
     <header
       className={cx(
-        "sticky top-4 z-40 rounded-[28px] border border-[var(--line-subtle)] bg-[rgba(248,250,252,0.84)] px-4 py-4 backdrop-blur-xl sm:px-5",
+        "sticky top-4 z-40 w-full max-w-full rounded-[28px] border border-[var(--line-subtle)] bg-[rgba(248,250,252,0.84)] px-4 py-4 backdrop-blur-xl sm:px-5",
         className
       )}
     >
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <Link href="/" className="min-w-0">
+      <div className="flex min-w-0 flex-wrap items-center justify-between gap-3 sm:gap-4">
+        <Link href="/" className="min-w-0 flex-1 sm:flex-none">
           <div className="text-lg font-semibold tracking-tight text-[var(--text-strong)]">{title}</div>
           <div className="mt-1 text-[11px] uppercase tracking-[0.24em] text-[var(--text-muted)]">
             {subtitle}
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-[var(--line-subtle)] bg-white p-1.5 md:flex">
+        <nav
+          aria-label="Marketing-Navigation"
+          className="hidden items-center gap-1 rounded-full border border-[var(--line-subtle)] bg-white p-1.5 md:flex"
+        >
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -238,7 +241,7 @@ export function PD24SiteHeader({
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <div className="hidden sm:block">
             <PD24Button href={ctaHref}>{ctaLabel}</PD24Button>
           </div>

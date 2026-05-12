@@ -901,6 +901,7 @@ function ExplorePageContent() {
 
           <div className="mt-8 grid gap-3 md:grid-cols-7">
             <input
+              aria-label="Routen suchen"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               placeholder="Suche nach Titel, Creator, Beschreibung, Startpunkt..."
@@ -908,6 +909,7 @@ function ExplorePageContent() {
             />
 
             <select
+              aria-label="Land filtern"
               value={selectedCountryCode}
               onChange={(e) => {
                 setSelectedCountryCode(e.target.value);
@@ -925,6 +927,7 @@ function ExplorePageContent() {
             </select>
 
             <select
+              aria-label="Stadt filtern"
               value={selectedCitySlug}
               onChange={(e) => setSelectedCitySlug(e.target.value)}
               className="rounded-2xl border border-black/10 bg-white p-3"
@@ -939,6 +942,7 @@ function ExplorePageContent() {
             </select>
 
             <select
+              aria-label="Creator-Typ filtern"
               value={creatorFilter}
               onChange={(e) => setCreatorFilter(e.target.value as CreatorType | "all")}
               className="rounded-2xl border border-black/10 bg-white p-3"
@@ -952,6 +956,7 @@ function ExplorePageContent() {
             </select>
 
             <select
+              aria-label="Sortierung auswaehlen"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               className="rounded-2xl border border-black/10 bg-white p-3"
@@ -963,6 +968,7 @@ function ExplorePageContent() {
             </select>
 
             <select
+              aria-label="Varianten filtern"
               value={variantFilter}
               onChange={(e) => setVariantFilter(e.target.value as VariantFilter)}
               className="rounded-2xl border border-black/10 bg-white p-3"
@@ -973,6 +979,7 @@ function ExplorePageContent() {
             </select>
 
             <select
+              aria-label="Varianten-Sortierung auswaehlen"
               value={variantSort}
               onChange={(e) => setVariantSort(e.target.value as VariantSort)}
               className="rounded-2xl border border-black/10 bg-white p-3"

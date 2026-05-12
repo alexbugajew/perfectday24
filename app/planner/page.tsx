@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
@@ -14,7 +13,6 @@ import {
   writeRouteBuilderDraft,
 } from "@/lib/routes/planner-route-bridge";
 import { writePlannerRunDraft } from "@/lib/routes/planner-run-bridge";
-import { trackMonetizationEvent } from "@/lib/monetization/client";
 import { resolvePublicAffiliateLinksClient } from "@/lib/monetization/public-affiliate-client";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
 import {
@@ -24,6 +22,7 @@ import {
 
 import type { RouteSummary } from "@/components/PlanMap";
 import PlannerActionPanel from "./PlannerActionPanel";
+import PlannerActivationPanel from "./PlannerActivationPanel";
 import PlannerControlsSection from "./PlannerControlsSection";
 import PlannerEventCandidatesStrip from "./PlannerEventCandidatesStrip";
 import PlannerMapPanel from "./PlannerMapPanel";
@@ -31,24 +30,16 @@ import PlannerOutputSection from "./PlannerOutputSection";
 import PlannerVariantPanel from "./PlannerVariantPanel";
 import {
   budgetLabel,
-  buildFinalPlanSavedSystemMessage,
   buildGroupPlanningSignals,
   clamp,
   compactPartyLabel,
   countryLabel,
   eventStrictnessForExperienceMode,
-  experienceModeHint,
   experienceModeLabel,
   experienceOptionsForOccasion,
-  formatPlannerTime,
-  formatSupabaseError,
-  generateShareToken,
   inferRouteThemeFromInterests,
   occasionLabel,
-  parseNullableNumber,
   plannerDateLabel,
-  providerLabel,
-  readEventSourceRefs,
   routeProfileLabel,
   cityStartFallbackLabel,
   startPointSuggestionSourceLabel,
@@ -125,7 +116,7 @@ function PlannerPageContent() {
   const [plannerTemplateLoadedLabel, setPlannerTemplateLoadedLabel] = useState<string | null>(null);
   const [plannerTemplateSourceSlug, setPlannerTemplateSourceSlug] = useState<string | null>(null);
   const [plannerTemplateInterests, setPlannerTemplateInterests] = useState<string[]>([]);
-  const [showPlannerConfig, setShowPlannerConfig] = useState(true);
+  const [showPlannerConfig, setShowPlannerConfig] = useState(false);
 
   const [stopOffsets, setStopOffsets] = useState<number[]>([]);
 
@@ -149,7 +140,6 @@ function PlannerPageContent() {
     setInterestInput,
     profileSaving,
     profileRequired,
-    setProfileRequired,
     showPrefsModal,
     setShowPrefsModal,
     groupEnabled,
@@ -157,7 +147,6 @@ function PlannerPageContent() {
     groupMembers,
     setGroupMembers,
     activeGroupLabel,
-    setActiveGroupLabel,
     memberName,
     setMemberName,
     memberProfileQuery,
@@ -526,11 +515,12 @@ function PlannerPageContent() {
 
   useEffect(() => {
     if (experienceMode !== "event_visit" && experienceMode !== "market_festival") return;
+    if (citiesLoading || !effectiveCitySlug) return;
     if (eventModesAvailable) return;
     setExperienceMode("classic");
     setSelectedEventId(null);
     setEventPlanningMode("disabled");
-  }, [eventModesAvailable, experienceMode]);
+  }, [citiesLoading, effectiveCitySlug, eventModesAvailable, experienceMode]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -1236,6 +1226,18 @@ function PlannerPageContent() {
     budgetLabel(budget),
     plannerDateLabel(planDate),
   ].join(" · ");
+  const homepagePresetActive =
+    Boolean(plannerTemplateLoadedLabel) ||
+    [
+      "citySlug",
+      "city",
+      "occasion",
+      "experienceMode",
+      "mode",
+      "budget",
+      "planDate",
+      "interests",
+    ].some((key) => searchParams.has(key));
   const quickExperienceOptions = eventModesAvailable
     ? experienceOptionsForOccasion(occasion)
     : experienceOptionsForOccasion(occasion).filter(
@@ -1273,46 +1275,36 @@ function PlannerPageContent() {
             </p>
           </div>
 
-          <div className="w-full max-w-md rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--text-muted)]">
-              Heute im Fokus
-            </div>
-            <div className="mt-2 grid gap-2 sm:grid-cols-2">
-              <div className="rounded-md border border-[rgba(68,57,46,0.08)] bg-white p-3">
-                <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Planner-Modus</div>
-                <div className="mt-2 text-sm font-semibold text-[var(--text-strong)]">
-                  {experienceModeLabel(experienceMode, occasion)}
-                </div>
-                <div className="mt-1 text-xs leading-5 text-[var(--text-muted)]">{experienceModeHint(experienceMode, occasion)}</div>
-              </div>
-              <div className="rounded-md border border-[rgba(68,57,46,0.08)] bg-white p-3">
-                <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Aktive Signale</div>
-                <div className="mt-2 text-sm font-semibold text-[var(--text-strong)]">
-                  {groupEnabled ? `${groupMembers.length + 1} Personen` : "Solo-Planung"}
-                </div>
-                <div className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
-                  {eventCandidates.length} sichtbare Event-Kandidaten und {interests.length || 0} aktive Vorlieben.
-                </div>
-              </div>
-            </div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <Link
-                href="/routes"
-                className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-[#1f2937]"
-              >
-                Creator Routes ansehen
-              </Link>
-              <span className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)]">
-                {routeProfileLabel(routeProfile)} · {planMode}
-              </span>
-            </div>
+          <div className="w-full max-w-md">
+            <PlannerActivationPanel
+              cityLabel={cityLabel}
+              plannerSummaryLine={plannerSummaryLine}
+              startPointLabel={effectiveStartPoint.label || selectedCityFallbackLabel || "-"}
+              routeProfileLabel={`${routeProfileLabel(routeProfile)} | ${planMode}`}
+              plannerLoading={plannerLoading}
+              plannerError={plannerError}
+              hasPlannerData={Boolean(plannerData)}
+              hasValidPlannerOrigin={hasValidPlannerOrigin}
+              citiesLoading={citiesLoading}
+              presetActive={homepagePresetActive}
+              templateLabel={plannerTemplateLoadedLabel}
+              plannedStopsCount={plannedStops.length}
+              resultsCount={results.length}
+              eventCandidatesCount={eventCandidates.length}
+              interestsCount={effectiveInterests.length}
+              expandedRadius={Boolean(expandedText)}
+              relaxedFilters={Boolean(relaxedText)}
+              onOpenConfig={() => setShowPlannerConfig(true)}
+              onUseCurrentLocation={useCurrentLocationAsStartPoint}
+              onRerollPlan={rerollPlan}
+            />
           </div>
         </div>
       </section>
 
       <section className="rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">
-        <div className="flex gap-2 overflow-x-auto pb-1 lg:overflow-visible">
-          <label className="min-w-[150px] flex-[0_0_150px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-1">
+        <div className="grid gap-2 sm:grid-cols-2 lg:flex lg:overflow-visible">
+          <label className="min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[150px] lg:flex-1">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Stadt
             </div>
@@ -1336,7 +1328,7 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <div className="relative min-w-[240px] flex-[0_0_240px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-[1.5]">
+          <div className="relative min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[240px] lg:flex-[1.5]">
             <label htmlFor="planner-quick-start" className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Startpunkt
             </label>
@@ -1418,7 +1410,7 @@ function PlannerPageContent() {
             ) : null}
           </div>
 
-          <label className="min-w-[125px] flex-[0_0_125px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-[0.8]">
+          <label className="min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[125px] lg:flex-[0.8]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Anlass
             </div>
@@ -1435,7 +1427,7 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <label className="min-w-[160px] flex-[0_0_160px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-1">
+          <label className="min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[160px] lg:flex-1">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Fokus
             </div>
@@ -1453,7 +1445,7 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <label className="min-w-[145px] flex-[0_0_145px] rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:flex-[0.85]">
+          <label className="min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[145px] lg:flex-[0.85]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Datum
             </div>
@@ -1725,7 +1717,7 @@ function PlannerPageContent() {
 
         </aside>
 
-        <section className="min-w-0 space-y-4">
+        <section id="planner-results" className="min-w-0 scroll-mt-24 space-y-4">
           <PlannerVariantPanel
         activeVariant={activeVariant}
         pinnedVariant={pinnedVariant}
@@ -1781,6 +1773,7 @@ function PlannerPageContent() {
         routeSummary={routeSummary}
         onRouteSummaryChange={setRouteSummary}
         plannerLoading={plannerLoading}
+        plannerError={plannerError}
         fallbackSummary={fallbackSummary}
         resultsCount={results.length}
         plannedStops={plannedStops}

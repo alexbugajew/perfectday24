@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PerfectDay - Curated City Planning",
+  title: "PerfectDay24 - Curated City Planning",
   description:
     "Plane staedtische Tage mit lokaler Qualitaet, klarer Struktur und abgestimmten Gruppenentscheidungen.",
 };
@@ -34,7 +34,7 @@ export default function RootLayout({
     >
       <body className="bg-[var(--bg-canvas)] text-[var(--text-strong)]">
         <MainNav />
-        <main className="mx-auto max-w-7xl px-5 py-6 sm:px-6 lg:px-8">{children}</main>
+        <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{children}</div>
       </body>
     </html>
   );

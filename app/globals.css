@@ -99,6 +99,14 @@ textarea:focus-visible {
   box-shadow: var(--focus-ring);
 }
 
+.pd24-scrollbar-none {
+  scrollbar-width: none;
+}
+
+.pd24-scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 button:disabled,
 input:disabled,
 select:disabled,

@@ -655,7 +655,7 @@ export default function HomepagePlannerEntry() {
           }`}
         >
           <div className="border-t border-[rgba(17,24,39,0.08)] pt-2.5 sm:border-l sm:border-t-0 sm:pl-3 sm:pt-0">
-            {renderInlineFieldOptions(field)}
+            {isActive ? renderInlineFieldOptions(field) : null}
           </div>
         </div>
       </div>

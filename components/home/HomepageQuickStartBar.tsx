@@ -40,6 +40,14 @@ const FALLBACK_CITY_OPTIONS: QuickStartCityOption[] = [...PLANNER_VISIBLE_CITY_R
     population: null,
   }));
 
+const DEFAULT_CITY_OPTION =
+  FALLBACK_CITY_OPTIONS.find((city) => city.value === "berlin-berlin") ??
+  FALLBACK_CITY_OPTIONS[0] ?? {
+    label: "Berlin",
+    value: "berlin-berlin",
+    population: null,
+  };
+
 const OCCASION_OPTIONS: QuickStartOccasion[] = [
   "date",
   "friends",
@@ -105,8 +113,8 @@ function buildPlannerHref(args: {
 
 export default function HomepageQuickStartBar() {
   const [cityOptions, setCityOptions] = useState<QuickStartCityOption[]>(FALLBACK_CITY_OPTIONS);
-  const [selectedCitySlug, setSelectedCitySlug] = useState<string>(FALLBACK_CITY_OPTIONS[0]?.value ?? "berlin-berlin");
-  const [cityQuery, setCityQuery] = useState<string>(FALLBACK_CITY_OPTIONS[0]?.label ?? "Berlin");
+  const [selectedCitySlug, setSelectedCitySlug] = useState<string>(DEFAULT_CITY_OPTION.value);
+  const [cityQuery, setCityQuery] = useState<string>(DEFAULT_CITY_OPTION.label);
   const [selectedOccasion, setSelectedOccasion] = useState<QuickStartOccasion>("date");
   const [selectedMode, setSelectedMode] = useState<ExperienceMode>("event_visit");
   const [selectedDate, setSelectedDate] = useState<string>(todayDateInputValue());
@@ -176,25 +184,9 @@ export default function HomepageQuickStartBar() {
     );
   }, [cityOptions, cityQuery]);
 
-  useEffect(() => {
-    const selectedCity = cityOptions.find((city) => city.value === selectedCitySlug);
-    if (!selectedCity) return;
-
-    setCityQuery((current) => {
-      const trimmed = current.trim().toLowerCase();
-      const matchesCurrentSelection =
-        trimmed.length === 0 ||
-        trimmed === selectedCity.label.toLowerCase() ||
-        trimmed === selectedCity.value.toLowerCase();
-      return matchesCurrentSelection ? selectedCity.label : current;
-    });
-  }, [cityOptions, selectedCitySlug]);
-
-  useEffect(() => {
-    const valid = new Set(modeOptions.map((option) => option.value));
-    if (!valid.has(selectedMode)) {
-      setSelectedMode(modeOptions[0]?.value ?? "classic");
-    }
+  const resolvedSelectedMode = useMemo(() => {
+    if (modeOptions.some((option) => option.value === selectedMode)) return selectedMode;
+    return modeOptions[0]?.value ?? "classic";
   }, [modeOptions, selectedMode]);
 
   const plannerHref = useMemo(
@@ -202,19 +194,19 @@ export default function HomepageQuickStartBar() {
       buildPlannerHref({
         citySlug: selectedCitySlug,
         occasion: selectedOccasion,
-        experienceMode: selectedMode,
+        experienceMode: resolvedSelectedMode,
         planDate: selectedDate,
       }),
-    [selectedCitySlug, selectedDate, selectedMode, selectedOccasion]
+    [resolvedSelectedMode, selectedCitySlug, selectedDate, selectedOccasion]
   );
 
   const eventMode = useMemo<ExperienceMode>(() => {
-    if (selectedMode !== "classic") return selectedMode;
+    if (resolvedSelectedMode !== "classic") return resolvedSelectedMode;
     return (
       modeOptions.find((option) => option.value !== "classic")?.value ??
-      selectedMode
+      resolvedSelectedMode
     );
-  }, [modeOptions, selectedMode]);
+  }, [modeOptions, resolvedSelectedMode]);
 
   const plannerEventHref = useMemo(
     () =>
@@ -235,7 +227,7 @@ export default function HomepageQuickStartBar() {
     cityOptions.find((city) => city.value === selectedCitySlug)?.label ?? "Berlin";
   const selectedDateLabel = plannerDateLabel(selectedDate);
   const selectedModeLabel =
-    modeOptions.find((option) => option.value === selectedMode)?.label ?? "Klassisch";
+    modeOptions.find((option) => option.value === resolvedSelectedMode)?.label ?? "Klassisch";
 
   const selectClassName =
     "mt-3 w-full rounded-[18px] border border-[rgba(23,23,23,0.1)] bg-white px-4 py-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.22)] focus:ring-2 focus:ring-[rgba(183,106,67,0.14)]";
@@ -250,19 +242,19 @@ export default function HomepageQuickStartBar() {
             Schnell starten
           </div>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#171717]">
-            Von Stadt, Anlass und Fokus direkt in den Planner.
+            Starte mit 4 Angaben in deinen ersten Plan.
           </h2>
           <p className="mt-3 text-base leading-7 text-[#665d55]">
-            Waehl deinen Rahmen hier auf der Startseite. Die Einstellungen werden direkt in den
-            Planner uebernommen.
+            Waehle Stadt, Anlass, Fokus und Datum. Der Planner uebernimmt den Rahmen direkt und
+            erzeugt daraus den ersten belastbaren Vorschlag.
           </p>
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row">
-          <PD24Button href={plannerHref}>Plan starten</PD24Button>
+          <PD24Button href={plannerHref}>Plan erstellen</PD24Button>
           {selectedCitySupportsEventModes ? (
             <PD24Button href={plannerEventHref} variant="secondary">
-              Mit Event starten
+              Event-Plan erstellen
             </PD24Button>
           ) : (
             <PD24Button variant="secondary" disabled>
@@ -279,12 +271,14 @@ export default function HomepageQuickStartBar() {
           </div>
           <div className="mt-2 text-lg font-medium text-[#171717]">{selectedCityLabel}</div>
           <input
+            aria-label="Stadt suchen"
             value={cityQuery}
             onChange={(e) => setCityQuery(e.target.value)}
             placeholder="Stadt eingeben"
             className={inputClassName}
           />
           <select
+            aria-label="Stadt auswaehlen"
             value={
               filteredCityOptions.some((city) => city.value === selectedCitySlug)
                 ? selectedCitySlug
@@ -335,6 +329,7 @@ export default function HomepageQuickStartBar() {
             {occasionLabel(selectedOccasion)}
           </div>
           <select
+            aria-label="Anlass auswaehlen"
             value={selectedOccasion}
             onChange={(e) => setSelectedOccasion(e.target.value as QuickStartOccasion)}
             className={selectClassName}
@@ -353,7 +348,8 @@ export default function HomepageQuickStartBar() {
           </div>
           <div className="mt-2 text-lg font-medium text-[#171717]">{selectedModeLabel}</div>
           <select
-            value={selectedMode}
+            aria-label="Fokus auswaehlen"
+            value={resolvedSelectedMode}
             onChange={(e) => setSelectedMode(e.target.value as ExperienceMode)}
             className={selectClassName}
           >
@@ -371,6 +367,7 @@ export default function HomepageQuickStartBar() {
           </div>
           <div className="mt-2 text-lg font-medium text-[#171717]">{selectedDateLabel}</div>
           <input
+            aria-label="Datum auswaehlen"
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}

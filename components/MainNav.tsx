@@ -15,7 +15,6 @@ export default function MainNav() {
 
   useEffect(() => {
     if (hideOnMarketingPages) {
-      setGroupUnreadCount(0);
       return;
     }
 
@@ -83,20 +82,33 @@ export default function MainNav() {
     path === "/"
       ? pathname === path
       : pathname === path || pathname.startsWith(`${path}/`);
+  const isRunExperience = pathname === "/run" || (pathname.startsWith("/routes/") && pathname.endsWith("/run"));
 
   const linkClass = (path: string) =>
-    `inline-flex min-h-11 shrink-0 items-center justify-center rounded-full px-3 py-2 text-sm font-medium transition sm:min-h-10 ${
+    `inline-flex shrink-0 items-center justify-center rounded-full font-medium transition ${
+      isRunExperience ? "min-h-10 px-3 py-1.5 text-sm" : "min-h-11 px-3 py-2 text-sm sm:min-h-10"
+    } ${
       isActive(path)
         ? "bg-[var(--text-strong)] text-white shadow-sm"
         : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"
     }`;
 
   return (
-    <nav className="sticky top-0 z-40 border-b border-[var(--line-subtle)] bg-[rgba(248,250,252,0.9)] backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6 sm:py-4 lg:px-8">
+    <nav
+      aria-label="Hauptnavigation"
+      className="sticky top-0 z-40 border-b border-[var(--line-subtle)] bg-[rgba(248,250,252,0.9)] backdrop-blur-xl"
+    >
+      <div
+        className={`mx-auto flex max-w-7xl flex-col px-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6 sm:py-4 lg:px-8 ${
+          isRunExperience ? "gap-2 py-2" : "gap-3 py-3"
+        }`}
+      >
 
         {/* Logo */}
-        <Link href="/" className="flex min-h-11 min-w-0 items-center gap-3">
+        <Link
+          href="/"
+          className={`${isRunExperience ? "hidden sm:flex" : "flex"} min-h-11 min-w-0 items-center gap-3`}
+        >
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[var(--text-strong)] text-sm font-semibold text-white shadow-sm sm:h-10 sm:w-10">
             PD
           </span>
@@ -109,7 +121,11 @@ export default function MainNav() {
         </Link>
 
         {/* Navigation */}
-        <div className="-mx-1 flex gap-1 overflow-x-auto rounded-full border border-[var(--line-subtle)] bg-[rgba(255,255,255,0.92)] px-1.5 py-1.5 shadow-[0_12px_30px_rgba(15,23,42,0.06)] sm:mx-0 sm:flex-wrap sm:gap-2 sm:rounded-[24px] sm:px-2 sm:py-2">
+        <div
+          className={`pd24-scrollbar-none -mx-1 flex w-full max-w-full gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-[var(--line-subtle)] bg-[rgba(255,255,255,0.92)] px-1.5 py-1.5 sm:mx-0 sm:w-auto sm:flex-wrap sm:gap-2 sm:rounded-[24px] sm:px-2 sm:py-2 ${
+            isRunExperience ? "shadow-sm" : "shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
+          }`}
+        >
 
           <Link href="/planner" className={linkClass("/planner")}>
             Planner

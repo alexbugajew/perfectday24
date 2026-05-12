@@ -64,6 +64,7 @@ export default function PlannerMapPanel({
 
         <div className="mt-3 grid grid-cols-[1fr_auto] gap-2">
           <select
+            aria-label="Mobilitaet fuer Karte auswaehlen"
             value={routeProfile}
             onChange={(event) => onRouteProfileChange(event.target.value as RouteProfile)}
             className="min-h-9 rounded-md border border-[var(--line-subtle)] bg-white px-2 text-sm text-[var(--text-strong)]"
@@ -86,7 +87,7 @@ export default function PlannerMapPanel({
         </div>
       </div>
 
-      <div className="transition-[height] duration-200" style={{ height: mapHeight }}>
+      <div className="overflow-hidden" style={{ height: mapHeight }}>
         <PlanMap
           stops={mapStops}
           profile={routeProfile}

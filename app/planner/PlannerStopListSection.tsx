@@ -109,6 +109,89 @@ function plannerStopVisualMeta(stop: PlannedStop) {
   return { icon: "ST", label: "Stop" };
 }
 
+function hasPlannerEvent(stop: PlannedStop) {
+  return stop.item?.source_primary === "planner_event" || stop.item?.category === "event";
+}
+
+function formatShortMinutes(minutes: number | null | undefined) {
+  if (typeof minutes !== "number" || !Number.isFinite(minutes) || minutes <= 0) return "-";
+  if (minutes < 60) return `${Math.round(minutes)} Min`;
+  const hours = Math.floor(minutes / 60);
+  const rest = Math.round(minutes % 60);
+  return rest > 0 ? `${hours} h ${rest} Min` : `${hours} h`;
+}
+
+function compactReason(reason: string) {
+  return reason.replace(/\s+/g, " ").trim();
+}
+
+function routeQualityMetrics(plannedStops: PlannedStop[], routeProfile: RouteProfile) {
+  const activeStops = plannedStops.filter((stop) => stop.item).length;
+  const eventStops = plannedStops.filter(hasPlannerEvent).length;
+  const timedStops = plannedStops.filter((stop) => stop.scheduledStartAt || stop.timingLock === "event").length;
+  const warningCount = plannedStops.reduce((sum, stop) => sum + (stop.timingWarnings?.length ?? 0), 0);
+  const travelMinutes = plannedStops.reduce((sum, stop) => sum + (stop.travelMinFromPrev ?? 0), 0);
+
+  return [
+    { label: "Stops", value: `${activeStops}/${plannedStops.length}`, note: "aktiv geplant" },
+    {
+      label: "Event-Anker",
+      value: eventStops > 0 ? String(eventStops) : "0",
+      note: eventStops > 0 ? "zeitlich eingebaut" : "optional",
+    },
+    {
+      label: "Timing",
+      value: warningCount > 0 ? `${warningCount} Hinweis` : timedStops > 0 ? `${timedStops} fix` : "flex",
+      note: warningCount > 0 ? "bitte pruefen" : "route stabil",
+    },
+    { label: "Transfer", value: formatShortMinutes(travelMinutes), note: routeProfileLabel(routeProfile) },
+  ];
+}
+
+function stopQualitySignals(stop: PlannedStop, index: number, routeProfile: RouteProfile, groupEnabled: boolean) {
+  const signals: string[] = [];
+
+  if (hasPlannerEvent(stop)) signals.push("Event-Anker");
+  if (stop.timingLock === "event") {
+    signals.push("Zeit fixiert");
+  } else if (stop.scheduledStartAt) {
+    signals.push("Zeitfenster gesetzt");
+  } else {
+    signals.push("Flexibler Slot");
+  }
+
+  if (index === 0) {
+    signals.push("Guter Einstieg");
+  } else if (typeof stop.travelMinFromPrev === "number") {
+    if (stop.travelMinFromPrev <= 12) signals.push("Kurzer Wechsel");
+    else if (stop.travelMinFromPrev <= 25) signals.push("Weg geprueft");
+    else signals.push("Bewusster Transfer");
+  }
+
+  if (groupEnabled && stop.groupDecision) {
+    if (stop.groupDecision.compromiseLevel === "shared") signals.push("Gruppenfit");
+    else if (stop.groupDecision.compromiseLevel === "balanced") signals.push("Balance-Stop");
+    else signals.push("Persoenlicher Fit");
+  }
+
+  if (typeof stop.item?.totalScore === "number") {
+    if (stop.item.totalScore >= 80) signals.push("Hoher Match-Score");
+    else if (stop.item.totalScore >= 60) signals.push("Solider Match");
+  }
+
+  if (routeProfile === "foot" && index > 0) signals.push("Walkable Route");
+  if (stop.timingWarnings?.length) signals.push("Timing pruefen");
+
+  return Array.from(new Set(signals)).slice(0, 5);
+}
+
+function visibleStopReasons(stop: PlannedStop) {
+  const reasons = (stop.reasons ?? []).map(compactReason).filter(Boolean);
+  if (reasons.length > 0) return Array.from(new Set(reasons)).slice(0, 2);
+
+  return (stop.item?.retrievalReasons ?? []).map(compactReason).filter(Boolean).slice(0, 2);
+}
+
 export default function PlannerStopListSection({
   plannedStops,
   occasion,
@@ -125,6 +208,8 @@ export default function PlannerStopListSection({
   onSetDraggedStopPosition,
   onBumpStop,
 }: PlannerStopListSectionProps) {
+  const routeMetrics = routeQualityMetrics(plannedStops, routeProfile);
+
   return (
     <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
       <div className="mb-4 flex flex-col gap-3 border-b border-[rgba(68,57,46,0.08)] pb-3 sm:flex-row sm:items-end sm:justify-between">
@@ -152,12 +237,31 @@ export default function PlannerStopListSection({
         </div>
       </div>
 
+      <div className="mb-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        {routeMetrics.map((metric) => (
+          <div
+            key={metric.label}
+            className="rounded-lg border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-3 py-2"
+          >
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              {metric.label}
+            </div>
+            <div className="mt-1 text-base font-semibold tracking-tight text-[var(--text-strong)]">
+              {metric.value}
+            </div>
+            <div className="mt-0.5 text-[11px] text-[var(--text-muted)]">{metric.note}</div>
+          </div>
+        ))}
+      </div>
+
       <div className="space-y-4">
         {plannedStops.map((stop, i) => {
           const sourceRefs = readEventSourceRefs(stop.item?.source_refs);
           const eventTravelNote = eventTravelPriorityNote(stop, i, routeProfile);
           const imageUrl = plannerStopImageUrl(stop);
           const visualMeta = plannerStopVisualMeta(stop);
+          const qualitySignals = stopQualitySignals(stop, i, routeProfile, groupEnabled);
+          const primaryReasons = visibleStopReasons(stop);
 
           return (
             <div
@@ -312,6 +416,43 @@ export default function PlannerStopListSection({
                           {stop.timingLock === "event" ? " | Einlass/Event-Zeit fixiert" : ""}
                         </p>
                       ) : null}
+
+                      <div className="mt-3 rounded-lg border border-[rgba(68,57,46,0.08)] bg-white/80 p-3">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                            Warum passt das?
+                          </div>
+                          {stop.timingWarnings?.length ? (
+                            <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-1 text-[11px] font-medium text-rose-700">
+                              Timing pruefen
+                            </span>
+                          ) : (
+                            <span className="rounded-full border border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)] px-2 py-1 text-[11px] font-medium text-[var(--state-success)]">
+                              Ergebnis plausibel
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {qualitySignals.map((signal) => (
+                            <span
+                              key={`${stop.index}-${signal}`}
+                              className="rounded-full border border-[rgba(68,57,46,0.1)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]"
+                            >
+                              {signal}
+                            </span>
+                          ))}
+                        </div>
+                        {primaryReasons.length ? (
+                          <div className="mt-3 grid gap-1.5 text-xs leading-5 text-[var(--text-muted)]">
+                            {primaryReasons.map((reason) => (
+                              <div key={`${stop.index}-${reason}`} className="flex items-start gap-2">
+                                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--text-muted)]/50" />
+                                <span>{reason}</span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
 
                       <details className="mt-3 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
                         <summary className="cursor-pointer text-xs font-medium text-[var(--text-strong)]">
@@ -591,9 +732,10 @@ export default function PlannerStopListSection({
                 <div className="flex shrink-0 flex-col gap-2 items-end">
                   <button
                     onClick={() => onBumpStop(i)}
+                    aria-label={`Alternative fuer ${stop.item?.name ?? stop.label} suchen`}
                     className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:opacity-95"
                   >
-                    Tauschen
+                    Alternative suchen
                   </button>
 
                   {stop.item?.reservation_url ? (

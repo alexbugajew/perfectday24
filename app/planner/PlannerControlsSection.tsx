@@ -662,6 +662,7 @@ export default function PlannerControlsSection({
 
             <div className="relative">
               <select
+                aria-label="Startpunkttyp auswaehlen"
                 value={startPoint.type}
                 onChange={(e) => updateStartPointType(e.target.value as StartPointType)}
                 className="hidden"
@@ -675,6 +676,7 @@ export default function PlannerControlsSection({
 
               <div className="relative">
                 <input
+                  aria-label="Startpunkt suchen"
                   value={displayedStartPointLabel}
                   onFocus={() =>
                     setStartPoint((prev) =>
@@ -802,8 +804,9 @@ export default function PlannerControlsSection({
           </div>
 
           <div className="flex items-center gap-4 flex-wrap rounded-[22px] border border-[rgba(68,57,46,0.08)] bg-white/70 px-4 py-3">
-            <label className="font-medium text-[var(--text-strong)]">Umkreis: {radiusKm} km</label>
+            <label htmlFor="planner-radius-km" className="font-medium text-[var(--text-strong)]">Umkreis: {radiusKm} km</label>
             <input
+              id="planner-radius-km"
               type="range"
               min={1}
               max={50}

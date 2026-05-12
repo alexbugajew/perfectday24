@@ -18,9 +18,9 @@ const display = Cormorant_Garamond({
 });
 
 const trustSignals = [
-  "Echte Events integriert",
-  "Reale Wegezeiten",
-  "Auch fuer Gruppen gebaut",
+  "Echte Events statt Trefferliste",
+  "Realistische Wege und Timing",
+  "Gemeinsam schneller entscheiden",
 ];
 
 const differentiationCards = [
@@ -76,15 +76,18 @@ const heroSignals = [
 
 const liveProofCards = [
   {
-    title: "Live aus Explore",
-    body: "Oeffentliche Creator-Routen werden direkt auf die Homepage gezogen und koennen als Vorlage in den Planner uebergehen.",
+    value: "3+ Stops",
+    title: "Gepruefte Routen aus Explore",
+    body: "Auf der Homepage landen nur oeffentliche Routen, die genug Struktur fuer einen vertrauenswuerdigen Einstieg mitbringen.",
   },
   {
-    title: "Planner mit echter Vorauswahl",
-    body: "Stadt, Anlass, Fokus und Vorlieben gehen nicht verloren, sondern werden als konkrete Startkonfiguration uebernommen.",
+    value: "Startlogik",
+    title: "Planner mit echter Startlogik",
+    body: "Stadt, Anlass, Fokus und Datum gehen nicht verloren, sondern werden als konkrete Startkonfiguration uebernommen.",
   },
   {
-    title: "Gruppenwahl als Produktmoment",
+    value: "2 Wege",
+    title: "Gruppenwahl ohne Chat-Chaos",
     body: "Varianten, Stimmen und Bestaetigung bleiben lesbar, damit ein gemeinsamer Tag nicht an der Abstimmung scheitert.",
   },
 ];
@@ -118,7 +121,7 @@ function MetricPill({ children }: { children: React.ReactNode }) {
 export default function HomepageScaffoldMinimal() {
   return (
     <div className={`${display.variable} min-h-screen bg-[#f7f4ee] text-[#171717]`}>
-      <div className="mx-auto max-w-[1200px] px-5 pb-20 pt-6 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1200px] pb-20 pt-6">
         <PD24SiteHeader
           title="PerfectDay24"
           subtitle="Curated City Planning"
@@ -141,15 +144,15 @@ export default function HomepageScaffoldMinimal() {
             <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] lg:items-center">
               <div className="max-w-2xl">
                 <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-                  Echte Events. Gute Orte. Ein stimmiger Tag.
+                  Stadt. Anlass. Route. Ein stimmiger Tag.
                 </div>
-                <h1 className="mt-4 font-[family:var(--font-pd24-display)] text-5xl leading-[0.94] tracking-tight text-[#171717] sm:text-6xl lg:text-7xl">
-                  Plane einen Tag, der sich nach euch und eurer Stadt anfuehlt.
+                <h1 className="mt-4 font-[family:var(--font-pd24-display)] text-[2.75rem] leading-[0.96] tracking-tight text-[#171717] sm:text-6xl lg:text-7xl">
+                  Plane einen Tag, der zu euch und zur Stadt passt.
                 </h1>
                 <p className="mt-5 max-w-xl text-lg leading-8 text-[#665d55]">
-                  PerfectDay24 verbindet echte Events, gute Orte, sinnvolle Wege und
-                  Gruppenentscheidungen zu einem Ablauf, der nicht nach Suche aussieht, sondern
-                  nach einem richtig guten Tag.
+                  Waehle Stadt, Anlass und Stimmung. PerfectDay24 macht daraus einen Ablauf mit
+                  echten Events, passenden Orten, realistischen Wegen und einer klaren gemeinsamen
+                  Wahl.
                 </p>
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -157,14 +160,8 @@ export default function HomepageScaffoldMinimal() {
                     Tag planen
                   </PD24Button>
                   <PD24Button href="/routes" variant="secondary" className="w-full sm:w-auto">
-                    Mit Route starten
+                    Route als Vorlage nutzen
                   </PD24Button>
-                  <Link
-                    href="/explore"
-                    className="inline-flex min-h-12 items-center justify-center rounded-2xl px-2 text-sm font-medium text-[#171717] underline underline-offset-4"
-                  >
-                    Live in Explore ansehen
-                  </Link>
                 </div>
 
                 <div className="mt-7 flex flex-wrap gap-3">
@@ -181,7 +178,7 @@ export default function HomepageScaffoldMinimal() {
                       Beispiel fuer einen Date-Abend
                     </div>
                     <div className="mt-2 text-2xl font-semibold tracking-tight text-[#171717]">
-                      Berlin | Event-Aware | Heute Abend
+                      Berlin | Event-Plan | Heute Abend
                     </div>
                     <div className="mt-2 text-sm leading-6 text-[#665d55]">
                       Ein fester Hauptmoment, kurze Wege und genug Luft zwischen den Stops.
@@ -250,8 +247,8 @@ export default function HomepageScaffoldMinimal() {
             <PD24Card padding="lg" className="border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.9)]">
               <PD24SectionIntro
                 eyebrow="Live Proof"
-                title="Das Produkt lebt nicht nur in der Idee, sondern in echten Einstiegen."
-                body="Homepage, Planner, Explore und Creator-Routen greifen als ein gemeinsames Produkt ineinander. Genau das schafft Vertrauen und reduziert Reibung."
+                title="Jeder Einstieg soll wie ein Produkt wirken, nicht wie ein Datenauszug."
+                body="Homepage, Planner, Explore und Creator-Routen greifen als ein gemeinsamer Flow ineinander. Das schafft Vertrauen und reduziert Reibung vor dem ersten Klick."
               />
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -260,7 +257,10 @@ export default function HomepageScaffoldMinimal() {
                     key={card.title}
                     className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white/90 p-5"
                   >
-                    <h3 className="text-lg font-semibold text-[#171717]">{card.title}</h3>
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#b76a43]">
+                      {card.value}
+                    </div>
+                    <h3 className="mt-3 text-lg font-semibold text-[#171717]">{card.title}</h3>
                     <p className="mt-3 text-sm leading-7 text-[#665d55]">{card.body}</p>
                   </div>
                 ))}
@@ -367,8 +367,8 @@ export default function HomepageScaffoldMinimal() {
               <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#d0b7a8]">
                 Final CTA
               </div>
-              <h2 className="mt-4 font-[family:var(--font-pd24-display)] text-5xl leading-[0.98] tracking-tight sm:text-6xl">
-                Plane nicht den vollsten Tag. Plane den stimmigeren.
+              <h2 className="mt-4 font-[family:var(--font-pd24-display)] text-[2.75rem] leading-[0.98] tracking-tight sm:text-6xl">
+                Starte mit einem klaren Rahmen. Der Plan folgt.
               </h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-[rgba(255,253,248,0.78)]">
                 Starte mit Stadt, Anlass und Stimmung. PerfectDay24 macht daraus einen Tag mit
@@ -377,11 +377,11 @@ export default function HomepageScaffoldMinimal() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <PD24Button href="/planner">Jetzt Tag planen</PD24Button>
                 <PD24Button
-                  href="/explore"
+                  href="/routes"
                   variant="secondary"
                   className="border-[rgba(255,255,255,0.14)] bg-[rgba(255,255,255,0.06)] text-white hover:bg-[rgba(255,255,255,0.12)] hover:text-white"
                 >
-                  Explore entdecken
+                  Route als Vorlage nutzen
                 </PD24Button>
               </div>
             </div>

@@ -86,6 +86,59 @@ function variantDramaValues(variant: PlanVariant | null, count: number) {
   });
 }
 
+function formatVariantMinutes(minutes: number | null | undefined) {
+  if (typeof minutes !== "number" || !Number.isFinite(minutes) || minutes <= 0) return "-";
+  const hours = Math.floor(minutes / 60);
+  const rest = Math.round(minutes % 60);
+  if (hours <= 0) return `${Math.round(minutes)} Min`;
+  if (rest <= 0) return `${hours} h`;
+  return `${hours} h ${rest} Min`;
+}
+
+function formatVariantDistance(km: number | null | undefined) {
+  if (typeof km !== "number" || !Number.isFinite(km) || km <= 0) return "-";
+  return `${km.toFixed(km < 10 ? 1 : 0)} km`;
+}
+
+function variantGoalLabel(goal: PlanVariant["goal"]) {
+  if (goal === "shortest_route") return "Kuerzeste Wege";
+  if (goal === "more_diverse") return "Mehr Vielfalt";
+  if (goal === "premium") return "Premium-Fokus";
+  return "Bester Fit";
+}
+
+function variantGoalCopy(goal: PlanVariant["goal"]) {
+  if (goal === "shortest_route") {
+    return "Priorisiert weniger Transferzeit und ruhigere Uebergaenge.";
+  }
+  if (goal === "more_diverse") {
+    return "Mischt bewusst verschiedene Kategorien und Stimmungen.";
+  }
+  if (goal === "premium") {
+    return "Setzt staerker auf hochwertige Orte und besondere Momente.";
+  }
+  return "Balanciert Match, Timing, Entfernung und Anlass.";
+}
+
+function variantQualityMetrics(variant: PlanVariant) {
+  const activeStops = variant.plannedStops.filter((stop) => stop.item).length;
+  const eventStops = variant.plannedStops.filter((stop) => stop.item?.source_primary === "planner_event").length;
+  const timedStops = variant.plannedStops.filter((stop) => stop.scheduledStartAt || stop.timingLock === "event").length;
+
+  return [
+    { label: "Stops", value: String(activeStops) },
+    { label: "Dauer", value: formatVariantMinutes(variant.fallbackSummary.totalMin) },
+    { label: "Weg", value: formatVariantMinutes(variant.fallbackSummary.travelMin) },
+    { label: "Distanz", value: formatVariantDistance(variant.fallbackSummary.distanceKm) },
+    { label: "Events", value: eventStops > 0 ? String(eventStops) : "0" },
+    { label: "Timing", value: timedStops > 0 ? `${timedStops} fix` : "flex" },
+  ];
+}
+
+function variantProofBadges(variant: PlanVariant) {
+  return [variantGoalLabel(variant.goal), ...(variant.badges ?? []).slice(0, 3)].filter(Boolean);
+}
+
 export default function PlannerVariantPanel({
   activeVariant,
   pinnedVariant,
@@ -285,44 +338,106 @@ export default function PlannerVariantPanel({
       )}
 
       {plannerData?.variants?.length ? (
-        <div className="mb-4">
-          <div className="flex flex-wrap gap-2 mb-3">
+        <div className="mb-5 rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">
+                Variantenvergleich
+              </div>
+              <h3 className="mt-1 text-lg font-semibold tracking-tight text-[var(--text-strong)]">
+                Welche Route hat den besten Trade-off?
+              </h3>
+              <p className="mt-1 max-w-2xl text-xs leading-5 text-[var(--text-muted)]">
+                Vergleiche Zeit, Weg, Event-Anker, Timing und Gruppenfit, bevor ihr euch auf eine Route festlegt.
+              </p>
+            </div>
+            <div className="inline-flex w-fit rounded-full border border-[rgba(68,57,46,0.1)] bg-[var(--bg-panel)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
+              {plannerData.variants.length} Varianten aktiv
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {plannerData.variants.map((variant) => {
               const active = variant.variantId === selectedVariantId;
               const voteCount = variantVotes[variant.variantId]?.length ?? 0;
+              const metrics = variantQualityMetrics(variant);
+              const badges = variantProofBadges(variant);
 
               return (
                 <button
                   key={variant.variantId}
+                  type="button"
                   onClick={() => onSelectVariant(variant.variantId)}
-                  className={`px-3 py-2 rounded border text-sm ${
+                  aria-pressed={active}
+                  className={`flex h-full flex-col rounded-lg border p-3 text-left transition focus:outline-none focus:ring-2 focus:ring-[var(--brand-accent)]/30 ${
                     active
-                      ? "bg-[var(--text-strong)] text-white border-[var(--text-strong)]"
-                      : "bg-white text-[var(--text-muted)]"
+                      ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white shadow-[0_18px_40px_rgba(49,39,27,0.18)]"
+                      : "border-[rgba(68,57,46,0.1)] bg-[rgba(255,253,248,0.94)] text-[var(--text-strong)] hover:border-[var(--brand-accent)]/35 hover:bg-white"
                   }`}
                 >
-                  <div className="font-medium">{variant.label}</div>
-                  {variant.groupSummary?.label ? (
-                    <div className={`text-[11px] ${active ? "text-white/80" : "text-[var(--text-muted)]"}`}>
-                      {variant.groupSummary.label}
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold leading-snug">{variant.label}</div>
+                      <div className={`mt-1 text-[11px] leading-4 ${active ? "text-white/80" : "text-[var(--text-muted)]"}`}>
+                        {variantGoalCopy(variant.goal)}
+                      </div>
                     </div>
-                  ) : null}
-                  {voteCount > 0 ? (
-                    <div className={`text-[11px] ${active ? "text-white/80" : "text-[var(--state-success)]"}`}>
-                      {voteCount} von {reactionParticipants.length || 0}
-                    </div>
-                  ) : null}
+                    <span
+                      className={`shrink-0 rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-wide ${
+                        active
+                          ? "border-white/25 bg-white/10 text-white"
+                          : "border-[rgba(68,57,46,0.1)] bg-white text-[var(--text-muted)]"
+                      }`}
+                    >
+                      {active ? "Aktiv" : "Waehlen"}
+                    </span>
+                  </div>
+
+                  <div className={`mt-3 grid grid-cols-3 gap-x-3 gap-y-2 border-t pt-3 ${active ? "border-white/20" : "border-[rgba(68,57,46,0.08)]"}`}>
+                    {metrics.map((metric) => (
+                      <div key={`${variant.variantId}-${metric.label}`} className="min-w-0">
+                        <div className={`text-[10px] uppercase tracking-wide ${active ? "text-white/60" : "text-[var(--text-muted)]"}`}>
+                          {metric.label}
+                        </div>
+                        <div className="mt-0.5 truncate text-xs font-semibold">{metric.value}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {badges.slice(0, 4).map((badge) => (
+                      <span
+                        key={`${variant.variantId}-${badge}`}
+                        className={`rounded-full border px-2 py-0.5 text-[10px] ${
+                          active
+                            ? "border-white/20 bg-white/10 text-white/80"
+                            : "border-[rgba(68,57,46,0.1)] bg-white text-[var(--text-muted)]"
+                        }`}
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className={`mt-auto pt-3 text-[11px] ${active ? "text-white/70" : "text-[var(--text-muted)]"}`}>
+                    {variant.groupSummary?.label ? variant.groupSummary.label : "Ohne Gruppenwahl"}
+                    {voteCount > 0 ? ` · ${voteCount} von ${reactionParticipants.length || 0} Stimmen` : ""}
+                    {typeof variant.totalScore === "number" ? ` · Score ${variant.totalScore}` : ""}
+                  </div>
                 </button>
               );
             })}
           </div>
 
           {activeVariant?.reason ? (
-            <details className="hidden">
-              <summary className="cursor-pointer list-none font-medium text-[var(--text-strong)]">
-                Beschreibung der Variante anzeigen v
+            <details
+              open
+              className="mt-4 rounded-lg border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] p-3"
+            >
+              <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text-strong)]">
+                Warum diese Variante?
               </summary>
-              <div className="mt-3">
+              <div className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
               {pinnedVariant?.variantId === activeVariant.variantId ? (
                 <div className="mb-2 inline-flex rounded-full border border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)] px-2 py-1 text-[11px] font-medium text-[var(--state-success)]">
                   Unsere Wahl

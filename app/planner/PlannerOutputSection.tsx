@@ -28,6 +28,7 @@ type PlannerOutputSectionProps = {
   routeSummary: RouteSummary | null;
   onRouteSummaryChange: (summary: RouteSummary | null) => void;
   plannerLoading: boolean;
+  plannerError: string | null;
   fallbackSummary: RouteSummaryLite;
   resultsCount: number;
   plannedStops: PlannedStop[];
@@ -55,10 +56,52 @@ type PlannerOutputSectionProps = {
   planEditSuggestions: Record<string, PlanEditSuggestionSummary[]>;
 };
 
+type SavedPlanSlotForOutput = {
+  index?: number | null;
+  slot?: string | number | null;
+  label?: string | null;
+  hint?: string | null;
+  durationMin?: number | null;
+  travelMinFromPrev?: number | null;
+  scheduledStartAt?: string | null;
+  scheduledEndAt?: string | null;
+  timingLock?: "none" | "event" | null;
+  reasons?: string[];
+  location?: {
+    name?: string | null;
+    type?: string | null;
+    source_primary?: string | null;
+  } | null;
+};
+
 const PlanMap = dynamic(
   () => import("@/components/PlanMap").then((module) => module.default),
   { ssr: false }
 );
+
+const PLANNER_LOADING_STEPS = [
+  "Lokale Kandidaten pruefen",
+  "Wege und Zeitfenster clustern",
+  "Ablauf als erste Variante bauen",
+];
+
+const PLANNER_EMPTY_ACTIONS = [
+  "Startpunkt genauer setzen",
+  "Umkreis erweitern",
+  "Kurz auf Klassisch wechseln",
+];
+
+function isSavedPlanSlotForOutput(value: unknown): value is SavedPlanSlotForOutput {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function savedPlanSlotsForOutput(slots: unknown) {
+  return Array.isArray(slots) ? slots.filter(isSavedPlanSlotForOutput) : [];
+}
+
+function savedPlanSlotKey(slot: SavedPlanSlotForOutput, index: number) {
+  return String(slot.index ?? slot.slot ?? `${slot.label ?? "slot"}-${index}`);
+}
 
 export default function PlannerOutputSection({
   routeProfile,
@@ -69,6 +112,7 @@ export default function PlannerOutputSection({
   routeSummary,
   onRouteSummaryChange,
   plannerLoading,
+  plannerError,
   fallbackSummary,
   resultsCount,
   plannedStops,
@@ -207,6 +251,7 @@ export default function PlannerOutputSection({
 
           <div className="flex items-center gap-2">
             <select
+              aria-label="Mobilitaet fuer Routenausgabe auswaehlen"
               value={routeProfile}
               onChange={(e) => onRouteProfileChange(e.target.value as RouteProfile)}
               className="rounded-2xl border border-[rgba(68,57,46,0.1)] bg-white/95 px-3 py-2 text-sm text-[var(--text-strong)]"
@@ -273,12 +318,72 @@ export default function PlannerOutputSection({
       </div>
 
       {plannerLoading ? (
-        <div className="rounded-lg border p-4">
-          Der Plan wird gerade zusammengesetzt. Orte, Wege und Event-Fenster werden abgestimmt.
+        <div className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+                Erster Vorschlag
+              </div>
+              <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
+                Dein Plan wird zusammengesetzt.
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+                Orte, Wege, Event-Fenster und Timing werden gerade zu einem belastbaren Ablauf
+                verdichtet. Du kannst die Parameter oben schon weiter anpassen.
+              </p>
+            </div>
+            <span className="rounded-full border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)] px-3 py-1 text-xs font-medium text-[var(--brand-accent)]">
+              Live-Berechnung
+            </span>
+          </div>
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            {PLANNER_LOADING_STEPS.map((step) => (
+              <div
+                key={step}
+                className="min-h-24 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3"
+              >
+                <div className="h-2 w-16 rounded-full bg-[rgba(68,57,46,0.12)]" />
+                <div className="mt-5 text-sm font-medium text-[var(--text-strong)]">{step}</div>
+                <div className="mt-3 h-2 w-full rounded-full bg-[rgba(68,57,46,0.08)]" />
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : plannerError ? (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-red-700">
+            Planner braucht Eingriff
+          </div>
+          <h2 className="mt-2 text-xl font-semibold tracking-tight">
+            Der Vorschlag konnte noch nicht gebaut werden.
+          </h2>
+          <p className="mt-2 text-sm leading-6">
+            {plannerError} Pruefe vor allem Startpunkt, Stadt und Fokus. Danach stoesst der
+            Planner automatisch einen neuen Lauf an.
+          </p>
         </div>
       ) : resultsCount === 0 ? (
-        <div className="rounded-lg border p-4">
-          Noch keine passenden Vorschläge. Prüfe Stadt, Startpunkt oder erweitere den Umkreis für mehr Optionen.
+        <div className="rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+            Noch kein Vorschlag
+          </div>
+          <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
+            Es fehlen noch belastbare Kandidaten.
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+            Der Planner zeigt lieber keinen schwachen Ablauf als eine zufaellige Liste. Diese
+            Anpassungen bringen meistens schnell mehr Substanz:
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {PLANNER_EMPTY_ACTIONS.map((action) => (
+              <span
+                key={action}
+                className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-muted)]"
+              >
+                {action}
+              </span>
+            ))}
+          </div>
         </div>
       ) : (
         <>
@@ -616,8 +721,8 @@ export default function PlannerOutputSection({
               ) : null}
 
               <div className="space-y-3">
-                {(selectedPlan.slots || []).map((slot: any, index: number) => (
-                  <div key={slot.index ?? slot.slot ?? JSON.stringify(slot)} className="rounded-lg border p-3">
+                {savedPlanSlotsForOutput(selectedPlan.slots).map((slot, index) => (
+                  <div key={savedPlanSlotKey(slot, index)} className="rounded-lg border p-3">
                     <div className="text-sm font-semibold">{slot.label ?? `Stop ${slot.index}`}</div>
                     <div className="text-xs text-[var(--text-muted)]">{slot.hint}</div>
                     {slot.location ? (

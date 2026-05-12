@@ -91,9 +91,22 @@ function makeStopsSignature(stops: PlanMapStop[]) {
   return stops
     .map(
       (stop) =>
-        `${stop.label}|${stop.name}|${stop.lat.toFixed(5)}|${stop.lng.toFixed(5)}`
+        `${stop.label}|${stop.name}|${stop.lat.toFixed(5)}|${stop.lng.toFixed(5)}|${stop.markerVariant ?? "default"}`
     )
     .join("::");
+}
+
+function isValidCoordinate(lat: number, lng: number) {
+  return (
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
+    Math.abs(lat) <= 90 &&
+    Math.abs(lng) <= 180
+  );
+}
+
+function normalizeStops(stops: PlanMapStop[]) {
+  return stops.filter((stop) => isValidCoordinate(stop.lat, stop.lng));
 }
 
 function samePolyline(left: Array<[number, number]>, right: Array<[number, number]>) {
@@ -162,20 +175,57 @@ async function fetchOsrmRoute(
   return value;
 }
 
-function AutoFit({ points }: { points: Array<[number, number]> }) {
+function isMapContainerReady(map: L.Map) {
+  const container = map.getContainer();
+  return Boolean(container?.isConnected && container.clientWidth > 0 && container.clientHeight > 0);
+}
+
+function stopMapSafely(map: L.Map) {
+  try {
+    map.stop();
+  } catch {
+    // Leaflet can throw while React is tearing down the map in dev/StrictMode.
+  }
+}
+
+function AutoFit({
+  points,
+  height,
+}: {
+  points: Array<[number, number]>;
+  height: number;
+}) {
   const map = useMap();
 
   useEffect(() => {
-    if (!points.length) return;
-
-    if (points.length === 1) {
-      map.setView(points[0], 13, { animate: true });
-      return;
+    if (!points.length) {
+      return undefined;
     }
 
-    const bounds = L.latLngBounds(points.map((point) => L.latLng(point[0], point[1])));
-    map.fitBounds(bounds, { padding: [30, 30], animate: true });
-  }, [map, points]);
+    const frame = window.requestAnimationFrame(() => {
+      if (!isMapContainerReady(map)) return;
+
+      try {
+        stopMapSafely(map);
+        map.invalidateSize({ animate: false, pan: false });
+
+        if (points.length === 1) {
+          map.setView(points[0], 13, { animate: false });
+          return;
+        }
+
+        const bounds = L.latLngBounds(points.map((point) => L.latLng(point[0], point[1])));
+        map.fitBounds(bounds, { padding: [30, 30], animate: false });
+      } catch (error) {
+        console.warn("PlanMap autofit skipped:", error);
+      }
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      stopMapSafely(map);
+    };
+  }, [height, map, points]);
 
   return null;
 }
@@ -194,32 +244,33 @@ export default function PlanMap({
 
   const onSummaryRef = useRef<Props["onSummary"]>(onSummary);
   const lastSummarySignalRef = useRef<string | null>(null);
+  const safeStops = useMemo(() => normalizeStops(stops), [stops]);
 
   useEffect(() => {
     onSummaryRef.current = onSummary;
   }, [onSummary]);
 
-  const stopsSignature = useMemo(() => makeStopsSignature(stops), [stops]);
+  const stopsSignature = useMemo(() => makeStopsSignature(safeStops), [safeStops]);
   const routeSignal = `${profile}:${stopsSignature}`;
 
   const center = useMemo<[number, number]>(() => {
-    if (!stops.length) return [52.52, 13.405];
-    const avgLat = stops.reduce((sum, stop) => sum + stop.lat, 0) / stops.length;
-    const avgLng = stops.reduce((sum, stop) => sum + stop.lng, 0) / stops.length;
+    if (!safeStops.length) return [52.52, 13.405];
+    const avgLat = safeStops.reduce((sum, stop) => sum + stop.lat, 0) / safeStops.length;
+    const avgLng = safeStops.reduce((sum, stop) => sum + stop.lng, 0) / safeStops.length;
     return [avgLat, avgLng];
-  }, [stops]);
+  }, [safeStops]);
 
-  const zoom = useMemo(() => (stops.length <= 1 ? 13 : 12), [stops.length]);
+  const zoom = useMemo(() => (safeStops.length <= 1 ? 13 : 12), [safeStops.length]);
 
   const markerPoints = useMemo(
-    () => stops.map((stop) => [stop.lat, stop.lng] as [number, number]),
-    [stops]
+    () => safeStops.map((stop) => [stop.lat, stop.lng] as [number, number]),
+    [safeStops]
   );
 
   useEffect(() => {
     const ac = new AbortController();
     let alive = true;
-    const routeStops = stops.map((stop) => ({
+    const routeStops = safeStops.map((stop) => ({
       label: stop.label,
       name: stop.name,
       lat: stop.lat,
@@ -284,11 +335,11 @@ export default function PlanMap({
             polylineLatLng,
           });
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         if (!alive) return;
-        if (error?.name === "AbortError") return;
+        if (error instanceof Error && error.name === "AbortError") return;
 
-        const nextError = error?.message ? String(error.message) : "Routing fehlgeschlagen.";
+        const nextError = error instanceof Error && error.message ? error.message : "Routing fehlgeschlagen.";
         setPolyline((prev) => (prev.length ? [] : prev));
         setErr((prev) => (prev === nextError ? prev : nextError));
 
@@ -307,7 +358,7 @@ export default function PlanMap({
       alive = false;
       ac.abort();
     };
-  }, [profile, routeSignal]);
+  }, [profile, routeSignal, safeStops]);
 
   return (
     <div className={className}>
@@ -315,7 +366,7 @@ export default function PlanMap({
         <div className="mb-2 flex items-center justify-between gap-3">
           <div className="font-semibold">Map + Route</div>
           <div className="text-xs text-gray-600">
-            {stops.length < 2
+            {safeStops.length < 2
               ? "Mind. 2 Stops fuer Route"
               : loading
                 ? "Route wird berechnet..."
@@ -332,17 +383,20 @@ export default function PlanMap({
           zoom={zoom}
           scrollWheelZoom={false}
           style={{ height: "100%", width: "100%" }}
+          fadeAnimation={false}
+          markerZoomAnimation={false}
+          zoomAnimation={false}
         >
           <TileLayer
             attribution="&copy; OpenStreetMap contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          <AutoFit points={markerPoints} />
+          <AutoFit points={markerPoints} height={height} />
 
-          {stops.map((stop, index) => (
+          {safeStops.map((stop, index) => (
             <Marker
-              key={`${stop.label}_${index}`}
+              key={`${stop.label}_${stop.lat}_${stop.lng}_${stop.markerVariant ?? "default"}_${index}`}
               position={[stop.lat, stop.lng]}
               icon={getMarkerIcon(stop.markerVariant)}
             >
@@ -361,7 +415,7 @@ export default function PlanMap({
 
       {err ? (
         <div className="mt-2 text-xs text-red-600">
-          {err} (Fallback bleibt: du kannst trotzdem "Route oeffnen" nutzen)
+          {err} (Fallback bleibt: du kannst trotzdem Route oeffnen nutzen)
         </div>
       ) : null}
     </div>

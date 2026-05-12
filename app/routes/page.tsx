@@ -2149,8 +2149,8 @@ async function handleDeleteRoute(routeId: string) {
                         }}
                         className={`w-full text-left border rounded-2xl p-4 transition cursor-pointer ${active ? "border-[var(--text-strong)] bg-[var(--bg-panel)]" : "bg-white hover:bg-[var(--bg-panel)]"}`}
                       >
-                        <div className="flex items-start justify-between gap-3">
-                          <div>
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                          <div className="min-w-0">
                             <div className="text-xs text-[var(--text-muted)] mb-1">Stop {index + 1}</div>
                             <div className="font-semibold">{stopTitle(stop, index)}</div>
                             {stop.subtitle ? <div className="text-xs text-[var(--text-muted)] mt-1">{stop.subtitle}</div> : null}
@@ -2168,10 +2168,10 @@ async function handleDeleteRoute(routeId: string) {
                             <div className="mt-2 text-xs text-[var(--text-muted)]">{stopSummary(stop)}</div>
                           </div>
 
-                          <div className="flex gap-2">
-                            <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "up"); }} className="px-2 py-1 rounded-lg border text-xs">Hoch</button>
-                            <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "down"); }} className="px-2 py-1 rounded-lg border text-xs">Runter</button>
-                            <button type="button" onClick={(e) => { e.stopPropagation(); removeDraftStop(stop.localId); }} className="px-2 py-1 rounded-lg border text-xs text-red-600">Entfernen</button>
+                          <div className="grid w-full grid-cols-3 gap-2 sm:w-auto sm:flex sm:shrink-0 sm:flex-wrap sm:justify-end">
+                            <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "up"); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]">Hoch</button>
+                            <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "down"); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]">Runter</button>
+                            <button type="button" onClick={(e) => { e.stopPropagation(); removeDraftStop(stop.localId); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-50">Entfernen</button>
                           </div>
                         </div>
                       </div>

@@ -52,10 +52,61 @@ type HomepageDiscoverySnapshot = {
   cityMap: Map<string, CityLookupRow>;
 };
 
+type ProofMetric = {
+  value: string;
+  label: string;
+};
+
+const HOMEPAGE_QUALITY_GATES = [
+  {
+    value: "3+ Stops",
+    label: "genug Struktur fuer einen echten Tagesablauf",
+  },
+  {
+    value: "Keine Tests",
+    label: "Platzhalter- und Testprofile bleiben aus der Homepage",
+  },
+  {
+    value: "Quelle klar",
+    label: "Creator-, Featured- oder verifizierte Signale werden bevorzugt",
+  },
+];
+
 const EXPLORE_STEPS = [
-  "1 Route oeffnen",
+  "1 Gepruefte Route oeffnen",
   "2 Stil und Stops pruefen",
   "3 Als Vorlage uebernehmen",
+];
+
+const HOMEPAGE_TEXT_BLOCKLIST = [
+  "test user",
+  "dummy",
+  "lorem",
+  "asdf",
+  "platzhalter",
+  "beispielroute",
+];
+const HOMEPAGE_TEXT_BLOCK_PATTERNS = [/(^|[^a-z0-9])test([^a-z0-9]|$)/];
+
+const EMPTY_ROUTE_CARDS = [
+  {
+    eyebrow: "Qualitaetsfilter aktiv",
+    title: "Nur homepage-reife Routen werden sichtbar",
+    body: "Fehlen Struktur, Quelle oder oeffentliche Qualitaet, bleibt die Route in Explore statt auf der Startseite.",
+    actionLabel: "Explore pruefen",
+  },
+  {
+    eyebrow: "Creator Proof",
+    title: "Neue Routen brauchen ein belastbares Profil",
+    body: "Sobald Creator-Routen genug Stops, Kontext und Vertrauen mitbringen, erscheinen sie hier als Premium-Einstieg.",
+    actionLabel: "Routen ansehen",
+  },
+];
+
+const CREATOR_EMPTY_CRITERIA = [
+  "oeffentliche Routenleistung",
+  "verifizierter oder featured Status",
+  "keine Test- oder Platzhalterprofile",
 ];
 
 function safeSlugFromTitle(title: string | null | undefined) {
@@ -82,6 +133,10 @@ function creatorHref(creator: Pick<HomepageCreatorRow, "username"> | null | unde
 
 function compactNumber(value: number | null | undefined) {
   return new Intl.NumberFormat("de-DE", { notation: "compact" }).format(value ?? 0);
+}
+
+function positiveCompactNumber(value: number | null | undefined) {
+  return typeof value === "number" && value > 0 ? compactNumber(value) : null;
 }
 
 function initialsOf(name: string | null | undefined) {
@@ -114,6 +169,115 @@ function routeMetaLabel(route: HomepageRouteRow, cityMap: Map<string, CityLookup
   return [city, ...badges, stops].join(" | ");
 }
 
+function routeProofMetrics(route: HomepageRouteRow): ProofMetric[] {
+  const stopCount = Math.max(route.stop_count ?? 0, 3);
+  const socialSignals = (route.bookmark_count ?? 0) + (route.like_count ?? 0);
+  const socialValue = positiveCompactNumber(socialSignals);
+
+  return [
+    {
+      value: `${stopCount}+`,
+      label: "Stops geprueft",
+    },
+    {
+      value: route.is_featured ? "Featured" : niceCreatorType(route.creator_type),
+      label: "Quelle",
+    },
+    {
+      value: socialValue ?? "Kuratiert",
+      label: socialValue ? "Community-Signal" : "Homepage-Freigabe",
+    },
+  ];
+}
+
+function routeProofChecklist(route: HomepageRouteRow) {
+  const imageSignal = renderableImageUrl(route.cover_image_url)
+    ? "Bildquelle hinterlegt"
+    : "Premium-Fallback aktiv";
+  return [
+    "oeffentlich sichtbar",
+    hasHomepageReadyRouteStructure(route) ? "Ablaufstruktur geprueft" : "Struktur in Pruefung",
+    imageSignal,
+  ];
+}
+
+function creatorProofMetrics(creator: HomepageCreatorRow): ProofMetric[] {
+  const routeCount = positiveCompactNumber(creator.route_count);
+  const followerCount = positiveCompactNumber(creator.follower_count);
+  const engagement = positiveCompactNumber(
+    (creator.total_likes_received ?? 0) + (creator.total_bookmarks_received ?? 0)
+  );
+
+  return [
+    {
+      value: routeCount ?? "Aktiv",
+      label: routeCount ? "Routen" : "Routenprofil",
+    },
+    {
+      value: engagement ?? (creator.is_verified ? "Verifiziert" : "Geprueft"),
+      label: engagement ? "gespeicherte Signale" : "Qualitaetsstatus",
+    },
+    {
+      value: followerCount ?? "Oeffentlich",
+      label: followerCount ? "Follower" : "Profil sichtbar",
+    },
+  ];
+}
+
+function creatorProofChecklist(creator: HomepageCreatorRow) {
+  return [
+    creator.is_verified ? "verifiziertes Profil" : "Profilqualitaet geprueft",
+    creator.is_featured ? "featured Creator" : `${niceCreatorType(creator.creator_type)}-Quelle`,
+    (creator.route_count ?? 0) > 0 ? "oeffentliche Routenleistung" : "Routenbezug vorhanden",
+  ];
+}
+
+function containsBlockedHomepageText(...values: Array<string | null | undefined>) {
+  return values.some((value) => {
+    const normalized = value?.trim().toLowerCase();
+    if (!normalized) return false;
+    return (
+      HOMEPAGE_TEXT_BLOCKLIST.some((blocked) => normalized.includes(blocked)) ||
+      HOMEPAGE_TEXT_BLOCK_PATTERNS.some((pattern) => pattern.test(normalized))
+    );
+  });
+}
+
+function hasHomepageReadyRouteStructure(route: HomepageRouteRow) {
+  const stopCount = route.stop_count ?? 0;
+  const requiredStopCount = route.required_stop_count ?? 0;
+  return stopCount >= Math.max(3, requiredStopCount);
+}
+
+function isHomepageReadyRoute(route: HomepageRouteRow) {
+  const title = route.title?.trim();
+  if (!title) return false;
+  if (!route.slug && !safeSlugFromTitle(title)) return false;
+  if (containsBlockedHomepageText(title, route.description)) return false;
+  if (!hasHomepageReadyRouteStructure(route)) return false;
+  return route.creator_type !== "user" || Boolean(route.is_featured);
+}
+
+function isHomepageReadyCreator(
+  creator: HomepageCreatorRow,
+  homepageRoutes: HomepageRouteRow[]
+) {
+  const publicName = creator.display_name?.trim() || creator.username?.trim();
+  if (!publicName) return false;
+  if (containsBlockedHomepageText(publicName, creator.username, creator.bio)) return false;
+
+  const hasPublicRouteSignal =
+    (creator.route_count ?? 0) > 0 ||
+    homepageRoutes.some((route) => route.creator_profile_id === creator.id);
+  if (!hasPublicRouteSignal) return false;
+
+  return (
+    creator.creator_type !== "user" ||
+    Boolean(creator.is_verified) ||
+    Boolean(creator.is_featured)
+  );
+}
+
 async function loadHomepageDiscovery(): Promise<HomepageDiscoverySnapshot> {
   try {
     const supabase = getSupabaseAdmin();
@@ -135,7 +299,7 @@ async function loadHomepageDiscovery(): Promise<HomepageDiscoverySnapshot> {
     ]);
 
     const routes = ((routesResp.data ?? []) as HomepageRouteRow[])
-      .filter((route) => !!route?.title)
+      .filter(isHomepageReadyRoute)
       .sort((a, b) => {
         const featureDelta = Number(Boolean(b.is_featured)) - Number(Boolean(a.is_featured));
         if (featureDelta !== 0) return featureDelta;
@@ -155,9 +319,10 @@ async function loadHomepageDiscovery(): Promise<HomepageDiscoverySnapshot> {
     const creator =
       creators.find(
         (candidate) =>
+          isHomepageReadyCreator(candidate, routes) &&
           routes.some((route) => route.creator_profile_id && route.creator_profile_id === candidate.id)
       ) ??
-      creators[0] ??
+      creators.find((candidate) => isHomepageReadyCreator(candidate, routes)) ??
       null;
 
     return { routes, creator, cityMap };
@@ -170,28 +335,153 @@ async function loadHomepageDiscovery(): Promise<HomepageDiscoverySnapshot> {
   }
 }
 
-function EmptyRouteCard() {
+function EmptyRouteCard({
+  body,
+  eyebrow,
+  title,
+  actionLabel,
+}: {
+  body: string;
+  eyebrow: string;
+  title: string;
+  actionLabel: string;
+}) {
   return (
     <article className="overflow-hidden rounded-[24px] border border-[rgba(17,24,39,0.08)] bg-[#f8fafc]">
-      <div className="h-40 bg-[#e5eaee]" />
+      <div className="relative h-40 bg-[linear-gradient(135deg,#e5eaee,#f8fafc)]">
+        <div className="absolute left-5 top-5 rounded-full border border-[rgba(17,24,39,0.08)] bg-white/82 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#586373]">
+          Proof Gate
+        </div>
+        <div className="absolute bottom-5 left-5 right-5 grid grid-cols-3 gap-2">
+          {["Quelle", "Stops", "Kontext"].map((item) => (
+            <div
+              key={item}
+              className="rounded-[16px] border border-white/70 bg-white/72 px-3 py-2 text-center text-[11px] font-medium text-[#586373]"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="p-5">
         <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#586373]">
-          Explore
+          {eyebrow}
         </div>
         <h3 className="mt-2 text-xl font-semibold tracking-tight text-[#111827]">
-          Oeffentliche Routen erscheinen hier automatisch
+          {title}
         </h3>
         <p className="mt-2 text-sm leading-6 text-[#586373]">
-          Sobald neue Creator-Routen veroeffentlicht sind, ziehen wir sie direkt in die Homepage.
+          {body}
         </p>
         <Link
           href="/explore"
           className="mt-5 inline-flex rounded-full border border-[rgba(17,24,39,0.1)] bg-white px-4 py-2 text-sm font-medium text-[#111827] transition hover:border-[rgba(17,24,39,0.18)]"
         >
-          Explore ansehen
+          {actionLabel}
         </Link>
       </div>
     </article>
+  );
+}
+
+function CreatorAvatar({ creator }: { creator: HomepageCreatorRow }) {
+  const avatarUrl = renderableImageUrl(creator.avatar_url);
+  const label = creator.display_name ?? creator.username ?? "Creator";
+
+  if (avatarUrl) {
+    return (
+      <div
+        aria-label={label}
+        role="img"
+        className="h-14 w-14 shrink-0 rounded-[20px] bg-cover bg-center"
+        style={{ backgroundImage: `url(${avatarUrl})` }}
+      />
+    );
+  }
+
+  return (
+    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-[#334155] text-lg font-semibold text-white">
+      {initialsOf(creator.display_name ?? creator.username)}
+    </div>
+  );
+}
+
+function CreatorProofContent({
+  creator,
+  cityMap,
+}: {
+  creator: HomepageCreatorRow;
+  cityMap: Map<string, CityLookupRow>;
+}) {
+  const proofMetrics = creatorProofMetrics(creator);
+  const proofChecklist = creatorProofChecklist(creator);
+
+  return (
+    <>
+      <div className="mt-4 flex items-center gap-4 rounded-[22px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-4">
+        <CreatorAvatar creator={creator} />
+        <div className="min-w-0">
+          <div className="text-lg font-semibold">
+            {creator.display_name ?? creator.username ?? "Creator"}
+          </div>
+          <div className="mt-1 text-sm leading-6 text-[rgba(255,255,255,0.72)]">
+            {creator.bio?.trim() ||
+              `${niceCreatorType(creator.creator_type)} mit oeffentlichen Routen auf PerfectDay24`}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <span className="rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.06)] px-3 py-1.5 text-xs font-medium text-[rgba(255,255,255,0.72)]">
+          {niceCreatorType(creator.creator_type)}
+        </span>
+        {creator.home_city_slug ? (
+          <span className="rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.06)] px-3 py-1.5 text-xs font-medium text-[rgba(255,255,255,0.72)]">
+            {formatCityWithCountry(creator.home_city_slug, cityMap)}
+          </span>
+        ) : null}
+        {creator.is_verified ? (
+          <span className="rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.06)] px-3 py-1.5 text-xs font-medium text-[rgba(255,255,255,0.72)]">
+            Verifiziert
+          </span>
+        ) : null}
+      </div>
+
+      <div className="mt-5 grid gap-3">
+        {proofMetrics.map((metric) => (
+          <div
+            key={metric.label}
+            className="rounded-[18px] bg-[rgba(255,255,255,0.06)] px-3 py-3"
+          >
+            <div className="text-lg font-semibold">{metric.value}</div>
+            <div className="text-sm text-[rgba(255,255,255,0.72)]">{metric.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-5 rounded-[22px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-4">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#94a3b8]">
+          Warum sichtbar
+        </div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {proofChecklist.map((item) => (
+            <span
+              key={item}
+              className="rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.06)] px-3 py-1.5 text-xs font-medium text-[rgba(255,255,255,0.72)]"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <Link
+        href={creatorHref(creator)}
+        className="mt-5 inline-flex rounded-full border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.06)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[rgba(255,255,255,0.1)]"
+      >
+        Creator ansehen
+      </Link>
+    </>
   );
 }
 
@@ -216,10 +506,24 @@ export default async function HomepageLiveDiscoverySection() {
         <div className="flex items-start justify-between gap-4">
           <PD24SectionIntro
             eyebrow="Explore"
-            title="Starte mit einer fertigen Route und passe sie danach an."
-            body="Wenn du lieber erst einen Stil sehen willst als mit einem leeren Rahmen zu beginnen, kannst du hier direkt in oeffentliche Creator-Routen springen und sie als Vorlage nutzen."
+            title="Starte mit einer geprueften Route und passe sie danach an."
+            body="Wenn du lieber erst einen Stil sehen willst als mit einem leeren Rahmen zu beginnen, springst du hier in ausgewaehlte oeffentliche Creator-Routen und nutzt sie als Vorlage."
           />
-          <PD24StatusBadge tone="info">Live aus Explore</PD24StatusBadge>
+          <PD24StatusBadge tone="info">Geprueft aus Explore</PD24StatusBadge>
+        </div>
+
+        <div className="mt-6 grid gap-3 md:grid-cols-3">
+          {HOMEPAGE_QUALITY_GATES.map((gate) => (
+            <div
+              key={gate.value}
+              className="rounded-[22px] border border-[rgba(17,24,39,0.08)] bg-white/88 px-4 py-4"
+            >
+              <div className="text-lg font-semibold tracking-tight text-[#111827]">
+                {gate.value}
+              </div>
+              <div className="mt-2 text-xs leading-5 text-[#586373]">{gate.label}</div>
+            </div>
+          ))}
         </div>
 
         <div className="mt-5 grid gap-2 sm:grid-cols-3">
@@ -235,13 +539,16 @@ export default async function HomepageLiveDiscoverySection() {
 
         <div className="mt-3 text-sm leading-6 text-[#586373]">
           Dieser Einstieg ist gut, wenn du dich schneller entscheiden willst und lieber mit einer
-          bereits gelungenen Dramaturgie beginnst.
+          bereits strukturierten Dramaturgie beginnst.
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {routes.length > 0
             ? routes.map((route, index) => {
                 const coverImageUrl = renderableImageUrl(route.cover_image_url);
+                const proofMetrics = routeProofMetrics(route);
+                const proofChecklist = routeProofChecklist(route);
+                const routeBadges = inferPublicRouteBadges(route).slice(0, 3);
 
                 return (
                 <article
@@ -288,9 +595,7 @@ export default async function HomepageLiveDiscoverySection() {
                     </p>
 
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {inferPublicRouteBadges(route)
-                        .slice(0, 3)
-                        .map((badge) => (
+                      {routeBadges.map((badge) => (
                           <span
                             key={`${route.id}-${badge.label}`}
                             className="rounded-full border border-[rgba(17,24,39,0.08)] bg-white px-3 py-1.5 text-xs font-medium text-[#586373]"
@@ -300,18 +605,35 @@ export default async function HomepageLiveDiscoverySection() {
                         ))}
                     </div>
 
-                    <div className="mt-4 grid grid-cols-2 gap-3">
-                      <div className="rounded-[18px] border border-[rgba(17,24,39,0.08)] bg-white px-3 py-3">
-                        <div className="text-base font-semibold text-[#111827]">
-                          {compactNumber(route.bookmark_count)}
+                    <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                      {proofMetrics.map((metric) => (
+                        <div
+                          key={`${route.id}-${metric.label}`}
+                          className="rounded-[18px] border border-[rgba(17,24,39,0.08)] bg-white px-3 py-3"
+                        >
+                          <div className="text-base font-semibold text-[#111827]">
+                            {metric.value}
+                          </div>
+                          <div className="mt-1 text-[11px] leading-4 text-[#586373]">
+                            {metric.label}
+                          </div>
                         </div>
-                        <div className="text-xs text-[#586373]">Merkliste</div>
+                      ))}
+                    </div>
+
+                    <div className="mt-4 rounded-[20px] border border-[rgba(17,24,39,0.08)] bg-white/76 px-4 py-4">
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#586373]">
+                        Warum sichtbar
                       </div>
-                      <div className="rounded-[18px] border border-[rgba(17,24,39,0.08)] bg-white px-3 py-3">
-                        <div className="text-base font-semibold text-[#111827]">
-                          {compactNumber(route.like_count)}
-                        </div>
-                        <div className="text-xs text-[#586373]">Likes</div>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {proofChecklist.map((item) => (
+                          <span
+                            key={`${route.id}-${item}`}
+                            className="rounded-full bg-[#eef2f5] px-3 py-1.5 text-xs font-medium text-[#586373]"
+                          >
+                            {item}
+                          </span>
+                        ))}
                       </div>
                     </div>
 
@@ -330,93 +652,42 @@ export default async function HomepageLiveDiscoverySection() {
                 </article>
                 );
               })
-            : [<EmptyRouteCard key="empty-left" />, <EmptyRouteCard key="empty-right" />]}
+            : EMPTY_ROUTE_CARDS.map((card) => (
+                <EmptyRouteCard
+                  key={card.title}
+                  eyebrow={card.eyebrow}
+                  title={card.title}
+                  body={card.body}
+                  actionLabel={card.actionLabel}
+                />
+              ))}
         </div>
       </PD24Card>
 
       <PD24Card tone="dark">
-          <div className="flex items-center justify-between gap-3">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#94a3b8]">
-            Creator der Woche
-            </div>
-          <PD24StatusBadge tone="info">Oeffentliches Profil</PD24StatusBadge>
+        <div className="flex items-center justify-between gap-3">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#94a3b8]">
+            Geprueftes Profil
+          </div>
+          <PD24StatusBadge tone="info">Homepage-geeignet</PD24StatusBadge>
         </div>
         {creator ? (
-          <>
-            <div className="mt-4 flex items-center gap-4 rounded-[22px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-4">
-              {creator.avatar_url ? (
-                <img
-                  src={creator.avatar_url}
-                  alt={creator.display_name ?? creator.username ?? "Creator"}
-                  className="h-14 w-14 rounded-[20px] object-cover"
-                />
-              ) : (
-                <div className="flex h-14 w-14 items-center justify-center rounded-[20px] bg-[#334155] text-lg font-semibold text-white">
-                  {initialsOf(creator.display_name ?? creator.username)}
-                </div>
-              )}
-              <div className="min-w-0">
-                <div className="text-lg font-semibold">
-                  {creator.display_name ?? creator.username ?? "Creator"}
-                </div>
-                <div className="mt-1 text-sm text-[rgba(255,255,255,0.72)]">
-                  {creator.bio?.trim() ||
-                    `${niceCreatorType(creator.creator_type)} mit oeffentlichen Routen auf PerfectDay24`}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              <span className="rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.06)] px-3 py-1.5 text-xs font-medium text-[rgba(255,255,255,0.72)]">
-                {niceCreatorType(creator.creator_type)}
-              </span>
-              {creator.home_city_slug ? (
-                <span className="rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.06)] px-3 py-1.5 text-xs font-medium text-[rgba(255,255,255,0.72)]">
-                  {formatCityWithCountry(creator.home_city_slug, cityMap)}
-                </span>
-              ) : null}
-              {creator.is_verified ? (
-                <span className="rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.06)] px-3 py-1.5 text-xs font-medium text-[rgba(255,255,255,0.72)]">
-                  Verifiziert
-                </span>
-              ) : null}
-            </div>
-
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              <div className="rounded-[18px] bg-[rgba(255,255,255,0.06)] px-3 py-3">
-                <div className="text-lg font-semibold">{compactNumber(creator.route_count)}</div>
-                <div className="text-sm text-[rgba(255,255,255,0.72)]">Routen</div>
-              </div>
-              <div className="rounded-[18px] bg-[rgba(255,255,255,0.06)] px-3 py-3">
-                <div className="text-lg font-semibold">{compactNumber(creator.follower_count)}</div>
-                <div className="text-sm text-[rgba(255,255,255,0.72)]">Follower</div>
-              </div>
-              <div className="rounded-[18px] bg-[rgba(255,255,255,0.06)] px-3 py-3">
-                <div className="text-lg font-semibold">
-                  {compactNumber(creator.total_likes_received)}
-                </div>
-                <div className="text-sm text-[rgba(255,255,255,0.72)]">Likes</div>
-              </div>
-              <div className="rounded-[18px] bg-[rgba(255,255,255,0.06)] px-3 py-3">
-                <div className="text-lg font-semibold">
-                  {compactNumber(creator.total_bookmarks_received)}
-                </div>
-                <div className="text-sm text-[rgba(255,255,255,0.72)]">Merkliste</div>
-              </div>
-            </div>
-
-            <Link
-              href={creatorHref(creator)}
-              className="mt-5 inline-flex rounded-full border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.06)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[rgba(255,255,255,0.1)]"
-            >
-              Creator ansehen
-            </Link>
-          </>
+          <CreatorProofContent creator={creator} cityMap={cityMap} />
         ) : (
           <>
             <div className="mt-4 rounded-[22px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-4 text-sm leading-7 text-[rgba(255,255,255,0.72)]">
-              Sobald Creator-Profile vorhanden sind, zeigen wir hier automatisch ein echtes Profil
-              mit Reichweite und Routenleistung.
+              Sobald Creator-Profile genug oeffentliche Qualitaet und Routenleistung mitbringen,
+              zeigen wir hier ein vertrauenswuerdiges Profil.
+            </div>
+            <div className="mt-4 space-y-2">
+              {CREATOR_EMPTY_CRITERIA.map((criterion) => (
+                <div
+                  key={criterion}
+                  className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-3 py-3 text-sm text-[rgba(255,255,255,0.72)]"
+                >
+                  {criterion}
+                </div>
+              ))}
             </div>
             <Link
               href="/explore"
