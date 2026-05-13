@@ -1492,9 +1492,9 @@ async function handleDeleteRoute(routeId: string) {
                               {durationBadge}
                             </span>
                           ) : null}
-                          {badges.map((badge) => (
+                          {badges.map((badge, badgeIndex) => (
                             <span
-                              key={`${route.id}-${badge.label}`}
+                              key={`${route.id}-${badge.label}-${badgeIndex}`}
                               className={`text-[11px] px-2 py-1 rounded-full ${
                                 badge.tone === "dark"
                                   ? "bg-[var(--text-strong)] text-white"

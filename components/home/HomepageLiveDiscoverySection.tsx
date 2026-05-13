@@ -595,9 +595,9 @@ export default async function HomepageLiveDiscoverySection() {
                     </p>
 
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {routeBadges.map((badge) => (
+                      {routeBadges.map((badge, badgeIndex) => (
                           <span
-                            key={`${route.id}-${badge.label}`}
+                            key={`${route.id}-${badge.label}-${badgeIndex}`}
                             className="rounded-full border border-[rgba(17,24,39,0.08)] bg-white px-3 py-1.5 text-xs font-medium text-[#586373]"
                           >
                             {badge.label}

@@ -4,6 +4,9 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MapContainer, Marker, Polyline, Popup, TileLayer, useMap } from "react-leaflet";
+import { patchLeafletMapRemove } from "@/components/leafletSafety";
+
+patchLeafletMapRemove();
 
 const DefaultIcon = L.icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
@@ -386,9 +389,10 @@ export default function PlanMap({
           fadeAnimation={false}
           markerZoomAnimation={false}
           zoomAnimation={false}
+          zoomControl={false}
+          attributionControl={false}
         >
           <TileLayer
-            attribution="&copy; OpenStreetMap contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
@@ -411,6 +415,9 @@ export default function PlanMap({
 
           {polyline.length > 1 ? <Polyline positions={polyline} /> : null}
         </MapContainer>
+        <div className="pointer-events-none absolute bottom-1 right-1 z-[2] rounded bg-white/90 px-1.5 py-0.5 text-[10px] text-gray-700 shadow-sm">
+          © OpenStreetMap
+        </div>
       </div>
 
       {err ? (

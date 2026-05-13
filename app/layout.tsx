@@ -32,9 +32,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-[var(--bg-canvas)] text-[var(--text-strong)]">
+      <body className="overflow-x-clip bg-[var(--bg-canvas)] text-[var(--text-strong)]">
         <MainNav />
-        <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{children}</div>
+        <div className="mx-auto min-w-0 max-w-7xl overflow-x-clip px-4 py-6 sm:px-6 lg:px-8">{children}</div>
       </body>
     </html>
   );

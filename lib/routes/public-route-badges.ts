@@ -93,5 +93,10 @@ export function inferPublicRouteBadges(route: BadgeInput): PublicRouteBadge[] {
     badges.push({ label: "Outdoor", tone: "soft" });
   }
 
-  return badges.slice(0, 3);
+  const uniqueBadges = badges.filter(
+    (badge, index, allBadges) =>
+      index === allBadges.findIndex((candidate) => candidate.label === badge.label),
+  );
+
+  return uniqueBadges.slice(0, 3);
 }

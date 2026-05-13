@@ -340,9 +340,9 @@ function SuggestionCard({
           {durationBadge ? (
             <span className="rounded-full border px-2 py-1 text-[11px] text-gray-700">{durationBadge}</span>
           ) : null}
-          {badges.map((badge) => (
+          {badges.map((badge, badgeIndex) => (
             <span
-              key={`${route.id}-${badge.label}`}
+              key={`${route.id}-${badge.label}-${badgeIndex}`}
               className={`rounded-full px-2 py-1 text-[11px] ${
                 badge.tone === "dark"
                   ? "bg-black text-white"
@@ -1997,8 +1997,8 @@ function RouteDetailPageContent() {
                 {personalizedVariantMeta ? <span className="rounded-full border border-white/30 bg-emerald-500/20 px-3 py-1 text-xs backdrop-blur">Persönliche Variante</span> : null}
                 {route.is_featured ? <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">Featured</span> : null}
                 {durationBadge ? <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{durationBadge}</span> : null}
-                {routeBadges.map((badge) => (
-                  <span key={badge.label} className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">
+                {routeBadges.map((badge, badgeIndex) => (
+                  <span key={`${badge.label}-${badgeIndex}`} className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">
                     {badge.label}
                   </span>
                 ))}

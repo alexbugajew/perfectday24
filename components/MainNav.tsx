@@ -96,10 +96,10 @@ export default function MainNav() {
   return (
     <nav
       aria-label="Hauptnavigation"
-      className="sticky top-0 z-[1200] border-b border-[var(--line-subtle)] bg-[rgba(248,250,252,0.9)] backdrop-blur-xl"
+      className="sticky top-0 z-[1200] w-full max-w-full overflow-x-clip border-b border-[var(--line-subtle)] bg-[rgba(248,250,252,0.9)] backdrop-blur-xl"
     >
       <div
-        className={`mx-auto flex max-w-7xl flex-col px-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6 sm:py-4 lg:px-8 ${
+        className={`mx-auto flex min-w-0 max-w-7xl flex-col px-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6 sm:py-4 lg:px-8 ${
           isRunExperience ? "gap-2 py-2" : "gap-3 py-3"
         }`}
       >
@@ -122,7 +122,7 @@ export default function MainNav() {
 
         {/* Navigation */}
         <div
-          className={`pd24-scrollbar-none -mx-1 flex w-full max-w-full gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-[var(--line-subtle)] bg-[rgba(255,255,255,0.92)] px-1.5 py-1.5 sm:mx-0 sm:w-auto sm:flex-wrap sm:gap-2 sm:rounded-[24px] sm:px-2 sm:py-2 ${
+          className={`pd24-scrollbar-none flex min-w-0 w-full max-w-full gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-[var(--line-subtle)] bg-[rgba(255,255,255,0.92)] px-1.5 py-1.5 sm:mx-0 sm:w-auto sm:flex-wrap sm:gap-2 sm:rounded-[24px] sm:px-2 sm:py-2 ${
             isRunExperience ? "shadow-sm" : "shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
           }`}
         >
@@ -152,9 +152,11 @@ export default function MainNav() {
             ) : null}
           </Link>
 
-          <Link href="/invite" className={linkClass("/invite")}>
-            Gruppe
-          </Link>
+          <span className="hidden sm:contents">
+            <Link href="/invite" className={linkClass("/invite")}>
+              Gruppe
+            </Link>
+          </span>
 
         </div>
 

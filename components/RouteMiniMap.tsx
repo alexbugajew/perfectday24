@@ -3,6 +3,9 @@
 import { useEffect, useMemo } from "react";
 import L from "leaflet";
 import { MapContainer, Marker, Polyline, TileLayer, useMap } from "react-leaflet";
+import { patchLeafletMapRemove } from "@/components/leafletSafety";
+
+patchLeafletMapRemove();
 
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
 L.Icon.Default.mergeOptions({

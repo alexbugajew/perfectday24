@@ -333,11 +333,11 @@ export default function PlannerRunPage() {
 
         <div className="grid grid-cols-3 gap-2 lg:auto-rows-fr lg:grid-cols-1 lg:gap-3">
           <div className="min-h-20 rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3 sm:rounded-3xl">
-            <div className="text-[10px] uppercase tracking-wide text-emerald-800">Done</div>
+            <div className="text-[10px] uppercase tracking-wide text-emerald-800">Erledigt</div>
             <div className="mt-2 text-2xl font-semibold text-emerald-950">{completedCount}</div>
           </div>
           <div className="min-h-20 rounded-2xl border border-rose-200 bg-rose-50 px-3 py-3 sm:rounded-3xl">
-            <div className="text-[10px] uppercase tracking-wide text-rose-800">Skip</div>
+            <div className="text-[10px] uppercase tracking-wide text-rose-800">Skippen</div>
             <div className="mt-2 text-2xl font-semibold text-rose-950">{skippedCount}</div>
           </div>
           <div className="min-h-20 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3 sm:rounded-3xl">
@@ -456,14 +456,14 @@ export default function PlannerRunPage() {
                     onClick={() => markStop(currentStop.id, "done")}
                     className="min-h-11 rounded-xl border border-emerald-200 bg-emerald-50 px-3 text-sm font-medium text-emerald-950"
                   >
-                    Done
+                    Erledigt
                   </button>
                   <button
                     type="button"
                     onClick={() => markStop(currentStop.id, "skipped")}
                     className="min-h-11 rounded-xl border border-rose-200 bg-rose-50 px-3 text-sm font-medium text-rose-950"
                   >
-                    Skip
+                    Skippen
                   </button>
                 </>
               ) : (
