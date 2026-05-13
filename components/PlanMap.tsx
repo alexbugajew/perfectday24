@@ -367,7 +367,7 @@ export default function PlanMap({
           <div className="font-semibold">Map + Route</div>
           <div className="text-xs text-gray-600">
             {safeStops.length < 2
-              ? "Mind. 2 Stops fuer Route"
+              ? "Mind. 2 Stops für Route"
               : loading
                 ? "Route wird berechnet..."
                 : err
@@ -415,7 +415,7 @@ export default function PlanMap({
 
       {err ? (
         <div className="mt-2 text-xs text-red-600">
-          {err} (Fallback bleibt: du kannst trotzdem Route oeffnen nutzen)
+          {err} (Fallback bleibt: du kannst trotzdem Route öffnen nutzen)
         </div>
       ) : null}
     </div>

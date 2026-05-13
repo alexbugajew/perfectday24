@@ -136,8 +136,7 @@ export default function MainNav() {
           </Link>
 
           <Link href="/routes" className={linkClass("/routes")}>
-            <span className="sm:hidden">Route</span>
-            <span className="hidden sm:inline">Create Route</span>
+            Route
           </Link>
 
           <Link href="/profile" className={linkClass("/profile")}>

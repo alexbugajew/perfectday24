@@ -119,6 +119,12 @@ textarea:focus-visible {
   z-index: 0;
 }
 
+.pd24-map-shell .leaflet-pane,
+.pd24-map-shell .leaflet-top,
+.pd24-map-shell .leaflet-bottom {
+  z-index: 1;
+}
+
 button:disabled,
 input:disabled,
 select:disabled,

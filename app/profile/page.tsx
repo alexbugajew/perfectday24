@@ -1614,9 +1614,32 @@ export default function ProfilePage() {
         {status ? <div className="mt-4 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-3 py-2 text-sm text-[var(--text-muted)]">{status}</div> : null}
       </section>
 
+      <nav
+        aria-label="Profilbereiche"
+        className="pd24-scrollbar-none flex gap-2 overflow-x-auto rounded-2xl border border-[var(--line-subtle)] bg-white/80 p-2 text-sm shadow-[var(--shadow-soft)]"
+      >
+        {[
+          ["#profile-overview", "Profil"],
+          ["#profile-interests", "Interessen"],
+          ["#profile-public", "Öffentlich"],
+          ["#profile-routes", "Routen"],
+          ["#profile-friends", "Freunde"],
+          ...(groupsFeatureAvailable ? [["#profile-groups", "Gruppen"]] : []),
+          ["#profile-social", "Social"],
+        ].map(([href, label]) => (
+          <a
+            key={href}
+            href={href}
+            className="shrink-0 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] hover:text-[var(--text-strong)]"
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+
       <div className="grid gap-6 xl:grid-cols-[0.88fr,1.12fr]">
         <div className="space-y-6">
-          <section className="pd24-shell p-6">
+          <section id="profile-overview" className="pd24-shell scroll-mt-24 p-6">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h2 className="text-xl font-semibold">Dein Profil</h2>
@@ -1707,7 +1730,7 @@ export default function ProfilePage() {
             </div>
           </section>
 
-          <section className="pd24-shell p-6">
+          <section id="profile-interests" className="pd24-shell scroll-mt-24 p-6">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h2 className="text-xl font-semibold">Interessen</h2>
@@ -1774,7 +1797,7 @@ export default function ProfilePage() {
           </section>
         </div>
 
-        <section className="pd24-shell p-6">
+        <section id="profile-public" className="pd24-shell scroll-mt-24 p-6">
           <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
             <div>
               <h2 className="text-xl font-semibold">Öffentliches Profil</h2>
@@ -1970,7 +1993,7 @@ export default function ProfilePage() {
         </section>
       </div>
 
-      <section className="grid gap-6 xl:grid-cols-2">
+      <section id="profile-routes" className="grid scroll-mt-24 gap-6 xl:grid-cols-2">
         <div className="pd24-shell p-6">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
             <div>
@@ -1980,7 +2003,7 @@ export default function ProfilePage() {
               </p>
             </div>
             <Link href="/routes" className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-[var(--bg-panel)]">
-              Create Route öffnen
+              Route erstellen
             </Link>
           </div>
 
@@ -2122,7 +2145,7 @@ export default function ProfilePage() {
         </div>
       </section>
 
-      <section className="pd24-shell p-6">
+      <section id="profile-friends" className="pd24-shell scroll-mt-24 p-6">
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="text-xl font-semibold">Deine Freunde</h2>
@@ -2212,7 +2235,7 @@ export default function ProfilePage() {
       </section>
 
       {groupsFeatureAvailable ? (
-        <section className="pd24-shell p-6">
+        <section id="profile-groups" className="pd24-shell scroll-mt-24 p-6">
           <div className="flex items-center justify-between gap-3">
             <div>
               <h2 className="text-xl font-semibold">Deine Gruppen</h2>
@@ -2346,7 +2369,7 @@ export default function ProfilePage() {
         </section>
       ) : null}
 
-      <section className="pd24-shell p-6">
+      <section id="profile-social" className="pd24-shell scroll-mt-24 p-6">
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="text-xl font-semibold">Social-Übersicht</h2>

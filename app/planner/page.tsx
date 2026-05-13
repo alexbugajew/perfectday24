@@ -1534,7 +1534,7 @@ function PlannerPageContent() {
               {!authReady
                 ? "Auth..."
                 : !userId
-                  ? "Login noetig"
+                  ? "Login nötig"
                   : saving
                     ? "Speichern..."
                     : editingPlanId
@@ -1542,7 +1542,7 @@ function PlannerPageContent() {
                       : "Plan speichern"}
             </button>
             <button type="button" onClick={resetPlan} className="rounded-md border px-3 py-1.5 text-xs">
-              Plan zuruecksetzen
+              Plan zurücksetzen
             </button>
             <button
               type="button"

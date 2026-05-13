@@ -184,7 +184,7 @@ export default function PlannerRunPage() {
     return (
       <main className="mx-auto w-full max-w-7xl space-y-4 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <Link href="/planner" className="text-sm text-[var(--text-muted)] underline">
-          Zurueck zum Planner
+          Zurück zum Planner
         </Link>
         <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-5 shadow-sm sm:p-6">
           <div className="pd24-kicker mb-2">Route Live</div>
@@ -216,7 +216,7 @@ export default function PlannerRunPage() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--text-muted)]">
           <Link href="/planner" className="hover:text-[var(--text-strong)]">
-            Zurueck zum Planner
+            Zurück zum Planner
           </Link>
           <Link href="/routes" className="hover:text-[var(--text-strong)]">
             Route Builder
@@ -227,7 +227,7 @@ export default function PlannerRunPage() {
           onClick={resetRun}
           className="w-full rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2.5 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)] sm:w-auto"
         >
-          Fortschritt zuruecksetzen
+          Fortschritt zurücksetzen
         </button>
       </div>
 
@@ -311,7 +311,7 @@ export default function PlannerRunPage() {
                 onClick={() => markStop(currentStop.id, "pending")}
                 className="inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] sm:w-auto"
               >
-                Wieder oeffnen
+                Wieder öffnen
               </button>
             )}
           </div>
@@ -405,7 +405,7 @@ export default function PlannerRunPage() {
                     <span className={`rounded-full border px-2.5 py-1 text-[11px] ${statusTone(state)}`}>
                       {statusLabel(state)}
                     </span>
-                    <span className="hidden text-xs text-[var(--text-muted)] sm:inline">{active ? "Aktiv" : "Oeffnen"}</span>
+                    <span className="hidden text-xs text-[var(--text-muted)] sm:inline">{active ? "Aktiv" : "Öffnen"}</span>
                   </div>
                 </button>
               </div>

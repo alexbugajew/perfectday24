@@ -491,9 +491,9 @@ function creatorHref(creator: CreatorProfileRow | null | undefined) {
 }
 
 function formatDate(iso: string | null | undefined) {
-  if (!iso) return "â€”";
+  if (!iso) return "—";
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "â€”";
+  if (Number.isNaN(d.getTime())) return "—";
   return d.toLocaleDateString("de-DE", {
     year: "numeric",
     month: "short",
@@ -516,7 +516,7 @@ function compactRating(value: number | null | undefined) {
 }
 
 function visibilityLabel(v: UserRouteRow["visibility"]) {
-  if (v === "public") return "Ã–ffentlich";
+  if (v === "public") return "Öffentlich";
   if (v === "unlisted") return "Nicht gelistet";
   return "Privat";
 }
@@ -1690,7 +1690,7 @@ function RouteDetailPageContent() {
 
     const finalRating = nextRating ?? myRating;
     if (!finalRating || finalRating < 1 || finalRating > 5) {
-      showToast("Bitte 1 bis 5 Sterne wÃ¤hlen");
+      showToast("Bitte 1 bis 5 Sterne wählen");
       return;
     }
 
@@ -1951,7 +1951,7 @@ function RouteDetailPageContent() {
             enabled={monetizationDebug}
             slotKey="route_detail_brand_distribution"
             title="Route-Detail: Brand / Creator Distribution"
-            description="Interner Pilot fuer spaetere Brand- oder Creator-Distribution direkt auf der Routen-Detailseite, klar getrennt vom organischen Routeninhalt."
+            description="Interner Pilot für spätere Brand- oder Creator-Distribution direkt auf der Routen-Detailseite, klar getrennt vom organischen Routeninhalt."
             productKeys={["creator_brand_route_distribution", "city_spotlight"]}
             previewItems={["Brand Route", "Partner Collection", "Kampagnen-Route"]}
             citySlug={route.city_slug ?? null}
@@ -2454,7 +2454,7 @@ function RouteDetailPageContent() {
                         label={adjustable ? displayCandidate.title : stop.title ?? `Stop ${stop.stop_order}`}
                         source={affiliateMatch ? "route_detail_affiliate_cta" : "route_detail_stop_cta"}
                       >
-                        {affiliateMatch ? `${affiliateMatch.providerName} oeffnen` : "Link"}
+                        {affiliateMatch ? `${affiliateMatch.providerName} öffnen` : "Link"}
                       </MonetizedExternalLink>
                     ) : null}
                   </div>

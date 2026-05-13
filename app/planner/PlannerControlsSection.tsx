@@ -402,7 +402,7 @@ export default function PlannerControlsSection({
           <div className="flex flex-wrap gap-1.5">
             <span className="warm-chip rounded-md px-2 py-1 text-[11px]">{cityLabel}</span>
             <span className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]">
-              {groupEnabled ? "Gruppenplanung aktiv" : "Persoenlicher Plan"}
+              {groupEnabled ? "Gruppenplanung aktiv" : "Persönlicher Plan"}
             </span>
             <span className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]">
               {eventCandidates.length} Event-Kandidaten
@@ -427,7 +427,7 @@ export default function PlannerControlsSection({
                 className="mt-1 w-full bg-transparent text-sm font-medium text-[var(--text-strong)] outline-none"
                 disabled={citiesLoading}
               >
-                <option value="all">Alle Laender</option>
+                <option value="all">Alle Länder</option>
                 {availableCountryCodes.map((countryCode) => (
                   <option key={countryCode} value={countryCode}>
                     {countryLabel(countryCode)}
@@ -503,7 +503,7 @@ export default function PlannerControlsSection({
                 <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Budget</div>
                   <select value={budget} onChange={(e) => setBudget(e.target.value)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
-                    <option value="low">Guenstig</option>
+                    <option value="low">Günstig</option>
                     <option value="medium">Mittel</option>
                     <option value="high">Premium</option>
                     <option value="free">Kostenlos</option>
@@ -532,7 +532,7 @@ export default function PlannerControlsSection({
                   </select>
                   {!eventModesAvailable ? (
                     <div className="mt-2 text-xs text-[var(--text-muted)]">
-                      Event- und Markt-Foki sind fuer diese Stadt noch nicht voll aktiviert.
+                      Event- und Markt-Foki sind für diese Stadt noch nicht voll aktiviert.
                     </div>
                   ) : null}
                 </label>
@@ -662,7 +662,7 @@ export default function PlannerControlsSection({
 
             <div className="relative">
               <select
-                aria-label="Startpunkttyp auswaehlen"
+                aria-label="Startpunkttyp auswählen"
                 value={startPoint.type}
                 onChange={(e) => updateStartPointType(e.target.value as StartPointType)}
                 className="hidden"
@@ -777,7 +777,7 @@ export default function PlannerControlsSection({
             selectedCitySlug &&
             selectedCity ? (
               <div className="text-xs text-[var(--text-muted)]">
-                Du planst gerade fuer <span className="font-semibold">{selectedCity.name}</span>. Deshalb nutzen wir vorlaeufig{" "}
+                Du planst gerade für <span className="font-semibold">{selectedCity.name}</span>. Deshalb nutzen wir vorläufig{" "}
                 <span className="font-semibold">{selectedCityFallbackLabel}</span> statt deines aktuellen Standorts.
               </div>
             ) : null}
@@ -864,7 +864,7 @@ export default function PlannerControlsSection({
                 <div>
                   <div className="text-sm font-semibold">Lokale Event-Kandidaten</div>
                   <div className="text-xs text-[var(--text-muted)]">
-                    Geladen fuer {planDate || "den gewaehlten Tag"} in <span className="font-semibold">{cityLabel}</span>.
+                    Geladen für {planDate || "den gewählten Tag"} in <span className="font-semibold">{cityLabel}</span>.
                   </div>
                 </div>
                 <div className="rounded-full border border-[var(--state-warning)]/25 bg-white px-2 py-1 text-xs">
@@ -930,7 +930,7 @@ export default function PlannerControlsSection({
                     <div className="rounded-xl border border-[var(--state-warning)]/35 bg-white px-3 py-3 text-sm">
                       <div className="flex items-start justify-between gap-3 flex-wrap">
                         <div>
-                          <div className="font-semibold">Ausgewaehltes Event fuer diesen Plan</div>
+                          <div className="font-semibold">Ausgewähltes Event für diesen Plan</div>
                           <div className="text-[var(--text-muted)]">{selectedEvent.title}</div>
                           <div className="text-xs text-[var(--text-muted)]">
                             {providerLabel(selectedEvent.source)} | {plannerEventLabel(selectedEvent.category)}
@@ -940,7 +940,7 @@ export default function PlannerControlsSection({
                           <div className="mt-1 text-xs text-[var(--state-warning)]">
                             {eventPlanningMode === "locked"
                               ? "Dieses Event wird fest als Highlight verwendet."
-                              : "Dieses Event ist vorausgewaehlt und wird bevorzugt eingeplant."}
+                              : "Dieses Event ist vorausgewählt und wird bevorzugt eingeplant."}
                           </div>
                         </div>
                         <div className="flex gap-2 flex-wrap">
@@ -979,15 +979,15 @@ export default function PlannerControlsSection({
                       </div>
                       <div className="mt-2 text-xs text-[var(--state-warning)]">
                         {eventPlanningMode === "disabled"
-                          ? "Events sind fuer diese Planung gerade deaktiviert."
+                          ? "Events sind für diese Planung gerade deaktiviert."
                           : "Du kannst zwischen automatischer Eventwahl, festem Event und Planung ohne Event wechseln."}
                       </div>
                     </div>
                   ) : (
                     <div className="rounded-xl border border-dashed border-[var(--state-warning)]/35 bg-white/70 px-3 py-3 text-xs text-[var(--text-muted)]">
                       {eventPlanningMode === "disabled"
-                        ? "Events werden fuer diese Planung aktuell ignoriert. Du kannst jederzeit wieder auf automatisch oder ein festes Event wechseln."
-                        : "Waehle hier ein konkretes Event aus, wenn genau dieses Event in deinen Plan uebernommen werden soll."}
+                        ? "Events werden für diese Planung aktuell ignoriert. Du kannst jederzeit wieder auf automatisch oder ein festes Event wechseln."
+                        : "Wähle hier ein konkretes Event aus, wenn genau dieses Event in deinen Plan übernommen werden soll."}
                     </div>
                   )}
 
@@ -1046,7 +1046,7 @@ export default function PlannerControlsSection({
                                 setSelectedEventId(event.id);
                                 setEventPlanningMode("locked");
                                 resetPlan();
-                                showToast("Event wird jetzt gezielt in die Planung uebernommen.");
+                                showToast("Event wird jetzt gezielt in die Planung übernommen.");
                               }}
                               className={`rounded-lg px-3 py-2 text-xs ${
                                 selectedEventId === event.id
@@ -1054,7 +1054,7 @@ export default function PlannerControlsSection({
                                   : "border border-[var(--state-warning)]/25 hover:bg-[var(--brand-accent-cloud)]"
                               }`}
                             >
-                              {selectedEventId === event.id ? "Ausgewaehlt" : "In Planung uebernehmen"}
+                              {selectedEventId === event.id ? "Ausgewählt" : "In Planung übernehmen"}
                             </button>
                             {ticketTargetUrl ? (
                               <MonetizedExternalLink
@@ -1140,7 +1140,7 @@ export default function PlannerControlsSection({
                 </>
               ) : (
                 <div className="text-xs text-[var(--text-muted)]">
-                  Fuer diesen Fokus wurden aktuell noch keine passenden Events geladen. Die klassische Planung laeuft trotzdem normal weiter.
+                  Für diesen Fokus wurden aktuell noch keine passenden Events geladen. Die klassische Planung läuft trotzdem normal weiter.
                 </div>
               )}
             </div>
@@ -1388,7 +1388,7 @@ export default function PlannerControlsSection({
                 enabled={monetizationDebug}
                 slotKey="planner_featured_event_module"
                 title="Planner: Featured Event Modul"
-                description="Interner Planner-Pilot fuer Featured Events direkt im kaufnahen Entscheidungsraum. Hier pruefen wir, ob ein klar markiertes Partner-Event sauber neben organischer Planung bestehen kann."
+                description="Interner Planner-Pilot für Featured Events direkt im kaufnahen Entscheidungsraum. Hier prüfen wir, ob ein klar markiertes Partner-Event sauber neben organischer Planung bestehen kann."
                 productKeys={["featured_event", "sponsored_placement"]}
                 previewItems={["Ticket-Highlight", "Event-Partner", "Tonight Pick"]}
                 citySlug={effectiveCitySlug}
@@ -1399,7 +1399,7 @@ export default function PlannerControlsSection({
                 enabled={monetizationDebug}
                 slotKey="planner_featured_location_module"
                 title="Planner: Featured Location Modul"
-                description="Interner Planner-Pilot fuer Featured Locations im direkten Planungsfluss. So koennen wir testen, ob ein Partner-Spot mit Reservierungsziel klar markiert und trotzdem produktvertraeglich wirkt."
+                description="Interner Planner-Pilot für Featured Locations im direkten Planungsfluss. So können wir testen, ob ein Partner-Spot mit Reservierungsziel klar markiert und trotzdem produktverträglich wirkt."
                 productKeys={["featured_location", "partner_basic", "partner_pro"]}
                 previewItems={["Dinner-Partner", "Date-Spot", "Reservierungsziel"]}
                 citySlug={effectiveCitySlug}

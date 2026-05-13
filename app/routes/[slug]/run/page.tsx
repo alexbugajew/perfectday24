@@ -320,7 +320,7 @@ export default function RouteRunPage() {
     return (
       <main className="mx-auto w-full max-w-7xl space-y-4 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <Link href="/routes" className="text-sm text-[var(--text-muted)] underline">
-          Zurueck zu den Routen
+          Zurück zu den Routen
         </Link>
         <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-5 shadow-sm sm:p-6">
           Diese Route konnte nicht geladen werden.
@@ -334,7 +334,7 @@ export default function RouteRunPage() {
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 flex-wrap items-center gap-3 text-xs text-[var(--text-muted)] sm:text-sm">
           <Link href={`/routes/${route.slug ?? slug}`} className="hover:text-[var(--text-strong)]">
-            Zurueck zur Route
+            Zurück zur Route
           </Link>
           <Link href="/planner" className="hover:text-[var(--text-strong)]">
             Planner
@@ -435,7 +435,7 @@ export default function RouteRunPage() {
                 onClick={() => markStop(currentStop.id, "pending")}
                 className="inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] sm:w-auto"
               >
-                Wieder oeffnen
+                Wieder öffnen
               </button>
             )}
           </div>
@@ -563,7 +563,7 @@ export default function RouteRunPage() {
                         <span className={`rounded-full border px-2.5 py-1 text-[11px] ${statusTone(state)}`}>
                           {statusLabel(state)}
                         </span>
-                        <span className="hidden text-xs text-[var(--text-muted)] sm:inline">{active ? "Aktiv" : "Oeffnen"}</span>
+                        <span className="hidden text-xs text-[var(--text-muted)] sm:inline">{active ? "Aktiv" : "Öffnen"}</span>
                       </div>
                     </button>
                   </div>

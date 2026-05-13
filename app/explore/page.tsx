@@ -191,6 +191,24 @@ function idealForLabel(route: UserRouteRow | null | undefined) {
   return "einen starken Perfect Day";
 }
 
+function dedupeCityOptions(cities: CityRow[]) {
+  const byNameAndCountry = new Map<string, CityRow>();
+
+  for (const city of cities) {
+    const key = `${city.name.trim().toLocaleLowerCase("de-DE")}|${city.country_code?.toUpperCase() ?? ""}`;
+    const previous = byNameAndCountry.get(key);
+    if (!previous || (city.population ?? 0) > (previous.population ?? 0)) {
+      byNameAndCountry.set(key, city);
+    }
+  }
+
+  return Array.from(byNameAndCountry.values()).sort((a, b) => {
+    const nameDiff = a.name.localeCompare(b.name, "de-DE");
+    if (nameDiff !== 0) return nameDiff;
+    return (b.population ?? 0) - (a.population ?? 0);
+  });
+}
+
 
 function SectionHeader({
   title,
@@ -454,7 +472,7 @@ function RouteCard({
             <div className="truncate text-xs text-gray-500">{creatorLabel}</div>
             {creatorLink ? (
               <Link href={creatorLink} className="text-xs text-gray-700 underline underline-offset-4">
-                Profil oeffnen
+                Profil öffnen
               </Link>
             ) : null}
           </div>
@@ -464,7 +482,7 @@ function RouteCard({
               href={href}
               className="shrink-0 rounded-full border border-black bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-900"
             >
-              Route oeffnen
+              Route öffnen
             </Link>
           ) : (
             <div className="text-xs text-red-600">Route aktuell nicht aufrufbar.</div>
@@ -733,10 +751,13 @@ function ExplorePageContent() {
   );
 
   const visibleCities = useMemo(
-    () =>
-      selectedCountryCode === "all"
-        ? cities
-        : cities.filter((city) => (city.country_code?.toUpperCase() ?? "") === selectedCountryCode),
+    () => {
+      const scopedCities =
+        selectedCountryCode === "all"
+          ? cities
+          : cities.filter((city) => (city.country_code?.toUpperCase() ?? "") === selectedCountryCode);
+      return dedupeCityOptions(scopedCities);
+    },
     [cities, selectedCountryCode]
   );
 
@@ -883,24 +904,23 @@ function ExplorePageContent() {
     [searchParams]
   );
   const filterControlClass =
-    "h-11 w-full min-w-0 rounded-2xl border border-black/10 bg-white px-3 text-sm text-[var(--text-strong)] shadow-sm outline-none transition focus:border-[var(--text-strong)]";
+    "h-10 w-full min-w-0 rounded-xl border border-black/10 bg-white px-3 text-xs text-[var(--text-strong)] shadow-sm outline-none transition focus:border-[var(--text-strong)] sm:text-sm";
 
   return (
     <main className="mx-auto max-w-7xl px-1 py-4 sm:px-2 lg:px-4">
-      <div className="mb-6 overflow-hidden rounded-3xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
-        <div className="bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(229,234,238,0.92))] p-4 sm:p-6 lg:p-8">
+      <div className="mb-5 overflow-hidden rounded-3xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
+        <div className="bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(229,234,238,0.92))] p-4 sm:p-5 lg:p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-3xl">
-              <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
+              <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
                 Öffentliche Discovery
               </div>
-              <h1 className="mt-3 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Explore</h1>
-              <p className="mt-2 hidden max-w-2xl text-sm leading-6 text-[var(--text-muted)] sm:block sm:text-base">
-                Entdecke kuratierte Creator-, Influencer- und Brand-Routen. Sortiert nach Trending,
-                Qualität, Bewertungen und Relevanz.
+              <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Explore</h1>
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+                Kuratierte Routen, schnell filterbar nach Stadt, Relevanz und Qualität.
               </p>
 
-              <div className="mt-3 flex flex-wrap gap-2 text-xs text-[var(--text-muted)] sm:text-sm">
+              <div className="mt-2 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
                 <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">Public {totalPublic}</span>
                 <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">Treffer {filteredRoutes.length}</span>
                 <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">Aufrufbar {callableCount}</span>
@@ -908,41 +928,23 @@ function ExplorePageContent() {
             </div>
 
             <div className="flex flex-wrap gap-2">
-               <Link href="/planner" className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
+               <Link href="/planner" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
                 ← Planner
               </Link>
-               <Link href="/routes" className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
-                Creator Routes
+               <Link href="/routes" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
+                Route erstellen
               </Link>
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7">
+          <div className="mt-4 grid gap-2 md:grid-cols-[minmax(0,1.6fr)_minmax(150px,0.8fr)_minmax(150px,0.75fr)_auto]">
             <input
               aria-label="Routen suchen"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Suche nach Titel, Creator, Beschreibung, Startpunkt..."
-              className={`${filterControlClass} col-span-2 sm:col-span-3 lg:col-span-2`}
-            />
-
-            <select
-              aria-label="Land filtern"
-              value={selectedCountryCode}
-              onChange={(e) => {
-                setSelectedCountryCode(e.target.value);
-                setSelectedCitySlug("all");
-              }}
+              placeholder="Titel, Creator, Startpunkt..."
               className={filterControlClass}
-              disabled={citiesLoading}
-            >
-              <option value="all">Alle Länder</option>
-              {availableCountryCodes.map((countryCode) => (
-                <option key={countryCode} value={countryCode}>
-                  {countryLabel(countryCode)}
-                </option>
-              ))}
-            </select>
+            />
 
             <select
               aria-label="Stadt filtern"
@@ -960,81 +962,97 @@ function ExplorePageContent() {
             </select>
 
             <select
-              aria-label="Creator-Typ filtern"
-              value={creatorFilter}
-              onChange={(e) => setCreatorFilter(e.target.value as CreatorType | "all")}
-              className={filterControlClass}
-            >
-              <option value="all">Alle Typen</option>
-              <option value="user">User</option>
-              <option value="creator">Creator</option>
-              <option value="influencer">Influencer</option>
-              <option value="brand">Brand</option>
-              <option value="editorial">Editorial</option>
-            </select>
-
-            <select
-              aria-label="Sortierung auswaehlen"
+              aria-label="Sortierung auswählen"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               className={filterControlClass}
             >
-              <option value="trending">Sort: Trending</option>
-              <option value="top">Sort: Top Ranked</option>
-              <option value="featured">Sort: Featured</option>
-              <option value="new">Sort: Neueste</option>
+              <option value="trending">Trending</option>
+              <option value="top">Top Ranked</option>
+              <option value="featured">Featured</option>
+              <option value="new">Neueste</option>
             </select>
 
-            <select
-              aria-label="Varianten filtern"
-              value={variantFilter}
-              onChange={(e) => setVariantFilter(e.target.value as VariantFilter)}
-              className={filterControlClass}
-            >
-              <option value="all">Alle Varianten</option>
-              <option value="original">Nur Originale</option>
-              <option value="variant">Nur Varianten</option>
-            </select>
-
-            <select
-              aria-label="Varianten-Sortierung auswaehlen"
-              value={variantSort}
-              onChange={(e) => setVariantSort(e.target.value as VariantSort)}
-              className={filterControlClass}
-            >
-              <option value="default">Varianten-Sortierung: Standard</option>
-              <option value="original-first">Originale zuerst</option>
-              <option value="variant-first">Varianten zuerst</option>
-            </select>
-          </div>
-
-          <div className="mt-3 flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => setPersonalizedSort((value) => !value)}
               disabled={myInterests.length === 0}
-              className={`rounded-full border px-3 py-1.5 text-xs font-medium transition sm:text-sm ${
+              className={`h-10 rounded-xl border px-3 text-xs font-medium shadow-sm transition sm:text-sm ${
                 personalizedSort
                   ? "border-black bg-black text-white"
                   : "border-black/10 bg-white text-gray-700 hover:bg-gray-50"
               } disabled:cursor-not-allowed disabled:opacity-50`}
             >
-              {personalizedSort ? "Für mich sortieren: an" : "Für mich sortieren: aus"}
+              {personalizedSort ? "Für mich: an" : "Für mich"}
             </button>
-            <span
-              className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
-                personalizedSort
-                  ? "bg-black text-white"
-                  : "border border-black/10 bg-white text-gray-700"
-              }`}
-            >
-              {personalizedSort ? "Aktuell personalisiert" : "Aktuell allgemein sortiert"}
-            </span>
-            <div className="basis-full text-xs text-gray-500 sm:basis-auto">
-              {myInterests.length > 0
-                ? "Nutzen deine gespeicherten Interessen für die Reihenfolge."
-                : "Lege Interessen im Profil an, um persönliche Sortierung zu aktivieren."}
+          </div>
+
+          <details className="mt-2 rounded-2xl border border-black/5 bg-white/50 px-3 py-2">
+            <summary className="cursor-pointer list-none text-xs font-medium text-[var(--text-muted)]">
+              Weitere Filter
+              <span className="ml-2 text-[11px] text-gray-400">Land, Typ, Varianten</span>
+            </summary>
+            <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              <select
+                aria-label="Land filtern"
+                value={selectedCountryCode}
+                onChange={(e) => {
+                  setSelectedCountryCode(e.target.value);
+                  setSelectedCitySlug("all");
+                }}
+                className={filterControlClass}
+                disabled={citiesLoading}
+              >
+                <option value="all">Alle Länder</option>
+                {availableCountryCodes.map((countryCode) => (
+                  <option key={countryCode} value={countryCode}>
+                    {countryLabel(countryCode)}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                aria-label="Creator-Typ filtern"
+                value={creatorFilter}
+                onChange={(e) => setCreatorFilter(e.target.value as CreatorType | "all")}
+                className={filterControlClass}
+              >
+                <option value="all">Alle Typen</option>
+                <option value="user">User</option>
+                <option value="creator">Creator</option>
+                <option value="influencer">Influencer</option>
+                <option value="brand">Brand</option>
+                <option value="editorial">Editorial</option>
+              </select>
+
+              <select
+                aria-label="Varianten filtern"
+                value={variantFilter}
+                onChange={(e) => setVariantFilter(e.target.value as VariantFilter)}
+                className={filterControlClass}
+              >
+                <option value="all">Alle Varianten</option>
+                <option value="original">Nur Originale</option>
+                <option value="variant">Nur Varianten</option>
+              </select>
+
+              <select
+                aria-label="Varianten-Sortierung auswählen"
+                value={variantSort}
+                onChange={(e) => setVariantSort(e.target.value as VariantSort)}
+                className={filterControlClass}
+              >
+                <option value="default">Varianten: Standard</option>
+                <option value="original-first">Originale zuerst</option>
+                <option value="variant-first">Varianten zuerst</option>
+              </select>
             </div>
+          </details>
+
+          <div className="mt-2 text-xs text-gray-500">
+            {myInterests.length > 0
+              ? "Deine gespeicherten Interessen können die Reihenfolge personalisieren."
+              : "Lege Interessen im Profil an, um persönliche Sortierung zu aktivieren."}
           </div>
         </div>
       </div>

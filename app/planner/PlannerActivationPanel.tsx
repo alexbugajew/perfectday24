@@ -52,7 +52,7 @@ function buildActivationState({
 >): ActivationState {
   if (citiesLoading) {
     return {
-      badge: "Staedte laden",
+      badge: "Städte laden",
       title: "Wir bereiten den Planner vor.",
       body: "Stadt- und Startdaten werden geladen, bevor der erste belastbare Vorschlag entsteht.",
       toneClass: "border-[var(--line-subtle)] bg-white text-[var(--text-muted)]",
@@ -61,9 +61,9 @@ function buildActivationState({
 
   if (!hasValidPlannerOrigin) {
     return {
-      badge: "Startpunkt pruefen",
+      badge: "Startpunkt prüfen",
       title: "Ein genauer Start macht den Plan deutlich besser.",
-      body: "Waehle einen Startpunkt oder nutze deinen aktuellen Standort, damit Radius und Wege realistisch bleiben.",
+      body: "Wähle einen Startpunkt oder nutze deinen aktuellen Standort, damit Radius und Wege realistisch bleiben.",
       toneClass: "border-[var(--state-warning)]/30 bg-[var(--brand-accent-cloud)] text-[var(--state-warning)]",
     };
   }
@@ -72,16 +72,16 @@ function buildActivationState({
     return {
       badge: "Plan wird erstellt",
       title: presetActive ? "Dein Quickstart ist angekommen." : "Wir bauen gerade deinen ersten Ablauf.",
-      body: "Orte, Eventfenster, Wege und Timing werden zu einem konkreten Vorschlag zusammengefuehrt.",
+      body: "Orte, Eventfenster, Wege und Timing werden zu einem konkreten Vorschlag zusammengeführt.",
       toneClass: "border-[var(--brand-accent)]/30 bg-[var(--brand-accent-soft)] text-[var(--brand-accent)]",
     };
   }
 
   if (plannerError) {
     return {
-      badge: "Eingriff noetig",
+      badge: "Eingriff nötig",
       title: "Der letzte Lauf braucht eine Korrektur.",
-      body: "Pruefe Startpunkt, Fokus oder Radius. Danach kann der Planner den Vorschlag neu berechnen.",
+      body: "Prüfe Startpunkt, Fokus oder Radius. Danach kann der Planner den Vorschlag neu berechnen.",
       toneClass: "border-red-200 bg-red-50 text-red-700",
     };
   }
@@ -97,7 +97,7 @@ function buildActivationState({
 
   if (hasPlannerData && resultsCount === 0) {
     return {
-      badge: "Mehr Optionen noetig",
+      badge: "Mehr Optionen nötig",
       title: "Noch kein belastbarer Vorschlag.",
       body: "Erweitere den Umkreis, pruefe den Startpunkt oder wechsle kurz auf einen klassischen Fokus.",
       toneClass: "border-[var(--state-warning)]/30 bg-[var(--brand-accent-cloud)] text-[var(--state-warning)]",
@@ -138,12 +138,12 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
   const activation = buildActivationState(props);
   const steps = [
     {
-      label: presetActive || templateLabel ? "Rahmen uebernommen" : "Rahmen gesetzt",
+      label: presetActive || templateLabel ? "Rahmen übernommen" : "Rahmen gesetzt",
       done: presetActive || Boolean(templateLabel) || cityLabel !== "-",
       active: false,
     },
     {
-      label: "Optionen pruefen",
+      label: "Optionen prüfen",
       done: plannerLoading || plannedStopsCount > 0 || resultsCount > 0 || hasPlannerData,
       active: plannerLoading,
     },
@@ -176,7 +176,7 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
         </div>
       ) : presetActive ? (
         <div className="mt-3 rounded-md border border-[var(--state-success)]/25 bg-white px-3 py-2 text-xs text-[var(--state-success)]">
-          Quickstart-Parameter wurden uebernommen.
+          Quickstart-Parameter wurden übernommen.
         </div>
       ) : null}
 
