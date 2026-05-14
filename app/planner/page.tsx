@@ -13,6 +13,7 @@ import {
   writeRouteBuilderDraft,
 } from "@/lib/routes/planner-route-bridge";
 import { writePlannerRunDraft } from "@/lib/routes/planner-run-bridge";
+import { trackMonetizationEvent } from "@/lib/monetization/client";
 import { resolvePublicAffiliateLinksClient } from "@/lib/monetization/public-affiliate-client";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
 import {
@@ -128,10 +129,10 @@ function PlannerPageContent() {
     () => emptyPublicAffiliateResolution()
   );
 
-  function showToast(msg: string) {
+  const showToast = useCallback((msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 1800);
-  }
+  }, []);
 
   const {
     interests,
@@ -522,68 +523,6 @@ function PlannerPageContent() {
     setEventPlanningMode("disabled");
   }, [citiesLoading, effectiveCitySlug, eventModesAvailable, experienceMode]);
 
-  useEffect(() => {
-    if (!mounted) return;
-
-    const template = consumePlannerRouteTemplate();
-    if (!template) return;
-
-    if (template.citySlug) setSelectedCitySlug(canonicalCitySlug(template.citySlug));
-    if (template.occasion) setOccasion(template.occasion);
-    if (
-      template.experienceMode === "classic" ||
-      template.experienceMode === "show" ||
-      template.experienceMode === "event_visit" ||
-      template.experienceMode === "market_festival"
-    ) {
-      setExperienceMode(template.experienceMode);
-      setEventPlanningMode(template.experienceMode === "classic" ? "disabled" : "auto");
-      setSelectedEventId(null);
-    } else if (template.occasion === "party") {
-      setExperienceMode("event_visit");
-      setEventPlanningMode("auto");
-      setSelectedEventId(null);
-    }
-    if (template.routeProfile) setRouteProfile(template.routeProfile);
-    if (Array.isArray(template.interests) && template.interests.length > 0) {
-      const normalizedTemplateInterests = Array.from(
-        new Set(
-          template.interests.filter(
-            (value): value is string => typeof value === "string" && value.trim().length > 0
-          )
-        )
-      );
-      setInterests(normalizedTemplateInterests);
-      setPlannerTemplateInterests(normalizedTemplateInterests);
-    } else {
-      setPlannerTemplateInterests([]);
-    }
-    if (template.title) {
-      setPlanTitle(template.title);
-      setPlannerTemplateLoadedLabel(template.title);
-    } else {
-      setPlannerTemplateLoadedLabel("diese Route");
-    }
-    setPlannerTemplateSourceSlug(template.sourceRouteSlug ?? null);
-    if (template.startPoint && template.startPoint.lat != null && template.startPoint.lng != null) {
-      setStartPoint({
-        mode: template.startPoint.mode === "custom" ? "custom" : "custom",
-        type:
-          template.startPoint.type === "hotel" ||
-          template.startPoint.type === "station" ||
-          template.startPoint.type === "airport" ||
-          template.startPoint.type === "other"
-            ? template.startPoint.type
-            : "address",
-        label: template.startPoint.label ?? "",
-        lat: template.startPoint.lat,
-        lng: template.startPoint.lng,
-      });
-    }
-
-    showToast("Route als Vorlage in den Planner übernommen.");
-  }, [mounted, setStartPoint]);
-
   function bumpStop(idx: number) {
     setStopOffsets((prev) => {
       const copy = [...prev];
@@ -609,76 +548,6 @@ function PlannerPageContent() {
     setActivePlanGroupChatId(null);
     setEditingPlanId(null);
     setVariationSeed((prev) => prev + 1);
-  }
-
-  function continueEditingSavedPlan(plan: SavedPlanRow) {
-    const filters = (plan.filters ?? {}) as Record<string, unknown>;
-    const startPointFilter =
-      filters.startPoint && typeof filters.startPoint === "object"
-        ? (filters.startPoint as Record<string, unknown>)
-        : null;
-
-    if (typeof filters.budget === "string") setBudget(filters.budget);
-    if (typeof filters.occasion === "string") setOccasion(filters.occasion);
-    if (typeof filters.planMode === "string") setPlanMode(filters.planMode as PlanMode);
-    if (typeof filters.stopsCount === "number") setStopsCount(filters.stopsCount);
-    if (Array.isArray(filters.interests)) {
-      setInterests(filters.interests.filter((value): value is string => typeof value === "string"));
-    }
-    if (typeof filters.groupEnabled === "boolean") setGroupEnabled(filters.groupEnabled);
-    if (Array.isArray(filters.groupMembers)) {
-      setGroupMembers(filters.groupMembers as GroupMember[]);
-    }
-    if (typeof filters.fullDayActsAfterBreakfast === "number") {
-      setFullDayActsAfterBreakfast(filters.fullDayActsAfterBreakfast);
-    }
-    if (typeof filters.fullDayActsAfterLunch === "number") {
-      setFullDayActsAfterLunch(filters.fullDayActsAfterLunch);
-      }
-      if (typeof filters.citySlug === "string" || filters.citySlug === null) {
-        setSelectedCitySlug(canonicalCitySlug(filters.citySlug ?? null));
-      }
-    if (startPointFilter) {
-      setStartPoint({
-        mode:
-          startPointFilter.mode === "custom" || startPointFilter.type !== "current_location"
-            ? "custom"
-            : "current_location",
-        type:
-          startPointFilter.type === "current_location" ||
-          startPointFilter.type === "address" ||
-          startPointFilter.type === "hotel" ||
-          startPointFilter.type === "station" ||
-          startPointFilter.type === "airport" ||
-          startPointFilter.type === "other"
-            ? startPointFilter.type
-            : "other",
-        label: typeof startPointFilter.label === "string" ? startPointFilter.label : "Startpunkt",
-        lat: typeof startPointFilter.lat === "number" ? startPointFilter.lat : null,
-        lng: typeof startPointFilter.lng === "number" ? startPointFilter.lng : null,
-      });
-    }
-    if (typeof plan.radius_km === "number") setRadiusKm(plan.radius_km);
-    if (plan.sort_mode === "match" || plan.sort_mode === "distance") {
-      setSortMode(plan.sort_mode);
-    }
-
-    setSelectedEventId(null);
-    setEventPlanningMode("auto");
-    setAiText(plan.ai_description ?? null);
-    setPlannerData(null);
-    setRouteSummary(null);
-    setSelectedVariantId(typeof filters.variantId === "string" ? filters.variantId : "best-match");
-    setPinnedVariantId(typeof filters.pinnedVariantId === "string" ? filters.pinnedVariantId : null);
-    setVariantVotes(
-      filters.variantVotes && typeof filters.variantVotes === "object"
-        ? (filters.variantVotes as Record<string, string[]>)
-        : {}
-    );
-    setPlanTitle(typeof plan.title === "string" ? plan.title : "");
-    setSelectedPlan(plan);
-    setEditingPlanId(plan.id);
-    showToast("Plan in den Planner übernommen.");
   }
 
   function defaultEditedPlanTitle(saveMode: PlannerSaveMode, finalizeGroupPlan: boolean) {
@@ -879,13 +748,171 @@ function PlannerPageContent() {
   });
 
   useEffect(() => {
+    if (!mounted) return;
+
+    const template = consumePlannerRouteTemplate();
+    if (!template) return;
+
+    if (template.citySlug) setSelectedCitySlug(canonicalCitySlug(template.citySlug));
+    if (template.occasion) setOccasion(template.occasion);
+    if (
+      template.experienceMode === "classic" ||
+      template.experienceMode === "show" ||
+      template.experienceMode === "event_visit" ||
+      template.experienceMode === "market_festival"
+    ) {
+      setExperienceMode(template.experienceMode);
+      setEventPlanningMode(template.experienceMode === "classic" ? "disabled" : "auto");
+      setSelectedEventId(null);
+    } else if (template.occasion === "party") {
+      setExperienceMode("event_visit");
+      setEventPlanningMode("auto");
+      setSelectedEventId(null);
+    }
+    if (template.routeProfile) setRouteProfile(template.routeProfile);
+    if (Array.isArray(template.interests) && template.interests.length > 0) {
+      const normalizedTemplateInterests = Array.from(
+        new Set(
+          template.interests.filter(
+            (value): value is string => typeof value === "string" && value.trim().length > 0
+          )
+        )
+      );
+      setInterests(normalizedTemplateInterests);
+      setPlannerTemplateInterests(normalizedTemplateInterests);
+    } else {
+      setPlannerTemplateInterests([]);
+    }
+    if (template.title) {
+      setPlanTitle(template.title);
+      setPlannerTemplateLoadedLabel(template.title);
+    } else {
+      setPlannerTemplateLoadedLabel("diese Route");
+    }
+    setPlannerTemplateSourceSlug(template.sourceRouteSlug ?? null);
+    if (template.startPoint && template.startPoint.lat != null && template.startPoint.lng != null) {
+      setStartPoint({
+        mode: template.startPoint.mode === "custom" ? "custom" : "custom",
+        type:
+          template.startPoint.type === "hotel" ||
+          template.startPoint.type === "station" ||
+          template.startPoint.type === "airport" ||
+          template.startPoint.type === "other"
+            ? template.startPoint.type
+            : "address",
+        label: template.startPoint.label ?? "",
+        lat: template.startPoint.lat,
+        lng: template.startPoint.lng,
+      });
+    }
+
+    showToast("Route als Vorlage in den Planner übernommen.");
+  }, [mounted, setStartPoint, setInterests, setPlanTitle, showToast]);
+
+  const continueEditingSavedPlan = useCallback((plan: SavedPlanRow) => {
+    const filters = (plan.filters ?? {}) as Record<string, unknown>;
+    const startPointFilter =
+      filters.startPoint && typeof filters.startPoint === "object"
+        ? (filters.startPoint as Record<string, unknown>)
+        : null;
+
+    if (typeof filters.budget === "string") setBudget(filters.budget);
+    if (typeof filters.occasion === "string") setOccasion(filters.occasion);
+    if (typeof filters.planMode === "string") setPlanMode(filters.planMode as PlanMode);
+    if (typeof filters.stopsCount === "number") setStopsCount(filters.stopsCount);
+    if (Array.isArray(filters.interests)) {
+      setInterests(filters.interests.filter((value): value is string => typeof value === "string"));
+    }
+    if (typeof filters.groupEnabled === "boolean") setGroupEnabled(filters.groupEnabled);
+    if (Array.isArray(filters.groupMembers)) {
+      setGroupMembers(filters.groupMembers as GroupMember[]);
+    }
+    if (typeof filters.fullDayActsAfterBreakfast === "number") {
+      setFullDayActsAfterBreakfast(filters.fullDayActsAfterBreakfast);
+    }
+    if (typeof filters.fullDayActsAfterLunch === "number") {
+      setFullDayActsAfterLunch(filters.fullDayActsAfterLunch);
+    }
+    if (typeof filters.citySlug === "string" || filters.citySlug === null) {
+      setSelectedCitySlug(canonicalCitySlug(filters.citySlug ?? null));
+    }
+    if (startPointFilter) {
+      setStartPoint({
+        mode:
+          startPointFilter.mode === "custom" || startPointFilter.type !== "current_location"
+            ? "custom"
+            : "current_location",
+        type:
+          startPointFilter.type === "current_location" ||
+          startPointFilter.type === "address" ||
+          startPointFilter.type === "hotel" ||
+          startPointFilter.type === "station" ||
+          startPointFilter.type === "airport" ||
+          startPointFilter.type === "other"
+            ? startPointFilter.type
+            : "other",
+        label: typeof startPointFilter.label === "string" ? startPointFilter.label : "Startpunkt",
+        lat: typeof startPointFilter.lat === "number" ? startPointFilter.lat : null,
+        lng: typeof startPointFilter.lng === "number" ? startPointFilter.lng : null,
+      });
+    }
+    if (typeof plan.radius_km === "number") setRadiusKm(plan.radius_km);
+    if (plan.sort_mode === "match" || plan.sort_mode === "distance") {
+      setSortMode(plan.sort_mode);
+    }
+
+    setSelectedEventId(null);
+    setEventPlanningMode("auto");
+    setAiText(plan.ai_description ?? null);
+    setPlannerData(null);
+    setRouteSummary(null);
+    setSelectedVariantId(typeof filters.variantId === "string" ? filters.variantId : "best-match");
+    setPinnedVariantId(typeof filters.pinnedVariantId === "string" ? filters.pinnedVariantId : null);
+    setVariantVotes(
+      filters.variantVotes && typeof filters.variantVotes === "object"
+        ? (filters.variantVotes as Record<string, string[]>)
+        : {}
+    );
+    setPlanTitle(typeof plan.title === "string" ? plan.title : "");
+    setSelectedPlan(plan);
+    setEditingPlanId(plan.id);
+    showToast("Plan in den Planner übernommen.");
+  }, [
+    setBudget,
+    setOccasion,
+    setPlanMode,
+    setStopsCount,
+    setInterests,
+    setGroupEnabled,
+    setGroupMembers,
+    setFullDayActsAfterBreakfast,
+    setFullDayActsAfterLunch,
+    setSelectedCitySlug,
+    setStartPoint,
+    setRadiusKm,
+    setSortMode,
+    setSelectedEventId,
+    setEventPlanningMode,
+    setAiText,
+    setPlannerData,
+    setRouteSummary,
+    setSelectedVariantId,
+    setPinnedVariantId,
+    setVariantVotes,
+    setPlanTitle,
+    setSelectedPlan,
+    setEditingPlanId,
+    showToast,
+  ]);
+
+  useEffect(() => {
     if (!requestedResume || !requestedPlanId || !plans.length) return;
     if (resumedPlanId === requestedPlanId) return;
     const match = plans.find((plan) => plan.id === requestedPlanId);
     if (!match) return;
     continueEditingSavedPlan(match);
     setResumedPlanId(requestedPlanId);
-  }, [requestedResume, requestedPlanId, plans, resumedPlanId]);
+  }, [requestedResume, requestedPlanId, plans, resumedPlanId, continueEditingSavedPlan, setResumedPlanId]);
 
   const currentShareChoiceSummary = useMemo(() => {
     if (!selectedPlan?.id) return null;
@@ -1096,7 +1123,25 @@ function PlannerPageContent() {
     window.location.href = `/chat?prefill=${encodeURIComponent(reminderText)}`;
   }
 
-  function handoffPlanToRouteBuilder() {
+  function plannerActivationMetadata(target: string) {
+    const mergedInterests = mergeInterests(interests, groupMembers, groupEnabled);
+    return {
+      target,
+      budget,
+      experienceMode,
+      groupEnabled,
+      groupMemberCount: groupEnabled ? groupMembers.length : 0,
+      hasStartPoint: Boolean(effectiveStartPoint.lat != null && effectiveStartPoint.lng != null),
+      interestsCount: mergedInterests.length,
+      occasion,
+      planMode,
+      routeProfile,
+      selectedEventId: selectedEventId ?? null,
+      stopsCount: plannedStops.length,
+    };
+  }
+
+  async function handoffPlanToRouteBuilder() {
     if (!plannedStops.length) {
       showToast("Erstelle zuerst einen Tagesplan.");
       return;
@@ -1154,10 +1199,18 @@ function PlannerPageContent() {
       })),
     });
 
+    await trackMonetizationEvent({
+      eventType: "route_copy",
+      userId,
+      citySlug: effectiveCitySlug,
+      surface: "planner",
+      metadata: plannerActivationMetadata("creator_route_prepare"),
+    });
+
     window.location.href = "/routes";
   }
 
-  function startPlannerRouteRun() {
+  async function startPlannerRouteRun() {
     if (!plannedStops.length) {
       showToast("Erstelle zuerst einen Tagesplan.");
       return;
@@ -1189,6 +1242,14 @@ function PlannerPageContent() {
         lng: stop.item?.lng ?? null,
         isRequired: stop.index === 1,
       })),
+    });
+
+    await trackMonetizationEvent({
+      eventType: "plan_intent",
+      userId,
+      citySlug: effectiveCitySlug,
+      surface: "planner",
+      metadata: plannerActivationMetadata("route_run_start"),
     });
 
     window.location.href = "/run";
@@ -1512,7 +1573,7 @@ function PlannerPageContent() {
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              onClick={startPlannerRouteRun}
+              onClick={() => void startPlannerRouteRun()}
               disabled={plannedStops.length === 0}
               className="rounded-md bg-[var(--state-success)] px-3 py-1.5 text-xs font-medium text-white disabled:opacity-60"
             >
@@ -1546,7 +1607,7 @@ function PlannerPageContent() {
             </button>
             <button
               type="button"
-              onClick={handoffPlanToRouteBuilder}
+              onClick={() => void handoffPlanToRouteBuilder()}
               disabled={plannedStops.length === 0}
               className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
             >

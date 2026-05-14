@@ -633,6 +633,21 @@ export function usePlannerPersistence({
       if (!shareUrl) return;
       const choiceText = buildChoiceSummaryText(plan);
       const shareText = choiceText ? `${choiceText}\n${shareUrl}` : shareUrl;
+      void trackMonetizationEvent({
+        eventType: "share_activation",
+        userId,
+        planId: plan.id,
+        citySlug: effectiveCitySlug,
+        surface: "planner_share",
+        metadata: {
+          target: "copy_share_link",
+          hasChoiceSummary: Boolean(choiceText),
+          hasShareUrl: Boolean(shareUrl),
+          groupEnabled: Boolean(plan.filters?.groupEnabled),
+          finalStatus: plan.filters?.finalGroupStatusLabel ?? null,
+          pinnedVariantLabel: plan.filters?.pinnedVariantLabel ?? null,
+        },
+      });
 
       try {
         await navigator.clipboard.writeText(shareText);
@@ -641,7 +656,7 @@ export function usePlannerPersistence({
         prompt("Kopiere diesen Link:", shareText);
       }
     },
-    [authReady, userId, ensurePlanShareUrl, buildChoiceSummaryText, showToast]
+    [authReady, userId, effectiveCitySlug, ensurePlanShareUrl, buildChoiceSummaryText, showToast]
   );
 
   const sendFinalPlanToFriends = useCallback(
@@ -659,9 +674,23 @@ export function usePlannerPersistence({
         shareUrl,
       ].filter(Boolean);
 
+      void trackMonetizationEvent({
+        eventType: "share_activation",
+        userId,
+        planId: plan.id,
+        citySlug: effectiveCitySlug,
+        surface: "planner_share",
+        metadata: {
+          target: "chat_prefill",
+          hasChoiceSummary: Boolean(buildChoiceSummaryText(plan)),
+          finalStatus: plan.filters?.finalGroupStatusLabel ?? null,
+          pinnedVariantLabel: plan.filters?.pinnedVariantLabel ?? null,
+        },
+      });
+
       window.location.href = `/chat?prefill=${encodeURIComponent(lines.join("\n"))}`;
     },
-    [ensurePlanShareUrl, showToast, buildChoiceSummaryText]
+    [ensurePlanShareUrl, showToast, buildChoiceSummaryText, userId, effectiveCitySlug]
   );
 
   const openPlanGroupChat = useCallback(
@@ -669,9 +698,21 @@ export function usePlannerPersistence({
       const chatId = await ensurePlanGroupChat(plan);
       if (!chatId) return;
       onSetActivePlanGroupChatId(chatId);
+      void trackMonetizationEvent({
+        eventType: "group_confirmation",
+        userId,
+        planId: plan.id,
+        citySlug: effectiveCitySlug,
+        surface: "planner_group_chat",
+        metadata: {
+          target: "open_group_chat",
+          chatId,
+          finalStatus: plan.filters?.finalGroupStatusLabel ?? null,
+        },
+      });
       window.location.href = `/chat?group=${chatId}`;
     },
-    [ensurePlanGroupChat, onSetActivePlanGroupChatId]
+    [ensurePlanGroupChat, onSetActivePlanGroupChatId, userId, effectiveCitySlug]
   );
 
   const resolveEditSuggestion = useCallback(

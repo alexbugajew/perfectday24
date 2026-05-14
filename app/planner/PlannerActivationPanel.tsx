@@ -259,6 +259,14 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
         >
           Feinjustieren
         </button>
+        {interestsCount === 0 ? (
+          <a
+            href="/profile#profile-interests"
+            className="rounded-md border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)] px-3 py-1.5 text-xs font-medium text-[var(--brand-accent)] transition hover:bg-white"
+          >
+            Vorlieben speichern
+          </a>
+        ) : null}
         <span className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)]">
           {routeProfileLabel}
         </span>

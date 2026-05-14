@@ -973,18 +973,26 @@ function ExplorePageContent() {
               <option value="new">Neueste</option>
             </select>
 
-            <button
-              type="button"
-              onClick={() => setPersonalizedSort((value) => !value)}
-              disabled={myInterests.length === 0}
-              className={`h-10 rounded-xl border px-3 text-xs font-medium shadow-sm transition sm:text-sm ${
-                personalizedSort
-                  ? "border-black bg-black text-white"
-                  : "border-black/10 bg-white text-gray-700 hover:bg-gray-50"
-              } disabled:cursor-not-allowed disabled:opacity-50`}
-            >
-              {personalizedSort ? "Für mich: an" : "Für mich"}
-            </button>
+            {myInterests.length > 0 ? (
+              <button
+                type="button"
+                onClick={() => setPersonalizedSort((value) => !value)}
+                className={`h-10 rounded-xl border px-3 text-xs font-medium shadow-sm transition sm:text-sm ${
+                  personalizedSort
+                    ? "border-black bg-black text-white"
+                    : "border-black/10 bg-white text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                {personalizedSort ? "Für mich: an" : "Für mich"}
+              </button>
+            ) : (
+              <Link
+                href="/profile#profile-interests"
+                className="flex h-10 items-center justify-center rounded-xl border border-black/10 bg-white px-3 text-xs font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 sm:text-sm"
+              >
+                Interessen setzen
+              </Link>
+            )}
           </div>
 
           <details className="mt-2 rounded-2xl border border-black/5 bg-white/50 px-3 py-2">
@@ -1110,8 +1118,20 @@ function ExplorePageContent() {
               actionLabel={myInterests.length > 0 ? "Interessen anpassen" : "Profil öffnen"}
             />
             {personalizedRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">
-                Noch keine personalisierten Vorschläge verfügbar.
+              <div className="rounded-[28px] border border-black/10 bg-white p-4 text-sm text-gray-600 shadow-sm">
+                {myInterests.length > 0 ? (
+                  "Noch keine personalisierten Vorschläge verfügbar."
+                ) : (
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <span>Speichere ein paar Vorlieben, dann sortiert Explore relevanter für dich.</span>
+                    <Link
+                      href="/profile#profile-interests"
+                      className="inline-flex h-9 items-center justify-center rounded-xl bg-black px-3 text-xs font-medium text-white"
+                    >
+                      Vorlieben speichern
+                    </Link>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
