@@ -27,7 +27,7 @@ import {
   normalizeStringList,
   scoreRouteAgainstInterests,
 } from "@/lib/routes/recommendation-reasons";
-import { friendshipPeerUserId, type FriendshipRow } from "@/lib/social/friends";
+import { type FriendshipRow } from "@/lib/social/friends";
 import { queuePlannerInviteDraft, type PlannerInviteMemberDraft } from "@/lib/social/planner-group";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
 
@@ -626,6 +626,13 @@ function PublicUserProfilePageContent() {
     queuePlannerInviteDraft(nextMember);
   }
 
+  const cityMap = useMemo(() => buildCityLookupMap(cities), [cities]);
+  const monetizationDebug = useMemo(
+    () => shouldShowInternalMonetization(searchParams.get("monetization")),
+    [searchParams]
+  );
+  const profileMonetizationCitySlug = profile?.home_city_slug ?? routes[0]?.city_slug ?? null;
+
   if (loading) {
     return (
       <main className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
@@ -650,13 +657,7 @@ function PublicUserProfilePageContent() {
   }
 
   const displayName = profile.display_name || profile.username;
-  const cityMap = useMemo(() => buildCityLookupMap(cities), [cities]);
   const homeCityLabel = formatCityWithCountry(profile.home_city_slug, cityMap);
-  const monetizationDebug = useMemo(
-    () => shouldShowInternalMonetization(searchParams.get("monetization")),
-    [searchParams]
-  );
-  const profileMonetizationCitySlug = profile.home_city_slug ?? routes[0]?.city_slug ?? null;
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-8 lg:px-8">

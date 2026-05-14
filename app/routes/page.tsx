@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -556,7 +556,7 @@ function RoutesPageContent() {
     })();
   }, [mounted]);
 
-  async function loadRoutes() {
+  const loadRoutes = useCallback(async () => {
     setRoutesLoading(true);
     try {
       if (userId) {
@@ -592,12 +592,12 @@ function RoutesPageContent() {
     } finally {
       setRoutesLoading(false);
     }
-  }
+  }, [userId]);
 
   useEffect(() => {
     if (!authReady) return;
     void loadRoutes();
-  }, [authReady, userId]);
+  }, [authReady, loadRoutes]);
 
   useEffect(() => {
     if (!deepLinkedRouteId || !myRoutes.length) return;

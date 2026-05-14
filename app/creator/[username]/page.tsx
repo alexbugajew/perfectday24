@@ -186,13 +186,11 @@ function RouteCard({
   reason,
   reasonBadges,
 }: {
-  route: UserRouteRow | null | undefined;
+  route: UserRouteRow;
   cityMap: Map<string, CityLookupRow>;
   reason?: string | null;
   reasonBadges?: string[];
 }) {
-  if (!route) return null;
-
   const href = routeHref(route);
   const title = route.title?.trim() || "Unbenannte Route";
   const desc = route.description?.trim() || "Noch keine Beschreibung vorhanden.";
