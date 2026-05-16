@@ -7,16 +7,16 @@ export const occasionPolicy: SlotCandidatePolicy = {
   key: "occasion",
   evaluate(input) {
     const { context, candidate, slot } = input;
-    const module = getOccasionModule(context.filters.occasion);
+    const occasionModule = getOccasionModule(context.filters.occasion);
     const candidateCategory = classify(candidate);
-    const phaseBonus = module.phaseFitBonus(slot.phase, candidate);
-    const phaseMismatchPenalty = module.phaseMismatchPenalty(slot.phase, candidate);
+    const phaseBonus = occasionModule.phaseFitBonus(slot.phase, candidate);
+    const phaseMismatchPenalty = occasionModule.phaseMismatchPenalty(slot.phase, candidate);
     const baseBonus = occasionBaseBonus(context.filters.occasion, candidate);
-    const fitReasons = module.explainPhaseFit({
+    const fitReasons = occasionModule.explainPhaseFit({
       phase: slot.phase,
       candidate,
     });
-    const mismatchReasons = module.explainPhaseMismatch({
+    const mismatchReasons = occasionModule.explainPhaseMismatch({
       phase: slot.phase,
       candidate,
     });

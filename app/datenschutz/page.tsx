@@ -234,7 +234,7 @@ export default function DatenschutzPage() {
           ]}
         />
         <p>
-          Wenn Sie die Funktion \"aktueller Standort\" nutzen, wird Ihr Standort nur verarbeitet, wenn
+          Wenn Sie die Funktion &quot;aktueller Standort&quot; nutzen, wird Ihr Standort nur verarbeitet, wenn
           Sie dies ueber die Browser- bzw. Geraeteeinstellungen freigeben und die Funktion aktiv
           verwenden. Wir nutzen den Standort fuer die Ermittlung des geeigneten Ausgangspunkts Ihrer
           Planung.

@@ -18,7 +18,12 @@ type PlannerActivationPanelProps = {
   interestsCount: number;
   expandedRadius: boolean;
   relaxedFilters: boolean;
+  latestPlanMeta: string | null;
+  latestPlanTitle: string | null;
+  loadingPlans: boolean;
   onOpenConfig: () => void;
+  onResumeLatestPlan: () => void;
+  onShareLatestPlan: () => void;
   onUseCurrentLocation: () => void;
   onRerollPlan: () => void;
 };
@@ -120,6 +125,9 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
     hasPlannerData,
     hasValidPlannerOrigin,
     interestsCount,
+    latestPlanMeta,
+    latestPlanTitle,
+    loadingPlans,
     plannerError,
     plannerLoading,
     plannerSummaryLine,
@@ -132,6 +140,8 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
     templateLabel,
     onOpenConfig,
     onRerollPlan,
+    onResumeLatestPlan,
+    onShareLatestPlan,
     onUseCurrentLocation,
   } = props;
 
@@ -177,6 +187,44 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
       ) : presetActive ? (
         <div className="mt-3 rounded-md border border-[var(--state-success)]/25 bg-white px-3 py-2 text-xs text-[var(--state-success)]">
           Quickstart-Parameter wurden übernommen.
+        </div>
+      ) : null}
+
+      {latestPlanTitle ? (
+        <div className="mt-3 rounded-md border border-[var(--line-subtle)] bg-white px-3 py-2">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Weitermachen
+            </span>
+            {latestPlanMeta ? (
+              <span className="shrink-0 rounded-full bg-[var(--bg-panel)] px-2 py-1 text-[10px] text-[var(--text-muted)]">
+                {latestPlanMeta}
+              </span>
+            ) : null}
+          </div>
+          <div className="mt-1 line-clamp-1 text-sm font-semibold text-[var(--text-strong)]">
+            {latestPlanTitle}
+          </div>
+          <div className="mt-2 flex gap-2">
+            <button
+              type="button"
+              onClick={onResumeLatestPlan}
+              className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-[#1f2937]"
+            >
+              Fortsetzen
+            </button>
+            <button
+              type="button"
+              onClick={onShareLatestPlan}
+              className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+            >
+              Teilen
+            </button>
+          </div>
+        </div>
+      ) : loadingPlans ? (
+        <div className="mt-3 rounded-md border border-[var(--line-subtle)] bg-white px-3 py-2 text-xs text-[var(--text-muted)]">
+          Gespeicherte Pläne werden geprüft.
         </div>
       ) : null}
 

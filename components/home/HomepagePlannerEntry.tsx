@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   PD24Button,
   PD24SectionIntro,
@@ -514,24 +514,6 @@ export default function HomepagePlannerEntry() {
     [budget, experienceMode, occasion, selectedCity.name, selectedInterests]
   );
 
-  useEffect(() => {
-    const validModes = new Set(modeOptions.map((option) => option.value));
-    if (!validModes.has(experienceMode)) {
-      setExperienceMode(modeOptions[0]?.value ?? "classic");
-    }
-  }, [experienceMode, modeOptions]);
-
-  useEffect(() => {
-    const availableInterests = new Set(INTEREST_OPTIONS[occasion]);
-    const nextSelected = selectedInterests.filter((interest) => availableInterests.has(interest));
-    if (nextSelected.length === selectedInterests.length) return;
-    if (nextSelected.length > 0) {
-      setSelectedInterests(nextSelected);
-      return;
-    }
-    setSelectedInterests(INTEREST_OPTIONS[occasion].slice(0, 2));
-  }, [occasion, selectedInterests]);
-
   function toggleInterest(interest: string) {
     setSelectedInterests((prev) => {
       if (prev.includes(interest)) {
@@ -579,7 +561,18 @@ export default function HomepagePlannerEntry() {
                 key={option.value}
                 type="button"
                 className={`min-h-11 rounded-full border px-3 py-2 text-sm font-medium transition sm:min-h-0 ${selectionChipClass(option.value === occasion)}`}
-                onClick={() => setOccasion(option.value)}
+                onClick={() => {
+                  const nextModeOptions = experienceOptionsForOccasion(option.value);
+                  const validModes = new Set(nextModeOptions.map((modeOption) => modeOption.value));
+                  const nextInterests = selectedInterests.filter((interest) =>
+                    INTEREST_OPTIONS[option.value].includes(interest)
+                  );
+                  setOccasion(option.value);
+                  setExperienceMode((prev) => (validModes.has(prev) ? prev : nextModeOptions[0]?.value ?? "classic"));
+                  setSelectedInterests(
+                    nextInterests.length > 0 ? nextInterests : INTEREST_OPTIONS[option.value].slice(0, 2)
+                  );
+                }}
               >
                 {option.label}
               </button>

@@ -699,6 +699,7 @@ function PlannerPageContent() {
     planChoiceReactions,
     planEditSuggestions,
     saving,
+    loadingPlans,
     planTitle,
     setPlanTitle,
     selectedPlan,
@@ -876,6 +877,25 @@ function PlannerPageContent() {
     setPlanTitle(typeof plan.title === "string" ? plan.title : "");
     setSelectedPlan(plan);
     setEditingPlanId(plan.id);
+    void trackMonetizationEvent({
+      eventType: "plan_intent",
+      userId,
+      planId: plan.id,
+      citySlug: typeof filters.citySlug === "string" ? filters.citySlug : effectiveCitySlug,
+      surface: "planner_resume",
+      metadata: {
+        target: "resume_saved_plan",
+        groupEnabled: Boolean(filters.groupEnabled),
+        hasShareToken: Boolean(plan.share_token),
+        source: requestedResume && requestedPlanId === plan.id ? "query_resume" : "manual_resume",
+        stopsCount:
+          typeof filters.stopsCount === "number"
+            ? filters.stopsCount
+            : Array.isArray(plan.slots)
+              ? plan.slots.length
+              : null,
+      },
+    });
     showToast("Plan in den Planner übernommen.");
   }, [
     setBudget,
@@ -903,6 +923,10 @@ function PlannerPageContent() {
     setSelectedPlan,
     setEditingPlanId,
     showToast,
+    userId,
+    effectiveCitySlug,
+    requestedResume,
+    requestedPlanId,
   ]);
 
   useEffect(() => {
@@ -913,6 +937,38 @@ function PlannerPageContent() {
     continueEditingSavedPlan(match);
     setResumedPlanId(requestedPlanId);
   }, [requestedResume, requestedPlanId, plans, resumedPlanId, continueEditingSavedPlan, setResumedPlanId]);
+
+  const latestSavedPlan = useMemo(() => {
+    if (!plans.length) return null;
+    return [...plans].sort((left, right) => {
+      const leftDate = left.created_at || "";
+      const rightDate = right.created_at || "";
+      if (leftDate === rightDate) return 0;
+      return leftDate > rightDate ? -1 : 1;
+    })[0] ?? null;
+  }, [plans]);
+
+  const latestSavedPlanTitle =
+    latestSavedPlan?.title ||
+    latestSavedPlan?.filters?.finalVariantLabel ||
+    latestSavedPlan?.filters?.pinnedVariantLabel ||
+    null;
+
+  const latestSavedPlanMeta = useMemo(() => {
+    if (!latestSavedPlan) return null;
+    const createdAt = latestSavedPlan.created_at ? new Date(latestSavedPlan.created_at) : null;
+    const dateLabel =
+      createdAt && !Number.isNaN(createdAt.getTime())
+        ? createdAt.toLocaleDateString("de-DE", { day: "2-digit", month: "short" })
+        : null;
+    const stopsCount =
+      typeof latestSavedPlan.filters?.stopsCount === "number"
+        ? `${latestSavedPlan.filters.stopsCount} Stops`
+        : Array.isArray(latestSavedPlan.slots)
+          ? `${latestSavedPlan.slots.length} Stops`
+          : null;
+    return [dateLabel, stopsCount].filter(Boolean).join(" | ") || null;
+  }, [latestSavedPlan]);
 
   const currentShareChoiceSummary = useMemo(() => {
     if (!selectedPlan?.id) return null;
@@ -1355,7 +1411,16 @@ function PlannerPageContent() {
               interestsCount={effectiveInterests.length}
               expandedRadius={Boolean(expandedText)}
               relaxedFilters={Boolean(relaxedText)}
+              latestPlanTitle={latestSavedPlanTitle}
+              latestPlanMeta={latestSavedPlanMeta}
+              loadingPlans={loadingPlans}
               onOpenConfig={() => setShowPlannerConfig(true)}
+              onResumeLatestPlan={() => {
+                if (latestSavedPlan) continueEditingSavedPlan(latestSavedPlan);
+              }}
+              onShareLatestPlan={() => {
+                if (latestSavedPlan) void sharePlan(latestSavedPlan);
+              }}
               onUseCurrentLocation={useCurrentLocationAsStartPoint}
               onRerollPlan={rerollPlan}
             />

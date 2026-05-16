@@ -66,7 +66,7 @@ export default function ImpressumPage() {
         </p>
         <AddressBlock
           lines={[
-            <strong>[Rechtlicher Unternehmensname]</strong>,
+            <strong key="company-name">[Rechtlicher Unternehmensname]</strong>,
             "[Rechtsform]",
             "[Strasse und Hausnummer]",
             "[PLZ Ort]",
@@ -87,7 +87,7 @@ export default function ImpressumPage() {
         </p>
         <AddressBlock
           lines={[
-            <strong>[Vorname Nachname]</strong>,
+            <strong key="representative-name">[Vorname Nachname]</strong>,
             "[Geschaeftsfuehrer/in]",
           ]}
         />
@@ -96,8 +96,8 @@ export default function ImpressumPage() {
         </p>
         <AddressBlock
           lines={[
-            <strong>[Vorname Nachname]</strong>,
-            <strong>[Vorname Nachname]</strong>,
+            <strong key="representative-one">[Vorname Nachname]</strong>,
+            <strong key="representative-two">[Vorname Nachname]</strong>,
             "[jeweilige Funktion / gemeinschaftliche oder einzelvertretungsberechtigte Vertretung nur falls gewuenscht]",
           ]}
         />
@@ -153,7 +153,7 @@ export default function ImpressumPage() {
         </p>
         <AddressBlock
           lines={[
-            <strong>[Vorname Nachname]</strong>,
+            <strong key="content-owner">[Vorname Nachname]</strong>,
             "[Anschrift oder: Anschrift wie oben]",
           ]}
         />

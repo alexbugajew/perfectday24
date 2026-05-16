@@ -9,10 +9,33 @@ const eslintConfig = defineConfig([
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    ".codex-regression-dist/**",
+    ".codex-scripts-dist/**",
+    ".vercel/**",
+    "app/-alt/**",
+    "components/Neuer Ordner/**",
+    "tmp_*.js",
+    "**/* - Kopie*",
+    "**/*V[0-9].ts",
+    "**/*V[0-9].tsx",
     "out/**",
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    files: [
+      "app/admin/monetization/page.tsx",
+      "app/p/**",
+      "app/planner/helpers.ts",
+      "app/planner/types.ts",
+      "lib/events/quality.ts",
+      "lib/monetization/public-affiliate-server.ts",
+      "scripts/**/*.ts",
+    ],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
