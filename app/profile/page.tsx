@@ -1562,15 +1562,40 @@ export default function ProfilePage() {
                 </button>
               </div>
             </div>
-            <div className="mt-3 grid gap-2 md:grid-cols-2">
-              <input value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm" />
-              <input type="password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort" className="h-11 rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm" />
-            </div>
-            <div className="mt-3 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-              <button onClick={() => void signUpWithEmail()} disabled={authLoading} className="min-h-10 rounded-xl bg-[var(--text-strong)] px-3 py-2 text-sm text-white transition hover:opacity-95 disabled:opacity-50">Registrieren</button>
-              <button onClick={() => void signInWithEmail()} disabled={authLoading} className="min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50">Einloggen</button>
-              <button onClick={() => void resetPassword()} disabled={authLoading} className="col-span-2 min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50 sm:col-span-1">Passwort reset</button>
-            </div>
+            <form
+              className="mt-3"
+              onSubmit={(event) => {
+                event.preventDefault();
+                void signInWithEmail();
+              }}
+            >
+              <div className="grid gap-2 md:grid-cols-2">
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  value={authEmailInput}
+                  onChange={(e) => setAuthEmailInput(e.target.value)}
+                  placeholder="E-Mail"
+                  className="h-11 rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm"
+                />
+                <input
+                  type="password"
+                  name="password"
+                  autoComplete="current-password"
+                  value={authPasswordInput}
+                  onChange={(e) => setAuthPasswordInput(e.target.value)}
+                  placeholder="Passwort"
+                  className="h-11 rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm"
+                />
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+                <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="min-h-10 rounded-xl bg-[var(--text-strong)] px-3 py-2 text-sm text-white transition hover:opacity-95 disabled:opacity-50">Registrieren</button>
+                <button type="submit" disabled={authLoading} className="min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50">Einloggen</button>
+                <button type="button" onClick={() => void resetPassword()} disabled={authLoading} className="col-span-2 min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50 sm:col-span-1">Passwort reset</button>
+              </div>
+            </form>
             <div className="mt-3 flex flex-wrap gap-2">
               <button onClick={() => void signOut()} disabled={authLoading || !authReady || !userId} className="min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50">Abmelden</button>
               <button onClick={() => void continueAsGuest()} disabled={authLoading} className="min-h-10 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm hover:bg-[var(--bg-panel)] disabled:opacity-50">Gastmodus</button>

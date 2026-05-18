@@ -31,6 +31,14 @@ export default async function PreviewLoginPage({ searchParams }: PreviewLoginPag
 
         <form action="/api/preview-login" method="post" className="mt-7 space-y-5">
           <input type="hidden" name="next" value={nextPath} />
+          <input
+            className="sr-only"
+            name="username"
+            value="preview"
+            autoComplete="username"
+            readOnly
+            tabIndex={-1}
+          />
 
           <label className="block">
             <span className="text-sm font-medium text-[var(--text-strong)]">Passwort</span>

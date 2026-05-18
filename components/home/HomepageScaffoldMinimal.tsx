@@ -10,6 +10,7 @@ import {
 import HomepageLiveDiscoverySection from "@/components/home/HomepageLiveDiscoverySection";
 import HomepagePlannerEntry from "@/components/home/HomepagePlannerEntry";
 import HomepageQuickStartBar from "@/components/home/HomepageQuickStartBar";
+import HomepageReturnPrompt from "@/components/home/HomepageReturnPrompt";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -163,6 +164,7 @@ export default function HomepageScaffoldMinimal() {
                     Route als Vorlage nutzen
                   </PD24Button>
                 </div>
+                <HomepageReturnPrompt />
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   {trustSignals.map((signal) => (
