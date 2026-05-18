@@ -11,6 +11,7 @@ import HomepageLiveDiscoverySection from "@/components/home/HomepageLiveDiscover
 import HomepagePlannerEntry from "@/components/home/HomepagePlannerEntry";
 import HomepageQuickStartBar from "@/components/home/HomepageQuickStartBar";
 import HomepageReturnPrompt from "@/components/home/HomepageReturnPrompt";
+import OnboardingWizard from "@/components/onboarding/OnboardingWizard";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -122,6 +123,7 @@ function MetricPill({ children }: { children: React.ReactNode }) {
 export default function HomepageScaffoldMinimal() {
   return (
     <div className={`${display.variable} min-h-screen bg-[#f7f4ee] text-[#171717]`}>
+      <OnboardingWizard />
       <div className="mx-auto max-w-[1200px] pb-20 pt-6">
         <PD24SiteHeader
           title="PerfectDay24"

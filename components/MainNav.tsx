@@ -135,6 +135,10 @@ export default function MainNav() {
             Explore
           </Link>
 
+          <Link href="/events" className={linkClass("/events")}>
+            Events
+          </Link>
+
           <Link href="/routes" className={linkClass("/routes")}>
             Route
           </Link>
