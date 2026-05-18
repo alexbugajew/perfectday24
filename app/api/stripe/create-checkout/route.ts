@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 import { stripe, STRIPE_PLANS, type StripePlanKey } from "@/lib/stripe/config";
 
 function getSupabaseAdmin() {
@@ -10,26 +12,31 @@ function getSupabaseAdmin() {
   );
 }
 
-function getSupabaseUser(token: string) {
-  return createClient(
+async function getSessionUser() {
+  const cookieStore = await cookies();
+  const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    { global: { headers: { Authorization: `Bearer ${token}` } } }
+    {
+      cookies: {
+        getAll() { return cookieStore.getAll(); },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options));
+        },
+      },
+    }
   );
+  const { data: { user } } = await supabase.auth.getUser();
+  return user;
 }
 
 export async function POST(req: Request) {
   try {
-    const authHeader = req.headers.get("authorization");
-    const token = authHeader?.replace("Bearer ", "").trim() ?? "";
+    const user = await getSessionUser();
 
-    if (!token) {
+    if (!user) {
       return NextResponse.json({ error: "Nicht eingeloggt" }, { status: 401 });
-    }
-
-    const { data: { user }, error: authError } = await getSupabaseUser(token).auth.getUser();
-    if (authError || !user) {
-      return NextResponse.json({ error: "Ungültige Session" }, { status: 401 });
     }
 
     const body = (await req.json()) as { tier?: string; partner_entity_id?: string };
