@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import { PhotoUpload } from "@/components/ui/PhotoUpload";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -188,6 +189,7 @@ export default function PartnerDashboard() {
 
   const [profile, setProfile] = useState<PartnerProfile | null>(null);
   const [role, setRole] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [noAccess, setNoAccess] = useState(false);
 
@@ -215,6 +217,7 @@ export default function PartnerDashboard() {
       return;
     }
     const userId = session.user.id;
+    setUserId(userId);
 
     // Load membership + profile
     const { data: membership, error: membershipErr } = await supabase
@@ -561,7 +564,7 @@ export default function PartnerDashboard() {
         </Section>
 
         {/* ── D0) Typ-spezifische Details ──────────────────────────────────── */}
-        <TypeSpecificSection profile={profile} />
+        <TypeSpecificSection profile={profile} userId={userId} onProfileChange={setProfile} />
 
         {/* ── D1) Dienstleister & Pakete ───────────────────────────────────── */}
         <Section
@@ -818,14 +821,45 @@ function InputField({
   );
 }
 
-function TypeSpecificSection({ profile }: { profile: PartnerProfile }) {
+function TypeSpecificSection({
+  profile,
+  userId,
+  onProfileChange,
+}: {
+  profile: PartnerProfile;
+  userId: string | null;
+  onProfileChange: (p: PartnerProfile) => void;
+}) {
   const typeSlug = profile.partner_type_slug ?? "other";
   const hasTypeData = Object.keys(profile.type_data ?? {}).some((k) => (profile.type_data ?? {})[k]);
   const hasCategories = (profile.service_category_slugs ?? []).length > 0;
   const hasCities = (profile.operating_cities ?? []).length > 0;
-  const hasMedia = (profile.media_urls ?? []).filter((u) => u).length > 0;
 
-  if (!hasTypeData && !hasCategories && !hasCities && !hasMedia) return null;
+  const [mediaUrls, setMediaUrls] = useState<string[]>(profile.media_urls ?? []);
+  const [mediaSaving, setMediaSaving] = useState(false);
+  const [mediaSaveError, setMediaSaveError] = useState<string | null>(null);
+  const [mediaSaved, setMediaSaved] = useState(false);
+
+  const mediaDirty = JSON.stringify(mediaUrls) !== JSON.stringify(profile.media_urls ?? []);
+
+  async function saveMedia() {
+    setMediaSaving(true);
+    setMediaSaveError(null);
+    const { error } = await supabase
+      .from("partner_profiles")
+      .update({ media_urls: mediaUrls })
+      .eq("id", profile.id);
+    setMediaSaving(false);
+    if (error) {
+      setMediaSaveError(error.message);
+    } else {
+      onProfileChange({ ...profile, media_urls: mediaUrls });
+      setMediaSaved(true);
+      setTimeout(() => setMediaSaved(false), 2000);
+    }
+  }
+
+  if (!hasTypeData && !hasCategories && !hasCities && mediaUrls.length === 0) return null;
 
   return (
     <Section
@@ -833,31 +867,32 @@ function TypeSpecificSection({ profile }: { profile: PartnerProfile }) {
       subtitle="Profil-Details aus dem Onboarding"
     >
       <div className="space-y-5">
-        {/* Media preview */}
-        {hasMedia && (
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Medien</p>
-            <div className="flex flex-wrap gap-2">
-              {(profile.media_urls ?? []).filter((u) => u).map((url, i) => (
-                <a
-                  key={i}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative overflow-hidden rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)]"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={url}
-                    alt={`Bild ${i + 1}`}
-                    className="h-20 w-28 object-cover"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-                  />
-                </a>
-              ))}
+        {/* Media management */}
+        <div>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Fotos</p>
+          <PhotoUpload
+            folder={userId ?? "anon"}
+            value={mediaUrls}
+            onChange={setMediaUrls}
+            maxPhotos={5}
+          />
+          {mediaDirty && (
+            <div className="mt-3 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={saveMedia}
+                disabled={mediaSaving}
+                className="rounded-full bg-[var(--text-strong)] px-5 py-2 text-sm font-medium text-white transition hover:opacity-80 disabled:opacity-50"
+              >
+                {mediaSaving ? "Speichern …" : "Fotos speichern"}
+              </button>
+              {mediaSaveError && <p className="text-xs text-red-600">{mediaSaveError}</p>}
             </div>
-          </div>
-        )}
+          )}
+          {mediaSaved && (
+            <p className="mt-2 text-xs text-[var(--brand-accent)]">Gespeichert</p>
+          )}
+        </div>
 
         {/* Type-data key/values */}
         {hasTypeData && (

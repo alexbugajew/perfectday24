@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
+import { CitySearchInput } from "@/components/ui/CitySearchInput";
+import { PhotoUpload } from "@/components/ui/PhotoUpload";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -57,18 +60,8 @@ const PARTNER_TYPES: {
   { slug: "city_tourism", label: "Stadtmarketing",     desc: "Tourismusverband, Stadtführung, Attraction", icon: "🗺",  partnerType: "tourism" },
 ];
 
-const CITY_OPTIONS = [
-  { slug: "berlin-berlin",     label: "Berlin" },
-  { slug: "hamburg",           label: "Hamburg" },
-  { slug: "muenchen",          label: "München" },
-  { slug: "wien",              label: "Wien" },
-  { slug: "zuerich",           label: "Zürich" },
-  { slug: "koeln",             label: "Köln" },
-  { slug: "frankfurt-am-main", label: "Frankfurt" },
-  { slug: "stuttgart",         label: "Stuttgart" },
-  { slug: "duesseldorf",       label: "Düsseldorf" },
-  { slug: "leipzig",           label: "Leipzig" },
-];
+// Loaded from DB in the component — same pattern as planner/page.tsx
+type CityOption = { slug: string; name: string };
 
 const CATEGORY_OPTIONS: Record<PartnerTypeSlug, { slug: string; label: string }[]> = {
   gastronomy: [
@@ -209,6 +202,8 @@ export default function PartnerOnboarding() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  const [cityOptions, setCityOptions] = useState<CityOption[]>([]);
+
   const [step1, setStep1] = useState<Step1Data>({ partner_type_slug: "gastronomy" });
   const [step2, setStep2] = useState<Step2Data>({
     display_name: "", slug: "", primary_city_slug: "berlin-berlin",
@@ -228,6 +223,19 @@ export default function PartnerOnboarding() {
       setUserId(data.session.user.id);
     });
   }, [router]);
+
+  useEffect(() => {
+    supabase
+      .from("cities")
+      .select("slug, name")
+      .eq("is_active", true)
+      .order("population", { ascending: false })
+      .limit(200)
+      .then(({ data }) => {
+        const rows = (data ?? []) as { slug: string; name: string }[];
+        setCityOptions(rows.filter((c) => isPlannerSupportedCitySlug(c.slug)));
+      });
+  }, []);
 
   // Auto-slug from display_name
   useEffect(() => {
@@ -282,16 +290,8 @@ export default function PartnerOnboarding() {
     }
 
     const partnerId = profileData.id as string;
-
-    const { error: membershipError } = await supabase
-      .from("partner_memberships")
-      .insert({ partner_profile_id: partnerId, user_id: userId, role: "owner", status: "active" });
-
-    if (membershipError) {
-      setSubmitError("Profil angelegt, aber Mitgliedschaft konnte nicht erstellt werden.");
-      setSubmitting(false);
-      return;
-    }
+    // Membership is created automatically by the pd24_sync_partner_owner_membership
+    // trigger (AFTER INSERT on partner_profiles, security definer). No manual insert needed.
 
     if (step5.tier !== "organic") {
       const res = await fetch("/api/stripe/create-checkout", {
@@ -406,15 +406,12 @@ export default function PartnerOnboarding() {
               </Field>
 
               <Field label="Hauptstadt">
-                <select
+                <CitySearchInput
+                  cities={cityOptions}
                   value={step2.primary_city_slug}
-                  onChange={(e) => setStep2((p) => ({ ...p, primary_city_slug: e.target.value }))}
-                  className={inputCls}
-                >
-                  {CITY_OPTIONS.map((c) => (
-                    <option key={c.slug} value={c.slug}>{c.label}</option>
-                  ))}
-                </select>
+                  onChange={(v) => setStep2((p) => ({ ...p, primary_city_slug: v }))}
+                  placeholder="Stadt suchen …"
+                />
               </Field>
 
               <div className="grid gap-4 sm:grid-cols-2">
@@ -545,31 +542,14 @@ export default function PartnerOnboarding() {
               {/* Additional cities */}
               <div>
                 <FieldLabel>Weitere Einsatzstädte (optional)</FieldLabel>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {CITY_OPTIONS.map((city) => {
-                    const isSelected = step3.operating_cities.includes(city.slug);
-                    return (
-                      <button
-                        key={city.slug}
-                        type="button"
-                        onClick={() =>
-                          setStep3((p) => ({
-                            ...p,
-                            operating_cities: isSelected
-                              ? p.operating_cities.filter((s) => s !== city.slug)
-                              : [...p.operating_cities, city.slug],
-                          }))
-                        }
-                        className={`rounded-full border px-3.5 py-1.5 text-sm transition ${
-                          isSelected
-                            ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
-                            : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:border-[var(--text-strong)]"
-                        }`}
-                      >
-                        {city.label}
-                      </button>
-                    );
-                  })}
+                <div className="mt-2">
+                  <CitySearchInput
+                    cities={cityOptions}
+                    multi
+                    value={step3.operating_cities}
+                    onChange={(v) => setStep3((p) => ({ ...p, operating_cities: v }))}
+                    placeholder="Stadt suchen …"
+                  />
                 </div>
               </div>
             </div>
@@ -580,28 +560,14 @@ export default function PartnerOnboarding() {
         {step === 4 && (
           <StepShell
             title="Fotos & Medien"
-            subtitle="Füge bis zu 5 Bild-URLs ein (z.B. von deiner Website oder Instagram)."
+            subtitle="Lade bis zu 5 Fotos hoch. Das erste Bild wird als Titelbild verwendet."
           >
-            <div className="space-y-3">
-              {step4.media_urls.map((url, idx) => (
-                <Field key={idx} label={`Bild ${idx + 1}${idx === 0 ? " (Titelbild)" : ""}`}>
-                  <input
-                    type="url"
-                    value={url}
-                    onChange={(e) => {
-                      const next = [...step4.media_urls];
-                      next[idx] = e.target.value;
-                      setStep4({ media_urls: next });
-                    }}
-                    placeholder="https://example.com/bild.jpg"
-                    className={inputCls}
-                  />
-                </Field>
-              ))}
-              <p className="text-xs text-[var(--text-muted)]">
-                Direkte Bild-URLs (.jpg, .png, .webp). Upload-Funktion folgt in Kürze.
-              </p>
-            </div>
+            <PhotoUpload
+              folder={userId ?? "anon"}
+              value={step4.media_urls.filter(Boolean)}
+              onChange={(urls) => setStep4({ media_urls: urls })}
+              maxPhotos={5}
+            />
           </StepShell>
         )}
 

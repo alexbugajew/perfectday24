@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
+import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
+import { CitySearchInput } from "@/components/ui/CitySearchInput";
 
 // ─── Static data (mirrors the DB seed) ────────────────────────────────────────
 
@@ -87,10 +90,7 @@ const NEEDS_BY_OCCASION: Record<OccasionSlug, { slug: string; label: string; req
   ],
 };
 
-const CITIES = [
-  "Berlin", "Hamburg", "München", "Wien", "Zürich",
-  "Köln", "Frankfurt", "Stuttgart", "Düsseldorf", "Leipzig",
-];
+// Loaded from DB — see cityOptions state in EventWizard
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -173,6 +173,7 @@ function NeedToggle({
 export default function EventsPage() {
   const router = useRouter();
   const [step, setStep] = useState<Step>(1);
+  const [cityOptions, setCityOptions] = useState<{ slug: string; name: string }[]>([]);
   const [form, setForm] = useState<FormState>({
     occasionSlug: "",
     city: "",
@@ -181,6 +182,19 @@ export default function EventsPage() {
     budgetCents: "",
     selectedNeeds: [],
   });
+
+  useEffect(() => {
+    supabase
+      .from("cities")
+      .select("slug, name")
+      .eq("is_active", true)
+      .order("population", { ascending: false })
+      .limit(200)
+      .then(({ data }) => {
+        const rows = (data ?? []) as { slug: string; name: string }[];
+        setCityOptions(rows.filter((c) => isPlannerSupportedCitySlug(c.slug)));
+      });
+  }, []);
 
   // Whenever the occasion changes, pre-select all required needs.
   function selectOccasion(slug: OccasionSlug) {
@@ -297,23 +311,12 @@ export default function EventsPage() {
                     <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#8b7767]">
                       Stadt *
                     </label>
-                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                      {CITIES.map((city) => (
-                        <button
-                          key={city}
-                          type="button"
-                          onClick={() => setForm((f) => ({ ...f, city }))}
-                          className={cx(
-                            "rounded-2xl border px-3 py-2.5 text-sm font-medium transition focus-visible:outline-none",
-                            form.city === city
-                              ? "border-[#171717] bg-[#171717] text-white"
-                              : "border-[rgba(23,23,23,0.12)] bg-white text-[#171717] hover:border-[#171717]"
-                          )}
-                        >
-                          {city}
-                        </button>
-                      ))}
-                    </div>
+                    <CitySearchInput
+                      cities={cityOptions}
+                      value={form.city}
+                      onChange={(v) => setForm((f) => ({ ...f, city: v }))}
+                      placeholder="Stadt suchen …"
+                    />
                   </div>
 
                   {/* Datum & Gäste nebeneinander */}
@@ -405,7 +408,7 @@ export default function EventsPage() {
                       {OCCASIONS.find((o) => o.slug === form.occasionSlug)?.label}
                     </span>
                     <span className="rounded-full border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1 text-xs text-[#665d55]">
-                      {form.city}
+                      {cityOptions.find((c) => c.slug === form.city)?.name ?? form.city}
                     </span>
                     {form.guests && (
                       <span className="rounded-full border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1 text-xs text-[#665d55]">

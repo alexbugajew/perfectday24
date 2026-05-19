@@ -230,7 +230,7 @@ export default function EventPlanDetailPage() {
   const editParams = plan
     ? new URLSearchParams({
         occasion: plan.occasion_slug,
-        city: CITY_LABEL[plan.city_slug] ?? plan.city_slug,
+        city: plan.city_slug,
         ...(plan.event_date ? { date: plan.event_date } : {}),
         ...(plan.guest_count ? { guests: String(plan.guest_count) } : {}),
         ...(plan.budget_cents ? { budget: String(Math.round(plan.budget_cents / 100)) } : {}),
