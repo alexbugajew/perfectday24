@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabaseClient";
 export default function MainNav() {
   const pathname = usePathname();
   const [groupUnreadCount, setGroupUnreadCount] = useState(0);
+  const [isPartner, setIsPartner] = useState(false);
 
   const hideOnMarketingPages =
     pathname === "/" ||
@@ -24,9 +25,19 @@ export default function MainNav() {
       const { data } = await supabase.auth.getSession();
       const userId = data.session?.user?.id ?? null;
       if (!userId || !active) {
-        if (active) setGroupUnreadCount(0);
+        if (active) { setGroupUnreadCount(0); setIsPartner(false); }
         return;
       }
+
+      // Check partner membership (fire-and-forget, non-blocking)
+      supabase
+        .from("partner_memberships")
+        .select("id", { count: "exact", head: true })
+        .eq("user_id", userId)
+        .eq("status", "active")
+        .then(({ count }) => {
+          if (active) setIsPartner((count ?? 0) > 0);
+        });
 
       const { data: unreadRows, error } = await supabase.rpc("group_chat_unread_overview", {
         p_user_id: userId,
@@ -138,6 +149,12 @@ export default function MainNav() {
           <Link href="/events" className={linkClass("/events")}>
             Events
           </Link>
+
+          {isPartner && (
+            <Link href="/partner/dashboard" className={linkClass("/partner/dashboard")}>
+              Partner
+            </Link>
+          )}
 
           <Link href="/routes" className={linkClass("/routes")}>
             Route

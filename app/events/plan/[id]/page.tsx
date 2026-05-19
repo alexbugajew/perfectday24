@@ -26,10 +26,9 @@ type ServiceProvider = {
 type EventBooking = {
   id: string;
   need_slug: string;
-  provider_id: string;
-  package_id: string;
-  price_snapshot_cents: number;
-  price_unit: string;
+  service_provider_id: string;
+  provider_package_id: string | null;
+  price_cents_agreed: number;
   service_providers: ServiceProvider | null;
   provider_packages: ProviderPackage | null;
 };
@@ -109,17 +108,18 @@ const SERVICE_TYPE_LABEL: Record<string, string> = {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function formatPrice(cents: number, unit: string, guests: number): string {
-  const base = cents / 100;
+// price_cents_agreed is stored as the total (per_person already multiplied by guests at save time).
+// pkgPriceCents is the original per-person price from provider_packages, used only for display.
+function formatPrice(totalCents: number, pkgPriceCents: number, unit: string): string {
+  const total = totalCents / 100;
   if (unit === "per_person") {
-    const total = base * Math.max(guests, 1);
-    return `${base.toLocaleString("de-DE")} €/P. · ${total.toLocaleString("de-DE")} € gesamt`;
+    const perPerson = pkgPriceCents / 100;
+    return `${perPerson.toLocaleString("de-DE")} €/Person · ${total.toLocaleString("de-DE")} € gesamt`;
   }
-  return `${base.toLocaleString("de-DE")} €`;
+  return `${total.toLocaleString("de-DE")} €`;
 }
 
-function effectiveTotal(cents: number, unit: string, guests: number): number {
-  if (unit === "per_person") return (cents / 100) * Math.max(guests, 1);
+function effectiveTotal(cents: number): number {
   return cents / 100;
 }
 
@@ -158,8 +158,8 @@ export default function EventPlanDetailPage() {
         id, title, occasion_slug, city_slug, event_date, guest_count,
         budget_cents, status, selected_needs, share_token, created_at,
         event_bookings (
-          id, need_slug, provider_id, package_id,
-          price_snapshot_cents, price_unit,
+          id, need_slug, service_provider_id, provider_package_id,
+          price_cents_agreed,
           service_providers ( id, name, service_type, is_verified ),
           provider_packages ( id, name, description, price_cents, price_unit, includes )
         )
@@ -221,7 +221,7 @@ export default function EventPlanDetailPage() {
   const guests = plan?.guest_count ?? 1;
   const bookings = plan?.event_bookings ?? [];
   const runningTotal = bookings.reduce(
-    (sum, b) => sum + effectiveTotal(b.price_snapshot_cents, b.price_unit, guests),
+    (sum, b) => sum + effectiveTotal(b.price_cents_agreed),
     0
   );
   const budget = plan ? (plan.budget_cents ?? 0) / 100 : 0;
@@ -390,11 +390,8 @@ export default function EventPlanDetailPage() {
               const provider = booking.service_providers;
               const pkg = booking.provider_packages;
               const expanded = expandedBookings[booking.id] ?? false;
-              const itemTotal = effectiveTotal(
-                booking.price_snapshot_cents,
-                booking.price_unit,
-                guests
-              );
+              const priceUnit = booking.provider_packages?.price_unit ?? "flat";
+              const itemTotal = effectiveTotal(booking.price_cents_agreed);
 
               return (
                 <div
@@ -432,9 +429,9 @@ export default function EventPlanDetailPage() {
                       <p className="font-semibold text-[var(--text-strong)]">
                         {itemTotal.toLocaleString("de-DE")} €
                       </p>
-                      {booking.price_unit === "per_person" && (
+                      {priceUnit === "per_person" && pkg && (
                         <p className="text-xs text-[var(--text-muted)]">
-                          {(booking.price_snapshot_cents / 100).toLocaleString("de-DE")} €/P.
+                          {(pkg.price_cents / 100).toLocaleString("de-DE")} €/Person
                         </p>
                       )}
                       <p className="mt-1 text-xs text-[var(--text-muted)]">{expanded ? "▲" : "▼"}</p>
@@ -458,7 +455,7 @@ export default function EventPlanDetailPage() {
                       )}
                       <p className="mt-3 text-xs text-[var(--text-muted)]">
                         Preis:{" "}
-                        {pkg ? formatPrice(booking.price_snapshot_cents, booking.price_unit, guests) : "—"}
+                        {pkg ? formatPrice(booking.price_cents_agreed, pkg.price_cents, priceUnit) : "—"}
                       </p>
                     </div>
                   )}

@@ -148,7 +148,16 @@ function PlanNewInner() {
         .in("service_type", serviceTypes)
         .order("is_verified", { ascending: false });
 
-      if (error) { console.error(error); setLoading(false); return; }
+      if (error) {
+        console.error("service_providers query failed:", {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code,
+        });
+        setLoading(false);
+        return;
+      }
 
       const byNeed: Record<string, Provider[]> = {};
       for (const need of needs) {
@@ -199,23 +208,24 @@ function PlanNewInner() {
       return;
     }
 
+    const planData = {
+      user_id:        session.user.id,
+      occasion_slug:  occasion,
+      city_slug:      citySlug,
+      event_date:     date || null,
+      guest_count:    guests || null,
+      budget_cents:   budget ? budget * 100 : null,
+      selected_needs: needs,
+      status:         "planning",
+    };
+
     const { data: plan, error: planErr } = await supabase
       .from("event_plans")
-      .insert({
-        user_id:        session.user.id,
-        occasion_slug:  occasion,
-        city_slug:      citySlug,
-        event_date:     date || null,
-        guest_count:    guests || null,
-        budget_cents:   budget ? budget * 100 : null,
-        selected_needs: needs,
-        status:         "planning",
-      })
+      .insert(planData)
       .select("id")
       .single();
 
     if (planErr || !plan) {
-      console.error(planErr);
       setSaving(false);
       return;
     }

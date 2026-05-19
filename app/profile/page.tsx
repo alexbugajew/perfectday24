@@ -343,6 +343,7 @@ export default function ProfilePage() {
   const [selectedFriendIds, setSelectedFriendIds] = useState<string[]>([]);
   const [groupActionBusyId, setGroupActionBusyId] = useState<string | null>(null);
   const [groupsFeatureAvailable, setGroupsFeatureAvailable] = useState(true);
+  const [hasPartnerProfile, setHasPartnerProfile] = useState<boolean | null>(null);
 
   const interestCatalog = useMemo(
     () =>
@@ -421,6 +422,16 @@ export default function ProfilePage() {
       listener.subscription.unsubscribe();
     };
   }, [mounted]);
+
+  useEffect(() => {
+    if (!userId) return;
+    supabase
+      .from("partner_memberships")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .eq("status", "active")
+      .then(({ count }) => setHasPartnerProfile((count ?? 0) > 0));
+  }, [userId]);
 
   useEffect(() => {
     if (!authReady || !userId) return;
@@ -2533,6 +2544,45 @@ export default function ProfilePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Partner Banner ─────────────────────────────────────────────────── */}
+      {userId && hasPartnerProfile === false && (
+        <section className="pd24-shell scroll-mt-24 p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-xl font-semibold">Als Partner registrieren</h2>
+              <p className="mt-1 text-sm text-[var(--text-muted)]">
+                Präsentiere dein Angebot im Event Planner und erhalte direkte Buchungsanfragen — kostenlos starten, jederzeit upgraden.
+              </p>
+            </div>
+            <Link
+              href="/partner/onboarding"
+              className="inline-flex shrink-0 items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+            >
+              Partner werden →
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {userId && hasPartnerProfile === true && (
+        <section className="pd24-shell scroll-mt-24 p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-xl font-semibold">Partner-Dashboard</h2>
+              <p className="mt-1 text-sm text-[var(--text-muted)]">
+                Verwalte dein Partner-Profil, sieh Buchungsanfragen und deine Kennzahlen.
+              </p>
+            </div>
+            <Link
+              href="/partner/dashboard"
+              className="inline-flex shrink-0 items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-3 text-sm font-medium text-[var(--text-strong)] shadow-sm transition hover:border-[var(--text-strong)]"
+            >
+              Zum Dashboard →
+            </Link>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

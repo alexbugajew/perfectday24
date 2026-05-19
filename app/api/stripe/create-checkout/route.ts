@@ -42,8 +42,8 @@ export async function POST(req: Request) {
     const body = (await req.json()) as { tier?: string; partner_entity_id?: string };
     const { tier, partner_entity_id } = body;
 
-    if (!tier || !partner_entity_id) {
-      return NextResponse.json({ error: "tier und partner_entity_id sind erforderlich" }, { status: 400 });
+    if (!tier) {
+      return NextResponse.json({ error: "tier ist erforderlich (partner_basic | partner_pro)" }, { status: 400 });
     }
 
     const planKey = tier as StripePlanKey;
@@ -61,81 +61,94 @@ export async function POST(req: Request) {
 
     const supabase = getSupabaseAdmin();
 
-    // Verify the user has access to this partner profile.
-    const { data: membership, error: membershipError } = await supabase
-      .from("partner_memberships")
-      .select("role")
-      .eq("partner_profile_id", partner_entity_id)
-      .eq("user_id", user.id)
-      .eq("status", "active")
-      .in("role", ["owner", "admin"])
-      .maybeSingle();
+    // If a partner profile is given, verify membership and reuse its Stripe customer.
+    let stripeCustomerId: string | null = null;
 
-    if (membershipError || !membership) {
-      return NextResponse.json(
-        { error: "Kein Zugriff auf dieses Partner-Profil" },
-        { status: 403 }
-      );
-    }
+    if (partner_entity_id) {
+      const { data: membership, error: membershipError } = await supabase
+        .from("partner_memberships")
+        .select("role")
+        .eq("partner_profile_id", partner_entity_id)
+        .eq("user_id", user.id)
+        .eq("status", "active")
+        .in("role", ["owner", "admin"])
+        .maybeSingle();
 
-    // Fetch the partner profile to check for an existing Stripe customer.
-    const { data: partner, error: partnerError } = await supabase
-      .from("partner_profiles")
-      .select("id, display_name, stripe_customer_id, billing_status")
-      .eq("id", partner_entity_id)
-      .single();
+      if (membershipError || !membership) {
+        return NextResponse.json(
+          { error: "Kein Zugriff auf dieses Partner-Profil" },
+          { status: 403 }
+        );
+      }
 
-    if (partnerError || !partner) {
-      return NextResponse.json({ error: "Partner-Profil nicht gefunden" }, { status: 404 });
-    }
-
-    // Find or create the Stripe customer, keyed to this partner profile.
-    let stripeCustomerId = partner.stripe_customer_id as string | null;
-
-    if (!stripeCustomerId) {
-      const customer = await stripe.customers.create({
-        email: user.email,
-        name: partner.display_name,
-        metadata: {
-          partner_profile_id: partner_entity_id,
-          user_id: user.id,
-        },
-      });
-      stripeCustomerId = customer.id;
-
-      await supabase
+      const { data: partner, error: partnerError } = await supabase
         .from("partner_profiles")
-        .update({ stripe_customer_id: stripeCustomerId })
-        .eq("id", partner_entity_id);
+        .select("id, display_name, stripe_customer_id")
+        .eq("id", partner_entity_id)
+        .single();
+
+      if (partnerError || !partner) {
+        return NextResponse.json({ error: "Partner-Profil nicht gefunden" }, { status: 404 });
+      }
+
+      stripeCustomerId = partner.stripe_customer_id as string | null;
+
+      if (!stripeCustomerId) {
+        const customer = await stripe.customers.create({
+          email: user.email,
+          name: partner.display_name,
+          metadata: { partner_profile_id: partner_entity_id, user_id: user.id },
+        });
+        stripeCustomerId = customer.id;
+        await supabase
+          .from("partner_profiles")
+          .update({ stripe_customer_id: stripeCustomerId })
+          .eq("id", partner_entity_id);
+      }
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
-    const session = await stripe.checkout.sessions.create({
-      customer: stripeCustomerId,
-      mode: "subscription",
+    const checkoutParams = {
+      ...(stripeCustomerId
+        ? { customer: stripeCustomerId, customer_update: { address: "auto" as const } }
+        : { customer_email: user.email }),
+      mode: "subscription" as const,
       line_items: [{ price: plan.priceId, quantity: 1 }],
-      success_url: `${baseUrl}/partner/billing?session_id={CHECKOUT_SESSION_ID}&status=success`,
-      cancel_url: `${baseUrl}/partner/billing?status=cancelled`,
+      success_url: `${baseUrl}/profile?payment=success`,
+      cancel_url: `${baseUrl}/profile?payment=cancelled`,
       subscription_data: {
         metadata: {
-          partner_profile_id: partner_entity_id,
+          ...(partner_entity_id ? { partner_profile_id: partner_entity_id } : {}),
           plan_key: planKey,
+          user_id: user.id,
         },
       },
       metadata: {
-        partner_profile_id: partner_entity_id,
+        ...(partner_entity_id ? { partner_profile_id: partner_entity_id } : {}),
         plan_key: planKey,
         user_id: user.id,
       },
       allow_promotion_codes: true,
-      billing_address_collection: "required",
-      customer_update: { address: "auto" },
-    });
+      billing_address_collection: "required" as const,
+    };
+
+    console.log("create-checkout params:", JSON.stringify(checkoutParams, null, 2));
+
+    let session;
+    try {
+      session = await stripe.checkout.sessions.create(checkoutParams);
+    } catch (err) {
+      console.error("Stripe Error:", JSON.stringify(err, null, 2));
+      return NextResponse.json(
+        { error: "Checkout konnte nicht erstellt werden", detail: String(err) },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("create-checkout failed:", error);
-    return NextResponse.json({ error: "Checkout konnte nicht erstellt werden" }, { status: 500 });
+    return NextResponse.json({ error: "Interner Fehler" }, { status: 500 });
   }
 }
