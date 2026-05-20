@@ -58,6 +58,7 @@ const PARTNER_TYPES: {
   { slug: "accommodation",label: "Unterkunft",         desc: "Hotel, Pension, Ferienwohnung",             icon: "🛏",  partnerType: "venue" },
   { slug: "event_vendor", label: "Event-Dienstleister",desc: "DJ, Fotograf, Dekoration, Transport",       icon: "🎪",  partnerType: "organizer" },
   { slug: "city_tourism", label: "Stadtmarketing",     desc: "Tourismusverband, Stadtführung, Attraction", icon: "🗺",  partnerType: "tourism" },
+  { slug: "corporate",    label: "Unternehmen",        desc: "Business & Mitarbeiter-Events",              icon: "🏢",  partnerType: "other" },
 ];
 
 // Loaded from DB in the component — same pattern as planner/page.tsx
@@ -215,6 +216,17 @@ export default function PartnerOnboarding() {
   const [step5, setStep5] = useState<Step5Data>({ tier: "organic" });
 
   useEffect(() => {
+    // Pre-select corporate type when coming from ?type=corporate
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("type") === "corporate") {
+        setStep1({ partner_type_slug: "corporate" });
+        setStep(2);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (!data.session) {
         router.replace("/login?return=/partner/onboarding");
@@ -318,7 +330,8 @@ export default function PartnerOnboarding() {
     ? step2.display_name.trim().length >= 2 && step2.slug.trim().length >= 2
     : true;
 
-  const typeConfig = PARTNER_TYPES.find((t) => t.slug === step1.partner_type_slug)!;
+  const typeConfig = PARTNER_TYPES.find((t) => t.slug === step1.partner_type_slug)
+    ?? { label: step1.partner_type_slug, icon: "🏢", desc: "", partnerType: "other", slug: step1.partner_type_slug };
 
   return (
     <div className="min-h-screen bg-[var(--bg-app)]">

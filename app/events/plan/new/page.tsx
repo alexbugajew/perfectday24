@@ -175,6 +175,7 @@ function PlanNewInner() {
 
   // ── State ────────────────────────────────────────────────────────────────
 
+  const [eventTitle, setEventTitle]     = useState("");
   const [cityName, setCityName]         = useState<string>("");
   const [vendorsByNeed, setVendorsByNeed] = useState<Record<string, VendorWithScore[]>>({});
   const [allVendorsByNeed, setAllVendorsByNeed] = useState<Record<string, VendorWithScore[]>>({});
@@ -319,6 +320,7 @@ function PlanNewInner() {
       .from("event_plans")
       .insert({
         user_id:        session.user.id,
+        title:          eventTitle.trim() || null,
         occasion_slug:  occasion,
         city_slug:      citySlug,
         event_date:     date || null,
@@ -393,6 +395,21 @@ function PlanNewInner() {
 
       {/* ── Body ────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+
+        {/* Event-Name */}
+        <div className="mb-8">
+          <label className="mb-1.5 block text-sm font-medium text-[#171717]">
+            Event-Name <span className="text-[#b76a43]">*</span>
+          </label>
+          <input
+            type="text"
+            value={eventTitle}
+            onChange={(e) => setEventTitle(e.target.value)}
+            placeholder="z.B. Weihnachtsfeier 2026, Teambuilding Marketing"
+            className="w-full rounded-2xl border border-[rgba(23,23,23,0.12)] bg-white px-4 py-3 text-sm text-[#171717] placeholder-[#8b7767] outline-none focus:border-[#171717] focus:ring-2 focus:ring-[rgba(23,23,23,0.08)]"
+          />
+        </div>
+
         {needs.length === 0 ? (
           <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-8 text-center text-[#665d55]">
             Kein Bedarf ausgewählt.{" "}

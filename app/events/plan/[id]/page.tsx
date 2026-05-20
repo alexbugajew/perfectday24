@@ -216,6 +216,19 @@ export default function EventPlanDetailPage() {
     setExpandedBookings((prev) => ({ ...prev, [bookingId]: !prev[bookingId] }));
   }
 
+  // ─── Return URL (persisted via sessionStorage across the events flow) ─────────
+
+  const [returnUrl, setReturnUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = sessionStorage.getItem("pd24_event_return");
+    if (stored) {
+      setReturnUrl(stored);
+      sessionStorage.removeItem("pd24_event_return"); // consume once
+    }
+  }, []);
+
   // ─── Derived ────────────────────────────────────────────────────────────────
 
   const guests = plan?.guest_count ?? 1;
@@ -269,6 +282,7 @@ export default function EventPlanDetailPage() {
   }
 
   // ─── Main render ────────────────────────────────────────────────────────────
+
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
@@ -339,6 +353,21 @@ export default function EventPlanDetailPage() {
           </div>
         )}
       </div>
+
+      {/* Return CTA — e.g. coming from business dashboard */}
+      {returnUrl && (
+        <div className="mb-6 flex items-center justify-between gap-4 rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4">
+          <p className="text-sm text-blue-900">
+            Event angelegt — jetzt Teilnehmer einladen und RSVP tracken.
+          </p>
+          <Link
+            href={`${returnUrl}?event=${plan.id}`}
+            className="shrink-0 rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+          >
+            Weiter zur Teilnehmerverwaltung →
+          </Link>
+        </div>
+      )}
 
       {/* Budget summary */}
       <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">

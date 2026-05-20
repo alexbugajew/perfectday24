@@ -9,6 +9,7 @@ export default function MainNav() {
   const pathname = usePathname();
   const [groupUnreadCount, setGroupUnreadCount] = useState(0);
   const [isPartner, setIsPartner] = useState(false);
+  const [isCorporate, setIsCorporate] = useState(false);
 
   const hideOnMarketingPages =
     pathname === "/" ||
@@ -32,11 +33,18 @@ export default function MainNav() {
       // Check partner membership (fire-and-forget, non-blocking)
       supabase
         .from("partner_memberships")
-        .select("id", { count: "exact", head: true })
+        .select("id, partner_profiles(partner_type_slug)", { count: "exact" })
         .eq("user_id", userId)
         .eq("status", "active")
-        .then(({ count }) => {
-          if (active) setIsPartner((count ?? 0) > 0);
+        .then(({ data, count }) => {
+          if (!active) return;
+          setIsPartner((count ?? 0) > 0);
+          const rows = (data ?? []) as Array<{ partner_profiles: { partner_type_slug: string } | { partner_type_slug: string }[] | null }>;
+          const hasCorporate = rows.some((r) => {
+            const pp = Array.isArray(r.partner_profiles) ? r.partner_profiles[0] : r.partner_profiles;
+            return pp?.partner_type_slug === "corporate";
+          });
+          setIsCorporate(hasCorporate);
         });
 
       const { data: unreadRows, error } = await supabase.rpc("group_chat_unread_overview", {
@@ -149,12 +157,6 @@ export default function MainNav() {
           <Link href="/events" className={linkClass("/events")}>
             Events
           </Link>
-
-          {isPartner && (
-            <Link href="/partner/dashboard" className={linkClass("/partner/dashboard")}>
-              Partner
-            </Link>
-          )}
 
           <Link href="/routes" className={linkClass("/routes")}>
             Route

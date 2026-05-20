@@ -1650,6 +1650,27 @@ export default function ProfilePage() {
         {status ? <div className="mt-4 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-3 py-2 text-sm text-[var(--text-muted)]">{status}</div> : null}
       </section>
 
+      {/* ── Schnellzugriff Partner / Business ──────────────────────────────── */}
+      {userId && hasPartnerProfile === true && (
+        <section className="pd24-shell p-4 sm:p-5">
+          <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Schnellzugriff</div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Link
+              href="/partner/dashboard"
+              className="inline-flex items-center gap-2 rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--line-strong)] hover:bg-[var(--bg-panel)]"
+            >
+              Partner-Dashboard →
+            </Link>
+            <Link
+              href="/business/dashboard"
+              className="inline-flex items-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-4 py-2.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100"
+            >
+              Business-Dashboard →
+            </Link>
+          </div>
+        </section>
+      )}
+
       <nav
         aria-label="Profilbereiche"
         className="pd24-scrollbar-none flex gap-2 overflow-x-auto rounded-2xl border border-[var(--line-subtle)] bg-white/80 p-2 text-sm shadow-[var(--shadow-soft)]"
@@ -2545,41 +2566,88 @@ export default function ProfilePage() {
         </div>
       </section>
 
-      {/* ── Partner Banner ─────────────────────────────────────────────────── */}
-      {userId && hasPartnerProfile === false && (
+      {/* ── Mitmachen-Sektion ───────────────────────────────────────────────── */}
+      {userId && !isAnonymous && (
         <section className="pd24-shell scroll-mt-24 p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-xl font-semibold">Als Partner registrieren</h2>
-              <p className="mt-1 text-sm text-[var(--text-muted)]">
-                Präsentiere dein Angebot im Event Planner und erhalte direkte Buchungsanfragen — kostenlos starten, jederzeit upgraden.
-              </p>
-            </div>
-            <Link
-              href="/partner/onboarding"
-              className="inline-flex shrink-0 items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
-            >
-              Partner werden →
-            </Link>
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold">PerfectDay24 — Mehr aus deinem Account machen</h2>
+            <p className="mt-1 text-sm text-[var(--text-muted)]">
+              Wähle, wie du die Plattform nutzen möchtest — Creator, Partner oder Business.
+            </p>
           </div>
-        </section>
-      )}
 
-      {userId && hasPartnerProfile === true && (
-        <section className="pd24-shell scroll-mt-24 p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-xl font-semibold">Partner-Dashboard</h2>
-              <p className="mt-1 text-sm text-[var(--text-muted)]">
-                Verwalte dein Partner-Profil, sieh Buchungsanfragen und deine Kennzahlen.
-              </p>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {/* Creator */}
+            <div className="flex flex-col gap-4 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-5">
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-2xl">🎨</span>
+                <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700">
+                  Kostenlos
+                </span>
+              </div>
+              <div>
+                <div className="font-semibold text-[var(--text-strong)]">Creator werden</div>
+                <p className="mt-1.5 text-sm leading-6 text-[var(--text-muted)]">
+                  Erstelle eigene Routen, bau eine Community auf und monetarisiere deine lokalen Tipps.
+                </p>
+              </div>
+              <div className="mt-auto">
+                <Link
+                  href="/profile#profile-public"
+                  className="inline-flex w-full items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--line-strong)] hover:bg-[var(--bg-panel)]"
+                >
+                  Creator Profil einrichten →
+                </Link>
+              </div>
             </div>
-            <Link
-              href="/partner/dashboard"
-              className="inline-flex shrink-0 items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-3 text-sm font-medium text-[var(--text-strong)] shadow-sm transition hover:border-[var(--text-strong)]"
-            >
-              Zum Dashboard →
-            </Link>
+
+            {/* Partner — prominent */}
+            <div className="flex flex-col gap-4 rounded-2xl bg-[var(--text-strong)] p-5 text-white shadow-lg">
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-2xl">🏢</span>
+                <span className="rounded-full bg-amber-400/20 px-2.5 py-0.5 text-[11px] font-medium text-amber-300">
+                  Ab 29€/Monat
+                </span>
+              </div>
+              <div>
+                <div className="font-semibold">Als Partner listen lassen</div>
+                <p className="mt-1.5 text-sm leading-6 text-white/70">
+                  Du hast ein Restaurant, Hotel, bist Event-Dienstleister oder Tourismusverband? Erscheine in KI-generierten Tagesplänen und werde von tausenden Nutzern entdeckt.
+                </p>
+              </div>
+              <div className="mt-auto">
+                <Link
+                  href="/partner/onboarding?type=corporate"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-white/90"
+                >
+                  Jetzt Partner werden →
+                </Link>
+              </div>
+            </div>
+
+            {/* Business */}
+            <div className="flex flex-col gap-4 rounded-2xl bg-blue-600 p-5 text-white shadow-lg">
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-2xl">⚡</span>
+                <span className="rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-medium text-white/90">
+                  Für Unternehmen
+                </span>
+              </div>
+              <div>
+                <div className="font-semibold">Business & Mitarbeiter-Events</div>
+                <p className="mt-1.5 text-sm leading-6 text-white/70">
+                  Plant ihr als Unternehmen Teambuilding-Tage, Betriebsausflüge oder Weihnachtsfeiern? Verwaltet Events, ladet Mitarbeiter ein und stellt jedem Teilnehmer eine digitale Tagesagenda bereit.
+                </p>
+              </div>
+              <div className="mt-auto">
+                <Link
+                  href="/business/dashboard"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-blue-700 transition hover:bg-white/90"
+                >
+                  Business-Dashboard öffnen →
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       )}
