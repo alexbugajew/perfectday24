@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createServerClient } from "@supabase/ssr";
 import {
   PREVIEW_LOCK_COOKIE,
   PREVIEW_LOCK_LOGIN_PATH,
@@ -23,16 +24,45 @@ function isPublicPath(pathname: string) {
   return /\.[a-zA-Z0-9]+$/.test(pathname);
 }
 
+async function refreshSupabaseSession(
+  request: NextRequest,
+  response: NextResponse
+): Promise<NextResponse> {
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          );
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          );
+        },
+      },
+    }
+  );
+  await supabase.auth.getUser();
+  return response;
+}
+
 export async function proxy(request: NextRequest) {
   if (!isPreviewLockEnabled() || isPublicPath(request.nextUrl.pathname)) {
-    return NextResponse.next();
+    const response = NextResponse.next();
+    return refreshSupabaseSession(request, response);
   }
 
   const token = request.cookies.get(PREVIEW_LOCK_COOKIE)?.value;
   const hasAccess = await verifyPreviewAccessToken(token);
 
   if (hasAccess) {
-    return NextResponse.next();
+    const response = NextResponse.next();
+    return refreshSupabaseSession(request, response);
   }
 
   if (request.nextUrl.pathname.startsWith("/api/")) {

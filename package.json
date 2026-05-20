@@ -43,6 +43,8 @@
     "routes:images:report-gaps": "node .codex-scripts-dist/scripts/report-route-image-gaps.js"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^9.5.0",
+    "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.96.0",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
@@ -50,7 +52,8 @@
     "openai": "^6.22.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-leaflet": "^5.0.0"
+    "react-leaflet": "^5.0.0",
+    "stripe": "^22.1.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

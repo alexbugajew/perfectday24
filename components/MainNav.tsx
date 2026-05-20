@@ -8,6 +8,8 @@ import { supabase } from "@/lib/supabaseClient";
 export default function MainNav() {
   const pathname = usePathname();
   const [groupUnreadCount, setGroupUnreadCount] = useState(0);
+  const [isPartner, setIsPartner] = useState(false);
+  const [isCorporate, setIsCorporate] = useState(false);
 
   const hideOnMarketingPages =
     pathname === "/" ||
@@ -24,9 +26,26 @@ export default function MainNav() {
       const { data } = await supabase.auth.getSession();
       const userId = data.session?.user?.id ?? null;
       if (!userId || !active) {
-        if (active) setGroupUnreadCount(0);
+        if (active) { setGroupUnreadCount(0); setIsPartner(false); }
         return;
       }
+
+      // Check partner membership (fire-and-forget, non-blocking)
+      supabase
+        .from("partner_memberships")
+        .select("id, partner_profiles(partner_type_slug)", { count: "exact" })
+        .eq("user_id", userId)
+        .eq("status", "active")
+        .then(({ data, count }) => {
+          if (!active) return;
+          setIsPartner((count ?? 0) > 0);
+          const rows = (data ?? []) as Array<{ partner_profiles: { partner_type_slug: string } | { partner_type_slug: string }[] | null }>;
+          const hasCorporate = rows.some((r) => {
+            const pp = Array.isArray(r.partner_profiles) ? r.partner_profiles[0] : r.partner_profiles;
+            return pp?.partner_type_slug === "corporate";
+          });
+          setIsCorporate(hasCorporate);
+        });
 
       const { data: unreadRows, error } = await supabase.rpc("group_chat_unread_overview", {
         p_user_id: userId,
@@ -133,6 +152,10 @@ export default function MainNav() {
 
           <Link href="/explore" className={linkClass("/explore")}>
             Explore
+          </Link>
+
+          <Link href="/events" className={linkClass("/events")}>
+            Events
           </Link>
 
           <Link href="/routes" className={linkClass("/routes")}>
