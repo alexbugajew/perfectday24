@@ -9,10 +9,6 @@ import {
 } from "@/components/ui/pd24";
 import HomepageLiveDiscoverySection from "@/components/home/HomepageLiveDiscoverySection";
 import HomepagePlannerEntry from "@/components/home/HomepagePlannerEntry";
-import HomepageQuickStartBar from "@/components/home/HomepageQuickStartBar";
-import HomepageReturnPrompt from "@/components/home/HomepageReturnPrompt";
-import OnboardingWizard from "@/components/onboarding/OnboardingWizard";
-
 const display = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
@@ -33,12 +29,12 @@ const differentiationCards = [
   },
   {
     title: "Echte Events werden sinnvoll eingebettet",
-    body: "Ein Konzert, Markt oder Ausstellungsbesuch wird als Hauptmoment geplant und nicht nur zufaellig dazwischen geschoben.",
+    body: "Ein Konzert, Markt oder Ausstellungsbesuch wird als Hauptmoment geplant und nicht nur zufällig dazwischen geschoben.",
     accent: "bg-[linear-gradient(180deg,rgba(251,246,239,0.96),rgba(235,244,248,0.92))]",
   },
   {
     title: "Gruppen kommen schneller zu einer Wahl",
-    body: "Varianten, Priorisierung und Bestaetigung sind als echte Produktlogik gedacht, nicht als improvisierter Chat-Umweg.",
+    body: "Varianten, Priorisierung und Bestätigung sind als echte Produktlogik gedacht, nicht als improvisierter Chat-Umweg.",
     accent: "bg-[linear-gradient(180deg,rgba(251,247,241,0.96),rgba(237,243,235,0.92))]",
   },
 ];
@@ -59,12 +55,12 @@ const heroStops = [
   {
     time: "20:30",
     title: "Live-Event als Peak",
-    note: "echter Anlass statt zufaelliger Zusatz",
+    note: "echter Anlass statt zufälliger Zusatz",
     tag: "Event",
   },
   {
     time: "22:35",
-    title: "Bar fuer den Ausklang",
+    title: "Bar für den Ausklang",
     note: "nah an der Venue und nicht mehr getaktet",
     tag: "Ausklang",
   },
@@ -79,18 +75,18 @@ const heroSignals = [
 const liveProofCards = [
   {
     value: "3+ Stops",
-    title: "Gepruefte Routen aus Explore",
-    body: "Auf der Homepage landen nur oeffentliche Routen, die genug Struktur fuer einen vertrauenswuerdigen Einstieg mitbringen.",
+    title: "Geprüfte Routen aus Explore",
+    body: "Auf der Homepage landen nur öffentliche Routen, die genug Struktur für einen vertrauenswürdigen Einstieg mitbringen.",
   },
   {
     value: "Startlogik",
     title: "Planner mit echter Startlogik",
-    body: "Stadt, Anlass, Fokus und Datum gehen nicht verloren, sondern werden als konkrete Startkonfiguration uebernommen.",
+    body: "Stadt, Anlass, Fokus und Datum gehen nicht verloren, sondern werden als konkrete Startkonfiguration übernommen.",
   },
   {
     value: "2 Wege",
     title: "Gruppenwahl ohne Chat-Chaos",
-    body: "Varianten, Stimmen und Bestaetigung bleiben lesbar, damit ein gemeinsamer Tag nicht an der Abstimmung scheitert.",
+    body: "Varianten, Stimmen und Bestätigung bleiben lesbar, damit ein gemeinsamer Tag nicht an der Abstimmung scheitert.",
   },
 ];
 
@@ -98,16 +94,16 @@ const decisionSteps = [
   {
     number: "01",
     title: "Rahmen setzen",
-    body: "Anlass, Stadt und Stimmung legen fest, wie sich der Tag anfuehlen soll.",
+    body: "Anlass, Stadt und Stimmung legen fest, wie sich der Tag anfühlen soll.",
   },
   {
     number: "02",
     title: "Varianten vergleichen",
-    body: "Nicht jeder Vorschlag ist gleich gut. Die staerkeren Routen werden sichtbar priorisiert.",
+    body: "Nicht jeder Vorschlag ist gleich gut. Die stärkeren Routen werden sichtbar priorisiert.",
   },
   {
     number: "03",
-    title: "Gemeinsam bestaetigen",
+    title: "Gemeinsam bestätigen",
     body: "Sobald eine Hauptvariante feststeht, kann die Gruppe direkt mit derselben Version weiterarbeiten.",
   },
 ];
@@ -123,15 +119,15 @@ function MetricPill({ children }: { children: React.ReactNode }) {
 export default function HomepageScaffoldMinimal() {
   return (
     <div className={`${display.variable} min-h-screen bg-[#f7f4ee] text-[#171717]`}>
-      <OnboardingWizard />
       <div className="mx-auto max-w-[1200px] pb-20 pt-6">
         <PD24SiteHeader
           title="PerfectDay24"
           subtitle="Curated City Planning"
           navItems={[
-            { href: "/planner", label: "Planner" },
-            { href: "/explore", label: "Explore" },
-            { href: "/routes", label: "Routes" },
+            { href: "/planner", label: "Planen" },
+            { href: "/explore", label: "Entdecken" },
+            { href: "/events", label: "Events" },
+            { href: "/saved", label: "Gespeichert" },
             { href: "/profile", label: "Profil" },
           ]}
           ctaHref="/planner"
@@ -153,7 +149,7 @@ export default function HomepageScaffoldMinimal() {
                   Plane einen Tag, der zu euch und zur Stadt passt.
                 </h1>
                 <p className="mt-5 max-w-xl text-lg leading-8 text-[#665d55]">
-                  Waehle Stadt, Anlass und Stimmung. PerfectDay24 macht daraus einen Ablauf mit
+                  Wähle Stadt, Anlass und Stimmung. PerfectDay24 macht daraus einen Ablauf mit
                   echten Events, passenden Orten, realistischen Wegen und einer klaren gemeinsamen
                   Wahl.
                 </p>
@@ -162,11 +158,10 @@ export default function HomepageScaffoldMinimal() {
                   <PD24Button href="/planner" className="w-full sm:w-auto">
                     Tag planen
                   </PD24Button>
-                  <PD24Button href="/routes" variant="secondary" className="w-full sm:w-auto">
-                    Route als Vorlage nutzen
+                  <PD24Button href="/explore" variant="secondary" className="hidden sm:inline-flex">
+                    Entdecken
                   </PD24Button>
                 </div>
-                <HomepageReturnPrompt />
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   {trustSignals.map((signal) => (
@@ -179,7 +174,7 @@ export default function HomepageScaffoldMinimal() {
                 <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[rgba(23,23,23,0.08)] pb-4">
                   <div>
                     <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8b7767]">
-                      Beispiel fuer einen Date-Abend
+                      Beispiel für einen Date-Abend
                     </div>
                     <div className="mt-2 text-2xl font-semibold tracking-tight text-[#171717]">
                       Berlin | Event-Plan | Heute Abend
@@ -217,14 +212,12 @@ export default function HomepageScaffoldMinimal() {
                   </div>
                   <div className="mt-4 text-sm leading-7 text-[#665d55]">
                     Genau diese Art von Vorschau bekommst du, bevor du in den Planner springst:
-                    nicht nur Orte, sondern eine plausible Dramaturgie fuer den Abend.
+                    nicht nur Orte, sondern eine plausible Dramaturgie für den Abend.
                   </div>
                 </div>
               </div>
             </div>
           </section>
-
-          <HomepageQuickStartBar />
 
           <section className="grid gap-6 md:grid-cols-3">
             {differentiationCards.map((card) => (
@@ -242,6 +235,23 @@ export default function HomepageScaffoldMinimal() {
               </PD24Card>
             ))}
           </section>
+
+          {/* Weitere Möglichkeiten — nachgeordnete Einstiege als kleine Textlinks */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[#8b7767]">
+            <span className="font-medium text-[#665d55]">Weitere Einstiege:</span>
+            <Link
+              href="/routes"
+              className="underline-offset-2 transition hover:text-[#171717] hover:underline"
+            >
+              Route als Vorlage nutzen
+            </Link>
+            <Link
+              href="/events"
+              className="underline-offset-2 transition hover:text-[#171717] hover:underline"
+            >
+              Event-Plan erstellen
+            </Link>
+          </div>
 
           <HomepagePlannerEntry />
 
@@ -282,7 +292,7 @@ export default function HomepageScaffoldMinimal() {
                 {[
                   "Ein fester Hauptmoment kann den ganzen Tag strukturieren.",
                   "Gute Orte sind nur dann stark, wenn Wege und Timing mitgedacht sind.",
-                  "Gruppen brauchen klare Vorschlaege und eine echte gemeinsame Wahl.",
+                  "Gruppen brauchen klare Vorschläge und eine echte gemeinsame Wahl.",
                 ].map((point) => (
                   <div
                     key={point}
@@ -331,7 +341,7 @@ export default function HomepageScaffoldMinimal() {
                     Zwei Varianten, eine klare gemeinsame Wahl
                   </h3>
                 </div>
-                <PD24StatusBadge tone="success">Gemeinsam bestaetigt</PD24StatusBadge>
+                <PD24StatusBadge tone="success">Bestätigt</PD24StatusBadge>
               </div>
 
               <div className="mt-6 space-y-4">
@@ -341,11 +351,11 @@ export default function HomepageScaffoldMinimal() {
                       <div className="text-base font-semibold text-[#171717]">Unsere Wahl</div>
                       <div className="mt-1 text-sm text-[#5e6d59]">2 von 2 stimmen zu</div>
                     </div>
-                    <PD24StatusBadge tone="success">Bestaetigt</PD24StatusBadge>
+                    <PD24StatusBadge tone="success">Bestätigt</PD24StatusBadge>
                   </div>
                   <p className="mt-4 text-sm leading-6 text-[#5e6d59]">
-                    Kompakte Wege, ein klarer Event-Peak und genug Luft fuer einen ruhigen
-                    Ausklang. Passt fuer beide am besten.
+                    Kompakte Wege, ein klarer Event-Peak und genug Luft für einen ruhigen
+                    Ausklang. Passt für beide am besten.
                   </p>
                 </div>
 
@@ -379,7 +389,7 @@ export default function HomepageScaffoldMinimal() {
                 Richtung.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <PD24Button href="/planner">Jetzt Tag planen</PD24Button>
+                <PD24Button href="/planner">Tag planen</PD24Button>
                 <PD24Button
                   href="/routes"
                   variant="secondary"
@@ -401,9 +411,10 @@ export default function HomepageScaffoldMinimal() {
               </div>
             </div>
             <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#665d55]">
-              <Link href="/planner">Planner</Link>
-              <Link href="/explore">Explore</Link>
-              <Link href="/routes">Routes</Link>
+              <Link href="/planner">Planen</Link>
+              <Link href="/explore">Entdecken</Link>
+              <Link href="/events">Events</Link>
+              <Link href="/saved">Gespeichert</Link>
               <Link href="/impressum">Impressum</Link>
               <Link href="/datenschutz">Datenschutz</Link>
               <Link href="/agb">AGB</Link>

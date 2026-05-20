@@ -2,106 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
 
 export default function MainNav() {
   const pathname = usePathname();
-  const [groupUnreadCount, setGroupUnreadCount] = useState(0);
-  const [isPartner, setIsPartner] = useState(false);
-  const [isCorporate, setIsCorporate] = useState(false);
 
   const hideOnMarketingPages =
     pathname === "/" ||
     pathname.startsWith("/homepage-concept");
 
-  useEffect(() => {
-    if (hideOnMarketingPages) {
-      return;
-    }
+  if (hideOnMarketingPages) return null;
 
-    let active = true;
-
-    async function refreshUnreadCount() {
-      const { data } = await supabase.auth.getSession();
-      const userId = data.session?.user?.id ?? null;
-      if (!userId || !active) {
-        if (active) { setGroupUnreadCount(0); setIsPartner(false); }
-        return;
-      }
-
-      // Check partner membership (fire-and-forget, non-blocking)
-      supabase
-        .from("partner_memberships")
-        .select("id, partner_profiles(partner_type_slug)", { count: "exact" })
-        .eq("user_id", userId)
-        .eq("status", "active")
-        .then(({ data, count }) => {
-          if (!active) return;
-          setIsPartner((count ?? 0) > 0);
-          const rows = (data ?? []) as Array<{ partner_profiles: { partner_type_slug: string } | { partner_type_slug: string }[] | null }>;
-          const hasCorporate = rows.some((r) => {
-            const pp = Array.isArray(r.partner_profiles) ? r.partner_profiles[0] : r.partner_profiles;
-            return pp?.partner_type_slug === "corporate";
-          });
-          setIsCorporate(hasCorporate);
-        });
-
-      const { data: unreadRows, error } = await supabase.rpc("group_chat_unread_overview", {
-        p_user_id: userId,
-      });
-
-      if (error || !active) return;
-      const total = ((unreadRows ?? []) as Array<{ unread_count?: number | null }>).reduce(
-        (sum, row) => sum + Math.max(0, row.unread_count ?? 0),
-        0
-      );
-      setGroupUnreadCount(total);
-    }
-
-    void refreshUnreadCount();
-
-    const channel = supabase
-      .channel("main-nav-group-unread")
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "user_plan_group_chat_messages",
-        },
-        async () => {
-          await refreshUnreadCount();
-        }
-      )
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "user_plan_group_chat_members",
-        },
-        async () => {
-          await refreshUnreadCount();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      active = false;
-      void supabase.removeChannel(channel);
-    };
-  }, [hideOnMarketingPages]);
-
-  if (hideOnMarketingPages) {
-    return null;
-  }
+  const isRunExperience =
+    pathname === "/run" ||
+    (pathname.startsWith("/routes/") && pathname.endsWith("/run"));
 
   const isActive = (path: string) =>
-    path === "/"
-      ? pathname === path
-      : pathname === path || pathname.startsWith(`${path}/`);
-  const isRunExperience = pathname === "/run" || (pathname.startsWith("/routes/") && pathname.endsWith("/run"));
+    path === "/" ? pathname === path : pathname === path || pathname.startsWith(`${path}/`);
 
   const linkClass = (path: string) =>
     `inline-flex shrink-0 items-center justify-center rounded-full font-medium transition ${
@@ -122,7 +38,6 @@ export default function MainNav() {
           isRunExperience ? "gap-2 py-2" : "gap-3 py-3"
         }`}
       >
-
         {/* Logo */}
         <Link
           href="/"
@@ -132,76 +47,33 @@ export default function MainNav() {
             PD
           </span>
           <span className="min-w-0">
-            <span className="block truncate font-semibold tracking-tight text-[var(--text-strong)]">PerfectDay24</span>
+            <span className="block truncate font-semibold tracking-tight text-[var(--text-strong)]">
+              PerfectDay24
+            </span>
             <span className="block truncate text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] sm:text-[11px] sm:tracking-[0.24em]">
               Refined City Planning
             </span>
           </span>
         </Link>
 
-        {/* Navigation */}
+        {/* Hauptnavigation */}
         <div
           className={`pd24-scrollbar-none flex min-w-0 w-full max-w-full gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-[var(--line-subtle)] bg-[rgba(255,255,255,0.92)] px-1.5 py-1.5 sm:mx-0 sm:w-auto sm:flex-wrap sm:gap-2 sm:rounded-[24px] sm:px-2 sm:py-2 ${
             isRunExperience ? "shadow-sm" : "shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
           }`}
         >
-
-          <Link href="/planner" className={linkClass("/planner")}>
-            Planner
-          </Link>
-
-          <Link href="/explore" className={linkClass("/explore")}>
-            Explore
-          </Link>
-
-          <Link href="/events" className={linkClass("/events")}>
-            Events
-          </Link>
-
-          <Link href="/routes" className={linkClass("/routes")}>
-            Route
-          </Link>
-
-          <Link href="/profile" className={linkClass("/profile")}>
-            Profil
-          </Link>
-
-          <Link href="/chat" className={`${linkClass("/chat")} relative`}>
-            Chat
-            {groupUnreadCount > 0 ? (
-              <span className="ml-2 rounded-full bg-[var(--brand-accent)] px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                {groupUnreadCount}
-              </span>
-            ) : null}
-          </Link>
-
-          <span className="hidden sm:contents">
-            <Link href="/invite" className={linkClass("/invite")}>
-              Gruppe
-            </Link>
-          </span>
-
+          <Link href="/planner"  className={linkClass("/planner")}>Planen</Link>
+          <Link href="/explore"  className={linkClass("/explore")}>Entdecken</Link>
+          <Link href="/events"   className={linkClass("/events")}>Events</Link>
+          <Link href="/saved"    className={linkClass("/saved")}>Gespeichert</Link>
+          <Link href="/profile"  className={linkClass("/profile")}>Profil</Link>
         </div>
 
+        {/* Rechtliches */}
         <div className="hidden flex-wrap items-center gap-3 text-xs text-[var(--text-muted)] sm:flex">
-          <Link
-            href="/impressum"
-            className="transition hover:text-[var(--text-strong)]"
-          >
-            Impressum
-          </Link>
-          <Link
-            href="/datenschutz"
-            className="transition hover:text-[var(--text-strong)]"
-          >
-            Datenschutz
-          </Link>
-          <Link
-            href="/agb"
-            className="transition hover:text-[var(--text-strong)]"
-          >
-            AGB
-          </Link>
+          <Link href="/impressum"   className="transition hover:text-[var(--text-strong)]">Impressum</Link>
+          <Link href="/datenschutz" className="transition hover:text-[var(--text-strong)]">Datenschutz</Link>
+          <Link href="/agb"         className="transition hover:text-[var(--text-strong)]">AGB</Link>
         </div>
       </div>
     </nav>

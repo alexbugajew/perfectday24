@@ -229,7 +229,7 @@ export default function PartnerOnboarding() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (!data.session) {
-        router.replace("/login?return=/partner/onboarding");
+        router.replace("/profile?return=/partner/onboarding");
         return;
       }
       setUserId(data.session.user.id);

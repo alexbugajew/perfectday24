@@ -343,7 +343,8 @@ export default function ProfilePage() {
   const [selectedFriendIds, setSelectedFriendIds] = useState<string[]>([]);
   const [groupActionBusyId, setGroupActionBusyId] = useState<string | null>(null);
   const [groupsFeatureAvailable, setGroupsFeatureAvailable] = useState(true);
-  const [hasPartnerProfile, setHasPartnerProfile] = useState<boolean | null>(null);
+  const [hasPartnerProfile, setHasPartnerProfile]   = useState<boolean | null>(null);
+  const [hasCorporateProfile, setHasCorporateProfile] = useState<boolean | null>(null);
 
   const interestCatalog = useMemo(
     () =>
@@ -427,10 +428,22 @@ export default function ProfilePage() {
     if (!userId) return;
     supabase
       .from("partner_memberships")
-      .select("id", { count: "exact", head: true })
+      .select("id, partner_profiles(partner_type_slug)")
       .eq("user_id", userId)
       .eq("status", "active")
-      .then(({ count }) => setHasPartnerProfile((count ?? 0) > 0));
+      .then(({ data }) => {
+        const rows = (data ?? []) as Array<{
+          id: string;
+          partner_profiles: { partner_type_slug: string } | { partner_type_slug: string }[] | null;
+        }>;
+        setHasPartnerProfile(rows.length > 0);
+        setHasCorporateProfile(
+          rows.some((r) => {
+            const pp = Array.isArray(r.partner_profiles) ? r.partner_profiles[0] : r.partner_profiles;
+            return pp?.partner_type_slug === "corporate";
+          })
+        );
+      });
   }, [userId]);
 
   useEffect(() => {
@@ -1615,6 +1628,67 @@ export default function ProfilePage() {
           </div>
         </div>
 
+        {/* ── Mein Bereich (rollenbasiert) ────────────────────────────────── */}
+        {userId && (() => {
+          const hasCreatorProfile =
+            creatorProfile?.creator_type === "creator" ||
+            creatorProfile?.creator_type === "influencer" ||
+            creatorProfile?.creator_type === "brand";
+          const showSection = hasCreatorProfile || hasPartnerProfile === true || hasCorporateProfile === true;
+          if (!showSection) return null;
+          return (
+            <div className="mt-5 overflow-hidden rounded-2xl bg-[#171717] p-5 sm:p-6">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">
+                Mein Bereich
+              </div>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {hasCreatorProfile && (
+                  <Link
+                    href="/creator/dashboard"
+                    className="flex flex-col gap-3 rounded-xl bg-white/[0.08] p-4 text-white transition hover:bg-white/[0.13]"
+                  >
+                    <span className="text-2xl leading-none">🎨</span>
+                    <div>
+                      <div className="font-semibold">Creator Studio</div>
+                      <div className="mt-1 text-xs leading-5 text-white/55">
+                        Eigene Routen veröffentlichen und Community aufbauen.
+                      </div>
+                    </div>
+                  </Link>
+                )}
+                {hasPartnerProfile === true && !hasCorporateProfile && (
+                  <Link
+                    href="/partner/dashboard"
+                    className="flex flex-col gap-3 rounded-xl bg-white/[0.08] p-4 text-white transition hover:bg-white/[0.13]"
+                  >
+                    <span className="text-2xl leading-none">🏢</span>
+                    <div>
+                      <div className="font-semibold">Partner-Dashboard</div>
+                      <div className="mt-1 text-xs leading-5 text-white/55">
+                        Listings, Insights und KI-Plan-Platzierungen verwalten.
+                      </div>
+                    </div>
+                  </Link>
+                )}
+                {hasCorporateProfile === true && (
+                  <Link
+                    href="/business/dashboard"
+                    className="flex flex-col gap-3 rounded-xl bg-white/[0.08] p-4 text-white transition hover:bg-white/[0.13]"
+                  >
+                    <span className="text-2xl leading-none">⚡</span>
+                    <div>
+                      <div className="font-semibold">Business-Dashboard</div>
+                      <div className="mt-1 text-xs leading-5 text-white/55">
+                        Events planen, Team einladen und Teilnahmen verwalten.
+                      </div>
+                    </div>
+                  </Link>
+                )}
+              </div>
+            </div>
+          );
+        })()}
+
         <div className="mt-4 grid gap-3 md:grid-cols-4">
           <div className="rounded-xl bg-[var(--bg-panel)] p-4">
             <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Konto</div>
@@ -1650,26 +1724,6 @@ export default function ProfilePage() {
         {status ? <div className="mt-4 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-3 py-2 text-sm text-[var(--text-muted)]">{status}</div> : null}
       </section>
 
-      {/* ── Schnellzugriff Partner / Business ──────────────────────────────── */}
-      {userId && hasPartnerProfile === true && (
-        <section className="pd24-shell p-4 sm:p-5">
-          <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Schnellzugriff</div>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <Link
-              href="/partner/dashboard"
-              className="inline-flex items-center gap-2 rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--line-strong)] hover:bg-[var(--bg-panel)]"
-            >
-              Partner-Dashboard →
-            </Link>
-            <Link
-              href="/business/dashboard"
-              className="inline-flex items-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-4 py-2.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100"
-            >
-              Business-Dashboard →
-            </Link>
-          </div>
-        </section>
-      )}
 
       <nav
         aria-label="Profilbereiche"

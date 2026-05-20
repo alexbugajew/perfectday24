@@ -213,7 +213,7 @@ export default function PartnerDashboard() {
   const load = useCallback(async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
-      router.replace("/login?return=/partner/dashboard");
+      router.replace("/profile?return=/partner/dashboard");
       return;
     }
     const userId = session.user.id;

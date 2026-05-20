@@ -155,6 +155,8 @@ function ChatPageContent() {
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
+  const [friendUserIds, setFriendUserIds] = useState<string[]>([]);
+  const [showNewMessagePicker, setShowNewMessagePicker] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -250,10 +252,16 @@ function ChatPageContent() {
           console.error(`Group chat members load error: ${formatSupabaseError(memberError)}`);
         }
 
+        // Also include peers from existing direct conversations so their names resolve
+        const convPeerIds = ((directRows ?? []) as DirectConversationRow[]).map((c) =>
+          c.user_a_id === userId ? c.user_b_id : c.user_a_id
+        );
+
         const profileIds = Array.from(
           new Set([
             ...friendIds,
             ...(((memberRows ?? []) as GroupChatMemberRow[]).map((member) => member.member_user_id)),
+            ...convPeerIds,
           ])
         );
 
@@ -270,6 +278,7 @@ function ChatPageContent() {
         }
 
         if (!active) return;
+        setFriendUserIds(friendIds);
         setFriends((profileRows ?? []) as ChatProfileRow[]);
         setConversations((directRows ?? []) as DirectConversationRow[]);
         setGroupChats(groupChatList);
@@ -288,6 +297,18 @@ function ChatPageContent() {
   const profileMap = useMemo(
     () => new Map(friends.map((profile) => [profile.user_id, profile])),
     [friends]
+  );
+
+  // All friends (even without creator_profile), enriched with profile data where available
+  const displayFriends = useMemo(
+    () =>
+      friendUserIds.map((id) => ({
+        user_id: id,
+        display_name: profileMap.get(id)?.display_name ?? null,
+        username:     profileMap.get(id)?.username     ?? null,
+        avatar_url:   profileMap.get(id)?.avatar_url   ?? null,
+      })),
+    [friendUserIds, profileMap]
   );
 
   async function openDirectConversation(peerUserId: string) {
@@ -367,10 +388,10 @@ function ChatPageContent() {
   }
 
   useEffect(() => {
-    if (!requestedUserId || !userId || friends.length === 0) return;
-    if (!friends.some((friend) => friend.user_id === requestedUserId)) return;
+    if (!requestedUserId || !userId || friendUserIds.length === 0) return;
+    if (!friendUserIds.includes(requestedUserId)) return;
     void openDirectConversation(requestedUserId);
-  }, [requestedUserId, userId, friends.length]);
+  }, [requestedUserId, userId, friendUserIds]);
 
   useEffect(() => {
     if (!requestedGroupId || groupChats.length === 0) return;
@@ -857,6 +878,57 @@ function ChatPageContent() {
       ) : (
         <div className="grid gap-6 lg:grid-cols-[320px,1fr]">
           <aside className="space-y-6">
+
+            {/* ── Neue Nachricht ── */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setShowNewMessagePicker((v) => !v)}
+                className="w-full rounded-2xl bg-[#171717] px-4 py-3 text-sm font-medium text-white transition hover:opacity-90"
+              >
+                + Neue Nachricht
+              </button>
+
+              {showNewMessagePicker && (
+                <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+                  <div className="border-b border-[var(--line-subtle)] px-4 py-3 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
+                    Freund wählen
+                  </div>
+                  {displayFriends.length === 0 ? (
+                    <div className="px-4 py-4 text-sm text-[var(--text-muted)]">
+                      Noch keine Freunde vorhanden. Füge zuerst Kontakte im Profil hinzu.
+                    </div>
+                  ) : (
+                    <div className="max-h-64 overflow-y-auto">
+                      {displayFriends.map((f) => {
+                        const name = f.display_name || (f.username ? `@${f.username}` : "Unbekannter Nutzer");
+                        return (
+                          <button
+                            key={f.user_id}
+                            type="button"
+                            onClick={() => {
+                              setShowNewMessagePicker(false);
+                              void openDirectConversation(f.user_id);
+                            }}
+                            className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm transition hover:bg-[var(--bg-panel)]"
+                          >
+                            {f.avatar_url ? (
+                              <img src={f.avatar_url} alt={name} className="h-8 w-8 rounded-full object-cover" />
+                            ) : (
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#171717] text-xs font-semibold text-white">
+                                {name.slice(0, 1).toUpperCase()}
+                              </div>
+                            )}
+                            <span className="font-medium text-[var(--text-strong)]">{name}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
             <section className="pd24-shell p-5">
               <h2 className="text-lg font-semibold">Plan-Gruppenchats</h2>
               <div className="mt-4 space-y-3">
@@ -905,38 +977,41 @@ function ChatPageContent() {
               <h2 className="text-lg font-semibold">Freunde</h2>
               <div className="mt-4 space-y-3">
                 {friendsLoading ? (
-                  <div className="text-sm text-[var(--text-muted)]">Freunde werden geladen...</div>
-                ) : friends.length > 0 ? (
-                  friends.map((friend) => (
-                    <button
-                      key={friend.user_id}
-                      type="button"
-                      onClick={() => void openDirectConversation(friend.user_id)}
-                      className={`flex w-full items-center gap-3 rounded-xl border border-[var(--line-subtle)] p-3 text-left hover:bg-white ${
-                        activeMode === "direct" && activePeerId === friend.user_id ? "border-[var(--text-strong)] bg-[var(--bg-panel)]" : ""
-                      }`}
-                    >
-                      {friend.avatar_url ? (
-                        <img
-                          src={friend.avatar_url}
-                          alt={friend.display_name || friend.username || "Freund"}
-                          className="h-11 w-11 rounded-full border object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] text-sm font-semibold text-[var(--text-muted)]">
-                          {(friend.display_name || friend.username || "F").slice(0, 1).toUpperCase()}
+                  <div className="text-sm text-[var(--text-muted)]">Freunde werden geladen…</div>
+                ) : displayFriends.length > 0 ? (
+                  displayFriends.map((friend) => {
+                    const name = friend.display_name || (friend.username ? `@${friend.username}` : "Unbekannter Nutzer");
+                    return (
+                      <button
+                        key={friend.user_id}
+                        type="button"
+                        onClick={() => void openDirectConversation(friend.user_id)}
+                        className={`flex w-full items-center gap-3 rounded-xl border border-[var(--line-subtle)] p-3 text-left hover:bg-white ${
+                          activeMode === "direct" && activePeerId === friend.user_id ? "border-[var(--text-strong)] bg-[var(--bg-panel)]" : ""
+                        }`}
+                      >
+                        {friend.avatar_url ? (
+                          <img
+                            src={friend.avatar_url}
+                            alt={name}
+                            className="h-10 w-10 shrink-0 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#171717] text-sm font-semibold text-white">
+                            {name.slice(0, 1).toUpperCase()}
+                          </div>
+                        )}
+                        <div className="min-w-0 flex-1">
+                          <div className="truncate font-medium text-[var(--text-strong)]">{name}</div>
+                          {friend.username && (
+                            <div className="truncate text-xs text-[var(--text-muted)]">@{friend.username}</div>
+                          )}
                         </div>
-                      )}
-                      <div className="min-w-0 flex-1">
-                        <div className="font-medium">{friend.display_name || friend.username || "Freund"}</div>
-                        <div className="text-sm text-[var(--text-muted)]">
-                          {friend.username ? `@${friend.username}` : friend.user_id}
-                        </div>
-                      </div>
-                    </button>
-                  ))
+                      </button>
+                    );
+                  })
                 ) : (
-                  <div className="text-sm text-[var(--text-muted)]">Noch keine Freunde für den Chat vorhanden. Lege im Profil zuerst gemeinsame Kontakte an.</div>
+                  <div className="text-sm text-[var(--text-muted)]">Noch keine Freunde vorhanden. Füge im Profil zuerst Kontakte an.</div>
                 )}
               </div>
             </section>
@@ -958,15 +1033,27 @@ function ChatPageContent() {
                           setActivePeerId(peerId);
                           setActiveGroupChatId(null);
                         }}
-                        className={`w-full rounded-xl border border-[var(--line-subtle)] p-3 text-left hover:bg-white ${
+                        className={`flex w-full items-center gap-3 rounded-xl border border-[var(--line-subtle)] p-3 text-left hover:bg-white ${
                           activeMode === "direct" && activeConversationId === conversation.id ? "border-[var(--text-strong)] bg-[var(--bg-panel)]" : ""
                         }`}
                       >
-                        <div className="font-medium">
-                          {peer?.display_name || (peer?.username ? `@${peer.username}` : "Direktchat")}
-                        </div>
-                        <div className="mt-1 text-xs text-[var(--text-muted)]">
-                          Letzte Aktivität: {formatTime(conversation.last_message_at ?? conversation.updated_at)}
+                        {(() => {
+                          const peerName = peer?.display_name || (peer?.username ? `@${peer.username}` : "Unbekannter Nutzer");
+                          return peer?.avatar_url ? (
+                            <img src={peer.avatar_url} alt={peerName} className="h-10 w-10 shrink-0 rounded-full object-cover" />
+                          ) : (
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#171717] text-sm font-semibold text-white">
+                              {peerName.slice(0, 1).toUpperCase()}
+                            </div>
+                          );
+                        })()}
+                        <div className="min-w-0 flex-1">
+                          <div className="truncate font-medium text-[var(--text-strong)]">
+                            {peer?.display_name || (peer?.username ? `@${peer.username}` : "Unbekannter Nutzer")}
+                          </div>
+                          <div className="mt-0.5 truncate text-xs text-[var(--text-muted)]">
+                            {formatTime(conversation.last_message_at ?? conversation.updated_at)}
+                          </div>
                         </div>
                       </button>
                     );
@@ -980,31 +1067,45 @@ function ChatPageContent() {
 
           <section className="pd24-shell p-5">
             <div className="flex items-center justify-between gap-3 border-b pb-4">
-              <div>
-                <h2 className="text-lg font-semibold">
-                  {activeMode === "group"
-                    ? activeGroupChat?.title || "Plan-Gruppenchat"
-                    : activePeer?.display_name || (activePeer?.username ? `@${activePeer.username}` : "Direktchat")}
-                </h2>
-                <div className="mt-1 text-sm text-[var(--text-muted)]">
-                  {activeMode === "group"
-                    ? activeGroupChat
-                      ? `Gemeinsamer Thread zum Plan · ${activeGroupMemberNames.join(", ")}`
-                      : "Wähle links einen planbezogenen Gruppenchat."
-                    : activePeer
-                      ? activePeer.username
-                        ? `Chat mit @${activePeer.username}`
-                        : "Direktnachrichten"
-                      : "Wähle links einen Freund oder eine bestehende Unterhaltung."}
-                </div>
-                {!activePeer && activeMode !== "group" && prefillMessage ? (
-                  <div className="mt-2 rounded-xl border border-[var(--line-subtle)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs text-[var(--text-strong)]">
-                    Ein vorbefüllter Text aus dem Planner wurde übernommen. Wähle links einen Freund und sende ihn bei Bedarf direkt weiter.
+              {/* Left: Avatar + Titel */}
+              <div className="flex min-w-0 items-center gap-3">
+                {activeMode === "direct" && activePeer && (() => {
+                  const peerName = activePeer.display_name || activePeer.username || "?";
+                  return activePeer.avatar_url ? (
+                    <img src={activePeer.avatar_url} alt={peerName} className="h-10 w-10 shrink-0 rounded-full object-cover" />
+                  ) : (
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#171717] text-sm font-semibold text-white">
+                      {peerName.slice(0, 1).toUpperCase()}
+                    </div>
+                  );
+                })()}
+                <div className="min-w-0">
+                  <h2 className="truncate text-lg font-semibold">
+                    {activeMode === "group"
+                      ? activeGroupChat?.title || "Plan-Gruppenchat"
+                      : activePeer?.display_name || (activePeer?.username ? `@${activePeer.username}` : (activePeerId ? "Unbekannter Nutzer" : "Direktchat"))}
+                  </h2>
+                  <div className="mt-0.5 truncate text-sm text-[var(--text-muted)]">
+                    {activeMode === "group"
+                      ? activeGroupChat
+                        ? `Gemeinsamer Thread zum Plan · ${activeGroupMemberNames.join(", ")}`
+                        : "Wähle links einen planbezogenen Gruppenchat."
+                      : activePeer
+                        ? activePeer.username
+                          ? `Chat mit @${activePeer.username}`
+                          : "Direktnachrichten"
+                        : "Wähle links einen Freund oder eine bestehende Unterhaltung."}
                   </div>
-                ) : null}
+                  {!activePeer && activeMode !== "group" && prefillMessage ? (
+                    <div className="mt-2 rounded-xl border border-[var(--line-subtle)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs text-[var(--text-strong)]">
+                      Ein vorbefüllter Text aus dem Planner wurde übernommen. Wähle links einen Freund und sende ihn bei Bedarf direkt weiter.
+                    </div>
+                  ) : null}
+                </div>
               </div>
+              {/* Right: Profil-Link */}
               {activePeer?.username && activeMode !== "group" ? (
-                <Link href={`/u/${activePeer.username}`} className="rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-sm hover:bg-white">
+                <Link href={`/u/${activePeer.username}`} className="shrink-0 rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-sm hover:bg-white">
                   Profil ansehen
                 </Link>
               ) : null}
@@ -1056,8 +1157,20 @@ function ChatPageContent() {
                 directMessages.length > 0 ? (
                   directMessages.map((message) => {
                     const own = message.sender_user_id === userId;
+                    const senderProfile = !own ? profileMap.get(message.sender_user_id) : null;
+                    const senderName = senderProfile?.display_name || senderProfile?.username || "?";
                     return (
-                      <div key={message.id} className={`flex ${own ? "justify-end" : "justify-start"}`}>
+                      <div key={message.id} className={`flex items-end gap-2 ${own ? "justify-end" : "justify-start"}`}>
+                        {/* Peer avatar (left side) */}
+                        {!own && (
+                          senderProfile?.avatar_url ? (
+                            <img src={senderProfile.avatar_url} alt={senderName} className="mb-1 h-7 w-7 shrink-0 rounded-full object-cover" />
+                          ) : (
+                            <div className="mb-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#171717] text-[11px] font-semibold text-white">
+                              {senderName.slice(0, 1).toUpperCase()}
+                            </div>
+                          )
+                        )}
                         <div
                           className={`max-w-[75%] rounded-2xl px-4 py-3 text-sm ${
                             own ? "bg-[var(--text-strong)] text-white" : "border border-[var(--line-subtle)] bg-[var(--bg-panel)] text-[var(--text-strong)]"
