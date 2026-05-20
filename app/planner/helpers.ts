@@ -109,13 +109,13 @@ export function experienceModeHint(mode: ExperienceMode, occasion: string) {
   }
   if (mode === "show") {
     return occasion === "date"
-      ? "Sucht gezielt nach Konzert, Theater oder Show als Hauptmoment fuer euer Date."
+      ? "Sucht gezielt nach Konzert, Theater oder Show als Hauptmoment für euer Date."
       : "Sucht gezielt nach Show-, Konzert- oder Theater-Highlights mit fester Uhrzeit.";
   }
   if (mode === "event_visit") {
-    return "Nutzt passende Events als moegliches Highlight, ohne jede Planung hart daran aufzuhaengen.";
+    return "Nutzt passende Events als mögliches Highlight, ohne jede Planung hart daran aufzuhängen.";
   }
-  return "Bevorzugt flexible Event-Highlights wie Maerkte, Festivals, Kirmes oder Food-Events.";
+  return "Bevorzugt flexible Event-Highlights wie Märkte, Festivals, Kirmes oder Food-Events.";
 }
 
 export function experienceOptionsForOccasion(
@@ -388,11 +388,11 @@ export function eventTravelPriorityNote(
   const travelMin = stop.travelMinFromPrev;
 
   if (isForcedEvent && index === 0 && isFootRoute) {
-    return "Dieses Event wurde als Tagesziel priorisiert. Fuer den Start ist eine laengere Anfahrt mit OePNV/Auto-Logik eingerechnet.";
+    return "Dieses Event wurde als Tagesziel priorisiert. Für den Start ist eine längere Anfahrt mit ÖPNV/Auto-Logik eingerechnet.";
   }
 
   if (typeof travelMin === "number" && travelMin >= 35 && isFootRoute) {
-    return "Laengerer Anfahrtsweg fuer dieses Event eingeplant. Der Planner behandelt es bewusst als Tagesziel statt als reinen Fussweg-Cluster.";
+    return "Längerer Anfahrtsweg für dieses Event eingeplant. Der Planner behandelt es bewusst als Tagesziel statt als reinen Fußweg-Cluster.";
   }
 
   if (isForcedEvent && index === 0) {
@@ -454,7 +454,7 @@ export function routeProfileHint(profile: RouteProfile) {
 }
 
 export function budgetLabel(value: string) {
-  if (value === "low") return "Guenstig";
+  if (value === "low") return "Günstig";
   if (value === "high") return "Premium";
   if (value === "free") return "Kostenlos";
   return "Mittel";
@@ -631,7 +631,7 @@ export function formatSupabaseError(error: unknown) {
 
 export function buildPlanGroupChatSystemMessage(plan: SavedPlanRow) {
   const lines = [
-    `Gruppenchat fuer "${plan.filters?.finalVariantLabel || plan.title || plan.filters?.pinnedVariantLabel || "diesen Plan"}" eroeffnet.`,
+    `Gruppenchat für "${plan.filters?.finalVariantLabel || plan.title || plan.filters?.pinnedVariantLabel || "diesen Plan"}" eröffnet.`,
   ];
 
   if (plan.filters?.pinnedVariantLabel) {

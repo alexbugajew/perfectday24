@@ -309,7 +309,6 @@ export function usePlannerPersistence({
   const ensurePlanGroupChat = useCallback(
     async (plan: SavedPlanRow) => {
       if (!authReady || !userId) return null;
-      let createdNewChat = false;
 
       const memberUserIds = Array.from(
         new Set(
@@ -322,94 +321,92 @@ export function usePlannerPersistence({
         )
       );
 
-      if (memberUserIds.length < 2) {
-        showToast("Für einen Gruppenchat braucht der Plan mindestens eine weitere Person mit Profil.");
-        return null;
-      }
+      if (memberUserIds.length < 2) return null;
 
-      const existing = await supabase
+      const { data: existingChat, error: existingChatError } = await supabase
         .from("user_plan_group_chats")
         .select("id, owner_user_id, plan_id, title, created_at, updated_at, last_message_at")
         .eq("plan_id", plan.id)
         .maybeSingle();
 
-      if (existing.error) {
-        console.error("Group chat lookup error:", {
-          raw: existing.error,
-          formatted: formatSupabaseError(existing.error),
+      if (existingChatError) {
+        console.error("Plan group chat lookup error:", {
+          raw: existingChatError,
+          formatted: formatSupabaseError(existingChatError),
         });
-        showToast("Gruppenchat konnte nicht geladen werden.");
         return null;
       }
 
-      let chatId = existing.data?.id ?? null;
+      const timestamp = new Date().toISOString();
+      let chatId = (existingChat as { id?: string | null } | null)?.id ?? null;
 
       if (!chatId) {
-        const insertResp = await supabase
+        const { data: createdChat, error: createChatError } = await supabase
           .from("user_plan_group_chats")
           .insert({
             owner_user_id: userId,
             plan_id: plan.id,
-            title:
-              plan.filters?.finalVariantLabel ||
-              plan.title ||
-              plan.filters?.pinnedVariantLabel ||
-              "Gruppenchat zum Plan",
+            title: plan.title || plan.filters?.finalVariantLabel || plan.filters?.pinnedVariantLabel || "Gruppenplan",
+            last_message_at: timestamp,
+            updated_at: timestamp,
           })
           .select("id")
           .maybeSingle();
 
-        if (insertResp.error || !insertResp.data?.id) {
-          console.error("Group chat create error:", {
-            raw: insertResp.error,
-            formatted: formatSupabaseError(insertResp.error),
+        if (createChatError) {
+          console.error("Plan group chat create error:", {
+            raw: createChatError,
+            formatted: formatSupabaseError(createChatError),
           });
-          showToast("Gruppenchat konnte nicht erstellt werden.");
           return null;
         }
 
-        chatId = insertResp.data.id;
-        createdNewChat = true;
+        chatId = (createdChat as { id?: string | null } | null)?.id ?? null;
       }
 
-      const { data: existingMembers, error: membersError } = await supabase
+      if (!chatId) return null;
+
+      const { data: memberRows, error: memberLoadError } = await supabase
         .from("user_plan_group_chat_members")
         .select("member_user_id")
         .eq("chat_id", chatId);
 
-      if (membersError) {
-        console.error("Group chat members load error:", {
-          raw: membersError,
-          formatted: formatSupabaseError(membersError),
+      if (memberLoadError) {
+        console.error("Plan group chat members load error:", {
+          raw: memberLoadError,
+          formatted: formatSupabaseError(memberLoadError),
         });
-        showToast("Gruppenchat-Mitglieder konnten nicht geladen werden.");
         return null;
       }
 
       const existingMemberIds = new Set(
-        ((existingMembers ?? []) as Array<{ member_user_id: string }>).map((member) => member.member_user_id)
+        ((memberRows ?? []) as Array<{ member_user_id?: string | null }>)
+          .map((row) => row.member_user_id)
+          .filter((value): value is string => typeof value === "string" && value.length > 0)
       );
+
       const missingMembers = memberUserIds.filter((memberId) => !existingMemberIds.has(memberId));
 
       if (missingMembers.length > 0) {
-        const memberInsert = await supabase.from("user_plan_group_chat_members").insert(
-          missingMembers.map((memberId) => ({
-            chat_id: chatId,
-            member_user_id: memberId,
-          }))
-        );
+        const { error: insertMembersError } = await supabase
+          .from("user_plan_group_chat_members")
+          .insert(
+            missingMembers.map((memberId) => ({
+              chat_id: chatId,
+              member_user_id: memberId,
+            }))
+          );
 
-        if (memberInsert.error) {
-          console.error("Group chat members insert error:", {
-            raw: memberInsert.error,
-            formatted: formatSupabaseError(memberInsert.error),
+        if (insertMembersError) {
+          console.error("Plan group chat member insert error:", {
+            raw: insertMembersError,
+            formatted: formatSupabaseError(insertMembersError),
           });
-          showToast("Gruppenchat-Mitglieder konnten nicht ergänzt werden.");
           return null;
         }
       }
 
-      if (createdNewChat) {
+      if (!existingChat) {
         await postPlannerGroupChatSystemMessage({
           chatId,
           body: buildPlanGroupChatSystemMessage(plan),
@@ -419,7 +416,7 @@ export function usePlannerPersistence({
 
       return chatId;
     },
-    [authReady, showToast, userId]
+    [authReady, userId]
   );
 
   const savePlan = useCallback(
@@ -572,8 +569,8 @@ export function usePlannerPersistence({
             : editingPlanId && saveMode === "new_variant"
               ? "Neue Gruppenvariante gespeichert. Sie steht jetzt als eigene Option bereit."
               : editingPlanId && saveMode === "new_version"
-                ? "Neuer Stand gespeichert. Deine Änderungen sind gesichert."
-                : "Plan gespeichert. Du kannst ihn jederzeit wieder öffnen oder teilen."
+                ? "Neuer Stand gespeichert. Deine Änderungen findest du auch unter Gespeichert."
+                : "Plan gespeichert. Du findest ihn jetzt unter Gespeichert und kannst ihn später weiterführen oder teilen."
         );
         return savedPlan;
       } finally {
@@ -726,13 +723,13 @@ export function usePlannerPersistence({
           raw: error,
           formatted: formatSupabaseError(error),
         });
-        showToast("Aenderungswunsch konnte nicht uebernommen werden");
+        showToast("Änderungswunsch konnte nicht übernommen werden");
         return;
       }
 
       if (data) {
         await loadPlans();
-        showToast("Aenderungswunsch aufgenommen");
+        showToast("Änderungswunsch aufgenommen");
       }
     },
     [loadPlans, showToast]

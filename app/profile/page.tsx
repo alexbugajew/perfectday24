@@ -1639,7 +1639,7 @@ export default function ProfilePage() {
           return (
             <div className="mt-5 overflow-hidden rounded-2xl bg-[#171717] p-5 sm:p-6">
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/50">
-                Mein Bereich
+                Rollen & Zugänge
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {hasCreatorProfile && (
@@ -1703,7 +1703,7 @@ export default function ProfilePage() {
             <div className="mt-1 text-sm font-medium">
               {loadingProfile ? "Profil wird geladen..." : `${userRoutes.length} erstellt · ${bookmarkedRoutes.length} gespeichert`}
             </div>
-            <div className="mt-2 text-xs text-[var(--text-muted)]">Beide Listen kannst du weiter unten direkt durchsuchen und öffnen.</div>
+            <div className="mt-2 text-xs text-[var(--text-muted)]">Eigene Studio-Routen und gespeicherte Vorlagen sind weiter unten getrennt organisiert.</div>
           </div>
 
           <div className="rounded-xl bg-[var(--bg-panel)] p-4">
@@ -1730,13 +1730,14 @@ export default function ProfilePage() {
         className="pd24-scrollbar-none flex gap-2 overflow-x-auto rounded-2xl border border-[var(--line-subtle)] bg-white/80 p-2 text-sm shadow-[var(--shadow-soft)]"
       >
         {[
-          ["#profile-overview", "Profil"],
+          ["#profile-overview", "Konto"],
           ["#profile-interests", "Interessen"],
-          ["#profile-public", "Öffentlich"],
-          ["#profile-routes", "Routen"],
+          ["#profile-public", "Öffentliches Profil"],
+          ["#profile-routes", "Routen & Gespeichert"],
           ["#profile-friends", "Freunde"],
           ...(groupsFeatureAvailable ? [["#profile-groups", "Gruppen"]] : []),
           ["#profile-social", "Social"],
+          ["#profile-access", "Zugänge"],
         ].map(([href, label]) => (
           <a
             key={href}
@@ -1753,10 +1754,9 @@ export default function ProfilePage() {
           <section id="profile-overview" className="pd24-shell scroll-mt-24 p-6">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <h2 className="text-xl font-semibold">Dein Profil</h2>
+                <h2 className="text-xl font-semibold">Kontoübersicht</h2>
                 <p className="mt-1 text-sm text-[var(--text-muted)]">
-                  Dein internes Profil bündelt Konto, Interessen und die Signale, die wir für bessere Planungen
-                  heranziehen.
+                  Dieser Bereich bündelt dein Konto, deine persönlichen Signale und den schnellen Überblick für die tägliche Nutzung.
                 </p>
               </div>
             </div>
@@ -2108,13 +2108,13 @@ export default function ProfilePage() {
         <div className="pd24-shell p-6">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <h2 className="text-xl font-semibold">Deine erstellten Routen</h2>
-              <p className="mt-1 text-sm text-[var(--text-muted)]">
-                Kompakte Übersicht deiner eigenen Routen aus dem Route Builder, inklusive schneller Links und Filter.
-              </p>
-            </div>
+                <h2 className="text-xl font-semibold">Eigene Studio-Routen</h2>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">
+                  Hier liegen deine selbst erstellten Routen aus dem Studio, inklusive schneller Links zum Bearbeiten und Veröffentlichen.
+                </p>
+              </div>
             <Link href="/routes" className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-[var(--bg-panel)]">
-              Route erstellen
+              Routenstudio öffnen
             </Link>
           </div>
 
@@ -2183,14 +2183,19 @@ export default function ProfilePage() {
         <div className="pd24-shell p-6">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <h2 className="text-xl font-semibold">Deine gespeicherten Routen</h2>
-              <p className="mt-1 text-sm text-[var(--text-muted)]">
-                Gespeicherte Vorlagen aus Explore und geteilten Links, ebenfalls in einer kompakten Scrollliste.
-              </p>
+                <h2 className="text-xl font-semibold">Gespeicherte Vorlagen</h2>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">
+                  Gemerkte Vorlagen aus Entdecken und geteilten Links. Für den kompletten Wiedereinstieg gibt es zusätzlich den Bereich Gespeichert.
+                </p>
+              </div>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/saved" className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-[var(--bg-panel)]">
+                Gespeichert öffnen
+              </Link>
+              <Link href="/explore" className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-[var(--bg-panel)]">
+                Routen entdecken
+              </Link>
             </div>
-            <Link href="/explore" className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-[var(--bg-panel)]">
-              Routen entdecken
-            </Link>
           </div>
 
           <div className="mt-5 flex flex-col gap-3 lg:flex-row">
@@ -2622,11 +2627,11 @@ export default function ProfilePage() {
 
       {/* ── Mitmachen-Sektion ───────────────────────────────────────────────── */}
       {userId && !isAnonymous && (
-        <section className="pd24-shell scroll-mt-24 p-6">
+        <section id="profile-access" className="pd24-shell scroll-mt-24 p-6">
           <div className="mb-6">
-            <h2 className="text-xl font-semibold">PerfectDay24 — Mehr aus deinem Account machen</h2>
+            <h2 className="text-xl font-semibold">Rollen & Zugänge</h2>
             <p className="mt-1 text-sm text-[var(--text-muted)]">
-              Wähle, wie du die Plattform nutzen möchtest — Creator, Partner oder Business.
+              Diese Bereiche sind für erweiterte Nutzung gedacht: Creator, Partner oder Business.
             </p>
           </div>
 

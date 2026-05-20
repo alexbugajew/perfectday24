@@ -240,7 +240,7 @@ export default function HomepageScaffoldMinimal() {
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[#8b7767]">
             <span className="font-medium text-[#665d55]">Weitere Einstiege:</span>
             <Link
-              href="/routes"
+              href="/saved"
               className="underline-offset-2 transition hover:text-[#171717] hover:underline"
             >
               Route als Vorlage nutzen
@@ -391,7 +391,7 @@ export default function HomepageScaffoldMinimal() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <PD24Button href="/planner">Tag planen</PD24Button>
                 <PD24Button
-                  href="/routes"
+                  href="/saved"
                   variant="secondary"
                   className="border-[rgba(255,255,255,0.14)] bg-[rgba(255,255,255,0.06)] text-white hover:bg-[rgba(255,255,255,0.12)] hover:text-white"
                 >

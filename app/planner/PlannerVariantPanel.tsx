@@ -192,7 +192,10 @@ export default function PlannerVariantPanel({
             neu generieren
           </button>
 
-          <button onClick={onResetPlan} className="rounded-md border px-3 py-1.5 text-xs">
+          <button
+            onClick={onResetPlan}
+            className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+          >
             Plan zurücksetzen
           </button>
 

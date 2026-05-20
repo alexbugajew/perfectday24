@@ -242,14 +242,14 @@ export default function EventsPage() {
         {/* Page header */}
         <div className="mb-10">
           <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-            Event Planner
+            Events
           </div>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[#171717]">
-            Plan deinen Event.
+            Plane einen größeren Anlass.
           </h1>
           <p className="mt-3 text-base leading-7 text-[#665d55]">
-            Wähle Anlass, Eckdaten und Bedarf. PerfectDay24 zeigt dir passende
-            Dienstleister — mit Festpreisen, damit du direkt kalkulieren kannst.
+            Dieser Flow ist für Geburtstage, Hochzeiten, Firmenfeiern und andere größere Formate gedacht.
+            Wähle Anlass, Eckdaten und Bedarf. Danach zeigt dir PerfectDay24 passende Dienstleister mit klarer Kalkulationsbasis.
           </p>
         </div>
 

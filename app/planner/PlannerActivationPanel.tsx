@@ -36,6 +36,7 @@ type ActivationState = {
 };
 
 function buildActivationState({
+  cityLabel,
   citiesLoading,
   hasPlannerData,
   hasValidPlannerOrigin,
@@ -46,6 +47,7 @@ function buildActivationState({
   resultsCount,
 }: Pick<
   PlannerActivationPanelProps,
+  | "cityLabel"
   | "citiesLoading"
   | "hasPlannerData"
   | "hasValidPlannerOrigin"
@@ -76,7 +78,11 @@ function buildActivationState({
   if (plannerLoading) {
     return {
       badge: "Plan wird erstellt",
-      title: presetActive ? "Dein Quickstart ist angekommen." : "Wir bauen gerade deinen ersten Ablauf.",
+      title: presetActive
+        ? "Dein Quickstart ist angekommen."
+        : cityLabel && cityLabel !== "-"
+          ? `Wir planen deinen Tag in ${cityLabel}...`
+          : "Wir planen deinen Tag...",
       body: "Orte, Eventfenster, Wege und Timing werden zu einem konkreten Vorschlag zusammengeführt.",
       toneClass: "border-[var(--brand-accent)]/30 bg-[var(--brand-accent-soft)] text-[var(--brand-accent)]",
     };
@@ -104,7 +110,7 @@ function buildActivationState({
     return {
       badge: "Mehr Optionen nötig",
       title: "Noch kein belastbarer Vorschlag.",
-      body: "Erweitere den Umkreis, pruefe den Startpunkt oder wechsle kurz auf einen klassischen Fokus.",
+      body: "Erweitere den Umkreis, prüfe den Startpunkt oder wechsle kurz auf einen klassischen Fokus.",
       toneClass: "border-[var(--state-warning)]/30 bg-[var(--brand-accent-cloud)] text-[var(--state-warning)]",
     };
   }
@@ -272,41 +278,45 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
         </div>
       ) : null}
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        {plannedStopsCount > 0 ? (
+      {plannedStopsCount > 0 ? (
+        <div className="mt-4">
           <a
             href="#planner-results"
-            className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-[#1f2937]"
+            className="flex w-full items-center justify-center rounded-2xl bg-[#171717] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
           >
-            Zum Vorschlag
+            Vorschlag ansehen →
           </a>
-        ) : null}
-        {!hasValidPlannerOrigin ? (
-          <button
-            type="button"
-            onClick={onUseCurrentLocation}
-            className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-[#1f2937]"
-          >
-            Aktuellen Standort nutzen
-          </button>
-        ) : null}
-        {plannerError || (hasPlannerData && resultsCount === 0) ? (
+        </div>
+      ) : plannerError || (hasPlannerData && resultsCount === 0) ? (
+        <div className="mt-4">
           <button
             type="button"
             onClick={onRerollPlan}
             disabled={plannerLoading}
-            className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
+            className="flex w-full items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
           >
             Neu generieren
           </button>
-        ) : null}
+        </div>
+      ) : null}
+
+      <div className="mt-3 flex flex-wrap gap-2">
         <button
           type="button"
           onClick={onOpenConfig}
-          className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+          className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
         >
           Feinjustieren
         </button>
+        {!hasValidPlannerOrigin ? (
+          <button
+            type="button"
+            onClick={onUseCurrentLocation}
+            className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+          >
+            Standort nutzen
+          </button>
+        ) : null}
         {interestsCount === 0 ? (
           <a
             href="/profile#profile-interests"

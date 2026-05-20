@@ -251,7 +251,7 @@ export default function PlannerOutputSection({
 
           <div className="flex items-center gap-2">
             <select
-              aria-label="Mobilitaet fuer Routenausgabe auswaehlen"
+              aria-label="Mobilität für Routenausgabe auswählen"
               value={routeProfile}
               onChange={(e) => onRouteProfileChange(e.target.value as RouteProfile)}
               className="rounded-2xl border border-[rgba(68,57,46,0.1)] bg-white/95 px-3 py-2 text-sm text-[var(--text-strong)]"
@@ -665,7 +665,7 @@ export default function PlannerOutputSection({
                     <div>
                       <div className="font-semibold">Gemeinsame Bearbeitung</div>
                       <div className="mt-1 text-xs text-[var(--state-warning)]/80">
-                        Aenderungswuensche aus der geteilten Planseite und dem Gruppenflow.
+                        Änderungswünsche aus der geteilten Planseite und dem Gruppenflow.
                       </div>
                     </div>
                     <div className="rounded-full border border-[var(--state-warning)]/35 bg-white px-3 py-1 text-xs font-medium text-[var(--state-warning)]">

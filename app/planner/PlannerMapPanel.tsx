@@ -64,13 +64,13 @@ export default function PlannerMapPanel({
 
         <div className="mt-3 grid grid-cols-[1fr_auto] gap-2">
           <select
-            aria-label="Mobilitaet fuer Karte auswaehlen"
+            aria-label="Mobilität für Karte auswählen"
             value={routeProfile}
             onChange={(event) => onRouteProfileChange(event.target.value as RouteProfile)}
             className="min-h-9 rounded-md border border-[var(--line-subtle)] bg-white px-2 text-sm text-[var(--text-strong)]"
           >
-            <option value="foot">Zu Fuss</option>
-            <option value="public_transit">OePNV</option>
+            <option value="foot">Zu Fuß</option>
+            <option value="public_transit">ÖPNV</option>
             <option value="car">Auto</option>
           </select>
 

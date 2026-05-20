@@ -59,8 +59,8 @@ export default function PlannerEventCandidatesStrip({
   const eventLabel = experienceModeLabel(experienceMode, occasion);
   const emptyLabel =
     strictness === "required"
-      ? "Fuer diese Auswahl brauchen wir ein Show- oder Event-Highlight. Sobald Daten fuer Stadt und Datum vorhanden sind, erscheinen sie hier."
-      : "Noch keine passenden Event- oder Markt-Kandidaten fuer diese Kombination gefunden.";
+      ? "Für diese Auswahl brauchen wir ein Show- oder Event-Highlight. Sobald Daten für Stadt und Datum vorhanden sind, erscheinen sie hier."
+      : "Noch keine passenden Event- oder Markt-Kandidaten für diese Kombination gefunden.";
 
   return (
     <section
@@ -76,7 +76,7 @@ export default function PlannerEventCandidatesStrip({
             {eventLabel} in {cityLabel}
           </div>
           <div className="mt-0.5 text-xs text-[var(--text-muted)]">
-            {planDate || "gewaehltes Datum"} | {eventCandidates.length} Kandidaten
+            {planDate || "gewähltes Datum"} | {eventCandidates.length} Kandidaten
             {strictness === "required" ? " | Event wird priorisiert" : ""}
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function PlannerEventCandidatesStrip({
       {selectedEvent ? (
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-md border border-[var(--state-warning)]/30 bg-white px-3 py-2 text-xs">
           <div className="min-w-0">
-            <span className="font-semibold text-[var(--text-strong)]">Ausgewaehlt: </span>
+            <span className="font-semibold text-[var(--text-strong)]">Ausgewählt: </span>
             <span className="text-[var(--text-muted)]">{selectedEvent.title}</span>
           </div>
           <button
@@ -130,7 +130,7 @@ export default function PlannerEventCandidatesStrip({
             }}
             className="rounded-md border border-[var(--line-subtle)] bg-white px-2.5 py-1 font-medium hover:bg-[var(--bg-panel)]"
           >
-            Auswahl loesen
+            Auswahl lösen
           </button>
         </div>
       ) : null}
@@ -147,7 +147,7 @@ export default function PlannerEventCandidatesStrip({
                   setSelectedEventId(event.id);
                   setEventPlanningMode("locked");
                   resetPlan();
-                  showToast("Event wird in die Planung uebernommen.");
+                  showToast("Event wird in die Planung übernommen.");
                 }}
                 className={`min-w-[230px] max-w-[260px] rounded-lg border bg-white px-3 py-2 text-left text-xs transition hover:-translate-y-0.5 hover:shadow-sm ${
                   isSelected
@@ -164,7 +164,7 @@ export default function PlannerEventCandidatesStrip({
                         : "border-[var(--line-subtle)] text-[var(--text-muted)]"
                     }`}
                   >
-                    {isSelected ? "aktiv" : "waehlen"}
+                    {isSelected ? "aktiv" : "wählen"}
                   </span>
                 </div>
                 <div className="mt-2 line-clamp-2 text-[var(--text-muted)]">{eventMetaLine(event)}</div>

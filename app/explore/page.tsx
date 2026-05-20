@@ -224,7 +224,7 @@ function SectionHeader({
   return (
     <div className="mb-4 flex items-end justify-between gap-4">
       <div>
-        <div className="pd24-kicker mb-2">Explore</div>
+        <div className="pd24-kicker mb-2">Entdecken</div>
         <h2 className="text-2xl font-semibold text-[var(--text-strong)]">{title}</h2>
         {subtitle ? <p className="mt-1 text-sm text-[var(--text-muted)]">{subtitle}</p> : null}
       </div>
@@ -915,9 +915,9 @@ function ExplorePageContent() {
               <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
                 Öffentliche Discovery
               </div>
-              <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Explore</h1>
+              <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Routen und Städte entdecken</h1>
               <p className="mt-1 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-                Kuratierte Routen, schnell filterbar nach Stadt, Relevanz und Qualität.
+                Entdecke kuratierte öffentliche Routen nach Stadt, Relevanz und Qualität. Das Studio zum Erstellen liegt separat.
               </p>
 
               <div className="mt-2 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
@@ -929,10 +929,13 @@ function ExplorePageContent() {
 
             <div className="flex flex-wrap gap-2">
                <Link href="/planner" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
-                ← Planner
+                ← Planen
               </Link>
-               <Link href="/routes" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
-                Route erstellen
+               <Link href="/saved" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
+                Gespeichert
+              </Link>
+               <Link href="/routes" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--bg-panel)] hover:text-[var(--text-strong)]">
+                Ins Routenstudio
               </Link>
             </div>
           </div>

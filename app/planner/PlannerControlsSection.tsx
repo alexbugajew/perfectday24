@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
+import { CitySearchInput } from "@/components/ui/CitySearchInput";
 import InternalMonetizationSlot from "@/components/monetization/InternalMonetizationSlot";
 import MonetizationDebugPanel from "@/components/monetization/MonetizationDebugPanel";
 import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLink";
@@ -396,7 +397,7 @@ export default function PlannerControlsSection({
               Suche anpassen
             </h2>
             <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
-              Stadt, Anlass, Event-Fokus, Gruppe und Mobilitaet definieren. Danach wird aus den starken lokalen Kandidaten ein plausibler Ablauf statt nur einer Liste von Orten.
+              Stadt, Anlass, Event-Fokus, Gruppe und Mobilität definieren. Danach wird aus den starken lokalen Kandidaten ein plausibler Ablauf statt nur einer Liste von Orten.
             </p>
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -436,30 +437,49 @@ export default function PlannerControlsSection({
               </select>
             </label>
 
-            <label className="hidden">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div>
+              <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
                 Stadt
               </div>
-              <select
-                value={selectedCitySlug ?? "__auto__"}
-                onChange={(e) => {
-                  const nextValue = e.target.value;
-                  setSelectedCitySlug(nextValue === "__auto__" ? null : nextValue);
+              <CitySearchInput
+                cities={visibleCities}
+                value={selectedCitySlug ?? ""}
+                onChange={(slug) => {
+                  setSelectedCitySlug(slug || null);
                   resetStartPointForSelectedCity();
                   resetPlan();
                 }}
-                className="mt-1 w-full bg-transparent text-sm font-medium text-[var(--text-strong)] outline-none"
-                disabled={citiesLoading}
-              >
-                <option value="__auto__">Auto (Standort)</option>
-                {visibleCities.map((city) => (
-                  <option key={city.slug} value={city.slug}>
-                    {city.name}
-                    {typeof city.population === "number" ? ` | ${city.population.toLocaleString("de-DE")}` : ""}
-                  </option>
+                placeholder={citiesLoading ? "Städte werden geladen..." : "Stadt suchen..."}
+              />
+            </div>
+
+            <div className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                Anlass
+              </div>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {[
+                  { value: "date", label: "Date" },
+                  { value: "friends", label: "Freunde" },
+                  { value: "family", label: "Familie" },
+                  { value: "party", label: "Party" },
+                  { value: "tourism", label: "Tourismus" },
+                ].map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setOccasion(opt.value)}
+                    className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                      occasion === opt.value
+                        ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                        : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
                 ))}
-              </select>
-            </label>
+              </div>
+            </div>
 
             <button
               type="button"
@@ -469,7 +489,7 @@ export default function PlannerControlsSection({
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-                    Planung
+                    Weitere Optionen
                   </div>
                   <div className="mt-1 truncate text-sm font-semibold tracking-tight text-[var(--text-strong)]">
                     {plannerAudienceLabel}
@@ -510,32 +530,30 @@ export default function PlannerControlsSection({
                   </select>
                 </label>
 
-                <label className="hidden">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Anlass</div>
-                  <select value={occasion} onChange={(e) => setOccasion(e.target.value)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
-                    <option value="date">Date</option>
-                    <option value="friends">Freunde</option>
-                    <option value="family">Familie</option>
-                    <option value="party">Party</option>
-                    <option value="tourism">Tourismus</option>
-                  </select>
-                </label>
-
-                <label className="hidden">
+                <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Fokus</div>
-                  <select value={experienceMode} onChange={(e) => setExperienceMode(e.target.value as ExperienceMode)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
+                  <div className="mt-2 flex flex-wrap gap-1.5">
                     {experienceOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => setExperienceMode(option.value)}
+                        className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                          experienceMode === option.value
+                            ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                            : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"
+                        }`}
+                      >
                         {option.label}
-                      </option>
+                      </button>
                     ))}
-                  </select>
+                  </div>
                   {!eventModesAvailable ? (
                     <div className="mt-2 text-xs text-[var(--text-muted)]">
                       Event- und Markt-Foki sind für diese Stadt noch nicht voll aktiviert.
                     </div>
                   ) : null}
-                </label>
+                </div>
 
                 <label className="hidden">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Datum</div>
@@ -557,7 +575,7 @@ export default function PlannerControlsSection({
                   {planMode === "fullday" ? (
                     <div className="mt-3 space-y-3">
                       <div className="flex items-center justify-between gap-3">
-                        <div className="text-sm text-[var(--text-muted)]">Fruehstueck bis Mittag</div>
+                        <div className="text-sm text-[var(--text-muted)]">Frühstück bis Mittag</div>
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => setFullDayActsAfterBreakfast((value) => clamp(value - 1, 1, 2))}
@@ -599,7 +617,7 @@ export default function PlannerControlsSection({
                       </div>
 
                       <div className="text-xs text-[var(--text-muted)]">
-                        {fullDayActsAfterBreakfast + fullDayActsAfterLunch} Aktivitaets-Bloecke ueber den Tag verteilt
+                        {fullDayActsAfterBreakfast + fullDayActsAfterLunch} Aktivitäts-Blöcke über den Tag verteilt
                       </div>
                     </div>
                   ) : (
@@ -620,10 +638,10 @@ export default function PlannerControlsSection({
                 </label>
 
                 <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Mobilitaet</div>
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Mobilität</div>
                   <select value={routeProfile} onChange={(e) => setRouteProfile(e.target.value as RouteProfile)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
-                    <option value="foot">Zu Fuss</option>
-                    <option value="public_transit">OePNV</option>
+                    <option value="foot">Zu Fuß</option>
+                    <option value="public_transit">ÖPNV</option>
                     <option value="car">Auto</option>
                   </select>
                 </label>
@@ -957,11 +975,11 @@ export default function PlannerControlsSection({
                                 setSelectedEventId(nextEvent.id);
                                 setEventPlanningMode("locked");
                                 resetPlan();
-                                showToast("Naechstes Event wird getestet.");
+                                showToast("Nächstes Event wird getestet.");
                               }}
                               className="rounded-lg border border-[var(--state-warning)]/35 px-3 py-2 text-xs hover:bg-[var(--brand-accent-cloud)]"
                             >
-                              Naechstes Event
+                              Nächstes Event
                             </button>
                           ) : null}
                           <button
@@ -973,7 +991,7 @@ export default function PlannerControlsSection({
                             }}
                             className="rounded-lg border border-[var(--state-warning)]/35 px-3 py-2 text-xs hover:bg-[var(--brand-accent-cloud)]"
                           >
-                            Auswahl loesen
+                            Auswahl lösen
                           </button>
                         </div>
                       </div>

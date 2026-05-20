@@ -319,8 +319,8 @@ export default function RouteRunPage() {
   if (!route || notFound) {
     return (
       <main className="mx-auto w-full max-w-7xl space-y-4 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <Link href="/routes" className="text-sm text-[var(--text-muted)] underline">
-          Zurück zu den Routen
+        <Link href="/saved" className="text-sm text-[var(--text-muted)] underline">
+          Gespeichert
         </Link>
         <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-5 shadow-sm sm:p-6">
           Diese Route konnte nicht geladen werden.

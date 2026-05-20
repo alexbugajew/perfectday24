@@ -723,8 +723,8 @@ function CreatorPageContent() {
           <Link href="/explore" className="underline underline-offset-4">
             ← Zurück zu Explore
           </Link>
-          <Link href="/routes" className="underline underline-offset-4">
-            Creator Routes
+          <Link href="/saved" className="underline underline-offset-4">
+            Gespeichert
           </Link>
         </div>
 
@@ -771,8 +771,8 @@ function CreatorPageContent() {
           <Link href="/explore" className="underline underline-offset-4">
             ← Zurück zu Explore
           </Link>
-          <Link href="/routes" className="underline underline-offset-4">
-            Creator Routes
+          <Link href="/saved" className="underline underline-offset-4">
+            Gespeichert
           </Link>
         </div>
         <Link href="/" className="underline underline-offset-4">

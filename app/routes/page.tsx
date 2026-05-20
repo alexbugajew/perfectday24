@@ -1407,14 +1407,14 @@ async function handleDeleteRoute(routeId: string) {
               Zurück zum Planner
             </Link>
             <Link href="/explore" className="text-sm text-[var(--text-muted)] hover:text-[var(--text-strong)]">
-              Explore
+              Entdecken
             </Link>
           </div>
-          <div className="pd24-kicker mb-2">Routes</div>
-          <h1 className="text-4xl font-bold tracking-tight text-[var(--text-strong)]">Route Builder</h1>
+          <div className="pd24-kicker mb-2">Routenstudio</div>
+          <h1 className="text-4xl font-bold tracking-tight text-[var(--text-strong)]">Routenstudio</h1>
           <p className="mt-2 max-w-3xl text-[var(--text-muted)]">
-            Baue hier ruhig strukturierte Creator-Routen mit klarer Stop-Reihenfolge, sauberem Startpunkt,
-            Cover und öffentlicher Vorschau statt alles gleichzeitig im Kopf halten zu müssen.
+            Hier bearbeitest und veröffentlichst du eigene Routen. Der Bereich ist bewusst als Studio aufgebaut:
+            mit klarer Stop-Reihenfolge, sauberem Startpunkt, Cover und öffentlicher Vorschau.
           </p>
         </div>
 
@@ -1435,7 +1435,7 @@ async function handleDeleteRoute(routeId: string) {
             onClick={() => setTab("public")}
             className={`px-3 py-2 rounded-xl border border-[var(--line-subtle)] text-sm ${tab === "public" ? "bg-[var(--text-strong)] text-white" : "bg-white text-[var(--text-strong)]"}`}
           >
-            Public
+            Öffentliche Routen
           </button>
         </div>
       </div>
@@ -1576,7 +1576,7 @@ async function handleDeleteRoute(routeId: string) {
                 {routesLoading && <div className="text-sm text-[var(--text-muted)]">Routen werden vorbereitet...</div>}
           {!routesLoading && (tab === "mine" ? myRoutes : publicRoutes).length === 0 && (
             <div className="pd24-card p-4 text-sm text-[var(--text-muted)]">
-              Noch keine Routen vorhanden. Lege im Builder deinen ersten strukturierten Ablauf an.
+              Noch keine Routen vorhanden. Lege im Studio deinen ersten strukturierten Ablauf an.
             </div>
           )}
         </div>

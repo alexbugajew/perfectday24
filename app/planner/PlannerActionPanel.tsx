@@ -37,8 +37,8 @@ export default function PlannerActionPanel({
         <div className="rounded-2xl border border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)] px-4 py-3 text-sm text-[var(--state-success)]">
           <div className="font-medium">Diese Vorlage in Planner geladen</div>
           <div className="mt-1 text-[var(--state-success)]">
-            <span className="font-semibold">{plannerTemplateLoadedLabel}</span> wurde als Ausgangspunkt uebernommen. Passe jetzt Interessen,
-            Radius und Varianten an und veroeffentliche den fertigen Tag spaeter bei Bedarf als Creator-Route.
+            <span className="font-semibold">{plannerTemplateLoadedLabel}</span> wurde als Ausgangspunkt übernommen. Passe jetzt Interessen,
+            Radius und Varianten an und veröffentliche den fertigen Tag später bei Bedarf als Creator-Route.
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
             {plannerTemplateSourceSlug ? (
@@ -46,7 +46,7 @@ export default function PlannerActionPanel({
                 href={`/routes/${plannerTemplateSourceSlug}`}
                 className="rounded-full border border-[var(--state-success)]/25 bg-white px-3 py-1 text-xs text-[var(--state-success)]"
               >
-                Originalroute oeffnen
+                Originalroute öffnen
               </Link>
             ) : null}
             {plannerTemplateInterests.slice(0, 8).map((interest) => (
@@ -68,8 +68,8 @@ export default function PlannerActionPanel({
             <span className="font-semibold">
               {selectedPlan?.title || selectedPlan?.filters?.finalVariantLabel || "Dieser Plan"}
             </span>{" "}
-            wurde als Arbeitsgrundlage in den Planner uebernommen. Aenderungen kannst du jetzt bewusst als neuen Stand
-            weiterentwickeln und anschliessend wieder teilen oder als finalen Gruppenplan speichern.
+            wurde als Arbeitsgrundlage in den Planner übernommen. Änderungen kannst du jetzt bewusst als neuen Stand
+            weiterentwickeln und anschließend wieder teilen oder als finalen Gruppenplan speichern.
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
             {selectedPlan?.filters?.pinnedVariantLabel ? (
@@ -83,7 +83,7 @@ export default function PlannerActionPanel({
               </span>
             ) : null}
             <span className="rounded-full border border-[var(--brand-accent)]/25 bg-white px-3 py-1 text-xs text-[var(--brand-accent)]">
-              Aenderungen koennen als neuer Stand gespeichert werden
+              Änderungen können als neuer Stand gespeichert werden
             </span>
           </div>
         </div>
@@ -91,17 +91,17 @@ export default function PlannerActionPanel({
 
       {showGroupSummary ? (
         <div className="rounded-2xl border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)]/70 px-4 py-3 text-sm text-[var(--brand-accent)]">
-          <div className="font-semibold">Fuer eure Gruppe priorisiert</div>
+          <div className="font-semibold">Für eure Gruppe priorisiert</div>
           <div className="mt-1 text-[var(--brand-accent)]">
             {groupPlanningSignals.sharedAcrossAll.length > 0
-              ? `Der Plan stuetzt sich zuerst auf gemeinsame Nenner wie ${groupPlanningSignals.sharedAcrossAll.join(", ")}.`
+              ? `Der Plan stützt sich zuerst auf gemeinsame Nenner wie ${groupPlanningSignals.sharedAcrossAll.join(", ")}.`
               : groupPlanningSignals.overlapping.length > 0
                 ? `Der Plan balanciert wiederkehrende Gruppensignale wie ${groupPlanningSignals.overlapping.join(", ")}.`
                 : "Der Plan gleicht mehrere unterschiedliche Vorlieben aus und versucht einen fairen Mittelweg."}
           </div>
           {groupPlanningSignals.uniqueSignals.length > 0 ? (
             <div className="mt-2 text-xs text-[var(--brand-accent)]">
-              Beruecksichtigte Einzelwuensche:{" "}
+              Berücksichtigte Einzelwünsche:{" "}
               {groupPlanningSignals.uniqueSignals
                 .map((participant) => `${participant.name}: ${participant.interests.slice(0, 2).join(", ")}`)
                 .join(" | ")}
@@ -115,7 +115,7 @@ export default function PlannerActionPanel({
               {groupPlanSummary.balancedCount} ausbalancierte Kompromisse
             </span>
             <span className="rounded-full border border-[var(--brand-accent)]/35 bg-white px-2 py-1">
-              {groupPlanSummary.singlePreferenceCount} bewusste Einzelwuensche
+              {groupPlanSummary.singlePreferenceCount} bewusste Einzelwünsche
             </span>
           </div>
           {groupPlanSummary.matchedInterests.length > 0 ? (
@@ -125,7 +125,7 @@ export default function PlannerActionPanel({
           ) : null}
           {groupPlanSummary.reducedThemes.length > 0 ? (
             <div className="mt-1 text-xs text-[var(--brand-accent)]">
-              Abgewogen oder abgeschwaecht: {groupPlanSummary.reducedThemes.join(", ")}
+              Abgewogen oder abgeschwächt: {groupPlanSummary.reducedThemes.join(", ")}
             </div>
           ) : null}
         </div>

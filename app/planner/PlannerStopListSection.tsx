@@ -724,7 +724,7 @@ export default function PlannerStopListSection({
                     </>
                   ) : (
                     <p className="mt-2 text-sm text-[var(--text-muted)]">
-                      Keine passende Location fuer diesen Block gefunden.
+                      Keine passende Location für diesen Block gefunden.
                     </p>
                   )}
                 </div>
@@ -732,7 +732,7 @@ export default function PlannerStopListSection({
                 <div className="flex shrink-0 flex-col gap-2 items-end">
                   <button
                     onClick={() => onBumpStop(i)}
-                    aria-label={`Alternative fuer ${stop.item?.name ?? stop.label} suchen`}
+                    aria-label={`Alternative für ${stop.item?.name ?? stop.label} suchen`}
                     className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:opacity-95"
                   >
                     Alternative suchen

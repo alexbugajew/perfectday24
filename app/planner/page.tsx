@@ -1,5 +1,6 @@
-﻿"use client";
+"use client";
 
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
@@ -1315,9 +1316,9 @@ function PlannerPageContent() {
     activeLevel === "strict"
       ? null
       : activeLevel === "relax_daytime"
-      ? "Keine exakten Treffer - Tageszeit wurde gelockert, um mehr Vorschlaege zu finden."
+      ? "Keine exakten Treffer - Tageszeit wurde gelockert, um mehr Vorschläge zu finden."
       : activeLevel === "relax_budget"
-      ? "Keine exakten Treffer - Budget und Tageszeit wurden gelockert, um mehr Vorschlaege zu finden."
+      ? "Keine exakten Treffer - Budget und Tageszeit wurden gelockert, um mehr Vorschläge zu finden."
       : "Keine passenden Treffer - zeige nahe Alternativen im Umkreis.";
 
   const expandedText =
@@ -1665,19 +1666,16 @@ function PlannerPageContent() {
                     ? "Speichern..."
                     : editingPlanId
                       ? "Als neuen Stand speichern"
-                      : "Plan speichern"}
+                    : "Plan speichern"}
             </button>
-            <button type="button" onClick={resetPlan} className="rounded-md border px-3 py-1.5 text-xs">
-              Plan zurücksetzen
-            </button>
-            <button
-              type="button"
-              onClick={() => void handoffPlanToRouteBuilder()}
-              disabled={plannedStops.length === 0}
-              className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
-            >
-              Als Creator-Route vorbereiten
-            </button>
+            {authReady && userId ? (
+              <Link
+                href="/saved"
+                className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+              >
+                Gespeichert öffnen
+              </Link>
+            ) : null}
             {groupEnabled && activeVariant ? (
               <button
                 type="button"
@@ -1711,6 +1709,27 @@ function PlannerPageContent() {
                 {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
               </button>
             ) : null}
+          </div>
+
+          <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-[var(--line-subtle)] pt-2">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Weitere
+            </span>
+            <button
+              type="button"
+              onClick={resetPlan}
+              className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+            >
+              Plan zurücksetzen
+            </button>
+            <button
+              type="button"
+              onClick={() => void handoffPlanToRouteBuilder()}
+              disabled={plannedStops.length === 0}
+              className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
+            >
+              Als Creator-Route vorbereiten
+            </button>
           </div>
         </div>
       </section>
@@ -1953,6 +1972,5 @@ export default function Home() {
     </Suspense>
   );
 }
-
 
 

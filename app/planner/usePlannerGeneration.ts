@@ -497,7 +497,7 @@ export function usePlannerGeneration({
       if (majorityThreshold > 0 && prevVotes < majorityThreshold && nextVotes >= majorityThreshold) {
         void onPostGroupMessage(
           activePlanGroupChatId,
-          `Mehrheit erreicht fuer "${pickedVariant.label}" (${nextVotes} von ${reactionParticipants.length}).`
+          `Mehrheit erreicht für "${pickedVariant.label}" (${nextVotes} von ${reactionParticipants.length}).`
         );
       }
     },

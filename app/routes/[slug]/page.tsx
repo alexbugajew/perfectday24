@@ -1869,8 +1869,8 @@ function RouteDetailPageContent() {
       <main className="mx-auto max-w-6xl sm:p-6 md:p-8">
         <div className="space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <Link href="/routes" className="text-sm text-gray-600 underline underline-offset-4">
-              Zurück zu Creator Routes
+            <Link href="/saved" className="text-sm text-gray-600 underline underline-offset-4">
+              Gespeichert
             </Link>
             <div className="text-sm text-gray-500">Route wird vorbereitet</div>
           </div>
@@ -1920,8 +1920,8 @@ function RouteDetailPageContent() {
     return (
       <main className="max-w-5xl mx-auto p-8">
         <div className="mb-4">
-          <Link href="/routes" className="text-sm underline">
-            Zurück zu Creator Routes
+          <Link href="/saved" className="text-sm underline">
+            Gespeichert
           </Link>
         </div>
         <div className="p-6 border rounded-xl">
@@ -1969,8 +1969,8 @@ function RouteDetailPageContent() {
         </div>
       ) : null}
       <div className="flex items-center justify-between gap-3 flex-wrap">
-        <Link href="/routes" className="text-sm text-gray-600 underline underline-offset-4">
-          Zurück zu Creator Routes
+        <Link href="/saved" className="text-sm text-gray-600 underline underline-offset-4">
+          Gespeichert
         </Link>
         <Link href="/" className="text-sm text-gray-600 underline underline-offset-4">
           Zum Planner
