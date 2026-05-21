@@ -913,29 +913,25 @@ function ExplorePageContent() {
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-3xl">
               <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
-                Öffentliche Discovery
+                Entdecken
               </div>
-              <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Routen und Städte entdecken</h1>
+              <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Entdecke Routen in deiner Stadt</h1>
               <p className="mt-1 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-                Entdecke kuratierte öffentliche Routen nach Stadt, Relevanz und Qualität. Das Studio zum Erstellen liegt separat.
+                Stöbere durch kuratierte Routen, finde Inspiration für deinen nächsten Tag.
               </p>
 
               <div className="mt-2 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
-                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">Public {totalPublic}</span>
-                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">Treffer {filteredRoutes.length}</span>
-                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">Aufrufbar {callableCount}</span>
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">{totalPublic} Routen</span>
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">{filteredRoutes.length} Treffer</span>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-2">
-               <Link href="/planner" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
+              <Link href="/planner" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
                 ← Planen
               </Link>
-               <Link href="/saved" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
+              <Link href="/saved" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
                 Gespeichert
-              </Link>
-               <Link href="/routes" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--bg-panel)] hover:text-[var(--text-strong)]">
-                Ins Routenstudio
               </Link>
             </div>
           </div>
@@ -1154,8 +1150,8 @@ function ExplorePageContent() {
 
           <section>
             <SectionHeader
-              title="Trending Routes"
-              subtitle="Hohe Dynamik aus Interaktionen, Views und Relevanz."
+              title="Gerade beliebt"
+              subtitle="Routen mit der meisten Aktivität gerade."
             />
             {trendingRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Trending Routes gefunden.</div>
@@ -1176,7 +1172,7 @@ function ExplorePageContent() {
           <section>
             <SectionHeader
               title="Top Creators"
-              subtitle="Starke öffentliche Profile mit Reichweite und performanten Routen."
+              subtitle="Kuratoren und Creators mit den stärksten Routen."
             />
             {topCreators.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Creator gefunden.</div>
@@ -1196,8 +1192,8 @@ function ExplorePageContent() {
 
           <section>
             <SectionHeader
-              title="Top Rated"
-              subtitle="Die bestbewerteten öffentlichen Routen."
+              title="Bestbewertet"
+              subtitle="Die am höchsten bewerteten Routen."
             />
             {topRatedRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Top Rated Routes gefunden.</div>
@@ -1217,8 +1213,8 @@ function ExplorePageContent() {
 
           <section>
             <SectionHeader
-              title="Featured Routes"
-              subtitle="Editorial oder bewusst hervorgehobene Inhalte."
+              title="Ausgewählte Routen"
+              subtitle="Von uns handverlesene Highlights."
             />
             {featuredRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Featured Routes gefunden.</div>
@@ -1238,8 +1234,8 @@ function ExplorePageContent() {
 
           <section>
             <SectionHeader
-              title="New & Fresh"
-              subtitle="Zuletzt aktualisierte öffentliche Routen."
+              title="Neu eingestellt"
+              subtitle="Die zuletzt hinzugefügten Routen."
             />
             {newestRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine neuen Routen gefunden.</div>
@@ -1259,8 +1255,8 @@ function ExplorePageContent() {
 
           <section>
             <SectionHeader
-              title="Alle gefilterten Routen"
-              subtitle="Vollständige Ergebnisliste nach deinen Filtern."
+              title="Alle Routen"
+              subtitle="Alle Routen passend zu deiner Auswahl."
             />
             {filteredRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen für diese Filter gefunden.</div>
@@ -1279,6 +1275,16 @@ function ExplorePageContent() {
           </section>
         </div>
       )}
+
+      {/* Eigene Route erstellen — nachgeordnet, kleiner Textlink */}
+      <div className="mt-10 flex justify-center border-t border-[var(--line-subtle)] pt-8">
+        <Link
+          href="/routes"
+          className="text-sm text-[var(--text-muted)] underline-offset-2 transition hover:text-[var(--text-strong)] hover:underline"
+        >
+          Eigene Route erstellen →
+        </Link>
+      </div>
     </main>
   );
 }
