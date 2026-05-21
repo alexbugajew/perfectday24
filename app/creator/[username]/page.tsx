@@ -718,24 +718,27 @@ function CreatorPageContent() {
 
   if (notFound || !creator) {
     return (
-      <main className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
+      <main className="pd24-page-standard px-4 pb-16 pt-6">
         <div className="mb-6 flex flex-wrap gap-4 text-sm">
-          <Link href="/explore" className="underline underline-offset-4">
+          <Link href="/explore" className="text-[var(--text-muted)] underline underline-offset-4">
             ← Zurück zu Explore
           </Link>
-          <Link href="/saved" className="underline underline-offset-4">
-            Gespeichert
+          <Link href="/saved" className="text-[var(--text-muted)] underline underline-offset-4">
+            Meine Pläne
           </Link>
         </div>
-
-        <div className="rounded-[28px] border border-black/10 bg-white/95 p-8 shadow-sm">
-          <div className="inline-flex rounded-full border border-black/10 bg-gray-50 px-3 py-1 text-xs text-gray-600">
-            Öffentliche Profilseite
-          </div>
-          <h1 className="mt-4 text-3xl font-semibold text-gray-950">Creator nicht gefunden</h1>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-600">
+        <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Nicht gefunden</div>
+          <h1 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Creator nicht gefunden</h1>
+          <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
             Dieses Profil existiert nicht oder ist aktuell nicht öffentlich verfügbar.
           </p>
+          <Link
+            href="/explore"
+            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+          >
+            Routen entdecken
+          </Link>
         </div>
       </main>
     );
@@ -768,15 +771,15 @@ function CreatorPageContent() {
       ) : null}
       <div className="mb-6 flex items-center justify-between gap-4 flex-wrap text-sm">
         <div className="flex flex-wrap gap-4">
-          <Link href="/explore" className="underline underline-offset-4">
+          <Link href="/explore" className="text-[var(--text-muted)] underline underline-offset-4">
             ← Zurück zu Explore
           </Link>
-          <Link href="/saved" className="underline underline-offset-4">
-            Gespeichert
+          <Link href="/saved" className="text-[var(--text-muted)] underline underline-offset-4">
+            Meine Pläne
           </Link>
         </div>
-        <Link href="/" className="underline underline-offset-4">
-          Zum Planner →
+        <Link href="/planner" className="text-[var(--text-muted)] underline underline-offset-4">
+          Planen →
         </Link>
       </div>
 

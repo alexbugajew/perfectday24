@@ -15,10 +15,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.perfectday24.de";
+const siteDescription =
+  "Plane deinen nächsten Tag in der Stadt – mit echten Orten, Events und Wegen. Kostenlos, keine Anmeldung nötig.";
+
 export const metadata: Metadata = {
   title: "PerfectDay24 – Deinen Tag planen",
-  description:
-    "Plane deinen nächsten Tag in der Stadt – mit echten Orten, Events und Wegen. Kostenlos, keine Anmeldung nötig.",
+  description: siteDescription,
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: "PerfectDay24 – Deinen Tag planen",
+    description: siteDescription,
+    url: siteUrl,
+    siteName: "PerfectDay24",
+    locale: "de_DE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PerfectDay24 – Deinen Tag planen",
+    description: siteDescription,
+  },
 };
 
 export default function RootLayout({
