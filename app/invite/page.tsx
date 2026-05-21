@@ -106,10 +106,10 @@ export default function InvitePage() {
       };
 
       queuePlannerInviteDraft(nextMember);
-      setToast("Profil wurde fuer den Planner vorgemerkt.");
+      setToast("Profil wurde für den Planner vorgemerkt.");
     } catch (error) {
       console.error("Invite add error:", error);
-      setToast("Profil konnte nicht uebernommen werden.");
+      setToast("Profil konnte nicht übernommen werden.");
     }
   }
 
@@ -123,14 +123,14 @@ export default function InvitePage() {
               Gruppe einladen
             </h1>
             <p className="mt-2 text-sm text-[var(--text-muted)]">
-              Suche nach Profilen und uebernimm ihre gespeicherten Interessen direkt in den Planner.
+              Suche nach Profilen und übernimm ihre gespeicherten Interessen direkt in den Planner.
             </p>
           </div>
           <Link
             href="/planner"
             className="inline-flex h-11 items-center rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-white"
           >
-            Zurueck zum Planner
+            Zurück zum Planner
           </Link>
         </div>
 
@@ -152,7 +152,7 @@ export default function InvitePage() {
 
       <section className="pd24-shell p-6">
         {loading ? (
-          <div className="text-sm text-[var(--text-muted)]">Suche laeuft...</div>
+          <div className="text-sm text-[var(--text-muted)]">Suche läuft...</div>
         ) : errorText ? (
           <div className="text-sm text-[var(--state-error)]">{errorText}</div>
         ) : results.length > 0 ? (
