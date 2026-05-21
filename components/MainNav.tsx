@@ -67,11 +67,27 @@ export default function MainNav() {
           <Link href="/saved"    className={linkClass("/saved")}>Meine Pläne</Link>
         </div>
 
-        {/* Rechtliches */}
-        <div className="hidden flex-wrap items-center gap-3 text-xs text-[var(--text-muted)] sm:flex">
-          <Link href="/impressum"   className="transition hover:text-[var(--text-strong)]">Impressum</Link>
-          <Link href="/datenschutz" className="transition hover:text-[var(--text-strong)]">Datenschutz</Link>
-          <Link href="/agb"         className="transition hover:text-[var(--text-strong)]">AGB</Link>
+        {/* Profil-Icon + Rechtliches */}
+        <div className="hidden items-center gap-3 sm:flex">
+          <Link
+            href="/profile"
+            aria-label="Profil"
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition ${
+              isActive("/profile")
+                ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white shadow-sm"
+                : "border-[var(--line-subtle)] bg-white text-[var(--text-muted)] hover:border-[rgba(23,23,23,0.25)] hover:text-[var(--text-strong)]"
+            }`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </Link>
+          <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--text-muted)]">
+            <Link href="/impressum"   className="transition hover:text-[var(--text-strong)]">Impressum</Link>
+            <Link href="/datenschutz" className="transition hover:text-[var(--text-strong)]">Datenschutz</Link>
+            <Link href="/agb"         className="transition hover:text-[var(--text-strong)]">AGB</Link>
+          </div>
         </div>
       </div>
     </nav>

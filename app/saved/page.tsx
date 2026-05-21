@@ -585,7 +585,7 @@ export default function SavedPage() {
 
   if (authReady && !userId) {
     return (
-      <div className="mx-auto max-w-3xl py-16">
+      <div className="pd24-page-narrow py-16">
         <EmptyState
           title="Bitte melde dich an, um deine gespeicherten Inhalte zu sehen."
           description="Hier erscheinen deine Pläne, Routen und Entwürfe, sobald du sie in deinem Konto speicherst."
@@ -600,7 +600,7 @@ export default function SavedPage() {
 
   if (hasError && !isLoading) {
     return (
-      <div className="mx-auto max-w-3xl py-16">
+      <div className="pd24-page-narrow py-16">
         <EmptyState
           title="Gespeicherte Inhalte konnten gerade nicht geladen werden."
           description="Bitte versuche es erneut. Wenn das Problem bleibt, prüfe zuerst deine Anmeldung und lade die Seite neu."
@@ -614,11 +614,11 @@ export default function SavedPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="pd24-page-wide space-y-8">
       <section className="pd24-shell p-6 sm:p-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <div className="pd24-kicker">Gespeichert</div>
+            <div className="pd24-kicker">Meine Pläne</div>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-4xl">
               Deine Pläne, Routen und Entwürfe an einem Ort
             </h1>

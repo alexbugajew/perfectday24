@@ -124,6 +124,7 @@ function buildActivationState({
 
 export default function PlannerActivationPanel(props: PlannerActivationPanelProps) {
   const {
+    citiesLoading,
     expandedRadius,
     hasValidPlannerOrigin,
     interestsCount,
@@ -146,12 +147,20 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
     onUseCurrentLocation,
   } = props;
 
+  const isLoading = plannerLoading || citiesLoading;
+
   const activation = buildActivationState(props);
 
   return (
     <div className="w-full rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3">
       <div className="flex flex-wrap items-center justify-end gap-2">
-        <span className={`rounded-full border px-3 py-1 text-[11px] font-medium ${activation.toneClass}`}>
+        {isLoading && (
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--brand-accent)] opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--brand-accent)]" />
+          </span>
+        )}
+        <span className={`rounded-full border px-3 py-1 text-[11px] font-medium transition-all ${activation.toneClass} ${isLoading ? "animate-pulse" : ""}`}>
           {activation.badge}
         </span>
       </div>
