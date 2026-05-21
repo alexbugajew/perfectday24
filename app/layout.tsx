@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import MainNav from "@/components/MainNav";
 import FloatingChat from "@/components/ui/FloatingChat";
+import MobileBottomNav from "@/components/ui/MobileBottomNav";
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 
@@ -35,8 +36,9 @@ export default function RootLayout({
     >
       <body className="overflow-x-clip bg-[var(--bg-canvas)] text-[var(--text-strong)]">
         <MainNav />
-        <div className="mx-auto min-w-0 max-w-7xl overflow-x-clip px-4 py-6 sm:px-6 lg:px-8">{children}</div>
+        <div className="w-full min-w-0 overflow-x-clip px-4 py-6 pb-24 sm:pb-6 sm:px-6 lg:px-8">{children}</div>
         <FloatingChat />
+        <MobileBottomNav />
       </body>
     </html>
   );
