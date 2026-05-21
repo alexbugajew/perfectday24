@@ -1456,9 +1456,9 @@ function PlannerPageContent() {
         </div>
       </section>
 
-      <section className="rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">
+      <section className="rounded-xl bg-white p-3 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
         <div className="grid gap-2 sm:grid-cols-2 lg:flex lg:overflow-visible">
-          <label className="min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[150px] lg:flex-1">
+          <label className="min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[150px] lg:flex-1">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Stadt
             </div>
@@ -1482,7 +1482,7 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <div className="relative min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[240px] lg:flex-[1.5]">
+          <div className="relative min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[240px] lg:flex-[1.5]">
             <label htmlFor="planner-quick-start" className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Startpunkt
             </label>
@@ -1564,7 +1564,7 @@ function PlannerPageContent() {
             ) : null}
           </div>
 
-          <label className="min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[125px] lg:flex-[0.8]">
+          <label className="min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[125px] lg:flex-[0.8]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Anlass
             </div>
@@ -1581,7 +1581,7 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <label className="min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[160px] lg:flex-1">
+          <label className="min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[160px] lg:flex-1">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Fokus
             </div>
@@ -1599,7 +1599,7 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <label className="min-w-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 lg:min-w-[145px] lg:flex-[0.85]">
+          <label className="min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[145px] lg:flex-[0.85]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Datum
             </div>

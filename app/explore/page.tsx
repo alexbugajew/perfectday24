@@ -907,7 +907,7 @@ function ExplorePageContent() {
     "h-10 w-full min-w-0 rounded-xl border border-black/10 bg-white px-3 text-xs text-[var(--text-strong)] shadow-sm outline-none transition focus:border-[var(--text-strong)] sm:text-sm";
 
   return (
-    <main className="mx-auto max-w-7xl px-1 py-4 sm:px-2 lg:px-4">
+    <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
       <div className="mb-5 overflow-hidden rounded-3xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
         <div className="bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(229,234,238,0.92))] p-4 sm:p-5 lg:p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
@@ -917,7 +917,7 @@ function ExplorePageContent() {
               </div>
               <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Entdecke Routen in deiner Stadt</h1>
               <p className="mt-1 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-                Stöbere durch kuratierte Routen, finde Inspiration für deinen nächsten Tag.
+                Stöbere durch kuratierte Routen und finde Inspiration für deinen nächsten Tag.
               </p>
 
               <div className="mt-2 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
@@ -931,7 +931,7 @@ function ExplorePageContent() {
                 ← Planen
               </Link>
               <Link href="/saved" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
-                Gespeichert
+                Meine Pläne
               </Link>
             </div>
           </div>
@@ -941,7 +941,7 @@ function ExplorePageContent() {
               aria-label="Routen suchen"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Titel, Creator, Startpunkt..."
+              placeholder="Titel, Creator, Startpunkt oder Stadt..."
               className={filterControlClass}
             />
 
@@ -966,9 +966,9 @@ function ExplorePageContent() {
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               className={filterControlClass}
             >
-              <option value="trending">Trending</option>
-              <option value="top">Top Ranked</option>
-              <option value="featured">Featured</option>
+              <option value="trending">Gerade beliebt</option>
+              <option value="top">Bestbewertet</option>
+              <option value="featured">Ausgewählt</option>
               <option value="new">Neueste</option>
             </select>
 
@@ -1064,6 +1064,20 @@ function ExplorePageContent() {
         </div>
       </div>
 
+      {/* Events-Einstieg — größere Anlässe */}
+      <div className="mb-4 flex items-center justify-between gap-4 rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-[0_1px_4px_rgba(15,23,42,0.05)]">
+        <div className="min-w-0">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Größeres Event geplant?</div>
+          <div className="mt-0.5 text-sm font-medium text-[var(--text-strong)]">Hochzeiten, Geburtstage & Firmenfeiern — mit Dienstleister-Suche</div>
+        </div>
+        <Link
+          href="/events"
+          className="shrink-0 rounded-full bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98]"
+        >
+          Event planen →
+        </Link>
+      </div>
+
       {monetizationDebug ? (
         <div className="mb-8 space-y-4">
           <div className="grid gap-4 xl:grid-cols-2">
@@ -1154,7 +1168,7 @@ function ExplorePageContent() {
               subtitle="Routen mit der meisten Aktivität gerade."
             />
             {trendingRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Trending Routes gefunden.</div>
+              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine aktuell beliebten Routen gefunden.</div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {trendingRoutes.map((route) => (
@@ -1171,8 +1185,8 @@ function ExplorePageContent() {
 
           <section>
             <SectionHeader
-              title="Top Creators"
-              subtitle="Kuratoren und Creators mit den stärksten Routen."
+              title="Starke Creator"
+              subtitle="Kuratorinnen, Kuratoren und Creator mit den stärksten Routen."
             />
             {topCreators.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Creator gefunden.</div>
@@ -1196,7 +1210,7 @@ function ExplorePageContent() {
               subtitle="Die am höchsten bewerteten Routen."
             />
             {topRatedRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Top Rated Routes gefunden.</div>
+              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine bestbewerteten Routen gefunden.</div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {topRatedRoutes.map((route) => (
@@ -1217,7 +1231,7 @@ function ExplorePageContent() {
               subtitle="Von uns handverlesene Highlights."
             />
             {featuredRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Featured Routes gefunden.</div>
+              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine ausgewählten Routen gefunden.</div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {featuredRoutes.map((route) => (
@@ -1293,7 +1307,7 @@ export default function ExplorePage() {
   return (
     <Suspense
       fallback={
-        <main className="mx-auto max-w-7xl px-1 py-4 sm:px-2 lg:px-4">
+        <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
           <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 text-[var(--text-muted)] shadow-[var(--shadow-soft)]">
             Explore wird geladen...
           </div>

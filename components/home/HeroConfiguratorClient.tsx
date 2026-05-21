@@ -84,8 +84,7 @@ export default function HeroConfiguratorClient() {
           {selectedLabel} in {city} planen →
         </button>
         <div className="text-sm text-[#8b7767]">
-          <span className="text-[#b76a43]">★★★★★</span>
-          {" · Über 2.400 Pläne erstellt · Kostenlos"}
+          {"Kostenlos · Keine Anmeldung nötig · Berlin, Hamburg & mehr"}
         </div>
       </div>
     </div>
