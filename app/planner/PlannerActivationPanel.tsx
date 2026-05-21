@@ -115,9 +115,9 @@ function buildActivationState({
   }
 
   return {
-    badge: "Bereit",
-    title: "Der Planner wartet auf deinen Rahmen.",
-    body: "Setze Stadt, Anlass, Fokus und Startpunkt. Danach entsteht automatisch der erste Vorschlag.",
+    badge: "Los geht's",
+    title: "Wo soll dein Tag stattfinden?",
+    body: "Wähle eine Stadt in der Leiste unten – PerfectDay24 plant deinen Tag automatisch.",
     toneClass: "border-[var(--line-subtle)] bg-white text-[var(--text-muted)]",
   };
 }

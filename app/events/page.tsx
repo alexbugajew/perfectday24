@@ -236,20 +236,33 @@ export default function EventsPage() {
     form.occasionSlug !== "" ? NEEDS_BY_OCCASION[form.occasionSlug] : [];
 
   return (
-    <div className="min-h-screen bg-[#f7f4ee] px-4 pb-20 pt-8">
-      <div className="mx-auto max-w-2xl">
+    <div className="min-h-screen bg-[#f7f4ee] pb-20 pt-8">
+      <div className="pd24-page-narrow">
+
+        {/* Back-Link */}
+        <div className="mb-6">
+          <a
+            href="/explore"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(23,23,23,0.1)] bg-white px-3 py-1.5 text-xs font-medium text-[#665d55] transition hover:text-[#171717]"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+              <path d="M19 12H5M12 5l-7 7 7 7" />
+            </svg>
+            Entdecken
+          </a>
+        </div>
 
         {/* Page header */}
         <div className="mb-10">
           <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-            Events
+            Event-Planer
           </div>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[#171717]">
             Plane einen größeren Anlass.
           </h1>
           <p className="mt-3 text-base leading-7 text-[#665d55]">
-            Dieser Flow ist für Geburtstage, Hochzeiten, Firmenfeiern und andere größere Formate gedacht.
-            Wähle Anlass, Eckdaten und Bedarf. Danach zeigt dir PerfectDay24 passende Dienstleister mit klarer Kalkulationsbasis.
+            Für Geburtstage, Hochzeiten, Firmenfeiern und andere größere Formate.
+            Wähle Anlass und Eckdaten – PerfectDay24 zeigt dir passende Locations und Dienstleister.
           </p>
         </div>
 

@@ -1456,6 +1456,15 @@ function PlannerPageContent() {
         </div>
       </section>
 
+      {!homepagePresetActive && !effectiveCitySlug && !citiesLoading && (
+        <section className="rounded-xl border border-[var(--brand-accent)]/20 bg-[var(--brand-accent-soft)] px-4 py-3">
+          <div className="font-medium text-[var(--text-strong)]">Wo soll dein Tag stattfinden?</div>
+          <div className="mt-0.5 text-sm text-[var(--text-muted)]">
+            Wähle unten eine Stadt – PerfectDay24 erstellt deinen Plan automatisch.
+          </div>
+        </section>
+      )}
+
       <section className="rounded-xl bg-white p-3 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
         <div className="grid gap-2 sm:grid-cols-2 lg:flex lg:overflow-visible">
           <label className="min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[150px] lg:flex-1">

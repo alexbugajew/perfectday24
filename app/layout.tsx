@@ -4,8 +4,6 @@ import "./globals.css";
 import MainNav from "@/components/MainNav";
 import FloatingChat from "@/components/ui/FloatingChat";
 import MobileBottomNav from "@/components/ui/MobileBottomNav";
-import "leaflet/dist/leaflet.css";
-import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PerfectDay24 - Curated City Planning",
+  title: "PerfectDay24 – Deinen Tag planen",
   description:
-    "Plane staedtische Tage mit lokaler Qualitaet, klarer Struktur und abgestimmten Gruppenentscheidungen.",
+    "Plane deinen nächsten Tag in der Stadt – mit echten Orten, Events und Wegen. Kostenlos, keine Anmeldung nötig.",
 };
 
 export default function RootLayout({
