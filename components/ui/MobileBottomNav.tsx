@@ -46,7 +46,7 @@ const NAV_ITEMS = [
   },
   {
     href: "/saved",
-    label: "Für mich",
+    label: "Meine Pläne",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -59,25 +59,6 @@ const NAV_ITEMS = [
         className="h-6 w-6"
       >
         <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-      </svg>
-    ),
-  },
-  {
-    href: "/profile",
-    label: "Profil",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.75}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-6 w-6"
-      >
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
       </svg>
     ),
   },
@@ -105,7 +86,7 @@ export default function MobileBottomNav() {
     >
       {/* Safe area fill for iOS home indicator */}
       <div className="border-t border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.96)] backdrop-blur-xl pb-safe">
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-3">
           {NAV_ITEMS.map((item) => {
             const active = isActive(item.href);
             return (

@@ -1663,45 +1663,46 @@ function PlannerPageContent() {
             )}
           </div>
 
-          {/* Primäraktionen — Route starten + Plan speichern */}
-          <div className="flex w-full flex-col gap-2 sm:flex-row sm:flex-wrap">
+          {/* Primäraktion — Route starten */}
+          <button
+            type="button"
+            onClick={() => void startPlannerRouteRun()}
+            disabled={plannedStops.length === 0}
+            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60"
+          >
+            Route starten
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Sekundäraktionen — Teilen + Anderer Vorschlag */}
+          <div className="flex gap-2">
             <button
               type="button"
-              onClick={() => void startPlannerRouteRun()}
+              onClick={() => {
+                const planToShare = selectedPlan ?? latestSavedPlan;
+                if (planToShare) void sharePlan(planToShare);
+                else showToast("Speichere den Plan zuerst, um ihn zu teilen.");
+              }}
               disabled={plannedStops.length === 0}
-              className="flex w-full items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1f2937] disabled:opacity-60 sm:w-auto"
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98] disabled:opacity-60"
             >
-              Route starten
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+              </svg>
+              Teilen
             </button>
             <button
               type="button"
-              onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
-              disabled={!authReady || !userId || saving || plannedStops.length === 0}
-              className="flex w-full items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1f2937] disabled:opacity-60 sm:w-auto"
+              onClick={rerollPlan}
+              disabled={plannedStops.length === 0}
+              className="flex flex-1 items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)] active:scale-[0.98] disabled:opacity-60"
             >
-              {!authReady
-                ? "Auth..."
-                : !userId
-                  ? "Login nötig"
-                  : saving
-                    ? "Speichern..."
-                    : editingPlanId
-                      ? "Als neuen Stand speichern"
-                    : "Plan speichern"}
+              Anderer Vorschlag
             </button>
           </div>
-
-          {/* Sekundäraktion — Gespeichert öffnen */}
-          {authReady && userId ? (
-            <div>
-              <Link
-                href="/saved"
-                className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
-              >
-                Gespeichert öffnen
-              </Link>
-            </div>
-          ) : null}
 
           {/* Gruppenspezifisch — nur sichtbar wenn groupEnabled */}
           {groupEnabled && activeVariant ? (
@@ -1720,26 +1721,24 @@ function PlannerPageContent() {
             </div>
           ) : null}
 
-          {/* Weitere Aktionen — Mobile: hinter Toggle; Desktop: immer sichtbar */}
+          {/* Tertiäraktionen — Mobile: hinter Toggle; Desktop: sichtbar */}
           <button
             type="button"
             onClick={() => setShowWeitere((v) => !v)}
             className="self-start text-xs text-[var(--text-muted)] transition hover:text-[var(--text-strong)] sm:hidden"
           >
-            {showWeitere ? "Weniger Optionen ↑" : "Mehr Optionen ↓"}
+            {showWeitere ? "Weniger ↑" : "Weitere Optionen ↓"}
           </button>
           <div
             className={`flex flex-wrap items-center gap-2 border-t border-[var(--line-subtle)] pt-2 ${showWeitere ? "" : "hidden sm:flex"}`}
           >
-            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-              Weitere
-            </span>
             <button
               type="button"
-              onClick={rerollPlan}
-              className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+              onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
+              disabled={!authReady || !userId || saving || plannedStops.length === 0}
+              className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
             >
-              Neu generieren
+              {!authReady ? "Auth..." : !userId ? "Login nötig" : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
             </button>
             <button
               type="button"
