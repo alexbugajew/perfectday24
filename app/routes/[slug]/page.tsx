@@ -1869,10 +1869,10 @@ function RouteDetailPageContent() {
       <main className="mx-auto max-w-6xl sm:p-6 md:p-8">
         <div className="space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <Link href="/saved" className="text-sm text-gray-600 underline underline-offset-4">
-              Gespeichert
+            <Link href="/saved" className="text-sm text-[var(--text-muted)] underline underline-offset-4">
+              Meine Pläne
             </Link>
-            <div className="text-sm text-gray-500">Route wird vorbereitet</div>
+            <div className="text-sm text-[var(--text-muted)]">Route wird vorbereitet</div>
           </div>
 
           <section className="overflow-hidden rounded-[28px] border bg-white shadow-sm">
@@ -1918,17 +1918,24 @@ function RouteDetailPageContent() {
 
   if (notFound || !route) {
     return (
-      <main className="max-w-5xl mx-auto p-8">
-        <div className="mb-4">
-          <Link href="/saved" className="text-sm underline">
-            Gespeichert
+      <main className="pd24-page-standard px-4 pb-16 pt-6">
+        <div className="mb-6">
+          <Link href="/saved" className="text-sm text-[var(--text-muted)] underline underline-offset-4">
+            Meine Pläne
           </Link>
         </div>
-        <div className="p-6 border rounded-xl">
-          <h1 className="text-2xl font-bold mb-2">Route nicht gefunden</h1>
-          <p className="text-gray-600">
+        <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Nicht gefunden</div>
+          <h1 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Route nicht gefunden</h1>
+          <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
             Die Route existiert nicht oder ist aktuell nicht öffentlich verfügbar.
           </p>
+          <Link
+            href="/explore"
+            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+          >
+            Routen entdecken
+          </Link>
         </div>
       </main>
     );
@@ -1969,11 +1976,11 @@ function RouteDetailPageContent() {
         </div>
       ) : null}
       <div className="flex items-center justify-between gap-3 flex-wrap">
-        <Link href="/saved" className="text-sm text-gray-600 underline underline-offset-4">
-          Gespeichert
+        <Link href="/saved" className="text-sm text-[var(--text-muted)] underline underline-offset-4">
+          Meine Pläne
         </Link>
-        <Link href="/" className="text-sm text-gray-600 underline underline-offset-4">
-          Zum Planner
+        <Link href="/planner" className="text-sm text-[var(--text-muted)] underline underline-offset-4">
+          Planen
         </Link>
       </div>
 

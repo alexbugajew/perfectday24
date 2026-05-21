@@ -135,22 +135,22 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
 
   if (!token) {
     return (
-      <main className="p-10 max-w-3xl mx-auto">
-        <div className="flex items-center justify-between gap-4 mb-6">
-          <div>
-            <h1 className="text-3xl font-bold">PerfectDay24</h1>
-            <p className="text-gray-600">Share-Link</p>
-          </div>
-          <Link href="/" className="px-3 py-2 rounded border text-sm">
-            Zur Startseite
+      <main className="pd24-page-standard px-4 pb-16 pt-6">
+        <nav className="mb-8 flex items-center justify-between gap-4">
+          <Link href="/" className="text-sm font-semibold text-[var(--text-strong)]">PerfectDay24</Link>
+        </nav>
+        <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Link ungültig</div>
+          <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Dieser Link funktioniert nicht.</h2>
+          <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
+            Bitte frag die Person, die den Plan geteilt hat, nach dem richtigen Link.
+          </p>
+          <Link
+            href="/planner"
+            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+          >
+            Eigenen Plan erstellen
           </Link>
-        </div>
-
-        <div className="p-4 border rounded-lg">
-          <div className="font-semibold mb-1">Token fehlt</div>
-          <div className="text-sm text-gray-600">
-            Bitte öffne einen Link wie <code>/p/&lt;token&gt;</code>.
-          </div>
         </div>
       </main>
     );
@@ -181,31 +181,22 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
 
   if (rpcResp.error || !plan) {
     return (
-      <main className="p-10 max-w-3xl mx-auto">
-        <div className="flex items-center justify-between gap-4 mb-6">
-          <div>
-            <h1 className="text-3xl font-bold">PerfectDay24</h1>
-            <p className="text-gray-600">Share-Link</p>
-          </div>
-          <Link href="/" className="px-3 py-2 rounded border text-sm">
-            Zur Startseite
+      <main className="pd24-page-standard px-4 pb-16 pt-6">
+        <nav className="mb-8 flex items-center justify-between gap-4">
+          <Link href="/" className="text-sm font-semibold text-[var(--text-strong)]">PerfectDay24</Link>
+        </nav>
+        <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Plan nicht gefunden</div>
+          <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Dieser Link ist nicht mehr aktiv.</h2>
+          <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
+            Der Plan wurde möglicherweise gelöscht oder der Link ist abgelaufen. Frag die Person, die ihn geteilt hat, nach einem neuen Link.
+          </p>
+          <Link
+            href="/planner"
+            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+          >
+            Eigenen Plan erstellen
           </Link>
-        </div>
-
-        <div className="p-4 border rounded-lg">
-          <div className="font-semibold mb-1">Plan nicht gefunden</div>
-          <div className="text-sm text-gray-600">
-            Dieser Link ist ungültig oder der Plan wurde nicht (mehr) geteilt.
-          </div>
-
-          <div className="mt-4 text-xs text-gray-600 whitespace-pre-wrap">
-            <div className="font-semibold mb-1">Debug</div>
-            <div>token: {token}</div>
-            <div className="mt-2 font-semibold">rpc error:</div>
-            <div>{rpcResp.error ? JSON.stringify(rpcResp.error, null, 2) : "—"}</div>
-            <div className="mt-2 font-semibold">rpc data:</div>
-            <div>{rpcDataRaw ? JSON.stringify(rpcDataRaw, null, 2) : "—"}</div>
-          </div>
         </div>
       </main>
     );
@@ -253,7 +244,7 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
   const shareMoment = deriveShareMoment(reactionRows.length, shareExpectedCount || null);
 
   return (
-    <main className="p-10 max-w-4xl mx-auto">
+    <main className="pd24-page-standard px-4 pb-16 pt-6">
       <TrackOnMount
         eventType="share_activation"
         planId={plan.id}
@@ -265,76 +256,63 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
           pinnedVariantLabel: plan.filters?.pinnedVariantLabel ?? null,
         }}
       />
-      <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
-        <div>
-          <h1 className="text-4xl font-bold mb-1">PerfectDay24 🚀</h1>
-          <p className="text-gray-600">Geteilter Plan • ohne Login sichtbar</p>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <Link href="/" className="px-3 py-2 rounded border text-sm">
-            Zur Startseite
-          </Link>
-        </div>
-      </div>
+      {/* ── Nav ── */}
+      <nav className="mb-6 flex items-center justify-between gap-4">
+        <Link href="/" className="text-sm font-semibold text-[var(--text-strong)]">
+          PerfectDay24
+        </Link>
+        <Link
+          href="/planner"
+          className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+        >
+          Eigenen Plan erstellen →
+        </Link>
+      </nav>
 
-      <div className="p-5 border rounded-lg mb-6">
+      {/* ── Plan-Kopf ── */}
+      <div className="mb-5 rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <div className="text-2xl font-semibold">{plan.title || "Untitled Plan"}</div>
-            <div className="text-xs text-gray-500 mt-1">
-              Erstellt: {formatDate(plan.created_at)} • Sort: {plan.sort_mode} • Level:{" "}
-              {plan.active_level || "n/a"}
+            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+              Geteilter Plan
             </div>
-
-            <div className="mt-3 text-sm text-gray-700">
-              <div className="flex flex-wrap gap-x-4 gap-y-1">
-                <div>
-                  <span className="text-gray-500">Radius:</span> {plan.radius_km} km
-                  {plan.effective_radius_km != null ? ` (effektiv: ${plan.effective_radius_km} km)` : ""}
-                </div>
-              </div>
-            </div>
+            <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
+              {plan.title || "Tagesplan"}
+            </h1>
+            <div className="mt-1 text-xs text-[var(--text-muted)]">{formatDate(plan.created_at)}</div>
           </div>
-
-          <div className="flex flex-col items-end gap-2">
-            <CopyPlanButton
-              plan={planForCopy}
-              sourcePlanId={plan.id}
-              citySlug={plan.filters?.citySlug ?? null}
-            />
-            {chatPrefillHref ? (
-              <Link href={chatPrefillHref} className="px-3 py-2 rounded border text-sm">
-                Im Chat weitergeben
-              </Link>
-            ) : null}
-          </div>
+          <CopyPlanButton
+            plan={planForCopy}
+            sourcePlanId={plan.id}
+            citySlug={plan.filters?.citySlug ?? null}
+          />
         </div>
 
         {sharedChoiceSummary.length ? (
-          <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 text-sm text-emerald-950">
+          <div className="mt-4 rounded-xl border border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)] p-4 text-sm text-[var(--text-strong)]">
             <div className="flex items-center gap-2 flex-wrap">
-              <div className="font-semibold">Gemeinsame Wahl</div>
+              <span className="font-semibold">Gemeinsame Wahl</span>
               {shareMoment ? (
                 <span
                   className={`rounded-full border bg-white px-2 py-1 text-[11px] font-medium ${
                     shareMoment.tone === "emerald"
-                      ? "border-emerald-300 text-emerald-900"
+                      ? "border-[var(--state-success)]/30 text-[var(--state-success)]"
                       : shareMoment.tone === "amber"
-                        ? "border-amber-300 text-amber-900"
-                        : "border-sky-300 text-sky-900"
+                        ? "border-amber-300 text-amber-800"
+                        : "border-sky-300 text-sky-800"
                   }`}
                 >
                   {shareMoment.label}
                 </span>
               ) : null}
               {plan.filters?.finalGroupPlan ? (
-                <span className="rounded-full border border-sky-300 bg-white px-2 py-1 text-[11px] font-medium text-sky-900">
+                <span className="rounded-full border border-sky-300 bg-white px-2 py-1 text-[11px] font-medium text-sky-800">
                   {plan.filters?.finalGroupStatusLabel || plan.filters?.finalGroupPlanLabel || "Finaler Gruppenplan"}
                 </span>
               ) : null}
             </div>
-            <div className="mt-2 space-y-1">
+            <div className="mt-2 space-y-1 text-sm text-[var(--text-muted)]">
               {sharedChoiceSummary.map((line) => (
                 <div key={line}>{line}</div>
               ))}
@@ -361,19 +339,20 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
         </div>
 
         {plan.ai_description ? (
-          <div className="mt-4 p-4 border rounded-lg text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
+          <div className="mt-4 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-4 text-sm leading-7 text-[var(--text-muted)] whitespace-pre-wrap">
             {plan.ai_description}
           </div>
         ) : null}
       </div>
 
+      {/* ── Monetization Debug (intern) ── */}
       {monetizationDebug ? (
-        <div className="mb-6 space-y-4">
+        <div className="mb-5 space-y-4">
           <InternalMonetizationSlot
             enabled={monetizationDebug}
             slotKey="shared_plan_partner_cta"
             title="Shared Plan: Partner CTA"
-            description="Interner Pilot fuer einen kontextnahen Partner-CTA auf geteilten Plaenen. Hier pruefen wir, ob ein klar markierter Zusatzimpuls nach Gruppenentscheidung und Planuebernahme produktvertraeglich bleibt."
+            description="Interner Pilot für einen kontextnahen Partner-CTA auf geteilten Plänen."
             productKeys={["sponsored_placement", "partner_basic", "partner_pro"]}
             previewItems={["Date-Dinner CTA", "Gruppen-Reservierung", "Kontextnaher Partnerimpuls"]}
             citySlug={shareCitySlug}
@@ -389,80 +368,87 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
         </div>
       ) : null}
 
-      <div className="p-4 border rounded-lg mb-6 space-y-3">
-        <div>
-          <div className="font-semibold">Route</div>
-          <div className="text-xs text-gray-600">
-            Startpunkt: {plan.filters?.startPoint?.label || "—"}
-          </div>
-        </div>
-
-        {mapStops.length >= 2 ? (
+      {/* ── Karte ── */}
+      {mapStops.length >= 2 ? (
+        <div className="mb-5 overflow-hidden rounded-xl border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)]">
           <PlanMapClient stops={mapStops} profile="foot" height={360} />
-        ) : (
-          <div className="text-sm text-gray-600">
-            Für die Karte fehlen ausreichend Koordinaten.
+        </div>
+      ) : null}
+
+      {/* ── Stops ── */}
+      <div className="mb-6">
+        <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+          Stops im Plan
+        </div>
+        {slots.length === 0 ? (
+          <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-4 text-sm text-[var(--text-muted)]">
+            Keine Stops gespeichert.
           </div>
-        )}
-      </div>
+        ) : (
+          <div className="space-y-3">
+            {slots.map((s: any, idx: number) => {
+              const loc = getLocationFromSlot(s);
+              const name = normStr(loc?.name);
+              const type = normStr(loc?.type);
+              const reservationUrl = normStr(loc?.reservation_url);
+              const affiliateMatch =
+                typeof loc?.id === "string" ? affiliateResolution.byLocationId[loc.id] ?? null : null;
+              const targetUrl = affiliateMatch?.targetUrl ?? reservationUrl;
+              const dur = s?.durationMin ?? s?.duration_min ?? null;
+              const travel = s?.travelMinFromPrev ?? s?.travel_min_from_prev ?? null;
 
-      <h2 className="text-2xl font-semibold mb-3">Stops</h2>
-
-      {slots.length === 0 ? (
-        <div className="p-4 border rounded-lg text-sm text-gray-700">Keine Stops gespeichert.</div>
-      ) : (
-        <div className="space-y-4 mb-10">
-          {slots.map((s: any, idx: number) => {
-            const loc = getLocationFromSlot(s);
-            const name = normStr(loc?.name);
-            const type = normStr(loc?.type);
-            const reservationUrl = normStr(loc?.reservation_url);
-            const affiliateMatch =
-              typeof loc?.id === "string" ? affiliateResolution.byLocationId[loc.id] ?? null : null;
-            const targetUrl = affiliateMatch?.targetUrl ?? reservationUrl;
-            const dur = s?.durationMin ?? s?.duration_min ?? null;
-            const travel = s?.travelMinFromPrev ?? s?.travel_min_from_prev ?? null;
-            const distText = kmText(
-              loc?.distanceKm ?? loc?.distance_km ?? loc?.distanceFromOriginKm ?? null
-            );
-
-            return (
-              <div key={s?.index ?? s?.slot ?? idx} className="p-4 border rounded-lg">
-                <div className="flex items-start justify-between gap-4 flex-wrap">
-                  <div>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <div className="font-bold text-lg">{mapSlotTitle(s)}</div>
-                      {mapSlotSubtitle(s) ? (
-                        <span className="text-xs px-2 py-1 rounded border text-gray-700">
-                          {mapSlotSubtitle(s)}
+              return (
+                <div
+                  key={s?.index ?? s?.slot ?? idx}
+                  className="rounded-xl border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]"
+                >
+                  <div className="flex items-start justify-between gap-4 flex-wrap">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#171717] text-[11px] font-semibold text-white">
+                          {idx + 1}
                         </span>
+                        <span className="text-base font-semibold text-[var(--text-strong)]">
+                          {mapSlotTitle(s)}
+                        </span>
+                        {mapSlotSubtitle(s) ? (
+                          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-0.5 text-[11px] text-[var(--text-muted)]">
+                            {mapSlotSubtitle(s)}
+                          </span>
+                        ) : null}
+                      </div>
+                      {loc ? (
+                        <>
+                          {name ? (
+                            <div className="mt-1 text-sm text-[var(--text-muted)]">{name}</div>
+                          ) : null}
+                          {type ? (
+                            <div className="mt-0.5 text-xs text-[var(--text-muted)]">{type}</div>
+                          ) : null}
+                          {(typeof dur === "number" || typeof travel === "number") ? (
+                            <div className="mt-1.5 flex flex-wrap gap-2">
+                              {typeof dur === "number" ? (
+                                <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-0.5 text-[11px] text-[var(--text-muted)]">
+                                  ~{dur} Min
+                                </span>
+                              ) : null}
+                              {typeof travel === "number" ? (
+                                <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-0.5 text-[11px] text-[var(--text-muted)]">
+                                  +{travel} Min Weg
+                                </span>
+                              ) : null}
+                            </div>
+                          ) : null}
+                        </>
                       ) : null}
                     </div>
-
-                    {loc ? (
-                      <>
-                        <div className="mt-2 font-semibold">{name || "Unbenannte Location"}</div>
-                        <div className="text-gray-700">{type}</div>
-
-                        <div className="text-xs text-gray-500 mt-1">
-                          {distText ? <>Distanz: {distText}</> : null}
-                          {typeof dur === "number" ? <> {distText ? " • " : ""}Dauer: {dur} Min</> : null}
-                          {typeof travel === "number" ? <> • Weg: ~{travel} Min</> : null}
-                        </div>
-                      </>
-                    ) : (
-                      <div className="mt-2 text-sm text-gray-600">—</div>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col items-end gap-2">
                     {targetUrl ? (
                       <MonetizedExternalLink
                         href={targetUrl}
                         targetUrl={targetUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="px-3 py-2 rounded border text-sm"
+                        className="shrink-0 rounded-lg border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
                         planId={plan.id}
                         locationId={typeof loc?.id === "string" ? loc.id : null}
                         partnerProfileId={affiliateMatch?.partnerProfileId ?? null}
@@ -477,18 +463,24 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
                     ) : null}
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        )}
+      </div>
 
-      <div className="p-4 border rounded-lg text-sm text-gray-700">
-        <div className="font-semibold mb-1">Tipp</div>
-        <div>
-          Wenn du den Plan übernimmst, kannst du ihn auf der Startseite weiter anpassen (Vorlieben, Umkreis, Stops tauschen,
-          KI-Text neu erzeugen).
-        </div>
+      {/* ── Footer CTA ── */}
+      <div className="rounded-xl border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.9)] p-5">
+        <div className="text-sm font-semibold text-[var(--text-strong)]">Plan übernehmen und anpassen</div>
+        <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
+          Klick auf „Plan übernehmen" lädt diesen Plan in deinen Planner — von dort kannst du Stops
+          tauschen, das Timing anpassen und den Plan erneut teilen.
+        </p>
+        <CopyPlanButton
+          plan={planForCopy}
+          sourcePlanId={plan.id}
+          citySlug={plan.filters?.citySlug ?? null}
+        />
       </div>
     </main>
   );

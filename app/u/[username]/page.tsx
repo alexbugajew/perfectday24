@@ -645,12 +645,19 @@ function PublicUserProfilePageContent() {
 
   if (notFound || !profile) {
     return (
-      <main className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
-        <div className="rounded-[28px] border border-black/10 bg-white p-8 shadow-sm">
-          <h1 className="text-2xl font-semibold text-gray-950">Profil nicht gefunden</h1>
-          <p className="mt-2 text-sm text-gray-600">
+      <main className="pd24-page-standard px-4 pb-16 pt-6">
+        <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Nicht gefunden</div>
+          <h1 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Profil nicht gefunden</h1>
+          <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
             Für diesen Username gibt es aktuell kein öffentliches Profil.
           </p>
+          <Link
+            href="/explore"
+            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+          >
+            Routen entdecken
+          </Link>
         </div>
       </main>
     );
