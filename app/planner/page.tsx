@@ -119,6 +119,7 @@ function PlannerPageContent() {
   const [plannerTemplateSourceSlug, setPlannerTemplateSourceSlug] = useState<string | null>(null);
   const [plannerTemplateInterests, setPlannerTemplateInterests] = useState<string[]>([]);
   const [showPlannerConfig, setShowPlannerConfig] = useState(false);
+  const [showWeitere, setShowWeitere] = useState(false);
 
   const [stopOffsets, setStopOffsets] = useState<number[]>([]);
 
@@ -1620,7 +1621,7 @@ function PlannerPageContent() {
           </button>
         </div>
 
-        <div className="mt-3 flex flex-col gap-3 border-t border-[rgba(68,57,46,0.08)] pt-3 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-3 flex flex-col gap-3 border-t border-[rgba(68,57,46,0.08)] pt-3">
           <div className="min-w-0">
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
               Dein Plan
@@ -1636,27 +1637,21 @@ function PlannerPageContent() {
             )}
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          {/* Primäraktionen — Route starten + Plan speichern */}
+          <div className="flex w-full flex-col gap-2 sm:flex-row sm:flex-wrap">
             <button
               type="button"
               onClick={() => void startPlannerRouteRun()}
               disabled={plannedStops.length === 0}
-              className="rounded-md bg-[var(--state-success)] px-3 py-1.5 text-xs font-medium text-white disabled:opacity-60"
+              className="flex w-full items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1f2937] disabled:opacity-60 sm:w-auto"
             >
-              Route Starten
-            </button>
-            <button
-              type="button"
-              onClick={rerollPlan}
-              className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white"
-            >
-              neu generieren
+              Route starten
             </button>
             <button
               type="button"
               onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
               disabled={!authReady || !userId || saving || plannedStops.length === 0}
-              className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] disabled:opacity-60"
+              className="flex w-full items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1f2937] disabled:opacity-60 sm:w-auto"
             >
               {!authReady
                 ? "Auth..."
@@ -1668,53 +1663,58 @@ function PlannerPageContent() {
                       ? "Als neuen Stand speichern"
                     : "Plan speichern"}
             </button>
-            {authReady && userId ? (
+          </div>
+
+          {/* Sekundäraktion — Gespeichert öffnen */}
+          {authReady && userId ? (
+            <div>
               <Link
                 href="/saved"
-                className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+                className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
               >
                 Gespeichert öffnen
               </Link>
-            ) : null}
-            {groupEnabled && activeVariant ? (
+            </div>
+          ) : null}
+
+          {/* Gruppenspezifisch — nur sichtbar wenn groupEnabled */}
+          {groupEnabled && activeVariant ? (
+            <div className="flex flex-wrap gap-2">
               <button
                 type="button"
                 onClick={() => setPinnedVariantId((prev) => (prev === activeVariant.variantId ? null : activeVariant.variantId))}
-                className={`rounded-md border px-3 py-1.5 text-xs ${
+                className={`rounded-xl border px-4 py-2 text-sm font-medium transition ${
                   pinnedVariant?.variantId === activeVariant.variantId
                     ? "border-[var(--state-success)]/35 bg-[var(--brand-accent-cloud)] text-[var(--state-success)]"
-                    : ""
+                    : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-surface)]"
                 }`}
               >
                 {pinnedVariant?.variantId === activeVariant.variantId ? "Unsere Wahl" : "Als Wahl markieren"}
               </button>
-            ) : null}
-            {groupEnabled && (pinnedVariant ?? activeVariant) ? (
-              <button type="button" onClick={copyPinnedChoiceSummary} className="rounded-md border px-3 py-1.5 text-xs">
-                Wahltext kopieren
-              </button>
-            ) : null}
-            {groupEnabled && (pinnedVariant ?? activeVariant) ? (
-              <button type="button" onClick={openChoiceInChat} className="rounded-md border px-3 py-1.5 text-xs">
-                Chat vorbereiten
-              </button>
-            ) : null}
-            {!userId && authReady ? (
-              <button
-                type="button"
-                onClick={() => void continueAsGuest()}
-                disabled={authLoading}
-                className="rounded-md border px-3 py-1.5 text-xs disabled:opacity-60"
-              >
-                {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
-              </button>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
 
-          <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-[var(--line-subtle)] pt-2">
+          {/* Weitere Aktionen — Mobile: hinter Toggle; Desktop: immer sichtbar */}
+          <button
+            type="button"
+            onClick={() => setShowWeitere((v) => !v)}
+            className="self-start text-xs text-[var(--text-muted)] transition hover:text-[var(--text-strong)] sm:hidden"
+          >
+            {showWeitere ? "Weniger Optionen ↑" : "Mehr Optionen ↓"}
+          </button>
+          <div
+            className={`flex flex-wrap items-center gap-2 border-t border-[var(--line-subtle)] pt-2 ${showWeitere ? "" : "hidden sm:flex"}`}
+          >
             <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Weitere
             </span>
+            <button
+              type="button"
+              onClick={rerollPlan}
+              className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+            >
+              Neu generieren
+            </button>
             <button
               type="button"
               onClick={resetPlan}
@@ -1730,6 +1730,34 @@ function PlannerPageContent() {
             >
               Als Creator-Route vorbereiten
             </button>
+            {groupEnabled && (pinnedVariant ?? activeVariant) ? (
+              <>
+                <button
+                  type="button"
+                  onClick={copyPinnedChoiceSummary}
+                  className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+                >
+                  Wahltext kopieren
+                </button>
+                <button
+                  type="button"
+                  onClick={openChoiceInChat}
+                  className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+                >
+                  Chat vorbereiten
+                </button>
+              </>
+            ) : null}
+            {!userId && authReady ? (
+              <button
+                type="button"
+                onClick={() => void continueAsGuest()}
+                disabled={authLoading}
+                className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
+              >
+                {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
+              </button>
+            ) : null}
           </div>
         </div>
       </section>
