@@ -1357,6 +1357,29 @@ function PlannerPageContent() {
       "planDate",
       "interests",
     ].some((key) => searchParams.has(key));
+
+  const occasionPageTitleMap: Record<string, string> = {
+    date: "Date Night",
+    friends: "Mit Freunden",
+    family: "Familientag",
+    solo: "Solotrip",
+    party: "Party",
+    tourism: "Stadtentdeckung",
+  };
+  const occasionTitle = occasionPageTitleMap[occasion] ?? occasionLabel(occasion);
+  const plannerPageTitle =
+    cityLabel && cityLabel !== "-"
+      ? `${occasionTitle} in ${cityLabel}`
+      : occasionTitle;
+
+  const plannerHeaderDescription = homepagePresetActive
+    ? plannerLoading || citiesLoading
+      ? "Wir stellen deinen Plan gerade zusammen — Orte, Timing und Wege werden abgestimmt."
+      : plannedStops.length > 0
+        ? "Dein erster Vorschlag ist fertig. Schau ihn dir an und pass ihn nach Lust an."
+        : "Noch kein Vorschlag — wähle einen Startpunkt oder justiere die Parameter."
+    : "Wähle Stadt und Anlass. PerfectDay24 erstellt automatisch einen konkreten Tagesplan mit Orten, Zeiten und Wegen.";
+
   const quickExperienceOptions = eventModesAvailable
     ? experienceOptionsForOccasion(occasion)
     : experienceOptionsForOccasion(occasion).filter(
@@ -1368,7 +1391,7 @@ function PlannerPageContent() {
       : startPoint.label;
 
   return (
-    <main className="space-y-4">
+    <main className="pd24-page-wide space-y-4">
       <section className="relative overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
         <div className="pointer-events-none absolute right-[-4rem] top-[-4rem] h-40 w-40 rounded-full bg-[rgba(90,118,136,0.14)] blur-3xl" />
         <div className="pointer-events-none absolute bottom-[-3rem] left-[16%] h-32 w-32 rounded-full bg-[rgba(124,144,160,0.12)] blur-3xl" />
@@ -1376,21 +1399,24 @@ function PlannerPageContent() {
           <div className="max-w-3xl">
             <div className="mb-2 flex flex-wrap gap-2">
               <span className="warm-chip rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em]">
-                Real local planning
+                {occasionTitle}
               </span>
-              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
-                {cityLabel}
-              </span>
-              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
-                {experienceModeLabel(experienceMode, occasion)}
-              </span>
+              {cityLabel !== "-" && (
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+                  {cityLabel}
+                </span>
+              )}
+              {plannerTemplateLoadedLabel ? (
+                <span className="rounded-full border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)] px-2.5 py-1 text-[11px] font-medium text-[var(--brand-accent)]">
+                  Vorlage
+                </span>
+              ) : null}
             </div>
             <h1 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
-              Planner
+              {plannerPageTitle}
             </h1>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-              PerfectDay24 verbindet Stadtwissen, echte Events, Gruppenentscheidungen und sinnvolle Wegezeiten
-              zu einem Plan, der nicht nach Formular aussieht, sondern nach einem richtig guten Tag.
+              {plannerHeaderDescription}
             </p>
           </div>
 
@@ -2000,5 +2026,4 @@ export default function Home() {
     </Suspense>
   );
 }
-
 
