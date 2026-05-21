@@ -1701,7 +1701,7 @@ function PlannerPageContent() {
                 <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
                 <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
               </svg>
-              Teilen
+              {groupEnabled ? "Link an Gruppe" : "Teilen"}
             </button>
             <button
               type="button"
@@ -1713,22 +1713,16 @@ function PlannerPageContent() {
             </button>
           </div>
 
-          {/* Gruppenspezifisch — nur sichtbar wenn groupEnabled */}
-          {groupEnabled && activeVariant ? (
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => setPinnedVariantId((prev) => (prev === activeVariant.variantId ? null : activeVariant.variantId))}
-                className={`rounded-xl border px-4 py-2 text-sm font-medium transition ${
-                  pinnedVariant?.variantId === activeVariant.variantId
-                    ? "border-[var(--state-success)]/35 bg-[var(--brand-accent-cloud)] text-[var(--state-success)]"
-                    : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-surface)]"
-                }`}
-              >
-                {pinnedVariant?.variantId === activeVariant.variantId ? "Unsere Wahl" : "Als Wahl markieren"}
-              </button>
+          {/* Gruppenkontext-Hinweis */}
+          {groupEnabled && (
+            <div className="flex items-center gap-2 rounded-xl border border-[var(--state-success)]/20 bg-[var(--brand-accent-cloud)] px-3 py-2 text-xs text-[var(--state-success)]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <span>Gruppe aktiv — "Link an Gruppe" kopiert den Plan als teilbaren Link für alle.</span>
             </div>
-          ) : null}
+          )}
 
           {/* Tertiäraktionen — Mobile: hinter Toggle; Desktop: sichtbar */}
           <button
@@ -1764,6 +1758,19 @@ function PlannerPageContent() {
             >
               Als Creator-Route vorbereiten
             </button>
+            {groupEnabled && activeVariant ? (
+              <button
+                type="button"
+                onClick={() => setPinnedVariantId((prev) => (prev === activeVariant.variantId ? null : activeVariant.variantId))}
+                className={`rounded-md border px-3 py-1.5 text-xs font-medium transition ${
+                  pinnedVariant?.variantId === activeVariant.variantId
+                    ? "border-[var(--state-success)]/35 bg-[var(--brand-accent-cloud)] text-[var(--state-success)]"
+                    : "border-[var(--line-subtle)] bg-white text-[var(--text-muted)] hover:bg-[var(--bg-panel)]"
+                }`}
+              >
+                {pinnedVariant?.variantId === activeVariant.variantId ? "✓ Gruppenentscheidung" : "Als Gruppenentscheidung markieren"}
+              </button>
+            ) : null}
             {groupEnabled && (pinnedVariant ?? activeVariant) ? (
               <>
                 <button
@@ -1771,14 +1778,14 @@ function PlannerPageContent() {
                   onClick={copyPinnedChoiceSummary}
                   className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
                 >
-                  Wahltext kopieren
+                  Zusammenfassung kopieren
                 </button>
                 <button
                   type="button"
                   onClick={openChoiceInChat}
                   className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
                 >
-                  Chat vorbereiten
+                  Im Chat besprechen
                 </button>
               </>
             ) : null}

@@ -1548,14 +1548,13 @@ export default function ProfilePage() {
   if (!mounted) return null;
 
   return (
-    <div className="space-y-6">
+    <div className="pd24-page-wide space-y-6">
       <section className="pd24-shell p-4 sm:p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold sm:text-3xl">Konto & Zugang</h1>
+            <h1 className="text-2xl font-semibold sm:text-3xl">Mein Profil</h1>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-              Verbinde hier dein Konto, sichere dein Profil dauerhaft und behalte im Blick, wie viele Routen,
-              Freunde und Social-Verbindungen aktuell aktiv sind.
+              Interessen setzen, Konto verwalten, Routen ansehen.
             </p>
           </div>
 
@@ -1730,14 +1729,14 @@ export default function ProfilePage() {
         className="pd24-scrollbar-none flex gap-2 overflow-x-auto rounded-2xl border border-[var(--line-subtle)] bg-white/80 p-2 text-sm shadow-[var(--shadow-soft)]"
       >
         {[
-          ["#profile-overview", "Konto"],
           ["#profile-interests", "Interessen"],
-          ["#profile-public", "Öffentliches Profil"],
-          ["#profile-routes", "Routen & Gespeichert"],
+          ["#profile-overview", "Konto"],
+          ["#profile-routes", "Meine Routen"],
           ["#profile-friends", "Freunde"],
           ...(groupsFeatureAvailable ? [["#profile-groups", "Gruppen"]] : []),
           ["#profile-social", "Social"],
-          ["#profile-access", "Zugänge"],
+          ["#profile-public", "Öffentliches Profil"],
+          ["#profile-access", "Einstellungen"],
         ].map(([href, label]) => (
           <a
             key={href}
