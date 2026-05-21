@@ -80,7 +80,7 @@ const PlanMap = dynamic(
 );
 
 const PLANNER_LOADING_STEPS = [
-  "Lokale Kandidaten pruefen",
+  "Lokale Kandidaten prüfen",
   "Wege und Zeitfenster clustern",
   "Ablauf als erste Variante bauen",
 ];
@@ -358,7 +358,7 @@ export default function PlannerOutputSection({
             Der Vorschlag konnte noch nicht gebaut werden.
           </h2>
           <p className="mt-2 text-sm leading-6">
-            {plannerError} Pruefe vor allem Startpunkt, Stadt und Fokus. Danach stoesst der
+            {plannerError} Prüfe vor allem Startpunkt, Stadt und Fokus. Danach stößt der
             Planner automatisch einen neuen Lauf an.
           </p>
         </div>
@@ -371,7 +371,7 @@ export default function PlannerOutputSection({
             Es fehlen noch belastbare Kandidaten.
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-            Der Planner zeigt lieber keinen schwachen Ablauf als eine zufaellige Liste. Diese
+            Der Planner zeigt lieber keinen schwachen Ablauf als eine zufällige Liste. Diese
             Anpassungen bringen meistens schnell mehr Substanz:
           </p>
           <div className="mt-4 flex flex-wrap gap-2">

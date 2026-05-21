@@ -1399,7 +1399,7 @@ async function handleDeleteRoute(routeId: string) {
   if (!mounted) return null;
 
   return (
-    <main className="mx-auto max-w-7xl px-1 py-4 sm:px-2 space-y-6">
+    <main className="pd24-page-wide px-1 py-4 sm:px-2 space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="mb-2 flex items-center gap-3">
@@ -2411,7 +2411,7 @@ export default function RoutesPage() {
   return (
     <Suspense
       fallback={
-        <main className="mx-auto max-w-7xl px-1 py-4 sm:px-2 lg:px-4">
+        <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
           <div className="pd24-shell p-6 text-sm text-[var(--text-muted)]">
             Routen werden geladen...
           </div>

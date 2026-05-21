@@ -175,6 +175,26 @@ textarea:disabled {
     background-color 180ms ease;
 }
 
+.pd24-page-wide,
+.pd24-page-standard,
+.pd24-page-narrow {
+  width: 100%;
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.pd24-page-wide {
+  max-width: 80rem;
+}
+
+.pd24-page-standard {
+  max-width: 75rem;
+}
+
+.pd24-page-narrow {
+  max-width: 60rem;
+}
+
 .pd24-card {
   border-radius: var(--radius-card);
   border: 1px solid var(--line-subtle);

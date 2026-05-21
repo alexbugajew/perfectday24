@@ -101,7 +101,7 @@ function formatVariantDistance(km: number | null | undefined) {
 }
 
 function variantGoalLabel(goal: PlanVariant["goal"]) {
-  if (goal === "shortest_route") return "Kuerzeste Wege";
+  if (goal === "shortest_route") return "Kürzeste Wege";
   if (goal === "more_diverse") return "Mehr Vielfalt";
   if (goal === "premium") return "Premium-Fokus";
   return "Bester Fit";
@@ -109,13 +109,13 @@ function variantGoalLabel(goal: PlanVariant["goal"]) {
 
 function variantGoalCopy(goal: PlanVariant["goal"]) {
   if (goal === "shortest_route") {
-    return "Priorisiert weniger Transferzeit und ruhigere Uebergaenge.";
+    return "Priorisiert weniger Transferzeit und ruhigere Übergänge.";
   }
   if (goal === "more_diverse") {
     return "Mischt bewusst verschiedene Kategorien und Stimmungen.";
   }
   if (goal === "premium") {
-    return "Setzt staerker auf hochwertige Orte und besondere Momente.";
+    return "Setzt stärker auf hochwertige Orte und besondere Momente.";
   }
   return "Balanciert Match, Timing, Entfernung und Anlass.";
 }
@@ -392,7 +392,7 @@ export default function PlannerVariantPanel({
                           : "border-[rgba(68,57,46,0.1)] bg-white text-[var(--text-muted)]"
                       }`}
                     >
-                      {active ? "Aktiv" : "Waehlen"}
+                      {active ? "Aktiv" : "Wählen"}
                     </span>
                   </div>
 

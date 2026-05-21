@@ -472,7 +472,7 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
                         label={name || mapSlotTitle(s)}
                         source={affiliateMatch ? "shared_plan_affiliate_cta" : "shared_plan_stop_cta"}
                       >
-                        {affiliateMatch ? `${affiliateMatch.providerName} oeffnen` : "Reservieren"}
+                        {affiliateMatch ? `${affiliateMatch.providerName} öffnen` : "Reservieren"}
                       </MonetizedExternalLink>
                     ) : null}
                   </div>

@@ -103,7 +103,7 @@ function plannerStopVisualMeta(stop: PlannedStop) {
     return { icon: "CU", label: "Kultur" };
   }
   if (category === "activity" || type.includes("park") || type.includes("tour")) {
-    return { icon: "AC", label: "Aktivitaet" };
+    return { icon: "AC", label: "Aktivität" };
   }
 
   return { icon: "ST", label: "Stop" };
@@ -142,7 +142,7 @@ function routeQualityMetrics(plannedStops: PlannedStop[], routeProfile: RoutePro
     {
       label: "Timing",
       value: warningCount > 0 ? `${warningCount} Hinweis` : timedStops > 0 ? `${timedStops} fix` : "flex",
-      note: warningCount > 0 ? "bitte pruefen" : "route stabil",
+      note: warningCount > 0 ? "bitte prüfen" : "route stabil",
     },
     { label: "Transfer", value: formatShortMinutes(travelMinutes), note: routeProfileLabel(routeProfile) },
   ];
@@ -164,14 +164,14 @@ function stopQualitySignals(stop: PlannedStop, index: number, routeProfile: Rout
     signals.push("Guter Einstieg");
   } else if (typeof stop.travelMinFromPrev === "number") {
     if (stop.travelMinFromPrev <= 12) signals.push("Kurzer Wechsel");
-    else if (stop.travelMinFromPrev <= 25) signals.push("Weg geprueft");
+    else if (stop.travelMinFromPrev <= 25) signals.push("Weg geprüft");
     else signals.push("Bewusster Transfer");
   }
 
   if (groupEnabled && stop.groupDecision) {
     if (stop.groupDecision.compromiseLevel === "shared") signals.push("Gruppenfit");
     else if (stop.groupDecision.compromiseLevel === "balanced") signals.push("Balance-Stop");
-    else signals.push("Persoenlicher Fit");
+    else signals.push("Persönlicher Fit");
   }
 
   if (typeof stop.item?.totalScore === "number") {
@@ -179,8 +179,8 @@ function stopQualitySignals(stop: PlannedStop, index: number, routeProfile: Rout
     else if (stop.item.totalScore >= 60) signals.push("Solider Match");
   }
 
-  if (routeProfile === "foot" && index > 0) signals.push("Walkable Route");
-  if (stop.timingWarnings?.length) signals.push("Timing pruefen");
+  if (routeProfile === "foot" && index > 0) signals.push("Fußläufig");
+  if (stop.timingWarnings?.length) signals.push("Timing prüfen");
 
   return Array.from(new Set(signals)).slice(0, 5);
 }
@@ -215,13 +215,13 @@ export default function PlannerStopListSection({
       <div className="mb-4 flex flex-col gap-3 border-b border-[rgba(68,57,46,0.08)] pb-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
-            Kuratierter Ablauf
+            Euer Plan
           </div>
           <h3 className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
-            So koennte euer {occasion === "date" ? "Abend" : occasion === "tourism" ? "Tag" : "Plan"} aussehen.
+            {occasion === "date" ? "Euer Abend, Schritt für Schritt." : occasion === "tourism" ? "Euer Tag, Schritt für Schritt." : "Euer Plan, Schritt für Schritt."}
           </h3>
           <p className="mt-1 max-w-2xl text-xs leading-5 text-[var(--text-muted)]">
-            Ein Ablauf mit Anlass, Event-Moment, Anschluss und klarer Dramaturgie statt nur einer Liste von Orten.
+            Timing, Wege und Reihenfolge — alles aufeinander abgestimmt.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -424,7 +424,7 @@ export default function PlannerStopListSection({
                           </div>
                           {stop.timingWarnings?.length ? (
                             <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-1 text-[11px] font-medium text-rose-700">
-                              Timing pruefen
+                              Timing prüfen
                             </span>
                           ) : (
                             <span className="rounded-full border border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)] px-2 py-1 text-[11px] font-medium text-[var(--state-success)]">
@@ -456,7 +456,7 @@ export default function PlannerStopListSection({
 
                       <details className="mt-3 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
                         <summary className="cursor-pointer text-xs font-medium text-[var(--text-strong)]">
-                          Details und Begruendung
+                          Details und Begründung
                         </summary>
                         <div className="mt-3 space-y-3">
                       <details className="rounded-lg border border-dashed border-[rgba(68,57,46,0.14)] bg-white px-3 py-2">
@@ -518,7 +518,7 @@ export default function PlannerStopListSection({
                                 source={affiliateMatch ? "planner_stop_affiliate_cta" : "planner_stop_primary_cta"}
                                 className="rounded-lg border border-[rgba(68,57,46,0.12)] bg-white px-3 py-2 text-xs hover:bg-[var(--brand-accent-cloud)]"
                               >
-                                {affiliateMatch ? `${affiliateMatch.providerName} oeffnen` : "Reservieren"}
+                                {affiliateMatch ? `${affiliateMatch.providerName} öffnen` : "Reservieren"}
                               </MonetizedExternalLink>
                             );
                           })()}
@@ -623,7 +623,7 @@ export default function PlannerStopListSection({
                                 source="event_source_cta"
                                 className="rounded-lg border border-[var(--state-warning)]/25 bg-white px-3 py-2 text-xs hover:bg-[var(--brand-accent-cloud)]"
                               >
-                                Eventquelle oeffnen
+                                Eventquelle öffnen
                               </MonetizedExternalLink>
                             ) : null}
                           </div>
