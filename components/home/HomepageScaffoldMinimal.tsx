@@ -154,13 +154,16 @@ export default function HomepageScaffoldMinimal() {
                   Wahl.
                 </p>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <div className="mt-8 flex flex-col items-start gap-4">
                   <PD24Button href="/planner" className="w-full sm:w-auto">
                     Tag planen
                   </PD24Button>
-                  <PD24Button href="/explore" variant="secondary" className="hidden sm:inline-flex">
-                    Entdecken
-                  </PD24Button>
+                  <Link
+                    href="/explore"
+                    className="text-sm text-[#8b7767] underline-offset-2 transition hover:text-[#171717] hover:underline"
+                  >
+                    Entdecken →
+                  </Link>
                 </div>
 
                 <div className="mt-7 flex flex-wrap gap-3">
@@ -388,15 +391,14 @@ export default function HomepageScaffoldMinimal() {
                 Starte mit Stadt, Anlass und Stimmung. PerfectDay24 macht daraus einen Tag mit
                 Richtung.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <div className="mt-8 flex flex-col items-start gap-4">
                 <PD24Button href="/planner">Tag planen</PD24Button>
-                <PD24Button
+                <Link
                   href="/saved"
-                  variant="secondary"
-                  className="border-[rgba(255,255,255,0.14)] bg-[rgba(255,255,255,0.06)] text-white hover:bg-[rgba(255,255,255,0.12)] hover:text-white"
+                  className="text-sm text-[rgba(255,253,248,0.65)] underline-offset-2 transition hover:text-[rgba(255,253,248,0.95)] hover:underline"
                 >
-                  Route als Vorlage nutzen
-                </PD24Button>
+                  Route als Vorlage nutzen →
+                </Link>
               </div>
             </div>
           </section>
