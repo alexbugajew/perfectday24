@@ -82,7 +82,7 @@ const NAV_ITEMS = [
   },
 ] as const;
 
-/** Seiten ohne Bottom-Nav (Homepage & Run-Erlebnisse) */
+/** Seiten ohne Bottom-Nav (Homepage, Run-Erlebnisse & Event-Plan-Wizard) */
 const HIDDEN_ON = new Set(["/", "/homepage-concept", "/run"]);
 
 export default function MobileBottomNav() {
@@ -90,7 +90,8 @@ export default function MobileBottomNav() {
 
   const hideNav =
     HIDDEN_ON.has(pathname) ||
-    (pathname.startsWith("/routes/") && pathname.endsWith("/run"));
+    (pathname.startsWith("/routes/") && pathname.endsWith("/run")) ||
+    pathname.startsWith("/events/plan/");
 
   if (hideNav) return null;
 

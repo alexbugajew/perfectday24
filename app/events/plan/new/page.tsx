@@ -626,7 +626,10 @@ function PlanNewInner() {
 
       {/* ── Sticky bottom bar ───────────────────────────────────────────── */}
       {!loading && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.96)] px-4 py-4 backdrop-blur-xl sm:px-6">
+        <div
+        className="fixed bottom-0 left-0 right-0 z-[1200] border-t border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.96)] px-4 pt-4 backdrop-blur-xl sm:px-6"
+        style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom, 0px))" }}
+      >
           <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-wide text-[#8b7767]">
