@@ -175,7 +175,7 @@ function PlanNewInner() {
   const [loading, setLoading]                   = useState(true);
   const [selections, setSelections]             = useState<Record<string, Selection>>({});
   const [quoteRequests, setQuoteRequests]       = useState<Record<string, VendorWithScore>>({});
-  const [activeVendorId, setActiveVendorId]     = useState<Record<string, string | null>>({});
+  const [modalState, setModalState]             = useState<{ vendor: VendorWithScore; needSlug: string } | null>(null);
   const [expandedNeeds, setExpandedNeeds]       = useState<Set<string>>(new Set());
   const [saving, setSaving]                     = useState(false);
 
@@ -253,16 +253,12 @@ function PlanNewInner() {
 
   // ── Interactions ─────────────────────────────────────────────────────────
 
-  function selectVendor(needSlug: string, vendor: VendorWithScore) {
-    setActiveVendorId((prev) => ({
-      ...prev,
-      [needSlug]: prev[needSlug] === vendor.id ? null : vendor.id,
-    }));
-    setSelections((prev) => {
-      const next = { ...prev };
-      if (next[needSlug]?.provider.id !== vendor.id) delete next[needSlug];
-      return next;
-    });
+  function openModal(needSlug: string, vendor: VendorWithScore) {
+    setModalState({ vendor, needSlug });
+  }
+
+  function closeModal() {
+    setModalState(null);
   }
 
   function selectPackage(needSlug: string, vendor: VendorWithScore, pkg: VendorPackage) {
@@ -275,12 +271,12 @@ function PlanNewInner() {
       }
       return { ...prev, [needSlug]: { needSlug, provider: vendor, pkg } };
     });
-    // Remove from quote requests if they now selected a package
     setQuoteRequests((prev) => {
       const next = { ...prev };
       delete next[needSlug];
       return next;
     });
+    closeModal();
   }
 
   function toggleQuoteRequest(needSlug: string, vendor: VendorWithScore) {
@@ -293,12 +289,12 @@ function PlanNewInner() {
       }
       return next;
     });
-    // Clear any package selection for this need
     setSelections((prev) => {
       const next = { ...prev };
       delete next[needSlug];
       return next;
     });
+    closeModal();
   }
 
   function toggleExpand(needSlug: string) {
@@ -482,7 +478,6 @@ function PlanNewInner() {
               const vendors     = vendorsByNeed[needSlug] ?? [];
               const allVendors  = allVendorsByNeed[needSlug] ?? [];
               const expanded    = expandedNeeds.has(needSlug);
-              const active      = activeVendorId[needSlug] ?? null;
               const selection   = selections[needSlug] ?? null;
               const quoteVendor = quoteRequests[needSlug] ?? null;
 
@@ -540,16 +535,14 @@ function PlanNewInner() {
 
                     /* Vendor cards grid */
                     <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                         {vendors.map((vendor) => (
                           <VendorCard
                             key={vendor.id}
                             vendor={vendor}
-                            isActive={active === vendor.id}
                             isSelected={selection?.provider.id === vendor.id}
                             isQuoteRequested={quoteVendor?.id === vendor.id}
-                            onSelect={() => selectVendor(needSlug, vendor)}
-                            onQuoteRequest={() => toggleQuoteRequest(needSlug, vendor)}
+                            onOpen={() => openModal(needSlug, vendor)}
                           />
                         ))}
                       </div>
@@ -566,21 +559,6 @@ function PlanNewInner() {
                             : `Alle ${allVendors.length} Anbieter anzeigen`}
                         </button>
                       )}
-
-                      {/* Package panel — appears when a vendor with packages is expanded */}
-                      {active && (() => {
-                        const activeVendor = vendors.find((v) => v.id === active);
-                        if (!activeVendor || activeVendor.packages.length === 0) return null;
-                        return (
-                          <PackagePanel
-                            vendor={activeVendor}
-                            selectedPkgId={selection?.pkg.id ?? null}
-                            guests={guests}
-                            onSelect={(pkg) => selectPackage(needSlug, activeVendor, pkg)}
-                            onClose={() => setActiveVendorId((prev) => ({ ...prev, [needSlug]: null }))}
-                          />
-                        );
-                      })()}
                     </div>
                   )}
                 </section>
@@ -623,6 +601,22 @@ function PlanNewInner() {
           </div>
         )}
       </div>
+
+      {/* ── Vendor detail modal ─────────────────────────────────────────── */}
+      {modalState && (
+        <VendorModal
+          vendor={modalState.vendor}
+          needSlug={modalState.needSlug}
+          selectedPkgId={selections[modalState.needSlug]?.provider.id === modalState.vendor.id
+            ? selections[modalState.needSlug].pkg.id
+            : null}
+          isQuoteRequested={quoteRequests[modalState.needSlug]?.id === modalState.vendor.id}
+          guests={guests}
+          onSelectPackage={selectPackage}
+          onQuoteRequest={toggleQuoteRequest}
+          onClose={closeModal}
+        />
+      )}
 
       {/* ── Sticky bottom bar ───────────────────────────────────────────── */}
       {!loading && (
@@ -677,52 +671,45 @@ function PlanNewInner() {
 
 function VendorCard({
   vendor,
-  isActive,
   isSelected,
   isQuoteRequested,
-  onSelect,
-  onQuoteRequest,
+  onOpen,
 }: {
   vendor: VendorWithScore;
-  isActive: boolean;
   isSelected: boolean;
   isQuoteRequested: boolean;
-  onSelect: () => void;
-  onQuoteRequest: () => void;
+  onOpen: () => void;
 }) {
   const photo = vendor.media_urls?.[0] ?? null;
   const hasPackages = vendor.packages.length > 0;
+  const bullets = vendor.packages[0]?.includes?.slice(0, 3) ?? [];
 
-  const bookingLabel = vendor.booking_type === "direct" || vendor.booking_type === "instant"
-    ? "Sofort"
-    : "Anfrage";
-  const bookingClass = vendor.booking_type === "direct" || vendor.booking_type === "instant"
-    ? "bg-emerald-50 border-emerald-200 text-emerald-700"
-    : "bg-[var(--bg-surface)] border-[var(--line-subtle)] text-[#8b7767]";
-
-  const isHighlighted = isActive || isSelected || isQuoteRequested;
+  const isHighlighted = isSelected || isQuoteRequested;
 
   return (
-    <div
+    <button
+      type="button"
+      onClick={onOpen}
       className={cx(
-        "flex flex-col overflow-hidden rounded-[20px] border bg-white transition",
+        "flex w-full flex-col overflow-hidden rounded-[20px] border bg-white text-left transition active:scale-[0.98]",
         isHighlighted
           ? isQuoteRequested && !isSelected
             ? "border-amber-400 shadow-[0_4px_16px_rgba(183,106,67,0.12)]"
             : "border-[#171717] shadow-[0_4px_16px_rgba(23,23,23,0.10)]"
-          : "border-[rgba(23,23,23,0.08)] hover:border-[rgba(23,23,23,0.18)]"
+          : "border-[rgba(23,23,23,0.08)] hover:border-[rgba(23,23,23,0.18)] hover:shadow-[0_2px_8px_rgba(23,23,23,0.06)]"
       )}
     >
-      {/* Photo / icon */}
-      <div className="relative h-24 shrink-0 overflow-hidden bg-[#f0ede7]">
+      {/* Hero image */}
+      <div className="relative h-36 w-full shrink-0 overflow-hidden bg-[#f0ede7]">
         {photo ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={photo} alt={vendor.name} className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-3xl opacity-40">
+          <div className="flex h-full w-full items-center justify-center text-4xl opacity-30">
             🏢
           </div>
         )}
+        {/* Badge */}
         {vendor.badge && (
           <span
             className={cx(
@@ -733,158 +720,259 @@ function VendorCard({
             {BADGE_LABEL[vendor.badge]}
           </span>
         )}
+        {/* Verified checkmark */}
         {vendor.is_verified && (
           <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#171717] text-[9px] font-bold text-white">
             ✓
           </span>
         )}
+        {/* Selected / quote overlay ribbon */}
+        {(isSelected || isQuoteRequested) && (
+          <div className={cx(
+            "absolute inset-x-0 bottom-0 px-3 py-1.5 text-[11px] font-semibold",
+            isSelected
+              ? "bg-[#171717]/80 text-white"
+              : "bg-amber-400/90 text-amber-900"
+          )}>
+            {isSelected ? "Ausgewählt ✓" : "Anfrage vorgemerkt ✓"}
+          </div>
+        )}
       </div>
 
-      {/* Info */}
-      <div className="flex flex-1 flex-col p-3">
-        <p className="line-clamp-2 text-sm font-semibold leading-snug text-[#171717]">
+      {/* Info body */}
+      <div className="flex flex-1 flex-col p-3.5">
+        {/* Name */}
+        <p className="line-clamp-1 text-sm font-semibold leading-snug text-[#171717]">
           {vendor.name}
         </p>
 
-        <div className="mt-1.5 flex flex-wrap gap-1">
-          <span className={cx("rounded-full border px-1.5 py-0.5 text-[10px] font-medium", bookingClass)}>
-            {bookingLabel}
-          </span>
-          {!hasPackages && (
-            <span className="rounded-full border border-[rgba(183,106,67,0.3)] bg-[rgba(183,106,67,0.08)] px-1.5 py-0.5 text-[10px] font-medium text-[#b76a43]">
-              Preis auf Anfrage
-            </span>
-          )}
-        </div>
-
-        {vendor.minPrice > 0 && (
-          <p className="mt-1.5 text-xs text-[#8b7767]">
-            ab {vendor.minPrice.toLocaleString("de-DE")} €
+        {/* Slogan / description */}
+        {vendor.description && (
+          <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#665d55]">
+            {vendor.description}
           </p>
         )}
 
-        <div className="mt-auto pt-3">
-          {hasPackages ? (
-            /* Vendor with packages: "Auswählen" opens package panel */
-            <button
-              type="button"
-              onClick={onSelect}
-              className={cx(
-                "w-full rounded-xl border px-3 py-1.5 text-xs font-medium transition",
-                isSelected
-                  ? "border-[#171717] bg-[#171717] text-white hover:opacity-80"
-                  : isActive
-                    ? "border-[#171717] bg-[#171717] text-white hover:opacity-80"
-                    : "border-[rgba(23,23,23,0.15)] bg-white text-[#171717] hover:border-[#171717]"
-              )}
-            >
-              {isSelected ? "Ausgewählt ✓" : isActive ? "Schließen" : "Auswählen"}
-            </button>
-          ) : (
-            /* Vendor without packages: "Preise anfragen" */
-            <button
-              type="button"
-              onClick={onQuoteRequest}
-              className={cx(
-                "w-full rounded-xl border px-3 py-1.5 text-xs font-medium transition",
-                isQuoteRequested
-                  ? "border-amber-400 bg-amber-50 text-amber-800 hover:bg-amber-100"
-                  : "border-[rgba(183,106,67,0.4)] bg-white text-[#b76a43] hover:border-[#b76a43] hover:bg-[rgba(183,106,67,0.05)]"
-              )}
-            >
-              {isQuoteRequested ? "Anfrage vorgemerkt ✓" : "Preise anfragen"}
-            </button>
-          )}
+        {/* Bullet points from first package */}
+        {bullets.length > 0 && (
+          <ul className="mt-2 space-y-0.5">
+            {bullets.map((b) => (
+              <li key={b} className="flex items-start gap-1.5 text-[11px] text-[#665d55]">
+                <span className="mt-px shrink-0 text-emerald-600">✓</span>
+                <span className="line-clamp-1">{b}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Price row */}
+        <div className="mt-auto flex items-center justify-between pt-3">
+          <p className="text-xs font-medium text-[#8b7767]">
+            {hasPackages && vendor.minPrice > 0
+              ? `ab ${vendor.minPrice.toLocaleString("de-DE")} €`
+              : "Preis auf Anfrage"}
+          </p>
+          <span className="text-xs font-medium text-[#b76a43]">
+            Details →
+          </span>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
-// ─── PackagePanel ─────────────────────────────────────────────────────────────
+// ─── VendorModal ──────────────────────────────────────────────────────────────
 
-function PackagePanel({
+function VendorModal({
   vendor,
+  needSlug,
   selectedPkgId,
+  isQuoteRequested,
   guests,
-  onSelect,
+  onSelectPackage,
+  onQuoteRequest,
   onClose,
 }: {
   vendor: VendorWithScore;
+  needSlug: string;
   selectedPkgId: string | null;
+  isQuoteRequested: boolean;
   guests: number;
-  onSelect: (pkg: VendorPackage) => void;
+  onSelectPackage: (needSlug: string, vendor: VendorWithScore, pkg: VendorPackage) => void;
+  onQuoteRequest: (needSlug: string, vendor: VendorWithScore) => void;
   onClose: () => void;
 }) {
+  const photo = vendor.media_urls?.[0] ?? null;
+  const hasPackages = vendor.packages.length > 0;
+
+  // Close on Escape
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", onKey);
+    // Lock body scroll
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
   return (
-    <div className="rounded-[20px] border border-[#171717] bg-white p-4 shadow-[0_4px_16px_rgba(23,23,23,0.10)]">
-      {/* Panel header */}
-      <div className="mb-3 flex items-center justify-between">
-        <p className="text-sm font-semibold text-[#171717]">
-          Paket wählen — {vendor.name}
-        </p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="text-lg leading-none text-[#8b7767] transition hover:text-[#171717]"
-          aria-label="Schließen"
-        >
-          ×
-        </button>
-      </div>
+    /* Backdrop */
+    <div
+      className="fixed inset-0 z-[1500] flex items-end justify-center sm:items-center sm:p-4"
+      onClick={onClose}
+    >
+      {/* Scrim */}
+      <div className="absolute inset-0 bg-[#171717]/40 backdrop-blur-[2px]" />
 
-      {/* Packages */}
-      <div className="space-y-2">
-        {vendor.packages.map((pkg) => {
-          const isSelected = selectedPkgId === pkg.id;
-          const total = guests > 0 && pkg.price_type === "per_person"
-            ? pkg.price * guests
-            : pkg.price;
-          const priceLabel = pkg.price_type === "per_person" && guests > 0
-            ? `${pkg.price.toLocaleString("de-DE")} €/P. · ${total.toLocaleString("de-DE")} € gesamt`
-            : `${total.toLocaleString("de-DE")} €`;
+      {/* Sheet */}
+      <div
+        className="relative z-10 flex max-h-[90dvh] w-full flex-col overflow-hidden bg-white sm:max-w-lg sm:rounded-[28px] rounded-t-[28px]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Drag handle (mobile) */}
+        <div className="flex justify-center pt-3 sm:hidden">
+          <div className="h-1 w-10 rounded-full bg-[rgba(23,23,23,0.15)]" />
+        </div>
 
-          return (
-            <button
-              key={pkg.id}
-              type="button"
-              onClick={() => onSelect(pkg)}
+        {/* Hero image */}
+        <div className="relative h-48 w-full shrink-0 overflow-hidden bg-[#f0ede7] sm:h-56">
+          {photo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={photo} alt={vendor.name} className="h-full w-full object-cover" />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-5xl opacity-25">🏢</div>
+          )}
+          {vendor.badge && (
+            <span
               className={cx(
-                "w-full rounded-[16px] border p-3.5 text-left transition",
-                isSelected
-                  ? "border-[#171717] bg-[#171717] text-white"
-                  : "border-[rgba(23,23,23,0.10)] bg-[#fafaf8] hover:border-[rgba(23,23,23,0.2)]"
+                "absolute left-3 top-3 rounded-full px-2.5 py-1 text-[11px] font-semibold",
+                BADGE_CLASS[vendor.badge]
               )}
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className={cx("font-medium text-sm", isSelected ? "text-white" : "text-[#171717]")}>
-                    {pkg.name}
-                  </p>
-                  {pkg.description && (
-                    <p className={cx("mt-0.5 text-xs", isSelected ? "text-white/70" : "text-[#8b7767]")}>
-                      {pkg.description}
-                    </p>
-                  )}
-                  {pkg.includes && pkg.includes.length > 0 && (
-                    <p className={cx("mt-1 text-[11px]", isSelected ? "text-white/60" : "text-[#8b7767]")}>
-                      Enthält: {pkg.includes.slice(0, 3).join(", ")}
-                      {pkg.includes.length > 3 && ` +${pkg.includes.length - 3} weitere`}
-                    </p>
-                  )}
-                </div>
-                <div className="shrink-0 text-right">
-                  <p className={cx("text-sm font-semibold", isSelected ? "text-white" : "text-[#171717]")}>
-                    {priceLabel}
-                  </p>
-                  {isSelected && (
-                    <p className="mt-0.5 text-[10px] text-white/70">Ausgewählt ✓</p>
-                  )}
-                </div>
+              {BADGE_LABEL[vendor.badge]}
+            </span>
+          )}
+          {/* Close button */}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Schließen"
+            className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#171717]/60 text-white transition hover:bg-[#171717]/80"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Scrollable content */}
+        <div className="flex-1 overflow-y-auto px-5 pb-8 pt-4">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-bold leading-tight text-[#171717]">{vendor.name}</h2>
+              {vendor.is_verified && (
+                <p className="mt-0.5 text-xs font-medium text-emerald-600">Verifizierter Anbieter ✓</p>
+              )}
+            </div>
+            {vendor.minPrice > 0 && (
+              <p className="shrink-0 text-sm font-semibold text-[#171717]">
+                ab {vendor.minPrice.toLocaleString("de-DE")} €
+              </p>
+            )}
+          </div>
+
+          {/* Description */}
+          {vendor.description && (
+            <p className="mt-3 text-sm leading-relaxed text-[#665d55]">{vendor.description}</p>
+          )}
+
+          {/* Packages or quote-request */}
+          {hasPackages ? (
+            <div className="mt-5">
+              <p className="mb-2.5 text-xs font-semibold uppercase tracking-wide text-[#8b7767]">Pakete</p>
+              <div className="space-y-2.5">
+                {vendor.packages.map((pkg) => {
+                  const isSelected = selectedPkgId === pkg.id;
+                  const total = guests > 0 && pkg.price_type === "per_person"
+                    ? pkg.price * guests
+                    : pkg.price;
+                  const priceLabel = pkg.price_type === "per_person" && guests > 0
+                    ? `${pkg.price.toLocaleString("de-DE")} €/P. · ${total.toLocaleString("de-DE")} € gesamt`
+                    : `${total.toLocaleString("de-DE")} €`;
+
+                  return (
+                    <button
+                      key={pkg.id}
+                      type="button"
+                      onClick={() => onSelectPackage(needSlug, vendor, pkg)}
+                      className={cx(
+                        "w-full rounded-[18px] border p-4 text-left transition",
+                        isSelected
+                          ? "border-[#171717] bg-[#171717]"
+                          : "border-[rgba(23,23,23,0.10)] bg-[#fafaf8] hover:border-[rgba(23,23,23,0.22)]"
+                      )}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <p className={cx("font-semibold text-sm", isSelected ? "text-white" : "text-[#171717]")}>
+                            {pkg.name}
+                          </p>
+                          {pkg.description && (
+                            <p className={cx("mt-0.5 text-xs leading-relaxed", isSelected ? "text-white/70" : "text-[#8b7767]")}>
+                              {pkg.description}
+                            </p>
+                          )}
+                          {pkg.includes && pkg.includes.length > 0 && (
+                            <ul className="mt-2 space-y-0.5">
+                              {pkg.includes.map((inc) => (
+                                <li key={inc} className={cx("flex items-start gap-1.5 text-[11px]", isSelected ? "text-white/70" : "text-[#665d55]")}>
+                                  <span className={cx("mt-px shrink-0", isSelected ? "text-white/60" : "text-emerald-600")}>✓</span>
+                                  <span>{inc}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <p className={cx("text-sm font-bold", isSelected ? "text-white" : "text-[#171717]")}>
+                            {priceLabel}
+                          </p>
+                          {isSelected && (
+                            <p className="mt-1 rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold text-white">
+                              Ausgewählt ✓
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
-            </button>
-          );
-        })}
+            </div>
+          ) : (
+            /* No packages → quote request */
+            <div className="mt-5">
+              <button
+                type="button"
+                onClick={() => onQuoteRequest(needSlug, vendor)}
+                className={cx(
+                  "w-full rounded-[18px] border px-4 py-3.5 text-sm font-semibold transition",
+                  isQuoteRequested
+                    ? "border-amber-400 bg-amber-50 text-amber-800"
+                    : "border-[rgba(183,106,67,0.4)] bg-white text-[#b76a43] hover:border-[#b76a43] hover:bg-[rgba(183,106,67,0.05)]"
+                )}
+              >
+                {isQuoteRequested ? "Anfrage vorgemerkt ✓" : "Preise anfragen"}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
