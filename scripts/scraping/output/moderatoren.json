@@ -1,0 +1,4290 @@
+[
+  {
+    "name": "Premium Plus Moderation",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Agb",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/agb/",
+    "slug_hint": "agb",
+    "specialization": "Agb"
+  },
+  {
+    "name": "AI-ProfiCarina Jantsch",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Ai Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/ai-moderatorin/",
+    "slug_hint": "ai-moderatorin",
+    "specialization": "Ai Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Alexandra Kroeber Infotainment Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/alexandra-kroeber-infotainment-moderatorin-demo-video/",
+    "slug_hint": "alexandra-kroeber-infotainment-moderatorin-demo-video",
+    "specialization": "Alexandra Kroeber Infotainment Moderatorin Demo Video"
+  },
+  {
+    "name": "Infotainment-ProfiAlexandra Kröber",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Alexandra Kroeber Infotainment Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/alexandra-kroeber-infotainment-moderatorin/",
+    "slug_hint": "alexandra-kroeber-infotainment-moderatorin",
+    "specialization": "Alexandra Kroeber Infotainment Moderatorin"
+  },
+  {
+    "name": "Panel-ProfiAlexandra Kröber",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Alexandra Kroeber Panel Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/alexandra-kroeber-panel-moderatorin/",
+    "slug_hint": "alexandra-kroeber-panel-moderatorin",
+    "specialization": "Alexandra Kroeber Panel Moderatorin"
+  },
+  {
+    "name": "Gala-ProfiAngelica Suri",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.angelicasuri.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Angelica Suri Galamoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/angelica-suri-galamoderatorin/",
+    "slug_hint": "angelica-suri-galamoderatorin",
+    "specialization": "Angelica Suri Galamoderatorin"
+  },
+  {
+    "name": "Tech-ProfiAngelica Suri",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.angelicasuri.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Angelica Suri Technologie Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/angelica-suri-technologie-moderatorin/",
+    "slug_hint": "angelica-suri-technologie-moderatorin",
+    "specialization": "Angelica Suri Technologie Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.anna-katharina-stoll.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Anna Katharina Stoll Tv Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/anna-katharina-stoll-tv-moderatorin-demo-video/",
+    "slug_hint": "anna-katharina-stoll-tv-moderatorin-demo-video",
+    "specialization": "Anna Katharina Stoll Tv Moderatorin Demo Video"
+  },
+  {
+    "name": "TV-ProfiAnna-Katharina Stoll",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.anna-katharina-stoll.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Anna Katharina Stoll Tv Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/anna-katharina-stoll-tv-moderatorin/",
+    "slug_hint": "anna-katharina-stoll-tv-moderatorin",
+    "specialization": "Anna Katharina Stoll Tv Moderatorin"
+  },
+  {
+    "name": "Fernseh-ProfiAnna Kreuzberg",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.annakreuzberg.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Anna Kreuzberg Fernsehmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/anna-kreuzberg-fernsehmoderatorin/",
+    "slug_hint": "anna-kreuzberg-fernsehmoderatorin",
+    "specialization": "Anna Kreuzberg Fernsehmoderatorin"
+  },
+  {
+    "name": "Fernseh-ProfiAnnett Fleischer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.annettfleischer.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Annett Fleischer Fernsehmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/annett-fleischer-fernsehmoderatorin/",
+    "slug_hint": "annett-fleischer-fernsehmoderatorin",
+    "specialization": "Annett Fleischer Fernsehmoderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "https://www.annettfleischer.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Annett Fleischer Talk Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/annett-fleischer-talk-moderatorin-demo-video/",
+    "slug_hint": "annett-fleischer-talk-moderatorin-demo-video",
+    "specialization": "Annett Fleischer Talk Moderatorin Demo Video"
+  },
+  {
+    "name": "Talk-ProfiAnnett Fleischer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.annettfleischer.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Annett Fleischer Talk Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/annett-fleischer-talk-moderatorin/",
+    "slug_hint": "annett-fleischer-talk-moderatorin",
+    "specialization": "Annett Fleischer Talk Moderatorin"
+  },
+  {
+    "name": "Healthcare-ProfiAnnika de Buhr",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Frankfurt"
+    ],
+    "website_url": "http://www.annika-de-buhr.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Annika De Buhr Healthcare Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/annika-de-buhr-healthcare-moderatorin/",
+    "slug_hint": "annika-de-buhr-healthcare-moderatorin",
+    "specialization": "Annika De Buhr Healthcare Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "http://www.annika-de-buhr.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Annika De Buhr Hybrid Event Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/annika-de-buhr-hybrid-event-moderatorin-demo-video/",
+    "slug_hint": "annika-de-buhr-hybrid-event-moderatorin-demo-video",
+    "specialization": "Annika De Buhr Hybrid Event Moderatorin Demo Video"
+  },
+  {
+    "name": "TV-ProfiAnnika de Buhr",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln"
+    ],
+    "website_url": "http://www.annika-de-buhr.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Annika De Buhr Tv Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/annika-de-buhr-tv-moderatorin/",
+    "slug_hint": "annika-de-buhr-tv-moderatorin",
+    "specialization": "Annika De Buhr Tv Moderatorin"
+  },
+  {
+    "name": "Veranstaltungs-ProfiAriane Bertz",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.ariane-bertz.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Ariane Bertz Veranstaltungsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/ariane-bertz-veranstaltungsmoderatorin/",
+    "slug_hint": "ariane-bertz-veranstaltungsmoderatorin",
+    "specialization": "Ariane Bertz Veranstaltungsmoderatorin"
+  },
+  {
+    "name": "Konferenz-ProfiAstrid Frohloff",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.astrid-frohloff.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Astrid Frohloff Konferenz Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/astrid-frohloff-konferenz-moderatorin/",
+    "slug_hint": "astrid-frohloff-konferenz-moderatorin",
+    "specialization": "Astrid Frohloff Konferenz Moderatorin"
+  },
+  {
+    "name": "Automotive-ProfiTobias Witton",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Automotive Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/automotive-moderator/",
+    "slug_hint": "automotive-moderator",
+    "specialization": "Automotive Moderator"
+  },
+  {
+    "name": "Automotive-ProfiPetra Bindl",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Automotive Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/automotive-moderatorin/",
+    "slug_hint": "automotive-moderatorin",
+    "specialization": "Automotive Moderatorin"
+  },
+  {
+    "name": "Barcamp-ProfiRolf Schneidereit",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Barcamp Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/barcamp-moderator/",
+    "slug_hint": "barcamp-moderator",
+    "specialization": "Barcamp Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "http://www.comedy-moderation.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Bartuschka Comedy Moderatorin Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/bartuschka-comedy-moderatorin-video/",
+    "slug_hint": "bartuschka-comedy-moderatorin-video",
+    "specialization": "Bartuschka Comedy Moderatorin Video"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "http://www.comedy-moderation.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Bartuschka Comedy Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/bartuschka-comedy-moderatorin/",
+    "slug_hint": "bartuschka-comedy-moderatorin",
+    "specialization": "Bartuschka Comedy Moderatorin"
+  },
+  {
+    "name": "Business-ProfiBeatrice Maria Frensel",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.beatricemaria.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Beatrice Maria Frensel Business Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/beatrice-maria-frensel-business-moderatorin/",
+    "slug_hint": "beatrice-maria-frensel-business-moderatorin",
+    "specialization": "Beatrice Maria Frensel Business Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.beatricemaria.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Beatrice Maria Frensel Event Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/beatrice-maria-frensel-event-moderatorin-demo-video/",
+    "slug_hint": "beatrice-maria-frensel-event-moderatorin-demo-video",
+    "specialization": "Beatrice Maria Frensel Event Moderatorin Demo Video"
+  },
+  {
+    "name": "Event-ProfiBeatrice Maria Frensel",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.beatricemaria.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Beatrice Maria Frensel Event Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/beatrice-maria-frensel-event-moderatorin/",
+    "slug_hint": "beatrice-maria-frensel-event-moderatorin",
+    "specialization": "Beatrice Maria Frensel Event Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Bilinguale Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/bilinguale-moderatorin/",
+    "slug_hint": "bilinguale-moderatorin",
+    "specialization": "Bilinguale Moderatorin"
+  },
+  {
+    "name": "Business-ProfiPhilipp Bächstädt",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Businessmoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/businessmoderator/",
+    "slug_hint": "businessmoderator",
+    "specialization": "Businessmoderator"
+  },
+  {
+    "name": "Corinna Egerer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Businessmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/businessmoderatorin/",
+    "slug_hint": "businessmoderatorin",
+    "specialization": "Businessmoderatorin"
+  },
+  {
+    "name": "Mobilitäts-ProfiCarina Jantsch",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.carinajantsch.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Carina Jantsch Mobilitaet Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/carina-jantsch-mobilitaet-moderatorin/",
+    "slug_hint": "carina-jantsch-mobilitaet-moderatorin",
+    "specialization": "Carina Jantsch Mobilitaet Moderatorin"
+  },
+  {
+    "name": "Christiane Stein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Frankfurt",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.christiane-stein.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Event Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/christiane-stein-event-moderatorin/",
+    "slug_hint": "christiane-stein-event-moderatorin",
+    "specialization": "Event Moderatorin"
+  },
+  {
+    "name": "Christiane Stein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.christiane-stein.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Politik Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/christiane-stein-politik-moderatorin/",
+    "slug_hint": "christiane-stein-politik-moderatorin",
+    "specialization": "Politik Moderatorin"
+  },
+  {
+    "name": "Raumfahrt-ProfiChristiane Stein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.christiane-stein.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Christiane Stein Raumfahrt Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/christiane-stein-raumfahrt-moderatorin/",
+    "slug_hint": "christiane-stein-raumfahrt-moderatorin",
+    "specialization": "Christiane Stein Raumfahrt Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.christinereiss.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Christine Reiss Digitalisierung Moderation Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/christine-reiss-digitalisierung-moderation-demo-video/",
+    "slug_hint": "christine-reiss-digitalisierung-moderation-demo-video",
+    "specialization": "Christine Reiss Digitalisierung Moderation Demo Video"
+  },
+  {
+    "name": "Digitalisierungs-ProfiChristine Reiss",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.christinereiss.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Christine Reiss Digitalisierung Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/christine-reiss-digitalisierung-moderatorin/",
+    "slug_hint": "christine-reiss-digitalisierung-moderatorin",
+    "specialization": "Christine Reiss Digitalisierung Moderatorin"
+  },
+  {
+    "name": "Panel-ProfiChristine Reiss",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.christinereiss.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Christine Reiss Panel Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/christine-reiss-panel-moderatorin/",
+    "slug_hint": "christine-reiss-panel-moderatorin",
+    "specialization": "Christine Reiss Panel Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.claudiabechstein.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Claudia Bechstein Technologie Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/claudia-bechstein-technologie-moderatorin-demo-video/",
+    "slug_hint": "claudia-bechstein-technologie-moderatorin-demo-video",
+    "specialization": "Claudia Bechstein Technologie Moderatorin Demo Video"
+  },
+  {
+    "name": "Tech-ProfiClaudia Bechstein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Frankfurt",
+      "Düsseldorf",
+      "Leipzig"
+    ],
+    "website_url": "https://www.claudiabechstein.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Claudia Bechstein Technologie Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/claudia-bechstein-technologie-moderatorin/",
+    "slug_hint": "claudia-bechstein-technologie-moderatorin",
+    "specialization": "Claudia Bechstein Technologie Moderatorin"
+  },
+  {
+    "name": "Wirtschafts-ProfiClaudia Bechstein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Frankfurt",
+      "Düsseldorf",
+      "Leipzig"
+    ],
+    "website_url": "https://www.claudiabechstein.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Claudia Bechstein Wirtschaftsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/claudia-bechstein-wirtschaftsmoderatorin/",
+    "slug_hint": "claudia-bechstein-wirtschaftsmoderatorin",
+    "specialization": "Claudia Bechstein Wirtschaftsmoderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Comedy Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/comedy-moderatorin/",
+    "slug_hint": "comedy-moderatorin",
+    "specialization": "Comedy Moderatorin"
+  },
+  {
+    "name": "Corinna Egerer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "https://corinnaegerer.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Business Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/corinna-egerer-business-moderatorin/",
+    "slug_hint": "corinna-egerer-business-moderatorin",
+    "specialization": "Business Moderatorin"
+  },
+  {
+    "name": "Cybersecurity ProfiFerry van Saalbach",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Cyber Security Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/cyber-security-moderator/",
+    "slug_hint": "cyber-security-moderator",
+    "specialization": "Cyber Security Moderator"
+  },
+  {
+    "name": "Cyber Security ProfiPetra Bindl",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Cyber Security Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/cyber-security-moderatorin/",
+    "slug_hint": "cyber-security-moderatorin",
+    "specialization": "Cyber Security Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Datenschutz",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/datenschutz/",
+    "slug_hint": "datenschutz",
+    "specialization": "Datenschutz"
+  },
+  {
+    "name": "Defense Tech ProfiClaudia Bechstein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Defense Tech Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/defense-tech-moderatorin/",
+    "slug_hint": "defense-tech-moderatorin",
+    "specialization": "Defense Tech Moderatorin"
+  },
+  {
+    "name": "Business-ProfiDennis Heyn",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.dennis-heyn.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Dennis Heyn Business Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/dennis-heyn-business-moderator/",
+    "slug_hint": "dennis-heyn-business-moderator",
+    "specialization": "Dennis Heyn Business Moderator"
+  },
+  {
+    "name": "Messe-ProfiDennis Heyn",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Düsseldorf"
+    ],
+    "website_url": "https://www.dennis-heyn.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Dennis Heyn Messemoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/dennis-heyn-messemoderator/",
+    "slug_hint": "dennis-heyn-messemoderator",
+    "specialization": "Dennis Heyn Messemoderator"
+  },
+  {
+    "name": "Digital Finance ProfiCorinna Egerer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Digital Finance Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/digital-finance-moderatorin/",
+    "slug_hint": "digital-finance-moderatorin",
+    "specialization": "Digital Finance Moderatorin"
+  },
+  {
+    "name": "Digitalisierungs-ProfiRobert Bittig",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Digitalisierung Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/digitalisierung-moderator/",
+    "slug_hint": "digitalisierung-moderator",
+    "specialization": "Digitalisierung Moderator"
+  },
+  {
+    "name": "Digitalisierungs-ProfiPetra Bindl",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Digitalisierung Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/digitalisierung-moderatorin/",
+    "slug_hint": "digitalisierung-moderatorin",
+    "specialization": "Digitalisierung Moderatorin"
+  },
+  {
+    "name": "Diversity-ProfiKim Moquenco",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Diversity Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/diversity-moderatorin/",
+    "slug_hint": "diversity-moderatorin",
+    "specialization": "Diversity Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Doppelmoderation",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/doppelmoderation/",
+    "slug_hint": "doppelmoderation",
+    "specialization": "Doppelmoderation"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "http://www.dorotheemarecki.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Dorothee Marecki Talk Moderatorin Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/dorothee-marecki-talk-moderatorin-video/",
+    "slug_hint": "dorothee-marecki-talk-moderatorin-video",
+    "specialization": "Dorothee Marecki Talk Moderatorin Video"
+  },
+  {
+    "name": "Talk-ProfiDorothee Marecki",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "http://www.dorotheemarecki.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Dorothee Marecki Talk Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/dorothee-marecki-talk-moderatorin/",
+    "slug_hint": "dorothee-marecki-talk-moderatorin",
+    "specialization": "Dorothee Marecki Talk Moderatorin"
+  },
+  {
+    "name": "Hybrid Event ProfiDr. Ines Marbach",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Frankfurt",
+      "Stuttgart",
+      "Düsseldorf"
+    ],
+    "website_url": "https://www.ines-marbach.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Dr Ines Marbach Hybrid Event Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/dr-ines-marbach-hybrid-event-moderatorin/",
+    "slug_hint": "dr-ines-marbach-hybrid-event-moderatorin",
+    "specialization": "Dr Ines Marbach Hybrid Event Moderatorin"
+  },
+  {
+    "name": "Entertainment-ProfiMelanie Siefert",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Entertainment Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/entertainment-moderatorin/",
+    "slug_hint": "entertainment-moderatorin",
+    "specialization": "Entertainment Moderatorin"
+  },
+  {
+    "name": "Freddie Rutz",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Event Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/event-moderator/",
+    "slug_hint": "event-moderator",
+    "specialization": "Event Moderator"
+  },
+  {
+    "name": "Katrin Seifarth",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Event Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/event-moderatorin/",
+    "slug_hint": "event-moderatorin",
+    "specialization": "Event Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Fachtagung Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/fachtagung-moderator/",
+    "slug_hint": "fachtagung-moderator",
+    "specialization": "Fachtagung Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Fachtagung Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/fachtagung-moderatorin/",
+    "slug_hint": "fachtagung-moderatorin",
+    "specialization": "Fachtagung Moderatorin"
+  },
+  {
+    "name": "Tech-ProfiFelix Uhlig",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.felixuhlig.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Felix Uhlig Technologie Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/felix-uhlig-technologie-moderator/",
+    "slug_hint": "felix-uhlig-technologie-moderator",
+    "specialization": "Felix Uhlig Technologie Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Fernsehmoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/fernsehmoderator/",
+    "slug_hint": "fernsehmoderator",
+    "specialization": "Fernsehmoderator"
+  },
+  {
+    "name": "Fernseh-ProfiLeandra Fili",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Fernsehmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/fernsehmoderatorin/",
+    "slug_hint": "fernsehmoderatorin",
+    "specialization": "Fernsehmoderatorin"
+  },
+  {
+    "name": "Festival-ProfiMelanie Siefert",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Festival Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/festival-moderatorin/",
+    "slug_hint": "festival-moderatorin",
+    "specialization": "Festival Moderatorin"
+  },
+  {
+    "name": "FinTech-ProfiClaudia Bechstein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Fintech Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/fintech-moderatorin/",
+    "slug_hint": "fintech-moderatorin",
+    "specialization": "Fintech Moderatorin"
+  },
+  {
+    "name": "Firmen-TV ProfiMarco Ammer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Firmen Tv Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/firmen-tv-moderator/",
+    "slug_hint": "firmen-tv-moderator",
+    "specialization": "Firmen Tv Moderator"
+  },
+  {
+    "name": "Firmen-TV ProfiChristiane Stein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Firmen Tv Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/firmen-tv-moderatorin/",
+    "slug_hint": "firmen-tv-moderatorin",
+    "specialization": "Firmen Tv Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Folgen Sie Uns Auf Instagram Moderatoren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/folgen-sie-uns-auf-instagram-moderatoren/",
+    "slug_hint": "folgen-sie-uns-auf-instagram-moderatoren",
+    "specialization": "Folgen Sie Uns Auf Instagram Moderatoren"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Folgen Sie Uns Auf Twitter Moderatoren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/folgen-sie-uns-auf-twitter-moderatoren/",
+    "slug_hint": "folgen-sie-uns-auf-twitter-moderatoren",
+    "specialization": "Folgen Sie Uns Auf Twitter Moderatoren"
+  },
+  {
+    "name": "Wirtschafts-ProfiFranziska Zimmermann",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt",
+      "Stuttgart"
+    ],
+    "website_url": "https://franziskazimmermann.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Franziska Zimmermann Wirtschaftsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/franziska-zimmermann-wirtschaftsmoderatorin/",
+    "slug_hint": "franziska-zimmermann-wirtschaftsmoderatorin",
+    "specialization": "Franziska Zimmermann Wirtschaftsmoderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "http://www.freddierutz.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Freddie Rutz Event Moderator Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/freddie-rutz-event-moderator-video/",
+    "slug_hint": "freddie-rutz-event-moderator-video",
+    "specialization": "Freddie Rutz Event Moderator Video"
+  },
+  {
+    "name": "Freddie Rutz",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "http://www.freddierutz.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Event Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/freddie-rutz-event-moderator/",
+    "slug_hint": "freddie-rutz-event-moderator",
+    "specialization": "Event Moderator"
+  },
+  {
+    "name": "Freddie Rutz",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "http://www.messemoderator.info",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Messe Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/freddie-rutz-messe-moderator/",
+    "slug_hint": "freddie-rutz-messe-moderator",
+    "specialization": "Messe Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Freunde Werden Auf Facebook Moderatoren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/freunde-werden-auf-facebook-moderatoren/",
+    "slug_hint": "freunde-werden-auf-facebook-moderatoren",
+    "specialization": "Freunde Werden Auf Facebook Moderatoren"
+  },
+  {
+    "name": "Gala-ProfiPhilipp Bächstädt",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Gala Moderatoren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/gala-moderatoren/",
+    "slug_hint": "gala-moderatoren",
+    "specialization": "Gala Moderatoren"
+  },
+  {
+    "name": "Gala-ProfiJenny Viola Offen",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Gala Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/gala-moderatorin/",
+    "slug_hint": "gala-moderatorin",
+    "specialization": "Gala Moderatorin"
+  },
+  {
+    "name": "Healthcare-ProfiMarcel Weigand",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Healthcare Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/healthcare-moderator/",
+    "slug_hint": "healthcare-moderator",
+    "specialization": "Healthcare Moderator"
+  },
+  {
+    "name": "Healthcare-ProfiKristina Hentschel",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Healthcare Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/healthcare-moderatorin/",
+    "slug_hint": "healthcare-moderatorin",
+    "specialization": "Healthcare Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Frankfurt",
+      "Stuttgart",
+      "Düsseldorf",
+      "Leipzig"
+    ],
+    "website_url": "http://www.tradefair-presenter.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Hendrik Fritsch Messe Moderator Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/hendrik-fritsch-messe-moderator-showreel/",
+    "slug_hint": "hendrik-fritsch-messe-moderator-showreel",
+    "specialization": "Hendrik Fritsch Messe Moderator Showreel"
+  },
+  {
+    "name": "Hendrik Fritsch",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "http://www.tradefair-presenter.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Messe Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/hendrik-fritsch-messe-moderator/",
+    "slug_hint": "hendrik-fritsch-messe-moderator",
+    "specialization": "Messe Moderator"
+  },
+  {
+    "name": "Hybrid Event ProfiPhilipp Bächstädt",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Hybrid Event Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/hybrid-event-moderator/",
+    "slug_hint": "hybrid-event-moderator",
+    "specialization": "Hybrid Event Moderator"
+  },
+  {
+    "name": "Hybrid Event ProfiSilke Leinweber",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Hybrid Event Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/hybrid-event-moderatorin/",
+    "slug_hint": "hybrid-event-moderatorin",
+    "specialization": "Hybrid Event Moderatorin"
+  },
+  {
+    "name": "Immobilien-ProfiMiriam Beul",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Immobilien Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/immobilien-moderatorin/",
+    "slug_hint": "immobilien-moderatorin",
+    "specialization": "Immobilien Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Impressum",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/impressum/",
+    "slug_hint": "impressum",
+    "specialization": "Impressum"
+  },
+  {
+    "name": "Freddie Rutz",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Infotainment Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/infotainment-moderator/",
+    "slug_hint": "infotainment-moderator",
+    "specialization": "Infotainment Moderator"
+  },
+  {
+    "name": "Infotainment-ProfiJenny Winkler",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Infotainment Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/infotainment-moderatorin/",
+    "slug_hint": "infotainment-moderatorin",
+    "specialization": "Infotainment Moderatorin"
+  },
+  {
+    "name": "Infrastruktur-ProfiMiriam Beul",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Infrastruktur Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/infrastruktur-moderatorin/",
+    "slug_hint": "infrastruktur-moderatorin",
+    "specialization": "Infrastruktur Moderatorin"
+  },
+  {
+    "name": "TV-Moderations-ProfiInka Klee",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Inka Klee Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/inka-klee-moderatorin/",
+    "slug_hint": "inka-klee-moderatorin",
+    "specialization": "Inka Klee Moderatorin"
+  },
+  {
+    "name": "Healthcare-ProfiIsabel Werdin",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.isabelwerdin.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Isabel Werdin Healthcare Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/isabel-werdin-healthcare-moderatorin/",
+    "slug_hint": "isabel-werdin-healthcare-moderatorin",
+    "specialization": "Isabel Werdin Healthcare Moderatorin"
+  },
+  {
+    "name": "IT-ProfiRobert Bittig",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – It Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/it-moderator/",
+    "slug_hint": "it-moderator",
+    "specialization": "It Moderator"
+  },
+  {
+    "name": "IT-ProfiClaudia Bechstein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – It Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/it-moderatorin/",
+    "slug_hint": "it-moderatorin",
+    "specialization": "It Moderatorin"
+  },
+  {
+    "name": "Künstliche Intelligenz ProfiJanina Treis",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Stuttgart"
+    ],
+    "website_url": "https://janinatreis.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Janina Treis Kuenstliche Intelligenz Ki Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/janina-treis-kuenstliche-intelligenz-ki-moderatorin/",
+    "slug_hint": "janina-treis-kuenstliche-intelligenz-ki-moderatorin",
+    "specialization": "Janina Treis Kuenstliche Intelligenz Ki Moderatorin"
+  },
+  {
+    "name": "Hybrid Event ProfiJanine Utsch",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln",
+      "Stuttgart"
+    ],
+    "website_url": "https://janine-utsch.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Janine Utsch Hybrid Event Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/janine-utsch-hybrid-event-moderatorin/",
+    "slug_hint": "janine-utsch-hybrid-event-moderatorin",
+    "specialization": "Janine Utsch Hybrid Event Moderatorin"
+  },
+  {
+    "name": "Panel-ProfiJanine Utsch",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln",
+      "Stuttgart"
+    ],
+    "website_url": "https://janine-utsch.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Janine Utsch Panel Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/janine-utsch-panel-moderatorin/",
+    "slug_hint": "janine-utsch-panel-moderatorin",
+    "specialization": "Janine Utsch Panel Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.jennifersarahboone.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Jennifer Sarah Boone Bilinguale Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/jennifer-sarah-boone-bilinguale-moderatorin/",
+    "slug_hint": "jennifer-sarah-boone-bilinguale-moderatorin",
+    "specialization": "Jennifer Sarah Boone Bilinguale Moderatorin"
+  },
+  {
+    "name": "Mobilitäts-ProfiJuliane Langer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Stuttgart"
+    ],
+    "website_url": "https://julianelanger.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Juliane Langer Mobilitaet Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/juliane-langer-mobilitaet-moderatorin/",
+    "slug_hint": "juliane-langer-mobilitaet-moderatorin",
+    "specialization": "Juliane Langer Mobilitaet Moderatorin"
+  },
+  {
+    "name": "Transformations-ProfiJuliane Langer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://julianelanger.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Juliane Langer Transformation Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/juliane-langer-transformation-moderatorin/",
+    "slug_hint": "juliane-langer-transformation-moderatorin",
+    "specialization": "Juliane Langer Transformation Moderatorin"
+  },
+  {
+    "name": "Katrin Seifarth",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.podiumsdiskussion.org/moderatorinnen/moderatorin-podiumsdiskussion-katrin-seifarth/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Messe Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/katrin-seifarth-messe-moderatorin/",
+    "slug_hint": "katrin-seifarth-messe-moderatorin",
+    "specialization": "Messe Moderatorin"
+  },
+  {
+    "name": "Künstliche Intelligenz ProfiRobert Bittig",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Ki Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/ki-moderator/",
+    "slug_hint": "ki-moderator",
+    "specialization": "Ki Moderator"
+  },
+  {
+    "name": "Künstliche Intelligenz ProfiPetra Bindl",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Ki Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/ki-moderatorin/",
+    "slug_hint": "ki-moderatorin",
+    "specialization": "Ki Moderatorin"
+  },
+  {
+    "name": "Konferenz-ProfiMarco Ammer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Konferenz Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/konferenz-moderator/",
+    "slug_hint": "konferenz-moderator",
+    "specialization": "Konferenz Moderator"
+  },
+  {
+    "name": "Konferenz-ProfiSabine Weber",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Konferenz Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/konferenz-moderatorin/",
+    "slug_hint": "konferenz-moderatorin",
+    "specialization": "Konferenz Moderatorin"
+  },
+  {
+    "name": "Kongress-ProfiMarco Ammer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Kongress Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/kongress-moderator/",
+    "slug_hint": "kongress-moderator",
+    "specialization": "Kongress Moderator"
+  },
+  {
+    "name": "Christiane Stein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Kongress Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/kongress-moderatorin/",
+    "slug_hint": "kongress-moderatorin",
+    "specialization": "Kongress Moderatorin"
+  },
+  {
+    "name": "Premium Plus Moderation",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Kontakt",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/kontakt/",
+    "slug_hint": "kontakt",
+    "specialization": "Kontakt"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.kristinahentschel.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Kristina Hentschel Fachtagung Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/kristina-hentschel-fachtagung-moderatorin-demo-video/",
+    "slug_hint": "kristina-hentschel-fachtagung-moderatorin-demo-video",
+    "specialization": "Kristina Hentschel Fachtagung Moderatorin Demo Video"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.kristinahentschel.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Kristina Hentschel Fachtagung Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/kristina-hentschel-fachtagung-moderatorin/",
+    "slug_hint": "kristina-hentschel-fachtagung-moderatorin",
+    "specialization": "Kristina Hentschel Fachtagung Moderatorin"
+  },
+  {
+    "name": "Healthcare-ProfiKristina Hentschel",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.kristinahentschel.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Kristina Hentschel Healthcare Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/kristina-hentschel-healthcare-moderatorin/",
+    "slug_hint": "kristina-hentschel-healthcare-moderatorin",
+    "specialization": "Kristina Hentschel Healthcare Moderatorin"
+  },
+  {
+    "name": "Fernseh-ProfiLeandra Fili",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Leandra Fili Fernsehmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/leandra-fili-fernsehmoderatorin/",
+    "slug_hint": "leandra-fili-fernsehmoderatorin",
+    "specialization": "Leandra Fili Fernsehmoderatorin"
+  },
+  {
+    "name": "Longevity-ProfiLeandra Fili",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Leandra Fili Longevity Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/leandra-fili-longevity-moderatorin/",
+    "slug_hint": "leandra-fili-longevity-moderatorin",
+    "specialization": "Leandra Fili Longevity Moderatorin"
+  },
+  {
+    "name": "Moderations-ProfiLeandra Fili",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Düsseldorf"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Leandra Fili Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/leandra-fili-moderatorin/",
+    "slug_hint": "leandra-fili-moderatorin",
+    "specialization": "Leandra Fili Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Leandra Fili Web Tv Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/leandra-fili-web-tv-moderatorin-demo-video/",
+    "slug_hint": "leandra-fili-web-tv-moderatorin-demo-video",
+    "specialization": "Leandra Fili Web Tv Moderatorin Demo Video"
+  },
+  {
+    "name": "Lifestyle-ProfiMag. Anna Krul",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Lifestyle Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/lifestyle-moderatorin/",
+    "slug_hint": "lifestyle-moderatorin",
+    "specialization": "Lifestyle Moderatorin"
+  },
+  {
+    "name": "Longevity-ProfiJanina Treis",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Longevity Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/longevity-moderatorin/",
+    "slug_hint": "longevity-moderatorin",
+    "specialization": "Longevity Moderatorin"
+  },
+  {
+    "name": "Healthcare-ProfiMarcel Weigand",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "https://www.marcelweigand.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Marcel Weigand Healthcare Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/marcel-weigand-healthcare-moderator/",
+    "slug_hint": "marcel-weigand-healthcare-moderator",
+    "specialization": "Marcel Weigand Healthcare Moderator"
+  },
+  {
+    "name": "Konferenz-ProfiMarco Ammer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Stuttgart"
+    ],
+    "website_url": "http://www.marco-ammer.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Marco Ammer Konferenz Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/marco-ammer-konferenz-moderator/",
+    "slug_hint": "marco-ammer-konferenz-moderator",
+    "specialization": "Marco Ammer Konferenz Moderator"
+  },
+  {
+    "name": "Moderations-ProfiMarco Ammer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Stuttgart"
+    ],
+    "website_url": "http://www.marco-ammer.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Marco Ammer Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/marco-ammer-moderator/",
+    "slug_hint": "marco-ammer-moderator",
+    "specialization": "Marco Ammer Moderator"
+  },
+  {
+    "name": "Moderations-ProfiMaria Jeszke",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.mariajeszke.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Maria Jeszke Moderation",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/maria-jeszke-moderation/",
+    "slug_hint": "maria-jeszke-moderation",
+    "specialization": "Maria Jeszke Moderation"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.mariajeszke.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Maria Jeszke Podcast Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/maria-jeszke-podcast-moderatorin-demo-video/",
+    "slug_hint": "maria-jeszke-podcast-moderatorin-demo-video",
+    "specialization": "Maria Jeszke Podcast Moderatorin Demo Video"
+  },
+  {
+    "name": "Podcast-ProfiMaria Jeszke",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.mariajeszke.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Maria Jeszke Podcast Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/maria-jeszke-podcast-moderatorin/",
+    "slug_hint": "maria-jeszke-podcast-moderatorin",
+    "specialization": "Maria Jeszke Podcast Moderatorin"
+  },
+  {
+    "name": "Event-ProfiMario Schmidt",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://schmidtfabrik.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Mario Schmidt Event Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/mario-schmidt-event-moderator/",
+    "slug_hint": "mario-schmidt-event-moderator",
+    "specialization": "Mario Schmidt Event Moderator"
+  },
+  {
+    "name": "Event-ProfiMarvin Jäger",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Marvin Jaeger Event Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/marvin-jaeger-event-moderator/",
+    "slug_hint": "marvin-jaeger-event-moderator",
+    "specialization": "Marvin Jaeger Event Moderator"
+  },
+  {
+    "name": "Moderations-ProfiMaxi Sarwas",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Frankfurt",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.maxi-sarwas.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Maxi Sarwas Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/maxi-sarwas-moderatorin/",
+    "slug_hint": "maxi-sarwas-moderatorin",
+    "specialization": "Maxi Sarwas Moderatorin"
+  },
+  {
+    "name": "Noemi Besedes",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Mehrsprachige Moderatoren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/mehrsprachige-moderatoren/",
+    "slug_hint": "mehrsprachige-moderatoren",
+    "specialization": "Mehrsprachige Moderatoren"
+  },
+  {
+    "name": "Premium Plus Moderation",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "München"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Meinungen Von Kunden Zu Moderatoren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/meinungen-von-kunden-zu-moderatoren/",
+    "slug_hint": "meinungen-von-kunden-zu-moderatoren",
+    "specialization": "Meinungen Von Kunden Zu Moderatoren"
+  },
+  {
+    "name": "Event-ProfiMelanie Siefert",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "https://www.melaniesiefert.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Melanie Siefert Event Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/melanie-siefert-event-moderatorin/",
+    "slug_hint": "melanie-siefert-event-moderatorin",
+    "specialization": "Melanie Siefert Event Moderatorin"
+  },
+  {
+    "name": "Show-ProfiMelanie Siefert",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "https://www.melaniesiefert.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Melanie Siefert Show Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/melanie-siefert-show-moderatorin/",
+    "slug_hint": "melanie-siefert-show-moderatorin",
+    "specialization": "Melanie Siefert Show Moderatorin"
+  },
+  {
+    "name": "Freddie Rutz",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt",
+      "Stuttgart"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Messe Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/messe-moderator/",
+    "slug_hint": "messe-moderator",
+    "specialization": "Messe Moderator"
+  },
+  {
+    "name": "Katrin Seifarth",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Messe Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/messe-moderatorin/",
+    "slug_hint": "messe-moderatorin",
+    "specialization": "Messe Moderatorin"
+  },
+  {
+    "name": "Michael Bernatek",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.bernatext.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Sportmoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/michael-bernatek-sportmoderator/",
+    "slug_hint": "michael-bernatek-sportmoderator",
+    "specialization": "Sportmoderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.bernatext.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Michael Bernatek Veranstaltungsmoderator Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/michael-bernatek-veranstaltungsmoderator-demo-video/",
+    "slug_hint": "michael-bernatek-veranstaltungsmoderator-demo-video",
+    "specialization": "Michael Bernatek Veranstaltungsmoderator Demo Video"
+  },
+  {
+    "name": "Mobilitäts-ProfiCarina Jantsch",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Mobilitaet Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/mobilitaet-moderatorin/",
+    "slug_hint": "mobilitaet-moderatorin",
+    "specialization": "Mobilitaet Moderatorin"
+  },
+  {
+    "name": "Moderations-ProfiRene Travnicek",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderation Herren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderation-herren/",
+    "slug_hint": "moderation-herren",
+    "specialization": "Moderation Herren"
+  },
+  {
+    "name": "Kompetenzbereiche - Bitte wählen Sie",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderation Nach Kompetenzbereichen",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderation-nach-kompetenzbereichen/",
+    "slug_hint": "moderation-nach-kompetenzbereichen",
+    "specialization": "Moderation Nach Kompetenzbereichen"
+  },
+  {
+    "name": "Moderations-ProfiUlrike Homuth",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderation",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderation/",
+    "slug_hint": "moderation",
+    "specialization": "Moderation"
+  },
+  {
+    "name": "Hendrik Fritsch",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderations Orte In Den Niederlanden",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderations-orte-in-den-niederlanden/",
+    "slug_hint": "moderations-orte-in-den-niederlanden",
+    "specialization": "Moderations Orte In Den Niederlanden"
+  },
+  {
+    "name": "Digitalisierungs-ProfiChristine Reiss",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderations Orte In Der Schweiz",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderations-orte-in-der-schweiz/",
+    "slug_hint": "moderations-orte-in-der-schweiz",
+    "specialization": "Moderations Orte In Der Schweiz"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderations Orte In Deutschland",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderations-orte-in-deutschland/",
+    "slug_hint": "moderations-orte-in-deutschland",
+    "specialization": "Moderations Orte In Deutschland"
+  },
+  {
+    "name": "Gala-ProfiPietro Polidori",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderations Orte In Italien",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderations-orte-in-italien/",
+    "slug_hint": "moderations-orte-in-italien",
+    "specialization": "Moderations Orte In Italien"
+  },
+  {
+    "name": "Politik-ProfiMag. Anna Krul",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderations Orte In Oesterreich",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderations-orte-in-oesterreich/",
+    "slug_hint": "moderations-orte-in-oesterreich",
+    "specialization": "Moderations Orte In Oesterreich"
+  },
+  {
+    "name": "Moderations-ProfiMounia Berrada-Gouzi",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderations Orte In Spanien",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderations-orte-in-spanien/",
+    "slug_hint": "moderations-orte-in-spanien",
+    "specialization": "Moderations Orte In Spanien"
+  },
+  {
+    "name": "Entertainment-ProfiMelanie Siefert",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderator Aus Mecklenburg Vorpommern Buchen",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderator-aus-mecklenburg-vorpommern-buchen/",
+    "slug_hint": "moderator-aus-mecklenburg-vorpommern-buchen",
+    "specialization": "Moderator Aus Mecklenburg Vorpommern Buchen"
+  },
+  {
+    "name": "Fernseh-ProfiMaria Jeszke",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderator Aus Polen Buchen",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderator-aus-polen-buchen/",
+    "slug_hint": "moderator-aus-polen-buchen",
+    "specialization": "Moderator Aus Polen Buchen"
+  },
+  {
+    "name": "Digital Finance ProfiCorinna Egerer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderator Aus Saarland Buchen",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderator-aus-saarland-buchen/",
+    "slug_hint": "moderator-aus-saarland-buchen",
+    "specialization": "Moderator Aus Saarland Buchen"
+  },
+  {
+    "name": "Künstliche Intelligenz ProfiAngelica Suri",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderator Aus Sachsen Anhalt Buchen",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderator-aus-sachsen-anhalt-buchen/",
+    "slug_hint": "moderator-aus-sachsen-anhalt-buchen",
+    "specialization": "Moderator Aus Sachsen Anhalt Buchen"
+  },
+  {
+    "name": "Netzwerk für gute Moderation",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [],
+    "website_url": "https://www.podiumsdiskussion.org",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderator Podiumsdiskussion",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderator-podiumsdiskussion/",
+    "slug_hint": "moderator-podiumsdiskussion",
+    "specialization": "Moderator Podiumsdiskussion"
+  },
+  {
+    "name": "Pietro Polidori",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderatoren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderatoren/",
+    "slug_hint": "moderatoren",
+    "specialization": "Moderatoren"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Düsseldorf"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderatorenvermittlung Vermittlung Von Moderatoren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderatorenvermittlung-vermittlung-von-moderatoren/",
+    "slug_hint": "moderatorenvermittlung-vermittlung-von-moderatoren",
+    "specialization": "Moderatorenvermittlung Vermittlung Von Moderatoren"
+  },
+  {
+    "name": "Christiane Stein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderatorin Buchen",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderatorin-buchen/",
+    "slug_hint": "moderatorin-buchen",
+    "specialization": "Moderatorin Buchen"
+  },
+  {
+    "name": "Désirée Duray",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderatorinnen",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderatorinnen/",
+    "slug_hint": "moderatorinnen",
+    "specialization": "Moderatorinnen"
+  },
+  {
+    "name": "Moderations-ProfiMounia Berrada-Gouzi",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "https://www.mouniabg.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Mounia Berrada Gouzi Internationale Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/mounia-berrada-gouzi-internationale-moderatorin/",
+    "slug_hint": "mounia-berrada-gouzi-internationale-moderatorin",
+    "specialization": "Mounia Berrada Gouzi Internationale Moderatorin"
+  },
+  {
+    "name": "Nachhaltigkeits-ProfiFreddie Rutz",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Nachhaltigkeits Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/nachhaltigkeits-moderator/",
+    "slug_hint": "nachhaltigkeits-moderator",
+    "specialization": "Nachhaltigkeits Moderator"
+  },
+  {
+    "name": "Nachhaltigkeits-ProfiPetra Bindl",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Nachhaltigkeits Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/nachhaltigkeits-moderatorin/",
+    "slug_hint": "nachhaltigkeits-moderatorin",
+    "specialization": "Nachhaltigkeits Moderatorin"
+  },
+  {
+    "name": "Moderations-ProfiNadine Kreutzer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "http://www.nadinekreutzer.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Nadine Kreutzer Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/nadine-kreutzer-moderatorin/",
+    "slug_hint": "nadine-kreutzer-moderatorin",
+    "specialization": "Nadine Kreutzer Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "http://www.nadinekreutzer.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Nadine Kreutzer Veranstaltungsmoderatorin Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/nadine-kreutzer-veranstaltungsmoderatorin-showreel/",
+    "slug_hint": "nadine-kreutzer-veranstaltungsmoderatorin-showreel",
+    "specialization": "Nadine Kreutzer Veranstaltungsmoderatorin Showreel"
+  },
+  {
+    "name": "Nadine Kreutzer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "http://www.nadinekreutzer.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Veranstaltungsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/nadine-kreutzer-veranstaltungsmoderatorin/",
+    "slug_hint": "nadine-kreutzer-veranstaltungsmoderatorin",
+    "specialization": "Veranstaltungsmoderatorin"
+  },
+  {
+    "name": "Online-ProfiNadja Cleven",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Düsseldorf"
+    ],
+    "website_url": "https://www.nadja-cleven.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Nadja Cleven Online Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/nadja-cleven-online-moderatorin/",
+    "slug_hint": "nadja-cleven-online-moderatorin",
+    "specialization": "Nadja Cleven Online Moderatorin"
+  },
+  {
+    "name": "Nachhaltigkeits-ProfiNoémi Besedes",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "http://www.besedes.tv",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Noemi Besedes Nachhaltigkeits Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/noemi-besedes-nachhaltigkeits-moderatorin/",
+    "slug_hint": "noemi-besedes-nachhaltigkeits-moderatorin",
+    "specialization": "Noemi Besedes Nachhaltigkeits Moderatorin"
+  },
+  {
+    "name": "TV-ProfiNoémi Besedes",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "http://www.besedes.tv",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Noemi Besedes Tv Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/noemi-besedes-tv-moderatorin/",
+    "slug_hint": "noemi-besedes-tv-moderatorin",
+    "specialization": "Noemi Besedes Tv Moderatorin"
+  },
+  {
+    "name": "Show-ProfiNona Brodersen",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://nonabrodersen.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Nona Brodersen Show Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/nona-brodersen-show-moderatorin/",
+    "slug_hint": "nona-brodersen-show-moderatorin",
+    "specialization": "Nona Brodersen Show Moderatorin"
+  },
+  {
+    "name": "Messe-ProfiNorbert König",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Norbert Koenig Messemoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/norbert-koenig-messemoderator/",
+    "slug_hint": "norbert-koenig-messemoderator",
+    "specialization": "Norbert Koenig Messemoderator"
+  },
+  {
+    "name": "Sport-ProfiNorbert König",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Norbert Koenig Sportmoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/norbert-koenig-sportmoderator/",
+    "slug_hint": "norbert-koenig-sportmoderator",
+    "specialization": "Norbert Koenig Sportmoderator"
+  },
+  {
+    "name": "Event-ProfiNorman Soltan Salahshour",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln",
+      "Düsseldorf"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Norman Soltan Salahshour Event Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/norman-soltan-salahshour-event-moderator/",
+    "slug_hint": "norman-soltan-salahshour-event-moderator",
+    "specialization": "Norman Soltan Salahshour Event Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Online Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/online-moderator/",
+    "slug_hint": "online-moderator",
+    "specialization": "Online Moderator"
+  },
+  {
+    "name": "Online-ProfiBeatrice Maria Frensel",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Online Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/online-moderatorin/",
+    "slug_hint": "online-moderatorin",
+    "specialization": "Online Moderatorin"
+  },
+  {
+    "name": "Panel-ProfiClaudia Bechstein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Panel Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/panel-moderatorin/",
+    "slug_hint": "panel-moderatorin",
+    "specialization": "Panel Moderatorin"
+  },
+  {
+    "name": "Digitalisierungs-ProfiPetra Bindl",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.petra-bindl.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Petra Bindl Digitalisierung Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/petra-bindl-digitalisierung-moderatorin/",
+    "slug_hint": "petra-bindl-digitalisierung-moderatorin",
+    "specialization": "Petra Bindl Digitalisierung Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.petra-bindl.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Petra Bindl Hybrid Event Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/petra-bindl-hybrid-event-moderatorin-demo-video/",
+    "slug_hint": "petra-bindl-hybrid-event-moderatorin-demo-video",
+    "specialization": "Petra Bindl Hybrid Event Moderatorin Demo Video"
+  },
+  {
+    "name": "Politik-ProfiPetra Bindl",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.petra-bindl.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Petra Bindl Politik Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/petra-bindl-politik-moderatorin/",
+    "slug_hint": "petra-bindl-politik-moderatorin",
+    "specialization": "Petra Bindl Politik Moderatorin"
+  },
+  {
+    "name": "Messe-ProfiPhilipp Bächstädt",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.baechstaedt.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Philipp Baechstaedt Messemoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/philipp-baechstaedt-messemoderator/",
+    "slug_hint": "philipp-baechstaedt-messemoderator",
+    "specialization": "Philipp Baechstaedt Messemoderator"
+  },
+  {
+    "name": "Podcast-ProfiMarco Ammer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Podcast Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/podcast-moderator/",
+    "slug_hint": "podcast-moderator",
+    "specialization": "Podcast Moderator"
+  },
+  {
+    "name": "Podcast-ProfiMaria Jeszke",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Podcast Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/podcast-moderatorin/",
+    "slug_hint": "podcast-moderatorin",
+    "specialization": "Podcast Moderatorin"
+  },
+  {
+    "name": "Politik-ProfiMarco Ammer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Politik Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/politik-moderator/",
+    "slug_hint": "politik-moderator",
+    "specialization": "Politik Moderator"
+  },
+  {
+    "name": "Corinna Egerer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Politik Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/politik-moderatorin/",
+    "slug_hint": "politik-moderatorin",
+    "specialization": "Politik Moderatorin"
+  },
+  {
+    "name": "Raumfahrt-ProfiChristiane Stein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Raumfahrt Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/raumfahrt-moderatorin/",
+    "slug_hint": "raumfahrt-moderatorin",
+    "specialization": "Raumfahrt Moderatorin"
+  },
+  {
+    "name": "Reise-ProfiMelanie Siefert",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Reisemoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/reisemoderatorin/",
+    "slug_hint": "reisemoderatorin",
+    "specialization": "Reisemoderatorin"
+  },
+  {
+    "name": "Stefan Häseli",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Roadshow Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/roadshow-moderator/",
+    "slug_hint": "roadshow-moderator",
+    "specialization": "Roadshow Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.robertbittig.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Robert Bittig Event Moderator Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/robert-bittig-event-moderator-demo-video/",
+    "slug_hint": "robert-bittig-event-moderator-demo-video",
+    "specialization": "Robert Bittig Event Moderator Demo Video"
+  },
+  {
+    "name": "Event-ProfiRobert Bittig",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.robertbittig.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Robert Bittig Event Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/robert-bittig-event-moderator/",
+    "slug_hint": "robert-bittig-event-moderator",
+    "specialization": "Robert Bittig Event Moderator"
+  },
+  {
+    "name": "Moderations-ProfiRobert Bittig",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.robertbittig.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Robert Bittig Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/robert-bittig-moderator/",
+    "slug_hint": "robert-bittig-moderator",
+    "specialization": "Robert Bittig Moderator"
+  },
+  {
+    "name": "Politik-ProfiSandra Pabst",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://pabst-kommunikation.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Sandra Pabst Politik Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/sandra-pabst-politik-moderatorin/",
+    "slug_hint": "sandra-pabst-politik-moderatorin",
+    "specialization": "Sandra Pabst Politik Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://pabst-kommunikation.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Sandra Pabst Wirtschaftsmoderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/sandra-pabst-wirtschaftsmoderatorin-demo-video/",
+    "slug_hint": "sandra-pabst-wirtschaftsmoderatorin-demo-video",
+    "specialization": "Sandra Pabst Wirtschaftsmoderatorin Demo Video"
+  },
+  {
+    "name": "Wirtschafts-ProfiSandra Pabst",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "https://pabst-kommunikation.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Sandra Pabst Wirtschaftsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/sandra-pabst-wirtschaftsmoderatorin/",
+    "slug_hint": "sandra-pabst-wirtschaftsmoderatorin",
+    "specialization": "Sandra Pabst Wirtschaftsmoderatorin"
+  },
+  {
+    "name": "IT-ProfiSaskia Naumann",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.saskia-naumann.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Saskia Naumann It Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/saskia-naumann-it-moderatorin/",
+    "slug_hint": "saskia-naumann-it-moderatorin",
+    "specialization": "Saskia Naumann It Moderatorin"
+  },
+  {
+    "name": "Björn Tegeler",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Show Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/show-moderator/",
+    "slug_hint": "show-moderator",
+    "specialization": "Show Moderator"
+  },
+  {
+    "name": "Show-ProfiJenny Winkler",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Show Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/show-moderatorin/",
+    "slug_hint": "show-moderatorin",
+    "specialization": "Show Moderatorin"
+  },
+  {
+    "name": "Entertainment-ProfiSimone Dericks",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Düsseldorf"
+    ],
+    "website_url": "https://www.simone-dericks.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Simone Dericks Entertainment Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/simone-dericks-entertainment-moderatorin/",
+    "slug_hint": "simone-dericks-entertainment-moderatorin",
+    "specialization": "Simone Dericks Entertainment Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.sinastinshoff.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Sina Stinshoff Business Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/sina-stinshoff-business-moderatorin-demo-video/",
+    "slug_hint": "sina-stinshoff-business-moderatorin-demo-video",
+    "specialization": "Sina Stinshoff Business Moderatorin Demo Video"
+  },
+  {
+    "name": "Business-ProfiSina Stinshoff",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Düsseldorf"
+    ],
+    "website_url": "https://sinastinshoff.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Sina Stinshoff Business Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/sina-stinshoff-business-moderatorin/",
+    "slug_hint": "sina-stinshoff-business-moderatorin",
+    "specialization": "Sina Stinshoff Business Moderatorin"
+  },
+  {
+    "name": "Fernseh-ProfiSina Stinshoff",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Düsseldorf"
+    ],
+    "website_url": "https://sinastinshoff.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Sina Stinshoff Fernsehmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/sina-stinshoff-fernsehmoderatorin/",
+    "slug_hint": "sina-stinshoff-fernsehmoderatorin",
+    "specialization": "Sina Stinshoff Fernsehmoderatorin"
+  },
+  {
+    "name": "Michael Bernatek",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Sport Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/sport-moderator/",
+    "slug_hint": "sport-moderator",
+    "specialization": "Sport Moderator"
+  },
+  {
+    "name": "Sport-ProfiSina Stinshoff",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Sportmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/sportmoderatorin/",
+    "slug_hint": "sportmoderatorin",
+    "specialization": "Sportmoderatorin"
+  },
+  {
+    "name": "Startup-ProfiMagdalena Gorecki",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Startup Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/startup-moderatorin/",
+    "slug_hint": "startup-moderatorin",
+    "specialization": "Startup Moderatorin"
+  },
+  {
+    "name": "Strategie-ProfiChristoph Hauke",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Strategie Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/strategie-moderator/",
+    "slug_hint": "strategie-moderator",
+    "specialization": "Strategie Moderator"
+  },
+  {
+    "name": "Show-ProfiSusanne Kortmann",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.susannekortmann.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Susanne Kortmann Show Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/susanne-kortmann-show-moderatorin/",
+    "slug_hint": "susanne-kortmann-show-moderatorin",
+    "specialization": "Susanne Kortmann Show Moderatorin"
+  },
+  {
+    "name": "Künstliche Intelligenz ProfiSusanne Schöne",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Stuttgart",
+      "Düsseldorf"
+    ],
+    "website_url": "http://www.susanne-schoene.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Susanne Schoene Ki Kuenstliche Intelliegenz Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/susanne-schoene-ki-kuenstliche-intelliegenz-moderatorin/",
+    "slug_hint": "susanne-schoene-ki-kuenstliche-intelliegenz-moderatorin",
+    "specialization": "Susanne Schoene Ki Kuenstliche Intelliegenz Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Stuttgart"
+    ],
+    "website_url": "http://www.susanne-schoene.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Susanne Schoene Moderatorin Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/susanne-schoene-moderatorin-showreel/",
+    "slug_hint": "susanne-schoene-moderatorin-showreel",
+    "specialization": "Susanne Schoene Moderatorin Showreel"
+  },
+  {
+    "name": "Susanne Schöne",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt",
+      "Stuttgart",
+      "Düsseldorf",
+      "Leipzig"
+    ],
+    "website_url": "http://www.susanne-schoene.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/susanne-schoene-moderatorin/",
+    "slug_hint": "susanne-schoene-moderatorin",
+    "specialization": "Moderatorin"
+  },
+  {
+    "name": "Talk-ProfiMario Schmidt",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Talk Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/talk-moderator/",
+    "slug_hint": "talk-moderator",
+    "specialization": "Talk Moderator"
+  },
+  {
+    "name": "Katrin Seifarth",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Talk Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/talk-moderatorin/",
+    "slug_hint": "talk-moderatorin",
+    "specialization": "Talk Moderatorin"
+  },
+  {
+    "name": "Tech-ProfiFelix Uhlig",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Technologie Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/technologie-moderator/",
+    "slug_hint": "technologie-moderator",
+    "specialization": "Technologie Moderator"
+  },
+  {
+    "name": "Tech-ProfiClaudia Bechstein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Technologie Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/technologie-moderatorin/",
+    "slug_hint": "technologie-moderatorin",
+    "specialization": "Technologie Moderatorin"
+  },
+  {
+    "name": "Moderations-Profi:Tobias Witton",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.tobiaswitton.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Tobias Witton Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/tobias-witton-moderator/",
+    "slug_hint": "tobias-witton-moderator",
+    "specialization": "Tobias Witton Moderator"
+  },
+  {
+    "name": "Transformations-ProfiPetra Bindl",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Transformation Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/transformation-moderatorin/",
+    "slug_hint": "transformation-moderatorin",
+    "specialization": "Transformation Moderatorin"
+  },
+  {
+    "name": "Philipp Bächstädt",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Tv Moderatoren",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/tv-moderatoren/",
+    "slug_hint": "tv-moderatoren",
+    "specialization": "Tv Moderatoren"
+  },
+  {
+    "name": "TV-ProfiPetra Bindl",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Tv Moderatorinnen",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/tv-moderatorinnen/",
+    "slug_hint": "tv-moderatorinnen",
+    "specialization": "Tv Moderatorinnen"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.ulrike-homuth.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Ulrike Homuth Event Moderation Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/ulrike-homuth-event-moderation-showreel/",
+    "slug_hint": "ulrike-homuth-event-moderation-showreel",
+    "specialization": "Ulrike Homuth Event Moderation Showreel"
+  },
+  {
+    "name": "Moderations-ProfiUlrike Homuth",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.ulrike-homuth.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Ulrike Homuth Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/ulrike-homuth-moderatorin/",
+    "slug_hint": "ulrike-homuth-moderatorin",
+    "specialization": "Ulrike Homuth Moderatorin"
+  },
+  {
+    "name": "Michael Bernatek",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Veranstaltungsmoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/veranstaltungsmoderator/",
+    "slug_hint": "veranstaltungsmoderator",
+    "specialization": "Veranstaltungsmoderator"
+  },
+  {
+    "name": "Christiane Stein",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Veranstaltungsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/veranstaltungsmoderatorin/",
+    "slug_hint": "veranstaltungsmoderatorin",
+    "specialization": "Veranstaltungsmoderatorin"
+  },
+  {
+    "name": "Web-TV ProfiPhilipp Bächstädt",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Web Tv Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/web-tv-moderator/",
+    "slug_hint": "web-tv-moderator",
+    "specialization": "Web Tv Moderator"
+  },
+  {
+    "name": "Web-TV ProfiSilke Leinweber",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Web Tv Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/web-tv-moderatorin/",
+    "slug_hint": "web-tv-moderatorin",
+    "specialization": "Web Tv Moderatorin"
+  },
+  {
+    "name": "Wirtschafts-ProfiMario Schmidt",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Wirtschaftsmoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/wirtschaftsmoderator/",
+    "slug_hint": "wirtschaftsmoderator",
+    "specialization": "Wirtschaftsmoderator"
+  },
+  {
+    "name": "Corinna Egerer",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Wirtschaftsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/wirtschaftsmoderatorin/",
+    "slug_hint": "wirtschaftsmoderatorin",
+    "specialization": "Wirtschaftsmoderatorin"
+  },
+  {
+    "name": "Wissenschafts-ProfiIsabel Werdin",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Wissenschaftsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/wissenschaftsmoderatorin/",
+    "slug_hint": "wissenschaftsmoderatorin",
+    "specialization": "Wissenschaftsmoderatorin"
+  },
+  {
+    "name": "Rolf Schneidereit",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Workshop Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/workshop-moderator/",
+    "slug_hint": "workshop-moderator",
+    "specialization": "Workshop Moderator"
+  },
+  {
+    "name": "Katrin Seifarth",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Workshop Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/workshop-moderatorin/",
+    "slug_hint": "workshop-moderatorin",
+    "specialization": "Workshop Moderatorin"
+  },
+  {
+    "name": "TV-ProfiYasmine Blair",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.yasmineblair.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Yasmine Blair Tv Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/yasmine-blair-tv-moderatorin/",
+    "slug_hint": "yasmine-blair-tv-moderatorin",
+    "specialization": "Yasmine Blair Tv Moderatorin"
+  },
+  {
+    "name": "Yasmine Blair",
+    "city_slug": "berlin-berlin",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.yasmineblair.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Veranstaltungsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/yasmine-blair-veranstaltungsmoderatorin/",
+    "slug_hint": "yasmine-blair-veranstaltungsmoderatorin",
+    "specialization": "Veranstaltungsmoderatorin"
+  },
+  {
+    "name": "Moderations-ProfiAlexander Müschen",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.alexandermueschen.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Alexander Mueschen Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/alexander-mueschen-moderator/",
+    "slug_hint": "alexander-mueschen-moderator",
+    "specialization": "Alexander Mueschen Moderator"
+  },
+  {
+    "name": "Gala-ProfiAnnika de Buhr",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Frankfurt",
+      "Düsseldorf"
+    ],
+    "website_url": "http://www.annika-de-buhr.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Annika De Buhr Galamoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/annika-de-buhr-galamoderatorin/",
+    "slug_hint": "annika-de-buhr-galamoderatorin",
+    "specialization": "Annika De Buhr Galamoderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.claudiabechstein.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Claudia Bechstein Fintech Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/claudia-bechstein-fintech-moderatorin-demo-video/",
+    "slug_hint": "claudia-bechstein-fintech-moderatorin-demo-video",
+    "specialization": "Claudia Bechstein Fintech Moderatorin Demo Video"
+  },
+  {
+    "name": "FinTech-ProfiClaudia Bechstein",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.claudiabechstein.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Claudia Bechstein Fintech Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/claudia-bechstein-fintech-moderatorin/",
+    "slug_hint": "claudia-bechstein-fintech-moderatorin",
+    "specialization": "Claudia Bechstein Fintech Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln",
+      "Frankfurt",
+      "Düsseldorf"
+    ],
+    "website_url": "https://www.felixuhlig.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Felix Uhlig Moderator Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/felix-uhlig-moderator-demo-video/",
+    "slug_hint": "felix-uhlig-moderator-demo-video",
+    "specialization": "Felix Uhlig Moderator Demo Video"
+  },
+  {
+    "name": "Moderations-ProfiFelix Uhlig",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.felixuhlig.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Felix Uhlig Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/felix-uhlig-moderator/",
+    "slug_hint": "felix-uhlig-moderator",
+    "specialization": "Felix Uhlig Moderator"
+  },
+  {
+    "name": "Cybersecurity ProfiFerry van Saalbach",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.vansaalbach.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Ferry Van Saalbach Cybersecurity Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/ferry-van-saalbach-cybersecurity-moderator/",
+    "slug_hint": "ferry-van-saalbach-cybersecurity-moderator",
+    "specialization": "Ferry Van Saalbach Cybersecurity Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "https://jankunath.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Jan Kunath Messe Moderator Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/jan-kunath-messe-moderator-showreel/",
+    "slug_hint": "jan-kunath-messe-moderator-showreel",
+    "specialization": "Jan Kunath Messe Moderator Showreel"
+  },
+  {
+    "name": "Messe-ProfiJan Kunath",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Köln"
+    ],
+    "website_url": "https://jankunath.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Jan Kunath Messe Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/jan-kunath-messe-moderator/",
+    "slug_hint": "jan-kunath-messe-moderator",
+    "specialization": "Jan Kunath Messe Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Frankfurt",
+      "Stuttgart",
+      "Düsseldorf",
+      "Leipzig"
+    ],
+    "website_url": "https://janinemehner.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Janine Mehner Kongressmoderatorin Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/janine-mehner-kongressmoderatorin-showreel/",
+    "slug_hint": "janine-mehner-kongressmoderatorin-showreel",
+    "specialization": "Janine Mehner Kongressmoderatorin Showreel"
+  },
+  {
+    "name": "Kongress-ProfiJanine Mehner",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Leipzig"
+    ],
+    "website_url": "https://janinemehner.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Janine Mehner Kongressmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/janine-mehner-kongressmoderatorin/",
+    "slug_hint": "janine-mehner-kongressmoderatorin",
+    "specialization": "Janine Mehner Kongressmoderatorin"
+  },
+  {
+    "name": "Jennifer Sarah Boone",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.jennifersarahboone.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Messe Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/jennifer-sarah-boone-messe-moderatorin/",
+    "slug_hint": "jennifer-sarah-boone-messe-moderatorin",
+    "specialization": "Messe Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Düsseldorf"
+    ],
+    "website_url": "https://www.jennifersarahboone.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Jennifer Sarah Boone Messemoderatorin Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/jennifer-sarah-boone-messemoderatorin-showreel/",
+    "slug_hint": "jennifer-sarah-boone-messemoderatorin-showreel",
+    "specialization": "Jennifer Sarah Boone Messemoderatorin Showreel"
+  },
+  {
+    "name": "Jennifer Sarah Boone",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.jennifersarahboone.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/jennifer-sarah-boone-moderatorin/",
+    "slug_hint": "jennifer-sarah-boone-moderatorin",
+    "specialization": "Moderatorin"
+  },
+  {
+    "name": "Gala-ProfiJenny Viola Offen",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "Leipzig"
+    ],
+    "website_url": "https://www.jennyviolaoffen.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Jenny Viola Offen Gala Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/jenny-viola-offen-gala-moderatorin/",
+    "slug_hint": "jenny-viola-offen-gala-moderatorin",
+    "specialization": "Jenny Viola Offen Gala Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "hamburg-hamburg",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.jennyviolaoffen.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Jenny Viola Offen Galamoderatorin Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/jenny-viola-offen-galamoderatorin-showreel/",
+    "slug_hint": "jenny-viola-offen-galamoderatorin-showreel",
+    "specialization": "Jenny Viola Offen Galamoderatorin Showreel"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Anna Lena Kempf Moderation",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/anna-lena-kempf-moderation/",
+    "slug_hint": "anna-lena-kempf-moderation",
+    "specialization": "Anna Lena Kempf Moderation"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Anna Lena Kempf Profi Moderatorin Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/anna-lena-kempf-profi-moderatorin-video/",
+    "slug_hint": "anna-lena-kempf-profi-moderatorin-video",
+    "specialization": "Anna Lena Kempf Profi Moderatorin Video"
+  },
+  {
+    "name": "Carina Bastuck",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.carinabastuck.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/carina-bastuck-moderatorin/",
+    "slug_hint": "carina-bastuck-moderatorin",
+    "specialization": "Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Frankfurt",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.carinajantsch.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Carina Jantsch Business Moderatorin Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/carina-jantsch-business-moderatorin-video/",
+    "slug_hint": "carina-jantsch-business-moderatorin-video",
+    "specialization": "Carina Jantsch Business Moderatorin Video"
+  },
+  {
+    "name": "Digitalisierungs-ProfiCarina Jantsch",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.carinajantsch.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Carina Jantsch Digitalisierung Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/carina-jantsch-digitalisierung-moderatorin/",
+    "slug_hint": "carina-jantsch-digitalisierung-moderatorin",
+    "specialization": "Carina Jantsch Digitalisierung Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.moderation-millertwins.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Doppelmoderation Millertwins",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/doppelmoderation-millertwins/",
+    "slug_hint": "doppelmoderation-millertwins",
+    "specialization": "Doppelmoderation Millertwins"
+  },
+  {
+    "name": "Healthcare-ProfiDr. Ingo Beuttenmüller",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Dr Ingo Beuttenmueller Healthcare Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/dr-ingo-beuttenmueller-healthcare-moderator/",
+    "slug_hint": "dr-ingo-beuttenmueller-healthcare-moderator",
+    "specialization": "Dr Ingo Beuttenmueller Healthcare Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.judith-brenneis.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Dr Judith Brenneis Fachtagung Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/dr-judith-brenneis-fachtagung-moderatorin-demo-video/",
+    "slug_hint": "dr-judith-brenneis-fachtagung-moderatorin-demo-video",
+    "specialization": "Dr Judith Brenneis Fachtagung Moderatorin Demo Video"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.judith-brenneis.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Dr Judith Brenneis Fachtagung Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/dr-judith-brenneis-fachtagung-moderatorin/",
+    "slug_hint": "dr-judith-brenneis-fachtagung-moderatorin",
+    "specialization": "Dr Judith Brenneis Fachtagung Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "http://flo-akinbiyi.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Flo Akinbiyi Business Moderator Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/flo-akinbiyi-business-moderator-demo-video/",
+    "slug_hint": "flo-akinbiyi-business-moderator-demo-video",
+    "specialization": "Flo Akinbiyi Business Moderator Demo Video"
+  },
+  {
+    "name": "Business-ProfiFlo Akinbiyi",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt"
+    ],
+    "website_url": "http://flo-akinbiyi.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Flo Akinbiyi Business Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/flo-akinbiyi-business-moderator/",
+    "slug_hint": "flo-akinbiyi-business-moderator",
+    "specialization": "Flo Akinbiyi Business Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt",
+      "Stuttgart",
+      "Düsseldorf"
+    ],
+    "website_url": "https://franziskazimmermann.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Franziska Zimmermann Panel Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/franziska-zimmermann-panel-moderatorin-demo-video/",
+    "slug_hint": "franziska-zimmermann-panel-moderatorin-demo-video",
+    "specialization": "Franziska Zimmermann Panel Moderatorin Demo Video"
+  },
+  {
+    "name": "Tech-ProfiHanna Zöller",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://hannamoderiert.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Hanna Zoeller Technologie Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/hanna-zoeller-technologie-moderatorin/",
+    "slug_hint": "hanna-zoeller-technologie-moderatorin",
+    "specialization": "Hanna Zoeller Technologie Moderatorin"
+  },
+  {
+    "name": "Sport-ProfiHartmut von Kameke",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Hartmut Von Kameke Sportmoderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/hartmut-von-kameke-sportmoderator/",
+    "slug_hint": "hartmut-von-kameke-sportmoderator",
+    "specialization": "Hartmut Von Kameke Sportmoderator"
+  },
+  {
+    "name": "Wissenschafts-ProfiIsabel Werdin",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.isabelwerdin.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Isabel Werdin Wissenschaftsmoderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/isabel-werdin-wissenschaftsmoderatorin/",
+    "slug_hint": "isabel-werdin-wissenschaftsmoderatorin",
+    "specialization": "Isabel Werdin Wissenschaftsmoderatorin"
+  },
+  {
+    "name": "Diversity-ProfiKim Moquenco",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Stuttgart"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Kim Moquenco Diversity Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/kim-moquenco-diversity-moderatorin/",
+    "slug_hint": "kim-moquenco-diversity-moderatorin",
+    "specialization": "Kim Moquenco Diversity Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Leni Eckstein Lifestyle Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/leni-eckstein-lifestyle-moderatorin-demo-video/",
+    "slug_hint": "leni-eckstein-lifestyle-moderatorin-demo-video",
+    "specialization": "Leni Eckstein Lifestyle Moderatorin Demo Video"
+  },
+  {
+    "name": "Show-ProfiLeni Eckstein",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt",
+      "Düsseldorf"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Leni Eckstein Show Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/leni-eckstein-show-moderatorin/",
+    "slug_hint": "leni-eckstein-show-moderatorin",
+    "specialization": "Leni Eckstein Show Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Lou Mareen Kersting Automotive Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/lou-mareen-kersting-automotive-moderatorin-demo-video/",
+    "slug_hint": "lou-mareen-kersting-automotive-moderatorin-demo-video",
+    "specialization": "Lou Mareen Kersting Automotive Moderatorin Demo Video"
+  },
+  {
+    "name": "Automotive-ProfiLou Mareen Kersting",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Lou Mareen Kersting Automotive Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/lou-mareen-kersting-automotive-moderatorin/",
+    "slug_hint": "lou-mareen-kersting-automotive-moderatorin",
+    "specialization": "Lou Mareen Kersting Automotive Moderatorin"
+  },
+  {
+    "name": "Moderations-ProfiManuel Hinmüller",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.manuel-hinmueller.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Manuel Hinmueller Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/manuel-hinmueller-moderator/",
+    "slug_hint": "manuel-hinmueller-moderator",
+    "specialization": "Manuel Hinmueller Moderator"
+  },
+  {
+    "name": "Event-ProfiMarie Gomez",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt",
+      "Stuttgart"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Marie Gomez Event Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/marie-gomez-event-moderatorin/",
+    "slug_hint": "marie-gomez-event-moderatorin",
+    "specialization": "Marie Gomez Event Moderatorin"
+  },
+  {
+    "name": "Mark Schepp",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg"
+    ],
+    "website_url": "https://www.markschepp.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Tv Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/mark-schepp-tv-moderator/",
+    "slug_hint": "mark-schepp-tv-moderator",
+    "specialization": "Tv Moderator"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln"
+    ],
+    "website_url": "https://www.maxi-sarwas.de",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Maxi Sarwas Moderatorin Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/maxi-sarwas-moderatorin-showreel/",
+    "slug_hint": "maxi-sarwas-moderatorin-showreel",
+    "specialization": "Maxi Sarwas Moderatorin Showreel"
+  },
+  {
+    "name": "Stellenangebote zur Moderation in Deutschland nach Regionen",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderatorin In Bayern Gesucht",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderatorin-in-bayern-gesucht/",
+    "slug_hint": "moderatorin-in-bayern-gesucht",
+    "specialization": "Moderatorin In Bayern Gesucht"
+  },
+  {
+    "name": "Stellenangebote zur Moderation in Deutschland nach Regionen",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.unicef.de/informieren/projekte/europa-1442/ukraine-19470/ukraine-konflikt/262866",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Moderatorin In Muenchen Gesucht",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/moderatorin-in-muenchen-gesucht/",
+    "slug_hint": "moderatorin-in-muenchen-gesucht",
+    "specialization": "Moderatorin In Muenchen Gesucht"
+  },
+  {
+    "name": "TV-ProfiPetra Bindl",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.petra-bindl.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Petra Bindl Tv Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/petra-bindl-tv-moderatorin/",
+    "slug_hint": "petra-bindl-tv-moderatorin",
+    "specialization": "Petra Bindl Tv Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.baechstaedt.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Philipp Baechstaedt Tv Moderator Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/philipp-baechstaedt-tv-moderator-showreel/",
+    "slug_hint": "philipp-baechstaedt-tv-moderator-showreel",
+    "specialization": "Philipp Baechstaedt Tv Moderator Showreel"
+  },
+  {
+    "name": "Philipp Bächstädt",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Frankfurt"
+    ],
+    "website_url": "https://www.baechstaedt.com",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Tv Moderator",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/philipp-baechstaedt-tv-moderator/",
+    "slug_hint": "philipp-baechstaedt-tv-moderator",
+    "specialization": "Tv Moderator"
+  },
+  {
+    "name": "Cybersecurity-ProfiSaskia Naumann",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Stuttgart"
+    ],
+    "website_url": "https://www.saskia-naumann.de/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Saskia Naumann Cybersecurity Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/saskia-naumann-cybersecurity-moderatorin/",
+    "slug_hint": "saskia-naumann-cybersecurity-moderatorin",
+    "specialization": "Saskia Naumann Cybersecurity Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Düsseldorf"
+    ],
+    "website_url": "https://www.simone-dericks.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Simone Dericks Lifestyle Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/simone-dericks-lifestyle-moderatorin-demo-video/",
+    "slug_hint": "simone-dericks-lifestyle-moderatorin-demo-video",
+    "specialization": "Simone Dericks Lifestyle Moderatorin Demo Video"
+  },
+  {
+    "name": "Lifestyle-ProfiSimone Dericks",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Düsseldorf"
+    ],
+    "website_url": "https://www.simone-dericks.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Simone Dericks Lifestyle Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/simone-dericks-lifestyle-moderatorin/",
+    "slug_hint": "simone-dericks-lifestyle-moderatorin",
+    "specialization": "Simone Dericks Lifestyle Moderatorin"
+  },
+  {
+    "name": "Simone Dericks",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Köln",
+      "Stuttgart",
+      "Düsseldorf",
+      "Leipzig"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Messe Moderatorin",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/simone-dericks-messe-moderatorin/",
+    "slug_hint": "simone-dericks-messe-moderatorin",
+    "specialization": "Messe Moderatorin"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Simone Dericks Messemoderatorin Showreel",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/simone-dericks-messemoderatorin-showreel/",
+    "slug_hint": "simone-dericks-messemoderatorin-showreel",
+    "specialization": "Simone Dericks Messemoderatorin Showreel"
+  },
+  {
+    "name": "Regionale Zuordnung Deutschland",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München"
+    ],
+    "website_url": "https://www.ursulaunger.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Ursula Unger Automotive Moderatorin Demo Video",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/ursula-unger-automotive-moderatorin-demo-video/",
+    "slug_hint": "ursula-unger-automotive-moderatorin-demo-video",
+    "specialization": "Ursula Unger Automotive Moderatorin Demo Video"
+  },
+  {
+    "name": "Moderations-ProfiUrsula Unger",
+    "city_slug": "muenchen-muenchen",
+    "all_cities_mentioned": [
+      "Berlin",
+      "Hamburg",
+      "München",
+      "Leipzig"
+    ],
+    "website_url": "https://www.ursulaunger.com/",
+    "contact_email": "",
+    "description": "Professionelle Moderation – Ursula Unger Moderation",
+    "service_type": "moderator",
+    "source_url": "https://www.moderatoren.org/ursula-unger-moderation/",
+    "slug_hint": "ursula-unger-moderation",
+    "specialization": "Ursula Unger Moderation"
+  }
+]
