@@ -7,30 +7,16 @@ import { supabase } from "@/lib/supabaseClient";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type ProviderPackage = {
-  id: string;
-  name: string;
-  description: string | null;
-  price_cents: number;
-  price_unit: string;
-  includes: string[];
-};
-
 type ServiceProvider = {
   id: string;
   name: string;
   service_type: string;
-  is_verified: boolean;
 };
 
 type EventBooking = {
   id: string;
   need_slug: string;
-  service_provider_id: string;
-  provider_package_id: string | null;
-  price_cents_agreed: number;
   service_providers: ServiceProvider | null;
-  provider_packages: ProviderPackage | null;
 };
 
 type SharedPlan = {
@@ -40,30 +26,17 @@ type SharedPlan = {
   city_slug: string;
   event_date: string | null;
   guest_count: number | null;
-  budget_cents: number | null;
-  status: string;
   selected_needs: string[];
   notes: string | null;
   share_token: string;
+  host_display_name: string | null;
+  invite_note: string | null;
   created_at: string;
 };
 
-// ─── Constants ────────────────────────────────────────────────────────────────
+type RsvpState = "idle" | "submitting" | "success_accepted" | "success_declined" | "error_duplicate" | "error";
 
-const NEED_LABEL: Record<string, string> = {
-  location:   "Location",
-  catering:   "Catering",
-  musik:      "Musik / DJ",
-  deko:       "Dekoration",
-  florist:    "Florist",
-  fotografie: "Fotografie",
-  video:      "Videografie",
-  moderation: "Moderation",
-  animation:  "Animation / Aktivität",
-  torte:      "Torte",
-  technik:    "Technik / AV",
-  transport:  "Transport",
-};
+// ─── Constants ────────────────────────────────────────────────────────────────
 
 const OCCASION_LABEL: Record<string, string> = {
   geburtstag:       "Geburtstag",
@@ -76,74 +49,138 @@ const OCCASION_LABEL: Record<string, string> = {
   staedtereise:     "Städtereise",
 };
 
-const CITY_LABEL: Record<string, string> = {
-  "berlin-berlin":     "Berlin",
-  "hamburg":           "Hamburg",
-  "muenchen":          "München",
-  "wien":              "Wien",
-  "zuerich":           "Zürich",
-  "koeln":             "Köln",
-  "frankfurt-am-main": "Frankfurt",
-  "stuttgart":         "Stuttgart",
-  "duesseldorf":       "Düsseldorf",
-  "leipzig":           "Leipzig",
+const OCCASION_EMOJI: Record<string, string> = {
+  geburtstag:       "🎂",
+  hochzeit:         "💍",
+  teambuilding:     "🤝",
+  firmenfeier:      "🥂",
+  kindergeburtstag: "🎈",
+  konferenz:        "🎤",
+  jubilaeum:        "✨",
+  staedtereise:     "✈️",
 };
+
+const NEED_LABEL: Record<string, string> = {
+  location:   "Location",
+  catering:   "Catering",
+  musik:      "Musik",
+  deko:       "Dekoration",
+  florist:    "Florist",
+  fotografie: "Fotografie",
+  video:      "Videografie",
+  moderation: "Moderation",
+  animation:  "Animation",
+  torte:      "Torte",
+  technik:    "Technik",
+  transport:  "Transport",
+};
+
+const SERVICE_TYPE_DESC: Record<string, string> = {
+  location:      "sorgt für den perfekten Rahmen",
+  catering:      "verwöhnt eure Gaumen",
+  dj:            "bringt die Musik",
+  band:          "spielt live für euch",
+  entertainment: "sorgt für Unterhaltung",
+  decoration:    "schmückt den Raum",
+  florist:       "zaubert Blumenarrangements",
+  photography:   "hält den Moment fest",
+  video:         "filmt unvergessliche Momente",
+  moderator:     "führt durch das Programm",
+  animation:     "sorgt für gute Laune",
+  cake:          "backt die Torte",
+  technology:    "kümmert sich um die Technik",
+  transport:     "bringt euch sicher hin",
+};
+
+// ─── Invitation text generator ────────────────────────────────────────────────
+
+function buildInviteText(plan: SharedPlan, cityName: string): string {
+  const host   = plan.host_display_name ?? null;
+  const when   = plan.event_date
+    ? new Date(plan.event_date).toLocaleDateString("de-DE", {
+        weekday: "long", day: "numeric", month: "long", year: "numeric",
+      })
+    : null;
+
+  const hosted = host ? `von ${host}` : "";
+
+  const templates: Record<string, string> = {
+    geburtstag: `${when ? `Am ${when}` : "Bald"} ist es so weit — ein besonderer Anlass ${hosted} steht vor der Tür. Wir möchten diesen Geburtstag mit den Menschen feiern, die uns am Herzen liegen. Freut euch auf einen Abend voller guter Gespräche, Lachen und unvergesslicher Momente${cityName ? ` in ${cityName}` : ""}.`,
+
+    hochzeit: `Mit großer Freude und voller Vorfreude laden wir euch ein, unseren besonderen Tag mit uns zu teilen. ${when ? `Am ${when}` : "An unserem großen Tag"} geben wir uns das Ja-Wort${cityName ? ` in ${cityName}` : ""} — und möchten dieses Glück mit unseren liebsten Menschen feiern. Wir freuen uns auf jeden, der dabei sein kann.`,
+
+    firmenfeier: `Es ist uns eine Freude, euch ${hosted} zu unserer Firmenfeier einzuladen${cityName ? ` in ${cityName}` : ""}${when ? `, am ${when}` : ""}. Ein Abend zum Feiern, Durchatmen und gemeinsamen Zurückblicken auf das, was wir zusammen erreicht haben. Wir freuen uns auf euch.`,
+
+    teambuilding: `Gemeinsam stark — das ist unser Motto. ${when ? `Am ${when}` : "Bald"} laden wir euch${cityName ? ` nach ${cityName}` : ""} zu einem besonderen Teamtag ein. Freut euch auf inspirierende Erlebnisse, neue Perspektiven und jede Menge Spaß abseits des Alltags.`,
+
+    kindergeburtstag: `${when ? `Am ${when}` : "Bald"} wird gefeiert! ${hosted} hat Geburtstag und darf seine liebsten Freunde einladen. Freut euch auf einen unvergesslichen Nachmittag voller Spiel, Spaß und natürlich Torte${cityName ? ` in ${cityName}` : ""}. Wir freuen uns riesig auf euch!`,
+
+    konferenz: `Wir laden Sie herzlich ${hosted ? `${hosted} ` : ""}zu unserer Veranstaltung ein${cityName ? ` in ${cityName}` : ""}${when ? `, am ${when}` : ""}. Freuen Sie sich auf spannende Fachvorträge, wertvolle Gespräche und einen informativen Austausch. Wir freuen uns auf Ihre Teilnahme.`,
+
+    jubilaeum: `${when ? `Am ${when}` : "Bald"} begehen wir ein besonderes Jubiläum ${hosted}${cityName ? ` in ${cityName}` : ""}. Dieser Meilenstein soll gebührend gefeiert werden — mit all jenen, die diesen Weg mitgegangen sind. Wir freuen uns sehr auf euer Kommen.`,
+
+    staedtereise: `${when ? `Ab dem ${when}` : "Bald"} geht es auf Entdeckungsreise${cityName ? ` nach ${cityName}` : ""}! ${hosted ? `${hosted} lädt ein zu` : "Wir freuen uns auf"} ein unvergessliches Erlebnis gemeinsam. Kulturelle Highlights, gutes Essen und die schönsten Momente — wir erleben sie zusammen.`,
+  };
+
+  return templates[plan.occasion_slug]
+    ?? `Wir laden euch herzlich zu unserem ${OCCASION_LABEL[plan.occasion_slug] ?? "Event"} ein${cityName ? ` in ${cityName}` : ""}${when ? `, am ${when}` : ""}. Wir freuen uns auf euch.`;
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("de-DE", {
-    day: "2-digit", month: "long", year: "numeric",
+    weekday: "long", day: "numeric", month: "long", year: "numeric",
   });
-}
-
-// price_cents_agreed is stored as the total (per_person already multiplied at save time).
-function formatPrice(totalCents: number, pkgPriceCents: number, unit: string): string {
-  const total = totalCents / 100;
-  if (unit === "per_person") {
-    const perPerson = pkgPriceCents / 100;
-    return `${perPerson.toLocaleString("de-DE")} €/Person · ${total.toLocaleString("de-DE")} € gesamt`;
-  }
-  return `${total.toLocaleString("de-DE")} €`;
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function AgendaSharePage() {
+export default function InvitationPage() {
   const { token } = useParams<{ token: string }>();
 
-  const [plan, setPlan] = useState<SharedPlan | null>(null);
+  const [plan, setPlan]         = useState<SharedPlan | null>(null);
   const [bookings, setBookings] = useState<EventBooking[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [cityName, setCityName] = useState("");
+  const [loading, setLoading]   = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+
+  // RSVP form
+  const [guestName, setGuestName]   = useState("");
+  const [message, setMessage]       = useState("");
+  const [rsvpState, setRsvpState]   = useState<RsvpState>("idle");
 
   useEffect(() => {
     if (!token) return;
 
     (async () => {
-      // Use security-definer RPC — no auth required.
       const { data: rows, error } = await supabase.rpc("public_event_plan_by_token", {
         p_token: token,
       });
 
-      if (error || !rows || (rows as SharedPlan[]).length === 0) {
+      if (error || !rows || (Array.isArray(rows) && rows.length === 0)) {
         setNotFound(true);
         setLoading(false);
         return;
       }
 
-      const planRow = (rows as SharedPlan[])[0];
+      const planRow = (Array.isArray(rows) ? rows[0] : rows) as SharedPlan;
       setPlan(planRow);
 
-      // Bookings are readable for anon when the plan has a share_token (migration policy).
+      // Load city name
+      if (planRow.city_slug) {
+        const { data: city } = await supabase
+          .from("cities")
+          .select("name")
+          .eq("slug", planRow.city_slug)
+          .single();
+        if (city) setCityName(city.name);
+      }
+
+      // Load bookings — provider names only, no prices
       const { data: bkgs } = await supabase
         .from("event_bookings")
-        .select(`
-          id, need_slug, service_provider_id, provider_package_id, price_cents_agreed,
-          service_providers ( id, name, service_type, is_verified ),
-          provider_packages ( id, name, description, price_cents, price_unit, includes )
-        `)
+        .select("id, need_slug, service_providers ( id, name, service_type )")
         .eq("event_plan_id", planRow.id);
 
       setBookings((bkgs ?? []) as unknown as EventBooking[]);
@@ -151,203 +188,294 @@ export default function AgendaSharePage() {
     })();
   }, [token]);
 
-  const guests = plan?.guest_count ?? 1;
-  const runningTotal = bookings.reduce((sum, b) => sum + b.price_cents_agreed / 100, 0);
+  async function handleRsvp(response: "accepted" | "declined") {
+    if (!plan || !guestName.trim()) return;
+    setRsvpState("submitting");
 
-  // ─── Render states ──────────────────────────────────────────────────────────
+    const { data, error } = await supabase.rpc("submit_event_rsvp", {
+      p_token:    token,
+      p_name:     guestName.trim(),
+      p_response: response,
+      p_message:  message.trim() || null,
+    });
+
+    if (error) { setRsvpState("error"); return; }
+
+    const result = String(data);
+    if (result === "ok") {
+      setRsvpState(response === "accepted" ? "success_accepted" : "success_declined");
+    } else if (result === "error:duplicate") {
+      setRsvpState("error_duplicate");
+    } else {
+      setRsvpState("error");
+    }
+  }
+
+  // ─── Render: loading ───────────────────────────────────────────────────────
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
-        <div className="mb-6 h-8 w-56 animate-pulse rounded-lg bg-[var(--bg-surface)]" />
-        <div className="space-y-4">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-20 animate-pulse rounded-2xl bg-[var(--bg-surface)]" />
-          ))}
-        </div>
+      <div className="flex min-h-screen items-center justify-center bg-[#f7f4ee]">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#b76a43] border-t-transparent" />
       </div>
     );
   }
 
+  // ─── Render: not found ─────────────────────────────────────────────────────
+
   if (notFound || !plan) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
-        <p className="text-lg font-medium text-[var(--text-strong)]">Agenda nicht gefunden</p>
-        <p className="mt-1 text-sm text-[var(--text-muted)]">
-          Dieser Link ist abgelaufen oder existiert nicht mehr.
-        </p>
-        <Link
-          href="/"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
-        >
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[#f7f4ee] px-4 text-center">
+        <div className="text-4xl">🔗</div>
+        <p className="text-lg font-semibold text-[#171717]">Einladung nicht gefunden</p>
+        <p className="text-sm text-[#8b7767]">Dieser Link ist abgelaufen oder existiert nicht.</p>
+        <Link href="/" className="mt-2 text-sm text-[#b76a43] underline underline-offset-2">
           Zur Startseite
         </Link>
       </div>
     );
   }
 
+  const occasionLabel = OCCASION_LABEL[plan.occasion_slug] ?? plan.occasion_slug;
+  const occasionEmoji = OCCASION_EMOJI[plan.occasion_slug] ?? "✨";
+  const inviteText    = plan.invite_note ?? buildInviteText(plan, cityName);
+  const displayCity   = cityName || plan.city_slug;
+
+  const bookedNeeds = (plan.selected_needs ?? []).filter(
+    (n) => bookings.some((b) => b.need_slug === n)
+  );
+
+  // ─── RSVP success ─────────────────────────────────────────────────────────
+
+  if (rsvpState === "success_accepted" || rsvpState === "success_declined") {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-[#f7f4ee] px-4 text-center">
+        <div className="text-6xl">
+          {rsvpState === "success_accepted" ? "🎉" : "💌"}
+        </div>
+        <div>
+          <h2 className="text-2xl font-semibold text-[#171717]">
+            {rsvpState === "success_accepted"
+              ? "Wir freuen uns auf dich!"
+              : "Danke für deine Rückmeldung."}
+          </h2>
+          <p className="mt-2 text-sm text-[#665d55]">
+            {rsvpState === "success_accepted"
+              ? `${guestName}, wir haben deine Zusage gespeichert. Bis bald!`
+              : `${guestName}, schade dass du nicht dabei sein kannst. Wir haben deine Absage notiert.`}
+          </p>
+        </div>
+        <p className="text-xs text-[#8b7767]">
+          Organisiert mit{" "}
+          <Link href="/" className="text-[#b76a43]">PerfectDay24</Link>
+        </p>
+      </div>
+    );
+  }
+
+  // ─── Main render ──────────────────────────────────────────────────────────
+
   return (
     <div className="min-h-screen bg-[#f7f4ee]">
-      {/* Header */}
-      <div className="border-b border-[rgba(23,23,23,0.08)] bg-[#fffdf8] px-4 py-8 sm:px-6">
-        <div className="mx-auto max-w-2xl">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-            Event Agenda
+
+      {/* ── Hero ──────────────────────────────────────────────────────────── */}
+      <div
+        className="relative overflow-hidden px-4 py-16 sm:py-24"
+        style={{
+          background: "linear-gradient(150deg, #fffdf8 0%, #f0e8dc 50%, #e8ddd0 100%)",
+        }}
+      >
+        {/* Decorative circle */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-20"
+          style={{ background: "radial-gradient(circle, #b76a43 0%, transparent 70%)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full opacity-15"
+          style={{ background: "radial-gradient(circle, #b76a43 0%, transparent 70%)" }}
+        />
+
+        <div className="relative mx-auto max-w-lg text-center">
+          <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-[0_8px_32px_rgba(183,106,67,0.18)] text-4xl">
+            {occasionEmoji}
           </div>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[#171717] sm:text-3xl">
-            {plan.title}
+
+          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em] text-[#b76a43]">
+            Einladung · {occasionLabel}
+          </div>
+
+          <h1 className="text-3xl font-semibold tracking-tight text-[#171717] sm:text-4xl">
+            {plan.title || occasionLabel}
           </h1>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <Chip>{OCCASION_LABEL[plan.occasion_slug] ?? plan.occasion_slug}</Chip>
-            <Chip>{CITY_LABEL[plan.city_slug] ?? plan.city_slug}</Chip>
-            {plan.event_date && <Chip>{formatDate(plan.event_date)}</Chip>}
-            {guests > 1 && <Chip>{guests} Gäste</Chip>}
+
+          {/* Key facts strip */}
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
+            {plan.event_date && (
+              <FactChip icon="📅" label={formatDate(plan.event_date)} />
+            )}
+            {displayCity && (
+              <FactChip icon="📍" label={displayCity} />
+            )}
+            {plan.host_display_name && (
+              <FactChip icon="👤" label={`Eingeladen von ${plan.host_display_name}`} />
+            )}
+            {plan.guest_count && (
+              <FactChip icon="👥" label={`${plan.guest_count} Gäste erwartet`} />
+            )}
           </div>
         </div>
       </div>
 
-      {/* Body */}
-      <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
+      {/* ── Body ──────────────────────────────────────────────────────────── */}
+      <div className="mx-auto max-w-lg px-4 py-10 sm:px-6">
 
-        {/* Summary tiles */}
-        <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <div className="rounded-2xl border border-[rgba(23,23,23,0.08)] bg-white p-4 shadow-sm">
-            <p className="text-xs text-[#8b7767]">Leistungen</p>
-            <p className="mt-1 text-2xl font-semibold text-[#171717]">{bookings.length}</p>
+        {/* Invitation text */}
+        <div className="mb-10 rounded-[24px] border border-[rgba(183,106,67,0.15)] bg-white p-6 shadow-sm">
+          <div className="mb-3 flex items-center gap-2">
+            <div className="h-px flex-1 bg-[rgba(183,106,67,0.15)]" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b76a43]">
+              Einladung
+            </span>
+            <div className="h-px flex-1 bg-[rgba(183,106,67,0.15)]" />
           </div>
-          <div className="rounded-2xl border border-[rgba(23,23,23,0.08)] bg-white p-4 shadow-sm">
-            <p className="text-xs text-[#8b7767]">Gesamtkosten</p>
-            <p className="mt-1 text-2xl font-semibold text-[#171717]">
-              {runningTotal.toLocaleString("de-DE")} €
+          <p className="leading-7 text-[#3d3530]" style={{ fontFamily: "Georgia, serif", fontSize: "15px" }}>
+            {inviteText}
+          </p>
+          {plan.notes && (
+            <p className="mt-4 border-t border-[rgba(23,23,23,0.06)] pt-4 text-sm leading-6 text-[#665d55]">
+              {plan.notes}
             </p>
-          </div>
-          {plan.budget_cents && (
-            <div className="rounded-2xl border border-[rgba(23,23,23,0.08)] bg-white p-4 shadow-sm">
-              <p className="text-xs text-[#8b7767]">Budget</p>
-              <p className="mt-1 text-2xl font-semibold text-[#171717]">
-                {(plan.budget_cents / 100).toLocaleString("de-DE")} €
-              </p>
-            </div>
           )}
         </div>
 
-        {/* Bookings list */}
-        <h2 className="mb-4 text-base font-semibold text-[#171717]">Gebuchte Leistungen</h2>
-
-        {bookings.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-[rgba(23,23,23,0.12)] px-6 py-10 text-center text-sm text-[#8b7767]">
-            Noch keine Leistungen in dieser Agenda.
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {(plan.selected_needs ?? []).map((need) => {
-              const booking = bookings.find((b) => b.need_slug === need);
-              if (!booking) return null;
-
-              const provider = booking.service_providers;
-              const pkg = booking.provider_packages;
-              const priceUnit = pkg?.price_unit ?? "flat";
-              const isExpanded = expanded[booking.id] ?? false;
-
-              return (
-                <div
-                  key={booking.id}
-                  className="overflow-hidden rounded-2xl border border-[rgba(23,23,23,0.08)] bg-white shadow-sm"
-                >
-                  <button
-                    onClick={() =>
-                      setExpanded((prev) => ({ ...prev, [booking.id]: !prev[booking.id] }))
-                    }
-                    className="flex w-full items-start gap-4 px-5 py-4 text-left transition hover:bg-[#fafaf8]"
+        {/* What to expect */}
+        {bookedNeeds.length > 0 && (
+          <div className="mb-10">
+            <h2 className="mb-4 text-center text-sm font-semibold uppercase tracking-[0.2em] text-[#8b7767]">
+              Was euch erwartet
+            </h2>
+            <div className="space-y-2">
+              {bookedNeeds.map((need) => {
+                const booking  = bookings.find((b) => b.need_slug === need);
+                const provider = booking?.service_providers;
+                const desc     = SERVICE_TYPE_DESC[provider?.service_type ?? ""] ?? "ist für euch da";
+                return (
+                  <div
+                    key={need}
+                    className="flex items-center gap-3 rounded-[16px] border border-[rgba(23,23,23,0.07)] bg-white px-4 py-3 shadow-sm"
                   >
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#8b7767]">
-                          {NEED_LABEL[need] ?? need}
-                        </span>
-                        {provider?.is_verified && (
-                          <span className="rounded-full bg-[#b76a43] px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                            ✓
-                          </span>
-                        )}
-                      </div>
-                      <p className="mt-0.5 font-medium text-[#171717]">{provider?.name ?? "—"}</p>
-                      <p className="text-sm text-[#665d55]">{pkg?.name ?? "—"}</p>
-                    </div>
-                    <div className="shrink-0 text-right">
-                      <p className="font-semibold text-[#171717]">
-                        {(booking.price_cents_agreed / 100).toLocaleString("de-DE")} €
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#f7f4ee] text-sm">
+                      {needEmoji(need)}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-[#8b7767]">
+                        {NEED_LABEL[need] ?? need}
                       </p>
-                      {priceUnit === "per_person" && pkg && (
-                        <p className="text-xs text-[#8b7767]">
-                          {(pkg.price_cents / 100).toLocaleString("de-DE")} €/Person
+                      {provider ? (
+                        <p className="text-sm font-medium text-[#171717]">
+                          {provider.name}{" "}
+                          <span className="font-normal text-[#8b7767]">— {desc}</span>
                         </p>
+                      ) : (
+                        <p className="text-sm text-[#8b7767]">In Planung</p>
                       )}
-                      <p className="mt-1 text-xs text-[#8b7767]">{isExpanded ? "▲" : "▼"}</p>
                     </div>
-                  </button>
-
-                  {isExpanded && pkg && (
-                    <div className="border-t border-[rgba(23,23,23,0.08)] px-5 py-4">
-                      {pkg.description && (
-                        <p className="mb-3 text-sm text-[#665d55]">{pkg.description}</p>
-                      )}
-                      {pkg.includes && pkg.includes.length > 0 && (
-                        <ul className="space-y-1.5">
-                          {pkg.includes.map((item, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-sm text-[#665d55]">
-                              <span className="mt-0.5 shrink-0 text-[#b76a43]">✓</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                      <p className="mt-3 text-xs text-[#8b7767]">
-                        Preis: {formatPrice(booking.price_cents_agreed, pkg.price_cents, priceUnit)}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Unbooked needs */}
-        {plan.selected_needs?.some((n) => !bookings.find((b) => b.need_slug === n)) && (
-          <div className="mt-6">
-            <h3 className="mb-2 text-sm font-medium text-[#8b7767]">Noch nicht vergeben</h3>
-            <div className="flex flex-wrap gap-2">
-              {plan.selected_needs
-                .filter((n) => !bookings.find((b) => b.need_slug === n))
-                .map((n) => (
-                  <span
-                    key={n}
-                    className="rounded-full border border-dashed border-[rgba(23,23,23,0.12)] px-3 py-1 text-xs text-[#8b7767]"
-                  >
-                    {NEED_LABEL[n] ?? n}
-                  </span>
-                ))}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
 
-        {/* Notes */}
-        {plan.notes && (
-          <div className="mt-8 rounded-2xl border border-[rgba(23,23,23,0.08)] bg-white p-5">
-            <h3 className="mb-2 text-sm font-semibold text-[#171717]">Notizen</h3>
-            <p className="whitespace-pre-wrap text-sm text-[#665d55]">{plan.notes}</p>
+        {/* ── RSVP ─────────────────────────────────────────────────────── */}
+        <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6 shadow-sm">
+          <div className="mb-5 flex items-center gap-2">
+            <div className="h-px flex-1 bg-[rgba(23,23,23,0.06)]" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#171717]">
+              Rückmeldung
+            </span>
+            <div className="h-px flex-1 bg-[rgba(23,23,23,0.06)]" />
           </div>
-        )}
+
+          {rsvpState === "error_duplicate" && (
+            <div className="mb-4 rounded-[12px] bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-800">
+              Für diesen Namen liegt bereits eine Rückmeldung vor.
+            </div>
+          )}
+          {rsvpState === "error" && (
+            <div className="mb-4 rounded-[12px] bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800">
+              Etwas ist schiefgelaufen. Bitte versuche es erneut.
+            </div>
+          )}
+
+          <div className="space-y-4">
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-[#171717]">
+                Dein Name <span className="text-[#b76a43]">*</span>
+              </label>
+              <input
+                type="text"
+                value={guestName}
+                onChange={(e) => setGuestName(e.target.value)}
+                placeholder="Vorname Nachname"
+                className="w-full rounded-xl border border-[rgba(23,23,23,0.12)] bg-[#fafaf8] px-4 py-3 text-sm text-[#171717] placeholder-[#8b7767] outline-none focus:border-[#171717]"
+              />
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-[#171717]">
+                Nachricht (optional)
+              </label>
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                rows={2}
+                placeholder="Ich freue mich sehr! / Leider verhindert, weil …"
+                className="w-full resize-none rounded-xl border border-[rgba(23,23,23,0.12)] bg-[#fafaf8] px-4 py-3 text-sm text-[#171717] placeholder-[#8b7767] outline-none focus:border-[#171717]"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              <button
+                type="button"
+                disabled={!guestName.trim() || rsvpState === "submitting"}
+                onClick={() => void handleRsvp("accepted")}
+                className="flex flex-col items-center gap-1 rounded-xl border-2 border-emerald-400 bg-emerald-50 py-3.5 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <span className="text-xl">🎉</span>
+                <span>Ich bin dabei!</span>
+              </button>
+
+              <button
+                type="button"
+                disabled={!guestName.trim() || rsvpState === "submitting"}
+                onClick={() => void handleRsvp("declined")}
+                className="flex flex-col items-center gap-1 rounded-xl border-2 border-[rgba(23,23,23,0.12)] bg-[#fafaf8] py-3.5 text-sm font-medium text-[#665d55] transition hover:border-[rgba(23,23,23,0.25)] disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <span className="text-xl">😔</span>
+                <span>Leider nicht</span>
+              </button>
+            </div>
+
+            {rsvpState === "submitting" && (
+              <p className="text-center text-xs text-[#8b7767]">Wird gespeichert …</p>
+            )}
+          </div>
+        </div>
 
         {/* Footer */}
-        <div className="mt-10 border-t border-[rgba(23,23,23,0.08)] pt-6 text-center">
+        <div className="mt-10 text-center">
           <p className="text-xs text-[#8b7767]">
-            Erstellt am {formatDate(plan.created_at)} · Geteilt via PerfectDay24
+            Organisiert mit{" "}
+            <Link href="/" className="text-[#b76a43] hover:underline">
+              PerfectDay24
+            </Link>
           </p>
           <Link
-            href="/"
-            className="mt-3 inline-flex items-center gap-1.5 text-xs text-[#b76a43] transition hover:underline"
+            href="/events"
+            className="mt-2 inline-flex items-center gap-1 text-xs text-[#8b7767] hover:text-[#171717]"
           >
             Eigenen Event planen →
           </Link>
@@ -357,10 +485,31 @@ export default function AgendaSharePage() {
   );
 }
 
-function Chip({ children }: { children: React.ReactNode }) {
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function FactChip({ icon, label }: { icon: string; label: string }) {
   return (
-    <span className="rounded-full border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1 text-xs text-[#665d55]">
-      {children}
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(183,106,67,0.2)] bg-white px-3 py-1 text-xs font-medium text-[#3d3530] shadow-sm">
+      <span>{icon}</span>
+      <span>{label}</span>
     </span>
   );
+}
+
+function needEmoji(slug: string): string {
+  const map: Record<string, string> = {
+    location:   "🏛️",
+    catering:   "🍽️",
+    musik:      "🎵",
+    deko:       "💐",
+    florist:    "🌸",
+    fotografie: "📷",
+    video:      "🎬",
+    moderation: "🎤",
+    animation:  "🎪",
+    torte:      "🎂",
+    technik:    "🔊",
+    transport:  "🚐",
+  };
+  return map[slug] ?? "✨";
 }

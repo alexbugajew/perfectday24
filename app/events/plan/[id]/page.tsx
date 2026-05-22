@@ -44,8 +44,18 @@ type EventPlan = {
   status: string;
   selected_needs: string[];
   share_token: string | null;
+  host_display_name: string | null;
+  invite_note: string | null;
   created_at: string;
   event_bookings: EventBooking[];
+};
+
+type RsvpRow = {
+  id: string;
+  guest_name: string;
+  response: "accepted" | "declined";
+  message: string | null;
+  created_at: string;
 };
 
 type VendorQuote = {
@@ -156,12 +166,16 @@ export default function EventPlanDetailPage() {
 
   const [plan, setPlan] = useState<EventPlan | null>(null);
   const [inquiries, setInquiries] = useState<EventInquiry[]>([]);
+  const [rsvps, setRsvps] = useState<RsvpRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [shareLoading, setShareLoading] = useState(false);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [shareCopied, setShareCopied] = useState(false);
   const [expandedBookings, setExpandedBookings] = useState<Record<string, boolean>>({});
+  const [showShareConfig, setShowShareConfig] = useState(false);
+  const [hostName, setHostName] = useState("");
+  const [inviteNote, setInviteNote] = useState("");
 
   const loadPlan = useCallback(async () => {
     const { data: sessionData } = await supabase.auth.getSession();
@@ -211,6 +225,11 @@ export default function EventPlanDetailPage() {
       .order("created_at", { ascending: false });
 
     if (inqData) setInquiries(inqData as unknown as EventInquiry[]);
+
+    // Load RSVPs for this plan
+    const { data: rsvpData } = await supabase.rpc("get_plan_rsvps", { p_plan_id: id });
+    if (rsvpData) setRsvps(rsvpData as RsvpRow[]);
+
     setLoading(false);
   }, [id, router]);
 
@@ -220,11 +239,20 @@ export default function EventPlanDetailPage() {
     if (!plan) return;
     setShareLoading(true);
 
+    // Save host name / invite note if changed
+    const updates: Record<string, string> = {};
+    if (hostName.trim()) updates.host_display_name = hostName.trim();
+    if (inviteNote.trim()) updates.invite_note = inviteNote.trim();
+
     if (plan.share_token) {
+      if (Object.keys(updates).length) {
+        await supabase.from("event_plans").update(updates).eq("id", plan.id);
+      }
       const url = `${window.location.origin}/events/agenda/${plan.share_token}`;
       setShareUrl(url);
       await navigator.clipboard.writeText(url).catch(() => {});
       setShareCopied(true);
+      setShowShareConfig(false);
       setShareLoading(false);
       return;
     }
@@ -232,18 +260,16 @@ export default function EventPlanDetailPage() {
     const token = crypto.randomUUID().replace(/-/g, "").substring(0, 24);
     const { error } = await supabase
       .from("event_plans")
-      .update({ share_token: token })
+      .update({ share_token: token, ...updates })
       .eq("id", plan.id);
 
-    if (error) {
-      setShareLoading(false);
-      return;
-    }
+    if (error) { setShareLoading(false); return; }
 
     const url = `${window.location.origin}/events/agenda/${token}`;
     setShareUrl(url);
     await navigator.clipboard.writeText(url).catch(() => {});
     setShareCopied(true);
+    setShowShareConfig(false);
     setPlan((prev) => prev ? { ...prev, share_token: token } : prev);
     setShareLoading(false);
   }
@@ -365,16 +391,64 @@ export default function EventPlanDetailPage() {
               Bearbeiten
             </Link>
             <button
-              onClick={() => void handleShare()}
-              disabled={shareLoading}
-              className="inline-flex items-center gap-1.5 rounded-full bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-60"
+              onClick={() => setShowShareConfig((v) => !v)}
+              className="inline-flex items-center gap-1.5 rounded-full bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
             >
-              {shareLoading ? "…" : shareCopied ? "Link kopiert ✓" : "Agenda teilen"}
+              💌 Einladung teilen
             </button>
           </div>
         </div>
 
-        {shareUrl && (
+        {/* ── Einladungs-Konfigurator ─────────────────────────────────── */}
+        {showShareConfig && (
+          <div className="mt-4 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 space-y-4">
+            <p className="text-sm font-semibold text-[var(--text-strong)]">Einladung anpassen</p>
+
+            <div>
+              <label className="mb-1 block text-xs font-medium text-[var(--text-muted)]">
+                Wer lädt ein? (z.B. „Anna & Thomas" oder „die Marketingabteilung")
+              </label>
+              <input
+                type="text"
+                value={hostName}
+                onChange={(e) => setHostName(e.target.value)}
+                placeholder={plan?.host_display_name ?? "Name des Gastgebers"}
+                className="w-full rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--text-strong)]"
+              />
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-medium text-[var(--text-muted)]">
+                Persönliche Nachricht an die Gäste (optional)
+              </label>
+              <textarea
+                value={inviteNote}
+                onChange={(e) => setInviteNote(e.target.value)}
+                rows={3}
+                placeholder={plan?.invite_note ?? "Kommt gerne in festlicher Kleidung …"}
+                className="w-full resize-none rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--text-strong)]"
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => void handleShare()}
+                disabled={shareLoading}
+                className="inline-flex items-center gap-1.5 rounded-full bg-[var(--text-strong)] px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-60"
+              >
+                {shareLoading ? "…" : shareCopied ? "Link kopiert ✓" : "Einladungslink erstellen & kopieren"}
+              </button>
+              <button
+                onClick={() => setShowShareConfig(false)}
+                className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-muted)] hover:text-[var(--text-strong)]"
+              >
+                Abbrechen
+              </button>
+            </div>
+          </div>
+        )}
+
+        {shareUrl && !showShareConfig && (
           <div className="mt-4 flex items-center gap-3 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
             <span className="min-w-0 flex-1 truncate font-mono text-xs text-[var(--text-muted)]">{shareUrl}</span>
             <button
@@ -384,7 +458,7 @@ export default function EventPlanDetailPage() {
               }}
               className="shrink-0 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--text-strong)] hover:text-white"
             >
-              Kopieren
+              {shareCopied ? "Kopiert ✓" : "Kopieren"}
             </button>
           </div>
         )}
@@ -603,6 +677,54 @@ export default function EventPlanDetailPage() {
                 );
               })
             )}
+          </div>
+        </div>
+      )}
+
+      {/* ── RSVP Übersicht ───────────────────────────────────────────────── */}
+      {rsvps.length > 0 && (
+        <div className="mt-8">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-base font-semibold text-[var(--text-strong)]">Rückmeldungen</h2>
+            <div className="flex gap-3 text-xs text-[var(--text-muted)]">
+              <span className="text-emerald-700 font-medium">
+                {rsvps.filter((r) => r.response === "accepted").length} Zusagen
+              </span>
+              <span>
+                {rsvps.filter((r) => r.response === "declined").length} Absagen
+              </span>
+            </div>
+          </div>
+          <div className="space-y-2">
+            {rsvps.map((r) => (
+              <div
+                key={r.id}
+                className="flex items-start gap-3 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-sm"
+              >
+                <span className="mt-0.5 text-lg leading-none">
+                  {r.response === "accepted" ? "🎉" : "😔"}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="font-medium text-[var(--text-strong)] text-sm">{r.guest_name}</p>
+                    <span className={[
+                      "rounded-full px-2 py-0.5 text-[10px] font-semibold",
+                      r.response === "accepted"
+                        ? "bg-emerald-50 text-emerald-700"
+                        : "bg-[var(--bg-surface)] text-[var(--text-muted)]",
+                    ].join(" ")}>
+                      {r.response === "accepted" ? "Zugesagt" : "Abgesagt"}
+                    </span>
+                  </div>
+                  {r.message && (
+                    <p className="mt-0.5 text-xs text-[var(--text-muted)]">„{r.message}"</p>
+                  )}
+                </div>
+                <p className="shrink-0 text-[10px] text-[var(--text-muted)]">
+                  {new Date(r.created_at).toLocaleDateString("de-DE", { day: "2-digit", month: "short" })}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       )}
