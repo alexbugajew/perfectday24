@@ -113,15 +113,6 @@ const VENDORS_VISIBLE_DEFAULT = 3;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function formatPrice(cents: number, unit: string, guests: number) {
-  const base = cents / 100;
-  if (unit === "per_person") {
-    const total = base * guests;
-    return `${base.toLocaleString("de-DE")} €/P. · ca. ${total.toLocaleString("de-DE")} €`;
-  }
-  return `${base.toLocaleString("de-DE")} €`;
-}
-
 function pkgTotal(pkg: VendorPackage, guests: number): number {
   if (pkg.price_type === "per_person") return pkg.price * Math.max(guests, 1);
   return pkg.price;
@@ -175,15 +166,18 @@ function PlanNewInner() {
 
   // ── State ────────────────────────────────────────────────────────────────
 
-  const [eventTitle, setEventTitle]     = useState("");
-  const [cityName, setCityName]         = useState<string>("");
-  const [vendorsByNeed, setVendorsByNeed] = useState<Record<string, VendorWithScore[]>>({});
+  const [eventTitle, setEventTitle]             = useState("");
+  const [customerMessage, setCustomerMessage]   = useState("");
+  const [showMessageBox, setShowMessageBox]     = useState(false);
+  const [cityName, setCityName]                 = useState<string>("");
+  const [vendorsByNeed, setVendorsByNeed]       = useState<Record<string, VendorWithScore[]>>({});
   const [allVendorsByNeed, setAllVendorsByNeed] = useState<Record<string, VendorWithScore[]>>({});
-  const [loading, setLoading]           = useState(true);
-  const [selections, setSelections]     = useState<Record<string, Selection>>({});
-  const [activeVendorId, setActiveVendorId] = useState<Record<string, string | null>>({});
-  const [expandedNeeds, setExpandedNeeds] = useState<Set<string>>(new Set());
-  const [saving, setSaving]             = useState(false);
+  const [loading, setLoading]                   = useState(true);
+  const [selections, setSelections]             = useState<Record<string, Selection>>({});
+  const [quoteRequests, setQuoteRequests]       = useState<Record<string, VendorWithScore>>({});
+  const [activeVendorId, setActiveVendorId]     = useState<Record<string, string | null>>({});
+  const [expandedNeeds, setExpandedNeeds]       = useState<Set<string>>(new Set());
+  const [saving, setSaving]                     = useState(false);
 
   // ── Load city name ────────────────────────────────────────────────────────
 
@@ -220,7 +214,7 @@ function PlanNewInner() {
           min_guests, max_guests, includes, sort_order
         )
       `)
-      .contains("city_slugs", [citySlug])
+      .eq("city_slug", citySlug)
       .eq("status", "active")
       .in("service_type", serviceTypes)
       .order("is_verified", { ascending: false });
@@ -264,7 +258,6 @@ function PlanNewInner() {
       ...prev,
       [needSlug]: prev[needSlug] === vendor.id ? null : vendor.id,
     }));
-    // clear package selection when switching vendor
     setSelections((prev) => {
       const next = { ...prev };
       if (next[needSlug]?.provider.id !== vendor.id) delete next[needSlug];
@@ -281,6 +274,30 @@ function PlanNewInner() {
         return next;
       }
       return { ...prev, [needSlug]: { needSlug, provider: vendor, pkg } };
+    });
+    // Remove from quote requests if they now selected a package
+    setQuoteRequests((prev) => {
+      const next = { ...prev };
+      delete next[needSlug];
+      return next;
+    });
+  }
+
+  function toggleQuoteRequest(needSlug: string, vendor: VendorWithScore) {
+    setQuoteRequests((prev) => {
+      const next = { ...prev };
+      if (next[needSlug]?.id === vendor.id) {
+        delete next[needSlug];
+      } else {
+        next[needSlug] = vendor;
+      }
+      return next;
+    });
+    // Clear any package selection for this need
+    setSelections((prev) => {
+      const next = { ...prev };
+      delete next[needSlug];
+      return next;
     });
   }
 
@@ -334,6 +351,7 @@ function PlanNewInner() {
 
     if (planErr || !plan) { setSaving(false); return; }
 
+    // Bookings for vendors with selected packages
     const bookings = Object.values(selections).map((s) => ({
       event_plan_id:       plan.id,
       service_provider_id: s.provider.id,
@@ -349,6 +367,37 @@ function PlanNewInner() {
       await supabase.from("event_bookings").insert(bookings);
     }
 
+    // Inquiries for vendors without prices
+    const quoteEntries = Object.entries(quoteRequests);
+    if (quoteEntries.length > 0) {
+      await fetch("/api/events/inquiries", {
+        method:  "POST",
+        headers: {
+          "Content-Type":  "application/json",
+          "Authorization": `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          planId: plan.id,
+          providers: quoteEntries.map(([needSlug, vendor]) => ({
+            id:      vendor.id,
+            needSlug,
+            email:   vendor.contact_email ?? null,
+            name:    vendor.name,
+          })),
+          eventData: {
+            date,
+            city:            citySlug,
+            cityName,
+            guests,
+            budget,
+            occasion,
+            planTitle:       eventTitle.trim() || (OCCASION_LABELS[occasion] ?? occasion),
+            customerMessage: customerMessage.trim() || undefined,
+          },
+        }),
+      }).catch((e) => console.error("inquiry request failed:", e));
+    }
+
     router.push(`/events/plan/${plan.id}`);
   }
 
@@ -358,13 +407,25 @@ function PlanNewInner() {
     (sum, s) => sum + pkgTotal(s.pkg, guests),
     0
   );
-  const overBudget = budget > 0 && totalEur > budget;
-  const cityDisplay = cityName || citySlug;
+  const selectionCount   = Object.keys(selections).length;
+  const quoteCount       = Object.keys(quoteRequests).length;
+  const totalActionCount = selectionCount + quoteCount;
+  const overBudget       = budget > 0 && totalEur > budget;
+  const cityDisplay      = cityName || citySlug;
+
+  const saveLabel = (() => {
+    if (saving) return "Wird gespeichert …";
+    if (quoteCount > 0 && selectionCount > 0)
+      return `Plan speichern & ${quoteCount} Anfrage${quoteCount > 1 ? "n" : ""} senden`;
+    if (quoteCount > 0)
+      return `${quoteCount} Anfrage${quoteCount > 1 ? "n" : ""} senden & Plan speichern`;
+    return "Plan speichern";
+  })();
 
   // ─── Render ───────────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen bg-[#f7f4ee] pb-32">
+    <div className="min-h-screen bg-[#f7f4ee] pb-36">
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <div className="border-b border-[rgba(23,23,23,0.08)] bg-[#fffdf8] px-4 py-6 sm:px-6">
@@ -418,11 +479,12 @@ function PlanNewInner() {
         ) : (
           <div className="space-y-10">
             {needs.map((needSlug) => {
-              const vendors = vendorsByNeed[needSlug] ?? [];
-              const allVendors = allVendorsByNeed[needSlug] ?? [];
-              const expanded   = expandedNeeds.has(needSlug);
-              const active     = activeVendorId[needSlug] ?? null;
-              const selection  = selections[needSlug] ?? null;
+              const vendors     = vendorsByNeed[needSlug] ?? [];
+              const allVendors  = allVendorsByNeed[needSlug] ?? [];
+              const expanded    = expandedNeeds.has(needSlug);
+              const active      = activeVendorId[needSlug] ?? null;
+              const selection   = selections[needSlug] ?? null;
+              const quoteVendor = quoteRequests[needSlug] ?? null;
 
               return (
                 <section key={needSlug}>
@@ -438,6 +500,11 @@ function PlanNewInner() {
                       {selection && (
                         <span className="rounded-full border border-emerald-300 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-800">
                           ausgewählt
+                        </span>
+                      )}
+                      {quoteVendor && !selection && (
+                        <span className="rounded-full border border-amber-300 bg-amber-50 px-2.5 py-0.5 text-[11px] font-medium text-amber-800">
+                          Anfrage vorgemerkt
                         </span>
                       )}
                     </div>
@@ -480,7 +547,9 @@ function PlanNewInner() {
                             vendor={vendor}
                             isActive={active === vendor.id}
                             isSelected={selection?.provider.id === vendor.id}
+                            isQuoteRequested={quoteVendor?.id === vendor.id}
                             onSelect={() => selectVendor(needSlug, vendor)}
+                            onQuoteRequest={() => toggleQuoteRequest(needSlug, vendor)}
                           />
                         ))}
                       </div>
@@ -498,7 +567,7 @@ function PlanNewInner() {
                         </button>
                       )}
 
-                      {/* Package panel — appears when a vendor is expanded */}
+                      {/* Package panel — appears when a vendor with packages is expanded */}
                       {active && (() => {
                         const activeVendor = vendors.find((v) => v.id === active);
                         if (!activeVendor || activeVendor.packages.length === 0) return null;
@@ -519,6 +588,40 @@ function PlanNewInner() {
             })}
           </div>
         )}
+
+        {/* ── Optional customer message (shows when there are quote requests) ── */}
+        {quoteCount > 0 && (
+          <div className="mt-10 rounded-[20px] border border-amber-200 bg-amber-50 p-5">
+            <div className="flex items-start gap-3">
+              <span className="text-xl">💬</span>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-amber-900">
+                  {quoteCount} Preisanfrage{quoteCount > 1 ? "n" : ""} vorgemerkt
+                </p>
+                <p className="mt-0.5 text-xs text-amber-800">
+                  Die Anbieter erhalten Ihre Eventdetails und melden sich mit einem Angebot.
+                </p>
+                {!showMessageBox ? (
+                  <button
+                    type="button"
+                    onClick={() => setShowMessageBox(true)}
+                    className="mt-2 text-xs text-amber-700 underline underline-offset-2"
+                  >
+                    + Persönliche Nachricht hinzufügen
+                  </button>
+                ) : (
+                  <textarea
+                    value={customerMessage}
+                    onChange={(e) => setCustomerMessage(e.target.value)}
+                    rows={3}
+                    placeholder="z.B. besondere Anforderungen, Stil-Wünsche, Fragen …"
+                    className="mt-2 w-full rounded-xl border border-amber-300 bg-white px-3 py-2 text-sm text-[#171717] outline-none focus:border-[#b76a43] resize-none"
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── Sticky bottom bar ───────────────────────────────────────────── */}
@@ -527,27 +630,38 @@ function PlanNewInner() {
           <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-wide text-[#8b7767]">
-                {Object.keys(selections).length} von {needs.length} Leistungen gewählt
+                {selectionCount > 0 && `${selectionCount} ausgewählt`}
+                {selectionCount > 0 && quoteCount > 0 && " · "}
+                {quoteCount > 0 && `${quoteCount} Anfrage${quoteCount > 1 ? "n" : ""}`}
+                {totalActionCount === 0 && `0 von ${needs.length} Leistungen`}
               </div>
               <div className="mt-1 flex items-baseline gap-2">
-                <span className="text-2xl font-semibold text-[#171717]">
-                  {totalEur.toLocaleString("de-DE")} €
-                </span>
-                <span className="text-xs text-[#8b7767]">Gesamt</span>
-                {overBudget && (
-                  <span className="rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-800">
-                    über Budget
-                  </span>
+                {selectionCount > 0 ? (
+                  <>
+                    <span className="text-2xl font-semibold text-[#171717]">
+                      {totalEur.toLocaleString("de-DE")} €
+                    </span>
+                    <span className="text-xs text-[#8b7767]">Gesamt</span>
+                    {overBudget && (
+                      <span className="rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-800">
+                        über Budget
+                      </span>
+                    )}
+                  </>
+                ) : quoteCount > 0 ? (
+                  <span className="text-sm text-[#665d55]">Preise werden angefragt</span>
+                ) : (
+                  <span className="text-sm text-[#8b7767]">Noch keine Auswahl</span>
                 )}
               </div>
             </div>
             <button
               type="button"
               onClick={handleSave}
-              disabled={saving || Object.keys(selections).length === 0}
+              disabled={saving || totalActionCount === 0}
               className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-40 hover:opacity-95"
             >
-              {saving ? "Speichern …" : "Plan speichern"}
+              {saveLabel}
             </button>
           </div>
         </div>
@@ -562,15 +676,20 @@ function VendorCard({
   vendor,
   isActive,
   isSelected,
+  isQuoteRequested,
   onSelect,
+  onQuoteRequest,
 }: {
   vendor: VendorWithScore;
   isActive: boolean;
   isSelected: boolean;
+  isQuoteRequested: boolean;
   onSelect: () => void;
+  onQuoteRequest: () => void;
 }) {
   const photo = vendor.media_urls?.[0] ?? null;
-  const minPrice = vendor.minPrice;
+  const hasPackages = vendor.packages.length > 0;
+
   const bookingLabel = vendor.booking_type === "direct" || vendor.booking_type === "instant"
     ? "Sofort"
     : "Anfrage";
@@ -578,12 +697,16 @@ function VendorCard({
     ? "bg-emerald-50 border-emerald-200 text-emerald-700"
     : "bg-[var(--bg-surface)] border-[var(--line-subtle)] text-[#8b7767]";
 
+  const isHighlighted = isActive || isSelected || isQuoteRequested;
+
   return (
     <div
       className={cx(
         "flex flex-col overflow-hidden rounded-[20px] border bg-white transition",
-        isActive || isSelected
-          ? "border-[#171717] shadow-[0_4px_16px_rgba(23,23,23,0.10)]"
+        isHighlighted
+          ? isQuoteRequested && !isSelected
+            ? "border-amber-400 shadow-[0_4px_16px_rgba(183,106,67,0.12)]"
+            : "border-[#171717] shadow-[0_4px_16px_rgba(23,23,23,0.10)]"
           : "border-[rgba(23,23,23,0.08)] hover:border-[rgba(23,23,23,0.18)]"
       )}
     >
@@ -597,7 +720,6 @@ function VendorCard({
             🏢
           </div>
         )}
-        {/* Badge */}
         {vendor.badge && (
           <span
             className={cx(
@@ -608,7 +730,6 @@ function VendorCard({
             {BADGE_LABEL[vendor.badge]}
           </span>
         )}
-        {/* Verified dot */}
         {vendor.is_verified && (
           <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#171717] text-[9px] font-bold text-white">
             ✓
@@ -626,27 +747,51 @@ function VendorCard({
           <span className={cx("rounded-full border px-1.5 py-0.5 text-[10px] font-medium", bookingClass)}>
             {bookingLabel}
           </span>
+          {!hasPackages && (
+            <span className="rounded-full border border-[rgba(183,106,67,0.3)] bg-[rgba(183,106,67,0.08)] px-1.5 py-0.5 text-[10px] font-medium text-[#b76a43]">
+              Preis auf Anfrage
+            </span>
+          )}
         </div>
 
-        {minPrice > 0 && (
+        {vendor.minPrice > 0 && (
           <p className="mt-1.5 text-xs text-[#8b7767]">
-            ab {minPrice.toLocaleString("de-DE")} €
+            ab {vendor.minPrice.toLocaleString("de-DE")} €
           </p>
         )}
 
         <div className="mt-auto pt-3">
-          <button
-            type="button"
-            onClick={onSelect}
-            className={cx(
-              "w-full rounded-xl border px-3 py-1.5 text-xs font-medium transition",
-              isActive || isSelected
-                ? "border-[#171717] bg-[#171717] text-white hover:opacity-80"
-                : "border-[rgba(23,23,23,0.15)] bg-white text-[#171717] hover:border-[#171717]"
-            )}
-          >
-            {isSelected ? "Ausgewählt ✓" : isActive ? "Schließen" : "Auswählen"}
-          </button>
+          {hasPackages ? (
+            /* Vendor with packages: "Auswählen" opens package panel */
+            <button
+              type="button"
+              onClick={onSelect}
+              className={cx(
+                "w-full rounded-xl border px-3 py-1.5 text-xs font-medium transition",
+                isSelected
+                  ? "border-[#171717] bg-[#171717] text-white hover:opacity-80"
+                  : isActive
+                    ? "border-[#171717] bg-[#171717] text-white hover:opacity-80"
+                    : "border-[rgba(23,23,23,0.15)] bg-white text-[#171717] hover:border-[#171717]"
+              )}
+            >
+              {isSelected ? "Ausgewählt ✓" : isActive ? "Schließen" : "Auswählen"}
+            </button>
+          ) : (
+            /* Vendor without packages: "Preise anfragen" */
+            <button
+              type="button"
+              onClick={onQuoteRequest}
+              className={cx(
+                "w-full rounded-xl border px-3 py-1.5 text-xs font-medium transition",
+                isQuoteRequested
+                  ? "border-amber-400 bg-amber-50 text-amber-800 hover:bg-amber-100"
+                  : "border-[rgba(183,106,67,0.4)] bg-white text-[#b76a43] hover:border-[#b76a43] hover:bg-[rgba(183,106,67,0.05)]"
+              )}
+            >
+              {isQuoteRequested ? "Anfrage vorgemerkt ✓" : "Preise anfragen"}
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -48,6 +48,25 @@ type EventPlan = {
   event_bookings: EventBooking[];
 };
 
+type VendorQuote = {
+  id: string;
+  need_slug: string | null;
+  status: string;
+  price_cents: number | null;
+  price_unit: string;
+  availability_confirmed: boolean | null;
+  vendor_message: string | null;
+  expires_at: string;
+  service_providers: { id: string; name: string; service_type: string } | null;
+};
+
+type EventInquiry = {
+  id: string;
+  status: string;
+  sent_at: string | null;
+  vendor_quotes: VendorQuote[];
+};
+
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const NEED_LABEL: Record<string, string> = {
@@ -136,6 +155,7 @@ export default function EventPlanDetailPage() {
   const router = useRouter();
 
   const [plan, setPlan] = useState<EventPlan | null>(null);
+  const [inquiries, setInquiries] = useState<EventInquiry[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [shareLoading, setShareLoading] = useState(false);
@@ -175,6 +195,22 @@ export default function EventPlanDetailPage() {
     }
 
     setPlan(data as unknown as EventPlan);
+
+    // Load inquiries for this plan
+    const { data: inqData } = await supabase
+      .from("event_inquiries")
+      .select(`
+        id, status, sent_at,
+        vendor_quotes (
+          id, need_slug, status, price_cents, price_unit,
+          availability_confirmed, vendor_message, expires_at,
+          service_providers ( id, name, service_type )
+        )
+      `)
+      .eq("event_plan_id", id)
+      .order("created_at", { ascending: false });
+
+    if (inqData) setInquiries(inqData as unknown as EventInquiry[]);
     setLoading(false);
   }, [id, router]);
 
@@ -494,6 +530,82 @@ export default function EventPlanDetailPage() {
           </div>
         )}
       </div>
+
+      {/* ── Pending inquiries / quotes ───────────────────────────────────── */}
+      {inquiries.length > 0 && (
+        <div className="mt-8">
+          <h2 className="mb-4 text-base font-semibold text-[var(--text-strong)]">
+            Preisanfragen
+          </h2>
+          <div className="space-y-3">
+            {inquiries.flatMap((inq) =>
+              (inq.vendor_quotes ?? []).map((q) => {
+                const provider = q.service_providers;
+                const needLabel = NEED_LABEL[q.need_slug ?? ""] ?? q.need_slug ?? "Leistung";
+                const isResponded = q.status === "quoted" || q.status === "accepted";
+                const isExpired   = q.status === "expired" || new Date(q.expires_at) < new Date();
+
+                return (
+                  <div
+                    key={q.id}
+                    className="overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white shadow-sm"
+                  >
+                    <div className="flex items-start gap-4 px-5 py-4">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-medium uppercase tracking-wide text-[var(--text-muted)]">
+                            {needLabel}
+                          </span>
+                          {isResponded && (
+                            <span className="rounded-full border border-emerald-300 bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                              Angebot eingegangen
+                            </span>
+                          )}
+                          {!isResponded && !isExpired && (
+                            <span className="rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
+                              Ausstehend
+                            </span>
+                          )}
+                          {isExpired && (
+                            <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2 py-0.5 text-[10px] font-semibold text-[var(--text-muted)]">
+                              Abgelaufen
+                            </span>
+                          )}
+                        </div>
+                        <p className="mt-0.5 font-medium text-[var(--text-strong)]">
+                          {provider?.name ?? "—"}
+                        </p>
+                        {isResponded && q.price_cents != null && (
+                          <p className="mt-0.5 text-sm text-[var(--text-muted)]">
+                            Angebot:{" "}
+                            <strong className="text-[var(--text-strong)]">
+                              {(q.price_cents / 100).toLocaleString("de-DE")} €
+                              {q.price_unit === "per_person" && " / Person"}
+                              {q.price_unit === "per_hour" && " / Stunde"}
+                            </strong>
+                            {q.availability_confirmed === true && " · Verfügbar ✓"}
+                            {q.availability_confirmed === false && " · Nicht verfügbar"}
+                          </p>
+                        )}
+                        {isResponded && q.vendor_message && (
+                          <p className="mt-1 rounded-[10px] bg-[var(--bg-surface)] px-3 py-2 text-xs text-[var(--text-muted)]">
+                            &quot;{q.vendor_message}&quot;
+                          </p>
+                        )}
+                        {!isResponded && !isExpired && (
+                          <p className="mt-0.5 text-xs text-[var(--text-muted)]">
+                            Anfrage gesendet — Anbieter wurde benachrichtigt.
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Needs without bookings */}
       {plan.selected_needs && plan.selected_needs.some((n) => !bookings.find((b) => b.need_slug === n)) && (
