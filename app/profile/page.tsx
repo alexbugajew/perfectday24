@@ -1078,151 +1078,152 @@ function ProfilePageInner() {
 
         {/* ── Auth card ────────────────────────────────────────────────────── */}
         <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-            Anmeldung
-          </div>
 
-          <div className="mt-4 flex flex-col gap-6 md:flex-row md:items-start">
-            {/* Account info (when logged in) */}
-            {authReady && userId ? (
-              <div className="flex items-start gap-4 md:w-64">
+          {/* ── EINGELOGGT (echter Account) ─────────────────────────────────── */}
+          {authReady && userId && !isAnonymous ? (
+            <>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+                Angemeldet
+              </div>
+              <div className="mt-4 flex items-center gap-4">
                 {avatarUrl ? (
                   <img
                     src={avatarUrl}
                     alt={displayName || username || "Avatar"}
-                    className="h-14 w-14 rounded-full border border-[rgba(23,23,23,0.08)] bg-white object-cover"
+                    className="h-12 w-12 rounded-full border border-[rgba(23,23,23,0.08)] bg-white object-cover"
                   />
                 ) : (
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] text-xl font-semibold text-[#8b7767]">
-                    {(displayName || username || "P").slice(0, 1).toUpperCase()}
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] text-lg font-semibold text-[#8b7767]">
+                    {(displayName || username || email || "P").slice(0, 1).toUpperCase()}
                   </div>
                 )}
-                <div className="min-w-0">
-                  <div className="font-semibold text-[#171717]">
-                    {displayName || username || "Dein Profil"}
+                <div className="min-w-0 flex-1">
+                  <div className="truncate font-semibold text-[#171717]">
+                    {displayName || username || email || "Dein Konto"}
                   </div>
-                  {username ? (
-                    <div className="mt-0.5 text-sm text-[#8b7767]">@{username}</div>
-                  ) : null}
-                  <div className="mt-1 text-xs text-[#8b7767]">
-                    {isAnonymous ? "Gastprofil" : providerLabel(provider ?? "email")}
-                    {email ? ` · ${email}` : ""}
+                  <div className="mt-0.5 truncate text-xs text-[#8b7767]">
+                    {providerLabel(provider ?? "email")}{email ? ` · ${email}` : ""}
                   </div>
-                  {isAnonymous ? (
-                    <div className="mt-2 text-xs text-amber-700">
-                      Gastzugang aktiv — für ein dauerhaftes Profil bitte registrieren.
-                    </div>
-                  ) : null}
                 </div>
+                <button
+                  type="button"
+                  onClick={() => void signOut()}
+                  disabled={authLoading}
+                  className="shrink-0 inline-flex min-h-9 items-center rounded-xl border border-[rgba(23,23,23,0.08)] px-4 text-sm text-[#665d55] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                >
+                  Abmelden
+                </button>
               </div>
-            ) : null}
+            </>
+          ) : authReady && userId && isAnonymous ? (
+            /* ── GASTPROFIL ───────────────────────────────────────────────── */
+            <>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-600">
+                Gastprofil
+              </div>
+              <p className="mt-2 text-sm text-[#665d55]">
+                Du bist als Gast unterwegs. Registriere dich kostenlos, um deine Pläne dauerhaft zu speichern.
+              </p>
+              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                <button
+                  onClick={() => void startOAuth("google")}
+                  disabled={authLoading}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                >
+                  <span className="text-base font-bold">G</span> Mit Google
+                </button>
+                <button
+                  onClick={() => void startOAuth("azure")}
+                  disabled={authLoading}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                >
+                  <span className="inline-grid h-4 w-4 grid-cols-2 gap-[2px]">
+                    <span className="rounded-[1px] bg-[#f25022]" />
+                    <span className="rounded-[1px] bg-[#7fba00]" />
+                    <span className="rounded-[1px] bg-[#00a4ef]" />
+                    <span className="rounded-[1px] bg-[#ffb900]" />
+                  </span>
+                  Mit Microsoft
+                </button>
+              </div>
+              <div className="relative my-4">
+                <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[rgba(23,23,23,0.06)]" /></div>
+                <div className="relative flex justify-center"><span className="bg-white px-2 text-xs text-[#8b7767]">oder mit E-Mail</span></div>
+              </div>
+              <form className="grid gap-2" onSubmit={(e) => { e.preventDefault(); void signInWithEmail(); }}>
+                <input type="email" name="email" autoComplete="email" inputMode="email" value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]" />
+                <input type="password" name="password" autoComplete="new-password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort wählen" className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]" />
+                <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[#171717] text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                  Kostenloses Konto erstellen
+                </button>
+              </form>
+              <button type="button" onClick={() => void signOut()} disabled={authLoading} className="mt-3 text-xs text-[#8b7767] underline-offset-2 hover:underline">
+                Gastzugang beenden
+              </button>
+            </>
+          ) : (
+            /* ── NICHT EINGELOGGT ─────────────────────────────────────────── */
+            <>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+                Konto
+              </div>
+              <p className="mt-2 text-sm text-[#665d55]">Kostenlos anmelden oder registrieren.</p>
 
-            {/* Auth form */}
-            <div className="flex-1">
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-sm font-medium text-[#171717]">
-                  {authReady && userId && !isAnonymous ? "Konto" : "Anmelden oder registrieren"}
-                </span>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => void startOAuth("google")}
-                    disabled={authLoading}
-                    aria-label="Mit Google anmelden"
-                    title="Mit Google anmelden"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[rgba(23,23,23,0.08)] bg-white text-sm font-bold text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
-                  >
-                    G
-                  </button>
-                  <button
-                    onClick={() => void startOAuth("azure")}
-                    disabled={authLoading}
-                    aria-label="Mit Microsoft anmelden"
-                    title="Mit Microsoft anmelden"
-                    className="inline-grid h-10 w-10 grid-cols-2 gap-0.5 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white p-2 transition hover:bg-[#f7f4ee] disabled:opacity-50"
-                  >
-                    <span className="rounded-[2px] bg-[#f25022]" />
-                    <span className="rounded-[2px] bg-[#7fba00]" />
-                    <span className="rounded-[2px] bg-[#00a4ef]" />
-                    <span className="rounded-[2px] bg-[#ffb900]" />
-                  </button>
-                </div>
+              {/* OAuth */}
+              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                <button
+                  onClick={() => void startOAuth("google")}
+                  disabled={authLoading}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                >
+                  <span className="text-base font-bold">G</span> Mit Google
+                </button>
+                <button
+                  onClick={() => void startOAuth("azure")}
+                  disabled={authLoading}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                >
+                  <span className="inline-grid h-4 w-4 grid-cols-2 gap-[2px]">
+                    <span className="rounded-[1px] bg-[#f25022]" />
+                    <span className="rounded-[1px] bg-[#7fba00]" />
+                    <span className="rounded-[1px] bg-[#00a4ef]" />
+                    <span className="rounded-[1px] bg-[#ffb900]" />
+                  </span>
+                  Mit Microsoft
+                </button>
               </div>
 
-              <form
-                className="mt-3"
-                onSubmit={(e) => { e.preventDefault(); void signInWithEmail(); }}
-              >
-                <div className="grid gap-2 sm:grid-cols-2">
-                  <input
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    inputMode="email"
-                    value={authEmailInput}
-                    onChange={(e) => setAuthEmailInput(e.target.value)}
-                    placeholder="E-Mail"
-                    className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]"
-                  />
-                  <input
-                    type="password"
-                    name="password"
-                    autoComplete="current-password"
-                    value={authPasswordInput}
-                    onChange={(e) => setAuthPasswordInput(e.target.value)}
-                    placeholder="Passwort"
-                    className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]"
-                  />
-                </div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <button
-                    type="submit"
-                    disabled={authLoading}
-                    className="inline-flex min-h-11 items-center rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-5 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
-                  >
-                    Einloggen
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => void signUpWithEmail()}
-                    disabled={authLoading}
-                    className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
-                  >
+              {/* Divider */}
+              <div className="relative my-4">
+                <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[rgba(23,23,23,0.06)]" /></div>
+                <div className="relative flex justify-center"><span className="bg-white px-2 text-xs text-[#8b7767]">oder mit E-Mail</span></div>
+              </div>
+
+              {/* Email form */}
+              <form className="grid gap-2" onSubmit={(e) => { e.preventDefault(); void signInWithEmail(); }}>
+                <input type="email" name="email" autoComplete="email" inputMode="email" value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]" />
+                <input type="password" name="password" autoComplete="current-password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort" className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]" />
+                <div className="grid grid-cols-2 gap-2">
+                  <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="inline-flex h-11 items-center justify-center rounded-xl bg-[#171717] text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
                     Registrieren
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => void resetPassword()}
-                    disabled={authLoading}
-                    className="inline-flex min-h-11 items-center rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-5 text-sm font-medium text-[#665d55] transition hover:bg-[#f7f4ee] disabled:opacity-50"
-                  >
-                    Passwort zurücksetzen
+                  <button type="submit" disabled={authLoading} className="inline-flex h-11 items-center justify-center rounded-xl border border-[rgba(23,23,23,0.08)] bg-white text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50">
+                    Einloggen
                   </button>
-                  {authReady && userId ? (
-                    <button
-                      type="button"
-                      onClick={() => void signOut()}
-                      disabled={authLoading}
-                      className="inline-flex min-h-11 items-center rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-5 text-sm font-medium text-[#665d55] transition hover:bg-[#f7f4ee] disabled:opacity-50"
-                    >
-                      Abmelden
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => void continueAsGuest()}
-                      disabled={authLoading}
-                      className="inline-flex min-h-11 items-center rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-5 text-sm font-medium text-[#665d55] transition hover:bg-[#f7f4ee] disabled:opacity-50"
-                    >
-                      Als Gast fortfahren
-                    </button>
-                  )}
                 </div>
               </form>
-              <p className="mt-3 text-xs leading-5 text-[#8b7767]">
-                Gastzugang optional — für ein dauerhaftes Profil E-Mail, Google oder Microsoft verwenden.
-              </p>
-            </div>
-          </div>
+
+              {/* Secondary links */}
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                <button type="button" onClick={() => void resetPassword()} disabled={authLoading} className="text-xs text-[#8b7767] underline-offset-2 hover:underline">
+                  Passwort vergessen?
+                </button>
+                <button type="button" onClick={() => void continueAsGuest()} disabled={authLoading} className="text-xs text-[#8b7767] underline-offset-2 hover:underline">
+                  Als Gast fortfahren
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
         {/* ── Role badges (creator / partner / corporate) ─────────────────── */}
@@ -1294,7 +1295,7 @@ function ProfilePageInner() {
                   Deine Vorlieben
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-[#665d55]">
-                  Werden für neue Planungen und Gruppenkonstellationen automatisch übernommen.
+                  Fließen automatisch in neue Tagespläne und Empfehlungen ein.
                 </p>
               </div>
               <div className="shrink-0 rounded-full border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-2.5 py-1 text-xs text-[#8b7767]">
@@ -1367,13 +1368,9 @@ function ProfilePageInner() {
               </button>
             </div>
 
-            {interests.length > 0 ? (
+            {interests.length === 0 && (
               <p className="mt-3 text-xs text-[#8b7767]">
-                Aktiv: {interests.join(", ")}
-              </p>
-            ) : (
-              <p className="mt-3 text-xs text-[#8b7767]">
-                Noch keine Interessen gespeichert. Wähle ein paar klare Vorlieben als Grundlage für bessere Vorschläge.
+                Wähle ein paar Vorlieben — sie verbessern deine Planvorschläge.
               </p>
             )}
           </div>
@@ -1481,24 +1478,13 @@ function ProfilePageInner() {
             </div>
 
             {/* Avatar upload */}
-            <div className="mt-4 grid gap-2">
+            <div className="mt-4">
               <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-                Avatar hochladen
+                Profilbild
               </div>
-              <label className="grid gap-1.5 text-sm">
+              <label className="mt-2 grid gap-1.5 text-sm">
                 <span className="text-xs text-[#665d55]">
-                  Avatar-URL (direkt einfügen)
-                </span>
-                <input
-                  value={avatarUrl}
-                  onChange={(e) => setAvatarUrl(e.target.value)}
-                  placeholder="https://..."
-                  className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]"
-                />
-              </label>
-              <label className="grid gap-1.5 text-sm">
-                <span className="text-xs text-[#665d55]">
-                  Bilddatei hochladen{avatarUploading ? " — Upload läuft…" : ""}
+                  {avatarUploading ? "Upload läuft…" : "Bilddatei auswählen (JPG, PNG, WebP)"}
                 </span>
                 <input
                   type="file"
