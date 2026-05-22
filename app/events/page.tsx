@@ -168,12 +168,86 @@ function NeedToggle({
   );
 }
 
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type SavedPlan = {
+  id: string;
+  title: string | null;
+  occasion_slug: string;
+  city_slug: string;
+  event_date: string | null;
+  guest_count: number | null;
+  status: string;
+  created_at: string;
+  pending_quotes: number;
+  received_quotes: number;
+};
+
+// ─── SavedPlanCard ────────────────────────────────────────────────────────────
+
+function SavedPlanCard({ plan }: { plan: SavedPlan }) {
+  const dateFormatted = plan.event_date
+    ? new Date(plan.event_date).toLocaleDateString("de-DE", {
+        day: "2-digit", month: "short", year: "numeric",
+      })
+    : null;
+
+  const createdFormatted = new Date(plan.created_at).toLocaleDateString("de-DE", {
+    day: "2-digit", month: "short",
+  });
+
+  const occasionLabel = OCCASIONS.find((o) => o.slug === plan.occasion_slug)?.label
+    ?? plan.occasion_slug;
+
+  return (
+    <a
+      href={`/events/plan/${plan.id}`}
+      className="group flex flex-col gap-2 rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-white p-4 shadow-sm transition hover:border-[rgba(23,23,23,0.2)] hover:shadow-md"
+    >
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0">
+          <p className="truncate font-semibold text-[#171717] text-sm leading-snug">
+            {plan.title ?? occasionLabel}
+          </p>
+          <p className="mt-0.5 text-xs text-[#8b7767]">
+            {occasionLabel}
+            {dateFormatted && ` · ${dateFormatted}`}
+          </p>
+        </div>
+        <span className="shrink-0 text-[#8b7767] text-xs group-hover:text-[#171717] transition">→</span>
+      </div>
+
+      <div className="flex flex-wrap gap-1.5">
+        {plan.guest_count && (
+          <span className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-2 py-0.5 text-[10px] text-[#665d55]">
+            {plan.guest_count} Gäste
+          </span>
+        )}
+        {plan.received_quotes > 0 && (
+          <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
+            {plan.received_quotes} Angebot{plan.received_quotes > 1 ? "e" : ""} eingegangen
+          </span>
+        )}
+        {plan.pending_quotes > 0 && (
+          <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-700">
+            {plan.pending_quotes} Anfrage{plan.pending_quotes > 1 ? "n" : ""} ausstehend
+          </span>
+        )}
+      </div>
+
+      <p className="text-[10px] text-[#8b7767]">Erstellt {createdFormatted}</p>
+    </a>
+  );
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function EventsPage() {
   const router = useRouter();
   const [step, setStep] = useState<Step>(1);
   const [cityOptions, setCityOptions] = useState<{ slug: string; name: string }[]>([]);
+  const [savedPlans, setSavedPlans] = useState<SavedPlan[]>([]);
+  const [plansLoading, setPlansLoading] = useState(true);
   const [form, setForm] = useState<FormState>({
     occasionSlug: "",
     city: "",
@@ -194,6 +268,55 @@ export default function EventsPage() {
         const rows = (data ?? []) as { slug: string; name: string }[];
         setCityOptions(rows.filter((c) => isPlannerSupportedCitySlug(c.slug)));
       });
+  }, []);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (!session) { setPlansLoading(false); return; }
+
+      const { data: plans } = await supabase
+        .from("event_plans")
+        .select(`
+          id, title, occasion_slug, city_slug, event_date,
+          guest_count, status, created_at,
+          event_inquiries (
+            vendor_quotes ( status )
+          )
+        `)
+        .eq("user_id", session.user.id)
+        .order("created_at", { ascending: false })
+        .limit(10);
+
+      if (plans) {
+        const mapped: SavedPlan[] = (plans as unknown as Array<{
+          id: string;
+          title: string | null;
+          occasion_slug: string;
+          city_slug: string;
+          event_date: string | null;
+          guest_count: number | null;
+          status: string;
+          created_at: string;
+          event_inquiries: Array<{ vendor_quotes: Array<{ status: string }> }>;
+        }>).map((p) => {
+          const allQuotes = p.event_inquiries.flatMap((i) => i.vendor_quotes);
+          return {
+            id: p.id,
+            title: p.title,
+            occasion_slug: p.occasion_slug,
+            city_slug: p.city_slug,
+            event_date: p.event_date,
+            guest_count: p.guest_count,
+            status: p.status,
+            created_at: p.created_at,
+            pending_quotes:  allQuotes.filter((q) => q.status === "pending" || q.status === "viewed").length,
+            received_quotes: allQuotes.filter((q) => q.status === "quoted" || q.status === "accepted").length,
+          };
+        });
+        setSavedPlans(mapped);
+      }
+      setPlansLoading(false);
+    });
   }, []);
 
   // Whenever the occasion changes, pre-select all required needs.
@@ -265,6 +388,24 @@ export default function EventsPage() {
             Wähle Anlass und Eckdaten – PerfectDay24 zeigt dir passende Locations und Dienstleister.
           </p>
         </div>
+
+        {/* ── Meine Event-Pläne ───────────────────────────────────────────── */}
+        {!plansLoading && savedPlans.length > 0 && (
+          <div className="mb-10">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-base font-semibold text-[#171717]">Meine Event-Pläne</h2>
+              <span className="text-xs text-[#8b7767]">{savedPlans.length} Plan{savedPlans.length > 1 ? "e" : ""}</span>
+            </div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {savedPlans.map((plan) => (
+                <SavedPlanCard key={plan.id} plan={plan} />
+              ))}
+            </div>
+            <div className="mt-4 border-t border-[rgba(23,23,23,0.06)] pt-6">
+              <p className="text-sm font-semibold text-[#171717]">Neuen Plan starten</p>
+            </div>
+          </div>
+        )}
 
         {/* Wizard card */}
         <div className="overflow-hidden rounded-[32px] border border-[rgba(23,23,23,0.08)] bg-[#fffdf8] shadow-[0_24px_64px_rgba(49,39,27,0.12)]">
