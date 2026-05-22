@@ -113,6 +113,8 @@ alter table public.event_plans
 
 -- ─── Update public_event_plan_by_token to expose new invite fields ───────────
 
+drop function if exists public.public_event_plan_by_token(text);
+
 create or replace function public.public_event_plan_by_token(p_token text)
 returns table (
   id                 uuid,
