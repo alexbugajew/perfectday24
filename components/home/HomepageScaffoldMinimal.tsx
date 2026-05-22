@@ -180,6 +180,69 @@ export default function HomepageScaffoldMinimal() {
             </div>
           </section>
 
+          {/* ── Zwei Produkte ── */}
+          <section>
+            <div className="text-center">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+                Wähle deinen Einstieg
+              </div>
+              <h2 className="mt-3 font-[family:var(--font-pd24-display)] text-4xl tracking-tight text-[#171717] sm:text-5xl">
+                Was möchtest du planen?
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-[#665d55]">
+                PerfectDay24 hilft dir bei zwei unterschiedlichen Dingen — je nachdem, was du brauchst.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              {/* Tagesplaner */}
+              <div className="flex flex-col rounded-[28px] border border-[rgba(23,23,23,0.08)] bg-[linear-gradient(160deg,rgba(255,253,248,0.98),rgba(244,236,227,0.94))] p-7 shadow-[0_16px_48px_rgba(49,39,27,0.09)]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#171717] text-xl">
+                  🗓
+                </div>
+                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[#171717]">
+                  Einen Tag genießen
+                </h3>
+                <p className="mt-3 flex-1 text-base leading-7 text-[#665d55]">
+                  Stadt, Anlass, Datum — fertig. PerfectDay24 baut daraus einen vollständigen Tagesplan mit echten Events, sinnvollen Wegen und klarem Timing.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {["Date Night", "Familientag", "Mit Freunden"].map((tag) => (
+                    <span key={tag} className="rounded-full border border-[rgba(23,23,23,0.1)] bg-white/80 px-3 py-1.5 text-sm text-[#8b7767]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <PD24Button href="/planner" className="mt-6 self-start">
+                  Tag planen →
+                </PD24Button>
+              </div>
+
+              {/* Eventplaner */}
+              <div className="flex flex-col rounded-[28px] border border-[rgba(23,23,23,0.08)] bg-[linear-gradient(160deg,rgba(240,247,243,0.98),rgba(228,240,234,0.94))] p-7 shadow-[0_16px_48px_rgba(49,39,27,0.09)]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#2d5a3d] text-xl">
+                  🎉
+                </div>
+                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[#171717]">
+                  Ein Event veranstalten
+                </h3>
+                <p className="mt-3 flex-1 text-base leading-7 text-[#665d55]">
+                  Geburtstag, JGA, Teamday oder Dinner-Party. Stelle Anbieter zusammen, frage Preise an und verschicke digitale Einladungen — alles an einem Ort.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {["Geburtstag", "JGA", "Teamday", "Dinner"].map((tag) => (
+                    <span key={tag} className="rounded-full border border-[rgba(45,90,61,0.15)] bg-white/80 px-3 py-1.5 text-sm text-[#2d5a3d]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <PD24Button href="/events" variant="secondary" className="mt-6 self-start">
+                  Event planen →
+                </PD24Button>
+              </div>
+            </div>
+          </section>
+
           {/* ── Wie es funktioniert ── */}
           <section>
             <div className="text-center">
@@ -226,7 +289,7 @@ export default function HomepageScaffoldMinimal() {
 
           {/* ── Weitere Einstiege ── */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[#8b7767]">
-            <span className="font-medium text-[#665d55]">Weitere Einstiege:</span>
+            <span className="font-medium text-[#665d55]">Mehr entdecken:</span>
             <Link
               href="/explore"
               className="underline-offset-2 transition hover:text-[#171717] hover:underline"
@@ -234,16 +297,10 @@ export default function HomepageScaffoldMinimal() {
               Routen entdecken
             </Link>
             <Link
-              href="/events"
-              className="underline-offset-2 transition hover:text-[#171717] hover:underline"
-            >
-              Event-Plan erstellen
-            </Link>
-            <Link
               href="/saved"
               className="underline-offset-2 transition hover:text-[#171717] hover:underline"
             >
-              Gespeicherte Pläne öffnen
+              Gespeicherte Pläne
             </Link>
           </div>
 

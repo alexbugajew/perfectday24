@@ -185,7 +185,16 @@ type SavedPlan = {
 
 // ─── SavedPlanCard ────────────────────────────────────────────────────────────
 
-function SavedPlanCard({ plan }: { plan: SavedPlan }) {
+function SavedPlanCard({
+  plan,
+  onDelete,
+}: {
+  plan: SavedPlan;
+  onDelete: (id: string) => Promise<void>;
+}) {
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
   const dateFormatted = plan.event_date
     ? new Date(plan.event_date).toLocaleDateString("de-DE", {
         day: "2-digit", month: "short", year: "numeric",
@@ -199,22 +208,55 @@ function SavedPlanCard({ plan }: { plan: SavedPlan }) {
   const occasionLabel = OCCASIONS.find((o) => o.slug === plan.occasion_slug)?.label
     ?? plan.occasion_slug;
 
+  async function handleDelete() {
+    setDeleting(true);
+    await onDelete(plan.id);
+    setDeleting(false);
+  }
+
   return (
-    <a
-      href={`/events/plan/${plan.id}`}
-      className="group flex flex-col gap-2 rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-white p-4 shadow-sm transition hover:border-[rgba(23,23,23,0.2)] hover:shadow-md"
+    <div
+      className={cx(
+        "flex flex-col gap-2 rounded-[20px] border bg-white p-4 shadow-sm transition",
+        confirming
+          ? "border-red-200 bg-red-50/40"
+          : "border-[rgba(23,23,23,0.08)] hover:border-[rgba(23,23,23,0.2)] hover:shadow-md"
+      )}
     >
+      {/* Main clickable area */}
       <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0">
-          <p className="truncate font-semibold text-[#171717] text-sm leading-snug">
+        <a
+          href={`/events/plan/${plan.id}`}
+          className="group min-w-0 flex-1"
+        >
+          <p className="truncate font-semibold text-[#171717] text-sm leading-snug group-hover:underline underline-offset-2">
             {plan.title ?? occasionLabel}
           </p>
           <p className="mt-0.5 text-xs text-[#8b7767]">
             {occasionLabel}
             {dateFormatted && ` · ${dateFormatted}`}
           </p>
-        </div>
-        <span className="shrink-0 text-[#8b7767] text-xs group-hover:text-[#171717] transition">→</span>
+        </a>
+
+        {/* Delete trigger */}
+        {!confirming && (
+          <button
+            type="button"
+            aria-label="Plan löschen"
+            onClick={() => setConfirming(true)}
+            className="shrink-0 rounded-full p-1.5 text-[#8b7767] transition hover:bg-red-50 hover:text-red-500"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth={1.75} strokeLinecap="round"
+              strokeLinejoin="round" className="h-3.5 w-3.5"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+              <path d="M10 11v6M14 11v6" />
+              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+            </svg>
+          </button>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-1.5">
@@ -236,7 +278,34 @@ function SavedPlanCard({ plan }: { plan: SavedPlan }) {
       </div>
 
       <p className="text-[10px] text-[#8b7767]">Erstellt {createdFormatted}</p>
-    </a>
+
+      {/* Inline confirmation */}
+      {confirming && (
+        <div className="mt-1 flex items-center justify-between gap-3 rounded-[14px] border border-red-200 bg-white px-3 py-2.5">
+          <p className="text-xs text-red-700 font-medium">
+            Plan wirklich löschen?
+          </p>
+          <div className="flex shrink-0 gap-2">
+            <button
+              type="button"
+              onClick={() => setConfirming(false)}
+              disabled={deleting}
+              className="rounded-lg border border-[rgba(23,23,23,0.12)] bg-white px-3 py-1 text-xs font-medium text-[#665d55] transition hover:border-[rgba(23,23,23,0.25)] disabled:opacity-50"
+            >
+              Abbrechen
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={deleting}
+              className="rounded-lg bg-red-500 px-3 py-1 text-xs font-medium text-white transition hover:bg-red-600 disabled:opacity-50"
+            >
+              {deleting ? "…" : "Löschen"}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -319,6 +388,13 @@ export default function EventsPage() {
     });
   }, []);
 
+  async function deletePlan(id: string) {
+    const { error } = await supabase.from("event_plans").delete().eq("id", id);
+    if (!error) {
+      setSavedPlans((prev) => prev.filter((p) => p.id !== id));
+    }
+  }
+
   // Whenever the occasion changes, pre-select all required needs.
   function selectOccasion(slug: OccasionSlug) {
     const needs = NEEDS_BY_OCCASION[slug];
@@ -398,7 +474,7 @@ export default function EventsPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {savedPlans.map((plan) => (
-                <SavedPlanCard key={plan.id} plan={plan} />
+                <SavedPlanCard key={plan.id} plan={plan} onDelete={deletePlan} />
               ))}
             </div>
             <div className="mt-4 border-t border-[rgba(23,23,23,0.06)] pt-6">

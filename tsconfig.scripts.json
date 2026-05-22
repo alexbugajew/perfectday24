@@ -32,6 +32,8 @@
     "scripts/planner-wave1-audit.ts",
     "scripts/planner-wave2-audit.ts",
     "scripts/planner-top13-event-check.ts",
+    "scripts/backfill-duration-defaults.ts",
+    "scripts/dedup-plannable-locations.ts",
     "lib/cities/**/*.ts",
     "lib/events/**/*.ts",
     "lib/planner/**/*.ts"

@@ -64,6 +64,7 @@ export default function MainNav() {
         >
           <Link href="/planner"  className={linkClass("/planner")}>Planen</Link>
           <Link href="/explore"  className={linkClass("/explore")}>Entdecken</Link>
+          <Link href="/events"   className={linkClass("/events")}>Events</Link>
           <Link href="/saved"    className={linkClass("/saved")}>Meine Pläne</Link>
         </div>
 

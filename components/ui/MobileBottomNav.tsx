@@ -16,7 +16,7 @@ const NAV_ITEMS = [
         strokeWidth={1.75}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6"
+        className="h-5 w-5"
       >
         <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
         <line x1="16" y1="2" x2="16" y2="6" />
@@ -37,7 +37,7 @@ const NAV_ITEMS = [
         strokeWidth={1.75}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6"
+        className="h-5 w-5"
       >
         <circle cx="12" cy="12" r="10" />
         <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
@@ -45,8 +45,8 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: "/saved",
-    label: "Meine Pläne",
+    href: "/events",
+    label: "Events",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +56,25 @@ const NAV_ITEMS = [
         strokeWidth={1.75}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6"
+        className="h-5 w-5"
+      >
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      </svg>
+    ),
+  },
+  {
+    href: "/saved",
+    label: "Gespeichert",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.75}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-5 w-5"
       >
         <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
       </svg>
@@ -86,7 +104,7 @@ export default function MobileBottomNav() {
     >
       {/* Safe area fill for iOS home indicator */}
       <div className="border-t border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.96)] backdrop-blur-xl pb-safe">
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-4">
           {NAV_ITEMS.map((item) => {
             const active = isActive(item.href);
             return (
