@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { getInterestCatalog, norm } from "@/lib/planner";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -287,7 +289,11 @@ function ProfileRouteListItem({
 
 // ─── Main page ─────────────────────────────────────────────────────────────────
 
-export default function ProfilePage() {
+function ProfilePageInner() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get("return") ?? null;
+
   const [mounted, setMounted] = useState(false);
   const [authReady, setAuthReady] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
@@ -413,9 +419,13 @@ export default function ProfilePage() {
       }
     })();
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) =>
-      applySession(session)
-    );
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      applySession(session);
+      // After OAuth callback: redirect to return URL on SIGNED_IN
+      if (event === "SIGNED_IN" && returnUrl) {
+        router.replace(returnUrl);
+      }
+    });
     return () => {
       active = false;
       listener.subscription.unsubscribe();
@@ -870,7 +880,8 @@ export default function ProfilePage() {
     setAuthLoading(true);
     setStatus(null);
     try {
-      const redirectTo = `${window.location.origin}/profile`;
+      const base = `${window.location.origin}/profile`;
+      const redirectTo = returnUrl ? `${base}?return=${encodeURIComponent(returnUrl)}` : base;
       const { error } = await supabase.auth.signInWithOAuth({
         provider: nextProvider,
         options: { redirectTo },
@@ -976,6 +987,10 @@ export default function ProfilePage() {
       if (error) {
         console.error("Email sign-in error:", error);
         setStatus(`Login fehlgeschlagen: ${friendlyAuthMessage(error.message)}`);
+        return;
+      }
+      if (returnUrl) {
+        router.replace(returnUrl);
         return;
       }
       setStatus("Erfolgreich angemeldet.");
@@ -1830,5 +1845,13 @@ export default function ProfilePage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ProfilePage() {
+  return (
+    <Suspense>
+      <ProfilePageInner />
+    </Suspense>
   );
 }

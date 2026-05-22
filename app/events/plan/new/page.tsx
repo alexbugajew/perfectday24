@@ -329,7 +329,7 @@ function PlanNewInner() {
 
     if (!session) {
       const returnUrl = encodeURIComponent(window.location.href);
-      router.push(`/login?return=${returnUrl}`);
+      router.push(`/profile?return=${returnUrl}`);
       return;
     }
 

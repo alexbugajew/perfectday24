@@ -182,7 +182,7 @@ export default function EventPlanDetailPage() {
     const userId = sessionData.session?.user?.id ?? null;
 
     if (!userId) {
-      router.replace(`/login?return=/events/plan/${id}`);
+      router.replace(`/profile?return=${encodeURIComponent(`/events/plan/${id}`)}`);
       return;
     }
 
