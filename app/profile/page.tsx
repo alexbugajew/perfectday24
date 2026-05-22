@@ -1057,11 +1057,15 @@ function ProfilePageInner() {
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <div>
           <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-            Mein Bereich
+            {authReady && userId && !isAnonymous ? "Mein Bereich" : "Konto"}
           </div>
-          <h1 className="mt-2 text-2xl font-semibold text-[#171717] sm:text-3xl">Profil</h1>
+          <h1 className="mt-2 text-2xl font-semibold text-[#171717] sm:text-3xl">
+            {authReady && userId && !isAnonymous ? "Profil" : "Anmelden"}
+          </h1>
           <p className="mt-1 text-sm leading-6 text-[#665d55]">
-            Interessen pflegen, Konto verwalten und öffentliches Profil einrichten.
+            {authReady && userId && !isAnonymous
+              ? "Interessen pflegen, Konto verwalten und öffentliches Profil einrichten."
+              : "Melde dich an oder erstelle ein kostenloses Konto."}
           </p>
         </div>
 
@@ -1277,7 +1281,7 @@ function ProfilePageInner() {
         )}
 
         {/* ── Two-column layout: interests + public profile ───────────────── */}
-        <div className="grid gap-6 xl:grid-cols-2">
+        {authReady && userId && !isAnonymous && <div className="grid gap-6 xl:grid-cols-2">
 
           {/* ── Interests ──────────────────────────────────────────────────── */}
           <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
@@ -1577,10 +1581,10 @@ function ProfilePageInner() {
               </div>
             ) : null}
           </div>
-        </div>
+        </div>}
 
         {/* ── Routes ──────────────────────────────────────────────────────────── */}
-        <div className="grid gap-6 xl:grid-cols-2">
+        {authReady && userId && !isAnonymous && <div className="grid gap-6 xl:grid-cols-2">
 
           {/* Created routes */}
           <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
@@ -1755,10 +1759,10 @@ function ProfilePageInner() {
               </div>
             )}
           </div>
-        </div>
+        </div>}
 
         {/* ── Roles & access upsell (non-anonymous, non-role users) ──────────── */}
-        {userId && !isAnonymous && (
+        {authReady && userId && !isAnonymous && (
           <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
             <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
               Mitmachen
