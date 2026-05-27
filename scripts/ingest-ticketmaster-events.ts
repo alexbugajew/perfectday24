@@ -76,20 +76,34 @@ function ticketmasterCityName(city: Pick<CityRow, "slug" | "name">) {
   return TICKETMASTER_CITY_QUERY_NAMES[city.slug] ?? city.name;
 }
 
-/** Custom fetch for the Supabase client: enforces a 30 s timeout on every
- *  DB request so that a stalled connection never blocks the whole script. */
+/** Custom fetch for the Supabase client: enforces a 30 s timeout using
+ *  AbortController + clearTimeout so the timer is always removed when the
+ *  request completes — avoiding the Node.js 24 / undici issue where
+ *  AbortSignal.timeout() leaves a live timer that can abort unrelated requests
+ *  in the same connection pool. */
 function supabaseFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
-  return fetch(input, {
-    ...init,
-    signal: init?.signal ?? AbortSignal.timeout(30_000),
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30_000);
+  const signal = init?.signal
+    ? (() => {
+        // If the caller already passed a signal, chain both: abort when either fires.
+        init.signal.addEventListener("abort", () => controller.abort(), { once: true });
+        return controller.signal;
+      })()
+    : controller.signal;
+
+  return fetch(input, { ...init, signal }).finally(() => clearTimeout(timeoutId));
 }
 
 async function main() {
-  // Catch unhandled promise rejections (e.g. from Supabase background tasks) so
-  // they are logged but do NOT crash the script mid-run.
+  // Catch unhandled promise rejections and uncaught exceptions from background
+  // tasks (e.g. Supabase internals, lingering undici timers) so they are logged
+  // but do NOT crash the script mid-run.
   process.on("unhandledRejection", (reason) => {
     console.error("[ticketmaster] Unbehandelte Ablehnung (Hintergrund):", reason);
+  });
+  process.on("uncaughtException", (err) => {
+    console.error("[ticketmaster] Unbehandelter Fehler (Hintergrund):", err);
   });
 
   const envPath = resolve(process.cwd(), ".env.local");

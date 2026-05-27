@@ -215,16 +215,26 @@ export async function fetchTicketmasterEvents(options: TicketmasterFetchOptions)
   let lastError: Error | undefined;
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-    // Each attempt gets its own timeout signal — AbortSignal.timeout() is Node 17+.
-    const signal = AbortSignal.timeout(FETCH_TIMEOUT_MS);
+    // Use AbortController + clearTimeout instead of AbortSignal.timeout().
+    // AbortSignal.timeout() leaves the timer alive after the request completes,
+    // which can abort unrelated requests in the same undici connection pool
+    // (Node.js 24 / undici bug). clearTimeout() ensures the timer is removed
+    // as soon as the request succeeds or fails.
+    const controller = new AbortController();
+    const timeoutId = setTimeout(
+      () => controller.abort(new Error(`Ticketmaster request timed out after ${FETCH_TIMEOUT_MS}ms`)),
+      FETCH_TIMEOUT_MS
+    );
 
     let response: Response;
     try {
       response = await fetch(url.toString(), {
         headers: { Accept: "application/json" },
-        signal,
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId); // cancel the timer — request completed in time
     } catch (err) {
+      clearTimeout(timeoutId); // always clean up
       lastError = err instanceof Error ? err : new Error(String(err));
       const isTimeout =
         lastError.name === "TimeoutError" || lastError.name === "AbortError";
