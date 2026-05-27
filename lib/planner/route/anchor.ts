@@ -348,6 +348,18 @@ export function chooseEventAnchor(params: {
   const matchingCandidates = candidates.filter((candidate) =>
     isMatchingEventAnchorCandidate(context, candidate)
   );
+
+  // If the user explicitly chose an event, use it directly — do not let
+  // pool-filtering logic (stage-priority, window-priority, etc.) override it.
+  if (context.explicitEventId) {
+    const explicitCandidate = matchingCandidates.find(
+      (candidate) => candidate.id === context.explicitEventId
+    );
+    if (explicitCandidate) {
+      return { slotIndex, candidate: explicitCandidate };
+    }
+  }
+
   const preferredWindowCandidates = matchingCandidates.filter((candidate) =>
     matchesPreferredEventWindow(context, candidate)
   );
