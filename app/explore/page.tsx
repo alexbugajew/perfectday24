@@ -191,23 +191,6 @@ function idealForLabel(route: UserRouteRow | null | undefined) {
   return "einen starken Perfect Day";
 }
 
-function dedupeCityOptions(cities: CityRow[]) {
-  const byNameAndCountry = new Map<string, CityRow>();
-
-  for (const city of cities) {
-    const key = `${city.name.trim().toLocaleLowerCase("de-DE")}|${city.country_code?.toUpperCase() ?? ""}`;
-    const previous = byNameAndCountry.get(key);
-    if (!previous || (city.population ?? 0) > (previous.population ?? 0)) {
-      byNameAndCountry.set(key, city);
-    }
-  }
-
-  return Array.from(byNameAndCountry.values()).sort((a, b) => {
-    const nameDiff = a.name.localeCompare(b.name, "de-DE");
-    if (nameDiff !== 0) return nameDiff;
-    return (b.population ?? 0) - (a.population ?? 0);
-  });
-}
 
 
 function SectionHeader({
@@ -750,23 +733,38 @@ function ExplorePageContent() {
     [cities]
   );
 
-  const visibleCities = useMemo(
-    () => {
-      const scopedCities =
-        selectedCountryCode === "all"
-          ? cities
-          : cities.filter((city) => (city.country_code?.toUpperCase() ?? "") === selectedCountryCode);
-      return dedupeCityOptions(scopedCities);
-    },
-    [cities, selectedCountryCode]
-  );
+  // Build city dropdown options directly from route city_slugs so that
+  // the option values always match route.city_slug exactly.  The cities
+  // table contains duplicate entries for many cities (e.g. "bonn" AND
+  // "bonn-nordrhein-westfalen" with the same population), and the old
+  // dedupeCityOptions logic would arbitrarily pick whichever duplicate
+  // came first — often the compound slug — causing the filter to return
+  // 0 results even when routes exist.
+  const cityDropdownOptions = useMemo(() => {
+    const slugs = Array.from(
+      new Set(routes.map((r) => r.city_slug).filter((s): s is string => Boolean(s)))
+    );
+    const options = slugs.map((slug) => {
+      const cityEntry = cityMap.get(slug);
+      return {
+        slug,
+        name: cityEntry?.name ?? slug,
+        country_code: cityEntry?.country_code ?? null,
+      };
+    });
+    const filtered =
+      selectedCountryCode === "all"
+        ? options
+        : options.filter((o) => (o.country_code?.toUpperCase() ?? "") === selectedCountryCode);
+    return filtered.sort((a, b) => a.name.localeCompare(b.name, "de-DE"));
+  }, [routes, cityMap, selectedCountryCode]);
 
   useEffect(() => {
     if (selectedCitySlug === "all") return;
-    if (!visibleCities.some((city) => city.slug === selectedCitySlug)) {
+    if (!cityDropdownOptions.some((city) => city.slug === selectedCitySlug)) {
       setSelectedCitySlug("all");
     }
-  }, [selectedCitySlug, visibleCities]);
+  }, [selectedCitySlug, cityDropdownOptions]);
 
   const filteredRoutes = useMemo(() => {
     let out = [...routes];
@@ -962,7 +960,7 @@ function ExplorePageContent() {
               disabled={citiesLoading}
             >
               <option value="all">Alle Städte</option>
-              {visibleCities.map((c) => (
+              {cityDropdownOptions.map((c) => (
                 <option key={c.slug} value={c.slug}>
                   {c.name}
                 </option>
