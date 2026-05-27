@@ -109,7 +109,7 @@ const OCCASION_LABELS: Record<string, string> = {
   staedtereise:     "Städtereise",
 };
 
-const VENDORS_VISIBLE_DEFAULT = 3;
+const VENDORS_PER_PAGE = 9;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -170,13 +170,12 @@ function PlanNewInner() {
   const [customerMessage, setCustomerMessage]   = useState("");
   const [showMessageBox, setShowMessageBox]     = useState(false);
   const [cityName, setCityName]                 = useState<string>("");
-  const [vendorsByNeed, setVendorsByNeed]       = useState<Record<string, VendorWithScore[]>>({});
   const [allVendorsByNeed, setAllVendorsByNeed] = useState<Record<string, VendorWithScore[]>>({});
+  const [pageByNeed, setPageByNeed]             = useState<Record<string, number>>({});
   const [loading, setLoading]                   = useState(true);
   const [selections, setSelections]             = useState<Record<string, Selection>>({});
   const [quoteRequests, setQuoteRequests]       = useState<Record<string, VendorWithScore>>({});
   const [modalState, setModalState]             = useState<{ vendor: VendorWithScore; needSlug: string } | null>(null);
-  const [expandedNeeds, setExpandedNeeds]       = useState<Set<string>>(new Set());
   const [saving, setSaving]                     = useState(false);
 
   // ── Load city name ────────────────────────────────────────────────────────
@@ -230,7 +229,6 @@ function PlanNewInner() {
       : 0;
 
     const allByNeed: Record<string, VendorWithScore[]> = {};
-    const visibleByNeed: Record<string, VendorWithScore[]> = {};
 
     for (const need of needs) {
       const types = NEED_SERVICE_TYPES[need] ?? [];
@@ -238,13 +236,10 @@ function PlanNewInner() {
         .filter((sp) => types.includes(sp.service_type))
         .map((sp) => normalizeProvider(sp as unknown as RawProvider));
 
-      const scored = scoreVendors(matching, categoryBudget, guests);
-      allByNeed[need] = scored;
-      visibleByNeed[need] = scored.slice(0, VENDORS_VISIBLE_DEFAULT);
+      allByNeed[need] = scoreVendors(matching, categoryBudget, guests);
     }
 
     setAllVendorsByNeed(allByNeed);
-    setVendorsByNeed(visibleByNeed);
     setLoading(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [citySlug, needs.join(","), budget, guests]);
@@ -297,24 +292,8 @@ function PlanNewInner() {
     closeModal();
   }
 
-  function toggleExpand(needSlug: string) {
-    setExpandedNeeds((prev) => {
-      const next = new Set(prev);
-      if (next.has(needSlug)) {
-        next.delete(needSlug);
-        setVendorsByNeed((v) => ({
-          ...v,
-          [needSlug]: (allVendorsByNeed[needSlug] ?? []).slice(0, VENDORS_VISIBLE_DEFAULT),
-        }));
-      } else {
-        next.add(needSlug);
-        setVendorsByNeed((v) => ({
-          ...v,
-          [needSlug]: allVendorsByNeed[needSlug] ?? [],
-        }));
-      }
-      return next;
-    });
+  function setNeedPage(needSlug: string, page: number) {
+    setPageByNeed((prev) => ({ ...prev, [needSlug]: page }));
   }
 
   // ── Save ─────────────────────────────────────────────────────────────────
@@ -475,9 +454,10 @@ function PlanNewInner() {
         ) : (
           <div className="space-y-10">
             {needs.map((needSlug) => {
-              const vendors     = vendorsByNeed[needSlug] ?? [];
               const allVendors  = allVendorsByNeed[needSlug] ?? [];
-              const expanded    = expandedNeeds.has(needSlug);
+              const page        = pageByNeed[needSlug] ?? 0;
+              const totalPages  = Math.max(1, Math.ceil(allVendors.length / VENDORS_PER_PAGE));
+              const vendors     = allVendors.slice(page * VENDORS_PER_PAGE, (page + 1) * VENDORS_PER_PAGE);
               const selection   = selections[needSlug] ?? null;
               const quoteVendor = quoteRequests[needSlug] ?? null;
 
@@ -533,7 +513,7 @@ function PlanNewInner() {
                     </div>
                   ) : (
 
-                    /* Vendor cards grid */
+                    /* Vendor cards grid + pagination */
                     <div className="space-y-4">
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                         {vendors.map((vendor) => (
@@ -547,18 +527,52 @@ function PlanNewInner() {
                         ))}
                       </div>
 
-                      {/* "Alle anzeigen" toggle */}
-                      {allVendors.length > VENDORS_VISIBLE_DEFAULT && (
-                        <button
-                          type="button"
-                          onClick={() => toggleExpand(needSlug)}
-                          className="text-xs text-[#8b7767] underline-offset-2 hover:underline"
-                        >
-                          {expanded
-                            ? "Weniger anzeigen"
-                            : `Alle ${allVendors.length} Anbieter anzeigen`}
-                        </button>
+                      {/* Pagination */}
+                      {totalPages > 1 && (
+                        <div className="flex items-center justify-between gap-3 pt-1">
+                          <button
+                            type="button"
+                            onClick={() => setNeedPage(needSlug, page - 1)}
+                            disabled={page === 0}
+                            className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition hover:bg-[#f5f2ec] disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            ← Zurück
+                          </button>
+
+                          {/* Page dots */}
+                          <div className="flex items-center gap-1.5">
+                            {Array.from({ length: totalPages }, (_, idx) => (
+                              <button
+                                key={idx}
+                                type="button"
+                                onClick={() => setNeedPage(needSlug, idx)}
+                                className={cx(
+                                  "h-2 rounded-full transition-all",
+                                  idx === page
+                                    ? "w-5 bg-[#171717]"
+                                    : "w-2 bg-[rgba(23,23,23,0.20)] hover:bg-[rgba(23,23,23,0.40)]"
+                                )}
+                                aria-label={`Seite ${idx + 1}`}
+                              />
+                            ))}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => setNeedPage(needSlug, page + 1)}
+                            disabled={page >= totalPages - 1}
+                            className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition hover:bg-[#f5f2ec] disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            Weiter →
+                          </button>
+                        </div>
                       )}
+
+                      {/* Result count */}
+                      <p className="text-[11px] text-[#8b7767]">
+                        {allVendors.length} {allVendors.length === 1 ? "Anbieter" : "Anbieter"} gefunden
+                        {totalPages > 1 ? ` · Seite ${page + 1} von ${totalPages}` : ""}
+                      </p>
                     </div>
                   )}
                 </section>
