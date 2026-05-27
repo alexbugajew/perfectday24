@@ -47,6 +47,25 @@ type ProviderPackage = {
   status: string;
 };
 
+// ── Self-service provider form types ──────────────────────────────────────────
+
+type NewProviderForm = {
+  name: string;
+  service_type: string;
+  city_slug: string;
+  description: string;
+};
+
+type NewPackageForm = {
+  name: string;
+  price: string;           // user inputs euros (decimal)
+  price_unit: string;      // "total" | "per_person" | "per_hour"
+  description: string;
+  includes: string;        // newline-separated → split to array on submit
+  min_guests: string;
+  max_guests: string;
+};
+
 type BookingRequest = {
   id: string;
   need_slug: string;
@@ -145,6 +164,80 @@ const BOOKING_TYPE_LABEL: Record<string, string> = {
   none:     "Keine Buchung",
 };
 
+// ── Self-service: category → service_type mapping ─────────────────────────────
+
+// Maps partner_type_slug and service_category_slugs to the service_type values
+// used in the service_providers table (and queried by the events plan page).
+const CATEGORY_TO_SERVICE_TYPE: Record<string, string> = {
+  dj_music:     "dj",
+  photography:  "photography",
+  video:        "video",
+  decoration:   "decoration",
+  catering:     "catering",
+  transport:    "transport",
+  florist:      "florist",
+  moderation:   "moderator",
+  // venue categories all map to "location"
+  historic: "location", modern: "location", outdoor: "location",
+  rooftop: "location", garden: "location", wedding: "location",
+  corporate: "location", party: "location",
+  // gastronomy categories → catering
+  italian: "catering", german: "catering", asian: "catering",
+  mediterranean: "catering", vegan: "catering", cocktails: "catering",
+  private_room: "catering",
+  // experience → animation
+  city_tour: "animation", cooking: "animation", wine: "animation",
+  outdoor_experience: "animation", cultural: "animation",
+  sports: "animation", team_building: "animation",
+};
+
+const PARTNER_TYPE_DEFAULT_SERVICE_TYPE: Record<string, string> = {
+  gastronomy:    "catering",
+  venue:         "location",
+  experience:    "animation",
+  accommodation: "location",
+  city_tourism:  "animation",
+  event_vendor:  "photography",  // sensible default; user can change
+};
+
+const SERVICE_TYPE_LABEL: Record<string, string> = {
+  dj:          "DJ / Musik",
+  photography: "Fotografie",
+  video:       "Video",
+  decoration:  "Dekoration",
+  catering:    "Catering",
+  transport:   "Transport",
+  florist:     "Florist",
+  moderator:   "Moderation",
+  location:    "Location / Venue",
+  animation:   "Animation / Aktivität",
+  cake:        "Torte",
+  technology:  "Technik / AV",
+  band:        "Band",
+  entertainment: "Entertainment",
+};
+
+const PRICE_UNIT_LABEL: Record<string, string> = {
+  total:      "Pauschalpreis",
+  per_person: "Pro Person",
+  per_hour:   "Pro Stunde",
+};
+
+// Derive which service_types are relevant for a given partner profile.
+function getAvailableServiceTypes(profile: PartnerProfile): string[] {
+  const fromCategories = (profile.service_category_slugs ?? [])
+    .map((c) => CATEGORY_TO_SERVICE_TYPE[c])
+    .filter(Boolean);
+
+  const fromType = PARTNER_TYPE_DEFAULT_SERVICE_TYPE[profile.partner_type_slug];
+
+  const all = [...new Set([...fromCategories, fromType, ...Object.keys(SERVICE_TYPE_LABEL)])].filter(Boolean);
+  // Put the most relevant ones first
+  const primary = [...new Set([...fromCategories, fromType].filter(Boolean))];
+  const rest = all.filter((t) => !primary.includes(t));
+  return [...primary, ...rest];
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function formatDate(iso: string) {
@@ -209,6 +302,19 @@ export default function PartnerDashboard() {
   // Upgrade
   const [upgrading, setUpgrading] = useState(false);
   const [upgradeError, setUpgradeError] = useState<string | null>(null);
+
+  // ── Self-service provider management ──────────────────────────────────────
+  const [showAddProvider, setShowAddProvider]     = useState(false);
+  const [newProvider, setNewProvider]             = useState<NewProviderForm>({ name: "", service_type: "", city_slug: "", description: "" });
+  const [addingProvider, setAddingProvider]       = useState(false);
+  const [addProviderError, setAddProviderError]   = useState<string | null>(null);
+  const [deletingProvider, setDeletingProvider]   = useState<string | null>(null);
+
+  const [addPkgFor, setAddPkgFor]                 = useState<string | null>(null);   // provider id
+  const [newPkg, setNewPkg]                       = useState<NewPackageForm>({ name: "", price: "", price_unit: "total", description: "", includes: "", min_guests: "", max_guests: "" });
+  const [addingPkg, setAddingPkg]                 = useState(false);
+  const [addPkgError, setAddPkgError]             = useState<string | null>(null);
+  const [deletingPkg, setDeletingPkg]             = useState<string | null>(null);
 
   const load = useCallback(async () => {
     const { data: { session } } = await supabase.auth.getSession();
@@ -390,6 +496,143 @@ export default function PartnerDashboard() {
     setUpgrading(false);
   }
 
+  // ── Self-service provider handlers ──────────────────────────────────────────
+
+  async function getAccessToken(): Promise<string | null> {
+    const { data: { session } } = await supabase.auth.getSession();
+    return session?.access_token ?? null;
+  }
+
+  async function handleAddProvider() {
+    if (!profile || !newProvider.name.trim() || !newProvider.service_type || !newProvider.city_slug) return;
+    setAddingProvider(true);
+    setAddProviderError(null);
+
+    const token = await getAccessToken();
+    if (!token) { setAddProviderError("Nicht eingeloggt."); setAddingProvider(false); return; }
+
+    const citySlugs = Array.from(new Set([newProvider.city_slug, ...(profile.operating_cities ?? [])].filter(Boolean)));
+
+    const res = await fetch("/api/partner/providers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify({
+        name:         newProvider.name.trim(),
+        service_type: newProvider.service_type,
+        city_slug:    newProvider.city_slug,
+        city_slugs:   citySlugs,
+        description:  newProvider.description.trim() || undefined,
+      }),
+    });
+
+    const data = await res.json() as { provider?: ServiceProvider; error?: string };
+
+    if (!res.ok || !data.provider) {
+      setAddProviderError(data.error ?? "Fehler beim Erstellen.");
+      setAddingProvider(false);
+      return;
+    }
+
+    setProviders((prev) => [...prev, { ...data.provider!, provider_packages: [] }]);
+    setShowAddProvider(false);
+    setNewProvider({ name: "", service_type: "", city_slug: "", description: "" });
+    setAddingProvider(false);
+  }
+
+  async function handleDeleteProvider(providerId: string) {
+    if (!confirm("Dienstleister-Eintrag wirklich löschen? Alle Pakete werden ebenfalls gelöscht.")) return;
+    setDeletingProvider(providerId);
+
+    const token = await getAccessToken();
+    if (!token) { setDeletingProvider(null); return; }
+
+    const res = await fetch(`/api/partner/providers/${providerId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (res.ok) {
+      setProviders((prev) => prev.filter((p) => p.id !== providerId));
+    }
+    setDeletingProvider(null);
+  }
+
+  async function handleAddPackage(providerId: string) {
+    if (!newPkg.name.trim() || !newPkg.price || !newPkg.price_unit) return;
+    setAddingPkg(true);
+    setAddPkgError(null);
+
+    const token = await getAccessToken();
+    if (!token) { setAddPkgError("Nicht eingeloggt."); setAddingPkg(false); return; }
+
+    const priceCents = Math.round(parseFloat(newPkg.price.replace(",", ".")) * 100);
+    if (isNaN(priceCents) || priceCents < 0) {
+      setAddPkgError("Ungültiger Preis."); setAddingPkg(false); return;
+    }
+
+    const includes = newPkg.includes
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    const res = await fetch(`/api/partner/providers/${providerId}/packages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify({
+        name:        newPkg.name.trim(),
+        price_cents: priceCents,
+        price_unit:  newPkg.price_unit,
+        description: newPkg.description.trim() || undefined,
+        includes,
+        min_guests:  newPkg.min_guests ? parseInt(newPkg.min_guests) : null,
+        max_guests:  newPkg.max_guests ? parseInt(newPkg.max_guests) : null,
+      }),
+    });
+
+    const data = await res.json() as { pkg?: ProviderPackage; error?: string };
+
+    if (!res.ok || !data.pkg) {
+      setAddPkgError(data.error ?? "Fehler beim Erstellen.");
+      setAddingPkg(false);
+      return;
+    }
+
+    setProviders((prev) =>
+      prev.map((p) =>
+        p.id === providerId
+          ? { ...p, provider_packages: [...p.provider_packages, data.pkg!] }
+          : p
+      )
+    );
+    setAddPkgFor(null);
+    setNewPkg({ name: "", price: "", price_unit: "total", description: "", includes: "", min_guests: "", max_guests: "" });
+    setAddingPkg(false);
+  }
+
+  async function handleDeletePackage(providerId: string, pkgId: string) {
+    if (!confirm("Paket wirklich löschen?")) return;
+    setDeletingPkg(pkgId);
+
+    const token = await getAccessToken();
+    if (!token) { setDeletingPkg(null); return; }
+
+    const res = await fetch(`/api/partner/providers/${providerId}/packages/${pkgId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (res.ok) {
+      setProviders((prev) =>
+        prev.map((p) =>
+          p.id === providerId
+            ? { ...p, provider_packages: p.provider_packages.filter((pkg) => pkg.id !== pkgId) }
+            : p
+        )
+      );
+    }
+    setDeletingPkg(null);
+  }
+
   // ─── Render states ────────────────────────────────────────────────────────
 
   if (loading) {
@@ -568,63 +811,249 @@ export default function PartnerDashboard() {
 
         {/* ── D1) Dienstleister & Pakete ───────────────────────────────────── */}
         <Section
-          title="Dienstleister & Pakete"
-          subtitle={`${providers.length} aktive Angebote im Event Planner`}
+          title="Angebote im Event Planner"
+          subtitle="Deine Einträge erscheinen automatisch wenn Nutzer passende Events planen."
         >
-          {providers.length === 0 ? (
-            <div className="rounded-[24px] border border-dashed border-[var(--line-subtle)] px-6 py-10 text-center">
-              <p className="text-sm text-[var(--text-muted)]">
-                Noch keine Dienstleister verknüpft.
-              </p>
-              <p className="mt-1 text-xs text-[var(--text-muted)]">
-                Wende dich an das PerfectDay24-Team, um deine Service-Einträge mit diesem Profil zu verknüpfen.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
+          {/* Provider list */}
+          {providers.length > 0 && (
+            <div className="mb-4 space-y-4">
               {providers.map((provider) => (
-                <div
-                  key={provider.id}
-                  className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5"
-                >
+                <div key={provider.id} className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+                  {/* Provider header */}
                   <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <div className="flex items-center gap-2">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="font-semibold text-[var(--text-strong)]">{provider.name}</span>
                         {provider.is_verified && (
-                          <span className="rounded-full bg-[var(--brand-accent)] px-1.5 py-0.5 text-[10px] font-bold text-white">
-                            ✓
-                          </span>
+                          <span className="rounded-full bg-[var(--brand-accent)] px-1.5 py-0.5 text-[10px] font-bold text-white">✓</span>
                         )}
+                        <span className="rounded-full border border-[var(--line-subtle)] px-2.5 py-0.5 text-[11px] text-[var(--text-muted)]">
+                          {SERVICE_TYPE_LABEL[provider.service_type] ?? provider.service_type}
+                        </span>
                       </div>
-                      <p className="mt-0.5 text-xs text-[var(--text-muted)]">
-                        {provider.service_type}
-                        {provider.description ? ` · ${provider.description}` : ""}
-                      </p>
+                      {provider.description && (
+                        <p className="mt-0.5 text-xs text-[var(--text-muted)]">{provider.description}</p>
+                      )}
                     </div>
-                    <span className="shrink-0 rounded-full border border-[var(--line-subtle)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
-                      {provider.provider_packages.length} Pakete
-                    </span>
+                    {isAdmin && (
+                      <button
+                        onClick={() => void handleDeleteProvider(provider.id)}
+                        disabled={deletingProvider === provider.id}
+                        className="shrink-0 rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50"
+                      >
+                        {deletingProvider === provider.id ? "…" : "Löschen"}
+                      </button>
+                    )}
                   </div>
 
-                  {provider.provider_packages.length > 0 && (
-                    <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                      {provider.provider_packages.map((pkg) => (
-                        <div
-                          key={pkg.id}
-                          className="flex items-center justify-between gap-3 rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3"
-                        >
-                          <span className="text-sm font-medium text-[var(--text-strong)]">{pkg.name}</span>
-                          <span className="shrink-0 text-sm font-semibold text-[var(--text-strong)]">
-                            {formatPrice(pkg.price_cents, pkg.price_unit)}
-                          </span>
+                  {/* Packages */}
+                  <div className="mt-4">
+                    <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
+                      Pakete ({provider.provider_packages.length})
+                    </p>
+                    {provider.provider_packages.length > 0 && (
+                      <div className="mb-3 grid gap-2 sm:grid-cols-2">
+                        {provider.provider_packages.map((pkg) => (
+                          <div key={pkg.id} className="flex items-center justify-between gap-3 rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-[var(--text-strong)]">{pkg.name}</p>
+                              <p className="text-xs text-[var(--text-muted)]">
+                                {PRICE_UNIT_LABEL[pkg.price_unit] ?? pkg.price_unit}
+                              </p>
+                            </div>
+                            <div className="flex shrink-0 items-center gap-2">
+                              <span className="text-sm font-semibold text-[var(--text-strong)]">
+                                {formatPrice(pkg.price_cents, pkg.price_unit)}
+                              </span>
+                              {isAdmin && (
+                                <button
+                                  onClick={() => void handleDeletePackage(provider.id, pkg.id)}
+                                  disabled={deletingPkg === pkg.id}
+                                  className="rounded-lg px-1.5 py-0.5 text-xs text-red-500 hover:bg-red-50 disabled:opacity-50"
+                                  title="Paket löschen"
+                                >
+                                  {deletingPkg === pkg.id ? "…" : "×"}
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Add package form or button */}
+                    {isAdmin && addPkgFor === provider.id ? (
+                      <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Neues Paket</p>
+                        <div className="space-y-3">
+                          <input
+                            type="text"
+                            placeholder="Paket-Name (z.B. Basis-Paket)"
+                            value={newPkg.name}
+                            onChange={(e) => setNewPkg((f) => ({ ...f, name: e.target.value }))}
+                            className={inputCls}
+                          />
+                          <div className="grid gap-3 sm:grid-cols-2">
+                            <input
+                              type="text"
+                              placeholder="Preis in € (z.B. 499)"
+                              value={newPkg.price}
+                              onChange={(e) => setNewPkg((f) => ({ ...f, price: e.target.value }))}
+                              className={inputCls}
+                            />
+                            <select
+                              value={newPkg.price_unit}
+                              onChange={(e) => setNewPkg((f) => ({ ...f, price_unit: e.target.value }))}
+                              className={inputCls}
+                            >
+                              {Object.entries(PRICE_UNIT_LABEL).map(([v, l]) => (
+                                <option key={v} value={v}>{l}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <input
+                            type="text"
+                            placeholder="Kurzbeschreibung (optional)"
+                            value={newPkg.description}
+                            onChange={(e) => setNewPkg((f) => ({ ...f, description: e.target.value }))}
+                            className={inputCls}
+                          />
+                          <textarea
+                            placeholder={"Leistungen (eine pro Zeile):\nz.B. 8 Stunden\nBildergalerie online\nGedrucktes Album"}
+                            value={newPkg.includes}
+                            onChange={(e) => setNewPkg((f) => ({ ...f, includes: e.target.value }))}
+                            rows={3}
+                            className="w-full resize-none rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] focus:border-[var(--text-strong)] focus:outline-none"
+                          />
+                          <div className="grid gap-3 sm:grid-cols-2">
+                            <input
+                              type="number"
+                              placeholder="Min. Personen (opt.)"
+                              value={newPkg.min_guests}
+                              onChange={(e) => setNewPkg((f) => ({ ...f, min_guests: e.target.value }))}
+                              className={inputCls}
+                            />
+                            <input
+                              type="number"
+                              placeholder="Max. Personen (opt.)"
+                              value={newPkg.max_guests}
+                              onChange={(e) => setNewPkg((f) => ({ ...f, max_guests: e.target.value }))}
+                              className={inputCls}
+                            />
+                          </div>
+                          {addPkgError && <p className="text-xs text-red-600">{addPkgError}</p>}
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => void handleAddPackage(provider.id)}
+                              disabled={addingPkg || !newPkg.name.trim() || !newPkg.price}
+                              className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-xs font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                            >
+                              {addingPkg ? "Speichern …" : "Paket speichern"}
+                            </button>
+                            <button
+                              onClick={() => { setAddPkgFor(null); setAddPkgError(null); }}
+                              className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+                            >
+                              Abbrechen
+                            </button>
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  )}
+                      </div>
+                    ) : isAdmin ? (
+                      <button
+                        onClick={() => { setAddPkgFor(provider.id); setAddPkgError(null); setNewPkg({ name: "", price: "", price_unit: "total", description: "", includes: "", min_guests: "", max_guests: "" }); }}
+                        className="inline-flex items-center gap-1 rounded-xl border border-dashed border-[var(--line-subtle)] px-4 py-2 text-xs font-medium text-[var(--text-muted)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+                      >
+                        + Paket hinzufügen
+                      </button>
+                    ) : null}
+                  </div>
                 </div>
               ))}
             </div>
+          )}
+
+          {/* Add provider form */}
+          {isAdmin && showAddProvider ? (
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+              <p className="mb-4 text-sm font-semibold text-[var(--text-strong)]">Neues Angebot eintragen</p>
+              <div className="space-y-3">
+                <input
+                  type="text"
+                  placeholder="Anzeigename (z.B. Max Muster Fotografie)"
+                  value={newProvider.name}
+                  onChange={(e) => setNewProvider((f) => ({ ...f, name: e.target.value }))}
+                  className={inputCls}
+                />
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <select
+                    value={newProvider.service_type}
+                    onChange={(e) => setNewProvider((f) => ({ ...f, service_type: e.target.value }))}
+                    className={inputCls}
+                  >
+                    <option value="">Kategorie wählen …</option>
+                    {getAvailableServiceTypes(profile).map((t) => (
+                      <option key={t} value={t}>{SERVICE_TYPE_LABEL[t] ?? t}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={newProvider.city_slug}
+                    onChange={(e) => setNewProvider((f) => ({ ...f, city_slug: e.target.value }))}
+                    className={inputCls}
+                  >
+                    <option value="">Hauptstadt wählen …</option>
+                    {Array.from(new Set([profile.primary_city_slug, ...(profile.operating_cities ?? [])].filter(Boolean))).map((slug) => (
+                      <option key={slug} value={slug!}>{slug}</option>
+                    ))}
+                  </select>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Kurzbeschreibung (optional)"
+                  value={newProvider.description}
+                  onChange={(e) => setNewProvider((f) => ({ ...f, description: e.target.value }))}
+                  className={inputCls}
+                />
+                {addProviderError && <p className="text-xs text-red-600">{addProviderError}</p>}
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => void handleAddProvider()}
+                    disabled={addingProvider || !newProvider.name.trim() || !newProvider.service_type || !newProvider.city_slug}
+                    className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                  >
+                    {addingProvider ? "Wird angelegt …" : "Angebot anlegen"}
+                  </button>
+                  <button
+                    onClick={() => { setShowAddProvider(false); setAddProviderError(null); }}
+                    className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-5 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+                  >
+                    Abbrechen
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : isAdmin ? (
+            <button
+              onClick={() => {
+                setShowAddProvider(true);
+                setAddProviderError(null);
+                setNewProvider({
+                  name: profile.display_name,
+                  service_type: getAvailableServiceTypes(profile)[0] ?? "",
+                  city_slug: profile.primary_city_slug ?? "",
+                  description: "",
+                });
+              }}
+              className="inline-flex items-center gap-2 rounded-2xl border border-dashed border-[var(--line-subtle)] px-5 py-3 text-sm font-medium text-[var(--text-muted)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+            >
+              + Angebot im Event Planner hinzufügen
+            </button>
+          ) : (
+            providers.length === 0 && (
+              <div className="rounded-[24px] border border-dashed border-[var(--line-subtle)] px-6 py-10 text-center">
+                <p className="text-sm text-[var(--text-muted)]">Noch keine Angebote eingetragen.</p>
+              </div>
+            )
           )}
         </Section>
 
@@ -795,6 +1224,8 @@ function ProfileRow({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+const inputCls = "w-full rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] focus:border-[var(--text-strong)] focus:outline-none";
 
 function InputField({
   label, value, onChange, placeholder, required,
