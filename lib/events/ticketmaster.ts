@@ -186,6 +186,16 @@ function toIsoLocalDateTime(localDate: string | undefined, localTime: string | u
   return `${localDate}T${localTime}`;
 }
 
+/** Milliseconds to wait before a single Ticketmaster HTTP request times out. */
+const FETCH_TIMEOUT_MS = 30_000;
+
+/** How many times to retry a failed request (e.g. after a 429 or transient error). */
+const MAX_RETRIES = 2;
+
+function sleep(ms: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
 export async function fetchTicketmasterEvents(options: TicketmasterFetchOptions) {
   const page = options.page ?? 0;
   const size = options.size ?? 200;
@@ -202,18 +212,57 @@ export async function fetchTicketmasterEvents(options: TicketmasterFetchOptions)
     url.searchParams.set("startEndDateTime", `${options.startDateTime},${options.endDateTime}`);
   }
 
-  const response = await fetch(url.toString(), {
-    headers: {
-      Accept: "application/json",
-    },
-  });
+  let lastError: Error | undefined;
 
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`Ticketmaster API Fehler (${response.status}): ${text}`);
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    // Each attempt gets its own timeout signal — AbortSignal.timeout() is Node 17+.
+    const signal = AbortSignal.timeout(FETCH_TIMEOUT_MS);
+
+    let response: Response;
+    try {
+      response = await fetch(url.toString(), {
+        headers: { Accept: "application/json" },
+        signal,
+      });
+    } catch (err) {
+      lastError = err instanceof Error ? err : new Error(String(err));
+      const isTimeout =
+        lastError.name === "TimeoutError" || lastError.name === "AbortError";
+      if (isTimeout && attempt < MAX_RETRIES) {
+        const backoff = 2_000 * (attempt + 1);
+        console.warn(
+          `[ticketmaster] ${options.city.slug}: Request-Timeout (Versuch ${attempt + 1}/${MAX_RETRIES + 1}), warte ${backoff}ms …`
+        );
+        await sleep(backoff);
+        continue;
+      }
+      throw lastError;
+    }
+
+    // Rate limit — Ticketmaster returns 429 when quota is exceeded.
+    if (response.status === 429) {
+      const retryAfterSec = Number(response.headers.get("Retry-After") ?? "5");
+      const waitMs = Math.min(Math.max(retryAfterSec * 1000, 2_000), 30_000);
+      if (attempt < MAX_RETRIES) {
+        console.warn(
+          `[ticketmaster] ${options.city.slug}: 429 Rate-Limit, warte ${waitMs}ms (Versuch ${attempt + 1}/${MAX_RETRIES + 1}) …`
+        );
+        await sleep(waitMs);
+        continue;
+      }
+      const text = await response.text().catch(() => "");
+      throw new Error(`Ticketmaster API 429 Rate-Limit (nach ${MAX_RETRIES} Retries): ${text}`);
+    }
+
+    if (!response.ok) {
+      const text = await response.text().catch(() => "");
+      throw new Error(`Ticketmaster API Fehler (${response.status}): ${text}`);
+    }
+
+    return (await response.json()) as TicketmasterResponse;
   }
 
-  return (await response.json()) as TicketmasterResponse;
+  throw lastError ?? new Error("Ticketmaster fetch fehlgeschlagen (unbekannter Fehler)");
 }
 
 export function normalizeTicketmasterEvent(

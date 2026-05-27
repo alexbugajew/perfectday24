@@ -32,7 +32,7 @@ jobs:
       (github.event.inputs.refresh == 'ticketmaster' || github.event.inputs.refresh == 'all') ||
       github.event_name == 'schedule' && github.event.schedule == '17 */12 * * *'
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 20
     env:
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
