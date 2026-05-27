@@ -76,7 +76,22 @@ function ticketmasterCityName(city: Pick<CityRow, "slug" | "name">) {
   return TICKETMASTER_CITY_QUERY_NAMES[city.slug] ?? city.name;
 }
 
+/** Custom fetch for the Supabase client: enforces a 30 s timeout on every
+ *  DB request so that a stalled connection never blocks the whole script. */
+function supabaseFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+  return fetch(input, {
+    ...init,
+    signal: init?.signal ?? AbortSignal.timeout(30_000),
+  });
+}
+
 async function main() {
+  // Catch unhandled promise rejections (e.g. from Supabase background tasks) so
+  // they are logged but do NOT crash the script mid-run.
+  process.on("unhandledRejection", (reason) => {
+    console.error("[ticketmaster] Unbehandelte Ablehnung (Hintergrund):", reason);
+  });
+
   const envPath = resolve(process.cwd(), ".env.local");
   loadEnvFile(envPath);
 
@@ -100,6 +115,7 @@ async function main() {
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
+    global: { fetch: supabaseFetch as typeof fetch },
   });
 
   let cityQuery = supabase

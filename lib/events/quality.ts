@@ -64,6 +64,10 @@ type SupabaseLike = {
   from: (table: string) => {
     select: (columns: string) => any;
     update: (values: Record<string, unknown>) => any;
+    upsert: (
+      values: Record<string, unknown>[],
+      options: { onConflict: string; ignoreDuplicates: boolean }
+    ) => any;
   };
 };
 
@@ -411,35 +415,33 @@ export async function reconcilePlannerEventQualityForCity(
   const updates = buildPlannerEventQualityUpdates(rows);
   const currentById = new Map(rows.map((row) => [row.id, row]));
 
-  let changed = 0;
-  for (const update of updates) {
+  // Only upsert rows that actually need a change (status or subtypes differ).
+  const dirty = updates.filter((update) => {
     const current = currentById.get(update.id);
-    if (!current) continue;
-
+    if (!current) return false;
     const currentSubtypes = normalizeSubtypes(current.subtypes);
-    if (current.status === update.status && arraysEqual(currentSubtypes, update.subtypes)) {
-      continue;
-    }
+    return current.status !== update.status || !arraysEqual(currentSubtypes, update.subtypes);
+  });
 
+  if (dirty.length > 0) {
+    // Single batch upsert instead of N individual updates — avoids many round-trips
+    // that could hit connection limits or per-request timeouts under CI conditions.
     const { error: updateError } = await supabase
       .from("planner_events")
-      .update({
-        status: update.status,
-        subtypes: update.subtypes,
-      })
-      .eq("id", update.id);
+      .upsert(
+        dirty.map((u) => ({ id: u.id, status: u.status, subtypes: u.subtypes })),
+        { onConflict: "id", ignoreDuplicates: false }
+      );
 
     if (updateError) {
       throw new Error(
         `Event-Qualität für ${citySlug} konnte nicht gespeichert werden: ${updateError.message}`
       );
     }
-
-    changed += 1;
   }
 
   return {
     total: rows.length,
-    changed,
+    changed: dirty.length,
   };
 }
