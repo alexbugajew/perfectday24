@@ -1994,6 +1994,7 @@ function PlannerPageContent() {
         occasion={occasion}
         plannerData={plannerData}
         activeVariantLabel={activeVariant?.label ?? null}
+        activeVariantReason={activeVariant?.reason ?? null}
         draggedStopPosition={draggedStopPosition}
         groupEnabled={groupEnabled}
         groupMembersCount={groupMembers.length}

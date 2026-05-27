@@ -19,6 +19,7 @@ type PlannerStopListSectionProps = {
   plannerData: PlannerApiResponse | null;
   routeProfile: RouteProfile;
   activeVariantLabel: string | null;
+  activeVariantReason?: string | null;
   draggedStopPosition: number | null;
   groupEnabled: boolean;
   groupMembersCount: number;
@@ -198,6 +199,7 @@ export default function PlannerStopListSection({
   plannerData,
   routeProfile,
   activeVariantLabel,
+  activeVariantReason,
   draggedStopPosition,
   groupEnabled,
   groupMembersCount,
@@ -220,9 +222,15 @@ export default function PlannerStopListSection({
           <h3 className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
             {occasion === "date" ? "Euer Abend, Schritt für Schritt." : occasion === "tourism" ? "Euer Tag, Schritt für Schritt." : "Euer Plan, Schritt für Schritt."}
           </h3>
-          <p className="mt-1 max-w-2xl text-xs leading-5 text-[var(--text-muted)]">
-            Timing, Wege und Reihenfolge — alles aufeinander abgestimmt.
-          </p>
+          {activeVariantReason ? (
+            <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)] italic">
+              {activeVariantReason}
+            </p>
+          ) : (
+            <p className="mt-1 max-w-2xl text-xs leading-5 text-[var(--text-muted)]">
+              Timing, Wege und Reihenfolge — alles aufeinander abgestimmt.
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap gap-2">
           <span className="warm-chip rounded-full px-3 py-1 text-xs">
@@ -316,8 +324,18 @@ export default function PlannerStopListSection({
                     />
                   ) : null}
                   <div className="absolute left-2 top-2 rounded-md bg-white/90 px-2 py-1 text-[10px] font-semibold text-[var(--text-strong)] shadow-sm">
-                    Slot {i + 1}
+                    {i + 1}
                   </div>
+                  {stop.scheduledStartAt ? (
+                    <div className="absolute bottom-0 left-0 right-0 flex items-center gap-1 bg-black/55 px-2 py-1.5 text-[10px] font-medium text-white">
+                      <span>⏰</span>
+                      <span>
+                        {formatPlannerTime(stop.scheduledStartAt)}
+                        {stop.scheduledEndAt ? ` – ${formatPlannerTime(stop.scheduledEndAt)}` : ""}
+                        {stop.timingLock === "event" ? " · fix" : ""}
+                      </span>
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className="min-w-0 flex-1">
@@ -407,190 +425,28 @@ export default function PlannerStopListSection({
                         {stop.item.distanceFromOriginKm != null ? (
                           <span>{stop.item.distanceFromOriginKm.toFixed(1)} km vom Start</span>
                         ) : null}
-                      </div>
-
-                      {stop.scheduledStartAt ? (
-                        <p className="mt-2 text-xs text-[var(--state-warning)]">
-                          Zeitfenster: {formatPlannerTime(stop.scheduledStartAt)}
-                          {stop.scheduledEndAt ? ` - ${formatPlannerTime(stop.scheduledEndAt)}` : ""}
-                          {stop.timingLock === "event" ? " | Einlass/Event-Zeit fixiert" : ""}
-                        </p>
-                      ) : null}
-
-                      <div className="mt-3 rounded-lg border border-[rgba(68,57,46,0.08)] bg-white/80 p-3">
-                        <div className="flex flex-wrap items-center justify-between gap-2">
-                          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-                            Warum passt das?
-                          </div>
-                          {stop.timingWarnings?.length ? (
-                            <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-1 text-[11px] font-medium text-rose-700">
-                              Timing prüfen
-                            </span>
-                          ) : (
-                            <span className="rounded-full border border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)] px-2 py-1 text-[11px] font-medium text-[var(--state-success)]">
-                              Ergebnis plausibel
-                            </span>
-                          )}
-                        </div>
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          {qualitySignals.map((signal) => (
-                            <span
-                              key={`${stop.index}-${signal}`}
-                              className="rounded-full border border-[rgba(68,57,46,0.1)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]"
-                            >
-                              {signal}
-                            </span>
-                          ))}
-                        </div>
-                        {primaryReasons.length ? (
-                          <div className="mt-3 grid gap-1.5 text-xs leading-5 text-[var(--text-muted)]">
-                            {primaryReasons.map((reason) => (
-                              <div key={`${stop.index}-${reason}`} className="flex items-start gap-2">
-                                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--text-muted)]/50" />
-                                <span>{reason}</span>
-                              </div>
-                            ))}
-                          </div>
+                        {stop.timingWarnings?.length ? (
+                          <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-1 text-[11px] font-medium text-rose-700">
+                            ⚠ Timing prüfen
+                          </span>
                         ) : null}
                       </div>
 
-                      <details className="mt-3 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
-                        <summary className="cursor-pointer text-xs font-medium text-[var(--text-strong)]">
-                          Details und Begründung
-                        </summary>
-                        <div className="mt-3 space-y-3">
-                      <details className="rounded-lg border border-dashed border-[rgba(68,57,46,0.14)] bg-white px-3 py-2">
-                        <summary className="cursor-pointer text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
-                          Scoring
-                        </summary>
-                        <div className="mt-2 text-xs text-[var(--text-muted)]">
-                          Base: {stop.item.score} | Pref: +{stop.item.prefBoost} | Total: {stop.item.totalScore}
-                        </div>
-                      </details>
-
-                      {stop.groupDecision && groupEnabled && groupMembersCount > 0 ? (
-                        <div className="mt-4 rounded-2xl border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)]/70 p-3 text-xs text-[var(--brand-accent)]">
-                          <div className="font-semibold">Gruppenentscheidung</div>
-                          <div className="mt-1">
-                            {stop.groupDecision.explanation}
-                            {stop.groupDecision.matchCount > 0
-                              ? ` · für ${stop.groupDecision.matchCount} von ${stop.groupDecision.participantCount}`
-                              : ""}
-                          </div>
-                          {stop.groupDecision.matchedInterests.length > 0 ? (
-                            <div className="mt-1 text-[var(--brand-accent)]">
-                              Berücksichtigte Vorlieben: {stop.groupDecision.matchedInterests.join(", ")}
-                            </div>
-                          ) : null}
-                          {stop.groupDecision.matchedParticipants.length > 0 ? (
-                            <div className="mt-1 text-[var(--brand-accent)]">
-                              Besonders passend für: {stop.groupDecision.matchedParticipants.join(", ")}
-                            </div>
-                          ) : null}
-                          {stop.groupDecision.balanceNote ? (
-                            <div className="mt-2 rounded-lg border border-[var(--brand-accent)]/35/70 bg-white/80 px-2.5 py-2 text-[var(--brand-accent)]">
-                              {stop.groupDecision.balanceNote}
-                            </div>
-                          ) : null}
-                        </div>
-                      ) : null}
-
-                      {stop.item.source_primary !== "planner_event" ? (
-                        <div className="mt-4 flex gap-2 flex-wrap">
-                          {(() => {
-                            const affiliateMatch = affiliateResolution.byLocationId[stop.item!.id] ?? null;
-                            const reservationTargetUrl =
-                              affiliateMatch?.targetUrl ?? stop.item!.reservation_url ?? null;
-                            if (!reservationTargetUrl) return null;
-
-                            return (
-                              <MonetizedExternalLink
-                                href={reservationTargetUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                userId={userId}
-                                locationId={stop.item!.id}
-                                partnerProfileId={affiliateMatch?.partnerProfileId ?? null}
-                                affiliateLinkId={affiliateMatch?.id ?? null}
-                                citySlug={effectiveCitySlug}
-                                surface="planner_stop"
-                                label={stop.item!.name}
-                                source={affiliateMatch ? "planner_stop_affiliate_cta" : "planner_stop_primary_cta"}
-                                className="rounded-lg border border-[rgba(68,57,46,0.12)] bg-white px-3 py-2 text-xs hover:bg-[var(--brand-accent-cloud)]"
-                              >
-                                {affiliateMatch ? `${affiliateMatch.providerName} öffnen` : "Reservieren"}
-                              </MonetizedExternalLink>
-                            );
-                          })()}
-                        </div>
-                      ) : null}
-
+                      {/* Event-Highlight info (compact, always visible for event stops) */}
                       {stop.item.source_primary === "planner_event" ? (
-                        <div className="mt-4 rounded-2xl border border-[var(--state-warning)]/25 bg-[var(--brand-accent-cloud)]/70 p-3">
-                          <div className="flex items-start justify-between gap-3 flex-wrap">
-                            <div>
-                              <div className="text-[11px] uppercase tracking-wide text-[var(--state-warning)]">
-                                Event-Highlight
-                              </div>
-                              <div className="mt-1 text-sm font-semibold text-[var(--state-warning)]">
-                                {providerLabel(sourceRefs?.source ?? null)} |{" "}
-                                {plannerEventLabel(plannerStopEventKind(stop))}
-                              </div>
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                              {eventMetaBadges(stop).map((badge) => (
-                                <span
-                                  key={badge}
-                                  className="rounded-full border border-[var(--state-warning)]/25 bg-white px-2 py-1 text-[11px] text-[var(--state-warning)]"
-                                >
-                                  {badge}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className="mt-2 space-y-1 text-xs text-[var(--state-warning)]">
-                            {sourceRefs?.venueName ? (
-                              <div>
-                                Venue: <span className="font-semibold">{sourceRefs.venueName}</span>
-                              </div>
-                            ) : null}
-                            <div>
-                              {sourceRefs?.doorsAt ? (
-                                <>
-                                  Doors <span className="font-semibold">{formatPlannerTime(sourceRefs.doorsAt)}</span>
-                                </>
-                              ) : (
-                                <>Kein separater Einlass hinterlegt</>
-                              )}
-                              {sourceRefs?.startsAt ? (
-                                <>
-                                  {" | "}Start{" "}
-                                  <span className="font-semibold">{formatPlannerTime(sourceRefs.startsAt)}</span>
-                                </>
-                              ) : null}
-                              {sourceRefs?.endsAt ? (
-                                <>
-                                  {" | "}Ende{" "}
-                                  <span className="font-semibold">{formatPlannerTime(sourceRefs.endsAt)}</span>
-                                </>
-                              ) : null}
-                            </div>
-                          </div>
-
-                          {eventTravelNote ? (
-                            <div className="mt-3 rounded-lg border border-[var(--state-warning)]/35/80 bg-white/80 px-3 py-2 text-xs text-[var(--state-warning)]">
-                              {eventTravelNote}
-                            </div>
+                        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-[var(--state-warning)]">
+                          <span className="font-semibold">
+                            {providerLabel(sourceRefs?.source ?? null)}
+                          </span>
+                          {sourceRefs?.venueName ? <span>· {sourceRefs.venueName}</span> : null}
+                          {sourceRefs?.startsAt ? (
+                            <span>· Start {formatPlannerTime(sourceRefs.startsAt)}</span>
                           ) : null}
-
-                          <div className="mt-3 flex gap-2 flex-wrap">
+                          <div className="flex flex-wrap gap-1.5">
                             {(() => {
                               const affiliateMatch = affiliateResolution.byPlannerEventId[stop.item!.id] ?? null;
-                              const ticketTargetUrl =
-                                affiliateMatch?.targetUrl ?? sourceRefs?.ticketUrl ?? null;
+                              const ticketTargetUrl = affiliateMatch?.targetUrl ?? sourceRefs?.ticketUrl ?? null;
                               if (!ticketTargetUrl) return null;
-
                               return (
                                 <MonetizedExternalLink
                                   href={ticketTargetUrl}
@@ -604,7 +460,7 @@ export default function PlannerStopListSection({
                                   surface="planner_event_stop"
                                   label={stop.item!.name}
                                   source={affiliateMatch ? "ticket_affiliate_cta" : "ticket_cta"}
-                                  className="rounded-lg border border-[var(--state-warning)]/25 bg-white px-3 py-2 text-xs hover:bg-[var(--brand-accent-cloud)]"
+                                  className="rounded-md border border-[var(--state-warning)]/25 bg-white px-3 py-1.5 text-xs text-[var(--state-warning)] hover:bg-[var(--brand-accent-cloud)]"
                                 >
                                   {affiliateMatch ? `${affiliateMatch.providerName} Tickets` : "Tickets ansehen"}
                                 </MonetizedExternalLink>
@@ -621,104 +477,144 @@ export default function PlannerStopListSection({
                                 surface="planner_event_stop"
                                 label={stop.item!.name}
                                 source="event_source_cta"
-                                className="rounded-lg border border-[var(--state-warning)]/25 bg-white px-3 py-2 text-xs hover:bg-[var(--brand-accent-cloud)]"
+                                className="rounded-md border border-[var(--state-warning)]/25 bg-white px-3 py-1.5 text-xs text-[var(--state-warning)] hover:bg-[var(--brand-accent-cloud)]"
                               >
                                 Eventquelle öffnen
                               </MonetizedExternalLink>
                             ) : null}
                           </div>
-
-                          <div className="mt-2 text-xs text-[var(--state-warning)]">
-                            Dieser Stop wurde bewusst als Event-Anker in den Ablauf gezogen. Plane davor lieber etwas mit sicherem Puffer und danach eher einen lockeren Ausklang.
-                          </div>
                         </div>
                       ) : null}
 
-                      {Array.isArray(stop.timingWarnings) && stop.timingWarnings.length ? (
-                        <div className="mt-4 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2">
-                          <div className="text-[11px] uppercase tracking-wide text-rose-700">Timing-Hinweise</div>
-                          <div className="mt-1 space-y-1">
-                            {stop.timingWarnings.map((warning) => (
-                              <div key={warning} className="text-xs text-rose-800">
-                                {warning}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-
-                      {stop.reasons?.length ? (
-                        <div className="mt-4 rounded-2xl border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)]/80 p-3">
-                          <div className="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
-                            Warum dieser Stop?
-                          </div>
-                          <div className="mt-2 space-y-2">
-                            {stop.reasons.map((reason) => (
-                              <div
-                                key={reason}
-                                className="flex items-start gap-2 text-sm text-[var(--text-muted)]"
+                      {/* Reservation link for non-events */}
+                      {stop.item.source_primary !== "planner_event" ? (
+                        (() => {
+                          const affiliateMatch = affiliateResolution.byLocationId[stop.item!.id] ?? null;
+                          const reservationTargetUrl = affiliateMatch?.targetUrl ?? stop.item!.reservation_url ?? null;
+                          if (!reservationTargetUrl) return null;
+                          return (
+                            <div className="mt-3">
+                              <MonetizedExternalLink
+                                href={reservationTargetUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                userId={userId}
+                                locationId={stop.item!.id}
+                                partnerProfileId={affiliateMatch?.partnerProfileId ?? null}
+                                affiliateLinkId={affiliateMatch?.id ?? null}
+                                citySlug={effectiveCitySlug}
+                                surface="planner_stop"
+                                label={stop.item!.name}
+                                source={affiliateMatch ? "planner_stop_affiliate_cta" : "planner_stop_primary_cta"}
+                                className="rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)] hover:bg-[var(--brand-accent-cloud)]"
                               >
-                                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[var(--text-muted)]/50" />
-                                <span>{reason}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
+                                {affiliateMatch ? `${affiliateMatch.providerName} öffnen` : "Reservieren"}
+                              </MonetizedExternalLink>
+                            </div>
+                          );
+                        })()
                       ) : null}
 
-                      {stop.debug ? (
-                        <details className="mt-4 rounded-2xl border border-dashed border-[rgba(68,57,46,0.14)] bg-white p-3">
-                          <summary className="cursor-pointer text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
-                            Policy Trace
-                          </summary>
-                          <div className="mt-3 space-y-3">
-                            <div className="text-xs text-[var(--text-muted)]">
-                              Source: {stop.debug.selectedFrom} | Final: {stop.debug.finalScore} | Candidate:{" "}
-                              {stop.debug.candidateTotalScore} | Travel feasible:{" "}
-                              {stop.debug.travelFeasible ? "ja" : "nein"}
-                            </div>
-                            <div className="space-y-2">
-                              {stop.debug.policyResults.map((result) => (
-                                <div key={result.key} className="rounded border p-2 text-xs">
-                                  <div className="font-medium">
-                                    {result.key} | {result.scoreDelta >= 0 ? "+" : ""}
-                                    {result.scoreDelta}
-                                    {result.hardFail ? " | hard fail" : ""}
-                                  </div>
-                                  {result.reasons?.length ? (
-                                    <div className="mt-1 text-[var(--text-muted)]">
-                                      {result.reasons.join(" | ")}
-                                    </div>
-                                  ) : null}
-                                  {result.meta ? (
-                                    <pre className="mt-2 overflow-x-auto whitespace-pre-wrap rounded bg-[var(--bg-panel)] p-2 text-[11px] text-[var(--text-muted)]">
-                                      {JSON.stringify(result.meta, null, 2)}
-                                    </pre>
-                                  ) : null}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </details>
-                      ) : null}
-
-                      {stop.item?.retrievalReasons?.length ? (
-                        <div className="mt-4 rounded-2xl border border-dashed border-[rgba(68,57,46,0.14)] bg-white p-3">
-                          <div className="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
-                            Retrieval-Signale
-                          </div>
-                          <div className="mt-2 flex flex-wrap gap-2">
-                            {stop.item.retrievalReasons.slice(0, 3).map((reason) => (
+                      {/* "Warum passt das?" — collapsible */}
+                      <details className="mt-3 group">
+                        <summary className="inline-flex cursor-pointer list-none items-center gap-1 text-xs font-medium text-[var(--brand-accent)] hover:underline">
+                          <span className="select-none transition-transform group-open:rotate-90">▶</span>
+                          Warum passt das?
+                        </summary>
+                        <div className="mt-2 rounded-lg border border-[rgba(68,57,46,0.08)] bg-white/80 p-3 space-y-3">
+                          {/* Quality signals */}
+                          <div className="flex flex-wrap gap-2">
+                            {qualitySignals.map((signal) => (
                               <span
-                                key={reason}
-                                className="text-[11px] px-2 py-1 rounded-full bg-[var(--bg-panel)] text-[var(--text-muted)] border"
+                                key={`${stop.index}-${signal}`}
+                                className="rounded-full border border-[rgba(68,57,46,0.1)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]"
                               >
-                                {reason}
+                                {signal}
                               </span>
                             ))}
                           </div>
-                        </div>
-                      ) : null}
+                          {/* Primary reasons */}
+                          {primaryReasons.length ? (
+                            <div className="grid gap-1.5 text-xs leading-5 text-[var(--text-muted)]">
+                              {primaryReasons.map((reason) => (
+                                <div key={`${stop.index}-${reason}`} className="flex items-start gap-2">
+                                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--text-muted)]/50" />
+                                  <span>{reason}</span>
+                                </div>
+                              ))}
+                            </div>
+                          ) : null}
+                          {/* Scoring */}
+                          <div className="text-[11px] text-[var(--text-muted)]">
+                            Score: {stop.item.totalScore ?? "-"} · Base: {stop.item.score ?? "-"} · Pref: +{stop.item.prefBoost ?? 0}
+                          </div>
+                          {/* Timing warnings */}
+                          {Array.isArray(stop.timingWarnings) && stop.timingWarnings.length ? (
+                            <div className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2">
+                              <div className="text-[11px] uppercase tracking-wide text-rose-700 font-semibold">Timing-Hinweise</div>
+                              <div className="mt-1 space-y-1">
+                                {stop.timingWarnings.map((warning) => (
+                                  <div key={warning} className="text-xs text-rose-800">{warning}</div>
+                                ))}
+                              </div>
+                            </div>
+                          ) : null}
+                          {/* Group decision */}
+                          {stop.groupDecision && groupEnabled && groupMembersCount > 0 ? (
+                            <div className="rounded-xl border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)]/70 p-3 text-xs text-[var(--brand-accent)]">
+                              <div className="font-semibold">Gruppenentscheidung</div>
+                              <div className="mt-1">
+                                {stop.groupDecision.explanation}
+                                {stop.groupDecision.matchCount > 0
+                                  ? ` · für ${stop.groupDecision.matchCount} von ${stop.groupDecision.participantCount}`
+                                  : ""}
+                              </div>
+                            </div>
+                          ) : null}
+                          {/* Detailed event info */}
+                          {stop.item.source_primary === "planner_event" ? (
+                            <div className="rounded-xl border border-[var(--state-warning)]/25 bg-[var(--brand-accent-cloud)]/70 p-3">
+                              <div className="text-xs text-[var(--state-warning)] space-y-1">
+                                {sourceRefs?.doorsAt ? (
+                                  <div>Doors: <span className="font-semibold">{formatPlannerTime(sourceRefs.doorsAt)}</span></div>
+                                ) : null}
+                                {sourceRefs?.endsAt ? (
+                                  <div>Ende: <span className="font-semibold">{formatPlannerTime(sourceRefs.endsAt)}</span></div>
+                                ) : null}
+                                {eventTravelNote ? <div className="mt-1">{eventTravelNote}</div> : null}
+                                {eventMetaBadges(stop).length ? (
+                                  <div className="flex flex-wrap gap-1.5 pt-1">
+                                    {eventMetaBadges(stop).map((badge) => (
+                                      <span key={badge} className="rounded-full border border-[var(--state-warning)]/25 bg-white px-2 py-0.5 text-[11px] text-[var(--state-warning)]">
+                                        {badge}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
+                          ) : null}
+                          {/* Policy trace */}
+                          {stop.debug ? (
+                            <details className="rounded-lg border border-dashed border-[rgba(68,57,46,0.14)] bg-white px-3 py-2">
+                              <summary className="cursor-pointer text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
+                                Policy Trace
+                              </summary>
+                              <div className="mt-2 space-y-2">
+                                {stop.debug.policyResults.map((result) => (
+                                  <div key={result.key} className="rounded border p-2 text-xs">
+                                    <div className="font-medium">
+                                      {result.key} | {result.scoreDelta >= 0 ? "+" : ""}{result.scoreDelta}
+                                      {result.hardFail ? " | hard fail" : ""}
+                                    </div>
+                                    {result.reasons?.length ? (
+                                      <div className="mt-1 text-[var(--text-muted)]">{result.reasons.join(" | ")}</div>
+                                    ) : null}
+                                  </div>
+                                ))}
+                              </div>
+                            </details>
+                          ) : null}
                         </div>
                       </details>
                     </>
@@ -735,19 +631,8 @@ export default function PlannerStopListSection({
                     aria-label={`Alternative für ${stop.item?.name ?? stop.label} suchen`}
                     className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:opacity-95"
                   >
-                    Alternative suchen
+                    Alternative
                   </button>
-
-                  {stop.item?.reservation_url ? (
-                    <a
-                      href={stop.item.reservation_url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
-                    >
-                      Reservieren
-                    </a>
-                  ) : null}
                 </div>
               </div>
             </div>

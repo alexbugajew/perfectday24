@@ -73,6 +73,10 @@ OSM_CATEGORIES: list[tuple[str, str, str]] = [
     ('[\"amenity\"=\"conference_centre\"]', "location",    "Konferenzzentren"),
     ('[\"craft\"=\"photographer\"]',        "photography", "Fotografen"),
     ('[\"shop\"=\"party\"]',               "decoration",  "Party-/Deko-Shops"),
+    ('[\"shop\"=\"confectionery\"]',        "cake",        "Konditoreien"),
+    ('[\"craft\"=\"confectionery\"]',       "cake",        "Konditor (Handwerk)"),
+    ('[\"shop\"=\"pastry\"]',              "cake",        "Patisserie / Feingebäck"),
+    ('[\"craft\"=\"caterer\"]',            "catering",    "Catering-Unternehmen"),
 ]
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
@@ -325,6 +329,10 @@ def main() -> None:
                 stype = "photography"
             elif t_shop == "party":
                 stype = "decoration"
+            elif t_shop in ("confectionery", "pastry") or t_craft == "confectionery":
+                stype = "cake"
+            elif t_craft == "caterer":
+                stype = "catering"
 
             if not stype:
                 total_skipped += 1

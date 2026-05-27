@@ -35,6 +35,7 @@ type PlannerOutputSectionProps = {
   occasion: string;
   plannerData: PlannerApiResponse | null;
   activeVariantLabel: string | null;
+  activeVariantReason?: string | null;
   draggedStopPosition: number | null;
   groupEnabled: boolean;
   groupMembersCount: number;
@@ -119,6 +120,7 @@ export default function PlannerOutputSection({
   occasion,
   plannerData,
   activeVariantLabel,
+  activeVariantReason,
   draggedStopPosition,
   groupEnabled,
   groupMembersCount,
@@ -393,6 +395,7 @@ export default function PlannerOutputSection({
             plannerData={plannerData}
             routeProfile={routeProfile}
             activeVariantLabel={activeVariantLabel}
+            activeVariantReason={activeVariantReason}
             draggedStopPosition={draggedStopPosition}
             groupEnabled={groupEnabled}
             groupMembersCount={groupMembersCount}
