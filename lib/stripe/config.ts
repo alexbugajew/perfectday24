@@ -1,11 +1,27 @@
 import Stripe from "stripe";
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error("STRIPE_SECRET_KEY fehlt");
+// Lazy initialisation – the Stripe client is only created on first use
+// (i.e. during request handling), NOT at module-evaluation time.
+// This prevents build failures when STRIPE_SECRET_KEY is absent at build time.
+let _stripeInstance: Stripe | null = null;
+
+function getStripeClient(): Stripe {
+  if (!_stripeInstance) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error("STRIPE_SECRET_KEY fehlt");
+    }
+    _stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      typescript: true,
+    });
+  }
+  return _stripeInstance;
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  typescript: true,
+// Proxy keeps all call-sites (`stripe.customers.create(…)` etc.) unchanged.
+export const stripe = new Proxy({} as Stripe, {
+  get(_target, prop) {
+    return (getStripeClient() as unknown as Record<string | symbol, unknown>)[prop];
+  },
 });
 
 export type StripePlanKey = "partner_basic" | "partner_pro";
