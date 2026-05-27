@@ -36,6 +36,7 @@ import {
   clamp,
   compactPartyLabel,
   countryLabel,
+  defaultPlanModeForOccasion,
   eventStrictnessForExperienceMode,
   experienceModeLabel,
   experienceOptionsForOccasion,
@@ -279,6 +280,8 @@ function PlannerPageContent() {
       requestedOccasion === "party"
     ) {
       setOccasion(requestedOccasion);
+      // Apply the occasion's default time frame (evening for date/friends, midday for family, etc.)
+      setPlanMode(defaultPlanModeForOccasion(requestedOccasion));
     }
 
     if (
@@ -533,6 +536,15 @@ function PlannerPageContent() {
     });
   }
 
+  /** Changes the occasion and automatically sets the matching default planMode. */
+  const handleOccasionChange = useCallback(
+    (value: string) => {
+      setOccasion(value);
+      setPlanMode(defaultPlanModeForOccasion(value));
+    },
+    []
+  );
+
   function resetPlan() {
     setStopOffsets((prev) => prev.map(() => 0));
     setAiText(null);
@@ -757,7 +769,10 @@ function PlannerPageContent() {
     if (!template) return;
 
     if (template.citySlug) setSelectedCitySlug(canonicalCitySlug(template.citySlug));
-    if (template.occasion) setOccasion(template.occasion);
+    if (template.occasion) {
+      setOccasion(template.occasion);
+      setPlanMode(defaultPlanModeForOccasion(template.occasion));
+    }
     if (
       template.experienceMode === "classic" ||
       template.experienceMode === "show" ||
@@ -1579,7 +1594,7 @@ function PlannerPageContent() {
             </div>
             <select
               value={occasion}
-              onChange={(e) => setOccasion(e.target.value)}
+              onChange={(e) => handleOccasionChange(e.target.value)}
               className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
             >
               <option value="date">Date</option>
@@ -1851,7 +1866,7 @@ function PlannerPageContent() {
         budget={budget}
         setBudget={setBudget}
         occasion={occasion}
-        setOccasion={setOccasion}
+        setOccasion={handleOccasionChange}
         experienceMode={experienceMode}
         setExperienceMode={setExperienceMode}
         planDate={planDate}

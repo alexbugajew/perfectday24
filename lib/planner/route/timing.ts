@@ -113,11 +113,15 @@ export function maxSegmentTravelMin(
   return 50;
 }
 
-function planStartMinutes(planMode: PlanMode) {
+function planStartMinutes(planMode: PlanMode, occasion?: string) {
   if (planMode === "morning") return 9 * 60;
-  if (planMode === "midday") return 12 * 60;
+  if (planMode === "midday") return 11 * 60;   // 11:00 — komfortabler Mittagsstart
   if (planMode === "evening") return 18 * 60;
-  return 9 * 60 + 30;
+  // fullday – occasion-aware default as a secondary safeguard
+  if (occasion === "date" || occasion === "friends") return 17 * 60 + 30; // 17:30
+  if (occasion === "family") return 11 * 60;                               // 11:00
+  if (occasion === "party") return 20 * 60;                                // 20:00
+  return 9 * 60 + 30; // tourism / default → 9:30
 }
 
 function parseIsoDate(value: string | null | undefined) {
@@ -227,9 +231,8 @@ export function applyStopSchedule(params: {
     : new Date();
   if (!dateSeed) return cloned;
 
-  const planStart = withMinutes(
-    new Date(dateSeed.getFullYear(), dateSeed.getMonth(), dateSeed.getDate(), 0, 0, 0, 0),
-    planStartMinutes(context.preferredDaytimes.includes("night") && !context.preferredDaytimes.includes("morning")
+  const derivedPlanMode: PlanMode =
+    context.preferredDaytimes.includes("night") && !context.preferredDaytimes.includes("morning")
       ? "evening"
       : context.preferredDaytimes.length === 1 && context.preferredDaytimes[0] === "midday"
         ? "midday"
@@ -237,7 +240,14 @@ export function applyStopSchedule(params: {
           ? "morning"
           : context.preferredDaytimes.includes("morning")
             ? "fullday"
-            : "evening")
+            : "evening";
+
+  const dayBase = new Date(dateSeed.getFullYear(), dateSeed.getMonth(), dateSeed.getDate(), 0, 0, 0, 0);
+  const planStart = withMinutes(dayBase, planStartMinutes(derivedPlanMode, context.occasion));
+  // Minimum sensible start — never earlier than 07:00 for non-event-anchored runs.
+  const earliestStartMin = 7 * 60;
+  const flooredPlanStart = new Date(
+    Math.max(planStart.getTime(), dayBase.getTime() + earliestStartMin * 60000)
   );
 
   const anchorIndex =
@@ -260,15 +270,21 @@ export function applyStopSchedule(params: {
       anchor.scheduledEndAt = eventEnd.toISOString();
       anchor.timingLock = "event";
 
+      // Backward pass — each pre-anchor stop is scheduled before the event.
+      // Floor to 07:00 so we never produce impossible pre-dawn times.
+      const dayFloor = new Date(dayBase.getTime() + earliestStartMin * 60000);
       let cursor = entryAt;
       for (let i = anchorIndex - 1; i >= 0; i--) {
         const stop = cloned[i];
         const durationMin = stop.durationMin ?? stop.item?.duration_min ?? 60;
         const travelMin = cloned[i + 1].travelMinFromPrev ?? 0;
         const endAt = withMinutes(cursor, -travelMin);
-        const startAt = withMinutes(endAt, -durationMin);
+        // Apply floor: don't go earlier than 07:00
+        const startAtRaw = withMinutes(endAt, -durationMin);
+        const startAt = startAtRaw.getTime() < dayFloor.getTime() ? dayFloor : startAtRaw;
+        const endAtFloored = startAt.getTime() < endAt.getTime() ? endAt : withMinutes(startAt, durationMin);
         stop.scheduledStartAt = startAt.toISOString();
-        stop.scheduledEndAt = endAt.toISOString();
+        stop.scheduledEndAt = endAtFloored.toISOString();
         stop.timingLock = "none";
         stop.timingWarnings = [];
         cursor = startAt;
@@ -292,12 +308,12 @@ export function applyStopSchedule(params: {
       return annotateTimingWarnings({
         stops: cloned,
         context,
-        planStart,
+        planStart: flooredPlanStart,
       });
     }
   }
 
-  let cursor = planStart;
+  let cursor = flooredPlanStart;
   for (let i = 0; i < cloned.length; i++) {
     const stop = cloned[i];
     const durationMin = stop.durationMin ?? stop.item?.duration_min ?? 60;
@@ -314,6 +330,6 @@ export function applyStopSchedule(params: {
   return annotateTimingWarnings({
     stops: cloned,
     context,
-    planStart,
+    planStart: flooredPlanStart,
   });
 }

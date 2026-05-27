@@ -5,6 +5,7 @@ import type {
   OccasionPhase,
   PlannedStop,
   PlannerEventRow,
+  PlanMode,
   RouteProfile,
   ScoredLocation,
 } from "@/lib/planner";
@@ -15,6 +16,19 @@ import type {
   PlannerSaveMode,
   StartPointSuggestion,
 } from "./types";
+
+/**
+ * Returns the sensible default planMode for a given occasion.
+ * Dates and friend outings are typically evening events;
+ * family trips work best starting at midday;
+ * tourism and parties are all-day or evening by default.
+ */
+export function defaultPlanModeForOccasion(occasion: string): PlanMode {
+  if (occasion === "date" || occasion === "friends") return "evening";
+  if (occasion === "family") return "midday";
+  if (occasion === "party") return "evening";
+  return "fullday"; // tourism, solo, etc.
+}
 
 export const EMPTY_PLANNER_RESULTS: ScoredLocation[] = [];
 export const EMPTY_PLANNER_EVENT_ROWS: PlannerEventRow[] = [];

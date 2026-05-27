@@ -78,7 +78,7 @@ type PlannerControlsSectionProps = {
   budget: string;
   setBudget: Dispatch<SetStateAction<string>>;
   occasion: string;
-  setOccasion: Dispatch<SetStateAction<string>>;
+  setOccasion: (value: string) => void;
   experienceMode: ExperienceMode;
   setExperienceMode: Dispatch<SetStateAction<ExperienceMode>>;
   planDate: string;
