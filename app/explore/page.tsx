@@ -851,6 +851,15 @@ function ExplorePageContent() {
     personalizedSort,
   ]);
 
+  const editorialRoutes = useMemo(
+    () =>
+      filteredRoutes
+        .filter((r) => r.creator_type === "editorial")
+        .sort((a, b) => (b.ranking_score ?? 0) - (a.ranking_score ?? 0))
+        .slice(0, 12),
+    [filteredRoutes]
+  );
+
   const trendingRoutes = useMemo(
     () => [...filteredRoutes].sort((a, b) => (b.trending_score ?? 0) - (a.trending_score ?? 0)).slice(0, 6),
     [filteredRoutes]
@@ -1119,6 +1128,27 @@ function ExplorePageContent() {
         <div className="rounded-[28px] border border-[rgba(161,75,69,0.18)] bg-[rgba(161,75,69,0.08)] p-6 text-[var(--state-error)] shadow-[var(--shadow-soft)]">{errorText}</div>
       ) : (
         <div className="space-y-12">
+          {editorialRoutes.length > 0 ? (
+            <section>
+              <SectionHeader
+                title="Redaktionelle Routen"
+                subtitle="Kuratierte Tagesrouten vom PD24-Redaktionsteam – für alle 33 deutschen Großstädte."
+                actionHref="/creator/pd24-redaktion"
+                actionLabel="Alle ansehen"
+              />
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {editorialRoutes.map((route) => (
+                  <RouteCard
+                    key={route.id}
+                    route={route}
+                    creator={route.creator_profile_id ? creatorById.get(route.creator_profile_id) ?? null : null}
+                    cityMap={cityMap}
+                  />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
           <section>
             <SectionHeader
               title="Passt zu deinen Interessen"
