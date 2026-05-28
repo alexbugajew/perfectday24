@@ -76,6 +76,34 @@ function ticketmasterCityName(city: Pick<CityRow, "slug" | "name">) {
   return TICKETMASTER_CITY_QUERY_NAMES[city.slug] ?? city.name;
 }
 
+/** Retry a fallible async operation up to `maxRetries` additional attempts with
+ *  linear back-off.  Logs a warning on each transient failure so the CI log
+ *  makes it clear that a retry happened. */
+async function withRetry<T>(
+  label: string,
+  fn: () => Promise<T>,
+  maxRetries = 2,
+  backoffMs = 2_000
+): Promise<T> {
+  let lastErr: Error | undefined;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err instanceof Error ? err : new Error(String(err));
+      if (attempt < maxRetries) {
+        const wait = backoffMs * (attempt + 1);
+        console.warn(
+          `[retry] ${label}: Versuch ${attempt + 1}/${maxRetries + 1} fehlgeschlagen` +
+          ` (${lastErr.name}: ${lastErr.message}), warte ${wait}ms …`
+        );
+        await sleep(wait);
+      }
+    }
+  }
+  throw lastErr ?? new Error(`${label}: Alle Versuche fehlgeschlagen`);
+}
+
 /** Custom fetch for the Supabase client: enforces a 30 s timeout using
  *  AbortController + clearTimeout so the timer is always removed when the
  *  request completes — avoiding the Node.js 24 / undici issue where
@@ -100,10 +128,17 @@ async function main() {
   // tasks (e.g. Supabase internals, lingering undici timers) so they are logged
   // but do NOT crash the script mid-run.
   process.on("unhandledRejection", (reason) => {
-    console.error("[ticketmaster] Unbehandelte Ablehnung (Hintergrund):", reason);
+    const err = reason instanceof Error ? reason : new Error(String(reason));
+    console.error(
+      `[ticketmaster] Unbehandelte Ablehnung (Hintergrund) [${err.name}]: ${err.message}`
+    );
+    if (err.stack) console.error(err.stack);
   });
   process.on("uncaughtException", (err) => {
-    console.error("[ticketmaster] Unbehandelter Fehler (Hintergrund):", err);
+    console.error(
+      `[ticketmaster] Unbehandelter Fehler (Hintergrund) [${err.name}]: ${err.message}`
+    );
+    if (err.stack) console.error(err.stack);
   });
 
   const envPath = resolve(process.cwd(), ".env.local");
@@ -204,12 +239,15 @@ async function main() {
         continue;
       }
 
-      const { error: upsertError } = await supabase
-        .from("planner_events")
-        .upsert(normalizedBatch, {
-          onConflict: "source,external_id",
-          ignoreDuplicates: false,
-        });
+      // Upsert with retry — transient Supabase / network blips shouldn't abort a run.
+      const { error: upsertError } = await withRetry(
+        `upsert:${city.slug}`,
+        () =>
+          supabase.from("planner_events").upsert(normalizedBatch, {
+            onConflict: "source,external_id",
+            ignoreDuplicates: false,
+          })
+      );
 
       if (upsertError) {
         throw new Error(
@@ -221,14 +259,24 @@ async function main() {
         `[ticketmaster] ${city.slug} (${city.ticketmasterName ?? city.name}): ${normalizedBatch.length} Events bis ${toArg} gespeichert`
       );
 
-      const quality = await reconcilePlannerEventQualityForCity(supabase, city.slug);
+      // Quality reconciliation with retry.
+      const quality = await withRetry(
+        `quality:${city.slug}`,
+        () => reconcilePlannerEventQualityForCity(supabase, city.slug)
+      );
       console.log(
         `[quality] ${city.slug}: ${quality.changed} Event-Status/Qualitaetsflags nachgezogen`
       );
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      failedCities.push(`${city.slug}: ${message}`);
-      console.error(`[ticketmaster] ${city.slug}: Import fehlgeschlagen: ${message}`);
+      const err = error instanceof Error ? error : new Error(String(error));
+      failedCities.push(`${city.slug}: ${err.message}`);
+      console.error(
+        `[ticketmaster] ${city.slug}: Import fehlgeschlagen [${err.name}]: ${err.message}`
+      );
+      // Log stack and cause for better diagnostics in CI.
+      if (err.stack) console.error(err.stack);
+      const cause = (err as NodeJS.ErrnoException & { cause?: unknown }).cause;
+      if (cause) console.error(`[ticketmaster] ${city.slug}: Ursache:`, cause);
       if (!continueOnError) {
         throw error;
       }

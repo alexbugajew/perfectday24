@@ -358,54 +358,44 @@ export async function reconcilePlannerEventQualityForCity(
   const cutoff = new Date();
   cutoff.setUTCDate(cutoff.getUTCDate() - 14);
 
+  // Select only the columns consumed by buildPlannerEventQualityUpdates.
+  // Omitting source_payload (large Ticketmaster JSON) and other unused columns
+  // keeps the HTTP response small — a critical optimisation for high-volume cities
+  // like Berlin where the full-column payload can exceed several MB.
+  const futureCutoff = new Date();
+  futureCutoff.setUTCDate(futureCutoff.getUTCDate() + 45);
+
   const { data, error } = await supabase
     .from("planner_events")
     .select(
       [
         "id",
         "source",
-        "external_id",
         "source_url",
         "ticket_url",
         "title",
-        "summary",
         "category",
-        "kind",
         "status",
         "venue_name",
         "venue_address",
         "city_slug",
-        "country_code",
         "lat",
         "lng",
         "timezone",
         "start_at",
         "end_at",
         "doors_at",
-        "all_day",
-        "is_ticketed",
-        "price_min",
-        "price_max",
-        "currency",
         "family_friendly",
-        "indoor_outdoor",
         "local_rank",
         "importance_score",
         "popularity_score",
-        "tags",
         "subtypes",
-        "audiences",
-        "occasions",
-        "source_payload",
-        "source_updated_at",
-        "last_seen_at",
-        "created_at",
-        "updated_at",
       ].join(",")
     )
     .eq("city_slug", citySlug)
     .in("status", ["scheduled", "draft"])
-    .gte("start_at", cutoff.toISOString());
+    .gte("start_at", cutoff.toISOString())
+    .lte("start_at", futureCutoff.toISOString());
 
   if (error) {
     throw new Error(`Event-Qualität für ${citySlug} konnte nicht geladen werden: ${error.message}`);
