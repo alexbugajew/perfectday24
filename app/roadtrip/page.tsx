@@ -6,6 +6,7 @@ import { canonicalCitySlug, dedupeCitiesByCanonicalSlug } from "@/lib/cities/can
 import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
 import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
+import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -110,7 +111,17 @@ function RoadtripPageContent() {
   const [generating, setGenerating] = useState(false);
   const [openSlug, setOpenSlug] = useState<string | null>(null);
 
+  // Auth — used for attribution tracking only
+  const [userId, setUserId] = useState<string | null>(null);
+
   useEffect(() => setMounted(true), []);
+
+  // Lightweight auth check for attribution
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setUserId(data.session?.user?.id ?? null);
+    });
+  }, []);
 
   // Load cities
   useEffect(() => {
@@ -496,6 +507,19 @@ function RoadtripPageContent() {
                       Abreise: {formatDateDE(addDays(stop.date, stop.nights))}
                     </span>
                   </div>
+
+                  {/* Hotel search — visible immediately after a stop is added */}
+                  <div className="mt-2">
+                    <HotelSearchLinks
+                      cityLabel={stop.cityLabel}
+                      checkin={stop.date}
+                      checkout={addDays(stop.date, stop.nights)}
+                      nights={stop.nights}
+                      adults={2}
+                      citySlug={stop.citySlug}
+                      userId={userId}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -755,6 +779,19 @@ function RoadtripPageContent() {
                             Keine Stops gefunden — versuche eine andere Stadt oder Datum.
                           </p>
                         )}
+
+                        {/* Hotel affiliate links */}
+                        <div className="pt-1">
+                          <HotelSearchLinks
+                            cityLabel={stop?.cityLabel ?? plan.citySlug}
+                            checkin={plan.date}
+                            checkout={addDays(plan.date, stop?.nights ?? 1)}
+                            nights={stop?.nights ?? 1}
+                            adults={2}
+                            citySlug={plan.citySlug}
+                            userId={userId}
+                          />
+                        </div>
 
                         <div className="pt-1">
                           <a

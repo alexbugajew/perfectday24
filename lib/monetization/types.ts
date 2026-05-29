@@ -60,7 +60,8 @@ export type SponsoredSurface =
   | "event_detail"
   | "shared_plan"
   | "creator_profile"
-  | "city_spotlight";
+  | "city_spotlight"
+  | "roadtrip";
 
 export type SponsoredSlotType =
   | "featured_event"
@@ -108,6 +109,7 @@ export type MonetizationProductKey =
   | "affiliate_experiences"
   | "affiliate_restaurants"
   | "affiliate_tourism"
+  | "affiliate_hotels"
   | "featured_event"
   | "featured_location"
   | "sponsored_placement"
@@ -142,7 +144,8 @@ export type SponsoredSlotKey =
   | "event_detail_partner_spotlight"
   | "shared_plan_partner_cta"
   | "creator_profile_featured_routes"
-  | "city_spotlight_seasonal";
+  | "city_spotlight_seasonal"
+  | "roadtrip_hotel_search";
 
 export type MonetizationProductDefinition = {
   key: MonetizationProductKey;
