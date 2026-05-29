@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
+import type { RoadtripRoute } from "@/lib/roadtrip/types";
+import { stopSequenceLabel, occasionLabel, budgetLabel } from "@/lib/roadtrip/types";
 
 type SavedPlanRow = {
   id: string;
@@ -37,7 +40,7 @@ type SavedRouteItem = UserRouteRow & {
   saved_at: string;
 };
 
-type Segment = "all" | "plans" | "routes" | "drafts";
+type Segment = "all" | "plans" | "routes" | "roadtrips" | "drafts";
 
 type QuickItem = {
   kind: "plan" | "route";
@@ -439,6 +442,86 @@ function DraftCard({ plan }: { plan: SavedPlanRow }) {
   );
 }
 
+function roadtripStatusBadge(status: string) {
+  if (status === "active")
+    return { label: "Aktiv", tone: "bg-emerald-100 text-emerald-700", dot: true };
+  if (status === "completed")
+    return { label: "Abgeschlossen", tone: "bg-sky-100 text-sky-700", dot: false };
+  return { label: "Entwurf", tone: "bg-amber-100 text-amber-700", dot: false };
+}
+
+function RoadtripCard({ route }: { route: RoadtripRoute }) {
+  const badge = roadtripStatusBadge(route.status);
+  const sequence = stopSequenceLabel(route.stops);
+  const detailHref = `/roadtrip/routes/${route.slug}`;
+  const plannerHref = `/roadtrip?fromRouteSlug=${route.slug}`;
+
+  return (
+    <div
+      className={`rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md ${
+        route.status === "active"
+          ? "border-emerald-300 ring-2 ring-emerald-200/50"
+          : "border-[var(--line-subtle)]"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+            <span>🗺️ Roadtrip</span>
+            <span>·</span>
+            <span>{route.stops.length} Städte · {route.total_nights} Nächte</span>
+          </div>
+          <h3 className="mt-2 line-clamp-2 text-lg font-semibold text-[var(--text-strong)]">
+            {route.title}
+          </h3>
+          <p className="mt-1 truncate text-sm text-[var(--text-muted)]">{sequence}</p>
+        </div>
+        <span
+          className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${badge.tone}`}
+        >
+          {badge.dot && (
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+          )}
+          {badge.label}
+        </span>
+      </div>
+
+      {route.description ? (
+        <p className="mt-3 line-clamp-2 text-sm leading-6 text-[var(--text-muted)]">
+          {route.description}
+        </p>
+      ) : null}
+
+      <div className="mt-4 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
+        <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1">
+          {occasionLabel(route.occasion)}
+        </span>
+        <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1">
+          {budgetLabel(route.budget)}
+        </span>
+        <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1">
+          Gespeichert {formatDate(route.created_at)}
+        </span>
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-2">
+        <Link
+          href={detailHref}
+          className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
+        >
+          {route.status === "active" ? "Fortsetzen" : "Öffnen"}
+        </Link>
+        <Link
+          href={plannerHref}
+          className="inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+        >
+          Im Planner bearbeiten
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 export default function SavedPage() {
   const [mounted, setMounted] = useState(false);
   const [authReady, setAuthReady] = useState(false);
@@ -446,6 +529,7 @@ export default function SavedPage() {
 
   const [plans, setPlans] = useState<SavedPlanRow[]>([]);
   const [savedRoutes, setSavedRoutes] = useState<SavedRouteItem[]>([]);
+  const [roadtripRoutes, setRoadtripRoutes] = useState<RoadtripRoute[]>([]);
   const [segment, setSegment] = useState<Segment>("all");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -481,6 +565,7 @@ export default function SavedPage() {
     if (!userId) {
       setPlans([]);
       setSavedRoutes([]);
+      setRoadtripRoutes([]);
       setIsLoading(false);
       setHasError(false);
       return;
@@ -490,7 +575,7 @@ export default function SavedPage() {
     setHasError(false);
 
     try {
-      const [plansResp, bookmarksResp] = await Promise.all([
+      const [plansResp, bookmarksResp, myRoadtrips] = await Promise.all([
         supabase
           .from("plans")
           .select("id, title, created_at, filters, slots, share_token, ai_description")
@@ -505,6 +590,7 @@ export default function SavedPage() {
           .eq("user_id", userId)
           .order("created_at", { ascending: false })
           .limit(50),
+        fetchMyRoadtripRoutes(),
       ]);
 
       if (plansResp.error || bookmarksResp.error) {
@@ -527,6 +613,7 @@ export default function SavedPage() {
 
       setPlans(nextPlans);
       setSavedRoutes(nextRoutes);
+      setRoadtripRoutes(myRoadtrips);
     } catch (error) {
       console.error("Saved content unexpected load error:", error);
       setHasError(true);
@@ -564,22 +651,37 @@ export default function SavedPage() {
       timestamp: route.saved_at,
     }));
 
-    return [...planItems, ...routeItems]
+    const roadtripItems = roadtripRoutes.map((rt) => ({
+      kind: "route" as const,
+      id: rt.id,
+      href: `/roadtrip/routes/${rt.slug}`,
+      title: rt.title,
+      meta: `Roadtrip · ${rt.stops.length} Städte`,
+      timestamp: rt.updated_at,
+    }));
+
+    return [...planItems, ...routeItems, ...roadtripItems]
       .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
       .slice(0, 6);
-  }, [plans, savedRoutes]);
+  }, [plans, savedRoutes, roadtripRoutes]);
+
+  const activeRoadtrip = useMemo(
+    () => roadtripRoutes.find((r) => r.status === "active") ?? null,
+    [roadtripRoutes]
+  );
 
   const segments = useMemo(
     () => [
-      { key: "all" as const, label: "Alle", count: plans.length + savedRoutes.length },
+      { key: "all" as const, label: "Alle", count: plans.length + savedRoutes.length + roadtripRoutes.length },
       { key: "plans" as const, label: "Pläne", count: finishedPlans.length },
       { key: "routes" as const, label: "Routen", count: savedRoutes.length },
+      { key: "roadtrips" as const, label: "Roadtrips", count: roadtripRoutes.length },
       { key: "drafts" as const, label: "Entwürfe", count: drafts.length },
     ],
-    [drafts.length, finishedPlans.length, plans.length, savedRoutes.length]
+    [drafts.length, finishedPlans.length, plans.length, savedRoutes.length, roadtripRoutes.length]
   );
 
-  const isEmpty = !isLoading && !hasError && plans.length === 0 && savedRoutes.length === 0;
+  const isEmpty = !isLoading && !hasError && plans.length === 0 && savedRoutes.length === 0 && roadtripRoutes.length === 0;
 
   if (!mounted) return null;
 
@@ -643,6 +745,31 @@ export default function SavedPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Aktiver Roadtrip Banner ──────────────────────────────────────── */}
+      {!isLoading && activeRoadtrip && (
+        <section className="flex items-center gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white text-sm">
+            🗺️
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                Aktiver Roadtrip
+              </span>
+            </div>
+            <div className="mt-0.5 font-semibold text-emerald-900 truncate">{activeRoadtrip.title}</div>
+            <div className="text-xs text-emerald-600 truncate">{stopSequenceLabel(activeRoadtrip.stops)}</div>
+          </div>
+          <Link
+            href={`/roadtrip/routes/${activeRoadtrip.slug}`}
+            className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
+          >
+            Fortsetzen →
+          </Link>
+        </section>
+      )}
 
       {(isLoading || quickItems.length > 0) && (
         <section>
@@ -753,6 +880,39 @@ export default function SavedPage() {
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {savedRoutes.map((route) => (
                 <RouteCard key={`${route.id}-${route.saved_at}`} route={route} />
+              ))}
+            </div>
+          )}
+        </section>
+      ) : null}
+
+      {(segment === "all" || segment === "roadtrips") && !isEmpty ? (
+        <section>
+          <SectionHeader
+            title="Meine Roadtrips"
+            count={roadtripRoutes.length}
+            description="Mehrstädtige Reiserouten, die du geplant oder gestartet hast."
+          />
+
+          {isLoading ? (
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 2 }).map((_, index) => (
+                <SkeletonCard key={`roadtrip-skeleton-${index}`} />
+              ))}
+            </div>
+          ) : roadtripRoutes.length === 0 ? (
+            <EmptyState
+              title="Noch kein Roadtrip geplant."
+              description="Plane deinen ersten Mehrstädte-Roadtrip."
+              primaryHref="/roadtrip"
+              primaryLabel="Roadtrip planen"
+              secondaryHref="/roadtrip/routes"
+              secondaryLabel="Vorlagen entdecken"
+            />
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {roadtripRoutes.map((rt) => (
+                <RoadtripCard key={rt.id} route={rt} />
               ))}
             </div>
           )}

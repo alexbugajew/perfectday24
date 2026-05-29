@@ -2,19 +2,34 @@
 // Typdefinitionen für Roadtrip-Routen (date-agnostische Mehrstadt-Routen)
 
 export type RoadtripRouteVisibility = "public" | "link_only" | "private";
+export type RoadtripRouteStatus = "draft" | "active" | "completed";
 
 /**
  * Ein einzelner Aufenthalt innerhalb einer Roadtrip-Route.
  * Bewusst ohne Datum — das Datum wird beim Verwenden der Route
  * aus einem Startdatum + Nächte-Summe berechnet.
  */
+/** Ein einzelner geplanter Tages-Stop (aus KI-Generierung) */
+export type RoadtripPlannedStop = {
+  label: string;
+  hint: string;
+  time: string | null;
+  itemName: string | null;
+};
+
 export type RoadtripRouteStop = {
   citySlug: string;
   cityLabel: string;
   lat: number;
   lng: number;
   nights: number;
-  planSummary?: string | null; // optionaler Kurztext aus dem generierten Tagesplan
+  // KI-generierter Tagesplan (individual mode)
+  planSummary?: string | null;
+  plannedStops?: RoadtripPlannedStop[] | null;
+  // Ausgewählte Creator-Route (creator mode)
+  creatorRouteId?: string | null;
+  creatorRouteSlug?: string | null;
+  creatorRouteTitle?: string | null;
 };
 
 /** Vollständiges Roadtrip-Route-Objekt (DB-Row) */
@@ -27,6 +42,7 @@ export type RoadtripRoute = {
   author_user_id: string | null;
   author_name: string | null;
   visibility: RoadtripRouteVisibility;
+  status: RoadtripRouteStatus;
   is_featured: boolean;
   share_token: string;
   tags: string[];
@@ -49,6 +65,7 @@ export type CreateRoadtripRouteInput = {
   occasion: string;
   budget: string;
   visibility: RoadtripRouteVisibility;
+  status?: RoadtripRouteStatus; // Default 'draft' wenn nicht angegeben
   stops: RoadtripRouteStop[];
   authorUserId?: string | null;
   authorName?: string | null;

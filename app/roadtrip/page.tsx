@@ -1,15 +1,23 @@
 "use client";
 
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
-import { canonicalCitySlug, dedupeCitiesByCanonicalSlug } from "@/lib/cities/canonical";
-import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
+import { dedupeCitiesByCanonicalSlug } from "@/lib/cities/canonical";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
 import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
-import { createRoadtripRoute } from "@/lib/roadtrip/client";
-import { ROADTRIP_TAGS } from "@/lib/roadtrip/types";
-import type { RoadtripRouteVisibility } from "@/lib/roadtrip/types";
+import HotelAutocomplete from "@/components/roadtrip/HotelAutocomplete";
+import type { HotelSelection } from "@/components/roadtrip/HotelAutocomplete";
+import {
+  createRoadtripRoute,
+  fetchRoadtripRouteBySlug,
+  fetchPublicRoadtripRoutes,
+  setRoadtripStatus,
+  incrementRouteClones,
+} from "@/lib/roadtrip/client";
+import { ROADTRIP_TAGS, stopArrivalDate } from "@/lib/roadtrip/types";
+import type { RoadtripRoute, RoadtripRouteVisibility } from "@/lib/roadtrip/types";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -30,6 +38,10 @@ type RoadtripStop = {
   lng: number;
   date: string; // YYYY-MM-DD arrival date
   nights: number;
+  // Unterkunft (optional) — wird als Startpunkt für den Tagesplan genutzt
+  hotelName?: string | null;
+  hotelLat?: number | null;
+  hotelLng?: number | null;
 };
 
 type StopPlan = {
@@ -46,6 +58,21 @@ type GeneratedCityPlan = {
   stops: StopPlan[];
   variantLabel: string | null;
   error: string | null;
+};
+
+// Creator-Route-Karte (aus user_routes-Tabelle)
+type CityCreatorRoute = {
+  id: string;
+  title: string;
+  slug: string | null;
+  description: string | null;
+  city_slug: string | null;
+  cover_image_url: string | null;
+  avg_rating: number;
+  bookmark_count: number;
+  stop_count: number;
+  creator_type: string;
+  tags: string[];
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -114,8 +141,31 @@ function RoadtripPageContent() {
   const [generating, setGenerating] = useState(false);
   const [openSlug, setOpenSlug] = useState<string | null>(null);
 
+  // Per-Stadt Plan-Modus im Accordion (individual | creator)
+  const [cityPlanModes, setCityPlanModes] = useState<Record<string, "individual" | "creator">>({});
+  // Cache: citySlug → geladene Creator-Routen
+  const [cityCreatorRoutes, setCityCreatorRoutes] = useState<Record<string, CityCreatorRoute[]>>({});
+  const [cityCreatorLoading, setCityCreatorLoading] = useState<Record<string, boolean>>({});
+  // Ausgewählte Creator-Route pro Stadt
+  const [selectedCreatorRoutes, setSelectedCreatorRoutes] = useState<Record<string, CityCreatorRoute>>({});
+
   // Auth — used for attribution tracking only
   const [userId, setUserId] = useState<string | null>(null);
+
+  // Template loading (from ?fromRouteSlug URL param)
+  const searchParams = useSearchParams();
+  const templateLoadedRef = useRef(false);
+  const [templateBanner, setTemplateBanner] = useState<{ title: string; slug: string } | null>(null);
+
+  // Plan-Modus: individuelle Planung vs. Creator-Routen Karussell
+  const [planMode, setPlanMode] = useState<"individual" | "creator">("individual");
+  const [creatorRoutes, setCreatorRoutes] = useState<RoadtripRoute[]>([]);
+  const [creatorRoutesLoading, setCreatorRoutesLoading] = useState(false);
+  const creatorRoutesLoadedRef = useRef(false);
+
+  // Roadtrip starten (speichert privat mit status=active)
+  const [starting, setStarting] = useState(false);
+  const [startedRouteSlug, setStartedRouteSlug] = useState<string | null>(null);
 
   // Save-Route modal
   const [showSaveModal, setShowSaveModal] = useState(false);
@@ -135,6 +185,93 @@ function RoadtripPageContent() {
     });
   }, []);
 
+  // Pre-populate planner from a saved route template (?fromRouteSlug=&startDate=)
+  useEffect(() => {
+    const fromRouteSlug = searchParams.get("fromRouteSlug");
+    if (!fromRouteSlug || templateLoadedRef.current) return;
+    templateLoadedRef.current = true;
+
+    const fromStartDate = searchParams.get("startDate") ?? todayStr();
+
+    (async () => {
+      const route = await fetchRoadtripRouteBySlug(fromRouteSlug);
+      if (!route) return;
+
+      const newStops: RoadtripStop[] = route.stops.map((rs, idx) => ({
+        id: uid(),
+        citySlug: rs.citySlug,
+        cityLabel: rs.cityLabel,
+        lat: rs.lat,
+        lng: rs.lng,
+        date: stopArrivalDate(fromStartDate, route.stops, idx),
+        nights: rs.nights,
+      }));
+
+      setStops(newStops);
+      setTripName(route.title);
+      setOccasion(route.occasion);
+      setBudget(route.budget);
+      setTemplateBanner({ title: route.title, slug: route.slug });
+    })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  // Pre-populate planner from "Route entdecken" (?fromDiscover=1 + sessionStorage)
+  useEffect(() => {
+    const isFromDiscover = searchParams.get("fromDiscover") === "1";
+    if (!isFromDiscover || templateLoadedRef.current) return;
+    templateLoadedRef.current = true;
+    if (typeof window === "undefined") return;
+
+    const raw = window.sessionStorage.getItem("roadtrip_discover_stops");
+    if (!raw) return;
+
+    try {
+      const parsed = JSON.parse(raw) as {
+        stops: Array<{ citySlug: string; cityLabel: string; lat: number; lng: number; nights: number }>;
+        from: string;
+        to: string;
+      };
+
+      const baseDate = todayStr();
+      let offset = 0;
+      const newStops: RoadtripStop[] = parsed.stops.map((s) => {
+        const nights = Math.max(1, s.nights);
+        const stop: RoadtripStop = {
+          id: uid(),
+          citySlug: s.citySlug,
+          cityLabel: s.cityLabel,
+          lat: s.lat,
+          lng: s.lng,
+          date: addDays(baseDate, offset),
+          nights,
+        };
+        offset += nights;
+        return stop;
+      });
+
+      setStops(newStops);
+      const fromShort = parsed.from.split(",")[0]?.trim() ?? parsed.from;
+      const toShort   = parsed.to.split(",")[0]?.trim() ?? parsed.to;
+      setTripName(`${fromShort} → ${toShort}`);
+      window.sessionStorage.removeItem("roadtrip_discover_stops");
+    } catch {
+      // ignore parse errors
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  // Creator-Routen beim ersten Öffnen des Karussells laden
+  useEffect(() => {
+    if (planMode !== "creator" || creatorRoutesLoadedRef.current) return;
+    creatorRoutesLoadedRef.current = true;
+    setCreatorRoutesLoading(true);
+    fetchPublicRoadtripRoutes(12).then((routes) => {
+      setCreatorRoutes(routes);
+      setCreatorRoutesLoading(false);
+    });
+  }, [planMode]);
+
   // Load cities
   useEffect(() => {
     (async () => {
@@ -147,10 +284,9 @@ function RoadtripPageContent() {
           .order("population", { ascending: false })
           .limit(500);
 
-        const filtered = dedupeCitiesByCanonicalSlug((data as CityRow[]) ?? []).filter((c) =>
-          isPlannerSupportedCitySlug(c.slug)
-        );
-        setCities(filtered);
+        // Roadtrip: alle aktiven Städte zeigen (nicht auf Planner-Rollout begrenzt)
+        const deduped = dedupeCitiesByCanonicalSlug((data as CityRow[]) ?? []);
+        setCities(deduped);
       } finally {
         setCitiesLoading(false);
       }
@@ -257,12 +393,20 @@ function RoadtripPageContent() {
             body: JSON.stringify({
               citySlug: stop.citySlug,
               planDate: stop.date,
-              startPoint: {
-                type: "address",
-                label: stop.cityLabel,
-                lat: stop.lat,
-                lng: stop.lng,
-              },
+              // Hotel als Startpunkt wenn vorhanden, sonst Stadtzentrum
+              startPoint: stop.hotelLat && stop.hotelLng
+                ? {
+                    type: "address",
+                    label: stop.hotelName ?? stop.cityLabel,
+                    lat: stop.hotelLat,
+                    lng: stop.hotelLng,
+                  }
+                : {
+                    type: "address",
+                    label: stop.cityLabel,
+                    lat: stop.lat,
+                    lng: stop.lng,
+                  },
               planMode: "fullday",
               radiusKm: 12,
               budget,
@@ -325,6 +469,35 @@ function RoadtripPageContent() {
     setGenerating(false);
   }
 
+  /** Baut den vollständigen Stop-Array mit generiertem Plan + Creator-Auswahl */
+  function buildRouteStops() {
+    return stops.map((stop, idx) => {
+      const plan = generatedPlans[idx];
+      const cityMode = cityPlanModes[stop.citySlug] ?? "individual";
+      const creatorPick = selectedCreatorRoutes[stop.citySlug] ?? null;
+      const planDone = plan?.status === "done";
+
+      return {
+        citySlug: stop.citySlug,
+        cityLabel: stop.cityLabel,
+        lat: stop.lat,
+        lng: stop.lng,
+        nights: stop.nights,
+        // Kurztext-Zusammenfassung
+        planSummary: planDone ? (plan.variantLabel ?? null) : null,
+        // Generierte Einzel-Stops (nur im Individual-Modus)
+        plannedStops:
+          cityMode === "individual" && planDone && plan.stops.length > 0
+            ? plan.stops
+            : null,
+        // Ausgewählte Creator-Route (nur im Creator-Modus)
+        creatorRouteId: cityMode === "creator" && creatorPick ? creatorPick.id : null,
+        creatorRouteSlug: cityMode === "creator" && creatorPick ? creatorPick.slug : null,
+        creatorRouteTitle: cityMode === "creator" && creatorPick ? creatorPick.title : null,
+      };
+    });
+  }
+
   async function saveRoute() {
     if (!stops.length || saving) return;
     setSaving(true);
@@ -332,17 +505,7 @@ function RoadtripPageContent() {
       const { data: sessionData } = await supabase.auth.getSession();
       const currentUserId = sessionData.session?.user?.id ?? null;
 
-      const routeStops = stops.map((stop, idx) => ({
-        citySlug: stop.citySlug,
-        cityLabel: stop.cityLabel,
-        lat: stop.lat,
-        lng: stop.lng,
-        nights: stop.nights,
-        planSummary:
-          generatedPlans[idx]?.status === "done"
-            ? (generatedPlans[idx]?.variantLabel ?? null)
-            : null,
-      }));
+      const routeStops = buildRouteStops();
 
       const { route, error } = await createRoadtripRoute({
         title: saveTitle.trim() || tripName.trim() || "Mein Roadtrip",
@@ -367,6 +530,107 @@ function RoadtripPageContent() {
     }
   }
 
+  /** Creator-Routen für eine Stadt laden (lazy, gecacht) */
+  async function loadCityCreatorRoutes(citySlug: string) {
+    if (cityCreatorRoutes[citySlug] !== undefined) return; // already cached
+    setCityCreatorLoading((prev) => ({ ...prev, [citySlug]: true }));
+    try {
+      const { data } = await supabase
+        .from("user_routes")
+        .select("id,title,slug,description,city_slug,cover_image_url,avg_rating,bookmark_count,stop_count,creator_type,tags")
+        .eq("city_slug", citySlug)
+        .eq("visibility", "public")
+        .order("bookmark_count", { ascending: false })
+        .limit(8);
+      setCityCreatorRoutes((prev) => ({
+        ...prev,
+        [citySlug]: (data as CityCreatorRoute[]) ?? [],
+      }));
+    } finally {
+      setCityCreatorLoading((prev) => ({ ...prev, [citySlug]: false }));
+    }
+  }
+
+  /** Stadt-Accordion-Modus umschalten */
+  function setCityMode(citySlug: string, mode: "individual" | "creator") {
+    setCityPlanModes((prev) => ({ ...prev, [citySlug]: mode }));
+    if (mode === "creator") void loadCityCreatorRoutes(citySlug);
+  }
+
+  /** Creator-Route als Plan für eine Stadt auswählen / abwählen */
+  function toggleCreatorRouteForCity(citySlug: string, route: CityCreatorRoute) {
+    setSelectedCreatorRoutes((prev) => {
+      if (prev[citySlug]?.id === route.id) {
+        const next = { ...prev };
+        delete next[citySlug];
+        return next;
+      }
+      return { ...prev, [citySlug]: route };
+    });
+  }
+
+  /** Creator-Route als Vorlage laden und Modus auf "individual" wechseln */
+  function loadCreatorRoute(route: RoadtripRoute) {
+    const baseDate = todayStr();
+    const newStops: RoadtripStop[] = route.stops.map((rs, idx) => ({
+      id: uid(),
+      citySlug: rs.citySlug,
+      cityLabel: rs.cityLabel,
+      lat: rs.lat,
+      lng: rs.lng,
+      date: stopArrivalDate(baseDate, route.stops, idx),
+      nights: rs.nights,
+    }));
+    setStops(newStops);
+    setTripName(route.title);
+    setOccasion(route.occasion);
+    setBudget(route.budget);
+    setTemplateBanner({ title: route.title, slug: route.slug });
+    setGeneratedPlans([]);
+    setPlanMode("individual");
+    incrementRouteClones(route.id);
+    // Scroll zurück nach oben
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  /** Roadtrip starten — speichert als private Route mit status=active */
+  async function startRoadtrip() {
+    if (!stops.length || starting) return;
+    if (!userId) {
+      // Nicht eingeloggt — zum Login weiterleiten
+      window.location.href = `/auth/login?redirect=${encodeURIComponent("/roadtrip")}`;
+      return;
+    }
+    setStarting(true);
+    try {
+      const routeStops = buildRouteStops();
+
+      const { route, error } = await createRoadtripRoute({
+        title: tripName.trim() || "Mein Roadtrip",
+        description: null,
+        tags: [],
+        occasion,
+        budget,
+        visibility: "private",
+        status: "active",
+        stops: routeStops,
+        authorUserId: userId,
+        authorName: null,
+      });
+
+      if (error || !route) {
+        alert(`Fehler: ${error ?? "Unbekannter Fehler"}`);
+        return;
+      }
+
+      // Sicherstellen dass status=active gesetzt ist (falls createRoadtripRoute es noch nicht persistiert)
+      await setRoadtripStatus(route.id, "active");
+      setStartedRouteSlug(route.slug);
+    } finally {
+      setStarting(false);
+    }
+  }
+
   if (!mounted) return null;
 
   return (
@@ -381,6 +645,31 @@ function RoadtripPageContent() {
           <div className="mb-3">
             <PlannerModeSwitcher />
           </div>
+
+          {/* Template banner — shown when planner was pre-filled from a saved route */}
+          {templateBanner && (
+            <div className="mb-3 flex items-start gap-2.5 rounded-xl border border-[rgba(183,106,67,0.25)] bg-[rgba(183,106,67,0.07)] px-3 py-2.5">
+              <span className="mt-px text-base leading-none">🗺️</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-[var(--text-strong)]">
+                  Vorlage geladen: <span className="font-bold">„{templateBanner.title}"</span>
+                </p>
+                <p className="mt-0.5 text-[11px] leading-snug text-[var(--text-muted)]">
+                  Städte, Reihenfolge und Nächte wurden übernommen — passe alles nach deinen Wünschen an.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setTemplateBanner(null)}
+                className="mt-px shrink-0 rounded-full p-1 text-[var(--text-muted)] transition hover:bg-[rgba(23,23,23,0.08)]"
+                title="Banner schließen"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5">
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+          )}
 
           {/* Badges */}
           <div className="mb-1 flex flex-wrap items-center gap-2">
@@ -461,18 +750,122 @@ function RoadtripPageContent() {
 
       {/* ── Route builder ───────────────────────────────────────────────── */}
       <section className="rounded-xl bg-white p-4 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
-        {/* Header */}
+        {/* ── Header mit Mode-Switcher ─────────────────────────────────── */}
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-sm font-semibold text-[var(--text-strong)]">Reiseroute</h2>
-          {stops.length >= 2 && (
+          {/* Segmented control */}
+          <div className="flex items-center gap-0.5 rounded-xl border border-[rgba(17,24,39,0.08)] bg-[var(--bg-surface)] p-0.5">
+            <button
+              type="button"
+              onClick={() => setPlanMode("individual")}
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                planMode === "individual"
+                  ? "bg-white text-[var(--text-strong)] shadow-sm"
+                  : "text-[var(--text-muted)] hover:text-[var(--text-strong)]"
+              }`}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3.5 w-3.5">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                <circle cx="12" cy="9" r="2.5" />
+              </svg>
+              Individuell planen
+            </button>
+            <button
+              type="button"
+              onClick={() => setPlanMode("creator")}
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                planMode === "creator"
+                  ? "bg-white text-[var(--text-strong)] shadow-sm"
+                  : "text-[var(--text-muted)] hover:text-[var(--text-strong)]"
+              }`}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3.5 w-3.5">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              Creator-Routen
+              {creatorRoutes.length > 0 && (
+                <span className="rounded-full bg-[rgba(183,106,67,0.15)] px-1.5 py-0.5 text-[10px] text-[#b76a43]">
+                  {creatorRoutes.length}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {planMode === "individual" && stops.length >= 2 && (
             <span className="text-xs text-[var(--text-muted)]">
               {formatDateDE(tripStartDate)} → {formatDateDE(tripEndDate)}
             </span>
           )}
         </div>
 
-        {/* Stop cards */}
-        {stops.length > 0 && (
+        {/* ── Creator-Routen Karussell ─────────────────────────────────── */}
+        {planMode === "creator" && (
+          <div className="mb-4">
+            <p className="mb-2.5 text-xs text-[var(--text-muted)]">
+              Wähle eine Route als Vorlage — Städte, Reihenfolge und Nächte werden übernommen.
+            </p>
+
+            {creatorRoutesLoading ? (
+              <div className="flex gap-3 overflow-x-auto pb-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="h-44 min-w-[220px] animate-pulse rounded-xl bg-[rgba(23,23,23,0.06)]" />
+                ))}
+              </div>
+            ) : creatorRoutes.length === 0 ? (
+              <div className="rounded-xl border border-dashed border-[rgba(23,23,23,0.12)] px-4 py-8 text-center text-sm text-[var(--text-muted)]">
+                Noch keine öffentlichen Routen vorhanden.
+              </div>
+            ) : (
+              <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {creatorRoutes.map((route) => {
+                  const sequence = route.stops.map((s) => s.cityLabel).join(" → ");
+                  const totalN = route.stops.reduce((s, st) => s + st.nights, 0);
+                  return (
+                    <div
+                      key={route.id}
+                      className="group flex min-w-[220px] max-w-[220px] snap-start flex-col overflow-hidden rounded-xl border border-[var(--line-subtle)] bg-white transition hover:border-[rgba(23,23,23,0.2)] hover:shadow-[0_4px_16px_rgba(15,23,42,0.1)]"
+                    >
+                      {/* Cover */}
+                      <div className="relative h-24 bg-[linear-gradient(135deg,rgba(90,118,136,0.18),rgba(183,106,67,0.14))]">
+                        <div className="absolute inset-0 flex items-center justify-center text-3xl opacity-25">🗺️</div>
+                        {route.is_featured && (
+                          <div className="absolute right-2 top-2 rounded-full bg-[#b76a43] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+                            Featured
+                          </div>
+                        )}
+                        <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-black/45 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
+                          {route.stops.length} Städte · {totalN} Nächte
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex flex-1 flex-col gap-1.5 p-3">
+                        <p className="text-xs font-semibold leading-snug text-[var(--text-strong)] line-clamp-1 group-hover:text-[#b76a43] transition-colors">
+                          {route.title}
+                        </p>
+                        <p className="text-[10px] leading-snug text-[var(--text-muted)] line-clamp-2">
+                          {sequence}
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => loadCreatorRoute(route)}
+                          className="mt-auto flex items-center justify-center gap-1.5 rounded-lg bg-[var(--text-strong)] px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                        >
+                          Vorlage nutzen
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3 w-3">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Stop cards + City-Search nur im individual Modus */}
+        {stops.length > 0 && planMode === "individual" && (
           <div className="mb-3 space-y-2">
             {stops.map((stop, idx) => (
               <div
@@ -562,6 +955,30 @@ function RoadtripPageContent() {
                     </span>
                   </div>
 
+                  {/* Hotel-Unterkunft suchen (Nominatim) */}
+                  <div className="mt-2.5">
+                    <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                      Unterkunft
+                    </p>
+                    <HotelAutocomplete
+                      cityLabel={stop.cityLabel}
+                      cityLat={stop.lat}
+                      cityLng={stop.lng}
+                      value={
+                        stop.hotelLat && stop.hotelLng
+                          ? { name: stop.hotelName ?? "", lat: stop.hotelLat, lng: stop.hotelLng }
+                          : null
+                      }
+                      onChange={(hotel: HotelSelection | null) =>
+                        updateStop(stop.id, {
+                          hotelName: hotel?.name ?? null,
+                          hotelLat: hotel?.lat ?? null,
+                          hotelLng: hotel?.lng ?? null,
+                        })
+                      }
+                    />
+                  </div>
+
                   {/* Hotel search — visible immediately after a stop is added */}
                   <div className="mt-2">
                     <HotelSearchLinks
@@ -580,8 +997,8 @@ function RoadtripPageContent() {
           </div>
         )}
 
-        {/* City search */}
-        <div className="relative">
+        {/* City search — nur im individual Modus */}
+        {planMode === "individual" && <div className="relative">
           <div className="flex items-center gap-2 rounded-xl border border-[rgba(17,24,39,0.08)] bg-[var(--bg-surface)] px-3 py-2.5 focus-within:border-[rgba(23,23,23,0.25)] focus-within:bg-white transition">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -647,35 +1064,88 @@ function RoadtripPageContent() {
               })}
             </div>
           )}
-        </div>
+        </div>}
 
         {/* Action buttons */}
         {stops.length >= 1 && (
           <div className="mt-4 flex flex-col gap-2">
+            {/* Roadtrip gestartet — Erfolgs-Banner */}
+            {startedRouteSlug && (
+              <div className="flex items-start gap-2.5 rounded-xl border border-[rgba(34,197,94,0.25)] bg-[rgba(34,197,94,0.07)] px-3 py-3">
+                <span className="text-lg">🚀</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold text-emerald-800">Roadtrip gestartet!</p>
+                  <p className="mt-0.5 text-[11px] text-emerald-700">
+                    Deine Route ist im Profil gespeichert — du kannst sie jederzeit fortsetzen.
+                  </p>
+                  <a
+                    href="/roadtrip/routes"
+                    className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 underline underline-offset-2"
+                  >
+                    Zum Profil →
+                  </a>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setStartedRouteSlug(null)}
+                  className="shrink-0 text-emerald-600 hover:text-emerald-800 transition"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
+                    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {/* 🚀 Roadtrip starten — primärer CTA */}
             <button
               type="button"
-              onClick={() => void generateRoadtrip()}
-              disabled={generating}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60"
+              onClick={() => void startRoadtrip()}
+              disabled={starting || generating}
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#b76a43] px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#9d5a38] active:scale-[0.98] disabled:opacity-60"
             >
-              {generating ? (
+              {starting ? (
                 <>
                   <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                     <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                   </svg>
-                  Pläne werden erstellt…
+                  Wird gespeichert…
                 </>
               ) : (
                 <>
-                  Roadtrip planen
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                  🚀 Roadtrip starten
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </>
               )}
             </button>
 
-            {/* Save & Share button */}
+            {/* Tagesplan generieren */}
+            <button
+              type="button"
+              onClick={() => void generateRoadtrip()}
+              disabled={generating || starting}
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60"
+            >
+              {generating ? (
+                <>
+                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                  </svg>
+                  Tagesplan wird erstellt…
+                </>
+              ) : (
+                <>
+                  Tagesplan generieren
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
+                    <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+                  </svg>
+                </>
+              )}
+            </button>
+
+            {/* Route speichern & teilen */}
             <button
               type="button"
               onClick={() => {
@@ -683,7 +1153,7 @@ function RoadtripPageContent() {
                 setSavedRouteSlug(null);
                 setShowSaveModal(true);
               }}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98]"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98]"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-4 w-4">
                 <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
@@ -762,9 +1232,28 @@ function RoadtripPageContent() {
                     <div className="font-semibold text-[var(--text-strong)]">
                       {stop?.cityLabel ?? plan.citySlug}
                     </div>
-                    <div className="text-xs text-[var(--text-muted)]">
-                      {formatDateDE(plan.date)} · {stop?.nights ?? 1}{" "}
-                      {(stop?.nights ?? 1) === 1 ? "Nacht" : "Nächte"}
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[var(--text-muted)]">
+                      <span>
+                        {formatDateDE(plan.date)} · {stop?.nights ?? 1}{" "}
+                        {(stop?.nights ?? 1) === 1 ? "Nacht" : "Nächte"}
+                      </span>
+                      {stop?.hotelName && (
+                        <span className="flex items-center gap-1 text-[#b76a43]">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3 shrink-0">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                          </svg>
+                          {stop.hotelName.split(",")[0]}
+                        </span>
+                      )}
+                      {selectedCreatorRoutes[plan.citySlug] && (
+                        <span className="flex items-center gap-1 text-[#b76a43]">
+                          <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3 shrink-0 text-amber-400">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                          </svg>
+                          {selectedCreatorRoutes[plan.citySlug].title.split(" ").slice(0, 4).join(" ")}
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -800,83 +1289,264 @@ function RoadtripPageContent() {
 
                 {/* Accordion body */}
                 {isOpen && (
-                  <div className="border-t border-[var(--line-subtle)] px-4 py-4">
-                    {plan.status === "loading" && (
-                      <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
-                        <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                        </svg>
-                        Tagesplan wird generiert…
+                  <div className="border-t border-[var(--line-subtle)] px-4 py-4 space-y-3">
+
+                    {/* ── Mini Mode-Switcher (nur wenn Plan generiert/lädt) ─── */}
+                    {plan.status !== "idle" && (
+                      <div className="flex items-center gap-0.5 w-fit rounded-lg border border-[rgba(17,24,39,0.08)] bg-[var(--bg-surface)] p-0.5">
+                        <button
+                          type="button"
+                          onClick={() => setCityMode(plan.citySlug, "individual")}
+                          className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-semibold transition ${
+                            (cityPlanModes[plan.citySlug] ?? "individual") === "individual"
+                              ? "bg-white text-[var(--text-strong)] shadow-sm"
+                              : "text-[var(--text-muted)] hover:text-[var(--text-strong)]"
+                          }`}
+                        >
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3">
+                            <rect x="3" y="4" width="18" height="18" rx="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                          </svg>
+                          Individuell planen
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCityMode(plan.citySlug, "creator")}
+                          className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-semibold transition ${
+                            (cityPlanModes[plan.citySlug] ?? "individual") === "creator"
+                              ? "bg-white text-[var(--text-strong)] shadow-sm"
+                              : "text-[var(--text-muted)] hover:text-[var(--text-strong)]"
+                          }`}
+                        >
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                          </svg>
+                          Creator-Routen
+                          {selectedCreatorRoutes[plan.citySlug] && (
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#b76a43]" />
+                          )}
+                        </button>
                       </div>
                     )}
 
-                    {plan.status === "error" && (
-                      <p className="text-sm text-red-600">{plan.error}</p>
-                    )}
-
-                    {plan.status === "done" && (
-                      <div className="space-y-3">
-                        {plan.variantLabel && (
-                          <p className="text-sm italic text-[var(--text-muted)]">
-                            {plan.variantLabel}
-                          </p>
+                    {/* ── INDIVIDUAL PLAN ────────────────────────────────────── */}
+                    {(cityPlanModes[plan.citySlug] ?? "individual") === "individual" && (
+                      <>
+                        {plan.status === "loading" && (
+                          <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+                            <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                              <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                            </svg>
+                            Tagesplan wird generiert…
+                          </div>
                         )}
 
-                        {plan.stops.length > 0 ? (
-                          <ol className="space-y-2.5">
-                            {plan.stops.map((s, i) => (
-                              <li key={i} className="flex items-start gap-2.5">
-                                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[10px] font-semibold text-[var(--text-strong)]">
-                                  {i + 1}
-                                </span>
-                                <div className="flex-1 min-w-0">
-                                  <div className="text-sm font-medium text-[var(--text-strong)]">
-                                    {s.label}
-                                  </div>
-                                  {s.hint && (
-                                    <div className="mt-0.5 text-xs leading-relaxed text-[var(--text-muted)]">
-                                      {s.hint}
+                        {plan.status === "error" && (
+                          <p className="text-sm text-red-600">{plan.error}</p>
+                        )}
+
+                        {plan.status === "done" && (
+                          <div className="space-y-3">
+                            {plan.variantLabel && (
+                              <p className="text-sm italic text-[var(--text-muted)]">{plan.variantLabel}</p>
+                            )}
+
+                            {plan.stops.length > 0 ? (
+                              <ol className="space-y-2.5">
+                                {plan.stops.map((s, i) => (
+                                  <li key={i} className="flex items-start gap-2.5">
+                                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[10px] font-semibold text-[var(--text-strong)]">
+                                      {i + 1}
+                                    </span>
+                                    <div className="flex-1 min-w-0">
+                                      <div className="text-sm font-medium text-[var(--text-strong)]">{s.label}</div>
+                                      {s.hint && (
+                                        <div className="mt-0.5 text-xs leading-relaxed text-[var(--text-muted)]">{s.hint}</div>
+                                      )}
+                                    </div>
+                                    {s.time && (
+                                      <span className="mt-0.5 shrink-0 rounded bg-[rgba(23,23,23,0.06)] px-1.5 py-0.5 text-[10px] font-medium tabular-nums text-[var(--text-muted)]">
+                                        {s.time}
+                                      </span>
+                                    )}
+                                  </li>
+                                ))}
+                              </ol>
+                            ) : (
+                              <p className="text-sm text-[var(--text-muted)]">
+                                Keine Stops gefunden — versuche eine andere Stadt oder Datum.
+                              </p>
+                            )}
+
+                            <div className="pt-1">
+                              <HotelSearchLinks
+                                cityLabel={stop?.cityLabel ?? plan.citySlug}
+                                checkin={plan.date}
+                                checkout={addDays(plan.date, stop?.nights ?? 1)}
+                                nights={stop?.nights ?? 1}
+                                adults={2}
+                                citySlug={plan.citySlug}
+                                userId={userId}
+                              />
+                            </div>
+
+                            <div className="pt-1">
+                              <a
+                                href={`/planner?citySlug=${encodeURIComponent(plan.citySlug)}&occasion=${occasion}&budget=${budget}&planDate=${plan.date}`}
+                                className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-white"
+                              >
+                                In Tagesplanung öffnen
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3">
+                                  <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                              </a>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    {/* ── CREATOR-ROUTEN ──────────────────────────────────────── */}
+                    {(cityPlanModes[plan.citySlug] ?? "individual") === "creator" && (
+                      <div className="space-y-2">
+                        {/* Aktuelle Auswahl-Banner */}
+                        {selectedCreatorRoutes[plan.citySlug] && (
+                          <div className="flex items-center gap-2 rounded-xl border border-[rgba(183,106,67,0.28)] bg-[rgba(183,106,67,0.07)] px-3 py-2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-3.5 w-3.5 shrink-0 text-[#b76a43]">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            <p className="flex-1 text-xs font-semibold text-[#b76a43] truncate">
+                              {selectedCreatorRoutes[plan.citySlug].title}
+                            </p>
+                            <button
+                              type="button"
+                              onClick={() => toggleCreatorRouteForCity(plan.citySlug, selectedCreatorRoutes[plan.citySlug])}
+                              className="text-[#b76a43] hover:text-red-500 transition"
+                              title="Auswahl aufheben"
+                            >
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5">
+                                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                              </svg>
+                            </button>
+                          </div>
+                        )}
+
+                        {/* Laden */}
+                        {cityCreatorLoading[plan.citySlug] && (
+                          <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+                            <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                              <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                            </svg>
+                            Creator-Routen werden geladen…
+                          </div>
+                        )}
+
+                        {/* Keine Routen */}
+                        {!cityCreatorLoading[plan.citySlug] &&
+                          (cityCreatorRoutes[plan.citySlug] ?? []).length === 0 && (
+                          <div className="rounded-xl border border-dashed border-[rgba(23,23,23,0.12)] px-4 py-6 text-center">
+                            <div className="text-2xl mb-1.5">🗺️</div>
+                            <p className="text-sm font-medium text-[var(--text-strong)]">
+                              Noch keine Creator-Routen für {stop?.cityLabel ?? plan.citySlug}
+                            </p>
+                            <p className="mt-1 text-xs text-[var(--text-muted)]">
+                              Nutze den individuellen Plan oder erstelle selbst eine Route.
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Routen-Karten */}
+                        {!cityCreatorLoading[plan.citySlug] &&
+                          (cityCreatorRoutes[plan.citySlug] ?? []).length > 0 &&
+                          (cityCreatorRoutes[plan.citySlug] ?? []).map((cr) => {
+                            const isSelected = selectedCreatorRoutes[plan.citySlug]?.id === cr.id;
+                            return (
+                              <div
+                                key={cr.id}
+                                className={`flex items-start gap-3 rounded-xl border p-3 transition ${
+                                  isSelected
+                                    ? "border-[rgba(183,106,67,0.4)] bg-[rgba(183,106,67,0.06)]"
+                                    : "border-[var(--line-subtle)] bg-white hover:border-[rgba(23,23,23,0.15)]"
+                                }`}
+                              >
+                                {/* Cover-Thumbnail */}
+                                <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-[linear-gradient(135deg,rgba(90,118,136,0.2),rgba(183,106,67,0.15))]">
+                                  {cr.cover_image_url ? (
+                                    <img
+                                      src={cr.cover_image_url}
+                                      alt={cr.title}
+                                      className="h-full w-full object-cover"
+                                    />
+                                  ) : (
+                                    <div className="flex h-full w-full items-center justify-center text-lg opacity-40">
+                                      🗺️
                                     </div>
                                   )}
                                 </div>
-                                {s.time && (
-                                  <span className="mt-0.5 shrink-0 rounded bg-[rgba(23,23,23,0.06)] px-1.5 py-0.5 text-[10px] font-medium tabular-nums text-[var(--text-muted)]">
-                                    {s.time}
-                                  </span>
-                                )}
-                              </li>
-                            ))}
-                          </ol>
-                        ) : (
-                          <p className="text-sm text-[var(--text-muted)]">
-                            Keine Stops gefunden — versuche eine andere Stadt oder Datum.
-                          </p>
-                        )}
 
-                        {/* Hotel affiliate links */}
-                        <div className="pt-1">
-                          <HotelSearchLinks
-                            cityLabel={stop?.cityLabel ?? plan.citySlug}
-                            checkin={plan.date}
-                            checkout={addDays(plan.date, stop?.nights ?? 1)}
-                            nights={stop?.nights ?? 1}
-                            adults={2}
-                            citySlug={plan.citySlug}
-                            userId={userId}
-                          />
-                        </div>
+                                {/* Info */}
+                                <div className="flex-1 min-w-0">
+                                  <p className={`text-sm font-semibold leading-snug ${isSelected ? "text-[#b76a43]" : "text-[var(--text-strong)]"}`}>
+                                    {cr.title}
+                                  </p>
+                                  {cr.description && (
+                                    <p className="mt-0.5 text-[11px] leading-relaxed text-[var(--text-muted)] line-clamp-2">
+                                      {cr.description}
+                                    </p>
+                                  )}
+                                  <div className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[11px] text-[var(--text-muted)]">
+                                    {cr.stop_count > 0 && (
+                                      <span className="flex items-center gap-1">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3">
+                                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                                        </svg>
+                                        {cr.stop_count} Stops
+                                      </span>
+                                    )}
+                                    {cr.avg_rating > 0 && (
+                                      <span className="flex items-center gap-0.5">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3 text-amber-400">
+                                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                        </svg>
+                                        {cr.avg_rating.toFixed(1)}
+                                      </span>
+                                    )}
+                                    {cr.creator_type !== "user" && (
+                                      <span className="rounded-full bg-[rgba(23,23,23,0.06)] px-1.5 py-0.5 text-[10px] font-medium capitalize">
+                                        {cr.creator_type}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
 
-                        <div className="pt-1">
-                          <a
-                            href={`/planner?citySlug=${encodeURIComponent(plan.citySlug)}&occasion=${occasion}&budget=${budget}&planDate=${plan.date}`}
-                            className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-white"
-                          >
-                            In Tagesplanung öffnen
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3">
-                              <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                          </a>
-                        </div>
+                                {/* Actions */}
+                                <div className="flex flex-col items-end gap-1.5 shrink-0">
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleCreatorRouteForCity(plan.citySlug, cr)}
+                                    className={`rounded-lg px-2.5 py-1.5 text-[11px] font-semibold transition ${
+                                      isSelected
+                                        ? "bg-[#b76a43] text-white"
+                                        : "border border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-surface)]"
+                                    }`}
+                                  >
+                                    {isSelected ? "✓ Gewählt" : "Auswählen"}
+                                  </button>
+                                  {cr.slug && (
+                                    <a
+                                      href={`/routes/${cr.slug}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-[10px] text-[var(--text-muted)] underline underline-offset-2 hover:text-[var(--text-strong)] transition"
+                                    >
+                                      Ansehen →
+                                    </a>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
                       </div>
                     )}
                   </div>

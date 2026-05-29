@@ -48,6 +48,7 @@ export default function RoadtripRouteDetailPage() {
   const [startDate, setStartDate] = useState(todayStr());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [tripActive, setTripActive] = useState(false);
 
   useEffect(() => {
     if (!params?.slug) return;
@@ -125,6 +126,20 @@ export default function RoadtripRouteDetailPage() {
   const totalNights = route.stops.reduce((s, st) => s + st.nights, 0);
   const tagDefs = ROADTRIP_TAGS.filter((t) => route.tags.includes(t.value));
 
+  // Welcher Stop ist heute? Nur relevant wenn tripActive = true
+  const todayStopIdx = (() => {
+    if (!tripActive) return -1;
+    const today = todayStr();
+    let offset = 0;
+    for (let i = 0; i < route.stops.length; i++) {
+      const arrival = addDays(startDate, offset);
+      const departure = addDays(arrival, route.stops[i].nights);
+      if (today >= arrival && today < departure) return i;
+      offset += route.stops[i].nights;
+    }
+    return -1;
+  })();
+
   return (
     <main className="pd24-page-wide space-y-5">
       {/* ── Header ─────────────────────────────────────────────────────────── */}
@@ -198,6 +213,41 @@ export default function RoadtripRouteDetailPage() {
               ))}
             </div>
           )}
+
+          {/* Roadtrip-Start CTA */}
+          <div className="mt-4 flex flex-wrap items-center gap-2.5">
+            {tripActive && todayStopIdx >= 0 ? (
+              <a
+                href={`#stop-${todayStopIdx}`}
+                className="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600 active:scale-[0.97]"
+              >
+                🚀 Zum heutigen Stop
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+              </a>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setTripActive(true);
+                  setShowDatePicker(true);
+                }}
+                className="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600 active:scale-[0.97]"
+              >
+                🚀 Roadtrip starten
+              </button>
+            )}
+            {tripActive && (
+              <button
+                type="button"
+                onClick={() => setShowDatePicker((v) => !v)}
+                className="rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+              >
+                📅 Start: {formatDateDE(startDate)}
+              </button>
+            )}
+          </div>
         </div>
       </section>
 
@@ -207,14 +257,47 @@ export default function RoadtripRouteDetailPage() {
           Reiseroute — {route.stops.map((s) => s.cityLabel).join(" → ")}
         </h2>
 
+        {/* Aktiver Roadtrip-Tag Banner */}
+        {tripActive && todayStopIdx >= 0 && (
+          <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-bold">
+              {todayStopIdx + 1}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-semibold text-emerald-800">
+                Heute: {route.stops[todayStopIdx].cityLabel} — Tag {todayStopIdx + 1}
+              </div>
+              <div className="text-xs text-emerald-600">
+                {route.stops[todayStopIdx].creatorRouteTitle
+                  ? `Creator-Route: ${route.stops[todayStopIdx].creatorRouteTitle}`
+                  : route.stops[todayStopIdx].plannedStops?.length
+                  ? `${route.stops[todayStopIdx].plannedStops.length} geplante Stopps`
+                  : "Noch kein Tagesplan — jetzt planen"}
+              </div>
+            </div>
+            <a
+              href={`#stop-${todayStopIdx}`}
+              className="shrink-0 rounded-xl border border-emerald-300 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100"
+            >
+              Zum Stop →
+            </a>
+          </div>
+        )}
+
         {route.stops.map((stop, idx) => {
           const arrivalDate = stopArrivalDate(startDate, route.stops, idx);
           const departureDate = addDays(arrivalDate, stop.nights);
+          const isToday = tripActive && idx === todayStopIdx;
 
           return (
             <div
               key={`${stop.citySlug}-${idx}`}
-              className="overflow-hidden rounded-xl border border-[var(--line-subtle)] bg-white shadow-[0_2px_8px_rgba(15,23,42,0.04)]"
+              id={`stop-${idx}`}
+              className={`overflow-hidden rounded-xl border shadow-[0_2px_8px_rgba(15,23,42,0.04)] scroll-mt-20 ${
+                isToday
+                  ? "border-emerald-300 bg-white ring-2 ring-emerald-200/50"
+                  : "border-[var(--line-subtle)] bg-white"
+              }`}
             >
               {/* Stop header */}
               <div className="flex items-start gap-3 px-4 py-3.5">
@@ -237,16 +320,73 @@ export default function RoadtripRouteDetailPage() {
                           : `${stop.nights} ${stop.nights === 1 ? "Nacht" : "Nächte"}`}
                       </div>
                     </div>
-                    <span className="rounded-full bg-[rgba(23,23,23,0.06)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]">
-                      {stop.nights} {stop.nights === 1 ? "Nacht" : "Nächte"}
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      {isToday && (
+                        <span className="flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                          <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+                          Heute
+                        </span>
+                      )}
+                      <span className="rounded-full bg-[rgba(23,23,23,0.06)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]">
+                        {stop.nights} {stop.nights === 1 ? "Nacht" : "Nächte"}
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Plan summary */}
-                  {stop.planSummary && (
-                    <p className="mt-1.5 text-xs leading-relaxed text-[var(--text-muted)] italic">
-                      {stop.planSummary}
-                    </p>
+                  {/* Creator-Route — wenn für diese Stadt gewählt */}
+                  {stop.creatorRouteTitle && (
+                    <div className="mt-2 flex items-center gap-2 rounded-lg border border-[rgba(183,106,67,0.25)] bg-[rgba(183,106,67,0.06)] px-2.5 py-1.5">
+                      <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 shrink-0 text-amber-400">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                      <span className="flex-1 text-xs font-semibold text-[#b76a43] truncate">
+                        {stop.creatorRouteTitle}
+                      </span>
+                      {stop.creatorRouteSlug && (
+                        <a
+                          href={`/routes/${stop.creatorRouteSlug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shrink-0 text-[10px] text-[#b76a43] underline underline-offset-2 hover:text-[#9d5a38]"
+                        >
+                          Ansehen →
+                        </a>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Generierter Tagesplan */}
+                  {stop.plannedStops && stop.plannedStops.length > 0 && (
+                    <div className="mt-2.5 space-y-1.5">
+                      {stop.planSummary && (
+                        <p className="text-[11px] italic text-[var(--text-muted)]">{stop.planSummary}</p>
+                      )}
+                      <ol className="space-y-1.5">
+                        {stop.plannedStops.map((s, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[9px] font-bold text-[var(--text-strong)]">
+                              {i + 1}
+                            </span>
+                            <div className="flex-1 min-w-0">
+                              <span className="text-xs font-medium text-[var(--text-strong)]">{s.label}</span>
+                              {s.hint && (
+                                <span className="ml-1.5 text-[11px] text-[var(--text-muted)]">— {s.hint}</span>
+                              )}
+                            </div>
+                            {s.time && (
+                              <span className="shrink-0 rounded bg-[rgba(23,23,23,0.06)] px-1.5 py-0.5 text-[10px] tabular-nums text-[var(--text-muted)]">
+                                {s.time}
+                              </span>
+                            )}
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
+
+                  {/* Nur planSummary (kein vollständiger Plan) */}
+                  {stop.planSummary && !stop.plannedStops?.length && !stop.creatorRouteTitle && (
+                    <p className="mt-1.5 text-xs italic text-[var(--text-muted)]">{stop.planSummary}</p>
                   )}
                 </div>
               </div>
@@ -261,6 +401,54 @@ export default function RoadtripRouteDetailPage() {
                   adults={2}
                   citySlug={stop.citySlug}
                 />
+              </div>
+
+              {/* Per-Stop Aktion */}
+              <div
+                className={`flex items-center justify-between gap-2 border-t px-4 py-2.5 ${
+                  isToday
+                    ? "border-emerald-100 bg-emerald-50/40"
+                    : "border-[rgba(23,23,23,0.05)] bg-[rgba(23,23,23,0.015)]"
+                }`}
+              >
+                <span className="text-xs text-[var(--text-muted)]">
+                  {stop.creatorRouteSlug
+                    ? "Creator-Route verfügbar"
+                    : stop.plannedStops?.length
+                    ? `${stop.plannedStops.length} Stopps geplant`
+                    : "Noch kein Tagesplan"}
+                </span>
+                {stop.creatorRouteSlug ? (
+                  <a
+                    href={`/routes/${stop.creatorRouteSlug}/run`}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                  >
+                    🗺️ Route starten
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                ) : stop.plannedStops?.length ? (
+                  <a
+                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}`}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                  >
+                    📋 Im Planner öffnen
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                ) : (
+                  <a
+                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}`}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.97]"
+                  >
+                    📍 Tag planen
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                )}
               </div>
             </div>
           );

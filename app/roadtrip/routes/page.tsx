@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { fetchPublicRoadtripRoutes, fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
+import { fetchPublicRoadtripRoutes, fetchMyRoadtripRoutes, fetchActiveRoadtrip } from "@/lib/roadtrip/client";
 import {
   type RoadtripRoute,
   occasionLabel,
@@ -100,6 +100,7 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
 export default function RoadtripRoutesPage() {
   const [publicRoutes, setPublicRoutes] = useState<RoadtripRoute[]>([]);
   const [myRoutes, setMyRoutes] = useState<RoadtripRoute[]>([]);
+  const [activeRoadtrip, setActiveRoadtrip] = useState<RoadtripRoute | null>(null);
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [tagFilter, setTagFilter] = useState<string>("all");
@@ -107,12 +108,14 @@ export default function RoadtripRoutesPage() {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const [pub, mine] = await Promise.all([
+      const [pub, mine, active] = await Promise.all([
         fetchPublicRoadtripRoutes(48),
         fetchMyRoadtripRoutes(),
+        fetchActiveRoadtrip(),
       ]);
       setPublicRoutes(pub);
       setMyRoutes(mine);
+      setActiveRoadtrip(active);
       setLoading(false);
     })();
   }, []);
@@ -142,8 +145,47 @@ export default function RoadtripRoutesPage() {
     return true;
   });
 
+  const activeStops = activeRoadtrip?.stops ?? [];
+  const activeTotal = activeStops.reduce((s, st) => s + st.nights, 0);
+
   return (
     <main className="pd24-page-wide space-y-6">
+
+      {/* ── Aktiver Roadtrip Banner ───────────────────────────────────────── */}
+      {activeRoadtrip && (
+        <section className="relative overflow-hidden rounded-2xl border border-[rgba(183,106,67,0.3)] bg-[linear-gradient(135deg,rgba(183,106,67,0.09),rgba(90,118,136,0.07))] px-4 py-4 shadow-[0_2px_16px_rgba(183,106,67,0.12)]">
+          <div className="pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-full bg-[rgba(183,106,67,0.12)] blur-2xl" />
+          <div className="relative flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#b76a43] text-xl text-white shadow-sm">
+                🚀
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold uppercase tracking-[0.14em] text-[#b76a43]">
+                    Aktiver Roadtrip
+                  </span>
+                  <span className="animate-pulse h-2 w-2 rounded-full bg-[#b76a43]" />
+                </div>
+                <p className="mt-0.5 font-semibold text-[var(--text-strong)]">
+                  {activeRoadtrip.title}
+                </p>
+                <p className="text-xs text-[var(--text-muted)]">
+                  {activeStops.map((s) => s.cityLabel).join(" → ")}
+                  {activeTotal > 0 && ` · ${activeTotal} Nächte`}
+                </p>
+              </div>
+            </div>
+            <Link
+              href={`/roadtrip?fromRouteSlug=${activeRoadtrip.slug}`}
+              className="inline-flex items-center gap-2 rounded-2xl bg-[#b76a43] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#9d5a38] active:scale-[0.97]"
+            >
+              Fortsetzen →
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden rounded-3xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
         <div className="bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(229,234,238,0.92))] p-4 sm:p-5 lg:p-6">
@@ -162,12 +204,20 @@ export default function RoadtripRoutesPage() {
                 und plane deinen Roadtrip mit einem Klick — inklusive Hotels pro Stadt.
               </p>
             </div>
-            <Link
-              href="/roadtrip"
-              className="inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
-            >
-              + Eigene Route erstellen
-            </Link>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/roadtrip/discover"
+                className="inline-flex items-center gap-2 rounded-full border border-amber-400 bg-amber-50 px-4 py-2.5 text-sm font-semibold text-amber-800 transition hover:bg-amber-100"
+              >
+                🗺️ Route entdecken
+              </Link>
+              <Link
+                href="/roadtrip"
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+              >
+                + Eigene Route erstellen
+              </Link>
+            </div>
           </div>
 
           {/* Search + Tag filter */}

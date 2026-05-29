@@ -2,7 +2,7 @@
 // Supabase-Operationen für Roadtrip-Routen (Client-seitig).
 
 import { supabase } from "@/lib/supabaseClient";
-import type { CreateRoadtripRouteInput, RoadtripRoute } from "./types";
+import type { CreateRoadtripRouteInput, RoadtripRoute, RoadtripRouteStatus } from "./types";
 import { slugifyTitle, totalNights, countryCodes } from "./types";
 
 const TABLE = "roadtrip_routes";
@@ -118,6 +118,7 @@ export async function createRoadtripRoute(
     occasion: input.occasion,
     budget: input.budget,
     stops: input.stops,
+    status: input.status ?? "draft",
     view_count: 0,
     clone_count: 0,
   };
@@ -139,7 +140,7 @@ export async function createRoadtripRoute(
 /** Route aktualisieren (nur eigene) */
 export async function updateRoadtripRoute(
   id: string,
-  patch: Partial<Pick<RoadtripRoute, "title" | "description" | "visibility" | "tags" | "stops">>
+  patch: Partial<Pick<RoadtripRoute, "title" | "description" | "visibility" | "status" | "tags" | "stops">>
 ): Promise<{ error: string | null }> {
   const { error } = await supabase
     .from(TABLE)
@@ -148,6 +149,53 @@ export async function updateRoadtripRoute(
 
   if (error) return { error: error.message };
   return { error: null };
+}
+
+/**
+ * Status einer Route setzen (draft → active → completed).
+ * Setzt vorher alle anderen aktiven Routen des Nutzers auf 'draft',
+ * damit immer nur eine Route aktiv ist.
+ */
+export async function setRoadtripStatus(
+  id: string,
+  status: RoadtripRouteStatus
+): Promise<{ error: string | null }> {
+  // Wenn aktiv gesetzt: vorherige aktive Route(n) auf draft zurücksetzen
+  if (status === "active") {
+    const { data: sessionData } = await supabase.auth.getSession();
+    const userId = sessionData.session?.user?.id;
+    if (userId) {
+      await supabase
+        .from(TABLE)
+        .update({ status: "draft" })
+        .eq("author_user_id", userId)
+        .eq("status", "active")
+        .neq("id", id);
+    }
+  }
+  return updateRoadtripRoute(id, { status });
+}
+
+/** Aktiven Roadtrip des eingeloggten Nutzers laden */
+export async function fetchActiveRoadtrip(): Promise<RoadtripRoute | null> {
+  const { data: sessionData } = await supabase.auth.getSession();
+  const userId = sessionData.session?.user?.id;
+  if (!userId) return null;
+
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select("*")
+    .eq("author_user_id", userId)
+    .eq("status", "active")
+    .order("updated_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    console.error("fetchActiveRoadtrip error:", error.message);
+    return null;
+  }
+  return (data as RoadtripRoute) ?? null;
 }
 
 /** Route löschen (nur eigene) */

@@ -33,7 +33,7 @@ create table if not exists public.roadtrip_routes (
 
   -- Share token — immer gesetzt; wird für Link-Sharing genutzt
   share_token      text        unique not null
-                   default encode(gen_random_bytes(12), 'base64url'),
+                   default encode(gen_random_bytes(12), 'hex'),
 
   -- Routing meta
   tags             text[]      not null default '{}',
