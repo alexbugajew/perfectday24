@@ -9,6 +9,22 @@ import { classify } from "../features";
 function canUseWithoutDistance(loc: CandidateLocation, experienceMode: string) {
   if (classify(loc) !== "event") return false;
 
+  // Events from the planner_events table are curated and trusted — always include
+  // them even when they lack coordinates, as long as the experienceMode matches.
+  if (loc.source_primary === "planner_event") {
+    const refs =
+      loc.source_refs && typeof loc.source_refs === "object"
+        ? (loc.source_refs as Record<string, unknown>)
+        : null;
+    if (experienceMode === "show") {
+      const cat = String(refs?.eventCategory ?? "");
+      return ["concert", "theater", "show"].includes(cat) || typeof refs?.startsAt === "string";
+    }
+    if (experienceMode === "event_visit") return true;
+    if (experienceMode === "market_festival") return true;
+    return false;
+  }
+
   const refs =
     loc.source_refs && typeof loc.source_refs === "object"
       ? (loc.source_refs as Record<string, unknown>)
