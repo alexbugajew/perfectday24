@@ -1134,7 +1134,7 @@ function ExplorePageContent() {
       </div>
 
       {/* Events-Einstieg — größere Anlässe */}
-      <div className="mb-4 flex items-center justify-between gap-4 rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-[0_1px_4px_rgba(15,23,42,0.05)]">
+      <div className="mb-3 flex items-center justify-between gap-4 rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-[0_1px_4px_rgba(15,23,42,0.05)]">
         <div className="min-w-0">
           <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Größeres Event geplant?</div>
           <div className="mt-0.5 text-sm font-medium text-[var(--text-strong)]">Hochzeiten, Geburtstage & Firmenfeiern — mit Dienstleister-Suche</div>
@@ -1144,6 +1144,21 @@ function ExplorePageContent() {
           className="shrink-0 rounded-full bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98]"
         >
           Event planen →
+        </Link>
+      </div>
+
+      {/* Roadtrip-Routen — Mehrtagsreisen entdecken */}
+      <div className="mb-4 flex items-center justify-between gap-4 overflow-hidden rounded-xl border border-[rgba(183,106,67,0.2)] bg-[linear-gradient(135deg,rgba(183,106,67,0.07),rgba(90,118,136,0.06))] px-4 py-3 shadow-[0_1px_4px_rgba(15,23,42,0.05)]">
+        <div className="min-w-0">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#b76a43]">Mehrtagsreisen</div>
+          <div className="mt-0.5 text-sm font-medium text-[var(--text-strong)]">Roadtrip-Routen — Mehrere Städte, ein Plan. Von echten Reisenden geteilt.</div>
+          <div className="mt-0.5 text-xs text-[var(--text-muted)]">Route als Vorlage übernehmen · Eigene Route speichern & teilen</div>
+        </div>
+        <Link
+          href="/roadtrip/routes"
+          className="shrink-0 rounded-full border border-[rgba(183,106,67,0.3)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#b76a43] transition hover:bg-[rgba(183,106,67,0.08)] active:scale-[0.98]"
+        >
+          Routen entdecken →
         </Link>
       </div>
 

@@ -7,6 +7,9 @@ import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
 import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
+import { createRoadtripRoute } from "@/lib/roadtrip/client";
+import { ROADTRIP_TAGS } from "@/lib/roadtrip/types";
+import type { RoadtripRouteVisibility } from "@/lib/roadtrip/types";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -113,6 +116,15 @@ function RoadtripPageContent() {
 
   // Auth — used for attribution tracking only
   const [userId, setUserId] = useState<string | null>(null);
+
+  // Save-Route modal
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [saveTitle, setSaveTitle] = useState("");
+  const [saveDesc, setSaveDesc] = useState("");
+  const [saveTags, setSaveTags] = useState<string[]>([]);
+  const [saveVisibility, setSaveVisibility] = useState<RoadtripRouteVisibility>("link_only");
+  const [saving, setSaving] = useState(false);
+  const [savedRouteSlug, setSavedRouteSlug] = useState<string | null>(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -311,6 +323,48 @@ function RoadtripPageContent() {
 
     setGeneratedPlans(results);
     setGenerating(false);
+  }
+
+  async function saveRoute() {
+    if (!stops.length || saving) return;
+    setSaving(true);
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const currentUserId = sessionData.session?.user?.id ?? null;
+
+      const routeStops = stops.map((stop, idx) => ({
+        citySlug: stop.citySlug,
+        cityLabel: stop.cityLabel,
+        lat: stop.lat,
+        lng: stop.lng,
+        nights: stop.nights,
+        planSummary:
+          generatedPlans[idx]?.status === "done"
+            ? (generatedPlans[idx]?.variantLabel ?? null)
+            : null,
+      }));
+
+      const { route, error } = await createRoadtripRoute({
+        title: saveTitle.trim() || tripName.trim() || "Mein Roadtrip",
+        description: saveDesc.trim() || null,
+        tags: saveTags,
+        occasion,
+        budget,
+        visibility: saveVisibility,
+        stops: routeStops,
+        authorUserId: currentUserId,
+        authorName: currentUserId ? null : "Anonym",
+      });
+
+      if (error || !route) {
+        alert(`Fehler beim Speichern: ${error ?? "Unbekannter Fehler"}`);
+        return;
+      }
+
+      setSavedRouteSlug(route.slug);
+    } finally {
+      setSaving(false);
+    }
   }
 
   if (!mounted) return null;
@@ -595,30 +649,49 @@ function RoadtripPageContent() {
           )}
         </div>
 
-        {/* Generate button */}
+        {/* Action buttons */}
         {stops.length >= 1 && (
-          <button
-            type="button"
-            onClick={() => void generateRoadtrip()}
-            disabled={generating}
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60"
-          >
-            {generating ? (
-              <>
-                <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                </svg>
-                Pläne werden erstellt…
-              </>
-            ) : (
-              <>
-                Roadtrip planen
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </>
-            )}
-          </button>
+          <div className="mt-4 flex flex-col gap-2">
+            <button
+              type="button"
+              onClick={() => void generateRoadtrip()}
+              disabled={generating}
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60"
+            >
+              {generating ? (
+                <>
+                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                  </svg>
+                  Pläne werden erstellt…
+                </>
+              ) : (
+                <>
+                  Roadtrip planen
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </>
+              )}
+            </button>
+
+            {/* Save & Share button */}
+            <button
+              type="button"
+              onClick={() => {
+                setSaveTitle(tripName.trim() || "");
+                setSavedRouteSlug(null);
+                setShowSaveModal(true);
+              }}
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98]"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-4 w-4">
+                <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              </svg>
+              Route speichern & teilen
+            </button>
+          </div>
         )}
       </section>
 
@@ -812,6 +885,183 @@ function RoadtripPageContent() {
             );
           })}
         </section>
+      )}
+      {/* ── Save / Share Modal ───────────────────────────────────────────── */}
+      {showSaveModal && (
+        <div
+          className="fixed inset-0 z-[2000] flex items-end justify-center bg-black/40 backdrop-blur-sm sm:items-center"
+          onClick={(e) => { if (e.target === e.currentTarget) setShowSaveModal(false); }}
+        >
+          <div className="w-full max-w-lg overflow-hidden rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl">
+            {/* Modal header */}
+            <div className="flex items-center justify-between border-b border-[var(--line-subtle)] px-5 py-4">
+              <h2 className="font-semibold text-[var(--text-strong)]">Route speichern & teilen</h2>
+              <button
+                type="button"
+                onClick={() => setShowSaveModal(false)}
+                className="rounded-full p-1.5 text-[var(--text-muted)] transition hover:bg-[rgba(23,23,23,0.06)]"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5">
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="space-y-4 px-5 py-4">
+              {savedRouteSlug ? (
+                // ── Success state ────────────────────────────────────────────
+                <div className="space-y-4 text-center">
+                  <div className="text-4xl">🎉</div>
+                  <div>
+                    <div className="font-semibold text-[var(--text-strong)]">Route gespeichert!</div>
+                    <p className="mt-1 text-sm text-[var(--text-muted)]">
+                      Deine Route ist jetzt unter folgendem Link erreichbar:
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2.5">
+                    <code className="flex-1 truncate text-xs text-[var(--text-strong)]">
+                      {typeof window !== "undefined" ? `${window.location.origin}/roadtrip/routes/${savedRouteSlug}` : ""}
+                    </code>
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        const url = typeof window !== "undefined" ? `${window.location.origin}/roadtrip/routes/${savedRouteSlug}` : "";
+                        await navigator.clipboard.writeText(url);
+                      }}
+                      className="shrink-0 rounded-lg border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+                    >
+                      Kopieren
+                    </button>
+                  </div>
+                  <div className="flex gap-2">
+                    <a
+                      href={`/roadtrip/routes/${savedRouteSlug}`}
+                      className="flex-1 rounded-2xl bg-[var(--text-strong)] px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+                    >
+                      Route ansehen →
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setShowSaveModal(false)}
+                      className="rounded-2xl border border-[var(--line-subtle)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+                    >
+                      Schließen
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                // ── Form state ───────────────────────────────────────────────
+                <>
+                  {/* Title */}
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] mb-1.5">
+                      Route-Name
+                    </label>
+                    <input
+                      value={saveTitle}
+                      onChange={(e) => setSaveTitle(e.target.value)}
+                      placeholder={tripName.trim() || "Mein Roadtrip"}
+                      className="w-full rounded-xl border border-[rgba(17,24,39,0.1)] bg-[var(--bg-surface)] px-3 py-2.5 text-sm font-medium text-[var(--text-strong)] outline-none focus:border-[rgba(23,23,23,0.35)] transition"
+                    />
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] mb-1.5">
+                      Beschreibung <span className="font-normal text-[var(--text-muted)]">(optional)</span>
+                    </label>
+                    <textarea
+                      value={saveDesc}
+                      onChange={(e) => setSaveDesc(e.target.value)}
+                      placeholder="Was macht diese Route besonders? Tipps, Highlights, Erfahrungen…"
+                      rows={3}
+                      className="w-full resize-none rounded-xl border border-[rgba(17,24,39,0.1)] bg-[var(--bg-surface)] px-3 py-2.5 text-sm text-[var(--text-strong)] outline-none focus:border-[rgba(23,23,23,0.35)] transition"
+                    />
+                  </div>
+
+                  {/* Tags */}
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] mb-1.5">
+                      Tags
+                    </label>
+                    <div className="flex flex-wrap gap-1.5">
+                      {ROADTRIP_TAGS.map((tag) => {
+                        const active = saveTags.includes(tag.value);
+                        return (
+                          <button
+                            key={tag.value}
+                            type="button"
+                            onClick={() =>
+                              setSaveTags((prev) =>
+                                active ? prev.filter((t) => t !== tag.value) : [...prev, tag.value]
+                              )
+                            }
+                            className={`rounded-full border px-2.5 py-1 text-xs font-medium transition ${
+                              active
+                                ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                                : "border-[rgba(23,23,23,0.1)] bg-[var(--bg-surface)] text-[var(--text-muted)] hover:border-[rgba(23,23,23,0.25)]"
+                            }`}
+                          >
+                            {tag.emoji} {tag.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Visibility */}
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] mb-1.5">
+                      Sichtbarkeit
+                    </label>
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {(
+                        [
+                          { value: "public",    label: "Öffentlich",    desc: "In Entdecken sichtbar" },
+                          { value: "link_only", label: "Nur per Link",  desc: "Nur wer den Link hat" },
+                          { value: "private",   label: "Privat",        desc: "Nur für dich" },
+                        ] as const
+                      ).map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => setSaveVisibility(opt.value)}
+                          className={`flex flex-col items-start gap-0.5 rounded-xl border px-3 py-2.5 text-left transition ${
+                            saveVisibility === opt.value
+                              ? "border-[var(--text-strong)] bg-[rgba(23,23,23,0.04)]"
+                              : "border-[rgba(23,23,23,0.1)] bg-[var(--bg-surface)] hover:border-[rgba(23,23,23,0.2)]"
+                          }`}
+                        >
+                          <span className="text-xs font-semibold text-[var(--text-strong)]">{opt.label}</span>
+                          <span className="text-[10px] text-[var(--text-muted)] leading-tight">{opt.desc}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Save button */}
+                  <button
+                    type="button"
+                    onClick={() => void saveRoute()}
+                    disabled={saving || stops.length === 0}
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60"
+                  >
+                    {saving ? (
+                      <>
+                        <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                        </svg>
+                        Wird gespeichert…
+                      </>
+                    ) : (
+                      "Route speichern"
+                    )}
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
       )}
     </main>
   );
