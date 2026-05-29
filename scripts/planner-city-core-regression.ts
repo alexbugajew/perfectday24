@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import {
@@ -547,7 +547,8 @@ function buildMarkdownReport(reports: CaseReport[]) {
 }
 
 async function main() {
-  loadEnvFile(join(process.cwd(), ".env.local"));
+  const envPath = join(process.cwd(), ".env.local");
+  if (existsSync(envPath)) loadEnvFile(envPath);
   const supabase = getSupabaseAdmin();
   const cases = buildCases();
 
