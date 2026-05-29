@@ -291,6 +291,12 @@ function isConcreteOfficialAnchoredEvent(candidate: ScoredLocation) {
       ? (candidate.source_refs as Record<string, unknown>)
       : null;
 
+  // DB-ingested planner_event rows are always concrete official events — trust them
+  // unconditionally as long as they are anchored events with a source.
+  if (candidate.source_primary === "planner_event") {
+    return refs?.eventKind === "anchored_event" && typeof refs?.source === "string";
+  }
+
   return (
     refs?.eventKind === "anchored_event" &&
     typeof refs?.source === "string" &&
