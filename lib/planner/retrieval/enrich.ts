@@ -10,6 +10,22 @@ export function hasValidCoordinates(loc: LocationRow) {
 function canUseWithoutCoordinates(loc: LocationRow, context: PlanningContext) {
   if (classify(loc) !== "event") return false;
 
+  // Events from the planner_events table are curated and trusted — include them
+  // even without coordinates when the experienceMode is event-oriented.
+  if (loc.source_primary === "planner_event") {
+    const refs =
+      loc.source_refs && typeof loc.source_refs === "object"
+        ? (loc.source_refs as Record<string, unknown>)
+        : null;
+    const eventCategory = typeof refs?.eventCategory === "string" ? refs.eventCategory : null;
+    if (context.experienceMode === "show") {
+      return ["concert", "theater", "show"].includes(eventCategory ?? "");
+    }
+    if (context.experienceMode === "event_visit") return true;
+    if (context.experienceMode === "market_festival") return true;
+    return false;
+  }
+
   const refs =
     loc.source_refs && typeof loc.source_refs === "object"
       ? (loc.source_refs as Record<string, unknown>)
