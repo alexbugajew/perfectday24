@@ -512,10 +512,29 @@ async function runCase(
   ]);
 
   buildPlanningContext(request);
+
+  // Debug: trace event bundle through retrieval for failing cases
+  if (eventBundle.rows.length > 0 && (testCase.experienceMode === "show" || testCase.experienceMode === "event_visit")) {
+    const evLocs = eventBundle.locations;
+    console.log(`[DEBUG ${testCase.id}] ${evLocs.length} event location(s) fed to planner:`);
+    for (const ev of evLocs) {
+      console.log(`  - ${ev.name} | city_slug=${ev.city_slug} | lat=${ev.lat} | lng=${ev.lng} | source_primary=${ev.source_primary} | category=${ev.category} | subtypes=${JSON.stringify((ev.subtypes as string[])?.slice(0,5))}`);
+    }
+  }
+
   const result = generatePlan({
     request,
     locations: [...locations, ...eventBundle.locations],
   });
+
+  // Debug: check if any event candidate made it into scoring results
+  if (eventBundle.rows.length > 0 && (testCase.experienceMode === "show" || testCase.experienceMode === "event_visit")) {
+    const evInResults = result.results.filter(r => r.source_primary === "planner_event");
+    console.log(`[DEBUG ${testCase.id}] planner_event in scoring.results: ${evInResults.length}`);
+    for (const r of evInResults.slice(0, 3)) {
+      console.log(`  -> ${r.name} | distKm=${r.distanceFromOriginKm} | score=${r.totalScore}`);
+    }
+  }
 
   const plannedStops = result.plannedStops.map(toStopSnapshot);
   const guardrails = evaluateGuardrails(testCase, plannedStops, eventBundle.rows.length);
