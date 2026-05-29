@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import { CitySearchInput } from "@/components/ui/CitySearchInput";
+import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 
 // ─── Static data (mirrors the DB seed) ────────────────────────────────────────
 
@@ -449,6 +450,11 @@ export default function EventsPage() {
             </svg>
             Entdecken
           </a>
+        </div>
+
+        {/* Mode switcher */}
+        <div className="mb-6">
+          <PlannerModeSwitcher />
         </div>
 
         {/* Page header */}

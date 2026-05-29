@@ -95,8 +95,13 @@ export default function MobileBottomNav() {
 
   if (hideNav) return null;
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+  const isActive = (href: string) => {
+    if (href === "/planner") {
+      return pathname === "/planner" || pathname.startsWith("/planner/") ||
+        pathname === "/roadtrip" || pathname.startsWith("/roadtrip/");
+    }
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <nav

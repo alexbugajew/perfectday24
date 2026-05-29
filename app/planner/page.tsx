@@ -23,6 +23,7 @@ import {
 } from "@/lib/monetization/affiliate-shared";
 
 import type { RouteSummary } from "@/components/PlanMap";
+import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 import PlannerActionPanel from "./PlannerActionPanel";
 import PlannerActivationPanel from "./PlannerActivationPanel";
 import PlannerControlsSection from "./PlannerControlsSection";
@@ -1412,6 +1413,9 @@ function PlannerPageContent() {
         <div className="pointer-events-none absolute bottom-[-3rem] left-[16%] h-32 w-32 rounded-full bg-[rgba(124,144,160,0.12)] blur-3xl" />
         <div className="relative flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-3xl">
+            <div className="mb-3">
+              <PlannerModeSwitcher />
+            </div>
             <div className="mb-2 flex flex-wrap gap-2">
               <span className="warm-chip rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em]">
                 {occasionTitle}

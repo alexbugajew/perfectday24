@@ -16,8 +16,15 @@ export default function MainNav() {
     pathname === "/run" ||
     (pathname.startsWith("/routes/") && pathname.endsWith("/run"));
 
-  const isActive = (path: string) =>
-    path === "/" ? pathname === path : pathname === path || pathname.startsWith(`${path}/`);
+  const isActive = (path: string) => {
+    if (path === "/") return pathname === path;
+    // /planner is also active when on /roadtrip (same planning-mode group)
+    if (path === "/planner") {
+      return pathname === "/planner" || pathname.startsWith("/planner/") ||
+        pathname === "/roadtrip" || pathname.startsWith("/roadtrip/");
+    }
+    return pathname === path || pathname.startsWith(`${path}/`);
+  };
 
   const linkClass = (path: string) =>
     `inline-flex shrink-0 items-center justify-center rounded-full font-medium transition ${
