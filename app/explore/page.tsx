@@ -107,6 +107,38 @@ type SuggestedRoute = {
   reasonBadges?: string[];
 };
 
+type OccasionFilter = "all" | "date" | "friends" | "family" | "tourism" | "party";
+
+const OCCASION_PILLS: { key: OccasionFilter; emoji: string; label: string }[] = [
+  { key: "all", emoji: "", label: "Alle" },
+  { key: "date", emoji: "🥂", label: "Date Night" },
+  { key: "friends", emoji: "👫", label: "Mit Freunden" },
+  { key: "family", emoji: "👨‍👩‍👧", label: "Familie" },
+  { key: "tourism", emoji: "🗺️", label: "Als Tourist" },
+  { key: "party", emoji: "🎉", label: "Feiern" },
+];
+
+function matchesOccasionFilter(route: UserRouteRow, occasion: OccasionFilter): boolean {
+  if (occasion === "all") return true;
+  const text = [route.title ?? "", route.description ?? "", route.start_label ?? ""]
+    .join(" ")
+    .toLowerCase();
+  switch (occasion) {
+    case "date":
+      return /date|romantik|romantic|wine|wein|zu zweit|p[aä]rchen|candlelight/i.test(text);
+    case "friends":
+      return /freund|friend|gruppe|kollegen|team|gemeinsam|jungs|girls/i.test(text);
+    case "family":
+      return /famili|kinder|kind|zoo|spielplatz|kindgerecht|family/i.test(text);
+    case "tourism":
+      return /museum|altstadt|landmark|sightseeing|tour|historisch|denkmal|tourist/i.test(text);
+    case "party":
+      return /party|club|bar|nacht|nightlife|feiern|ausgehen/i.test(text);
+    default:
+      return true;
+  }
+}
+
 const RouteMiniMapClient = dynamic(() => import("@/components/RouteMiniMapClient"), {
   ssr: false,
 });
@@ -586,9 +618,14 @@ function ExplorePageContent() {
   const [citiesLoading, setCitiesLoading] = useState(true);
   const [errorText, setErrorText] = useState<string | null>(null);
 
-  const [selectedCitySlug, setSelectedCitySlug] = useState<string>("all");
+  const [selectedCitySlug, setSelectedCitySlug] = useState<string>(
+    searchParams.get("citySlug") ?? "all"
+  );
   const [selectedCountryCode, setSelectedCountryCode] = useState<string>("all");
   const [creatorFilter, setCreatorFilter] = useState<CreatorType | "all">("all");
+  const [occasionFilter, setOccasionFilter] = useState<OccasionFilter>(
+    (searchParams.get("occasion") as OccasionFilter | null) ?? "all"
+  );
   const [searchText, setSearchText] = useState("");
   const [sortBy, setSortBy] = useState<"trending" | "top" | "new" | "featured">("trending");
   const [personalizedSort, setPersonalizedSort] = useState(true);
@@ -760,11 +797,14 @@ function ExplorePageContent() {
   }, [routes, cityMap, selectedCountryCode]);
 
   useEffect(() => {
+    // Don't reset while routes are still loading — cityDropdownOptions would be
+    // empty and would clear a valid city slug that arrived from the URL.
+    if (loading) return;
     if (selectedCitySlug === "all") return;
     if (!cityDropdownOptions.some((city) => city.slug === selectedCitySlug)) {
       setSelectedCitySlug("all");
     }
-  }, [selectedCitySlug, cityDropdownOptions]);
+  }, [loading, selectedCitySlug, cityDropdownOptions]);
 
   const filteredRoutes = useMemo(() => {
     let out = [...routes];
@@ -784,6 +824,10 @@ function ExplorePageContent() {
 
     if (creatorFilter !== "all") {
       out = out.filter((r) => r.creator_type === creatorFilter);
+    }
+
+    if (occasionFilter !== "all") {
+      out = out.filter((r) => matchesOccasionFilter(r, occasionFilter));
     }
 
     out = out.filter((r) => matchesVariantFilter(r, variantFilter));
@@ -840,6 +884,7 @@ function ExplorePageContent() {
     cities,
     selectedCitySlug,
     creatorFilter,
+    occasionFilter,
     variantFilter,
     variantSort,
     searchText,
@@ -888,7 +933,6 @@ function ExplorePageContent() {
   }, [creators, creatorRankingMap]);
 
   const totalPublic = routes.length;
-  const callableCount = filteredRoutes.filter((r) => !!routeHref(r)).length;
   const personalizedRoutes = useMemo(() => {
     if (myInterests.length === 0) return [] as SuggestedRoute[];
 
@@ -999,6 +1043,24 @@ function ExplorePageContent() {
                 Interessen setzen
               </Link>
             )}
+          </div>
+
+          {/* Occasion / Anlass filter pills */}
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {OCCASION_PILLS.map((pill) => (
+              <button
+                key={pill.key}
+                type="button"
+                onClick={() => setOccasionFilter(pill.key)}
+                className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition ${
+                  occasionFilter === pill.key
+                    ? "border-black bg-black text-white"
+                    : "border-black/10 bg-white text-gray-700 hover:border-black/25 hover:bg-gray-50"
+                }`}
+              >
+                {pill.emoji ? `${pill.emoji} ` : ""}{pill.label}
+              </button>
+            ))}
           </div>
 
           <details className="mt-2 rounded-2xl border border-black/5 bg-white/50 px-3 py-2">
