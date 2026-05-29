@@ -5,7 +5,7 @@ import {
   PD24Card,
   PD24StatusBadge,
 } from "@/components/ui/pd24";
-import HeroConfiguratorClient from "@/components/home/HeroConfiguratorClient";
+import HeroIntentBar from "@/components/home/HeroIntentBar";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -73,8 +73,8 @@ const heroSignals = [
 const howItWorksSteps = [
   {
     number: "01",
-    title: "Stadt & Anlass wählen",
-    body: "Sag PerfectDay24, wo und für wen du planst — ob Berliner Abend zu zweit oder Hamburger Familientag.",
+    title: "Einfach beschreiben",
+    body: "Schreib kurz, was du planst — »Date-Abend in München« oder »Familientag Hamburg Samstag«. PerfectDay24 versteht dich.",
   },
   {
     number: "02",
@@ -111,17 +111,17 @@ export default function HomepageScaffoldMinimal() {
             <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] lg:items-center">
               <div className="max-w-2xl">
                 <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-                  Stadt. Anlass. Ein stimmiger Tag.
+                  Einfach schreiben — fertig geplant.
                 </div>
                 <h1 className="mt-4 font-[family:var(--font-pd24-display)] text-[2.75rem] leading-[0.96] tracking-tight text-[#171717] sm:text-6xl lg:text-7xl">
                   Dein perfekter Tag — konkret geplant, nicht nur gesucht.
                 </h1>
                 <p className="mt-5 max-w-xl text-lg leading-8 text-[#665d55]">
-                  Wähle Anlass und Stadt. PerfectDay24 baut daraus einen vollständigen Tagesplan
-                  mit echten Events, sinnvollen Wegen und einer klaren Reihenfolge.
+                  Schreib einfach, was du planst. PerfectDay24 versteht dich und baut daraus
+                  einen vollständigen Tag mit echten Events, sinnvollen Wegen und klarem Timing.
                 </p>
 
-                <HeroConfiguratorClient />
+                <HeroIntentBar />
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   {trustSignals.map((signal) => (
@@ -308,11 +308,11 @@ export default function HomepageScaffoldMinimal() {
           <section className="rounded-[32px] bg-[#171717] px-6 py-10 text-[#fffdf8] shadow-[0_28px_80px_rgba(49,39,27,0.18)] sm:px-8">
             <div className="max-w-3xl">
               <h2 className="font-[family:var(--font-pd24-display)] text-[2.75rem] leading-[0.98] tracking-tight sm:text-6xl">
-                Starte mit einem klaren Rahmen. Der Plan folgt.
+                Einfach beschreiben. Der Plan folgt sofort.
               </h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-[rgba(255,253,248,0.78)]">
-                Stadt, Anlass, Stimmung — mehr brauchst du nicht. PerfectDay24 macht daraus
-                einen Tag mit Richtung.
+                »Date-Abend in Berlin morgen Abend« — mehr brauchst du nicht. PerfectDay24 versteht
+                dich und macht daraus einen Tag, der wirklich passt.
               </p>
               <div className="mt-8 flex flex-col items-start gap-4">
                 <PD24Button href="/planner">Tag planen</PD24Button>
