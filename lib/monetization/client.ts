@@ -1,6 +1,7 @@
 "use client";
 
 import type { AttributionEventType, MonetizationEntitlementKey, SponsoredSlotKey } from "./types";
+import { hasTrackingConsent } from "@/lib/consent";
 
 const ANON_STORAGE_KEY = "pd24_monetization_anonymous_id";
 const SESSION_STORAGE_KEY = "pd24_monetization_session_id";
@@ -9,8 +10,13 @@ function uid(prefix: string) {
   return `${prefix}_${Math.random().toString(36).slice(2)}_${Date.now().toString(36)}`;
 }
 
+/**
+ * Returns (and lazily creates) a persistent anonymous tracking ID.
+ * Returns null — and writes nothing — if the user has not consented to tracking.
+ */
 export function getOrCreateMonetizationAnonymousId() {
   if (typeof window === "undefined") return null;
+  if (!hasTrackingConsent()) return null;
   try {
     const existing = window.localStorage.getItem(ANON_STORAGE_KEY);
     if (existing) return existing;
@@ -22,8 +28,13 @@ export function getOrCreateMonetizationAnonymousId() {
   }
 }
 
+/**
+ * Returns (and lazily creates) a per-session tracking ID.
+ * Returns null — and writes nothing — if the user has not consented to tracking.
+ */
 export function getOrCreateMonetizationSessionId() {
   if (typeof window === "undefined") return null;
+  if (!hasTrackingConsent()) return null;
   try {
     const existing = window.sessionStorage.getItem(SESSION_STORAGE_KEY);
     if (existing) return existing;
@@ -58,6 +69,8 @@ export type ClientMonetizationTrackInput = {
 
 export async function trackMonetizationEvent(input: ClientMonetizationTrackInput) {
   if (typeof window === "undefined") return;
+  // Silently no-op when the user has not consented to tracking.
+  if (!hasTrackingConsent()) return;
 
   if (input.onceKey) {
     try {

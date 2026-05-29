@@ -4,6 +4,7 @@ import "./globals.css";
 import MainNav from "@/components/MainNav";
 import FloatingChat from "@/components/ui/FloatingChat";
 import MobileBottomNav from "@/components/ui/MobileBottomNav";
+import ConsentBanner from "@/components/consent/ConsentBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,6 +55,7 @@ export default function RootLayout({
         <div className="w-full min-w-0 overflow-x-clip px-4 py-6 pb-24 sm:pb-6 sm:px-6 lg:px-8">{children}</div>
         <FloatingChat />
         <MobileBottomNav />
+        <ConsentBanner />
       </body>
     </html>
   );
