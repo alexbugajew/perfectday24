@@ -4,8 +4,6 @@ import OpenAI from "openai";
 
 export const runtime = "nodejs";
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
-
 type StopExplain = {
   travelPenalty?: number;
   diversityPenalty?: number;
@@ -44,6 +42,7 @@ function safeStr(v: unknown, fallback = "—") {
 
 export async function POST(req: Request) {
   try {
+    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
     const body = await req.json();
 
     const filters = body?.filters ?? {};
