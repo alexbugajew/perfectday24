@@ -33,7 +33,15 @@ const PREFERENCE_DESCRIPTIONS: Record<RoutePreference, string> = {
 };
 
 export async function POST(req: NextRequest) {
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    console.error("suggest-stops: OPENAI_API_KEY not configured");
+    return NextResponse.json(
+      { error: "KI-Anfrage fehlgeschlagen. Bitte versuche es erneut." },
+      { status: 500 }
+    );
+  }
+  const openai = new OpenAI({ apiKey });
   let body: RequestBody;
 
   try {
@@ -151,8 +159,11 @@ detour-Werte: "none" (direkt am Weg), "slight" (< 15 min Umweg), "moderate" (15-
 
     return NextResponse.json({ stops }, { status: 200 });
   } catch (err) {
-    const e = err as { message?: string; status?: number; code?: string };
-    console.error("suggest-stops OpenAI error:", e.message ?? String(err), "status:", e.status, "code:", e.code);
+    const e = err as { message?: string; status?: number; code?: string; error?: { code?: string; message?: string } };
+    const httpStatus = e.status ?? "?";
+    const errCode = e.code ?? e.error?.code ?? "?";
+    const msg = (e.message ?? String(err)).slice(0, 200);
+    console.error(`suggest-stops[${httpStatus}/${errCode}]: ${msg}`);
     return NextResponse.json(
       { error: "KI-Anfrage fehlgeschlagen. Bitte versuche es erneut." },
       { status: 500 }
