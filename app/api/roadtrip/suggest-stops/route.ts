@@ -92,7 +92,7 @@ detour-Werte: "none" (direkt am Weg), "slight" (< 15 min Umweg), "moderate" (15-
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4o-mini",
       temperature: 0.6,
       max_tokens: 3000,
       response_format: { type: "json_object" },
@@ -151,7 +151,8 @@ detour-Werte: "none" (direkt am Weg), "slight" (< 15 min Umweg), "moderate" (15-
 
     return NextResponse.json({ stops }, { status: 200 });
   } catch (err) {
-    console.error("suggest-stops OpenAI error:", err);
+    const e = err as { message?: string; status?: number; code?: string };
+    console.error("suggest-stops OpenAI error:", e.message ?? String(err), "status:", e.status, "code:", e.code);
     return NextResponse.json(
       { error: "KI-Anfrage fehlgeschlagen. Bitte versuche es erneut." },
       { status: 500 }
