@@ -693,7 +693,7 @@ function RoadtripPageContent() {
           </p>
           <div className="mt-3">
             <a
-              href="/roadtrip/routes"
+              href="/roadtrip/discover"
               className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] hover:border-[rgba(23,23,23,0.2)]"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3.5 w-3.5 text-[#b76a43]">
