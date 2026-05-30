@@ -8,8 +8,6 @@ import type { SuggestedStop, RoutePreference } from "@/lib/roadtrip/suggest-type
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
-
 type RequestBody = {
   from: string;
   to: string;
@@ -35,6 +33,7 @@ const PREFERENCE_DESCRIPTIONS: Record<RoutePreference, string> = {
 };
 
 export async function POST(req: NextRequest) {
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
   let body: RequestBody;
 
   try {

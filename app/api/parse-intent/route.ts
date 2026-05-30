@@ -4,8 +4,6 @@ import OpenAI from "openai";
 
 export const runtime = "nodejs";
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
-
 // ---------------------------------------------------------------------------
 // City name → canonical slug lookup  (German, English, umlaut variants)
 // ---------------------------------------------------------------------------
@@ -140,6 +138,7 @@ Beispiel: {"city":"München","occasion":"date","experienceMode":null,"datePrefer
 // ---------------------------------------------------------------------------
 export async function POST(req: Request) {
   try {
+    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
     const body = await req.json().catch(() => ({}));
     const text = typeof body?.text === "string" ? body.text.trim() : "";
 

@@ -691,6 +691,21 @@ function RoadtripPageContent() {
             Wähle Städte, lege die Reihenfolge und Aufenthaltsdauer fest. Für jede Stadt
             erstellen wir einen konkreten Tagesplan.
           </p>
+          <div className="mt-3">
+            <a
+              href="/roadtrip/routes"
+              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] hover:border-[rgba(23,23,23,0.2)]"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3.5 w-3.5 text-[#b76a43]">
+                <path d="M9 11l3 3L22 4" />
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+              </svg>
+              Gespeicherte Routen
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3 w-3 text-[var(--text-muted)]">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
         </div>
       </section>
 
