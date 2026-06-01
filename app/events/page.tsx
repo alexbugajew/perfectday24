@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
@@ -10,14 +11,14 @@ import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 // ─── Static data (mirrors the DB seed) ────────────────────────────────────────
 
 const OCCASIONS = [
-  { slug: "geburtstag",       label: "Geburtstag",        hint: "Runde Geburtstage & private Feiern" },
-  { slug: "hochzeit",         label: "Hochzeit",          hint: "Trauung, Feier & Flitterwochen" },
-  { slug: "teambuilding",     label: "Teambuilding",      hint: "Ausflüge & Aktivitäten für Teams" },
-  { slug: "firmenfeier",      label: "Firmenfeier",       hint: "Weihnachts-, Sommer- oder Jubiläumsfeier" },
-  { slug: "kindergeburtstag", label: "Kindergeburtstag",  hint: "Feiern für die Kleinsten" },
-  { slug: "konferenz",        label: "Konferenz",         hint: "Fachveranstaltungen & Workshops" },
-  { slug: "jubilaeum",        label: "Jubiläum",          hint: "Runde Jahrestage & Meilensteine" },
-  { slug: "staedtereise",     label: "Städtereise",       hint: "Gruppenreisen mit kuratiertem Programm" },
+  { slug: "geburtstag",       label: "Geburtstag",        hint: "Runde Geburtstage & private Feiern",       emoji: "🎂" },
+  { slug: "hochzeit",         label: "Hochzeit",          hint: "Trauung, Feier & Flitterwochen",            emoji: "💍" },
+  { slug: "teambuilding",     label: "Teambuilding",      hint: "Ausflüge & Aktivitäten für Teams",          emoji: "🤝" },
+  { slug: "firmenfeier",      label: "Firmenfeier",       hint: "Weihnachts-, Sommer- oder Jubiläumsfeier", emoji: "🥂" },
+  { slug: "kindergeburtstag", label: "Kindergeburtstag",  hint: "Feiern für die Kleinsten",                 emoji: "🎈" },
+  { slug: "konferenz",        label: "Konferenz",         hint: "Fachveranstaltungen & Workshops",           emoji: "🎤" },
+  { slug: "jubilaeum",        label: "Jubiläum",          hint: "Runde Jahrestage & Meilensteine",           emoji: "🏆" },
+  { slug: "staedtereise",     label: "Städtereise",       hint: "Gruppenreisen mit kuratiertem Programm",   emoji: "✈️" },
 ] as const;
 
 type OccasionSlug = (typeof OCCASIONS)[number]["slug"];
@@ -506,32 +507,57 @@ export default function EventsPage() {
             {step === 1 && (
               <div>
                 <StepHeader step={1} label="Was planst du?" />
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {OCCASIONS.map((occ) => (
-                    <button
-                      key={occ.slug}
-                      type="button"
-                      onClick={() => selectOccasion(occ.slug)}
-                      className={cx(
-                        "rounded-2xl border px-4 py-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717] focus-visible:ring-offset-1",
-                        form.occasionSlug === occ.slug
-                          ? "border-[#171717] bg-[#171717] text-white"
-                          : "border-[rgba(23,23,23,0.12)] bg-white text-[#171717] hover:border-[#171717]"
-                      )}
-                    >
-                      <div className="text-sm font-semibold">{occ.label}</div>
-                      <div
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  {OCCASIONS.map((occ) => {
+                    const selected = form.occasionSlug === occ.slug;
+                    return (
+                      <button
+                        key={occ.slug}
+                        type="button"
+                        onClick={() => selectOccasion(occ.slug)}
                         className={cx(
-                          "mt-1 text-xs leading-5",
-                          form.occasionSlug === occ.slug
-                            ? "text-white/70"
-                            : "text-[#8b7767]"
+                          "group relative overflow-hidden rounded-2xl text-left transition focus-visible:outline-none active:scale-[0.97]",
+                          selected
+                            ? "ring-2 ring-[#b76a43] ring-offset-2 shadow-lg"
+                            : "shadow-sm hover:shadow-md"
                         )}
+                        style={{ height: 160 }}
                       >
-                        {occ.hint}
-                      </div>
-                    </button>
-                  ))}
+                        {/* Foto */}
+                        <Image
+                          src={`/events/occasion-${occ.slug}.png`}
+                          alt={occ.label}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
+                        />
+                        {/* Gradient-Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+
+                        {/* Ausgewählt-Badge */}
+                        {selected && (
+                          <div className="absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#b76a43] shadow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
+                              <path d="M20 6L9 17l-5-5" />
+                            </svg>
+                          </div>
+                        )}
+
+                        {/* Text */}
+                        <div className="absolute bottom-0 left-0 right-0 p-3">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-sm">{occ.emoji}</span>
+                            <span className="text-sm font-bold text-white drop-shadow leading-tight">
+                              {occ.label}
+                            </span>
+                          </div>
+                          <div className="mt-0.5 text-[10px] leading-3.5 text-white/75 line-clamp-2">
+                            {occ.hint}
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
