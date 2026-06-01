@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
@@ -693,114 +694,134 @@ function RoadtripPageContent() {
             Wähle deinen Einstieg — die KI macht Vorschläge, du planst selbst oder nutzt fertige Creator-Routen.
           </p>
 
-          {/* ── 3 large entry cards ────────────────────────────────────────── */}
+          {/* ── 3 Foto-Einstiegskarten ─────────────────────────────────────── */}
           <div className="grid gap-3 sm:grid-cols-3">
+
             {/* KI-Planung */}
             <button
               type="button"
               onClick={() => setHeroMode("ki")}
-              className={`group flex flex-col items-start gap-3 rounded-2xl border p-4 text-left transition active:scale-[0.98] ${
+              className={`group relative overflow-hidden rounded-2xl text-left transition active:scale-[0.98] ${
                 heroMode === "ki"
-                  ? "border-[#b76a43] bg-[rgba(183,106,67,0.06)] shadow-[0_0_0_2px_rgba(183,106,67,0.18)]"
-                  : "border-[var(--line-subtle)] bg-white hover:border-[rgba(183,106,67,0.3)] hover:bg-[rgba(183,106,67,0.03)]"
+                  ? "ring-2 ring-[#b76a43] ring-offset-2 shadow-lg"
+                  : "shadow-sm hover:shadow-md"
               }`}
+              style={{ height: 200 }}
             >
-              <div className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${
-                heroMode === "ki" ? "bg-[#b76a43]" : "bg-[rgba(183,106,67,0.1)] group-hover:bg-[rgba(183,106,67,0.18)]"
-              }`}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}
-                  className={`h-5 w-5 ${heroMode === "ki" ? "text-white" : "text-[#b76a43]"}`}>
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <div className={`text-sm font-semibold ${heroMode === "ki" ? "text-[#b76a43]" : "text-[var(--text-strong)]"}`}>
-                  KI-Planung
-                </div>
-                <p className="mt-0.5 text-xs leading-5 text-[var(--text-muted)]">
-                  KI schlägt Zwischenstopps & Highlights für deine Route vor
-                </p>
-              </div>
+              <Image
+                src="/roadtrip/mode-ki.png"
+                alt="KI-Planung"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               {heroMode === "ki" && (
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[#b76a43]">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-2.5 w-2.5">
+                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#b76a43] shadow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                 </div>
               )}
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#b76a43]/90 backdrop-blur-sm">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-4 w-4">
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+                    </svg>
+                  </span>
+                  <span className="text-sm font-bold text-white drop-shadow">KI-Planung</span>
+                </div>
+                <p className="mt-1 text-xs leading-4 text-white/80">
+                  KI schlägt Zwischenstopps &amp; Highlights vor
+                </p>
+              </div>
             </button>
 
             {/* Individuell planen */}
             <button
               type="button"
               onClick={() => setHeroMode("individual")}
-              className={`group flex flex-col items-start gap-3 rounded-2xl border p-4 text-left transition active:scale-[0.98] ${
+              className={`group relative overflow-hidden rounded-2xl text-left transition active:scale-[0.98] ${
                 heroMode === "individual"
-                  ? "border-[#5a7688] bg-[rgba(90,118,136,0.06)] shadow-[0_0_0_2px_rgba(90,118,136,0.18)]"
-                  : "border-[var(--line-subtle)] bg-white hover:border-[rgba(90,118,136,0.3)] hover:bg-[rgba(90,118,136,0.03)]"
+                  ? "ring-2 ring-[#5a7688] ring-offset-2 shadow-lg"
+                  : "shadow-sm hover:shadow-md"
               }`}
+              style={{ height: 200 }}
             >
-              <div className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${
-                heroMode === "individual" ? "bg-[#5a7688]" : "bg-[rgba(90,118,136,0.1)] group-hover:bg-[rgba(90,118,136,0.18)]"
-              }`}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}
-                  className={`h-5 w-5 ${heroMode === "individual" ? "text-white" : "text-[#5a7688]"}`}>
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-                  <circle cx="12" cy="9" r="2.5" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <div className={`text-sm font-semibold ${heroMode === "individual" ? "text-[#5a7688]" : "text-[var(--text-strong)]"}`}>
-                  Individuell planen
-                </div>
-                <p className="mt-0.5 text-xs leading-5 text-[var(--text-muted)]">
-                  Wähle Städte, Nächte und erhalte für jeden Halt einen Tagesplan
-                </p>
-              </div>
+              <Image
+                src="/roadtrip/mode-individual.png"
+                alt="Individuell planen"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               {heroMode === "individual" && (
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[#5a7688]">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-2.5 w-2.5">
+                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#5a7688] shadow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                 </div>
               )}
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#5a7688]/90 backdrop-blur-sm">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-4 w-4">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                  </span>
+                  <span className="text-sm font-bold text-white drop-shadow">Individuell planen</span>
+                </div>
+                <p className="mt-1 text-xs leading-4 text-white/80">
+                  Städte, Nächte &amp; Tagespläne selbst zusammenstellen
+                </p>
+              </div>
             </button>
 
             {/* Creator Routen */}
             <button
               type="button"
               onClick={() => setHeroMode("creator")}
-              className={`group flex flex-col items-start gap-3 rounded-2xl border p-4 text-left transition active:scale-[0.98] ${
+              className={`group relative overflow-hidden rounded-2xl text-left transition active:scale-[0.98] ${
                 heroMode === "creator"
-                  ? "border-[#7c6fa0] bg-[rgba(124,111,160,0.06)] shadow-[0_0_0_2px_rgba(124,111,160,0.18)]"
-                  : "border-[var(--line-subtle)] bg-white hover:border-[rgba(124,111,160,0.3)] hover:bg-[rgba(124,111,160,0.03)]"
+                  ? "ring-2 ring-[#7c6fa0] ring-offset-2 shadow-lg"
+                  : "shadow-sm hover:shadow-md"
               }`}
+              style={{ height: 200 }}
             >
-              <div className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${
-                heroMode === "creator" ? "bg-[#7c6fa0]" : "bg-[rgba(124,111,160,0.1)] group-hover:bg-[rgba(124,111,160,0.18)]"
-              }`}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}
-                  className={`h-5 w-5 ${heroMode === "creator" ? "text-white" : "text-[#7c6fa0]"}`}>
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <div className={`text-sm font-semibold ${heroMode === "creator" ? "text-[#7c6fa0]" : "text-[var(--text-strong)]"}`}>
-                  Creator Routen
-                </div>
-                <p className="mt-0.5 text-xs leading-5 text-[var(--text-muted)]">
-                  Fertige Routen von Creators als Vorlage nutzen &amp; anpassen
-                </p>
-              </div>
+              <Image
+                src="/roadtrip/mode-creator.png"
+                alt="Creator Routen"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               {heroMode === "creator" && (
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[#7c6fa0]">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-2.5 w-2.5">
+                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#7c6fa0] shadow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                 </div>
               )}
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#7c6fa0]/90 backdrop-blur-sm">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-4 w-4">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  </span>
+                  <span className="text-sm font-bold text-white drop-shadow">Creator Routen</span>
+                </div>
+                <p className="mt-1 text-xs leading-4 text-white/80">
+                  Fertige Routen von Creators als Vorlage nutzen
+                </p>
+              </div>
             </button>
+
           </div>
         </div>
       </section>
