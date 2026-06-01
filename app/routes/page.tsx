@@ -2373,7 +2373,7 @@ async function handleDeleteRoute(routeId: string) {
               )}
 
               <div className="border-t pt-4 space-y-2 text-sm">
-                <div className="font-medium">Public Preview</div>
+                <div className="font-medium">Öffentliche Vorschau</div>
                 <div className="rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-4">
                   {coverPreviewUrl ? (
                     <div className="mb-3 overflow-hidden rounded-xl border bg-white">

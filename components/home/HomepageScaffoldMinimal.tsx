@@ -117,8 +117,7 @@ export default function HomepageScaffoldMinimal() {
                   Dein perfekter Tag — konkret geplant, nicht nur gesucht.
                 </h1>
                 <p className="mt-5 max-w-xl text-lg leading-8 text-[#665d55]">
-                  Schreib einfach, was du planst. PerfectDay24 versteht dich und baut daraus
-                  einen vollständigen Tag mit echten Events, sinnvollen Wegen und klarem Timing.
+                  Schreib kurz, was du planst — PerfectDay24 baut daraus einen vollständigen Tag mit echten Events und klarem Timing.
                 </p>
 
                 <HeroIntentBar />
@@ -190,7 +189,7 @@ export default function HomepageScaffoldMinimal() {
                 Was möchtest du planen?
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-[#665d55]">
-                PerfectDay24 hilft dir bei zwei unterschiedlichen Dingen — je nachdem, was du brauchst.
+                Ein Tag in der Stadt oder ein ganzes Event — wähle deinen Einstieg.
               </p>
             </div>
 
@@ -267,24 +266,6 @@ export default function HomepageScaffoldMinimal() {
                 </div>
               ))}
             </div>
-          </section>
-
-          {/* ── Warum PerfectDay24 ── */}
-          <section className="grid gap-6 md:grid-cols-3">
-            {differentiationCards.map((card) => (
-              <PD24Card
-                key={card.title}
-                className={`border-[rgba(23,23,23,0.08)] ${card.accent} pd24-card-interactive h-full`}
-              >
-                <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#b76a43]">
-                  Warum PerfectDay24
-                </div>
-                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[#171717]">
-                  {card.title}
-                </h3>
-                <p className="mt-3 text-base leading-7 text-[#665d55]">{card.body}</p>
-              </PD24Card>
-            ))}
           </section>
 
           {/* ── Weitere Einstiege ── */}
