@@ -1661,7 +1661,7 @@ function ProfilePageInner() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-                  Gespeichert
+                  Meine Pläne
                 </div>
                 <h2 className="mt-2 text-lg font-semibold text-[#171717]">Gemerkte Vorlagen</h2>
                 <p className="mt-1 text-sm leading-6 text-[#665d55]">
@@ -1673,7 +1673,7 @@ function ProfilePageInner() {
                   href="/saved"
                   className="inline-flex min-h-9 items-center rounded-xl border border-[rgba(23,23,23,0.08)] px-3 text-sm text-[#665d55] transition hover:bg-[#f7f4ee]"
                 >
-                  Gespeichert
+                  Meine Pläne
                 </Link>
                 <Link
                   href="/explore"

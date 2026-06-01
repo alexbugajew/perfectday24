@@ -300,7 +300,7 @@ export default function HomepageScaffoldMinimal() {
               href="/saved"
               className="underline-offset-2 transition hover:text-[#171717] hover:underline"
             >
-              Gespeicherte Pläne
+              Meine Pläne
             </Link>
           </div>
 
