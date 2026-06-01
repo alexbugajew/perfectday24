@@ -8,8 +8,6 @@ import type { SuggestedStop, RoutePreference } from "@/lib/roadtrip/suggest-type
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
-
 type RequestBody = {
   from: string;
   to: string;
@@ -35,6 +33,15 @@ const PREFERENCE_DESCRIPTIONS: Record<RoutePreference, string> = {
 };
 
 export async function POST(req: NextRequest) {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    console.error("suggest-stops: OPENAI_API_KEY not configured");
+    return NextResponse.json(
+      { error: "KI-Anfrage fehlgeschlagen. Bitte versuche es erneut." },
+      { status: 500 }
+    );
+  }
+  const openai = new OpenAI({ apiKey });
   let body: RequestBody;
 
   try {
@@ -93,7 +100,7 @@ detour-Werte: "none" (direkt am Weg), "slight" (< 15 min Umweg), "moderate" (15-
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4o-mini",
       temperature: 0.6,
       max_tokens: 3000,
       response_format: { type: "json_object" },
@@ -152,7 +159,11 @@ detour-Werte: "none" (direkt am Weg), "slight" (< 15 min Umweg), "moderate" (15-
 
     return NextResponse.json({ stops }, { status: 200 });
   } catch (err) {
-    console.error("suggest-stops OpenAI error:", err);
+    const e = err as { message?: string; status?: number; code?: string; error?: { code?: string; message?: string } };
+    const httpStatus = e.status ?? "?";
+    const errCode = e.code ?? e.error?.code ?? "?";
+    const msg = (e.message ?? String(err)).slice(0, 200);
+    console.error(`suggest-stops[${httpStatus}/${errCode}]: ${msg}`);
     return NextResponse.json(
       { error: "KI-Anfrage fehlgeschlagen. Bitte versuche es erneut." },
       { status: 500 }

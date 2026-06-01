@@ -1704,32 +1704,35 @@ function PlannerPageContent() {
             </svg>
           </button>
 
-          {/* Sekundäraktionen — Teilen + Anderer Vorschlag */}
+          {/* Sekundäraktion — nur ein klarer nächster Schritt */}
           <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                const planToShare = selectedPlan ?? latestSavedPlan;
-                if (planToShare) void sharePlan(planToShare);
-                else showToast("Speichere den Plan zuerst, um ihn zu teilen.");
-              }}
-              disabled={plannedStops.length === 0}
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98] disabled:opacity-60"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-              </svg>
-              {groupEnabled ? "Link an Gruppe" : "Teilen"}
-            </button>
-            <button
-              type="button"
-              onClick={rerollPlan}
-              disabled={plannedStops.length === 0}
-              className="flex flex-1 items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)] active:scale-[0.98] disabled:opacity-60"
-            >
-              Anderer Vorschlag
-            </button>
+            {groupEnabled ? (
+              <button
+                type="button"
+                onClick={() => {
+                  const planToShare = selectedPlan ?? latestSavedPlan;
+                  if (planToShare) void sharePlan(planToShare);
+                  else showToast("Speichere den Plan zuerst, um ihn zu teilen.");
+                }}
+                disabled={plannedStops.length === 0}
+                className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98] disabled:opacity-60"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                  <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>
+                Link an Gruppe
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
+                disabled={!authReady || !userId || saving || plannedStops.length === 0}
+                className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98] disabled:opacity-60"
+              >
+                {!authReady ? "Auth..." : !userId ? "Login nötig" : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
+              </button>
+            )}
           </div>
 
           {/* Gruppenkontext-Hinweis */}
@@ -1743,7 +1746,7 @@ function PlannerPageContent() {
             </div>
           )}
 
-          {/* Tertiäraktionen — Mobile: hinter Toggle; Desktop: sichtbar */}
+          {/* Weitere Optionen — Mobile: hinter Toggle; Desktop: sichtbar */}
           <button
             type="button"
             onClick={() => setShowWeitere((v) => !v)}
@@ -1756,12 +1759,34 @@ function PlannerPageContent() {
           >
             <button
               type="button"
-              onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
-              disabled={!authReady || !userId || saving || plannedStops.length === 0}
+              onClick={rerollPlan}
+              disabled={plannedStops.length === 0}
               className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
             >
-              {!authReady ? "Auth..." : !userId ? "Login nötig" : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
+              Anderer Vorschlag
             </button>
+            <button
+              type="button"
+              onClick={() => {
+                const planToShare = selectedPlan ?? latestSavedPlan;
+                if (planToShare) void sharePlan(planToShare);
+                else showToast("Speichere den Plan zuerst, um ihn zu teilen.");
+              }}
+              disabled={plannedStops.length === 0}
+              className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
+            >
+              {groupEnabled ? "Link an Gruppe" : "Teilen"}
+            </button>
+            {!groupEnabled ? (
+              <button
+                type="button"
+                onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
+                disabled={!authReady || !userId || saving || plannedStops.length === 0}
+                className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
+              >
+                {!authReady ? "Auth..." : !userId ? "Login nötig" : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
+              </button>
+            ) : null}
             <button
               type="button"
               onClick={resetPlan}

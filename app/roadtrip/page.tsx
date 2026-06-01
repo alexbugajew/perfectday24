@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
@@ -157,7 +158,10 @@ function RoadtripPageContent() {
   const templateLoadedRef = useRef(false);
   const [templateBanner, setTemplateBanner] = useState<{ title: string; slug: string } | null>(null);
 
-  // Plan-Modus: individuelle Planung vs. Creator-Routen Karussell
+  // Hero entry mode — drives the lower page content
+  const [heroMode, setHeroMode] = useState<"ki" | "individual" | "creator">("individual");
+
+  // Plan-Modus: individuelle Planung vs. Creator-Routen Karussell (synced to heroMode)
   const [planMode, setPlanMode] = useState<"individual" | "creator">("individual");
   const [creatorRoutes, setCreatorRoutes] = useState<RoadtripRoute[]>([]);
   const [creatorRoutesLoading, setCreatorRoutesLoading] = useState(false);
@@ -184,6 +188,12 @@ function RoadtripPageContent() {
       setUserId(data.session?.user?.id ?? null);
     });
   }, []);
+
+  // Sync heroMode → planMode so the route-builder stays in sync
+  useEffect(() => {
+    if (heroMode === "creator") setPlanMode("creator");
+    else if (heroMode === "individual") setPlanMode("individual");
+  }, [heroMode]);
 
   // Pre-populate planner from a saved route template (?fromRouteSlug=&startDate=)
   useEffect(() => {
@@ -671,30 +681,197 @@ function RoadtripPageContent() {
             </div>
           )}
 
-          {/* Badges */}
-          <div className="mb-1 flex flex-wrap items-center gap-2">
+          {/* Hero heading */}
+          <div className="mb-1 flex items-center gap-2">
             <span className="warm-chip rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em]">
               Roadtrip
             </span>
-            {stops.length > 0 && (
-              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
-                {stops.length} {stops.length === 1 ? "Stadt" : "Städte"} · {totalNights}{" "}
-                {totalNights === 1 ? "Nacht" : "Nächte"}
-              </span>
-            )}
           </div>
-
           <h1 className="text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
-            {tripName.trim() || "Roadtrip planen"}
+            Wie möchtest du planen?
           </h1>
-          <p className="mt-1.5 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-            Wähle Städte, lege die Reihenfolge und Aufenthaltsdauer fest. Für jede Stadt
-            erstellen wir einen konkreten Tagesplan.
+          <p className="mt-1.5 mb-4 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+            Wähle deinen Einstieg — die KI macht Vorschläge, du planst selbst oder nutzt fertige Creator-Routen.
           </p>
+
+          {/* ── 3 Foto-Einstiegskarten ─────────────────────────────────────── */}
+          <div className="grid gap-3 sm:grid-cols-3">
+
+            {/* KI-Planung */}
+            <button
+              type="button"
+              onClick={() => setHeroMode("ki")}
+              className={`group relative overflow-hidden rounded-2xl text-left transition active:scale-[0.98] ${
+                heroMode === "ki"
+                  ? "ring-2 ring-[#b76a43] ring-offset-2 shadow-lg"
+                  : "shadow-sm hover:shadow-md"
+              }`}
+              style={{ height: 200 }}
+            >
+              <Image
+                src="/roadtrip/mode-ki.png"
+                alt="KI-Planung"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+              {heroMode === "ki" && (
+                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#b76a43] shadow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </div>
+              )}
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#b76a43]/90 backdrop-blur-sm">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-4 w-4">
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+                    </svg>
+                  </span>
+                  <span className="text-sm font-bold text-white drop-shadow">KI-Planung</span>
+                </div>
+                <p className="mt-1 text-xs leading-4 text-white/80">
+                  KI schlägt Zwischenstopps &amp; Highlights vor
+                </p>
+              </div>
+            </button>
+
+            {/* Individuell planen */}
+            <button
+              type="button"
+              onClick={() => setHeroMode("individual")}
+              className={`group relative overflow-hidden rounded-2xl text-left transition active:scale-[0.98] ${
+                heroMode === "individual"
+                  ? "ring-2 ring-[#5a7688] ring-offset-2 shadow-lg"
+                  : "shadow-sm hover:shadow-md"
+              }`}
+              style={{ height: 200 }}
+            >
+              <Image
+                src="/roadtrip/mode-individual.png"
+                alt="Individuell planen"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+              {heroMode === "individual" && (
+                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#5a7688] shadow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </div>
+              )}
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#5a7688]/90 backdrop-blur-sm">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-4 w-4">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                  </span>
+                  <span className="text-sm font-bold text-white drop-shadow">Individuell planen</span>
+                </div>
+                <p className="mt-1 text-xs leading-4 text-white/80">
+                  Städte, Nächte &amp; Tagespläne selbst zusammenstellen
+                </p>
+              </div>
+            </button>
+
+            {/* Creator Routen */}
+            <button
+              type="button"
+              onClick={() => setHeroMode("creator")}
+              className={`group relative overflow-hidden rounded-2xl text-left transition active:scale-[0.98] ${
+                heroMode === "creator"
+                  ? "ring-2 ring-[#7c6fa0] ring-offset-2 shadow-lg"
+                  : "shadow-sm hover:shadow-md"
+              }`}
+              style={{ height: 200 }}
+            >
+              <Image
+                src="/roadtrip/mode-creator.png"
+                alt="Creator Routen"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+              {heroMode === "creator" && (
+                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#7c6fa0] shadow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </div>
+              )}
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#7c6fa0]/90 backdrop-blur-sm">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-4 w-4">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  </span>
+                  <span className="text-sm font-bold text-white drop-shadow">Creator Routen</span>
+                </div>
+                <p className="mt-1 text-xs leading-4 text-white/80">
+                  Fertige Routen von Creators als Vorlage nutzen
+                </p>
+              </div>
+            </button>
+
+          </div>
         </div>
       </section>
 
+      {/* ── KI-Planung Panel ────────────────────────────────────────────── */}
+      {heroMode === "ki" && (
+        <section className="overflow-hidden rounded-2xl border border-[rgba(183,106,67,0.2)] bg-white shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
+          <div className="relative bg-[linear-gradient(135deg,rgba(183,106,67,0.08),rgba(183,106,67,0.03))] px-5 py-8 text-center">
+            <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-[rgba(183,106,67,0.1)] blur-3xl" />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-32 rounded-full bg-[rgba(183,106,67,0.07)] blur-2xl" />
+            <div className="relative">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#b76a43] shadow-[0_4px_14px_rgba(183,106,67,0.35)]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-7 w-7">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-semibold text-[var(--text-strong)]">KI-Planung</h2>
+              <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-[var(--text-muted)]">
+                Gib Start und Ziel an — die KI schlägt dir die besten Zwischenstopps, Sehenswürdigkeiten
+                und Highlights passend zu deinen Vorlieben vor.
+              </p>
+              <a
+                href="/roadtrip/discover"
+                className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-[#b76a43] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#9d5a38] active:scale-[0.97]"
+              >
+                KI-Route entdecken
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 divide-x divide-[var(--line-subtle)] border-t border-[var(--line-subtle)]">
+            {[
+              { icon: "🗺️", label: "Strecke eingeben" },
+              { icon: "✨", label: "KI generiert Stopps" },
+              { icon: "🚗", label: "Route starten" },
+            ].map(({ icon, label }) => (
+              <div key={label} className="flex flex-col items-center gap-1.5 px-3 py-4">
+                <span className="text-xl">{icon}</span>
+                <span className="text-center text-[11px] font-medium text-[var(--text-muted)]">{label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ── Trip settings ───────────────────────────────────────────────── */}
+      {heroMode !== "ki" && (
       <section className="rounded-xl bg-white p-3 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
         <div className="grid gap-2 sm:grid-cols-3">
           {/* Trip name */}
@@ -747,12 +924,14 @@ function RoadtripPageContent() {
           </label>
         </div>
       </section>
+      )}
 
       {/* ── Route builder ───────────────────────────────────────────────── */}
+      {heroMode !== "ki" && (
       <section className="rounded-xl bg-white p-4 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
-        {/* ── Header mit Mode-Switcher ─────────────────────────────────── */}
+        {/* ── Header mit Mode-Switcher — versteckt wenn heroMode schon bestimmt ─── */}
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          {/* Segmented control */}
+          {/* Segmented control — nur zeigen wenn heroMode="individual", nicht wenn "creator" (da redundant) */}
           <div className="flex items-center gap-0.5 rounded-xl border border-[rgba(17,24,39,0.08)] bg-[var(--bg-surface)] p-0.5">
             <button
               type="button"
@@ -1164,9 +1343,10 @@ function RoadtripPageContent() {
           </div>
         )}
       </section>
+      )}
 
       {/* ── Empty state ─────────────────────────────────────────────────── */}
-      {stops.length === 0 && (
+      {stops.length === 0 && heroMode === "individual" && (
         <section className="rounded-xl border border-dashed border-[rgba(23,23,23,0.15)] bg-[var(--bg-surface)] px-6 py-10 text-center">
           <div className="mb-3 text-4xl">🗺️</div>
           <div className="font-semibold text-[var(--text-strong)]">Starte deinen Roadtrip</div>
