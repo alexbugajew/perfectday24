@@ -3,6 +3,7 @@
 // app/roadtrip/discover/page.tsx
 // "Route entdecken" — KI schlägt Zwischenstopps vor (ähnlich Roadtrippers).
 
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -22,6 +23,77 @@ const DiscoverMap = dynamic(
   () => import("@/components/roadtrip/DiscoverMap"),
   { ssr: false, loading: () => <div className="flex h-full items-center justify-center text-sm text-[var(--text-muted)]">Karte wird geladen…</div> }
 ) as React.ComponentType<DiscoverMapProps>;
+
+// ── Inspirations-Routen ───────────────────────────────────────────────────────
+
+type InspirationRoute = {
+  image: string;
+  name: string;
+  from: string;
+  to: string;
+  fromCoords: { lat: number; lng: number };
+  toCoords: { lat: number; lng: number };
+  tags: string[];
+  emoji: string;
+};
+
+const INSPIRATION_ROUTES: InspirationRoute[] = [
+  {
+    image: "/roadtrip/route-romantische-strasse.png",
+    name: "Romantische Straße",
+    from: "Würzburg",
+    to: "Füssen",
+    fromCoords: { lat: 49.7988, lng: 9.9361 },
+    toCoords: { lat: 47.5710, lng: 10.7017 },
+    tags: ["Mittelalter", "Fachwerk", "Kultur"],
+    emoji: "🏰",
+  },
+  {
+    image: "/roadtrip/route-mosel.png",
+    name: "Mosel & Rhein",
+    from: "Koblenz",
+    to: "Trier",
+    fromCoords: { lat: 50.3569, lng: 7.5890 },
+    toCoords: { lat: 49.7499, lng: 6.6371 },
+    tags: ["Burgen", "Weinberge", "Fluss"],
+    emoji: "🍷",
+  },
+  {
+    image: "/roadtrip/route-schwarzwald.png",
+    name: "Schwarzwald",
+    from: "Baden-Baden",
+    to: "Freiburg im Breisgau",
+    fromCoords: { lat: 48.7644, lng: 8.2467 },
+    toCoords: { lat: 47.9990, lng: 7.8421 },
+    tags: ["Wälder", "Natur", "Wandern"],
+    emoji: "🌲",
+  },
+  {
+    image: "/roadtrip/route-alpen.png",
+    name: "Deutsche Alpenstraße",
+    from: "Lindau",
+    to: "Berchtesgaden",
+    fromCoords: { lat: 47.5459, lng: 9.6826 },
+    toCoords: { lat: 47.6340, lng: 13.0028 },
+    tags: ["Alpen", "Seen", "Panorama"],
+    emoji: "⛰️",
+  },
+];
+
+// ── Kategorie-Farben für Stop-Karten ──────────────────────────────────────────
+
+const CATEGORY_GRADIENT: Record<string, string> = {
+  nature:    "from-emerald-500 to-green-600",
+  lake:      "from-blue-400 to-cyan-600",
+  viewpoint: "from-orange-400 to-amber-500",
+  culture:   "from-violet-500 to-purple-600",
+  castle:    "from-stone-500 to-gray-600",
+  food:      "from-red-400 to-rose-500",
+  town:      "from-yellow-400 to-amber-500",
+  adventure: "from-lime-500 to-green-600",
+  beach:     "from-sky-400 to-blue-500",
+  market:    "from-pink-400 to-rose-500",
+};
 
 // ── Typen ─────────────────────────────────────────────────────────────────────
 
@@ -59,12 +131,10 @@ function LocationInput({
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // Sync external value
   useEffect(() => {
     if (value) setQuery(value.label);
   }, [value]);
 
-  // Click outside → close
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
@@ -83,7 +153,6 @@ function LocationInput({
       setOpen(false);
       return;
     }
-
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
       setLoading(true);
@@ -113,7 +182,7 @@ function LocationInput({
 
   return (
     <div ref={wrapperRef} className="relative flex-1">
-      <div className="flex items-center gap-2 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2.5 transition focus-within:border-[rgba(23,23,23,0.35)] focus-within:ring-2 focus-within:ring-[rgba(23,23,23,0.06)]">
+      <div className="flex items-center gap-2 rounded-xl border border-white/40 bg-white/90 px-3 py-2.5 backdrop-blur-sm transition focus-within:border-white focus-within:ring-2 focus-within:ring-white/30">
         <span className="text-base">{icon}</span>
         <input
           type="text"
@@ -121,16 +190,16 @@ function LocationInput({
           onChange={(e) => handleChange(e.target.value)}
           onFocus={() => suggestions.length > 0 && setOpen(true)}
           placeholder={placeholder}
-          className="flex-1 bg-transparent text-sm text-[var(--text-strong)] outline-none placeholder:text-[var(--text-muted)]"
+          className="flex-1 bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-500"
         />
         {loading && (
-          <div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--line-subtle)] border-t-[var(--text-muted)]" />
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-500" />
         )}
         {value && (
           <button
             type="button"
             onClick={() => { setQuery(""); onSelect(null); setSuggestions([]); setOpen(false); }}
-            className="text-[var(--text-muted)] hover:text-[var(--text-strong)]"
+            className="text-gray-400 hover:text-gray-700"
           >
             ✕
           </button>
@@ -175,64 +244,60 @@ function StopCard({
   onToggle: () => void;
   onHover: (id: string | null) => void;
 }) {
+  const gradientClass = CATEGORY_GRADIENT[stop.category] ?? "from-amber-400 to-orange-500";
+
   return (
     <div
       onMouseEnter={() => onHover(stop.id)}
       onMouseLeave={() => onHover(null)}
-      className={`relative overflow-hidden rounded-2xl border p-4 transition-all cursor-pointer ${
+      className={`relative overflow-hidden rounded-2xl border transition-all cursor-pointer ${
         active
-          ? "border-amber-300 bg-amber-50/60 shadow-md"
+          ? "border-amber-300 shadow-md"
           : selected
-          ? "border-emerald-300 bg-emerald-50/40 shadow-sm"
+          ? "border-emerald-300 shadow-sm"
           : "border-[var(--line-subtle)] bg-white hover:border-[rgba(23,23,23,0.2)] hover:shadow-sm"
       }`}
       onClick={onToggle}
     >
-      {/* Nummer */}
-      <div className="absolute left-4 top-4">
-        <div
-          className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white ${
-            selected ? "bg-emerald-500" : "bg-amber-500"
-          }`}
-        >
-          {number}
-        </div>
-      </div>
+      {/* Kategorie-Bild-Banner */}
+      <div className={`relative flex h-20 items-center justify-center bg-gradient-to-r ${gradientClass}`}>
+        <span className="text-4xl drop-shadow-sm">{stop.emoji}</span>
 
-      {/* Ausgewählt-Checkmark */}
-      {selected && (
-        <div className="absolute right-4 top-4 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white text-xs">
-          ✓
+        {/* Nummer-Badge */}
+        <div className="absolute left-3 top-3">
+          <div className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white shadow ${
+            selected ? "bg-emerald-500" : "bg-white/30 backdrop-blur-sm"
+          }`}>
+            {number}
+          </div>
         </div>
-      )}
 
-      <div className="pl-10 pr-8">
-        {/* Header */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xl">{stop.emoji}</span>
-          <span className="font-semibold text-[var(--text-strong)]">{stop.name}</span>
-          <span
-            className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium ${
-              DETOUR_COLORS[stop.detour]
-            }`}
-          >
+        {/* Ausgewählt-Badge */}
+        {selected && (
+          <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white text-xs shadow">
+            ✓
+          </div>
+        )}
+
+        {/* Detour + Dauer rechts unten */}
+        <div className="absolute bottom-2 right-2 flex gap-1">
+          <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium bg-white/90 ${DETOUR_COLORS[stop.detour]}`}>
             {DETOUR_LABELS[stop.detour]}
           </span>
-          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2 py-0.5 text-[10px] text-[var(--text-muted)]">
+          <span className="rounded-full bg-white/90 border border-[var(--line-subtle)] px-2 py-0.5 text-[10px] text-[var(--text-muted)]">
             ⏱ {durationLabel(stop.duration_min)}
           </span>
         </div>
+      </div>
 
-        {/* Beschreibung */}
-        <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{stop.description}</p>
-
-        {/* Warum lohnt es sich */}
+      {/* Text-Bereich */}
+      <div className={`p-4 ${selected ? "bg-emerald-50/40" : active ? "bg-amber-50/60" : "bg-white"}`}>
+        <div className="font-semibold text-[var(--text-strong)]">{stop.name}</div>
+        <p className="mt-1.5 text-sm leading-5 text-[var(--text-muted)]">{stop.description}</p>
         <div className="mt-2 flex items-start gap-1.5">
           <span className="mt-0.5 shrink-0 text-amber-500">★</span>
           <p className="text-xs font-medium text-[var(--text-strong)]">{stop.why_visit}</p>
         </div>
-
-        {/* Toggle-Text */}
         <div className="mt-3 text-xs font-semibold">
           {selected ? (
             <span className="text-emerald-600">✓ Zur Route hinzugefügt — klicken zum Entfernen</span>
@@ -282,6 +347,13 @@ export default function RoadtripDiscoverPage() {
     });
   }
 
+  function handleInspirationClick(route: InspirationRoute) {
+    setFrom({ label: route.from, ...route.fromCoords });
+    setTo({ label: route.to, ...route.toCoords });
+    // Scroll to search area smoothly
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   const handleSuggest = useCallback(async () => {
     if (!from || !to) return;
     setLoading(true);
@@ -315,7 +387,6 @@ export default function RoadtripDiscoverPage() {
       setResult(data.stops ?? []);
       setResultFrom(from);
       setResultTo(to);
-      // Standardmäßig alle direkt-am-Weg Stopps vorauswählen
       const autoSelect = new Set(
         (data.stops ?? [])
           .filter((s) => s.detour === "none" || s.detour === "slight")
@@ -332,12 +403,9 @@ export default function RoadtripDiscoverPage() {
   function handlePlanRoadtrip() {
     if (!resultFrom || !resultTo || selectedIds.size === 0) return;
 
-    // Ausgewählte Stopps in Reihenfolge
     const orderedStops = result.filter((s) => selectedIds.has(s.id));
 
-    // Als RoadtripRouteStop-ähnliche Objekte (cityLabel, lat, lng, nights)
     const stopsForPlanner = [
-      // Start-Stadt als ersten Stop
       {
         citySlug: slugifyTitle(resultFrom.label.split(",")[0] ?? resultFrom.label),
         cityLabel: resultFrom.label.split(",")[0]?.trim() ?? resultFrom.label,
@@ -345,7 +413,6 @@ export default function RoadtripDiscoverPage() {
         lng: resultFrom.lng,
         nights: 0,
       },
-      // Zwischenstopps
       ...orderedStops.map((s) => ({
         citySlug: slugifyTitle(s.name),
         cityLabel: s.name,
@@ -353,7 +420,6 @@ export default function RoadtripDiscoverPage() {
         lng: s.lng,
         nights: Math.max(1, Math.round(s.duration_min / (24 * 60))),
       })),
-      // Ziel als letzten Stop
       {
         citySlug: slugifyTitle(resultTo.label.split(",")[0] ?? resultTo.label),
         cityLabel: resultTo.label.split(",")[0]?.trim() ?? resultTo.label,
@@ -363,7 +429,6 @@ export default function RoadtripDiscoverPage() {
       },
     ];
 
-    // In sessionStorage speichern → /roadtrip liest es aus
     if (typeof window !== "undefined") {
       window.sessionStorage.setItem(
         "roadtrip_discover_stops",
@@ -384,117 +449,116 @@ export default function RoadtripDiscoverPage() {
 
   return (
     <main className="pd24-page-wide space-y-6">
-      {/* ── Header ────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-6 shadow-[var(--shadow-soft)]">
-        <div className="pointer-events-none absolute right-[-4rem] top-[-4rem] h-56 w-56 rounded-full bg-[rgba(183,106,67,0.08)] blur-3xl" />
-        <div className="pointer-events-none absolute bottom-[-3rem] left-[20%] h-40 w-40 rounded-full bg-[rgba(90,118,136,0.08)] blur-3xl" />
 
-        <div className="relative">
+      {/* ── Hero mit Hintergrundfoto ───────────────────────────────────────── */}
+      <section className="relative overflow-hidden rounded-2xl shadow-lg" style={{ minHeight: 280 }}>
+        <Image
+          src="/roadtrip/hero-discover.png"
+          alt="Roadtrip auf der Autobahn im Sonnenuntergang"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="(max-width: 768px) 100vw, 1200px"
+        />
+        {/* Gradient-Overlay: unten dunkel für Lesbarkeit */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
+
+        {/* Inhalt */}
+        <div className="relative z-10 px-6 pb-8 pt-6">
           {/* Breadcrumb */}
-          <div className="mb-3 flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
-            <Link href="/roadtrip" className="transition hover:text-[var(--text-strong)]">Roadtrip</Link>
+          <div className="mb-4 flex items-center gap-1.5 text-xs text-white/70">
+            <Link href="/roadtrip" className="transition hover:text-white">Roadtrip</Link>
             <span>/</span>
-            <span className="text-[var(--text-strong)]">Route entdecken</span>
+            <span className="text-white/90">Route entdecken</span>
           </div>
 
-          <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-3xl">
-            🗺️ Route entdecken
+          <h1 className="text-2xl font-bold tracking-tight text-white drop-shadow-md sm:text-3xl">
+            Dein Roadtrip, perfekt geplant ✨
           </h1>
-          <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--text-muted)]">
-            Gib Start und Ziel ein — perfectday schlägt dir die schönsten Zwischenstopps vor.
-            Seen, Aussichten, Burgen, Geheimtipps.
+          <p className="mt-2 max-w-xl text-sm leading-6 text-white/85 drop-shadow-sm">
+            KI findet die schönsten Zwischenstopps für deine Route —
+            Seen, Panoramen, Burgen und Geheimtipps.
           </p>
-        </div>
-      </section>
 
-      {/* ── Eingabe-Panel ─────────────────────────────────────────────────── */}
-      <section className="rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-5 shadow-sm">
-        <div className="space-y-4">
-          {/* From / To */}
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <LocationInput
-              placeholder="Startort eingeben…"
-              value={from}
-              onSelect={setFrom}
-              icon="🟢"
-            />
-            <div className="flex shrink-0 items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 rotate-90 text-[var(--text-muted)] sm:rotate-0">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+          {/* Such-Formular direkt im Hero */}
+          <div className="mt-5 space-y-3 max-w-2xl">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <LocationInput
+                placeholder="Startort eingeben…"
+                value={from}
+                onSelect={setFrom}
+                icon="🟢"
+              />
+              <div className="flex shrink-0 items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 rotate-90 text-white/60 sm:rotate-0">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+              <LocationInput
+                placeholder="Zielort eingeben…"
+                value={to}
+                onSelect={setTo}
+                icon="🔴"
+              />
             </div>
-            <LocationInput
-              placeholder="Zielort eingeben…"
-              value={to}
-              onSelect={setTo}
-              icon="🔴"
-            />
-          </div>
 
-          {/* Präferenzen */}
-          <div>
-            <div className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-              Was interessiert dich? (optional)
-            </div>
-            <div className="flex flex-wrap gap-2">
+            {/* Präferenzen + Button in einer Zeile */}
+            <div className="flex flex-wrap items-center gap-2">
               {ROUTE_PREFERENCES.map((p) => (
                 <button
                   key={p.value}
                   type="button"
                   onClick={() => togglePreference(p.value)}
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+                  className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium transition ${
                     preferences.has(p.value)
-                      ? "border-amber-400 bg-amber-50 text-amber-800"
-                      : "border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)] hover:border-[rgba(23,23,23,0.2)] hover:bg-white hover:text-[var(--text-strong)]"
+                      ? "border-amber-300 bg-amber-400/80 text-white backdrop-blur-sm"
+                      : "border-white/30 bg-white/15 text-white/80 backdrop-blur-sm hover:bg-white/25 hover:text-white"
                   }`}
                 >
                   {p.emoji} {p.label}
                 </button>
               ))}
             </div>
-          </div>
 
-          {/* Anzahl Stopps + Button */}
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-[var(--text-muted)]">Anzahl Stopps:</span>
-              {[3, 5, 6, 8, 10].map((n) => (
-                <button
-                  key={n}
-                  type="button"
-                  onClick={() => setStopCount(n)}
-                  className={`rounded-full px-2.5 py-1 text-xs font-semibold transition ${
-                    stopCount === n
-                      ? "bg-[var(--text-strong)] text-white"
-                      : "border border-[var(--line-subtle)] bg-white text-[var(--text-muted)] hover:bg-[var(--bg-surface)]"
-                  }`}
-                >
-                  {n}
-                </button>
-              ))}
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs text-white/70">Stopps:</span>
+                {[3, 5, 6, 8, 10].map((n) => (
+                  <button
+                    key={n}
+                    type="button"
+                    onClick={() => setStopCount(n)}
+                    className={`rounded-full px-2.5 py-1 text-xs font-semibold transition ${
+                      stopCount === n
+                        ? "bg-white text-gray-800"
+                        : "border border-white/30 bg-white/15 text-white/80 hover:bg-white/25 backdrop-blur-sm"
+                    }`}
+                  >
+                    {n}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={handleSuggest}
+                disabled={!canSuggest}
+                className={`ml-auto inline-flex items-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-semibold transition active:scale-[0.97] ${
+                  canSuggest
+                    ? "bg-amber-500 text-white shadow-md hover:bg-amber-400"
+                    : "cursor-not-allowed bg-white/20 text-white/40 backdrop-blur-sm"
+                }`}
+              >
+                {loading ? (
+                  <>
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                    KI analysiert Route…
+                  </>
+                ) : (
+                  <>✨ Stopps vorschlagen</>
+                )}
+              </button>
             </div>
-
-            <button
-              type="button"
-              onClick={handleSuggest}
-              disabled={!canSuggest}
-              className={`ml-auto inline-flex items-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-semibold transition active:scale-[0.97] ${
-                canSuggest
-                  ? "bg-amber-500 text-white shadow-sm hover:bg-amber-600"
-                  : "cursor-not-allowed bg-[rgba(23,23,23,0.08)] text-[var(--text-muted)]"
-              }`}
-            >
-              {loading ? (
-                <>
-                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
-                  KI analysiert Route…
-                </>
-              ) : (
-                <>
-                  ✨ Stopps vorschlagen
-                </>
-              )}
-            </button>
           </div>
         </div>
       </section>
@@ -512,7 +576,7 @@ export default function RoadtripDiscoverPage() {
           {/* Zusammenfassung */}
           <div className="flex flex-wrap items-center gap-3 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm">
             <span className="text-[var(--text-muted)]">
-              <strong className="text-[var(--text-strong)]">{result.length}</strong> Stopps vorgeschlagen zwischen{" "}
+              <strong className="text-[var(--text-strong)]">{result.length}</strong> Stopps zwischen{" "}
               <strong className="text-[var(--text-strong)]">{resultFrom.label.split(",")[0]}</strong>
               {" → "}
               <strong className="text-[var(--text-strong)]">{resultTo.label.split(",")[0]}</strong>
@@ -547,7 +611,7 @@ export default function RoadtripDiscoverPage() {
               </div>
             </div>
 
-            {/* Stop-Karten (rechts / unten) */}
+            {/* Stop-Karten */}
             <div className="order-1 space-y-3 lg:order-2">
               {result.map((stop, idx) => (
                 <StopCard
@@ -578,10 +642,7 @@ export default function RoadtripDiscoverPage() {
                     </div>
                     <div className="mt-0.5 text-sm text-amber-700">
                       {resultFrom.label.split(",")[0]} →{" "}
-                      {result
-                        .filter((s) => selectedIds.has(s.id))
-                        .map((s) => s.name)
-                        .join(" → ")}{" "}
+                      {result.filter((s) => selectedIds.has(s.id)).map((s) => s.name).join(" → ")}{" "}
                       → {resultTo.label.split(",")[0]}
                     </div>
                   </>
@@ -596,7 +657,6 @@ export default function RoadtripDiscoverPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    // Alle auswählen / abwählen
                     if (selectedCount === result.length) {
                       setSelectedIds(new Set());
                     } else {
@@ -629,24 +689,69 @@ export default function RoadtripDiscoverPage() {
         </>
       )}
 
-      {/* ── Empty state (noch keine Suche) ────────────────────────────────── */}
+      {/* ── Empty State: Inspirations-Routen ──────────────────────────────── */}
       {!loading && result.length === 0 && !error && (
-        <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] bg-white px-6 py-12 text-center">
-          <div className="text-4xl">🗺️</div>
-          <div className="mt-3 text-base font-semibold text-[var(--text-strong)]">
-            Wohin geht die Reise?
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
+              Beliebte Routen als Inspiration
+            </h2>
+            <div className="h-px flex-1 bg-[var(--line-subtle)]" />
           </div>
-          <p className="mt-2 text-sm text-[var(--text-muted)]">
-            Gib Start und Ziel ein und klicke auf „Stopps vorschlagen" — die KI findet die besten
-            Zwischenstopps für dich.
-          </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2 text-sm text-[var(--text-muted)]">
-            {["🌿 Seen & Natur", "🏰 Burgen", "👁️ Aussichten", "🍽️ Kulinarik"].map((t) => (
-              <span key={t} className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1 text-xs">
-                {t}
-              </span>
+
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {INSPIRATION_ROUTES.map((route) => (
+              <button
+                key={route.name}
+                type="button"
+                onClick={() => handleInspirationClick(route)}
+                className="group relative overflow-hidden rounded-2xl text-left shadow-sm transition hover:shadow-lg active:scale-[0.98]"
+                style={{ height: 200 }}
+              >
+                {/* Foto */}
+                <Image
+                  src={route.image}
+                  alt={route.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+                {/* Gradient-Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+
+                {/* Text */}
+                <div className="absolute bottom-0 left-0 right-0 p-3">
+                  <div className="text-base font-bold text-white drop-shadow">
+                    {route.emoji} {route.name}
+                  </div>
+                  <div className="mt-0.5 text-xs text-white/80">
+                    {route.from} → {route.to}
+                  </div>
+                  <div className="mt-1.5 flex flex-wrap gap-1">
+                    {route.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Hover-Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                  <span className="rounded-full bg-amber-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg">
+                    Route starten ✨
+                  </span>
+                </div>
+              </button>
             ))}
           </div>
+
+          <p className="text-center text-xs text-[var(--text-muted)]">
+            Klicke auf eine Route — oder gib oben deinen eigenen Start- und Zielort ein.
+          </p>
         </div>
       )}
 
@@ -654,11 +759,13 @@ export default function RoadtripDiscoverPage() {
       {loading && (
         <div className="space-y-3">
           {Array.from({ length: stopCount }).map((_, i) => (
-            <div key={i} className="animate-pulse rounded-2xl border border-[var(--line-subtle)] bg-white p-4">
-              <div className="h-4 w-32 rounded bg-[var(--bg-panel)]" />
-              <div className="mt-3 h-3 w-full rounded bg-[var(--bg-panel)]" />
-              <div className="mt-2 h-3 w-4/5 rounded bg-[var(--bg-panel)]" />
-              <div className="mt-4 h-3 w-1/3 rounded bg-[var(--bg-panel)]" />
+            <div key={i} className="animate-pulse overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white">
+              <div className="h-20 bg-gradient-to-r from-gray-200 to-gray-100" />
+              <div className="p-4 space-y-2">
+                <div className="h-4 w-32 rounded bg-gray-200" />
+                <div className="h-3 w-full rounded bg-gray-100" />
+                <div className="h-3 w-4/5 rounded bg-gray-100" />
+              </div>
             </div>
           ))}
         </div>
