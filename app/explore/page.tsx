@@ -185,9 +185,9 @@ function countryLabel(code: string | null | undefined) {
 function niceCreatorType(v: CreatorType | null | undefined) {
   if (v === "influencer") return "Influencer";
   if (v === "creator") return "Creator";
-  if (v === "brand") return "Brand";
-  if (v === "editorial") return "Editorial";
-  return "User";
+  if (v === "brand") return "Marke";
+  if (v === "editorial") return "Redaktion";
+  return "Community";
 }
 
 function formatDate(iso: string | null | undefined) {
@@ -992,7 +992,7 @@ function ExplorePageContent() {
               aria-label="Routen suchen"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Titel, Creator, Startpunkt oder Stadt..."
+              placeholder="Stadt, Thema oder Stimmung suchen…"
               className={filterControlClass}
             />
 
@@ -1066,7 +1066,7 @@ function ExplorePageContent() {
           <details className="mt-2 rounded-2xl border border-black/5 bg-white/50 px-3 py-2">
             <summary className="cursor-pointer list-none text-xs font-medium text-[var(--text-muted)]">
               Weitere Filter
-              <span className="ml-2 text-[11px] text-gray-400">Land, Typ, Varianten</span>
+              <span className="ml-2 text-[11px] text-gray-400">Land, Quellentyp, Varianten</span>
             </summary>
             <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               <select
@@ -1088,17 +1088,17 @@ function ExplorePageContent() {
               </select>
 
               <select
-                aria-label="Creator-Typ filtern"
+                aria-label="Quellentyp filtern"
                 value={creatorFilter}
                 onChange={(e) => setCreatorFilter(e.target.value as CreatorType | "all")}
                 className={filterControlClass}
               >
-                <option value="all">Alle Typen</option>
-                <option value="user">User</option>
+                <option value="all">Alle Quellen</option>
+                <option value="editorial">Redaktionell</option>
                 <option value="creator">Creator</option>
                 <option value="influencer">Influencer</option>
-                <option value="brand">Brand</option>
-                <option value="editorial">Editorial</option>
+                <option value="brand">Marke</option>
+                <option value="user">Community</option>
               </select>
 
               <select
@@ -1290,27 +1290,6 @@ function ExplorePageContent() {
 
           <section>
             <SectionHeader
-              title="Starke Creator"
-              subtitle="Kuratorinnen, Kuratoren und Creator mit den stärksten Routen."
-            />
-            {topCreators.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Creator gefunden.</div>
-            ) : (
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {topCreators.map((creator) => (
-                  <CreatorCard
-                    key={creator.id}
-                    creator={creator}
-                    cityMap={cityMap}
-                    rankingScore={creatorRankingMap[creator.id] ?? 0}
-                  />
-                ))}
-              </div>
-            )}
-          </section>
-
-          <section>
-            <SectionHeader
               title="Bestbewertet"
               subtitle="Die am höchsten bewerteten Routen."
             />
@@ -1393,6 +1372,26 @@ function ExplorePageContent() {
             )}
           </section>
         </div>
+      )}
+
+      {/* Creator-Sektion — nachgeordnet, nur für Interessierte */}
+      {!loading && topCreators.length > 0 && (
+        <section className="mt-4">
+          <SectionHeader
+            title="Starke Creator"
+            subtitle="Kuratorinnen, Kuratoren und Creator mit den stärksten Routen."
+          />
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {topCreators.map((creator) => (
+              <CreatorCard
+                key={creator.id}
+                creator={creator}
+                cityMap={cityMap}
+                rankingScore={creatorRankingMap[creator.id] ?? 0}
+              />
+            ))}
+          </div>
+        </section>
       )}
 
       {/* Eigene Route erstellen — nachgeordnet, kleiner Textlink */}

@@ -1052,7 +1052,7 @@ function ProfilePageInner() {
 
   return (
     <div className="pd24-page-standard min-h-screen bg-[#f7f4ee]">
-      <div className="mx-auto max-w-5xl space-y-6 px-4 py-8 sm:px-6">
+      <div className="space-y-6 px-4 py-8 sm:px-6">
 
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <div>
@@ -1225,61 +1225,6 @@ function ProfilePageInner() {
             </>
           )}
         </div>
-
-        {/* ── Role badges (creator / partner / corporate) ─────────────────── */}
-        {userId && hasRoleBadge && (
-          <div className="overflow-hidden rounded-[24px] bg-[#171717] p-6">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/50">
-              Rollen & Zugänge
-            </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {(creatorProfile?.creator_type === "creator" ||
-                creatorProfile?.creator_type === "influencer" ||
-                creatorProfile?.creator_type === "brand") && (
-                <Link
-                  href="/creator/dashboard"
-                  className="flex flex-col gap-3 rounded-xl bg-white/[0.08] p-4 text-white transition hover:bg-white/[0.13]"
-                >
-                  <span className="text-2xl leading-none">🎨</span>
-                  <div>
-                    <div className="font-semibold">Creator Studio</div>
-                    <div className="mt-1 text-xs leading-5 text-white/55">
-                      Eigene Routen veröffentlichen und Community aufbauen.
-                    </div>
-                  </div>
-                </Link>
-              )}
-              {hasPartnerProfile === true && !hasCorporateProfile && (
-                <Link
-                  href="/partner/dashboard"
-                  className="flex flex-col gap-3 rounded-xl bg-white/[0.08] p-4 text-white transition hover:bg-white/[0.13]"
-                >
-                  <span className="text-2xl leading-none">🏢</span>
-                  <div>
-                    <div className="font-semibold">Partner-Dashboard</div>
-                    <div className="mt-1 text-xs leading-5 text-white/55">
-                      Listings, Insights und KI-Plan-Platzierungen verwalten.
-                    </div>
-                  </div>
-                </Link>
-              )}
-              {hasCorporateProfile === true && (
-                <Link
-                  href="/business/dashboard"
-                  className="flex flex-col gap-3 rounded-xl bg-white/[0.08] p-4 text-white transition hover:bg-white/[0.13]"
-                >
-                  <span className="text-2xl leading-none">⚡</span>
-                  <div>
-                    <div className="font-semibold">Business-Dashboard</div>
-                    <div className="mt-1 text-xs leading-5 text-white/55">
-                      Events planen, Team einladen und Teilnahmen verwalten.
-                    </div>
-                  </div>
-                </Link>
-              )}
-            </div>
-          </div>
-        )}
 
         {/* ── Two-column layout: interests + public profile ───────────────── */}
         {authReady && userId && !isAnonymous && <div className="grid gap-6 xl:grid-cols-2">
@@ -1747,7 +1692,62 @@ function ProfilePageInner() {
           </div>
         </div>}
 
-        {/* ── Roles & access upsell (non-anonymous, non-role users) ──────────── */}
+        {/* ── Aktive Rollen-Schnellzugriffe ───────────────────────────────── */}
+        {userId && hasRoleBadge && (
+          <div className="overflow-hidden rounded-[24px] bg-[#171717] p-6">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/50">
+              Deine Zugänge
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {(creatorProfile?.creator_type === "creator" ||
+                creatorProfile?.creator_type === "influencer" ||
+                creatorProfile?.creator_type === "brand") && (
+                <Link
+                  href="/creator/dashboard"
+                  className="flex flex-col gap-3 rounded-xl bg-white/[0.08] p-4 text-white transition hover:bg-white/[0.13]"
+                >
+                  <span className="text-2xl leading-none">🎨</span>
+                  <div>
+                    <div className="font-semibold">Creator-Studio</div>
+                    <div className="mt-1 text-xs leading-5 text-white/55">
+                      Eigene Routen veröffentlichen und Community aufbauen.
+                    </div>
+                  </div>
+                </Link>
+              )}
+              {hasPartnerProfile === true && !hasCorporateProfile && (
+                <Link
+                  href="/partner/dashboard"
+                  className="flex flex-col gap-3 rounded-xl bg-white/[0.08] p-4 text-white transition hover:bg-white/[0.13]"
+                >
+                  <span className="text-2xl leading-none">🏢</span>
+                  <div>
+                    <div className="font-semibold">Partner-Dashboard</div>
+                    <div className="mt-1 text-xs leading-5 text-white/55">
+                      Listings, Insights und KI-Plan-Platzierungen verwalten.
+                    </div>
+                  </div>
+                </Link>
+              )}
+              {hasCorporateProfile === true && (
+                <Link
+                  href="/business/dashboard"
+                  className="flex flex-col gap-3 rounded-xl bg-white/[0.08] p-4 text-white transition hover:bg-white/[0.13]"
+                >
+                  <span className="text-2xl leading-none">⚡</span>
+                  <div>
+                    <div className="font-semibold">Business-Dashboard</div>
+                    <div className="mt-1 text-xs leading-5 text-white/55">
+                      Events planen, Team einladen und Teilnahmen verwalten.
+                    </div>
+                  </div>
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ── Mitmachen / Zugänge-Upsell ──────────────────────────────────── */}
         {authReady && userId && !isAnonymous && (
           <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
             <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
@@ -1778,7 +1778,7 @@ function ProfilePageInner() {
                     href="/profile#profile-public"
                     className="inline-flex w-full items-center justify-center rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 py-2.5 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee]"
                   >
-                    Creator Profil einrichten
+                    Creator-Profil einrichten
                   </Link>
                 </div>
               </div>
