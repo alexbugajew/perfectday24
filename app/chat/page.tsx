@@ -157,6 +157,7 @@ function ChatPageContent() {
   const [status, setStatus] = useState<string | null>(null);
   const [friendUserIds, setFriendUserIds] = useState<string[]>([]);
   const [showNewMessagePicker, setShowNewMessagePicker] = useState(false);
+  const [chatUnavailable, setChatUnavailable] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -201,6 +202,12 @@ function ChatPageContent() {
 
         if (friendshipError) {
           console.error(`Chat friendships load error: ${formatSupabaseError(friendshipError)}`);
+          // Postgres error code 42P01 = table does not exist
+          const code = (friendshipError as { code?: string }).code ?? "";
+          if (code === "42P01" || code === "PGRST116") {
+            if (active) setChatUnavailable(true);
+            return;
+          }
           if (active) setStatus(`Die Freundeliste konnte gerade nicht geladen werden (${summarizeChatError(friendshipError)}).`);
           if (active) setFriends([]);
           return;
@@ -234,6 +241,11 @@ function ChatPageContent() {
         }
         if (groupError) {
           console.error(`Group chats load error: ${formatSupabaseError(groupError)}`);
+          const code = (groupError as { code?: string }).code ?? "";
+          if (code === "42P01" || code === "PGRST116") {
+            if (active) setChatUnavailable(true);
+            return;
+          }
         }
         if (unreadError) {
           console.error(`Group chat unread load error: ${formatSupabaseError(unreadError)}`);
@@ -845,6 +857,38 @@ function ChatPageContent() {
       return;
     }
     window.location.href = `/?planId=${encodeURIComponent(activeGroupPlanMeta.plan_id)}&resume=1`;
+  }
+
+  // ── Fallback: Chat-Tabellen fehlen in dieser Umgebung ────────────────────
+  if (chatUnavailable) {
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-16 text-center">
+        <div className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-8 shadow-[var(--shadow-soft)]">
+          <div className="pd24-kicker mb-4">Nachrichten</div>
+          <h1 className="text-xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-2xl">
+            Chat ist noch nicht verfügbar
+          </h1>
+          <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
+            Die Nachrichten-Funktion ist in dieser Umgebung noch nicht vollständig eingerichtet.
+            Gruppenpläne kannst du bereits erstellen und per Link teilen — der Chat folgt in Kürze.
+          </p>
+          <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <a
+              href="/planner"
+              className="inline-flex min-h-10 items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-90"
+            >
+              Zum Planner
+            </a>
+            <a
+              href="/saved"
+              className="inline-flex min-h-10 items-center justify-center rounded-2xl border border-[var(--line-subtle)] px-5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+            >
+              Meine Pläne
+            </a>
+          </div>
+        </div>
+      </main>
+    );
   }
 
   return (

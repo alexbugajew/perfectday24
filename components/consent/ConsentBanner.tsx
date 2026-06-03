@@ -8,12 +8,10 @@ import { getConsentState, setConsent } from "@/lib/consent";
  * DSGVO-konformer Tracking-Consent-Banner.
  *
  * Erscheint beim ersten Besuch, wenn noch keine Entscheidung gespeichert ist.
- * Slides von unten herein (CSS-Transition), verschwindet nach Auswahl ohne
- * Seitenreload.
+ * Slides von unten herein und verschwindet nach Auswahl ohne Seitenreload.
  *
- * Positionierung: bottom-0 mit bottom-padding-Ausgleich für die Mobile
- * Bottom-Nav (pb-20 sm:pb-0).  z-[200] stellt sicher, dass der Banner über
- * allen anderen Fixed-Elementen liegt.
+ * Auf Mobilgeräten sitzt der Banner oberhalb der Bottom-Navigation, auf
+ * größeren Screens kompakter als schwebende Karte rechts unten.
  */
 export default function ConsentBanner() {
   const [visible, setVisible] = useState(false);
@@ -47,7 +45,7 @@ export default function ConsentBanner() {
   return (
     <div
       className={[
-        "fixed bottom-0 left-0 right-0 z-[200] px-3 pb-20 pt-3 sm:pb-4",
+        "fixed bottom-0 left-0 right-0 z-[200] px-3 pb-20 pt-3 sm:bottom-24 sm:left-auto sm:right-4 sm:w-[28rem] sm:max-w-[calc(100vw-2rem)] sm:px-0 sm:pb-0 sm:pt-0",
         "transition-all duration-300 ease-out",
         entered ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
       ].join(" ")}
@@ -55,14 +53,14 @@ export default function ConsentBanner() {
       aria-label="Cookie- und Tracking-Einstellungen"
       aria-modal="false"
     >
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-[22px] border border-[rgba(23,23,23,0.1)] bg-[#fffdf8] shadow-[0_8px_48px_rgba(23,23,23,0.16)]">
+      <div className="mx-auto max-w-3xl overflow-hidden rounded-[22px] border border-[rgba(23,23,23,0.1)] bg-[#fffdf8] shadow-[0_8px_48px_rgba(23,23,23,0.16)] sm:max-w-none">
         <div className="flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:gap-6">
 
           {/* Text */}
           <p className="flex-1 text-sm leading-6 text-[#665d55]">
             <span className="font-semibold text-[#171717]">Wir nutzen Tracking </span>
             um Empfehlungen zu verbessern und Partnern eine faire Vergütung zu ermöglichen.
-            Dabei werden anonymisierte IDs lokal gespeichert — keine personenbezogenen Daten
+            Dabei werden anonymisierte IDs lokal gespeichert – keine personenbezogenen Daten
             weitergegeben.{" "}
             <Link
               href="/datenschutz"

@@ -214,38 +214,51 @@ export default function PlannerStopListSection({
 
   return (
     <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
-      <div className="mb-4 flex flex-col gap-3 border-b border-[rgba(68,57,46,0.08)] pb-3 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
-            Euer Plan
+      <div className="mb-3 border-b border-[rgba(68,57,46,0.08)] pb-3">
+        {/* Header: kompakt auf Mobile, ausführlicher auf Desktop */}
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+              Euer Plan
+            </div>
+            <h3 className="mt-0.5 text-base font-semibold tracking-tight text-[var(--text-strong)] sm:text-xl">
+              {occasion === "date" ? "Euer Abend, Schritt für Schritt." : occasion === "tourism" ? "Euer Tag, Schritt für Schritt." : "Euer Plan, Schritt für Schritt."}
+            </h3>
+            {activeVariantReason ? (
+              <p className="mt-1 line-clamp-2 max-w-2xl text-xs leading-5 text-[var(--text-muted)] italic sm:text-sm sm:leading-relaxed">
+                {activeVariantReason}
+              </p>
+            ) : null}
           </div>
-          <h3 className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
-            {occasion === "date" ? "Euer Abend, Schritt für Schritt." : occasion === "tourism" ? "Euer Tag, Schritt für Schritt." : "Euer Plan, Schritt für Schritt."}
-          </h3>
-          {activeVariantReason ? (
-            <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)] italic">
-              {activeVariantReason}
-            </p>
-          ) : (
-            <p className="mt-1 max-w-2xl text-xs leading-5 text-[var(--text-muted)]">
-              Timing, Wege und Reihenfolge — alles aufeinander abgestimmt.
-            </p>
-          )}
         </div>
-        <div className="flex flex-wrap gap-2">
-          <span className="warm-chip rounded-full px-3 py-1 text-xs">
-            {plannedStops.filter((stop) => stop.item).length} Stops aktiv
+
+        {/* Chips + Metriken: auf Mobile als kompakte Inline-Zeile */}
+        <div className="mt-2 flex flex-wrap items-center gap-1.5">
+          <span className="warm-chip rounded-full px-2.5 py-1 text-[11px]">
+            {plannedStops.filter((stop) => stop.item).length} Stops
           </span>
-          <span className="rounded-full border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-3 py-1 text-xs text-[var(--text-muted)]">
+          <span className="rounded-full border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
             {routeProfileLabel(routeProfile)}
           </span>
-          <span className="rounded-full border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-3 py-1 text-xs text-[var(--text-muted)]">
+          <span className="rounded-full border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
             {activeVariantLabel ?? "Hauptvariante"}
           </span>
+          {/* Metriken inline auf Mobile */}
+          {routeMetrics.map((metric) => (
+            <span
+              key={metric.label}
+              className="rounded-full border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-2.5 py-1 text-[11px] text-[var(--text-muted)] sm:hidden"
+              title={metric.note}
+            >
+              <span className="font-semibold text-[var(--text-strong)]">{metric.value}</span>
+              {" "}{metric.label}
+            </span>
+          ))}
         </div>
       </div>
 
-      <div className="mb-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Metrik-Kacheln: nur auf sm+ sichtbar */}
+      <div className="mb-4 hidden gap-2 sm:grid sm:grid-cols-2 lg:grid-cols-4">
         {routeMetrics.map((metric) => (
           <div
             key={metric.label}

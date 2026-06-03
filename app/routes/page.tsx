@@ -89,6 +89,9 @@ type DraftStop = {
   lat: string;
   lng: string;
   photo_url: string;
+  scheduled_start_at?: string | null;
+  scheduled_end_at?: string | null;
+  travel_min_from_prev?: number | null;
   isLocked?: boolean;
   personalizationKind?: "fixed" | "food_swap" | "activity_swap" | "nightlife_swap" | "ambience_swap";
   originalTitle?: string | null;
@@ -643,6 +646,9 @@ function RoutesPageContent() {
           lat: stop.lat ?? "",
           lng: stop.lng ?? "",
           photo_url: stop.photo_url ?? "",
+          scheduled_start_at: stop.scheduled_start_at ?? null,
+          scheduled_end_at: stop.scheduled_end_at ?? null,
+          travel_min_from_prev: typeof stop.travel_min_from_prev === "number" ? stop.travel_min_from_prev : null,
           isLocked: Boolean(stop.isLocked),
           personalizationKind: stop.personalizationKind,
           originalTitle: stop.originalTitle ?? null,
@@ -847,7 +853,9 @@ function RoutesPageContent() {
             label: stop.subtitle || stop.title || `Stop ${index + 1}`,
             hint: stop.note || stop.subtitle || "Teil der Route",
             durationMin: numOrNull(stop.duration_min),
-            travelMinFromPrev: null,
+            travelMinFromPrev: stop.travel_min_from_prev ?? null,
+            scheduledStartAt: stop.scheduled_start_at ?? null,
+            scheduledEndAt: stop.scheduled_end_at ?? null,
             location: {
               id: stop.location_id ?? stop.localId,
               name: stop.title || `Stop ${index + 1}`,

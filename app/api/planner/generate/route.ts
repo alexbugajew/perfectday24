@@ -18,6 +18,81 @@ import {
 } from "@/lib/planner";
 import type { LocationRow, PlannerEventRow } from "@/lib/planner";
 
+// ── Runtime validation ───────────────────────────────────────────────────────
+
+const VALID_PLAN_MODES = ["morning", "midday", "evening", "fullday"] as const;
+const VALID_BUDGETS = ["low", "medium", "high", "free"] as const;
+const VALID_OCCASIONS = ["date", "friends", "family", "party", "tourism"] as const;
+const VALID_EXPERIENCE_MODES = ["classic", "show", "event_visit", "market_festival"] as const;
+const VALID_START_TYPES = ["current_location", "address", "hotel", "station", "airport", "other"] as const;
+const VALID_EVENT_MODES = ["auto", "locked", "disabled"] as const;
+const VALID_SORT_MODES = ["match", "distance"] as const;
+const VALID_ROUTE_PROFILES = ["foot", "public_transit", "car"] as const;
+const VALID_EVAL_MODES = ["normal", "trace"] as const;
+const VALID_STRICTNESS = ["off", "hybrid", "required"] as const;
+
+function isOneOf<T extends string>(value: unknown, allowed: readonly T[]): value is T {
+  return typeof value === "string" && (allowed as readonly string[]).includes(value);
+}
+
+function validatePlannerRequest(raw: unknown): { ok: true; body: PlannerRequestBody } | { ok: false; error: string } {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    return { ok: false, error: "Body muss ein Objekt sein." };
+  }
+  const r = raw as Record<string, unknown>;
+
+  if (!isOneOf(r.planMode, VALID_PLAN_MODES))
+    return { ok: false, error: `planMode ungültig: ${String(r.planMode)}` };
+  if (!isOneOf(r.budget, VALID_BUDGETS))
+    return { ok: false, error: `budget ungültig: ${String(r.budget)}` };
+  if (!isOneOf(r.occasion, VALID_OCCASIONS))
+    return { ok: false, error: `occasion ungültig: ${String(r.occasion)}` };
+  if (r.experienceMode !== undefined && !isOneOf(r.experienceMode, VALID_EXPERIENCE_MODES))
+    return { ok: false, error: `experienceMode ungültig: ${String(r.experienceMode)}` };
+  if (r.eventPlanningMode !== undefined && !isOneOf(r.eventPlanningMode, VALID_EVENT_MODES))
+    return { ok: false, error: `eventPlanningMode ungültig.` };
+  if (r.sortMode !== undefined && !isOneOf(r.sortMode, VALID_SORT_MODES))
+    return { ok: false, error: `sortMode ungültig.` };
+  if (r.routeProfile !== undefined && !isOneOf(r.routeProfile, VALID_ROUTE_PROFILES))
+    return { ok: false, error: `routeProfile ungültig.` };
+  if (r.evaluationMode !== undefined && !isOneOf(r.evaluationMode, VALID_EVAL_MODES))
+    return { ok: false, error: `evaluationMode ungültig.` };
+  if (r.eventStrictness !== undefined && !isOneOf(r.eventStrictness, VALID_STRICTNESS))
+    return { ok: false, error: `eventStrictness ungültig.` };
+
+  const sp = r.startPoint as Record<string, unknown> | undefined;
+  if (!sp || typeof sp !== "object")
+    return { ok: false, error: "startPoint fehlt." };
+  if (!isOneOf(sp.type, VALID_START_TYPES))
+    return { ok: false, error: `startPoint.type ungültig: ${String(sp.type)}` };
+
+  if (typeof r.radiusKm !== "number" || r.radiusKm < 1 || r.radiusKm > 100)
+    return { ok: false, error: "radiusKm muss zwischen 1 und 100 liegen." };
+  if (!Array.isArray(r.interests))
+    return { ok: false, error: "interests muss ein Array sein." };
+  if ((r.interests as unknown[]).length > 20)
+    return { ok: false, error: "interests darf maximal 20 Einträge haben." };
+
+  const group = r.group as Record<string, unknown> | undefined;
+  if (!group || typeof group !== "object")
+    return { ok: false, error: "group fehlt." };
+  if (typeof group.enabled !== "boolean")
+    return { ok: false, error: "group.enabled muss boolean sein." };
+  if (!Array.isArray(group.members))
+    return { ok: false, error: "group.members muss ein Array sein." };
+  if ((group.members as unknown[]).length > 10)
+    return { ok: false, error: "group.members darf maximal 10 Mitglieder haben." };
+
+  if (r.planDate !== undefined && r.planDate !== null) {
+    if (typeof r.planDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(r.planDate))
+      return { ok: false, error: "planDate muss im Format YYYY-MM-DD sein." };
+  }
+  if (r.stopsCount !== undefined && (typeof r.stopsCount !== "number" || r.stopsCount < 1 || r.stopsCount > 10))
+    return { ok: false, error: "stopsCount muss zwischen 1 und 10 liegen." };
+
+  return { ok: true, body: r as unknown as PlannerRequestBody };
+}
+
 type PlannerRequestBody = {
   citySlug: string | null;
   planDate?: string | null;
@@ -38,11 +113,7 @@ type PlannerRequestBody = {
   interests: string[];
   group: {
     enabled: boolean;
-    members: Array<{
-      id: string;
-      name: string;
-      interests: string[];
-    }>;
+    members: Array<{ id: string; name: string; interests: string[] }>;
   };
   fullDayActsAfterBreakfast?: number;
   fullDayActsAfterLunch?: number;
@@ -264,8 +335,20 @@ async function loadPlannerEvents(
 
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as PlannerRequestBody;
-    body.citySlug = canonicalCitySlug(body.citySlug);
+    const raw = await req.json().catch(() => null);
+    if (raw === null) {
+      return NextResponse.json({ error: "Ungültiger JSON-Body." }, { status: 400 });
+    }
+
+    const validation = validatePlannerRequest(raw);
+    if (!validation.ok) {
+      return NextResponse.json({ error: validation.error }, { status: 400 });
+    }
+
+    const body: PlannerRequestBody = {
+      ...validation.body,
+      citySlug: canonicalCitySlug(validation.body.citySlug ?? null),
+    };
 
     if (
       body.startPoint?.type !== "current_location" &&

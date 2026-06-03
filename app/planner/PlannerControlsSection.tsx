@@ -298,13 +298,22 @@ export default function PlannerControlsSection({
   return (
     <>
       {showPrefsModal ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="w-full max-w-xl rounded-xl bg-white p-5 shadow-xl">
-            <div className="mb-2 flex items-start justify-between gap-3">
+        /* Overlay — z-index über der Bottom Nav (z-[1300]) */
+        <div className="fixed inset-0 z-[1500] flex items-end bg-black/40 sm:items-center sm:p-4">
+          {/* Bottom Sheet auf Mobile, zentrierter Modal auf Desktop */}
+          <div className="flex w-full flex-col rounded-t-2xl bg-white shadow-xl sm:mx-auto sm:max-w-xl sm:rounded-2xl">
+
+            {/* Drag Handle (Mobile) */}
+            <div className="flex justify-center pt-3 sm:hidden">
+              <div className="h-1 w-10 rounded-full bg-[var(--bg-panel)]" />
+            </div>
+
+            {/* Header */}
+            <div className="flex items-start justify-between gap-3 px-5 pb-2 pt-4">
               <div>
-                <div className="text-lg font-semibold">Deine Vorlieben</div>
-                <div className="text-sm text-[var(--text-muted)]">
-                  Wähle ein paar Interessen (max. 12). Diese werden in deinem Profil gespeichert und bei neuen Planungen automatisch verwendet.
+                <div className="text-lg font-semibold text-[var(--text-strong)]">Deine Vorlieben</div>
+                <div className="mt-0.5 text-sm text-[var(--text-muted)]">
+                  Wähle bis zu 12 Interessen. Werden beim Planen automatisch verwendet.
                 </div>
               </div>
               <button
@@ -314,19 +323,20 @@ export default function PlannerControlsSection({
                   }
                 }}
                 disabled={profileRequired && interests.length === 0}
-                className="rounded border px-3 py-2 text-sm disabled:opacity-50"
+                className="shrink-0 rounded-full border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)] disabled:opacity-50"
               >
                 Schliessen
               </button>
             </div>
 
             {profileRequired && interests.length === 0 ? (
-              <div className="mt-3 rounded-lg border border-[var(--state-warning)]/25 bg-[var(--brand-accent-cloud)] px-3 py-2 text-sm text-[var(--state-warning)]">
-                Bitte wähle zuerst deine Interessen aus. So kann PerfectDay24 dir und deiner Gruppe passendere Vorschläge machen.
+              <div className="mx-5 rounded-lg border border-[var(--state-warning)]/25 bg-[var(--brand-accent-cloud)] px-3 py-2 text-sm text-[var(--state-warning)]">
+                Bitte wähle zuerst deine Interessen aus.
               </div>
             ) : null}
 
-            <div className="my-3 max-h-[55vh] space-y-4 overflow-y-auto pr-1">
+            {/* Scrollbarer Katalog — Höhe begrenzt, lässt Platz für Footer */}
+            <div className="my-3 max-h-[45vh] space-y-4 overflow-y-auto px-5 pr-4 sm:max-h-[50vh]">
               {Object.entries(interestCatalog).map(([group, tags]) => (
                 <div key={group}>
                   <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
@@ -339,7 +349,11 @@ export default function PlannerControlsSection({
                         <button
                           key={tag}
                           onClick={() => toggleInterest(tag)}
-                          className={`rounded border px-3 py-2 text-sm ${selected ? "bg-[var(--text-strong)] text-white" : ""}`}
+                          className={`rounded-full border px-3 py-1.5 text-sm transition ${
+                            selected
+                              ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                              : "border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-strong)] hover:border-[var(--line-strong)]"
+                          }`}
                         >
                           {tag}
                         </button>
@@ -350,39 +364,42 @@ export default function PlannerControlsSection({
               ))}
             </div>
 
-            <div className="flex gap-2">
-              <input
-                value={interestInput}
-                onChange={(e) => setInterestInput(e.target.value)}
-                placeholder="Eigene Vorliebe hinzufügen (z.B. Tapas)"
-                className="flex-1 rounded-xl border border-[var(--line-subtle)] bg-white p-2 text-[var(--text-strong)] outline-none transition focus:border-[var(--line-strong)]"
-              />
-              <button
-                onClick={addInterestFromInput}
-                className="rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm text-white transition hover:opacity-95"
-              >
-                Hinzufügen
-              </button>
+            {/* Footer — immer sichtbar, nicht scrollbar */}
+            <div className="border-t border-[var(--line-subtle)] px-5 pb-6 pt-4 sm:pb-5">
+              <div className="flex gap-2">
+                <input
+                  value={interestInput}
+                  onChange={(e) => setInterestInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addInterestFromInput(); } }}
+                  placeholder="Eigene Vorliebe (z.B. Tapas)"
+                  className="flex-1 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--line-strong)]"
+                />
+                <button
+                  onClick={addInterestFromInput}
+                  className="rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+                >
+                  + hinzufügen
+                </button>
+              </div>
+
+              <div className="mt-3 flex items-center justify-between gap-3">
+                <div className="text-xs text-[var(--text-muted)]">
+                  {interests.length} / 12 gewählt{profileSaving ? " · speichere…" : ""}
+                </div>
+                <button
+                  onClick={() => {
+                    if (!profileRequired || interests.length > 0) {
+                      setShowPrefsModal(false);
+                    }
+                  }}
+                  disabled={profileRequired && interests.length === 0}
+                  className="rounded-xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                >
+                  Fertig
+                </button>
+              </div>
             </div>
 
-            <div className="mt-3 text-xs text-[var(--text-muted)]">
-              Aktuell: {interests.length ? interests.join(", ") : "-"}
-              {profileSaving ? " | speichere..." : ""}
-            </div>
-
-            <div className="mt-4 flex justify-end gap-2">
-              <button
-                onClick={() => {
-                  if (!profileRequired || interests.length > 0) {
-                    setShowPrefsModal(false);
-                  }
-                }}
-                disabled={profileRequired && interests.length === 0}
-                className="rounded bg-[var(--text-strong)] px-4 py-2 text-sm text-white disabled:opacity-50"
-              >
-                Fertig
-              </button>
-            </div>
           </div>
         </div>
       ) : null}
@@ -842,17 +859,6 @@ export default function PlannerControlsSection({
             </div>
           </div>
 
-          <div className="text-xs text-[var(--text-muted)]">
-            City: <span className="font-semibold">{cityLabel}</span> | Start:{" "}
-            <span className="font-semibold">{effectiveStartPoint.label || "-"}</span> | Zeitbudget: ~
-            {planMode === "fullday" ? 420 : planMode === "morning" ? 150 : planMode === "midday" ? 210 : 240} Min | Fokus:{" "}
-            <span className="font-semibold">{experienceModeLabel(experienceMode, occasion)}</span> | Mobilität:{" "}
-            <span className="font-semibold">{routeProfileLabel(routeProfile)}</span> | Vorlieben:{" "}
-            {effectiveInterests.length ? effectiveInterests.join(", ") : "- (für bessere Ergebnisse Vorlieben setzen)"}
-          </div>
-
-          <div className="text-xs text-[var(--text-muted)]">{routeProfileHint(routeProfile)}</div>
-
           {groupEnabled && groupMembers.length > 0 ? (
             <div className="rounded-xl border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)]/70 p-3 text-sm text-[var(--brand-accent)]">
               <div className="font-semibold">
@@ -1195,34 +1201,42 @@ export default function PlannerControlsSection({
               <div>{experienceModeHint(experienceMode, occasion)}</div>
             </div>
 
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <div className="font-semibold">Gruppe</div>
+            {!groupEnabled ? (
+              /* ── Kompakte Zeile wenn solo ── */
+              <div className="flex items-center justify-between gap-2">
                 <div className="text-xs text-[var(--text-muted)]">
-                  Optional: Füge Gäste hinzu. Gemeinsame Interessen wirken stärker.
+                  Mehrere Personen? Gemeinsame Interessen verbessern den Plan.
                 </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/invite"
-                  className="rounded border px-3 py-2 text-sm hover:bg-[var(--bg-panel)]"
-                >
-                  Profilsuche öffnen
-                </Link>
-                <label className="flex items-center gap-2 text-sm">
+                <label className="flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">
                   <input
                     type="checkbox"
                     checked={groupEnabled}
                     onChange={(e) => setGroupEnabled(e.target.checked)}
+                    className="sr-only"
                   />
-                  Gruppenmodus
+                  + Gruppe
                 </label>
               </div>
-            </div>
-
-            {groupEnabled ? (
+            ) : (
+              /* ── Volle Gruppen-UI wenn aktiv ── */
               <>
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <div className="font-semibold">Gruppe</div>
+                    <div className="text-xs text-[var(--text-muted)]">
+                      Gemeinsame Interessen wirken stärker im Plan.
+                    </div>
+                  </div>
+                  <label className="flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">
+                    <input
+                      type="checkbox"
+                      checked={groupEnabled}
+                      onChange={(e) => setGroupEnabled(e.target.checked)}
+                      className="sr-only"
+                    />
+                    ✕ Entfernen
+                  </label>
+                </div>
                 {activeGroupLabel ? (
                   <div className="rounded-xl border bg-[var(--bg-panel)] p-3">
                     <div className="text-sm font-medium">Aktive Gruppe: {activeGroupLabel}</div>
@@ -1393,8 +1407,6 @@ export default function PlannerControlsSection({
                   Effektive Interessen: {effectiveInterests.length ? effectiveInterests.join(", ") : "-"}
                 </div>
               </>
-            ) : (
-              <div className="text-xs text-[var(--text-muted)]">Gruppenmodus ist aus.</div>
             )}
           </div>
         </div>

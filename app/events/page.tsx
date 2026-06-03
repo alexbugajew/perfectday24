@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -11,14 +11,14 @@ import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 // ─── Static data (mirrors the DB seed) ────────────────────────────────────────
 
 const OCCASIONS = [
-  { slug: "geburtstag",       label: "Geburtstag",        hint: "Runde Geburtstage & private Feiern",       emoji: "🎂" },
-  { slug: "hochzeit",         label: "Hochzeit",          hint: "Trauung, Feier & Flitterwochen",            emoji: "💍" },
-  { slug: "teambuilding",     label: "Teambuilding",      hint: "Ausflüge & Aktivitäten für Teams",          emoji: "🤝" },
-  { slug: "firmenfeier",      label: "Firmenfeier",       hint: "Weihnachts-, Sommer- oder Jubiläumsfeier", emoji: "🥂" },
-  { slug: "kindergeburtstag", label: "Kindergeburtstag",  hint: "Feiern für die Kleinsten",                 emoji: "🎈" },
-  { slug: "konferenz",        label: "Konferenz",         hint: "Fachveranstaltungen & Workshops",           emoji: "🎤" },
-  { slug: "jubilaeum",        label: "Jubiläum",          hint: "Runde Jahrestage & Meilensteine",           emoji: "🏆" },
-  { slug: "staedtereise",     label: "Städtereise",       hint: "Gruppenreisen mit kuratiertem Programm",   emoji: "✈️" },
+  { slug: "geburtstag", label: "Geburtstag", hint: "Runde Geburtstage & private Feiern", emoji: "🎂" },
+  { slug: "hochzeit", label: "Hochzeit", hint: "Trauung, Feier & Flitterwochen", emoji: "💍" },
+  { slug: "teambuilding", label: "Teambuilding", hint: "Ausflüge & Aktivitäten für Teams", emoji: "🤝" },
+  { slug: "firmenfeier", label: "Firmenfeier", hint: "Weihnachts-, Sommer- oder Jubiläumsfeier", emoji: "🥂" },
+  { slug: "kindergeburtstag", label: "Kindergeburtstag", hint: "Feiern für die Kleinsten", emoji: "🎈" },
+  { slug: "konferenz", label: "Konferenz", hint: "Fachveranstaltungen & Workshops", emoji: "🎤" },
+  { slug: "jubilaeum", label: "Jubiläum", hint: "Runde Jahrestage & Meilensteine", emoji: "🏆" },
+  { slug: "staedtereise", label: "Städtereise", hint: "Gruppenreisen mit kuratiertem Programm", emoji: "✈️" },
 ] as const;
 
 type OccasionSlug = (typeof OCCASIONS)[number]["slug"];
@@ -281,6 +281,15 @@ function SavedPlanCard({
 
       <p className="text-[10px] text-[#8b7767]">Erstellt {createdFormatted}</p>
 
+      {(plan.pending_quotes > 0 || plan.received_quotes > 0) && (
+        <a
+          href={`/events/plan/${plan.id}?tab=offers`}
+          className="inline-flex min-h-9 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 px-3 text-xs font-medium text-emerald-800 transition hover:bg-emerald-100"
+        >
+          Anfragen & Angebote prüfen
+        </a>
+      )}
+
       {/* Inline confirmation */}
       {confirming && (
         <div className="mt-1 flex items-center justify-between gap-3 rounded-[14px] border border-red-200 bg-white px-3 py-2.5">
@@ -440,8 +449,8 @@ export default function EventsPage() {
     <div className="min-h-screen bg-[#f7f4ee] pb-20 pt-8">
       <div className="pd24-page-narrow">
 
-        {/* Back-Link */}
-        <div className="mb-6">
+        {/* Back-Link + Dashboard-Link */}
+        <div className="mb-6 flex items-center justify-between gap-3">
           <a
             href="/explore"
             className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(23,23,23,0.1)] bg-white px-3 py-1.5 text-xs font-medium text-[#665d55] transition hover:text-[#171717]"
@@ -450,6 +459,12 @@ export default function EventsPage() {
               <path d="M19 12H5M12 5l-7 7 7 7" />
             </svg>
             Entdecken
+          </a>
+          <a
+            href="/events/dashboard"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(23,23,23,0.1)] bg-white px-3 py-1.5 text-xs font-medium text-[#665d55] transition hover:text-[#171717]"
+          >
+            Meine Events →
           </a>
         </div>
 
@@ -467,12 +482,9 @@ export default function EventsPage() {
             Plane einen größeren Anlass.
           </h1>
           <p className="mt-3 text-base leading-7 text-[#665d55]">
-            Für Geburtstage, Hochzeiten, Firmenfeiern und andere größere Formate.
-            Wähle Anlass und Eckdaten – PerfectDay24 zeigt dir passende Locations und Dienstleister.
+            Für Gäste, Teams und besondere Anlässe.
           </p>
         </div>
-
-        {/* ── Meine Event-Pläne ───────────────────────────────────────────── */}
         {!plansLoading && savedPlans.length > 0 && (
           <div className="mb-10">
             <div className="mb-3 flex items-center justify-between">

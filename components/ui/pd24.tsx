@@ -41,7 +41,7 @@ type SelectionControlProps = WithClassName & {
   icon?: React.ReactNode;
 } & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children">;
 
-type StatusTone = "info" | "success" | "warning" | "error" | "neutral";
+type StatusTone = "info" | "success" | "warning" | "error" | "neutral" | "warm";
 
 type StatusBadgeProps = WithClassName & {
   children: React.ReactNode;
@@ -183,7 +183,9 @@ export function PD24StatusBadge({
           ? "pd24-status-warning"
           : tone === "error"
             ? "pd24-status-error"
-            : "border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)]";
+            : tone === "warm"
+              ? "border border-[rgba(196,137,79,0.28)] bg-[rgba(196,137,79,0.09)] text-[var(--brand-warm)]"
+              : "border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)]";
 
   return (
     <span

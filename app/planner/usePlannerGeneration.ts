@@ -37,6 +37,7 @@ import type {
 
 type UsePlannerGenerationParams = {
   mounted: boolean;
+  presetsReady: boolean;
   effectiveCitySlug: string | null;
   hasValidPlannerOrigin: boolean;
   startPointMode: StartPointMode;
@@ -57,6 +58,7 @@ type UsePlannerGenerationParams = {
 
 export function usePlannerGeneration({
   mounted,
+  presetsReady,
   effectiveCitySlug,
   hasValidPlannerOrigin,
   startPointMode,
@@ -84,6 +86,7 @@ export function usePlannerGeneration({
 
   useEffect(() => {
     if (!mounted) return;
+    if (!presetsReady) return;
     if (!effectiveCitySlug) return;
     if (!hasValidPlannerOrigin) {
       setPlannerData(null);
@@ -166,6 +169,7 @@ export function usePlannerGeneration({
     };
   }, [
     mounted,
+    presetsReady,
     effectiveCitySlug,
     hasValidPlannerOrigin,
     startPointMode,
