@@ -222,8 +222,8 @@ export default function HeroIntentBar() {
   // ── Parsing ──────────────────────────────────────────────────────────────
   if (phase.kind === "parsing") {
     return (
-      <div className="mt-7 flex items-center gap-3 text-sm text-[#665d55]">
-        <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-[#b76a43] border-t-transparent" />
+      <div className="mt-7 flex items-center gap-3 text-sm text-[var(--text-muted-warm)]">
+        <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-[var(--brand-warm)] border-t-transparent" />
         Dein Plan wird vorbereitet …
       </div>
     );
@@ -233,7 +233,7 @@ export default function HeroIntentBar() {
   if (phase.kind === "city_missing") {
     return (
       <div className="mt-7 space-y-4">
-        <div className="text-sm font-semibold text-[#171717]">
+        <div className="text-sm font-semibold text-[var(--text-strong)]">
           {phase.intent.occasion ? (
             <>
               {occasionEmoji(phase.intent.occasion)} {occasionLabel(phase.intent.occasion)} — in
@@ -249,7 +249,7 @@ export default function HeroIntentBar() {
               key={slug}
               type="button"
               onClick={() => handleCitySelect(slug)}
-              className="rounded-2xl border border-[rgba(23,23,23,0.14)] bg-white/80 px-3 py-2.5 text-sm font-medium text-[#171717] transition hover:border-[rgba(183,106,67,0.4)] hover:bg-[rgba(183,106,67,0.06)] active:scale-[0.98]"
+              className="rounded-2xl border border-[rgba(23,23,23,0.14)] bg-white/80 px-3 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[rgba(196,137,79,0.4)] hover:bg-[rgba(196,137,79,0.06)] active:scale-[0.98]"
             >
               {CITY_DISPLAY[slug]}
             </button>
@@ -258,7 +258,7 @@ export default function HeroIntentBar() {
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs text-[#8b7767] underline-offset-2 hover:underline"
+          className="text-xs text-[var(--text-soft-warm)] underline-offset-2 hover:underline"
         >
           ← Neu eingeben
         </button>
@@ -272,13 +272,13 @@ export default function HeroIntentBar() {
     return (
       <div className="mt-7 space-y-4">
         {/* Summary card */}
-        <div className="rounded-[20px] border border-[rgba(183,106,67,0.28)] bg-[rgba(183,106,67,0.07)] px-5 py-4">
+        <div className="rounded-[20px] border border-[rgba(196,137,79,0.28)] bg-[rgba(196,137,79,0.07)] px-5 py-4">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b76a43]">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-warm)]">
                 Dein Plan
               </div>
-              <div className="mt-1.5 text-lg font-semibold tracking-tight text-[#171717]">
+              <div className="mt-1.5 text-lg font-semibold tracking-tight text-[var(--text-strong)]">
                 {occasionEmoji(intent.occasion)} {occasionLabel(intent.occasion)}
                 {" · "}
                 {cityDisplayName(intent)}
@@ -290,7 +290,7 @@ export default function HeroIntentBar() {
               type="button"
               onClick={handleReset}
               aria-label="Zurücksetzen"
-              className="mt-0.5 flex-shrink-0 rounded-full p-1.5 text-[#8b7767] transition hover:bg-[rgba(23,23,23,0.07)] hover:text-[#171717]"
+              className="mt-0.5 flex-shrink-0 rounded-full p-1.5 text-[var(--text-soft-warm)] transition hover:bg-[rgba(23,23,23,0.07)] hover:text-[var(--text-strong)]"
             >
               ✕
             </button>
@@ -302,14 +302,14 @@ export default function HeroIntentBar() {
           <button
             type="button"
             onClick={() => router.push(buildPlannerUrl(intent))}
-            className="rounded-2xl bg-[#171717] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98]"
+            className="rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 active:scale-[0.98]"
           >
             Plan erstellen →
           </button>
           <button
             type="button"
             onClick={() => router.push(buildExploreUrl(intent))}
-            className="rounded-2xl border border-[rgba(23,23,23,0.14)] bg-white/80 px-5 py-3 text-sm font-medium text-[#665d55] transition hover:border-[rgba(23,23,23,0.25)] hover:bg-white active:scale-[0.98]"
+            className="rounded-2xl border border-[rgba(23,23,23,0.14)] bg-white/80 px-5 py-3 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(23,23,23,0.25)] hover:bg-white active:scale-[0.98]"
           >
             Routen ansehen →
           </button>
@@ -322,13 +322,13 @@ export default function HeroIntentBar() {
   if (phase.kind === "error") {
     return (
       <div className="mt-7 space-y-3">
-        <div className="rounded-2xl border border-[rgba(183,106,67,0.3)] bg-[rgba(183,106,67,0.08)] px-4 py-3 text-sm text-[#8b5e3c]">
+        <div className="rounded-2xl border border-[rgba(196,137,79,0.3)] bg-[rgba(196,137,79,0.08)] px-4 py-3 text-sm text-[var(--brand-warm)]">
           {phase.message}
         </div>
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs text-[#8b7767] underline-offset-2 hover:underline"
+          className="text-xs text-[var(--text-soft-warm)] underline-offset-2 hover:underline"
         >
           ← Zurück
         </button>
@@ -340,7 +340,7 @@ export default function HeroIntentBar() {
   return (
     <div className="mt-7 space-y-5">
       {/* Natural language input */}
-      <div className="flex items-center gap-2 rounded-2xl border border-[rgba(23,23,23,0.14)] bg-white/90 px-4 py-1 shadow-[0_2px_10px_rgba(49,39,27,0.06)] transition-all focus-within:border-[rgba(183,106,67,0.5)] focus-within:shadow-[0_2px_16px_rgba(183,106,67,0.12)]">
+      <div className="flex items-center gap-2 rounded-2xl border border-[rgba(23,23,23,0.14)] bg-white/90 px-4 py-1 shadow-[0_2px_10px_rgba(49,39,27,0.06)] transition-all focus-within:border-[rgba(196,137,79,0.5)] focus-within:shadow-[0_2px_16px_rgba(196,137,79,0.12)]">
         <input
           ref={inputRef}
           type="text"
@@ -350,13 +350,13 @@ export default function HeroIntentBar() {
             if (e.key === "Enter") handleSubmit();
           }}
           placeholder="z. B. »Date-Abend in München heute Abend«"
-          className="flex-1 bg-transparent py-3 text-sm text-[#171717] placeholder-[#a09890] outline-none"
+          className="flex-1 bg-transparent py-3 text-sm text-[var(--text-strong)] placeholder-[#a09890] outline-none"
         />
         {text.trim().length > 2 && (
           <button
             type="button"
             onClick={handleSubmit}
-            className="flex-shrink-0 rounded-xl bg-[#171717] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+            className="flex-shrink-0 rounded-xl bg-[var(--text-strong)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 active:scale-[0.97]"
           >
             Los →
           </button>
@@ -365,7 +365,7 @@ export default function HeroIntentBar() {
 
       {/* Scenario tiles */}
       <div>
-        <div className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8b7767]">
+        <div className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-soft-warm)]">
           Oder schnell starten:
         </div>
         <div className="flex flex-wrap gap-2">
@@ -374,7 +374,7 @@ export default function HeroIntentBar() {
               key={scenario.key}
               type="button"
               onClick={() => handleScenarioTile(scenario)}
-              className="rounded-full border border-[rgba(23,23,23,0.12)] bg-white/80 px-4 py-2 text-sm font-medium text-[#665d55] transition hover:border-[rgba(183,106,67,0.35)] hover:bg-[rgba(183,106,67,0.06)] hover:text-[#171717] active:scale-[0.97]"
+              className="rounded-full border border-[rgba(23,23,23,0.12)] bg-white/80 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.35)] hover:bg-[rgba(196,137,79,0.06)] hover:text-[var(--text-strong)] active:scale-[0.97]"
             >
               {scenario.emoji} {scenario.label}
             </button>

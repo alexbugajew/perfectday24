@@ -1,6 +1,20 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+
+const NEXT_IMAGE_SAFE_HOSTS = new Set([
+  "nxrkhlokadhwwtuoglxa.supabase.co",
+  "images.unsplash.com", "plus.unsplash.com",
+  "upload.wikimedia.org", "commons.wikimedia.org",
+  "lh3.googleusercontent.com", "graph.microsoft.com",
+  "res.cloudinary.com", "i.imgur.com", "cdn.pixabay.com", "images.pexels.com",
+]);
+
+function isSafeImageHost(url: string | null): boolean {
+  if (!url) return false;
+  try { return NEXT_IMAGE_SAFE_HOSTS.has(new URL(url).hostname); } catch { return false; }
+}
 
 export type ExploreRouteCard = {
   id: string;
@@ -27,66 +41,65 @@ export default function RouteCard({ route }: { route: ExploreRouteCard }) {
   return (
     <Link
       href={`/routes/${route.slug}`}
-      className="group block overflow-hidden rounded-2xl border bg-white hover:shadow-lg transition"
+      className="group block overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-large)]"
     >
-      <div className="aspect-[16/10] w-full bg-gray-100 overflow-hidden">
+      <div className="relative aspect-[3/2] w-full overflow-hidden bg-[var(--bg-panel)]">
         {route.cover_image_url ? (
-          <img
+          <Image
             src={route.cover_image_url}
             alt={route.title}
-            className="h-full w-full object-cover group-hover:scale-[1.02] transition"
+            fill
+            unoptimized={!isSafeImageHost(route.cover_image_url)}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition duration-500 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="h-full w-full flex items-center justify-center text-sm text-gray-400">
+          <div className="flex h-full w-full items-center justify-center text-sm text-[var(--text-muted)]">
             Kein Coverbild
           </div>
         )}
       </div>
 
-      <div className="p-4 space-y-3">
+      <div className="space-y-3 p-4">
         <div className="flex items-center justify-between gap-3">
-          <span className="text-[11px] px-2 py-1 rounded-full border bg-gray-50 text-gray-700">
+          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
             {creatorLabel(route.creator_type)}
           </span>
-
           {route.city_slug ? (
-            <span className="text-xs text-gray-500 truncate max-w-[140px]">
+            <span className="max-w-[140px] truncate text-xs text-[var(--text-soft)]">
               {route.city_slug}
             </span>
           ) : null}
         </div>
 
         <div>
-          <h3 className="font-semibold text-lg leading-snug group-hover:text-black">
+          <h3 className="text-lg font-semibold leading-snug text-[var(--text-strong)] group-hover:opacity-80">
             {route.title}
           </h3>
-
           {route.description ? (
-            <p className="mt-1 text-sm text-gray-600 line-clamp-2">
+            <p className="mt-1 line-clamp-2 text-sm text-[var(--text-muted)]">
               {route.description}
             </p>
           ) : null}
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          <span className="text-[11px] px-2 py-1 rounded-full bg-gray-100 text-gray-700">
-            📍 {route.stops_count} Stops
+        <div className="flex flex-wrap gap-1.5">
+          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
+            {route.stops_count} Stops
           </span>
-
           {route.start_label ? (
-            <span className="text-[11px] px-2 py-1 rounded-full bg-gray-100 text-gray-700">
-              🚩 {route.start_label}
+            <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
+              ab {route.start_label}
             </span>
           ) : null}
         </div>
 
-        <div className="flex items-center justify-between text-sm text-gray-600 pt-1">
-          <div className="flex items-center gap-3">
-            <span>❤️ {route.likes}</span>
-            <span>🔖 {route.saves}</span>
+        <div className="flex items-center justify-between border-t border-[var(--line-subtle)] pt-2.5 text-sm">
+          <div className="flex items-center gap-3 text-[var(--text-soft)] text-xs">
+            <span>{route.likes} Likes</span>
+            <span>{route.saves} Saves</span>
           </div>
-
-          <span className="text-black font-medium">Ansehen →</span>
+          <span className="font-medium text-[var(--text-strong)]">Ansehen →</span>
         </div>
       </div>
     </Link>

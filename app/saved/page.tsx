@@ -1,9 +1,23 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+
+const NEXT_IMAGE_SAFE_HOSTS = new Set([
+  "nxrkhlokadhwwtuoglxa.supabase.co",
+  "images.unsplash.com", "plus.unsplash.com",
+  "upload.wikimedia.org", "commons.wikimedia.org",
+  "lh3.googleusercontent.com", "graph.microsoft.com",
+  "res.cloudinary.com", "i.imgur.com", "cdn.pixabay.com", "images.pexels.com",
+]);
+
+function isSafeImageHost(url: string | null): boolean {
+  if (!url) return false;
+  try { return NEXT_IMAGE_SAFE_HOSTS.has(new URL(url).hostname); } catch { return false; }
+}
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import { fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
+import { deleteRoadtripRoute, fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
 import type { RoadtripRoute } from "@/lib/roadtrip/types";
 import { stopSequenceLabel, occasionLabel, budgetLabel } from "@/lib/roadtrip/types";
 
@@ -169,6 +183,56 @@ function statusPillClass(tone: string) {
   return `inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${tone}`;
 }
 
+function TrashIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round"
+      className="h-4 w-4"
+    >
+      <polyline points="3 6 5 6 21 6" />
+      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+      <path d="M10 11v6M14 11v6" />
+      <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+    </svg>
+  );
+}
+
+function DeleteConfirmRow({
+  label,
+  onConfirm,
+  onCancel,
+  deleting,
+}: {
+  label: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+  deleting: boolean;
+}) {
+  return (
+    <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-red-200 bg-red-50/60 px-4 py-3">
+      <p className="text-xs font-medium text-red-700">{label}</p>
+      <div className="flex shrink-0 gap-2">
+        <button
+          type="button"
+          onClick={onCancel}
+          disabled={deleting}
+          className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:border-[var(--line-strong)] disabled:opacity-50"
+        >
+          Abbrechen
+        </button>
+        <button
+          type="button"
+          onClick={onConfirm}
+          disabled={deleting}
+          className="rounded-xl bg-red-500 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-red-600 disabled:opacity-50"
+        >
+          {deleting ? "…" : "Ja, löschen"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function SectionHeader({
   title,
   count,
@@ -268,12 +332,24 @@ function QuickCard({ item }: { item: QuickItem }) {
   );
 }
 
-function PlanCard({ plan }: { plan: SavedPlanRow }) {
+function PlanCard({ plan, onDelete }: { plan: SavedPlanRow; onDelete: (id: string) => Promise<void> }) {
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const context = planContext(plan);
   const status = planStatus(plan);
 
+  async function handleDelete() {
+    setDeleting(true);
+    await onDelete(plan.id);
+    setDeleting(false);
+    setConfirming(false);
+  }
+
   return (
-    <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className={cx(
+      "rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md",
+      confirming ? "border-red-200" : "border-[var(--line-subtle)]"
+    )}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
@@ -287,7 +363,19 @@ function PlanCard({ plan }: { plan: SavedPlanRow }) {
             {context.groupEnabled ? " · Gruppe" : " · Solo"}
           </div>
         </div>
-        <span className={statusPillClass(status.tone)}>{status.label}</span>
+        <div className="flex shrink-0 items-center gap-2">
+          <span className={statusPillClass(status.tone)}>{status.label}</span>
+          {!confirming && (
+            <button
+              type="button"
+              aria-label="Plan löschen"
+              onClick={() => setConfirming(true)}
+              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-red-50 hover:text-red-500"
+            >
+              <TrashIcon />
+            </button>
+          )}
+        </div>
       </div>
 
       <p className="mt-4 text-sm leading-7 text-[var(--text-muted)]">
@@ -305,37 +393,62 @@ function PlanCard({ plan }: { plan: SavedPlanRow }) {
         ) : null}
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-2">
-        <Link
-          href={`/planner?planId=${plan.id}`}
-          className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
-        >
-          Plan öffnen
-        </Link>
-        <Link
-          href={`/planner?planId=${plan.id}&mode=edit`}
-          className="inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
-        >
-          Weiter planen
-        </Link>
-      </div>
+      {confirming ? (
+        <DeleteConfirmRow
+          label="Plan dauerhaft löschen?"
+          onConfirm={handleDelete}
+          onCancel={() => setConfirming(false)}
+          deleting={deleting}
+        />
+      ) : (
+        <div className="mt-5 flex flex-wrap gap-2">
+          <Link
+            href={`/planner?planId=${plan.id}`}
+            className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
+          >
+            Plan öffnen
+          </Link>
+          <Link
+            href={`/planner?planId=${plan.id}&mode=edit`}
+            className="inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+          >
+            Weiter planen
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
 
-function RouteCard({ route }: { route: SavedRouteItem }) {
+function RouteCard({ route, onRemove }: { route: SavedRouteItem; onRemove: (id: string) => Promise<void> }) {
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const href = route.slug ? `/routes/${route.slug}` : `/routes?routeId=${route.id}`;
 
+  async function handleRemove() {
+    setDeleting(true);
+    await onRemove(route.id);
+    setDeleting(false);
+    setConfirming(false);
+  }
+
   return (
-    <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className={cx(
+      "rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md",
+      confirming ? "border-red-200" : "border-[var(--line-subtle)]"
+    )}>
       <div className="flex gap-4">
         {route.cover_image_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={route.cover_image_url}
-            alt=""
-            className="h-16 w-16 shrink-0 rounded-[18px] object-cover"
-          />
+          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[18px]">
+            <Image
+              src={route.cover_image_url}
+              alt=""
+              fill
+              unoptimized={!isSafeImageHost(route.cover_image_url)}
+              sizes="64px"
+              className="object-cover"
+            />
+          </div>
         ) : (
           <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[18px] bg-[var(--bg-surface)] text-[var(--text-muted)]">
             <svg className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
@@ -349,8 +462,20 @@ function RouteCard({ route }: { route: SavedRouteItem }) {
         )}
 
         <div className="min-w-0 flex-1">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
-            {routeCityLabel(route.city_slug)}
+          <div className="flex items-start justify-between gap-2">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+              {routeCityLabel(route.city_slug)}
+            </div>
+            {!confirming && (
+              <button
+                type="button"
+                aria-label="Lesezeichen entfernen"
+                onClick={() => setConfirming(true)}
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-red-50 hover:text-red-500"
+              >
+                <TrashIcon />
+              </button>
+            )}
           </div>
           <h3 className="mt-2 line-clamp-2 text-lg font-semibold text-[var(--text-strong)]">
             {route.title?.trim() || "Unbenannte Route"}
@@ -377,30 +502,51 @@ function RouteCard({ route }: { route: SavedRouteItem }) {
         ) : null}
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-2">
-        <Link
-          href={href}
-          className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
-        >
-          Route öffnen
-        </Link>
-        <Link
-          href="/explore"
-          className="inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
-        >
-          Mehr entdecken
-        </Link>
-      </div>
+      {confirming ? (
+        <DeleteConfirmRow
+          label="Lesezeichen entfernen?"
+          onConfirm={handleRemove}
+          onCancel={() => setConfirming(false)}
+          deleting={deleting}
+        />
+      ) : (
+        <div className="mt-5 flex flex-wrap gap-2">
+          <Link
+            href={href}
+            className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
+          >
+            Route öffnen
+          </Link>
+          <Link
+            href="/explore"
+            className="inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+          >
+            Mehr entdecken
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
 
-function DraftCard({ plan }: { plan: SavedPlanRow }) {
+function DraftCard({ plan, onDelete }: { plan: SavedPlanRow; onDelete: (id: string) => Promise<void> }) {
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const context = planContext(plan);
   const progress = draftProgress(plan);
 
+  async function handleDelete() {
+    setDeleting(true);
+    await onDelete(plan.id);
+    setDeleting(false);
+    setConfirming(false);
+  }
+
   return (
-    <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className={cx(
+      "rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md",
+      confirming ? "border-red-200" : "border-[var(--line-subtle)]"
+    )}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
@@ -410,7 +556,19 @@ function DraftCard({ plan }: { plan: SavedPlanRow }) {
             {plan.title?.trim() || context.occasionLabel}
           </h3>
         </div>
-        <span className={statusPillClass("bg-amber-100 text-amber-700")}>In Bearbeitung</span>
+        <div className="flex shrink-0 items-center gap-2">
+          <span className={statusPillClass("bg-amber-100 text-amber-700")}>In Bearbeitung</span>
+          {!confirming && (
+            <button
+              type="button"
+              aria-label="Entwurf löschen"
+              onClick={() => setConfirming(true)}
+              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-red-50 hover:text-red-500"
+            >
+              <TrashIcon />
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="mt-4">
@@ -430,14 +588,23 @@ function DraftCard({ plan }: { plan: SavedPlanRow }) {
         Rahmen und Richtung sind schon angelegt. Öffne den Entwurf erneut und führe ihn zu einem belastbaren Plan.
       </p>
 
-      <div className="mt-5 flex flex-wrap gap-2">
-        <Link
-          href={`/planner?planId=${plan.id}&mode=edit`}
-          className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
-        >
-          Weiter planen
-        </Link>
-      </div>
+      {confirming ? (
+        <DeleteConfirmRow
+          label="Entwurf dauerhaft löschen?"
+          onConfirm={handleDelete}
+          onCancel={() => setConfirming(false)}
+          deleting={deleting}
+        />
+      ) : (
+        <div className="mt-5 flex flex-wrap gap-2">
+          <Link
+            href={`/planner?planId=${plan.id}&mode=edit`}
+            className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
+          >
+            Weiter planen
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
@@ -450,19 +617,29 @@ function roadtripStatusBadge(status: string) {
   return { label: "Entwurf", tone: "bg-amber-100 text-amber-700", dot: false };
 }
 
-function RoadtripCard({ route }: { route: RoadtripRoute }) {
+function RoadtripCard({ route, onDelete }: { route: RoadtripRoute; onDelete: (id: string) => Promise<void> }) {
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const badge = roadtripStatusBadge(route.status);
+
+  async function handleDelete() {
+    setDeleting(true);
+    await onDelete(route.id);
+    setDeleting(false);
+    setConfirming(false);
+  }
   const sequence = stopSequenceLabel(route.stops);
   const detailHref = `/roadtrip/routes/${route.slug}`;
   const plannerHref = `/roadtrip?fromRouteSlug=${route.slug}`;
 
   return (
     <div
-      className={`rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md ${
-        route.status === "active"
+      className={cx(
+        "rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md",
+        confirming ? "border-red-200" : route.status === "active"
           ? "border-emerald-300 ring-2 ring-emerald-200/50"
           : "border-[var(--line-subtle)]"
-      }`}
+      )}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
@@ -476,14 +653,26 @@ function RoadtripCard({ route }: { route: RoadtripRoute }) {
           </h3>
           <p className="mt-1 truncate text-sm text-[var(--text-muted)]">{sequence}</p>
         </div>
-        <span
-          className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${badge.tone}`}
-        >
-          {badge.dot && (
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+        <div className="flex shrink-0 items-center gap-2">
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${badge.tone}`}
+          >
+            {badge.dot && (
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+            )}
+            {badge.label}
+          </span>
+          {!confirming && (
+            <button
+              type="button"
+              aria-label="Roadtrip löschen"
+              onClick={() => setConfirming(true)}
+              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-red-50 hover:text-red-500"
+            >
+              <TrashIcon />
+            </button>
           )}
-          {badge.label}
-        </span>
+        </div>
       </div>
 
       {route.description ? (
@@ -504,20 +693,29 @@ function RoadtripCard({ route }: { route: RoadtripRoute }) {
         </span>
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-2">
-        <Link
-          href={detailHref}
-          className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
-        >
-          {route.status === "active" ? "Fortsetzen" : "Öffnen"}
-        </Link>
-        <Link
-          href={plannerHref}
-          className="inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
-        >
-          Im Planner bearbeiten
-        </Link>
-      </div>
+      {confirming ? (
+        <DeleteConfirmRow
+          label="Roadtrip dauerhaft löschen?"
+          onConfirm={handleDelete}
+          onCancel={() => setConfirming(false)}
+          deleting={deleting}
+        />
+      ) : (
+        <div className="mt-5 flex flex-wrap gap-2">
+          <Link
+            href={detailHref}
+            className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
+          >
+            {route.status === "active" ? "Fortsetzen" : "Öffnen"}
+          </Link>
+          <Link
+            href={plannerHref}
+            className="inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+          >
+            Im Planner bearbeiten
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
@@ -628,6 +826,29 @@ export default function SavedPage() {
 
   const drafts = useMemo(() => plans.filter(isDraft), [plans]);
   const finishedPlans = useMemo(() => plans.filter((plan) => !isDraft(plan)), [plans]);
+
+  async function deletePlan(id: string) {
+    const { error } = await supabase.from("plans").delete().eq("id", id);
+    if (error) { console.error("Delete plan error:", error); return; }
+    setPlans((prev) => prev.filter((p) => p.id !== id));
+  }
+
+  async function removeBookmark(routeId: string) {
+    if (!userId) return;
+    const { error } = await supabase
+      .from("user_route_bookmarks")
+      .delete()
+      .eq("route_id", routeId)
+      .eq("user_id", userId);
+    if (error) { console.error("Remove bookmark error:", error); return; }
+    setSavedRoutes((prev) => prev.filter((r) => r.id !== routeId));
+  }
+
+  async function deleteRoadtrip(id: string) {
+    const { error } = await deleteRoadtripRoute(id);
+    if (error) { console.error("Delete roadtrip error:", error); return; }
+    setRoadtripRoutes((prev) => prev.filter((r) => r.id !== id));
+  }
 
   const quickItems = useMemo<QuickItem[]>(() => {
     const planItems = plans.map((plan) => {
@@ -848,7 +1069,7 @@ export default function SavedPage() {
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {finishedPlans.map((plan) => (
-                <PlanCard key={plan.id} plan={plan} />
+                <PlanCard key={plan.id} plan={plan} onDelete={deletePlan} />
               ))}
             </div>
           )}
@@ -879,7 +1100,7 @@ export default function SavedPage() {
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {savedRoutes.map((route) => (
-                <RouteCard key={`${route.id}-${route.saved_at}`} route={route} />
+                <RouteCard key={`${route.id}-${route.saved_at}`} route={route} onRemove={removeBookmark} />
               ))}
             </div>
           )}
@@ -912,7 +1133,7 @@ export default function SavedPage() {
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {roadtripRoutes.map((rt) => (
-                <RoadtripCard key={rt.id} route={rt} />
+                <RoadtripCard key={rt.id} route={rt} onDelete={deleteRoadtrip} />
               ))}
             </div>
           )}
@@ -943,7 +1164,7 @@ export default function SavedPage() {
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {drafts.map((plan) => (
-                <DraftCard key={plan.id} plan={plan} />
+                <DraftCard key={plan.id} plan={plan} onDelete={deletePlan} />
               ))}
             </div>
           )}

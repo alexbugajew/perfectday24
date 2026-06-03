@@ -109,6 +109,19 @@ const OCCASION_LABELS: Record<string, string> = {
   staedtereise:     "Städtereise",
 };
 
+const CITY_LABELS: Record<string, string> = {
+  "berlin-berlin": "Berlin",
+  hamburg: "Hamburg",
+  muenchen: "München",
+  wien: "Wien",
+  zuerich: "Zürich",
+  koeln: "Köln",
+  "frankfurt-am-main": "Frankfurt",
+  stuttgart: "Stuttgart",
+  duesseldorf: "Düsseldorf",
+  leipzig: "Leipzig",
+};
+
 const VENDORS_PER_PAGE = 9;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -344,8 +357,10 @@ function PlanNewInner() {
 
     // Inquiries for vendors without prices
     const quoteEntries = Object.entries(quoteRequests);
+    let createdQuoteCount = 0;
+    let inquiryFailed = false;
     if (quoteEntries.length > 0) {
-      await fetch("/api/events/inquiries", {
+      const inquiryResponse = await fetch("/api/events/inquiries", {
         method:  "POST",
         headers: {
           "Content-Type":  "application/json",
@@ -370,10 +385,32 @@ function PlanNewInner() {
             customerMessage: customerMessage.trim() || undefined,
           },
         }),
-      }).catch((e) => console.error("inquiry request failed:", e));
+      }).catch((e) => {
+        console.error("inquiry request failed:", e);
+        inquiryFailed = true;
+        return null;
+      });
+
+      if (inquiryResponse?.ok) {
+        const result = await inquiryResponse.json().catch(() => null) as { quoteCount?: number } | null;
+        createdQuoteCount = typeof result?.quoteCount === "number"
+          ? result.quoteCount
+          : quoteEntries.length;
+      } else if (quoteEntries.length > 0) {
+        inquiryFailed = true;
+      }
     }
 
-    router.push(`/events/plan/${plan.id}`);
+    const nextTab = createdQuoteCount > 0 ? "offers" : "overview";
+    const nextParams = new URLSearchParams({
+      created: "1",
+      inquiries: String(createdQuoteCount),
+      bookings: String(bookings.length),
+      tab: nextTab,
+    });
+    if (inquiryFailed) nextParams.set("inquiryError", "1");
+
+    router.push(`/events/plan/${plan.id}?${nextParams.toString()}`);
   }
 
   // ── Derived ───────────────────────────────────────────────────────────────
@@ -386,7 +423,7 @@ function PlanNewInner() {
   const quoteCount       = Object.keys(quoteRequests).length;
   const totalActionCount = selectionCount + quoteCount;
   const overBudget       = budget > 0 && totalEur > budget;
-  const cityDisplay      = cityName || citySlug;
+  const cityDisplay      = cityName || CITY_LABELS[citySlug] || citySlug;
 
   const saveLabel = (() => {
     if (saving) return "Wird gespeichert …";
@@ -409,7 +446,7 @@ function PlanNewInner() {
             ← Zurück
           </Link>
           <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-            Event Planner
+            Event-Planer
           </div>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#171717]">
             Dienstleister für deinen {OCCASION_LABELS[occasion] ?? occasion}
@@ -430,7 +467,7 @@ function PlanNewInner() {
       </div>
 
       {/* ── Body ────────────────────────────────────────────────────────── */}
-      <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+      <div className="mx-auto max-w-3xl px-4 pb-40 pt-8 sm:px-6 sm:pb-44">
 
         {/* Event-Name */}
         <div className="mb-8">
@@ -591,7 +628,7 @@ function PlanNewInner() {
                   {quoteCount} Preisanfrage{quoteCount > 1 ? "n" : ""} vorgemerkt
                 </p>
                 <p className="mt-0.5 text-xs text-amber-800">
-                  Die Anbieter erhalten Ihre Eventdetails und melden sich mit einem Angebot.
+                  Die Anbieter erhalten Ihre Eventdetails und melden sich mit einem Angebot. Danach behalten Sie alles im Bereich Anfragen und Angebote im Blick.
                 </p>
                 {!showMessageBox ? (
                   <button

@@ -31,6 +31,9 @@ export type RouteBuilderDraftStop = {
   lat: string;
   lng: string;
   photo_url: string;
+  scheduled_start_at?: string | null;
+  scheduled_end_at?: string | null;
+  travel_min_from_prev?: number | null;
   isLocked?: boolean;
   personalizationKind?: "fixed" | "food_swap" | "activity_swap" | "nightlife_swap" | "ambience_swap";
   originalTitle?: string | null;

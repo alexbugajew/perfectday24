@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { randomBytes } from "crypto";
 
 const OCCASION_LABELS: Record<string, string> = {
   geburtstag:       "Geburtstag",
@@ -44,6 +45,10 @@ type EventData = {
   planTitle: string;
   customerMessage?: string;
 };
+
+function createQuoteToken() {
+  return randomBytes(18).toString("base64url");
+}
 
 async function sendVendorEmail(opts: {
   to: string;
@@ -226,6 +231,7 @@ export async function POST(req: NextRequest) {
     inquiry_id:  inquiry.id,
     provider_id: p.id,
     need_slug:   p.needSlug,
+    token:       createQuoteToken(),
     status:      "pending",
   }));
 

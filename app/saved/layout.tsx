@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+// Saved content is user-specific — revalidate shell hourly.
+export const revalidate = 3600;
+
 const description =
   "Alle deine gespeicherten Tagespläne und Routen an einem Ort – fortsetzen, teilen oder neu starten.";
 

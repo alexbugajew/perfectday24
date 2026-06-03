@@ -359,7 +359,40 @@ export default function PlannerVariantPanel({
             </div>
           </div>
 
-          <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {/* ── Mobile: horizontale Chip-Reihe ── */}
+          <div className="mt-3 flex gap-2 overflow-x-auto pd24-scrollbar-none pb-1 md:hidden">
+            {plannerData.variants.map((variant) => {
+              const active = variant.variantId === selectedVariantId;
+              const voteCount = variantVotes[variant.variantId]?.length ?? 0;
+              return (
+                <button
+                  key={variant.variantId}
+                  type="button"
+                  onClick={() => onSelectVariant(variant.variantId)}
+                  aria-pressed={active}
+                  className={`inline-flex shrink-0 flex-col items-start gap-1 rounded-xl border px-3 py-2.5 text-left transition focus:outline-none focus:ring-2 focus:ring-[var(--brand-accent)]/30 ${
+                    active
+                      ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white shadow-sm"
+                      : "border-[rgba(68,57,46,0.12)] bg-[rgba(255,253,248,0.94)] text-[var(--text-strong)] hover:border-[var(--brand-accent)]/35 hover:bg-white"
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5">
+                    {active && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
+                    )}
+                    <span className="text-xs font-semibold leading-none">{variant.label}</span>
+                  </div>
+                  <span className={`text-[10px] leading-none ${active ? "text-white/65" : "text-[var(--text-muted)]"}`}>
+                    {variantGoalLabel(variant.goal)}
+                    {voteCount > 0 ? ` · ${voteCount} ✓` : ""}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* ── Desktop: vollständige Kacheln ── */}
+          <div className="mt-4 hidden gap-3 md:grid md:grid-cols-2 xl:grid-cols-4">
             {plannerData.variants.map((variant) => {
               const active = variant.variantId === selectedVariantId;
               const voteCount = variantVotes[variant.variantId]?.length ?? 0;
@@ -407,7 +440,6 @@ export default function PlannerVariantPanel({
                     ))}
                   </div>
 
-                  {/* Mini flow bars */}
                   <div className="mt-3 flex items-end gap-0.5 h-4">
                     {variantDramaValues(variant, Math.min(8, Math.max(3, variant.plannedStops.length || 5))).map((v, i) => (
                       <div

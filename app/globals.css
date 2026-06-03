@@ -5,15 +5,22 @@
   --bg-surface: #f8fafc;
   --bg-panel: #e5eaee;
   --bg-panel-strong: #ffffff;
+  --bg-canvas-warm: #f7f4ee;
 
   --text-strong: #111827;
   --text-muted: #586373;
   --text-soft: #7c8797;
+  --text-muted-warm: #665d55;
+  --text-soft-warm: #8b7767;
 
   --brand-accent: #5a7688;
   --brand-accent-soft: #d8e1e7;
   --brand-accent-alt: #7c90a0;
   --brand-accent-cloud: #e7eef3;
+
+  --brand-warm: #c4894f;
+  --brand-warm-soft: #f0e0cc;
+  --brand-warm-cloud: #faf3eb;
 
   --state-success: #4f6b5b;
   --state-warning: #9a6b2f;
@@ -27,6 +34,15 @@
   --shadow-large: 0 24px 70px rgba(15, 23, 42, 0.08);
   --shadow-hover: 0 18px 46px rgba(15, 23, 42, 0.1);
   --focus-ring: 0 0 0 3px rgba(216, 225, 231, 0.95);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
 
   --radius-shell: 28px;
   --radius-card: 24px;
@@ -47,6 +63,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-canvas-warm: var(--bg-canvas-warm);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -216,6 +233,18 @@ textarea:disabled {
     background-color 180ms ease;
 }
 
+.pd24-card-featured {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line-strong);
+  background: var(--bg-panel-strong);
+  box-shadow: var(--shadow-large);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
 .pd24-card-interactive:hover {
   border-color: var(--line-strong);
   box-shadow: var(--shadow-hover);
@@ -270,6 +299,18 @@ textarea:disabled {
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--text-muted);
+}
+
+.pd24-display {
+  font-family: var(--font-pd24-display);
+}
+
+.pd24-kicker-warm {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--brand-warm);
 }
 
 .pd24-status-info {

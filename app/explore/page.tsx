@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
@@ -225,6 +226,30 @@ function idealForLabel(route: UserRouteRow | null | undefined) {
 
 
 
+// Domains configured in next.config.ts — all others fall back to native <img>
+const NEXT_IMAGE_SAFE_HOSTS = new Set([
+  "nxrkhlokadhwwtuoglxa.supabase.co",
+  "images.unsplash.com",
+  "plus.unsplash.com",
+  "upload.wikimedia.org",
+  "commons.wikimedia.org",
+  "lh3.googleusercontent.com",
+  "graph.microsoft.com",
+  "res.cloudinary.com",
+  "i.imgur.com",
+  "cdn.pixabay.com",
+  "images.pexels.com",
+]);
+
+function isSafeImageHost(url: string | null): boolean {
+  if (!url) return false;
+  try {
+    return NEXT_IMAGE_SAFE_HOSTS.has(new URL(url).hostname);
+  } catch {
+    return false;
+  }
+}
+
 function SectionHeader({
   title,
   subtitle,
@@ -346,14 +371,17 @@ function RouteCard({
 
   const content = (
     <>
-      <div className="relative aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-neutral-100 via-white to-neutral-200">
+      {/* Image — prominent, 3/2 aspect */}
+      <div className="relative aspect-[3/2] w-full overflow-hidden bg-[var(--bg-panel)]">
         {cover ? (
           <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={cover}
               alt={title}
-              className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+              fill
+              unoptimized={!isSafeImageHost(cover)}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition duration-500 group-hover:scale-[1.03]"
             />
             <ImageAttribution
               meta={route.meta}
@@ -364,59 +392,59 @@ function RouteCard({
           </>
         ) : (
           <div className="flex h-full w-full items-end p-4">
-            <div className="rounded-full border border-black/10 bg-white/80 px-3 py-1 text-xs text-gray-600 backdrop-blur">
+            <div className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)]/80 px-3 py-1 text-xs text-[var(--text-muted)] backdrop-blur">
               Kein Coverbild
             </div>
           </div>
         )}
 
-        <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-4">
-          <div className="flex flex-wrap gap-2">
+        {/* Overlay badges */}
+        <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3">
+          <div className="flex flex-wrap gap-1.5">
             {route.is_featured ? (
-              <span className="rounded-full bg-black px-2.5 py-1 text-[10.5px] font-medium text-white">
+              <span className="rounded-full bg-[var(--text-strong)] px-2.5 py-1 text-[10px] font-semibold text-white">
                 Featured
               </span>
             ) : null}
-
-            <span className="rounded-full border border-white/60 bg-white/85 px-2.5 py-1 text-[10.5px] text-gray-700 backdrop-blur">
+            <span className="rounded-full border border-white/40 bg-black/40 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur">
               {city}
             </span>
-
-            <span className="rounded-full border border-white/60 bg-white/85 px-2.5 py-1 text-[10.5px] text-gray-700 backdrop-blur">
+            <span className="rounded-full border border-white/40 bg-black/40 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur">
               {niceCreatorType(route.creator_type)}
             </span>
             {variantRole ? (
-              <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-[10.5px] text-emerald-800">
+              <span className="rounded-full bg-[var(--state-success)]/90 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur">
                 {variantRole}
               </span>
             ) : null}
           </div>
-
-          <div className="rounded-full border border-white/60 bg-white/88 px-3 py-1.5 text-[10.5px] font-medium text-gray-700 backdrop-blur">
-            {route.stop_count ?? 0} Stops / {durationLabel}
+          <div className="rounded-full border border-white/40 bg-black/40 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur">
+            {route.stop_count ?? 0} Stops
           </div>
         </div>
       </div>
 
+      {/* Content */}
       <div className="space-y-3 p-4">
-        <div className="space-y-1.5">
-          <h3 className="text-[1.06rem] font-semibold leading-snug text-gray-950 line-clamp-2 sm:text-[1.12rem]">
+        <div>
+          <h3 className="line-clamp-2 text-[1.06rem] font-semibold leading-snug text-[var(--text-strong)] sm:text-[1.1rem]">
             {title}
           </h3>
-          <p className="line-clamp-2 text-[13px] leading-5 text-gray-600 sm:text-sm">{shortDesc}</p>
+          <p className="mt-1 line-clamp-2 text-[13px] leading-5 text-[var(--text-muted)]">{shortDesc}</p>
         </div>
 
+        {/* Personalization badges */}
         {reason || reasonBadges?.length ? (
-          <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+          <div className="flex flex-wrap items-center gap-1.5">
             {reason ? (
-              <span className="rounded-full border border-black/10 bg-white px-2.5 py-1 text-gray-600">
+              <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
                 {reason}
               </span>
             ) : null}
             {reasonBadges?.slice(0, 2).map((badge) => (
               <span
                 key={badge}
-                className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 font-medium text-amber-900"
+                className="rounded-full border border-[rgba(196,137,79,0.25)] bg-[var(--brand-warm-cloud)] px-2.5 py-1 text-[11px] font-medium text-[var(--brand-warm)]"
               >
                 {badge}
               </span>
@@ -424,28 +452,24 @@ function RouteCard({
           </div>
         ) : null}
 
-        <div className="flex flex-wrap gap-1.5 text-[11px] text-gray-700">
-          <span className="rounded-full border border-black/10 bg-gray-50 px-2.5 py-1">
+        {/* Meta chips */}
+        <div className="flex flex-wrap gap-1.5">
+          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
             {durationLabel}
           </span>
-          <span className="rounded-full border border-black/10 bg-gray-50 px-2.5 py-1">
+          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
             {route.stop_count ?? 0} Stopps
           </span>
-          <span className="rounded-full border border-black/10 bg-gray-50 px-2.5 py-1">
-            {route.photo_count ?? 0} Fotos
-          </span>
-          <span className="rounded-full border border-black/10 bg-gray-50 px-2.5 py-1">
+          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
             {idealFor}
           </span>
           {badges.slice(0, 2).map((badge, index) => (
             <span
               key={`${badge.label}-${badge.tone}-${index}`}
-              className={`rounded-full px-2.5 py-1 font-medium ${
+              className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
                 badge.tone === "dark"
-                  ? "bg-black text-white"
-                  : badge.tone === "soft"
-                    ? "border border-black/10 bg-stone-100 text-gray-700"
-                    : "border border-black/10 bg-white text-gray-700"
+                  ? "bg-[var(--text-strong)] text-white"
+                  : "border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)]"
               }`}
             >
               {badge.label}
@@ -453,40 +477,41 @@ function RouteCard({
           ))}
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-black/5 bg-white">
-          <div className="flex items-center justify-between gap-3 px-3 pt-3">
-            <div className="min-w-0">
-              <div className="text-[10px] uppercase tracking-[0.18em] text-gray-400">Route</div>
-              <div className="mt-0.5 line-clamp-1 text-sm font-medium text-gray-900">
-                {route.start_label ? `Start bei ${route.start_label}` : `Route in ${city}`}
-              </div>
+        {/* Mini map */}
+        <div className="overflow-hidden rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)]">
+          <div className="flex items-center gap-2 px-3 pt-2.5">
+            <div className="pd24-meta text-[var(--text-soft)]">Route</div>
+            <div className="min-w-0 flex-1 truncate text-xs font-medium text-[var(--text-strong)]">
+              {route.start_label ? `ab ${route.start_label}` : city}
             </div>
           </div>
-          <div className="mt-2 border-t border-black/5 p-2.5">
+          <div className="mt-2 border-t border-[var(--line-subtle)] p-2.5">
             <RouteMiniMapClient stops={miniStops} height={82} />
           </div>
         </div>
 
-        <details className="rounded-[20px] border border-black/5 bg-gray-50 px-4 py-3 text-[13px] text-gray-600">
-          <summary className="cursor-pointer list-none text-sm font-medium text-gray-900">
+        {/* Details expandable */}
+        <details className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-[13px] text-[var(--text-muted)]">
+          <summary className="cursor-pointer list-none text-sm font-medium text-[var(--text-strong)]">
             Mehr zur Route
           </summary>
           <div className="mt-3 space-y-2 leading-6">
             <p>{desc}</p>
-            <div className="flex flex-wrap gap-3 text-xs text-gray-500">
+            <div className="flex flex-wrap gap-3 text-xs text-[var(--text-soft)]">
               <span>{route.required_stop_count ?? 0} Pflicht-Stopps</span>
-              <span>{route.avg_rating?.toFixed(1) ?? "0.0"} Bewertung</span>
+              <span>{route.avg_rating?.toFixed(1) ?? "0.0"} ⭐</span>
               <span>{route.like_count ?? 0} Likes</span>
               <span>Aktualisiert {formatDate(route.updated_at)}</span>
             </div>
           </div>
         </details>
 
-        <div className="flex items-center justify-between gap-3 border-t border-black/5 pt-2">
-          <div className="min-w-0 space-y-1">
-            <div className="truncate text-xs text-gray-500">{creatorLabel}</div>
+        {/* Footer */}
+        <div className="flex items-center justify-between gap-3 border-t border-[var(--line-subtle)] pt-3">
+          <div className="min-w-0 space-y-0.5">
+            <div className="truncate text-xs text-[var(--text-muted)]">{creatorLabel}</div>
             {creatorLink ? (
-              <Link href={creatorLink} className="text-xs text-gray-700 underline underline-offset-4">
+              <Link href={creatorLink} className="text-xs text-[var(--text-strong)] underline underline-offset-4">
                 Profil öffnen
               </Link>
             ) : null}
@@ -495,12 +520,12 @@ function RouteCard({
           {href ? (
             <Link
               href={href}
-              className="shrink-0 rounded-full border border-black bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-900"
+              className="shrink-0 rounded-full border border-[var(--text-strong)] bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
             >
               Route öffnen
             </Link>
           ) : (
-            <div className="text-xs text-red-600">Route aktuell nicht aufrufbar.</div>
+            <div className="text-xs text-[var(--state-error)]">Route aktuell nicht aufrufbar.</div>
           )}
         </div>
       </div>
@@ -533,60 +558,62 @@ function CreatorCard({
   const content = (
     <div className="p-5">
       <div className="flex items-start gap-4">
-        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-gray-100">
+        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[var(--bg-panel)]">
           {creator.avatar_url ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={creator.avatar_url}
               alt={displayName}
-              className="h-full w-full object-cover"
+              fill
+              unoptimized={!isSafeImageHost(creator.avatar_url)}
+              sizes="64px"
+              className="object-cover"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-sm text-gray-400">
+            <div className="flex h-full w-full items-center justify-center text-sm text-[var(--text-muted)]">
               {displayName.slice(0, 1).toUpperCase()}
             </div>
           )}
         </div>
 
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="truncate font-semibold">{displayName}</h3>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="truncate font-semibold text-[var(--text-strong)]">{displayName}</h3>
             {creator.is_verified ? (
-              <span className="rounded-full bg-black px-2 py-1 text-[11px] text-white">Verified</span>
+              <span className="rounded-full bg-[var(--text-strong)] px-2 py-1 text-[11px] text-white">Verified</span>
             ) : null}
             {creator.is_featured ? (
-              <span className="rounded-full border px-2 py-1 text-[11px]">Featured</span>
+              <span className="rounded-full border border-[var(--line-subtle)] px-2 py-1 text-[11px] text-[var(--text-muted)]">Featured</span>
             ) : null}
           </div>
 
-          <div className="mt-1 text-xs text-gray-500">
+          <div className="mt-1 text-xs text-[var(--text-soft)]">
             @{creator.username} • {niceCreatorType(creator.creator_type)}
           </div>
 
-          <p className="mt-2 line-clamp-3 text-sm text-gray-600">{bio}</p>
+          <p className="mt-2 line-clamp-3 text-sm text-[var(--text-muted)]">{bio}</p>
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-500">
-        <div className="rounded-2xl border border-black/5 bg-gray-50 px-3 py-2">
-          <div className="font-medium text-gray-900">{compactNumber(creator.route_count)}</div>
+      <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-[var(--text-muted)]">
+        <div className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+          <div className="font-medium text-[var(--text-strong)]">{compactNumber(creator.route_count)}</div>
           <div>Routen</div>
         </div>
-        <div className="rounded-2xl border border-black/5 bg-gray-50 px-3 py-2">
-          <div className="font-medium text-gray-900">{compactNumber(creator.follower_count)}</div>
+        <div className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+          <div className="font-medium text-[var(--text-strong)]">{compactNumber(creator.follower_count)}</div>
           <div>Follower</div>
         </div>
-        <div className="rounded-2xl border border-black/5 bg-gray-50 px-3 py-2">
-          <div className="font-medium text-gray-900">{compactNumber(creator.total_likes_received)}</div>
+        <div className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+          <div className="font-medium text-[var(--text-strong)]">{compactNumber(creator.total_likes_received)}</div>
           <div>Likes</div>
         </div>
-        <div className="rounded-2xl border border-black/5 bg-gray-50 px-3 py-2">
-          <div className="font-medium text-gray-900">{compactNumber(creator.total_bookmarks_received)}</div>
+        <div className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+          <div className="font-medium text-[var(--text-strong)]">{compactNumber(creator.total_bookmarks_received)}</div>
           <div>Bookmarks</div>
         </div>
       </div>
 
-      <div className="mt-3 flex flex-wrap gap-4 text-xs text-gray-500">
+      <div className="mt-3 flex flex-wrap gap-4 text-xs text-[var(--text-soft)]">
         <span>{homeCityLabel}</span>
         <span>Score: {rankingScore ?? 0}</span>
       </div>
@@ -959,8 +986,8 @@ function ExplorePageContent() {
 
   return (
     <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
-      <div className="mb-5 overflow-hidden rounded-3xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
-        <div className="bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(229,234,238,0.92))] p-4 sm:p-5 lg:p-6">
+      <div className="mb-5 overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
+        <div className="bg-[linear-gradient(180deg,var(--bg-surface),var(--bg-panel))] p-4 sm:p-5 lg:p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-3xl">
               <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
@@ -1029,8 +1056,8 @@ function ExplorePageContent() {
                 onClick={() => setPersonalizedSort((value) => !value)}
                 className={`h-10 rounded-xl border px-3 text-xs font-medium shadow-sm transition sm:text-sm ${
                   personalizedSort
-                    ? "border-black bg-black text-white"
-                    : "border-black/10 bg-white text-gray-700 hover:bg-gray-50"
+                    ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                    : "border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] text-[var(--text-muted)] hover:bg-[var(--bg-surface)]"
                 }`}
               >
                 {personalizedSort ? "Für mich: an" : "Für mich"}
@@ -1054,8 +1081,8 @@ function ExplorePageContent() {
                 onClick={() => setOccasionFilter(pill.key)}
                 className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition ${
                   occasionFilter === pill.key
-                    ? "border-black bg-black text-white"
-                    : "border-black/10 bg-white text-gray-700 hover:border-black/25 hover:bg-gray-50"
+                    ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                    : "border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] text-[var(--text-muted)] hover:border-[var(--line-strong)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"
                 }`}
               >
                 {pill.emoji ? `${pill.emoji} ` : ""}{pill.label}
@@ -1148,15 +1175,15 @@ function ExplorePageContent() {
       </div>
 
       {/* Roadtrip-Routen — Mehrtagsreisen entdecken */}
-      <div className="mb-4 flex items-center justify-between gap-4 overflow-hidden rounded-xl border border-[rgba(183,106,67,0.2)] bg-[linear-gradient(135deg,rgba(183,106,67,0.07),rgba(90,118,136,0.06))] px-4 py-3 shadow-[0_1px_4px_rgba(15,23,42,0.05)]">
+      <div className="mb-4 flex items-center justify-between gap-4 overflow-hidden rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.2)] bg-[linear-gradient(135deg,rgba(196,137,79,0.07),rgba(90,118,136,0.06))] px-4 py-3 shadow-[var(--shadow-soft)]">
         <div className="min-w-0">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#b76a43]">Mehrtagsreisen</div>
+          <div className="pd24-kicker-warm">Mehrtagsreisen</div>
           <div className="mt-0.5 text-sm font-medium text-[var(--text-strong)]">Roadtrip-Routen — Mehrere Städte, ein Plan. Von echten Reisenden geteilt.</div>
           <div className="mt-0.5 text-xs text-[var(--text-muted)]">Route als Vorlage übernehmen · Eigene Route speichern & teilen</div>
         </div>
         <Link
           href="/roadtrip/routes"
-          className="shrink-0 rounded-full border border-[rgba(183,106,67,0.3)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[#b76a43] transition hover:bg-[rgba(183,106,67,0.08)] active:scale-[0.98]"
+          className="shrink-0 rounded-full border border-[rgba(196,137,79,0.3)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--brand-warm)] transition hover:bg-[rgba(196,137,79,0.08)] active:scale-[0.98]"
         >
           Routen entdecken →
         </Link>

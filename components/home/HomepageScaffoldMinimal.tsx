@@ -90,7 +90,7 @@ const howItWorksSteps = [
 
 function MetricPill({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-full border border-[rgba(23,23,23,0.1)] bg-white/82 px-4 py-2 text-sm text-[#665d55]">
+    <span className="rounded-full border border-[rgba(196,137,79,0.2)] bg-[var(--brand-warm-cloud)] px-4 py-2 text-sm text-[var(--text-muted-warm)]">
       {children}
     </span>
   );
@@ -98,25 +98,25 @@ function MetricPill({ children }: { children: React.ReactNode }) {
 
 export default function HomepageScaffoldMinimal() {
   return (
-    <div className={`${display.variable} min-h-screen bg-[#f7f4ee] text-[#171717]`}>
+    <div className={`${display.variable} min-h-screen bg-[var(--bg-canvas-warm)] text-[var(--text-strong)]`}>
       <div className="pd24-page-standard pb-20 pt-6">
 
         <main className="mt-6 space-y-16 sm:space-y-24">
 
           {/* ── Hero ── */}
-          <section className="relative overflow-hidden rounded-[32px] border border-[rgba(23,23,23,0.08)] bg-[linear-gradient(135deg,rgba(255,253,248,0.98),rgba(244,236,227,0.95))] px-5 py-6 shadow-[0_28px_80px_rgba(49,39,27,0.1)] sm:px-8 sm:py-10">
-            <div className="pointer-events-none absolute left-[-4rem] top-[-4rem] h-40 w-40 rounded-full bg-[rgba(183,106,67,0.12)] blur-3xl" />
-            <div className="pointer-events-none absolute bottom-[-4rem] right-[-2rem] h-44 w-44 rounded-full bg-[rgba(122,141,114,0.14)] blur-3xl" />
+          <section className="relative overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(135deg,var(--bg-canvas-warm),var(--brand-warm-cloud))] px-5 py-6 shadow-[var(--shadow-large)] sm:px-8 sm:py-10">
+            <div className="pointer-events-none absolute left-[-4rem] top-[-4rem] h-40 w-40 rounded-full bg-[rgba(196,137,79,0.12)] blur-3xl" />
+            <div className="pointer-events-none absolute bottom-[-4rem] right-[-2rem] h-44 w-44 rounded-full bg-[rgba(90,118,136,0.12)] blur-3xl" />
 
             <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] lg:items-center">
               <div className="max-w-2xl">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+                <div className="pd24-kicker-warm">
                   Einfach schreiben — fertig geplant.
                 </div>
-                <h1 className="mt-4 font-[family:var(--font-pd24-display)] text-[2.75rem] leading-[0.96] tracking-tight text-[#171717] sm:text-6xl lg:text-7xl">
+                <h1 className="mt-4 pd24-display text-[2.75rem] leading-[0.96] tracking-tight text-[var(--text-strong)] sm:text-6xl lg:text-7xl">
                   Dein perfekter Tag — konkret geplant, nicht nur gesucht.
                 </h1>
-                <p className="mt-5 max-w-xl text-lg leading-8 text-[#665d55]">
+                <p className="mt-5 max-w-xl text-lg leading-8 text-[var(--text-muted-warm)]">
                   Schreib kurz, was du planst — PerfectDay24 baut daraus einen vollständigen Tag mit echten Events und klarem Timing.
                 </p>
 
@@ -129,17 +129,17 @@ export default function HomepageScaffoldMinimal() {
                 </div>
               </div>
 
-              {/* Beispiel-Plan Mockup */}
-              <div className="rounded-[28px] border border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.94)] p-5 shadow-[0_24px_64px_rgba(49,39,27,0.12)] sm:p-7">
-                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[rgba(23,23,23,0.08)] pb-4">
+              {/* Beispiel-Plan Mockup — auf Mobile ausgeblendet */}
+              <div className="hidden pd24-card-featured p-5 sm:p-7 lg:block" style={{ background: 'rgba(255,253,248,0.94)' }}>
+                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--line-subtle)] pb-4">
                   <div>
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8b7767]">
+                    <div className="pd24-meta text-[var(--text-soft-warm)]">
                       Beispiel · Date-Abend Berlin
                     </div>
-                    <div className="mt-2 text-2xl font-semibold tracking-tight text-[#171717]">
+                    <div className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
                       Berlin · Event-Plan · Heute Abend
                     </div>
-                    <div className="mt-2 text-sm leading-6 text-[#665d55]">
+                    <div className="mt-2 text-sm leading-6 text-[var(--text-muted-warm)]">
                       Fester Hauptmoment, kurze Wege, genug Luft zwischen den Stops.
                     </div>
                   </div>
@@ -150,27 +150,27 @@ export default function HomepageScaffoldMinimal() {
                   {heroStops.map((stop, index) => (
                     <div
                       key={stop.time}
-                      className="grid grid-cols-[52px_1fr_auto] items-start gap-3 rounded-[22px] border border-[rgba(23,23,23,0.08)] bg-white/86 px-4 py-4"
+                      className="grid grid-cols-[52px_1fr_auto] items-start gap-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/86 px-4 py-4"
                     >
-                      <div className="text-sm font-semibold text-[#b76a43]">{stop.time}</div>
+                      <div className="text-sm font-semibold text-[var(--brand-warm)]">{stop.time}</div>
                       <div>
-                        <div className="text-base font-medium text-[#171717]">{stop.title}</div>
-                        <div className="mt-1 text-sm leading-6 text-[#665d55]">{stop.note}</div>
+                        <div className="text-base font-medium text-[var(--text-strong)]">{stop.title}</div>
+                        <div className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">{stop.note}</div>
                       </div>
-                      <div className="flex min-h-8 min-w-8 items-center justify-center rounded-[16px] bg-[#171717] px-2 text-xs font-semibold text-white">
+                      <div className="flex min-h-8 min-w-8 items-center justify-center rounded-[var(--radius-control)] bg-[var(--text-strong)] px-2 text-xs font-semibold text-white">
                         {index + 1}
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-5 rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-[linear-gradient(180deg,rgba(249,243,235,0.95),rgba(255,253,248,0.96))] p-5">
+                <div className="mt-5 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,var(--brand-warm-cloud),var(--bg-canvas-warm))] p-5">
                   <div className="flex flex-wrap gap-2">
                     {heroSignals.map((signal) => (
                       <MetricPill key={signal}>{signal}</MetricPill>
                     ))}
                   </div>
-                  <div className="mt-4 text-sm leading-7 text-[#665d55]">
+                  <div className="mt-4 text-sm leading-7 text-[var(--text-muted-warm)]">
                     Genau das bekommst du: nicht nur Orte, sondern eine plausible Dramaturgie
                     für den ganzen Abend.
                   </div>
@@ -182,32 +182,32 @@ export default function HomepageScaffoldMinimal() {
           {/* ── Zwei Produkte ── */}
           <section>
             <div className="text-center">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+              <div className="pd24-kicker-warm">
                 Wähle deinen Einstieg
               </div>
-              <h2 className="mt-3 font-[family:var(--font-pd24-display)] text-4xl tracking-tight text-[#171717] sm:text-5xl">
+              <h2 className="mt-3 pd24-display text-4xl tracking-tight text-[var(--text-strong)] sm:text-5xl">
                 Was möchtest du planen?
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-[#665d55]">
+              <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-[var(--text-muted-warm)]">
                 Ein Tag in der Stadt oder ein ganzes Event — wähle deinen Einstieg.
               </p>
             </div>
 
             <div className="mt-8 grid gap-5 sm:grid-cols-2">
               {/* Tagesplaner */}
-              <div className="flex flex-col rounded-[28px] border border-[rgba(23,23,23,0.08)] bg-[linear-gradient(160deg,rgba(255,253,248,0.98),rgba(244,236,227,0.94))] p-7 shadow-[0_16px_48px_rgba(49,39,27,0.09)]">
-                <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#171717] text-xl">
+              <div className="flex flex-col rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,var(--bg-canvas-warm),var(--brand-warm-cloud))] p-7 shadow-[var(--shadow-soft)]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-[var(--text-strong)] text-xl">
                   🗓
                 </div>
-                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[#171717]">
+                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
                   Einen Tag genießen
                 </h3>
-                <p className="mt-3 flex-1 text-base leading-7 text-[#665d55]">
+                <p className="mt-3 flex-1 text-base leading-7 text-[var(--text-muted-warm)]">
                   Stadt, Anlass, Datum — fertig. PerfectDay24 baut daraus einen vollständigen Tagesplan mit echten Events, sinnvollen Wegen und klarem Timing.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {["Date Night", "Familientag", "Mit Freunden"].map((tag) => (
-                    <span key={tag} className="rounded-full border border-[rgba(23,23,23,0.1)] bg-white/80 px-3 py-1.5 text-sm text-[#8b7767]">
+                    <span key={tag} className="rounded-full border border-[var(--line-subtle)] bg-white/80 px-3 py-1.5 text-sm text-[var(--text-soft-warm)]">
                       {tag}
                     </span>
                   ))}
@@ -218,14 +218,14 @@ export default function HomepageScaffoldMinimal() {
               </div>
 
               {/* Eventplaner */}
-              <div className="flex flex-col rounded-[28px] border border-[rgba(23,23,23,0.08)] bg-[linear-gradient(160deg,rgba(240,247,243,0.98),rgba(228,240,234,0.94))] p-7 shadow-[0_16px_48px_rgba(49,39,27,0.09)]">
+              <div className="flex flex-col rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(240,247,243,0.98),rgba(228,240,234,0.94))] p-7 shadow-[var(--shadow-soft)]">
                 <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#2d5a3d] text-xl">
                   🎉
                 </div>
-                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[#171717]">
+                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
                   Ein Event veranstalten
                 </h3>
-                <p className="mt-3 flex-1 text-base leading-7 text-[#665d55]">
+                <p className="mt-3 flex-1 text-base leading-7 text-[var(--text-muted-warm)]">
                   Geburtstag, JGA, Teamday oder Dinner-Party. Stelle Anbieter zusammen, frage Preise an und verschicke digitale Einladungen — alles an einem Ort.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2">
@@ -245,50 +245,54 @@ export default function HomepageScaffoldMinimal() {
           {/* ── Wie es funktioniert ── */}
           <section>
             <div className="text-center">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+              <div className="pd24-kicker-warm">
                 So funktioniert es
               </div>
-              <h2 className="mt-3 font-[family:var(--font-pd24-display)] text-4xl tracking-tight text-[#171717] sm:text-5xl">
+              <h2 className="mt-3 pd24-display text-4xl tracking-tight text-[var(--text-strong)] sm:text-5xl">
                 Drei Schritte zum fertigen Plan
               </h2>
             </div>
-            <div className="mt-8 grid gap-5 sm:grid-cols-3">
+            <div className="relative mt-8 grid gap-5 sm:grid-cols-3">
+              <div
+                className="pointer-events-none absolute hidden h-px bg-[var(--line-subtle)] sm:block"
+                style={{ top: '3.25rem', left: 'calc(33.33% + 10px)', right: 'calc(33.33% + 10px)' }}
+              />
               {howItWorksSteps.map((step) => (
                 <div
                   key={step.number}
-                  className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.9)] p-6"
+                  className="relative rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] p-6"
                 >
-                  <div className="font-[family:var(--font-pd24-display)] text-4xl leading-none text-[#b76a43]">
+                  <div className="pd24-display text-4xl leading-none text-[var(--brand-warm)]">
                     {step.number}
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-[#171717]">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#665d55]">{step.body}</p>
+                  <h3 className="mt-4 text-lg font-semibold text-[var(--text-strong)]">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[var(--text-muted-warm)]">{step.body}</p>
                 </div>
               ))}
             </div>
           </section>
 
           {/* ── Weitere Einstiege ── */}
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[#8b7767]">
-            <span className="font-medium text-[#665d55]">Mehr entdecken:</span>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[var(--text-soft-warm)]">
+            <span className="font-medium text-[var(--text-muted-warm)]">Mehr entdecken:</span>
             <Link
               href="/explore"
-              className="underline-offset-2 transition hover:text-[#171717] hover:underline"
+              className="underline-offset-2 transition hover:text-[var(--text-strong)] hover:underline"
             >
               Routen entdecken
             </Link>
             <Link
               href="/saved"
-              className="underline-offset-2 transition hover:text-[#171717] hover:underline"
+              className="underline-offset-2 transition hover:text-[var(--text-strong)] hover:underline"
             >
               Meine Pläne
             </Link>
           </div>
 
           {/* ── Final CTA ── */}
-          <section className="rounded-[32px] bg-[#171717] px-6 py-10 text-[#fffdf8] shadow-[0_28px_80px_rgba(49,39,27,0.18)] sm:px-8">
+          <section className="rounded-[var(--radius-shell)] bg-[var(--text-strong)] px-6 py-10 text-[#fffdf8] shadow-[var(--shadow-large)] sm:px-8">
             <div className="max-w-3xl">
-              <h2 className="font-[family:var(--font-pd24-display)] text-[2.75rem] leading-[0.98] tracking-tight sm:text-6xl">
+              <h2 className="pd24-display text-[2.75rem] leading-[0.98] tracking-tight sm:text-6xl">
                 Einfach beschreiben. Der Plan folgt sofort.
               </h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-[rgba(255,253,248,0.78)]">
@@ -308,15 +312,15 @@ export default function HomepageScaffoldMinimal() {
           </section>
         </main>
 
-        <footer className="mt-12 rounded-[28px] border border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.78)] px-6 py-6">
+        <footer className="mt-12 rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.78)] px-6 py-6">
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
-              <div className="text-lg font-semibold tracking-tight text-[#171717]">PerfectDay24</div>
-              <div className="mt-2 text-sm text-[#665d55]">
+              <div className="text-lg font-semibold tracking-tight text-[var(--text-strong)]">PerfectDay24</div>
+              <div className="mt-2 text-sm text-[var(--text-muted-warm)]">
                 Einen guten Tag planen — für dich, zu zweit oder mit der Gruppe.
               </div>
             </div>
-            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#665d55]">
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-[var(--text-muted-warm)]">
               <Link href="/planner">Planen</Link>
               <Link href="/explore">Entdecken</Link>
               <Link href="/events">Events</Link>

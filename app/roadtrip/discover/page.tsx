@@ -17,6 +17,8 @@ import {
 } from "@/lib/roadtrip/suggest-types";
 import type { DiscoverMapProps } from "@/components/roadtrip/DiscoverMap";
 import { slugifyTitle } from "@/lib/roadtrip/types";
+import type { RoadtripRoute } from "@/lib/roadtrip/types";
+import { fetchPublicRoadtripRoutes } from "@/lib/roadtrip/client";
 
 // Leaflet braucht dynamischen Import (kein SSR)
 const DiscoverMap = dynamic(
@@ -329,6 +331,17 @@ export default function RoadtripDiscoverPage() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [activeStopId, setActiveStopId] = useState<string | null>(null);
 
+  // ── DB-getriebene Inspirations-Routen ────────────────────────────────────
+  const [dbRoutes, setDbRoutes] = useState<RoadtripRoute[]>([]);
+  const [dbRoutesLoading, setDbRoutesLoading] = useState(true);
+
+  useEffect(() => {
+    fetchPublicRoadtripRoutes(8)
+      .then((rows) => setDbRoutes(rows.filter((r) => r.stops.length >= 2)))
+      .catch(() => setDbRoutes([]))
+      .finally(() => setDbRoutesLoading(false));
+  }, []);
+
   function togglePreference(p: RoutePreference) {
     setPreferences((prev) => {
       const next = new Set(prev);
@@ -350,9 +363,22 @@ export default function RoadtripDiscoverPage() {
   function handleInspirationClick(route: InspirationRoute) {
     setFrom({ label: route.from, ...route.fromCoords });
     setTo({ label: route.to, ...route.toCoords });
-    // Scroll to search area smoothly
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  function handleDbRouteClick(route: RoadtripRoute) {
+    const first = route.stops[0];
+    const last  = route.stops[route.stops.length - 1];
+    if (!first || !last) return;
+    setFrom({ label: first.cityLabel, lat: first.lat, lng: first.lng });
+    setTo({   label: last.cityLabel,  lat: last.lat,  lng: last.lng  });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // Occasion → Emoji mapping for DB routes
+  const OCCASION_EMOJI: Record<string, string> = {
+    friends: "👫", family: "👨‍👩‍👧", date: "🥂", tourism: "🗺️", party: "🎉",
+  };
 
   const handleSuggest = useCallback(async () => {
     if (!from || !to) return;
@@ -694,60 +720,100 @@ export default function RoadtripDiscoverPage() {
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
-              Beliebte Routen als Inspiration
+              {dbRoutes.length > 0 ? "Community-Routen als Inspiration" : "Beliebte Routen als Inspiration"}
             </h2>
             <div className="h-px flex-1 bg-[var(--line-subtle)]" />
+            {dbRoutes.length > 0 && (
+              <a href="/roadtrip/routes" className="shrink-0 text-xs text-[var(--text-muted)] underline underline-offset-2 hover:text-[var(--text-strong)]">
+                Alle ansehen
+              </a>
+            )}
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {INSPIRATION_ROUTES.map((route) => (
-              <button
-                key={route.name}
-                type="button"
-                onClick={() => handleInspirationClick(route)}
-                className="group relative overflow-hidden rounded-2xl text-left shadow-sm transition hover:shadow-lg active:scale-[0.98]"
-                style={{ height: 200 }}
-              >
-                {/* Foto */}
-                <Image
-                  src={route.image}
-                  alt={route.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
-                {/* Gradient-Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-
-                {/* Text */}
-                <div className="absolute bottom-0 left-0 right-0 p-3">
-                  <div className="text-base font-bold text-white drop-shadow">
-                    {route.emoji} {route.name}
-                  </div>
-                  <div className="mt-0.5 text-xs text-white/80">
-                    {route.from} → {route.to}
-                  </div>
-                  <div className="mt-1.5 flex flex-wrap gap-1">
-                    {route.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm"
-                      >
-                        {tag}
+          {/* DB-Routen wenn vorhanden, sonst hardcodierte Fallbacks */}
+          {dbRoutesLoading ? (
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="animate-pulse rounded-2xl bg-[var(--bg-panel)]" style={{ height: 200 }} />
+              ))}
+            </div>
+          ) : dbRoutes.length > 0 ? (
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {dbRoutes.slice(0, 8).map((route) => {
+                const first = route.stops[0];
+                const last  = route.stops[route.stops.length - 1];
+                const emoji = OCCASION_EMOJI[route.occasion] ?? "🗺️";
+                const hasCover = Boolean(route.cover_image_url);
+                return (
+                  <button
+                    key={route.id}
+                    type="button"
+                    onClick={() => handleDbRouteClick(route)}
+                    className="group relative overflow-hidden rounded-2xl text-left shadow-sm transition hover:shadow-lg active:scale-[0.98]"
+                    style={{ height: 200 }}
+                  >
+                    {hasCover ? (
+                      <Image src={route.cover_image_url!} alt={route.title} fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-600" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-3">
+                      <div className="text-base font-bold text-white drop-shadow">
+                        {emoji} {route.title}
+                      </div>
+                      {first && last && (
+                        <div className="mt-0.5 text-xs text-white/80">
+                          {first.cityLabel} → {last.cityLabel}
+                        </div>
+                      )}
+                      <div className="mt-1.5 flex flex-wrap gap-1">
+                        <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm">
+                          {route.stops.length} Städte · {route.total_nights} Nächte
+                        </span>
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                      <span className="rounded-full bg-amber-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg">
+                        Route starten ✨
                       </span>
-                    ))}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {INSPIRATION_ROUTES.map((route) => (
+                <button
+                  key={route.name}
+                  type="button"
+                  onClick={() => handleInspirationClick(route)}
+                  className="group relative overflow-hidden rounded-2xl text-left shadow-sm transition hover:shadow-lg active:scale-[0.98]"
+                  style={{ height: 200 }}
+                >
+                  <Image src={route.image} alt={route.name} fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3">
+                    <div className="text-base font-bold text-white drop-shadow">{route.emoji} {route.name}</div>
+                    <div className="mt-0.5 text-xs text-white/80">{route.from} → {route.to}</div>
+                    <div className="mt-1.5 flex flex-wrap gap-1">
+                      {route.tags.map((tag) => (
+                        <span key={tag} className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm">{tag}</span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-
-                {/* Hover-Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                  <span className="rounded-full bg-amber-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg">
-                    Route starten ✨
-                  </span>
-                </div>
-              </button>
-            ))}
-          </div>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                    <span className="rounded-full bg-amber-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg">Route starten ✨</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
 
           <p className="text-center text-xs text-[var(--text-muted)]">
             Klicke auf eine Route — oder gib oben deinen eigenen Start- und Zielort ein.

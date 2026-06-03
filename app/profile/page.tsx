@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { getInterestCatalog, norm } from "@/lib/planner";
 import { supabase } from "@/lib/supabaseClient";
+import { deleteRoadtripRoute, fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
+import type { RoadtripRoute } from "@/lib/roadtrip/types";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -111,6 +113,18 @@ function buildFallbackDisplayName(
 
 type CreatedRouteFilter = "all" | UserRouteRow["visibility"];
 type SavedRouteFilter = "all" | "with-city" | "with-description";
+type StudioTab = "routes" | "roadtrips" | "events";
+
+type EventPlanRow = {
+  id: string;
+  title: string | null;
+  occasion_slug: string;
+  city_slug: string | null;
+  event_date: string | null;
+  guest_count: number | null;
+  status: string;
+  created_at: string;
+};
 
 function formatRouteTitle(route: UserRouteRow): string {
   return route.title?.trim() || "Untitled Route";
@@ -148,7 +162,7 @@ function formatRouteCityLabel(citySlug: string | null): string {
 function routeTileTone(visibility: UserRouteRow["visibility"]): string {
   if (visibility === "public") return "border-emerald-200 bg-emerald-50";
   if (visibility === "unlisted") return "border-amber-200 bg-amber-50";
-  return "border-[rgba(23,23,23,0.08)] bg-[#f7f4ee]";
+  return "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)]";
 }
 
 // ─── Route list item ───────────────────────────────────────────────────────────
@@ -166,7 +180,7 @@ type ProfileRouteListItemProps = {
 const TILE_TONE: Record<UserRouteRow["visibility"], string> = {
   public:   "border-emerald-200 bg-emerald-50 text-emerald-700",
   unlisted: "border-amber-200 bg-amber-50 text-amber-700",
-  private:  "border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] text-[#665d55]",
+  private:  "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] text-[var(--text-muted-warm)]",
 };
 
 function TrashIcon() {
@@ -207,10 +221,10 @@ function ProfileRouteListItem({
 
   return (
     <div
-      className={`rounded-[18px] border bg-white p-3 transition ${
+      className={`rounded-[var(--radius-control)] border bg-[var(--bg-panel-strong)] p-3 transition ${
         confirming
           ? "border-red-200 bg-red-50/30"
-          : "border-[rgba(23,23,23,0.08)] hover:border-[rgba(23,23,23,0.18)]"
+          : "border-[var(--line-subtle)] hover:border-[var(--line-strong)]"
       }`}
     >
       {/* Top row: tile + title + meta */}
@@ -221,8 +235,8 @@ function ProfileRouteListItem({
           {title.slice(0, 1).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-[#171717]">{title}</p>
-          <p className="mt-0.5 truncate text-[11px] text-[#8b7767]">
+          <p className="truncate text-sm font-semibold text-[var(--text-strong)]">{title}</p>
+          <p className="mt-0.5 truncate text-[11px] text-[var(--text-soft-warm)]">
             {cityLabel} · {formatRouteVisibilityLabel(route.visibility)} ·{" "}
             {new Date(route.updated_at).toLocaleDateString("de-DE")}
           </p>
@@ -235,7 +249,7 @@ function ProfileRouteListItem({
           {primaryHref && (
             <Link
               href={primaryHref}
-              className="inline-flex min-h-8 items-center rounded-lg bg-[#171717] px-3 text-xs font-medium text-white transition hover:opacity-90"
+              className="inline-flex min-h-8 items-center rounded-lg bg-[var(--text-strong)] px-3 text-xs font-medium text-white transition hover:opacity-90"
             >
               {primaryLabel}
             </Link>
@@ -243,7 +257,7 @@ function ProfileRouteListItem({
           {secondaryHref && secondaryLabel && (
             <Link
               href={secondaryHref}
-              className="inline-flex min-h-8 items-center rounded-lg border border-[rgba(23,23,23,0.1)] px-3 text-xs font-medium text-[#171717] transition hover:bg-[#f7f4ee]"
+              className="inline-flex min-h-8 items-center rounded-lg border border-[rgba(23,23,23,0.1)] px-3 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)]"
             >
               {secondaryLabel}
             </Link>
@@ -252,7 +266,7 @@ function ProfileRouteListItem({
             type="button"
             aria-label={deleteLabel}
             onClick={() => setConfirming(true)}
-            className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg text-[#8b7767] transition hover:bg-red-50 hover:text-red-500"
+            className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-soft-warm)] transition hover:bg-red-50 hover:text-red-500"
           >
             <TrashIcon />
           </button>
@@ -268,7 +282,7 @@ function ProfileRouteListItem({
               type="button"
               onClick={() => setConfirming(false)}
               disabled={deleting}
-              className="rounded-lg border border-[rgba(23,23,23,0.12)] bg-white px-3 py-1 text-xs font-medium text-[#665d55] transition hover:border-[rgba(23,23,23,0.25)] disabled:opacity-50"
+              className="rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-1 text-xs font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--line-strong)] disabled:opacity-50"
             >
               Abbrechen
             </button>
@@ -329,6 +343,10 @@ function ProfilePageInner() {
   const [createdRouteFilter, setCreatedRouteFilter] = useState<CreatedRouteFilter>("all");
   const [savedRouteQuery, setSavedRouteQuery] = useState("");
   const [savedRouteFilter, setSavedRouteFilter] = useState<SavedRouteFilter>("all");
+  const [studioTab, setStudioTab] = useState<StudioTab>("routes");
+  const [studioRoadtrips, setStudioRoadtrips] = useState<RoadtripRoute[]>([]);
+  const [studioEvents, setStudioEvents] = useState<EventPlanRow[]>([]);
+  const [loadingStudio, setLoadingStudio] = useState(false);
   const [hasPartnerProfile, setHasPartnerProfile] = useState<boolean | null>(null);
   const [hasCorporateProfile, setHasCorporateProfile] = useState<boolean | null>(null);
 
@@ -554,6 +572,30 @@ function ProfilePageInner() {
         setLoadingProfile(false);
       }
     })();
+  }, [authReady, userId]);
+
+  // ── Studio: Roadtrips + Events laden ─────────────────────────────────────
+
+  useEffect(() => {
+    if (!authReady || !userId) return;
+    setLoadingStudio(true);
+
+    Promise.all([
+      fetchMyRoadtripRoutes(),
+      supabase
+        .from("event_plans")
+        .select("id, title, occasion_slug, city_slug, event_date, guest_count, status, created_at")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false })
+        .limit(20),
+    ]).then(([roadtrips, eventsResp]) => {
+      setStudioRoadtrips(roadtrips);
+      setStudioEvents((eventsResp.data as EventPlanRow[] | null) ?? []);
+    }).catch((err) => {
+      console.error("Studio load error:", err);
+    }).finally(() => {
+      setLoadingStudio(false);
+    });
   }, [authReady, userId]);
 
   // ── Avatar cleanup ────────────────────────────────────────────────────────
@@ -920,6 +962,18 @@ function ProfilePageInner() {
     setUserRoutes((prev) => prev.filter((r) => r.id !== id));
   }
 
+  async function deleteStudioRoadtrip(id: string) {
+    const { error } = await deleteRoadtripRoute(id);
+    if (error) { console.error("Roadtrip delete error:", error); return; }
+    setStudioRoadtrips((prev) => prev.filter((r) => r.id !== id));
+  }
+
+  async function deleteStudioEvent(id: string) {
+    const { error } = await supabase.from("event_plans").delete().eq("id", id);
+    if (error) { console.error("Event delete error:", error); return; }
+    setStudioEvents((prev) => prev.filter((e) => e.id !== id));
+  }
+
   async function removeBookmark(routeId: string) {
     if (!userId) return;
     const { error } = await supabase
@@ -1051,18 +1105,18 @@ function ProfilePageInner() {
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <div className="pd24-page-standard min-h-screen bg-[#f7f4ee]">
+    <div className="pd24-page-standard min-h-screen bg-[var(--bg-canvas-warm)]">
       <div className="space-y-6 px-4 py-8 sm:px-6">
 
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <div>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+          <div className="pd24-kicker-warm">
             {authReady && userId && !isAnonymous ? "Mein Bereich" : "Konto"}
           </div>
-          <h1 className="mt-2 text-2xl font-semibold text-[#171717] sm:text-3xl">
+          <h1 className="mt-2 text-2xl font-semibold text-[var(--text-strong)] sm:text-3xl">
             {authReady && userId && !isAnonymous ? "Profil" : "Anmelden"}
           </h1>
-          <p className="mt-1 text-sm leading-6 text-[#665d55]">
+          <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
             {authReady && userId && !isAnonymous
               ? "Interessen pflegen, Konto verwalten und öffentliches Profil einrichten."
               : "Melde dich an oder erstelle ein kostenloses Konto."}
@@ -1071,18 +1125,18 @@ function ProfilePageInner() {
 
         {/* ── Status banner ───────────────────────────────────────────────── */}
         {status ? (
-          <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white px-4 py-3 text-sm text-[#665d55]">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-4 py-3 text-sm text-[var(--text-muted-warm)]">
             {status}
           </div>
         ) : null}
 
         {/* ── Auth card ────────────────────────────────────────────────────── */}
-        <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
+        <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
 
           {/* ── EINGELOGGT (echter Account) ─────────────────────────────────── */}
           {authReady && userId && !isAnonymous ? (
             <>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+              <div className="pd24-kicker-warm">
                 Angemeldet
               </div>
               <div className="mt-4 flex items-center gap-4">
@@ -1090,18 +1144,18 @@ function ProfilePageInner() {
                   <img
                     src={avatarUrl}
                     alt={displayName || username || "Avatar"}
-                    className="h-12 w-12 rounded-full border border-[rgba(23,23,23,0.08)] bg-white object-cover"
+                    className="h-12 w-12 rounded-full border border-[var(--line-subtle)] bg-white object-cover"
                   />
                 ) : (
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] text-lg font-semibold text-[#8b7767]">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] text-lg font-semibold text-[var(--text-soft-warm)]">
                     {(displayName || username || email || "P").slice(0, 1).toUpperCase()}
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
-                  <div className="truncate font-semibold text-[#171717]">
+                  <div className="truncate font-semibold text-[var(--text-strong)]">
                     {displayName || username || email || "Dein Konto"}
                   </div>
-                  <div className="mt-0.5 truncate text-xs text-[#8b7767]">
+                  <div className="mt-0.5 truncate text-xs text-[var(--text-soft-warm)]">
                     {providerLabel(provider ?? "email")}{email ? ` · ${email}` : ""}
                   </div>
                 </div>
@@ -1109,7 +1163,7 @@ function ProfilePageInner() {
                   type="button"
                   onClick={() => void signOut()}
                   disabled={authLoading}
-                  className="shrink-0 inline-flex min-h-9 items-center rounded-xl border border-[rgba(23,23,23,0.08)] px-4 text-sm text-[#665d55] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                  className="shrink-0 inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-4 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
                 >
                   Abmelden
                 </button>
@@ -1121,21 +1175,21 @@ function ProfilePageInner() {
               <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-600">
                 Gastprofil
               </div>
-              <p className="mt-2 text-sm text-[#665d55]">
+              <p className="mt-2 text-sm text-[var(--text-muted-warm)]">
                 Du bist als Gast unterwegs. Registriere dich kostenlos, um deine Pläne dauerhaft zu speichern.
               </p>
               <div className="mt-4 grid gap-2 sm:grid-cols-2">
                 <button
                   onClick={() => void startOAuth("google")}
                   disabled={authLoading}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
                 >
                   <span className="text-base font-bold">G</span> Mit Google
                 </button>
                 <button
                   onClick={() => void startOAuth("azure")}
                   disabled={authLoading}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
                 >
                   <span className="inline-grid h-4 w-4 grid-cols-2 gap-[2px]">
                     <span className="rounded-[1px] bg-[#f25022]" />
@@ -1148,40 +1202,40 @@ function ProfilePageInner() {
               </div>
               <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[rgba(23,23,23,0.06)]" /></div>
-                <div className="relative flex justify-center"><span className="bg-white px-2 text-xs text-[#8b7767]">oder mit E-Mail</span></div>
+                <div className="relative flex justify-center"><span className="bg-white px-2 text-xs text-[var(--text-soft-warm)]">oder mit E-Mail</span></div>
               </div>
               <form className="grid gap-2" onSubmit={(e) => { e.preventDefault(); void signInWithEmail(); }}>
-                <input type="email" name="email" autoComplete="email" inputMode="email" value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]" />
-                <input type="password" name="password" autoComplete="new-password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort wählen" className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]" />
-                <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[#171717] text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                <input type="email" name="email" autoComplete="email" inputMode="email" value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]" />
+                <input type="password" name="password" autoComplete="new-password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort wählen" className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]" />
+                <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="inline-flex h-11 w-full items-center justify-center rounded-[var(--radius-control)] bg-[var(--text-strong)] text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
                   Kostenloses Konto erstellen
                 </button>
               </form>
-              <button type="button" onClick={() => void signOut()} disabled={authLoading} className="mt-3 text-xs text-[#8b7767] underline-offset-2 hover:underline">
+              <button type="button" onClick={() => void signOut()} disabled={authLoading} className="mt-3 text-xs text-[var(--text-soft-warm)] underline-offset-2 hover:underline">
                 Gastzugang beenden
               </button>
             </>
           ) : (
             /* ── NICHT EINGELOGGT ─────────────────────────────────────────── */
             <>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+              <div className="pd24-kicker-warm">
                 Konto
               </div>
-              <p className="mt-2 text-sm text-[#665d55]">Kostenlos anmelden oder registrieren.</p>
+              <p className="mt-2 text-sm text-[var(--text-muted-warm)]">Kostenlos anmelden oder registrieren.</p>
 
               {/* OAuth */}
               <div className="mt-4 grid gap-2 sm:grid-cols-2">
                 <button
                   onClick={() => void startOAuth("google")}
                   disabled={authLoading}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
                 >
                   <span className="text-base font-bold">G</span> Mit Google
                 </button>
                 <button
                   onClick={() => void startOAuth("azure")}
                   disabled={authLoading}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
                 >
                   <span className="inline-grid h-4 w-4 grid-cols-2 gap-[2px]">
                     <span className="rounded-[1px] bg-[#f25022]" />
@@ -1196,18 +1250,18 @@ function ProfilePageInner() {
               {/* Divider */}
               <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[rgba(23,23,23,0.06)]" /></div>
-                <div className="relative flex justify-center"><span className="bg-white px-2 text-xs text-[#8b7767]">oder mit E-Mail</span></div>
+                <div className="relative flex justify-center"><span className="bg-white px-2 text-xs text-[var(--text-soft-warm)]">oder mit E-Mail</span></div>
               </div>
 
               {/* Email form */}
               <form className="grid gap-2" onSubmit={(e) => { e.preventDefault(); void signInWithEmail(); }}>
-                <input type="email" name="email" autoComplete="email" inputMode="email" value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]" />
-                <input type="password" name="password" autoComplete="current-password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort" className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]" />
+                <input type="email" name="email" autoComplete="email" inputMode="email" value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]" />
+                <input type="password" name="password" autoComplete="current-password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort" className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]" />
                 <div className="grid grid-cols-2 gap-2">
                   <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="inline-flex h-11 items-center justify-center rounded-xl bg-[#171717] text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
                     Registrieren
                   </button>
-                  <button type="submit" disabled={authLoading} className="inline-flex h-11 items-center justify-center rounded-xl border border-[rgba(23,23,23,0.08)] bg-white text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee] disabled:opacity-50">
+                  <button type="submit" disabled={authLoading} className="inline-flex h-11 items-center justify-center rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50">
                     Einloggen
                   </button>
                 </div>
@@ -1215,10 +1269,10 @@ function ProfilePageInner() {
 
               {/* Secondary links */}
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-                <button type="button" onClick={() => void resetPassword()} disabled={authLoading} className="text-xs text-[#8b7767] underline-offset-2 hover:underline">
+                <button type="button" onClick={() => void resetPassword()} disabled={authLoading} className="text-xs text-[var(--text-soft-warm)] underline-offset-2 hover:underline">
                   Passwort vergessen?
                 </button>
-                <button type="button" onClick={() => void continueAsGuest()} disabled={authLoading} className="text-xs text-[#8b7767] underline-offset-2 hover:underline">
+                <button type="button" onClick={() => void continueAsGuest()} disabled={authLoading} className="text-xs text-[var(--text-soft-warm)] underline-offset-2 hover:underline">
                   Als Gast fortfahren
                 </button>
               </div>
@@ -1230,20 +1284,20 @@ function ProfilePageInner() {
         {authReady && userId && !isAnonymous && <div className="grid gap-6 xl:grid-cols-2">
 
           {/* ── Interests ──────────────────────────────────────────────────── */}
-          <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+                <div className="pd24-kicker-warm">
                   Interessen
                 </div>
-                <h2 className="mt-2 text-lg font-semibold text-[#171717]">
+                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">
                   Deine Vorlieben
                 </h2>
-                <p className="mt-1 text-sm leading-6 text-[#665d55]">
+                <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
                   Fließen automatisch in neue Tagespläne und Empfehlungen ein.
                 </p>
               </div>
-              <div className="shrink-0 rounded-full border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-2.5 py-1 text-xs text-[#8b7767]">
+              <div className="shrink-0 rounded-full border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-2.5 py-1 text-xs text-[var(--text-soft-warm)]">
                 {savingProfile ? "Speichert…" : `${interests.length} / 12`}
               </div>
             </div>
@@ -1254,13 +1308,13 @@ function ProfilePageInner() {
                 {interestPreview.map((interest) => (
                   <span
                     key={`preview-${interest}`}
-                    className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-2.5 py-1 text-[11px] text-[#665d55]"
+                    className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-2.5 py-1 text-[11px] text-[var(--text-muted-warm)]"
                   >
                     {interest}
                   </span>
                 ))}
                 {interests.length > interestPreview.length ? (
-                  <span className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-2.5 py-1 text-[11px] text-[#8b7767]">
+                  <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-2.5 py-1 text-[11px] text-[var(--text-soft-warm)]">
                     +{interests.length - interestPreview.length}
                   </span>
                 ) : null}
@@ -1271,7 +1325,7 @@ function ProfilePageInner() {
             <div className="mt-5 max-h-[26rem] space-y-5 overflow-y-auto pr-1">
               {Object.entries(interestCatalog).map(([group, tags]) => (
                 <div key={group}>
-                  <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#8b7767]">
+                  <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-[var(--text-soft-warm)]">
                     {interestGroupLabels[group] ?? group}
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -1283,8 +1337,8 @@ function ProfilePageInner() {
                           onClick={() => toggleInterest(tag)}
                           className={`rounded-full border px-3 py-1.5 text-sm transition ${
                             active
-                              ? "border-[#171717] bg-[#171717] text-white"
-                              : "border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] text-[#665d55] hover:bg-[#ede9e0]"
+                              ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                              : "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] text-[var(--text-muted-warm)] hover:bg-[var(--brand-warm-cloud)] hover:border-[var(--line-strong)]"
                           }`}
                         >
                           {tag}
@@ -1303,7 +1357,7 @@ function ProfilePageInner() {
                 onChange={(e) => setInterestInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addCustomInterest(); } }}
                 placeholder="Eigene Vorliebe hinzufügen"
-                className="h-11 flex-1 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]"
+                className="h-11 flex-1 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]"
               />
               <button
                 onClick={addCustomInterest}
@@ -1314,23 +1368,23 @@ function ProfilePageInner() {
             </div>
 
             {interests.length === 0 && (
-              <p className="mt-3 text-xs text-[#8b7767]">
+              <p className="mt-3 text-xs text-[var(--text-soft-warm)]">
                 Wähle ein paar Vorlieben — sie verbessern deine Planvorschläge.
               </p>
             )}
           </div>
 
           {/* ── Public profile ──────────────────────────────────────────────── */}
-          <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+                <div className="pd24-kicker-warm">
                   Öffentliches Profil
                 </div>
-                <h2 className="mt-2 text-lg font-semibold text-[#171717]">
+                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">
                   Deine Profilinformationen
                 </h2>
-                <p className="mt-1 text-sm leading-6 text-[#665d55]">
+                <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
                   Sichtbar für andere Nutzer in Creator-Links und Einladungen.
                 </p>
               </div>
@@ -1338,7 +1392,7 @@ function ProfilePageInner() {
                 {username ? (
                   <Link
                     href={`/u/${username}`}
-                    className="inline-flex min-h-9 items-center rounded-xl border border-[rgba(23,23,23,0.08)] px-3 text-xs text-[#665d55] transition hover:bg-[#f7f4ee]"
+                    className="inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-xs text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]"
                   >
                     Ansehen
                   </Link>
@@ -1356,35 +1410,35 @@ function ProfilePageInner() {
             {/* Avatar preview + fields */}
             <div className="mt-5 grid gap-5 sm:grid-cols-[160px,1fr]">
               {/* Avatar column */}
-              <div className="flex flex-col items-center gap-3 rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] p-4">
+              <div className="flex flex-col items-center gap-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] p-4">
                 {avatarUrl ? (
                   <img
                     src={avatarUrl}
                     alt={displayName || username || "Avatar"}
-                    className="h-20 w-20 rounded-full border border-[rgba(23,23,23,0.08)] bg-white object-cover"
+                    className="h-20 w-20 rounded-full border border-[var(--line-subtle)] bg-white object-cover"
                   />
                 ) : (
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[rgba(23,23,23,0.08)] bg-white text-2xl font-semibold text-[#8b7767]">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white text-2xl font-semibold text-[var(--text-soft-warm)]">
                     {(displayName || username || "P").slice(0, 1).toUpperCase()}
                   </div>
                 )}
                 <div className="text-center">
-                  <div className="text-sm font-semibold text-[#171717]">
+                  <div className="text-sm font-semibold text-[var(--text-strong)]">
                     {displayName || "Dein Name"}
                   </div>
-                  <div className="mt-0.5 text-xs text-[#8b7767]">
+                  <div className="mt-0.5 text-xs text-[var(--text-soft-warm)]">
                     {username ? `@${username}` : "Kein Username"}
                   </div>
                 </div>
                 <div className="min-h-4 text-center text-[11px]">
                   {usernameChecking ? (
-                    <span className="text-[#8b7767]">Prüft…</span>
+                    <span className="text-[var(--text-soft-warm)]">Prüft…</span>
                   ) : usernameError ? (
                     <span className="text-red-600">{usernameError}</span>
                   ) : username && usernameAvailable ? (
                     <span className="text-emerald-700">Verfügbar</span>
                   ) : (
-                    <span className="text-[#8b7767]">a–z, 0–9, . _ -</span>
+                    <span className="text-[var(--text-soft-warm)]">a–z, 0–9, . _ -</span>
                   )}
                 </div>
               </div>
@@ -1392,31 +1446,31 @@ function ProfilePageInner() {
               {/* Fields */}
               <div className="grid gap-3">
                 <label className="grid gap-1.5 text-sm">
-                  <span className="font-medium text-[#171717]">Anzeigename</span>
+                  <span className="font-medium text-[var(--text-strong)]">Anzeigename</span>
                   <input
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
                     placeholder="z. B. Alex B."
-                    className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]"
+                    className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]"
                   />
                 </label>
                 <label className="grid gap-1.5 text-sm">
-                  <span className="font-medium text-[#171717]">Username</span>
+                  <span className="font-medium text-[var(--text-strong)]">Username</span>
                   <input
                     value={username}
                     onChange={(e) => { setUsername(e.target.value); setUsernameError(null); }}
                     placeholder="z. B. alex"
-                    className="h-11 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]"
+                    className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]"
                   />
                 </label>
                 <label className="grid gap-1.5 text-sm">
-                  <span className="font-medium text-[#171717]">Kurz-Bio</span>
+                  <span className="font-medium text-[var(--text-strong)]">Kurz-Bio</span>
                   <textarea
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     placeholder="Ein kurzer Satz über dich"
                     rows={3}
-                    className="rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 py-2.5 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]"
+                    className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 py-2.5 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]"
                   />
                 </label>
               </div>
@@ -1424,28 +1478,28 @@ function ProfilePageInner() {
 
             {/* Avatar upload */}
             <div className="mt-4">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+              <div className="pd24-kicker-warm">
                 Profilbild
               </div>
               <label className="mt-2 grid gap-1.5 text-sm">
-                <span className="text-xs text-[#665d55]">
+                <span className="text-xs text-[var(--text-muted-warm)]">
                   {avatarUploading ? "Upload läuft…" : "Bilddatei auswählen (JPG, PNG, WebP)"}
                 </span>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={(e) => handleAvatarFileSelection(e.target.files?.[0] ?? null)}
-                  className="rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] p-2 text-sm text-[#665d55]"
+                  className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] p-2 text-sm text-[var(--text-muted-warm)]"
                 />
               </label>
             </div>
 
             {/* Crop preview */}
             {selectedAvatarPreview ? (
-              <div className="mt-4 rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] p-4">
-                <div className="text-sm font-medium text-[#171717]">Vorschau & Zuschneiden</div>
+              <div className="mt-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] p-4">
+                <div className="text-sm font-medium text-[var(--text-strong)]">Vorschau & Zuschneiden</div>
                 <div className="mt-3 flex flex-col gap-4 sm:flex-row">
-                  <div className="relative h-48 w-48 shrink-0 overflow-hidden rounded-2xl border border-[rgba(23,23,23,0.08)] bg-white">
+                  <div className="relative h-48 w-48 shrink-0 overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white">
                     <img
                       src={selectedAvatarPreview}
                       alt="Avatar Vorschau"
@@ -1458,7 +1512,7 @@ function ProfilePageInner() {
                   </div>
                   <div className="flex-1 space-y-3">
                     <label className="grid gap-1.5 text-xs">
-                      <span className="text-[#665d55]">Zoom</span>
+                      <span className="text-[var(--text-muted-warm)]">Zoom</span>
                       <input
                         type="range"
                         min={1}
@@ -1469,7 +1523,7 @@ function ProfilePageInner() {
                       />
                     </label>
                     <label className="grid gap-1.5 text-xs">
-                      <span className="text-[#665d55]">Horizontal verschieben</span>
+                      <span className="text-[var(--text-muted-warm)]">Horizontal verschieben</span>
                       <input
                         type="range"
                         min={-120}
@@ -1480,7 +1534,7 @@ function ProfilePageInner() {
                       />
                     </label>
                     <label className="grid gap-1.5 text-xs">
-                      <span className="text-[#665d55]">Vertikal verschieben</span>
+                      <span className="text-[var(--text-muted-warm)]">Vertikal verschieben</span>
                       <input
                         type="range"
                         min={-120}
@@ -1502,7 +1556,7 @@ function ProfilePageInner() {
                       <button
                         type="button"
                         onClick={() => handleAvatarFileSelection(null)}
-                        className="inline-flex min-h-9 items-center rounded-xl border border-[rgba(23,23,23,0.08)] px-4 text-sm text-[#665d55] transition hover:bg-white"
+                        className="inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-4 text-sm text-[var(--text-muted-warm)] transition hover:bg-white"
                       >
                         Verwerfen
                       </button>
@@ -1514,115 +1568,272 @@ function ProfilePageInner() {
           </div>
         </div>}
 
-        {/* ── Routes ──────────────────────────────────────────────────────────── */}
+        {/* ── Studio ──────────────────────────────────────────────────────────── */}
         {authReady && userId && !isAnonymous && <div className="grid gap-6 xl:grid-cols-2">
 
-          {/* Created routes */}
-          <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
+          {/* Studio card with tab switcher */}
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
+
+            {/* Header */}
             <div className="flex items-start justify-between gap-3">
               <div>
-                <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
-                  Studio
-                </div>
-                <h2 className="mt-2 text-lg font-semibold text-[#171717]">Eigene Routen</h2>
-                <p className="mt-1 text-sm leading-6 text-[#665d55]">
-                  Selbst erstellte Routen aus dem Builder.
+                <div className="pd24-kicker-warm">Studio</div>
+                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Meine Inhalte</h2>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+                  Routen, Roadtrips und Events, die du erstellt hast.
                 </p>
               </div>
-              <Link
-                href="/routes"
-                className="inline-flex min-h-9 shrink-0 items-center rounded-xl border border-[rgba(23,23,23,0.08)] px-3 text-sm text-[#665d55] transition hover:bg-[#f7f4ee]"
-              >
-                Routenstudio
-              </Link>
+              {studioTab === "routes" && (
+                <Link href="/routes" className="inline-flex min-h-9 shrink-0 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]">
+                  Route erstellen
+                </Link>
+              )}
+              {studioTab === "roadtrips" && (
+                <Link href="/roadtrip" className="inline-flex min-h-9 shrink-0 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]">
+                  Roadtrip planen
+                </Link>
+              )}
+              {studioTab === "events" && (
+                <Link href="/events" className="inline-flex min-h-9 shrink-0 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]">
+                  Event anlegen
+                </Link>
+              )}
             </div>
 
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              <input
-                value={createdRouteQuery}
-                onChange={(e) => setCreatedRouteQuery(e.target.value)}
-                placeholder="Routen durchsuchen"
-                className="h-11 flex-1 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]"
-              />
-              <div className="flex flex-wrap gap-2">
-                {(["all", "public", "unlisted", "private"] as CreatedRouteFilter[]).map(
-                  (filter) => {
-                    const label =
-                      filter === "all"
-                        ? "Alle"
-                        : formatRouteVisibilityLabel(filter as UserRouteRow["visibility"]);
-                    const active = createdRouteFilter === filter;
-                    return (
-                      <button
-                        key={`cf-${filter}`}
-                        type="button"
-                        onClick={() => setCreatedRouteFilter(filter)}
-                        className={`rounded-full border px-3 py-1.5 text-sm transition ${
-                          active
-                            ? "border-[#171717] bg-[#171717] text-white"
-                            : "border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] text-[#665d55] hover:bg-[#ede9e0]"
-                        }`}
-                      >
-                        {label}
-                      </button>
-                    );
-                  }
-                )}
-              </div>
+            {/* Tab switcher */}
+            <div className="mt-5 flex gap-1.5">
+              {([
+                { key: "routes" as const, label: "Routen", count: userRoutes.length },
+                { key: "roadtrips" as const, label: "Roadtrips", count: studioRoadtrips.length },
+                { key: "events" as const, label: "Events", count: studioEvents.length },
+              ]).map((tab) => (
+                <button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => setStudioTab(tab.key)}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition ${
+                    studioTab === tab.key
+                      ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                      : "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] text-[var(--text-muted-warm)] hover:bg-[var(--brand-warm-cloud)]"
+                  }`}
+                >
+                  {tab.label}
+                  {!loadingProfile && !loadingStudio && (
+                    <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${
+                      studioTab === tab.key ? "bg-white/20 text-white" : "bg-[var(--bg-surface)] text-[var(--text-muted)]"
+                    }`}>
+                      {tab.count}
+                    </span>
+                  )}
+                </button>
+              ))}
             </div>
 
-            {loadingProfile ? (
-              <div className="mt-5 text-sm text-[#8b7767]">Lädt…</div>
-            ) : userRoutes.length > 0 ? (
-              <div className="mt-5 max-h-[34rem] space-y-3 overflow-y-auto pr-1">
-                {filteredUserRoutes.length > 0 ? (
-                  filteredUserRoutes.map((route) => (
-                    <ProfileRouteListItem
-                      key={route.id}
-                      route={route}
-                      primaryHref={`/routes?routeId=${route.id}`}
-                      primaryLabel="Im Builder öffnen"
-                      secondaryHref={route.slug ? `/routes/${route.slug}` : null}
-                      secondaryLabel={route.slug ? "Öffentlich ansehen" : undefined}
-                      onDelete={deleteRoute}
-                      deleteLabel="Route löschen"
-                    />
-                  ))
+            {/* ── Tab: Routen ── */}
+            {studioTab === "routes" && (
+              <>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                  <input
+                    value={createdRouteQuery}
+                    onChange={(e) => setCreatedRouteQuery(e.target.value)}
+                    placeholder="Routen durchsuchen"
+                    className="h-10 flex-1 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]"
+                  />
+                  <div className="flex flex-wrap gap-1.5">
+                    {(["all", "public", "unlisted", "private"] as CreatedRouteFilter[]).map((filter) => {
+                      const label = filter === "all" ? "Alle" : formatRouteVisibilityLabel(filter as UserRouteRow["visibility"]);
+                      const active = createdRouteFilter === filter;
+                      return (
+                        <button key={`cf-${filter}`} type="button" onClick={() => setCreatedRouteFilter(filter)}
+                          className={`rounded-full border px-3 py-1.5 text-xs transition ${active
+                            ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                            : "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] text-[var(--text-muted-warm)] hover:bg-[var(--brand-warm-cloud)]"}`}
+                        >{label}</button>
+                      );
+                    })}
+                  </div>
+                </div>
+                {loadingProfile ? (
+                  <div className="mt-4 text-sm text-[var(--text-soft-warm)]">Lädt…</div>
+                ) : userRoutes.length > 0 ? (
+                  <div className="mt-4 max-h-[28rem] space-y-3 overflow-y-auto pr-1">
+                    {filteredUserRoutes.length > 0 ? filteredUserRoutes.map((route) => (
+                      <ProfileRouteListItem
+                        key={route.id} route={route}
+                        primaryHref={`/routes?routeId=${route.id}`} primaryLabel="Im Builder öffnen"
+                        secondaryHref={route.slug ? `/routes/${route.slug}` : null}
+                        secondaryLabel={route.slug ? "Öffentlich ansehen" : undefined}
+                        onDelete={deleteRoute} deleteLabel="Route löschen"
+                      />
+                    )) : (
+                      <div className="rounded-[var(--radius-card-sm)] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-4 py-6 text-sm text-[var(--text-soft-warm)]">
+                        Keine Routen für diesen Filter.
+                      </div>
+                    )}
+                  </div>
                 ) : (
-                  <div className="rounded-[20px] border border-dashed border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-4 py-8 text-sm text-[#8b7767]">
-                    Keine Routen für diesen Filter.
+                  <div className="mt-4 space-y-3">
+                    <p className="text-sm text-[var(--text-soft-warm)]">
+                      Noch keine eigenen Routen. Erstelle im Builder deinen ersten wiederverwendbaren Ablauf.
+                    </p>
+                    <Link href="/routes" className="inline-flex min-h-9 items-center rounded-[var(--radius-control)] bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                      Route erstellen →
+                    </Link>
                   </div>
                 )}
-              </div>
-            ) : (
-              <div className="mt-5 text-sm text-[#8b7767]">
-                Noch keine eigenen Routen. Erstelle im Builder deinen ersten wiederverwendbaren Ablauf.
-              </div>
+              </>
+            )}
+
+            {/* ── Tab: Roadtrips ── */}
+            {studioTab === "roadtrips" && (
+              <>
+                {loadingStudio ? (
+                  <div className="mt-4 text-sm text-[var(--text-soft-warm)]">Lädt…</div>
+                ) : studioRoadtrips.length > 0 ? (
+                  <div className="mt-4 max-h-[28rem] space-y-3 overflow-y-auto pr-1">
+                    {studioRoadtrips.map((rt) => {
+                      const cityLabels = rt.stops.map((s) => s.cityLabel).join(" → ");
+                      return (
+                        <div key={rt.id} className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="min-w-0">
+                              <p className="truncate text-sm font-semibold text-[var(--text-strong)]">{rt.title}</p>
+                              <p className="mt-0.5 truncate text-[11px] text-[var(--text-soft-warm)]">
+                                {cityLabels} · {rt.total_nights} Nächte
+                              </p>
+                            </div>
+                            <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                              rt.status === "active" ? "bg-emerald-100 text-emerald-700"
+                              : rt.status === "completed" ? "bg-sky-100 text-sky-700"
+                              : "bg-amber-100 text-amber-700"
+                            }`}>
+                              {rt.status === "active" ? "Aktiv" : rt.status === "completed" ? "Abgeschlossen" : "Entwurf"}
+                            </span>
+                          </div>
+                          <div className="mt-2.5 flex flex-wrap items-center gap-2 pl-0">
+                            <Link href={`/roadtrip/routes/${rt.slug}`}
+                              className="inline-flex min-h-8 items-center rounded-lg bg-[var(--text-strong)] px-3 text-xs font-medium text-white transition hover:opacity-90">
+                              Öffnen
+                            </Link>
+                            <Link href={`/roadtrip?fromRouteSlug=${rt.slug}`}
+                              className="inline-flex min-h-8 items-center rounded-lg border border-[var(--line-subtle)] px-3 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)]">
+                              Bearbeiten
+                            </Link>
+                            <button type="button" onClick={() => void deleteStudioRoadtrip(rt.id)}
+                              className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-soft-warm)] transition hover:bg-red-50 hover:text-red-500"
+                              aria-label="Roadtrip löschen">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                                <polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" /><path d="M10 11v6M14 11v6" /><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="mt-4 space-y-3">
+                    <p className="text-sm text-[var(--text-soft-warm)]">
+                      Noch keine Roadtrips. Plane deinen ersten Mehrstädte-Trip und teile ihn mit anderen.
+                    </p>
+                    <Link href="/roadtrip" className="inline-flex min-h-9 items-center rounded-[var(--radius-control)] bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                      Roadtrip planen →
+                    </Link>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* ── Tab: Events ── */}
+            {studioTab === "events" && (
+              <>
+                {loadingStudio ? (
+                  <div className="mt-4 text-sm text-[var(--text-soft-warm)]">Lädt…</div>
+                ) : studioEvents.length > 0 ? (
+                  <div className="mt-4 max-h-[28rem] space-y-3 overflow-y-auto pr-1">
+                    {studioEvents.map((ev) => {
+                      const occasionMap: Record<string, string> = {
+                        geburtstag: "Geburtstag", hochzeit: "Hochzeit", jga: "JGA",
+                        teambuilding: "Teambuilding", firmenfeier: "Firmenfeier",
+                        kindergeburtstag: "Kindergeburtstag", jubilaeum: "Jubiläum",
+                        staedtereise: "Städtereise", konferenz: "Konferenz",
+                      };
+                      const occasionDisplay = occasionMap[ev.occasion_slug] ?? ev.occasion_slug;
+                      const dateDisplay = ev.event_date
+                        ? new Date(ev.event_date).toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" })
+                        : "Kein Datum";
+                      return (
+                        <div key={ev.id} className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="min-w-0">
+                              <p className="truncate text-sm font-semibold text-[var(--text-strong)]">
+                                {ev.title?.trim() || occasionDisplay}
+                              </p>
+                              <p className="mt-0.5 truncate text-[11px] text-[var(--text-soft-warm)]">
+                                {occasionDisplay} · {dateDisplay}{ev.guest_count ? ` · ${ev.guest_count} Gäste` : ""}
+                              </p>
+                            </div>
+                            <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                              ev.status === "active" ? "bg-emerald-100 text-emerald-700"
+                              : ev.status === "completed" ? "bg-sky-100 text-sky-700"
+                              : "bg-amber-100 text-amber-700"
+                            }`}>
+                              {ev.status === "active" ? "Aktiv" : ev.status === "completed" ? "Abgeschlossen" : "Entwurf"}
+                            </span>
+                          </div>
+                          <div className="mt-2.5 flex flex-wrap items-center gap-2">
+                            <Link href={`/events/plan/${ev.id}`}
+                              className="inline-flex min-h-8 items-center rounded-lg bg-[var(--text-strong)] px-3 text-xs font-medium text-white transition hover:opacity-90">
+                              Öffnen
+                            </Link>
+                            <button type="button" onClick={() => void deleteStudioEvent(ev.id)}
+                              className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-soft-warm)] transition hover:bg-red-50 hover:text-red-500"
+                              aria-label="Event löschen">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                                <polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" /><path d="M10 11v6M14 11v6" /><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="mt-4 space-y-3">
+                    <p className="text-sm text-[var(--text-soft-warm)]">
+                      Noch keine Events. Plane einen Geburtstag, JGA, Teamtag oder eine Firmenfeier.
+                    </p>
+                    <Link href="/events" className="inline-flex min-h-9 items-center rounded-[var(--radius-control)] bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                      Event anlegen →
+                    </Link>
+                  </div>
+                )}
+              </>
             )}
           </div>
 
           {/* Bookmarked routes */}
-          <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+                <div className="pd24-kicker-warm">
                   Meine Pläne
                 </div>
-                <h2 className="mt-2 text-lg font-semibold text-[#171717]">Gemerkte Vorlagen</h2>
-                <p className="mt-1 text-sm leading-6 text-[#665d55]">
+                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Gemerkte Vorlagen</h2>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
                   Aus Explore und geteilten Links gemerkte Routen.
                 </p>
               </div>
               <div className="flex shrink-0 gap-2">
                 <Link
                   href="/saved"
-                  className="inline-flex min-h-9 items-center rounded-xl border border-[rgba(23,23,23,0.08)] px-3 text-sm text-[#665d55] transition hover:bg-[#f7f4ee]"
+                  className="inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]"
                 >
                   Meine Pläne
                 </Link>
                 <Link
                   href="/explore"
-                  className="inline-flex min-h-9 items-center rounded-xl border border-[rgba(23,23,23,0.08)] px-3 text-sm text-[#665d55] transition hover:bg-[#f7f4ee]"
+                  className="inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]"
                 >
                   Explore
                 </Link>
@@ -1634,7 +1845,7 @@ function ProfilePageInner() {
                 value={savedRouteQuery}
                 onChange={(e) => setSavedRouteQuery(e.target.value)}
                 placeholder="Gespeicherte Routen durchsuchen"
-                className="h-11 flex-1 rounded-xl border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.3)]"
+                className="h-11 flex-1 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]"
               />
               <div className="flex flex-wrap gap-2">
                 {(
@@ -1652,8 +1863,8 @@ function ProfilePageInner() {
                       onClick={() => setSavedRouteFilter(filter)}
                       className={`rounded-full border px-3 py-1.5 text-sm transition ${
                         active
-                          ? "border-[#171717] bg-[#171717] text-white"
-                          : "border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] text-[#665d55] hover:bg-[#ede9e0]"
+                          ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                          : "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] text-[var(--text-muted-warm)] hover:bg-[var(--brand-warm-cloud)]"
                       }`}
                     >
                       {label}
@@ -1664,7 +1875,7 @@ function ProfilePageInner() {
             </div>
 
             {loadingProfile ? (
-              <div className="mt-5 text-sm text-[#8b7767]">Lädt…</div>
+              <div className="mt-5 text-sm text-[var(--text-soft-warm)]">Lädt…</div>
             ) : bookmarkedRoutes.length > 0 ? (
               <div className="mt-5 max-h-[34rem] space-y-3 overflow-y-auto pr-1">
                 {filteredBookmarkedRoutes.length > 0 ? (
@@ -1679,13 +1890,13 @@ function ProfilePageInner() {
                     />
                   ))
                 ) : (
-                  <div className="rounded-[20px] border border-dashed border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-4 py-8 text-sm text-[#8b7767]">
+                  <div className="rounded-[var(--radius-card-sm)] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-4 py-8 text-sm text-[var(--text-soft-warm)]">
                     Keine gespeicherten Routen für diesen Filter.
                   </div>
                 )}
               </div>
             ) : (
-              <div className="mt-5 text-sm text-[#8b7767]">
+              <div className="mt-5 text-sm text-[var(--text-soft-warm)]">
                 Noch keine gemerkten Vorlagen. Merke in Explore interessante Routen für später.
               </div>
             )}
@@ -1694,7 +1905,7 @@ function ProfilePageInner() {
 
         {/* ── Aktive Rollen-Schnellzugriffe ───────────────────────────────── */}
         {userId && hasRoleBadge && (
-          <div className="overflow-hidden rounded-[24px] bg-[#171717] p-6">
+          <div className="overflow-hidden rounded-[var(--radius-card)] bg-[var(--text-strong)] p-6">
             <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/50">
               Deine Zugänge
             </div>
@@ -1749,18 +1960,18 @@ function ProfilePageInner() {
 
         {/* ── Mitmachen / Zugänge-Upsell ──────────────────────────────────── */}
         {authReady && userId && !isAnonymous && (
-          <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
+            <div className="pd24-kicker-warm">
               Mitmachen
             </div>
-            <h2 className="mt-2 text-lg font-semibold text-[#171717]">Rollen & Zugänge</h2>
-            <p className="mt-1 text-sm leading-6 text-[#665d55]">
+            <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Rollen & Zugänge</h2>
+            <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
               Erweiterte Bereiche für Creator, Partner und Unternehmen.
             </p>
 
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
               {/* Creator */}
-              <div className="flex flex-col gap-4 rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] p-5">
+              <div className="flex flex-col gap-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] p-5">
                 <div className="flex items-start justify-between gap-2">
                   <span className="text-2xl leading-none">🎨</span>
                   <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700">
@@ -1768,15 +1979,15 @@ function ProfilePageInner() {
                   </span>
                 </div>
                 <div>
-                  <div className="font-semibold text-[#171717]">Creator werden</div>
-                  <p className="mt-1.5 text-sm leading-6 text-[#665d55]">
+                  <div className="font-semibold text-[var(--text-strong)]">Creator werden</div>
+                  <p className="mt-1.5 text-sm leading-6 text-[var(--text-muted-warm)]">
                     Erstelle eigene Routen, bau eine Community auf und monetarisiere deine lokalen Tipps.
                   </p>
                 </div>
                 <div className="mt-auto">
                   <Link
                     href="/profile#profile-public"
-                    className="inline-flex w-full items-center justify-center rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-4 py-2.5 text-sm font-medium text-[#171717] transition hover:bg-[#f7f4ee]"
+                    className="inline-flex w-full items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)]"
                   >
                     Creator-Profil einrichten
                   </Link>
@@ -1784,7 +1995,7 @@ function ProfilePageInner() {
               </div>
 
               {/* Partner */}
-              <div className="flex flex-col gap-4 rounded-[20px] bg-[#171717] p-5 text-white shadow-md">
+              <div className="flex flex-col gap-4 rounded-[var(--radius-card-sm)] bg-[var(--text-strong)] p-5 text-white shadow-md">
                 <div className="flex items-start justify-between gap-2">
                   <span className="text-2xl leading-none">🏢</span>
                   <span className="rounded-full bg-amber-400/20 px-2.5 py-0.5 text-[11px] font-medium text-amber-300">
@@ -1800,7 +2011,7 @@ function ProfilePageInner() {
                 <div className="mt-auto">
                   <Link
                     href="/partner/onboarding?type=corporate"
-                    className="inline-flex w-full items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-[#171717] transition hover:bg-white/90"
+                    className="inline-flex w-full items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-white/90"
                   >
                     Jetzt Partner werden
                   </Link>
@@ -1808,7 +2019,7 @@ function ProfilePageInner() {
               </div>
 
               {/* Business */}
-              <div className="flex flex-col gap-4 rounded-[20px] bg-blue-600 p-5 text-white shadow-md">
+              <div className="flex flex-col gap-4 rounded-[var(--radius-card-sm)] bg-blue-600 p-5 text-white shadow-md">
                 <div className="flex items-start justify-between gap-2">
                   <span className="text-2xl leading-none">⚡</span>
                   <span className="rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-medium text-white/90">

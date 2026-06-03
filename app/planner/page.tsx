@@ -59,6 +59,7 @@ import { usePlannerPeople } from "./usePlannerPeople";
 import { usePlannerStartPoint } from "./usePlannerStartPoint";
 import type {
   CityRow,
+  PlannerApiResponse,
   PlannerSaveMode,
   SavedPlanRow,
 } from "./types";
@@ -71,6 +72,7 @@ import type {
   PlannerRequest,
   RouteProfile,
 } from "@/lib/planner";
+import type { MatchLevel, ScoredLocation } from "@/lib/planner/types";
 import {
   mergeInterests,
 } from "@/lib/planner";
@@ -86,6 +88,12 @@ function PlannerPageContent() {
   const requestedPlanId = searchParams.get("planId");
   const requestedResume = searchParams.get("resume") === "1";
   const [mounted, setMounted] = useState(false);
+  // True once URL params (if any) have been applied — prevents auto-generating
+  // with stale localStorage values before the homepage preset takes effect.
+  const hasHomepageParams = [
+    "citySlug", "city", "occasion", "experienceMode", "mode", "budget", "planDate", "interests",
+  ].some((key) => searchParams.has(key));
+  const [presetsReady, setPresetsReady] = useState(!hasHomepageParams);
   const [variationSeed, setVariationSeed] = useState(0);
 
   const [cities, setCities] = useState<CityRow[]>([]);
@@ -324,6 +332,8 @@ function PlannerPageContent() {
     }
 
     setSelectedEventId(null);
+    // Mark homepage params as applied so generation can start with correct values.
+    setPresetsReady(true);
   }, [mounted, searchParams, setInterests]);
 
   useEffect(() => {
@@ -692,6 +702,7 @@ function PlannerPageContent() {
     toggleVariantReaction,
   } = usePlannerGeneration({
     mounted,
+    presetsReady,
     effectiveCitySlug,
     hasValidPlannerOrigin,
     startPointMode: startPoint.mode,
@@ -883,8 +894,65 @@ function PlannerPageContent() {
     setSelectedEventId(null);
     setEventPlanningMode("auto");
     setAiText(plan.ai_description ?? null);
-    setPlannerData(null);
     setRouteSummary(null);
+
+    // Restore the saved stops so the user sees their plan immediately
+    // without waiting for a full regeneration.
+    const savedSlots = Array.isArray(plan.slots) ? (plan.slots as Array<Record<string, unknown>>) : [];
+    if (savedSlots.length > 0) {
+      const restoredStops = savedSlots.map((slot) => {
+        const loc = slot.location && typeof slot.location === "object"
+          ? (slot.location as Record<string, unknown>)
+          : null;
+        return {
+          index: typeof slot.index === "number" ? slot.index : 0,
+          label: typeof slot.label === "string" ? slot.label : "",
+          hint: typeof slot.hint === "string" ? slot.hint : "",
+          item: loc
+            ? ({
+                id: String(loc.id ?? ""),
+                name: String(loc.name ?? ""),
+                type: String(loc.type ?? ""),
+                category: undefined,
+                duration_min: typeof loc.duration_min === "number" ? loc.duration_min : null,
+                reservation_url: typeof loc.reservation_url === "string" ? loc.reservation_url : null,
+                lat: typeof loc.lat === "number" ? loc.lat : null,
+                lng: typeof loc.lng === "number" ? loc.lng : null,
+                distanceFromOriginKm: typeof loc.distanceKm === "number" ? loc.distanceKm : null,
+                score: typeof loc.baseScore === "number" ? loc.baseScore : 0,
+                prefBoost: typeof loc.prefBoost === "number" ? loc.prefBoost : 0,
+                totalScore: typeof loc.totalScore === "number" ? loc.totalScore : 0,
+                matchLevel: (typeof loc.matchLevel === "string" ? loc.matchLevel : "medium") as MatchLevel,
+              } as ScoredLocation)
+            : null,
+          durationMin: typeof slot.durationMin === "number" ? slot.durationMin : null,
+          travelMinFromPrev: typeof slot.travelMinFromPrev === "number" ? slot.travelMinFromPrev : null,
+          scheduledStartAt: typeof slot.scheduledStartAt === "string" ? slot.scheduledStartAt : null,
+          scheduledEndAt: typeof slot.scheduledEndAt === "string" ? slot.scheduledEndAt : null,
+          timingLock: null,
+          timingWarnings: [],
+          reasons: Array.isArray(slot.reasons)
+            ? (slot.reasons as unknown[]).filter((r): r is string => typeof r === "string")
+            : [],
+          groupDecision: null,
+          debug: null,
+        };
+      });
+      setPlannerData({
+        context: {} as PlannerApiResponse["context"],
+        results: [],
+        activeLevel: (plan.active_level ?? "medium") as MatchLevel,
+        effectiveRadiusKm: plan.effective_radius_km ?? plan.radius_km ?? 10,
+        eventCandidates: [],
+        eventDebugRows: [],
+        plannedStops: restoredStops,
+        fallbackSummary: { distanceKm: 0, travelMin: 0, activityMin: 0, totalMin: 0 },
+        variants: [],
+        recommendedVariantId: null,
+      });
+    } else {
+      setPlannerData(null);
+    }
     setSelectedVariantId(typeof filters.variantId === "string" ? filters.variantId : "best-match");
     setPinnedVariantId(typeof filters.pinnedVariantId === "string" ? filters.pinnedVariantId : null);
     setVariantVotes(
@@ -1270,6 +1338,9 @@ function PlannerPageContent() {
         lat: stop.item?.lat != null ? String(stop.item.lat) : "",
         lng: stop.item?.lng != null ? String(stop.item.lng) : "",
         photo_url: "",
+        scheduled_start_at: stop.scheduledStartAt ?? null,
+        scheduled_end_at: stop.scheduledEndAt ?? null,
+        travel_min_from_prev: stop.travelMinFromPrev ?? null,
       })),
     });
 
@@ -1408,7 +1479,7 @@ function PlannerPageContent() {
 
   return (
     <main className="pd24-page-wide space-y-4">
-      <section className="relative overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
+      <section className="relative overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
         <div className="pointer-events-none absolute right-[-4rem] top-[-4rem] h-40 w-40 rounded-full bg-[rgba(90,118,136,0.14)] blur-3xl" />
         <div className="pointer-events-none absolute bottom-[-3rem] left-[16%] h-32 w-32 rounded-full bg-[rgba(124,144,160,0.12)] blur-3xl" />
         <div className="relative flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -1484,9 +1555,9 @@ function PlannerPageContent() {
         </section>
       )}
 
-      <section className="rounded-xl bg-white p-3 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
+      <section className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3 shadow-[var(--shadow-soft)]">
         <div className="grid gap-2 sm:grid-cols-2 lg:flex lg:overflow-visible">
-          <label className="min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[150px] lg:flex-1">
+          <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[150px] lg:flex-1">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Stadt
             </div>
@@ -1510,7 +1581,7 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <div className="relative min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[240px] lg:flex-[1.5]">
+          <div className="relative min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[240px] lg:flex-[1.5]">
             <label htmlFor="planner-quick-start" className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Startpunkt
             </label>
@@ -1592,7 +1663,7 @@ function PlannerPageContent() {
             ) : null}
           </div>
 
-          <label className="min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[125px] lg:flex-[0.8]">
+          <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[125px] lg:flex-[0.8]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Anlass
             </div>
@@ -1609,7 +1680,7 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <label className="min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[160px] lg:flex-1">
+          <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[160px] lg:flex-1">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Fokus
             </div>
@@ -1627,7 +1698,7 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <label className="min-w-0 rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5 lg:min-w-[145px] lg:flex-[0.85]">
+          <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[145px] lg:flex-[0.85]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Datum
             </div>

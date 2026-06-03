@@ -109,7 +109,7 @@ export default function MobileBottomNav() {
       className="fixed bottom-0 left-0 right-0 z-[1300] sm:hidden"
     >
       {/* Safe area fill for iOS home indicator */}
-      <div className="border-t border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.96)] backdrop-blur-xl pb-safe">
+      <div className="border-t border-[var(--line-subtle)] bg-[rgba(255,253,248,0.96)] backdrop-blur-xl pb-safe">
         <div className="grid grid-cols-4">
           {NAV_ITEMS.map((item) => {
             const active = isActive(item.href);
@@ -118,13 +118,13 @@ export default function MobileBottomNav() {
                 key={item.href}
                 href={item.href}
                 className={`flex flex-col items-center gap-1 py-3 transition-colors ${
-                  active ? "text-[#171717]" : "text-[#8b7767]"
+                  active ? "text-[var(--text-strong)]" : "text-[var(--text-soft-warm)]"
                 }`}
               >
-                {/* Active indicator line */}
+                {/* Active indicator dot */}
                 <span
                   className={`mb-0.5 h-0.5 w-5 rounded-full transition-all ${
-                    active ? "bg-[#171717]" : "bg-transparent"
+                    active ? "bg-[var(--brand-warm)]" : "bg-transparent"
                   }`}
                 />
                 {item.icon}
