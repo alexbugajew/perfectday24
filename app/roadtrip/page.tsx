@@ -61,6 +61,9 @@ type GeneratedCityPlan = {
   error: string | null;
 };
 
+const ROADTRIP_CHECKOUT_MIN = 10 * 60;
+const ROADTRIP_AFTERNOON_START_MIN = 14 * 60 + 30;
+
 // Creator-Route-Karte (aus user_routes-Tabelle)
 type CityCreatorRoute = {
   id: string;
@@ -97,6 +100,45 @@ function formatDateDE(dateStr: string): string {
   const [y, m, d] = dateStr.split("-");
   return `${d}.${m}.${y}`;
 }
+
+function parseTimeLabel(value: string | null | undefined): number | null {
+  if (!value) return null;
+  const match = /^(\d{1,2}):(\d{2})$/.exec(value.trim());
+  if (!match) return null;
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return null;
+  if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return null;
+  return hours * 60 + minutes;
+}
+
+function formatTimeLabel(totalMinutes: number): string {
+  const safeMinutes = Math.max(0, Math.min(23 * 60 + 59, Math.round(totalMinutes)));
+  const hours = Math.floor(safeMinutes / 60);
+  const minutes = safeMinutes % 60;
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+}
+
+function normalizeRoadtripStopTimes(stops: StopPlan[]): StopPlan[] {
+  if (stops.length === 0) return stops;
+  const firstTimedStop = stops.find((stop) => parseTimeLabel(stop.time) !== null);
+  const firstStopMinutes = parseTimeLabel(firstTimedStop?.time);
+  if (firstStopMinutes === null || firstStopMinutes >= ROADTRIP_AFTERNOON_START_MIN) {
+    return stops;
+  }
+  const offset = ROADTRIP_AFTERNOON_START_MIN - firstStopMinutes;
+  return stops.map((stop) => {
+    const parsedTime = parseTimeLabel(stop.time);
+    if (parsedTime === null) return stop;
+    return {
+      ...stop,
+      time: formatTimeLabel(parsedTime + offset),
+    };
+  });
+}
+
+const ROADTRIP_AFTERNOON_START_LABEL = formatTimeLabel(ROADTRIP_AFTERNOON_START_MIN);
+const ROADTRIP_TRAVEL_WINDOW_LABEL = `${formatTimeLabel(ROADTRIP_CHECKOUT_MIN)}-${ROADTRIP_AFTERNOON_START_LABEL}`;
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -403,6 +445,7 @@ function RoadtripPageContent() {
             body: JSON.stringify({
               citySlug: stop.citySlug,
               planDate: stop.date,
+              dayStartMin: ROADTRIP_AFTERNOON_START_MIN,
               // Hotel als Startpunkt wenn vorhanden, sonst Stadtzentrum
               startPoint: stop.hotelLat && stop.hotelLng
                 ? {
@@ -636,6 +679,8 @@ function RoadtripPageContent() {
       // Sicherstellen dass status=active gesetzt ist (falls createRoadtripRoute es noch nicht persistiert)
       await setRoadtripStatus(route.id, "active");
       setStartedRouteSlug(route.slug);
+      const runStartDate = stops[0]?.date ?? todayStr();
+      window.location.href = `/roadtrip/routes/${route.slug}/run?startDate=${runStartDate}`;
     } finally {
       setStarting(false);
     }
@@ -1532,12 +1577,38 @@ function RoadtripPageContent() {
                               <p className="text-sm italic text-[var(--text-muted)]">{plan.variantLabel}</p>
                             )}
 
-                            {plan.stops.length > 0 ? (
+                            <div className="rounded-xl border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-3 py-2">
+                              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                                Anreise
+                              </p>
+                              <p className="mt-1 text-sm text-[var(--text-strong)]">
+                                Vormittag für Check-out, Anfahrt und Check-in reserviert.
+                              </p>
+                              <p className="mt-0.5 text-xs text-[var(--text-muted)]">
+                                Die Tagesplanung startet hier bewusst erst ab {ROADTRIP_AFTERNOON_START_LABEL} Uhr.
+                              </p>
+                            </div>
+
+                            {normalizeRoadtripStopTimes(plan.stops).length > 0 ? (
                               <ol className="space-y-2.5">
-                                {plan.stops.map((s, i) => (
+                                <li className="flex items-start gap-2.5">
+                                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[10px] font-semibold text-[var(--text-strong)]">
+                                    1
+                                  </span>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="text-sm font-medium text-[var(--text-strong)]">Anreise &amp; Check-in</div>
+                                    <div className="mt-0.5 text-xs leading-relaxed text-[var(--text-muted)]">
+                                      Check-out, Anfahrt und Hotel-Check-in bis zum Nachmittag.
+                                    </div>
+                                  </div>
+                                  <span className="mt-0.5 shrink-0 rounded bg-[rgba(23,23,23,0.06)] px-1.5 py-0.5 text-[10px] font-medium tabular-nums text-[var(--text-muted)]">
+                                    {ROADTRIP_TRAVEL_WINDOW_LABEL}
+                                  </span>
+                                </li>
+                                {normalizeRoadtripStopTimes(plan.stops).map((s, i) => (
                                   <li key={i} className="flex items-start gap-2.5">
                                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[10px] font-semibold text-[var(--text-strong)]">
-                                      {i + 1}
+                                      {i + 2}
                                     </span>
                                     <div className="flex-1 min-w-0">
                                       <div className="text-sm font-medium text-[var(--text-strong)]">{s.label}</div>
@@ -1573,7 +1644,7 @@ function RoadtripPageContent() {
 
                             <div className="pt-1">
                               <a
-                                href={`/planner?citySlug=${encodeURIComponent(plan.citySlug)}&occasion=${occasion}&budget=${budget}&planDate=${plan.date}`}
+                                href={`/planner?citySlug=${encodeURIComponent(plan.citySlug)}&occasion=${occasion}&budget=${budget}&planDate=${plan.date}&dayStartMin=${ROADTRIP_AFTERNOON_START_MIN}`}
                                 className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-white"
                               >
                                 In Tagesplanung öffnen

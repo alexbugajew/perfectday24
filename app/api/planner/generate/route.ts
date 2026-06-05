@@ -87,6 +87,16 @@ function validatePlannerRequest(raw: unknown): { ok: true; body: PlannerRequestB
     if (typeof r.planDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(r.planDate))
       return { ok: false, error: "planDate muss im Format YYYY-MM-DD sein." };
   }
+  if (r.dayStartMin !== undefined && r.dayStartMin !== null) {
+    if (
+      typeof r.dayStartMin !== "number" ||
+      !Number.isFinite(r.dayStartMin) ||
+      r.dayStartMin < 0 ||
+      r.dayStartMin > 23 * 60 + 59
+    ) {
+      return { ok: false, error: "dayStartMin muss zwischen 0 und 1439 liegen." };
+    }
+  }
   if (r.stopsCount !== undefined && (typeof r.stopsCount !== "number" || r.stopsCount < 1 || r.stopsCount > 10))
     return { ok: false, error: "stopsCount muss zwischen 1 und 10 liegen." };
 
@@ -96,6 +106,7 @@ function validatePlannerRequest(raw: unknown): { ok: true; body: PlannerRequestB
 type PlannerRequestBody = {
   citySlug: string | null;
   planDate?: string | null;
+  dayStartMin?: number | null;
   selectedEventId?: string | null;
   eventPlanningMode?: "auto" | "locked" | "disabled";
   startPoint: {
@@ -376,6 +387,7 @@ export async function POST(req: Request) {
     const context = buildPlanningContext({
       citySlug: body.citySlug,
       planDate: body.planDate ?? null,
+      dayStartMin: body.dayStartMin ?? null,
       selectedEventId: body.selectedEventId ?? null,
       eventPlanningMode: body.eventPlanningMode ?? "auto",
       startPoint: body.startPoint,

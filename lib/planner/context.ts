@@ -132,6 +132,10 @@ export function buildPlanningContext(request: PlannerRequest): PlanningContext {
   return {
     citySlug: request.citySlug,
     planDate: request.planDate ?? null,
+    dayStartMin:
+      typeof request.dayStartMin === "number" && Number.isFinite(request.dayStartMin)
+        ? Math.max(0, Math.min(23 * 60 + 59, Math.round(request.dayStartMin)))
+        : null,
     explicitEventId: request.selectedEventId ?? null,
     eventPlanningMode,
     occasion: request.occasion,

@@ -17,6 +17,9 @@ import {
 } from "@/lib/roadtrip/types";
 import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
 
+const ROADTRIP_CHECKOUT_MIN = 10 * 60;
+const ROADTRIP_AFTERNOON_START_MIN = 14 * 60 + 30;
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function formatDateDE(dateStr: string): string {
@@ -34,6 +37,48 @@ function todayStr(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+function parseTimeLabel(value: string | null | undefined): number | null {
+  if (!value) return null;
+  const match = /^(\d{1,2}):(\d{2})$/.exec(value.trim());
+  if (!match) return null;
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return null;
+  if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return null;
+  return hours * 60 + minutes;
+}
+
+function formatTimeLabel(totalMinutes: number): string {
+  const safeMinutes = Math.max(0, Math.min(23 * 60 + 59, Math.round(totalMinutes)));
+  const hours = Math.floor(safeMinutes / 60);
+  const minutes = safeMinutes % 60;
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+}
+
+function normalizeRoadtripStopTimes<
+  T extends {
+    time: string | null;
+  },
+>(stops: T[]): T[] {
+  if (stops.length === 0) return stops;
+  const firstTimedStop = stops.find((stop) => parseTimeLabel(stop.time) !== null);
+  const firstStopMinutes = parseTimeLabel(firstTimedStop?.time);
+  if (firstStopMinutes === null || firstStopMinutes >= ROADTRIP_AFTERNOON_START_MIN) {
+    return stops;
+  }
+  const offset = ROADTRIP_AFTERNOON_START_MIN - firstStopMinutes;
+  return stops.map((stop) => {
+    const parsedTime = parseTimeLabel(stop.time);
+    if (parsedTime === null) return stop;
+    return {
+      ...stop,
+      time: formatTimeLabel(parsedTime + offset),
+    };
+  });
+}
+
+const ROADTRIP_TRAVEL_WINDOW_LABEL = `${formatTimeLabel(ROADTRIP_CHECKOUT_MIN)}-${formatTimeLabel(ROADTRIP_AFTERNOON_START_MIN)}`;
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function RoadtripRouteDetailPage() {
@@ -48,7 +93,7 @@ export default function RoadtripRouteDetailPage() {
   const [startDate, setStartDate] = useState(todayStr());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [tripActive, setTripActive] = useState(false);
+  const [tripActive] = useState(false);
 
   useEffect(() => {
     if (!params?.slug) return;
@@ -125,6 +170,7 @@ export default function RoadtripRouteDetailPage() {
 
   const totalNights = route.stops.reduce((s, st) => s + st.nights, 0);
   const tagDefs = ROADTRIP_TAGS.filter((t) => route.tags.includes(t.value));
+  const roadtripRunHref = `/roadtrip/routes/${route.slug}/run?startDate=${startDate}`;
 
   // Welcher Stop ist heute? Nur relevant wenn tripActive = true
   const todayStopIdx = (() => {
@@ -216,37 +262,22 @@ export default function RoadtripRouteDetailPage() {
 
           {/* Roadtrip-Start CTA */}
           <div className="mt-4 flex flex-wrap items-center gap-2.5">
-            {tripActive && todayStopIdx >= 0 ? (
-              <a
-                href={`#stop-${todayStopIdx}`}
-                className="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600 active:scale-[0.97]"
-              >
-                🚀 Zum heutigen Stop
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-                  <path d="M12 5v14M5 12l7 7 7-7" />
-                </svg>
-              </a>
-            ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  setTripActive(true);
-                  setShowDatePicker(true);
-                }}
-                className="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600 active:scale-[0.97]"
-              >
-                🚀 Roadtrip starten
-              </button>
-            )}
-            {tripActive && (
-              <button
-                type="button"
-                onClick={() => setShowDatePicker((v) => !v)}
-                className="rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
-              >
-                📅 Start: {formatDateDE(startDate)}
-              </button>
-            )}
+            <Link
+              href={roadtripRunHref}
+              className="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600 active:scale-[0.97]"
+            >
+              🚀 Roadtrip live starten
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+            <button
+              type="button"
+              onClick={() => setShowDatePicker((v) => !v)}
+              className="rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+            >
+              📅 Start: {formatDateDE(startDate)}
+            </button>
           </div>
         </div>
       </section>
@@ -362,10 +393,22 @@ export default function RoadtripRouteDetailPage() {
                         <p className="text-[11px] italic text-[var(--text-muted)]">{stop.planSummary}</p>
                       )}
                       <ol className="space-y-1.5">
-                        {stop.plannedStops.map((s, i) => (
+                        <li className="flex items-start gap-2">
+                          <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[9px] font-bold text-[var(--text-strong)]">
+                            1
+                          </span>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-xs font-medium text-[var(--text-strong)]">Anreise &amp; Check-in</span>
+                            <span className="ml-1.5 text-[11px] text-[var(--text-muted)]">- Check-out, Anfahrt und Hotel-Check-in bis zum Nachmittag</span>
+                          </div>
+                          <span className="shrink-0 rounded bg-[rgba(23,23,23,0.06)] px-1.5 py-0.5 text-[10px] tabular-nums text-[var(--text-muted)]">
+                            {ROADTRIP_TRAVEL_WINDOW_LABEL}
+                          </span>
+                        </li>
+                        {normalizeRoadtripStopTimes(stop.plannedStops).map((s, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[9px] font-bold text-[var(--text-strong)]">
-                              {i + 1}
+                              {i + 2}
                             </span>
                             <div className="flex-1 min-w-0">
                               <span className="text-xs font-medium text-[var(--text-strong)]">{s.label}</span>
@@ -430,7 +473,7 @@ export default function RoadtripRouteDetailPage() {
                   </a>
                 ) : stop.plannedStops?.length ? (
                   <a
-                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}`}
+                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}&dayStartMin=${ROADTRIP_AFTERNOON_START_MIN}`}
                     className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
                   >
                     📋 Im Planner öffnen
@@ -440,7 +483,7 @@ export default function RoadtripRouteDetailPage() {
                   </a>
                 ) : (
                   <a
-                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}`}
+                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}&dayStartMin=${ROADTRIP_AFTERNOON_START_MIN}`}
                     className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.97]"
                   >
                     📍 Tag planen

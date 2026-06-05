@@ -110,6 +110,7 @@ export type GroupMember = {
 export type PlannerRequest = {
   citySlug: string | null;
   planDate?: string | null;
+  dayStartMin?: number | null;
   selectedEventId?: string | null;
   eventPlanningMode?: EventPlanningMode;
   startPoint: {
@@ -252,6 +253,7 @@ export type SlotDefinition = {
 export type PlanningContext = {
   citySlug: string | null;
   planDate: string | null;
+  dayStartMin: number | null;
   explicitEventId: string | null;
   eventPlanningMode: EventPlanningMode;
   occasion: OccasionKey;

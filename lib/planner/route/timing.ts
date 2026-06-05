@@ -243,7 +243,14 @@ export function applyStopSchedule(params: {
             : "evening";
 
   const dayBase = new Date(dateSeed.getFullYear(), dateSeed.getMonth(), dateSeed.getDate(), 0, 0, 0, 0);
-  const planStart = withMinutes(dayBase, planStartMinutes(derivedPlanMode, context.occasion));
+  const requestedStartMin =
+    typeof context.dayStartMin === "number" && Number.isFinite(context.dayStartMin)
+      ? Math.max(0, Math.min(23 * 60 + 59, Math.round(context.dayStartMin)))
+      : null;
+  const planStart = withMinutes(
+    dayBase,
+    requestedStartMin ?? planStartMinutes(derivedPlanMode, context.occasion)
+  );
   // Minimum sensible start — never earlier than 07:00 for non-event-anchored runs.
   const earliestStartMin = 7 * 60;
   const flooredPlanStart = new Date(

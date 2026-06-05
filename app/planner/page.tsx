@@ -91,7 +91,7 @@ function PlannerPageContent() {
   // True once URL params (if any) have been applied — prevents auto-generating
   // with stale localStorage values before the homepage preset takes effect.
   const hasHomepageParams = [
-    "citySlug", "city", "occasion", "experienceMode", "mode", "budget", "planDate", "interests",
+    "citySlug", "city", "occasion", "experienceMode", "mode", "budget", "planDate", "interests", "dayStartMin",
   ].some((key) => searchParams.has(key));
   const [presetsReady, setPresetsReady] = useState(!hasHomepageParams);
   const [variationSeed, setVariationSeed] = useState(0);
@@ -108,6 +108,7 @@ function PlannerPageContent() {
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [eventPlanningMode, setEventPlanningMode] = useState<EventPlanningMode>("auto");
   const [planMode, setPlanMode] = useState<PlanMode>("fullday");
+  const [dayStartMin, setDayStartMin] = useState<number | null>(null);
   const [stopsCount, setStopsCount] = useState(3);
 
   const [fullDayActsAfterBreakfast, setFullDayActsAfterBreakfast] = useState(1);
@@ -263,6 +264,7 @@ function PlannerPageContent() {
     const requestedBudget = searchParams.get("budget");
     const requestedPlanDate = searchParams.get("planDate");
     const requestedInterests = searchParams.get("interests");
+    const requestedDayStartMin = searchParams.get("dayStartMin");
 
     const signature = [
       requestedCitySlug ?? "",
@@ -271,6 +273,7 @@ function PlannerPageContent() {
       requestedBudget ?? "",
       requestedPlanDate ?? "",
       requestedInterests ?? "",
+      requestedDayStartMin ?? "",
     ].join("|");
 
     if (!signature.replace(/\|/g, "")) return;
@@ -329,6 +332,17 @@ function PlannerPageContent() {
       if (normalizedInterests.length > 0) {
         setInterests(normalizedInterests);
       }
+    }
+
+    if (requestedDayStartMin && /^\d{1,4}$/.test(requestedDayStartMin)) {
+      const parsedDayStartMin = Number(requestedDayStartMin);
+      setDayStartMin(
+        Number.isFinite(parsedDayStartMin) && parsedDayStartMin >= 0 && parsedDayStartMin <= 1439
+          ? parsedDayStartMin
+          : null
+      );
+    } else {
+      setDayStartMin(null);
     }
 
     setSelectedEventId(null);
@@ -610,6 +624,7 @@ function PlannerPageContent() {
       return {
         citySlug: effectiveCitySlug,
         planDate,
+        dayStartMin,
         selectedEventId,
         eventPlanningMode,
         startPoint: {
@@ -641,6 +656,7 @@ function PlannerPageContent() {
   }, [
     effectiveCitySlug,
     planDate,
+    dayStartMin,
     startPoint.mode,
     startPoint.type,
     effectiveStartPoint.label,
