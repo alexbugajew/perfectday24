@@ -751,11 +751,11 @@ export function familyGoalBoost(
 }
 
 export function familyVariantLabel(goal: PlanVariantGoal) {
-  if (goal === "best_match") return "Classic Family Day";
-  if (goal === "shortest_route") return "Easy Family Day";
-  if (goal === "more_diverse") return "Explore Family Day";
-  if (goal === "premium") return "Wow Family Day";
-  return "Family Day";
+  if (goal === "best_match") return "Familien-Klassiker";
+  if (goal === "shortest_route") return "Entspannter Familientag";
+  if (goal === "more_diverse") return "Abwechslungsreicher Familientag";
+  if (goal === "premium") return "Highlight-Familientag";
+  return "Familientag";
 }
 
 export function familyVariantReason(goal: PlanVariantGoal) {
