@@ -1,6 +1,7 @@
 import { classify } from "../features";
 import { occasionBaseBonus } from "../occasions/base";
 import {
+  familyAgeBandHardReject,
   familyAgeBandPhaseBonus,
   familyAgeBandPhaseMismatchPenalty,
 } from "../occasions/family";
@@ -23,6 +24,10 @@ export const occasionPolicy: SlotCandidatePolicy = {
       (context.filters.occasion === "family"
         ? familyAgeBandPhaseMismatchPenalty(context.filters.familyAgeBand, slot.phase, candidate)
         : 0);
+    const familyAgeReject =
+      context.filters.occasion === "family"
+        ? familyAgeBandHardReject(context.filters.familyAgeBand, candidate, slot.phase)
+        : { reject: false, reason: null as string | null };
     const baseBonus = occasionBaseBonus(context.filters.occasion, candidate);
     const fitReasons = occasionModule.explainPhaseFit({
       phase: slot.phase,
@@ -36,11 +41,13 @@ export const occasionPolicy: SlotCandidatePolicy = {
     return {
       key: "occasion",
       scoreDelta: phaseBonus - phaseMismatchPenalty + baseBonus,
-      reasons: [...fitReasons, ...mismatchReasons],
+      hardFail: familyAgeReject.reject,
+      reasons: [...fitReasons, ...mismatchReasons, ...(familyAgeReject.reason ? [familyAgeReject.reason] : [])],
       meta: {
         candidateCategory,
         phaseBonus,
         phaseMismatchPenalty,
+        familyAgeReject,
         occasionBaseBonus: baseBonus,
         fitReasons,
         mismatchReasons,

@@ -264,6 +264,16 @@ function familyAgeMarkers(loc: LocationRow) {
     category === "culture" &&
     !hasSubtype(loc, "children_museum", "science_center", "aquarium") &&
     !/(interaktiv|interactive|technik|science|planetarium|family|familie|kinder)/i.test(text);
+  const pureToddlerVenue =
+    toddlerFriendly &&
+    !interactiveKids &&
+    !challengePreteen &&
+    !teenSocial;
+  const pureTeenSocial =
+    teenSocial &&
+    !interactiveKids &&
+    !challengePreteen &&
+    !toddlerFriendly;
 
   return {
     toddlerFriendly,
@@ -273,6 +283,82 @@ function familyAgeMarkers(loc: LocationRow) {
     tooYoung,
     tooChildish,
     adultCultureOnly,
+    pureToddlerVenue,
+    pureTeenSocial,
+  };
+}
+
+export function familyAgeBandHardReject(
+  ageBand: FamilyAgeBand | null | undefined,
+  candidate: ScoredLocation,
+  phase: OccasionPhase | null | undefined
+) {
+  const band = normalizedFamilyAgeBand(ageBand);
+  const category = classify(candidate);
+  const markers = familyAgeMarkers(candidate);
+  const isMainMoment =
+    phase === "main_activity" || phase === "light_activity" || phase === "arrival";
+
+  if (markers.tooYoung) {
+    return {
+      reject: true,
+      reason: "passt nicht zu einem familienfreundlichen Ausflug",
+    };
+  }
+
+  if (band === "0_6") {
+    if (markers.adultCultureOnly && isMainMoment) {
+      return {
+        reject: true,
+        reason: "ist fuer 0-6 Jahre zu erwachsen und zu wenig spielerisch",
+      };
+    }
+    if ((markers.challengePreteen || markers.pureTeenSocial) && isMainMoment) {
+      return {
+        reject: true,
+        reason: "ist fuer 0-6 Jahre zu herausfordernd oder zu teen-orientiert",
+      };
+    }
+  }
+
+  if (band === "4_10") {
+    if (markers.pureTeenSocial && isMainMoment) {
+      return {
+        reject: true,
+        reason: "ist eher fuer Teenager als fuer 4-10 Jahre spannend",
+      };
+    }
+  }
+
+  if (band === "9_14") {
+    if (
+      (markers.pureToddlerVenue || markers.tooChildish) &&
+      isMainMoment &&
+      (category === "activity" || category === "culture" || category === "event")
+    ) {
+      return {
+        reject: true,
+        reason: "wirkt zu kleinkindhaft fuer 9-14 Jahre",
+      };
+    }
+  }
+
+  if (band === "12_16") {
+    if (
+      (markers.pureToddlerVenue || markers.tooChildish || markers.toddlerFriendly) &&
+      isMainMoment &&
+      (category === "activity" || category === "culture" || category === "event" || category === "cafe")
+    ) {
+      return {
+        reject: true,
+        reason: "ist fuer 12-16 Jahre zu kindlich und zu wenig eigenstaendig",
+      };
+    }
+  }
+
+  return {
+    reject: false,
+    reason: null as string | null,
   };
 }
 
@@ -295,6 +381,7 @@ export function familyAgeBandBoost(
     if (markers.toddlerFriendly) score += 48;
     if (markers.interactiveKids) score += 14;
     if (markers.challengePreteen) score -= 18;
+    if (markers.pureTeenSocial) score -= 42;
     if (markers.tooYoung) score -= 90;
     if (markers.adultCultureOnly) score -= 34;
     return score;
@@ -311,6 +398,7 @@ export function familyAgeBandBoost(
     if (markers.toddlerFriendly) score += 18;
     if (markers.interactiveKids) score += 34;
     if (markers.challengePreteen) score += 12;
+    if (markers.pureTeenSocial) score -= 26;
     if (markers.tooYoung) score -= 80;
     return score;
   }
@@ -325,6 +413,7 @@ export function familyAgeBandBoost(
     if (markers.interactiveKids) score += 16;
     if (markers.challengePreteen) score += 42;
     if (markers.teenSocial) score += 16;
+    if (markers.pureToddlerVenue) score -= 24;
     if (markers.toddlerFriendly) score -= 18;
     if (markers.tooChildish) score -= 30;
     if (markers.tooYoung) score -= 72;
@@ -339,6 +428,7 @@ export function familyAgeBandBoost(
     signals.foodEase * 3;
   if (markers.challengePreteen) score += 24;
   if (markers.teenSocial) score += 42;
+  if (markers.pureToddlerVenue) score -= 42;
   if (markers.toddlerFriendly) score -= 34;
   if (markers.tooChildish) score -= 44;
   if (markers.tooYoung) score -= 68;
