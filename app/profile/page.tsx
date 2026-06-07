@@ -1281,7 +1281,16 @@ function ProfilePageInner() {
         </div>
 
         {/* ── Two-column layout: interests + public profile ───────────────── */}
-        {authReady && userId && !isAnonymous && <div className="grid gap-6 xl:grid-cols-2">
+        {authReady && userId && !isAnonymous && (
+          <section className="space-y-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+              <div className="pd24-kicker-warm">Persoenliche Basis</div>
+              <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Konto, Vorlieben und sichtbares Profil</h2>
+              <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+                Pflege hier deine persoenlichen Einstellungen, Interessen und die Informationen, die andere Nutzer sehen sollen.
+              </p>
+            </div>
+            <div className="grid gap-6 xl:grid-cols-2">
 
           {/* ── Interests ──────────────────────────────────────────────────── */}
           <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
@@ -1566,10 +1575,21 @@ function ProfilePageInner() {
               </div>
             ) : null}
           </div>
-        </div>}
+          </div>
+        </section>
+        )}
 
         {/* ── Studio ──────────────────────────────────────────────────────────── */}
-        {authReady && userId && !isAnonymous && <div className="grid gap-6 xl:grid-cols-2">
+        {authReady && userId && !isAnonymous && (
+          <section className="space-y-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+              <div className="pd24-kicker-warm">Meine Inhalte</div>
+              <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Eigene Routen, Roadtrips und gemerkte Vorlagen</h2>
+              <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+                Verwalte hier deine erstellten Inhalte und springe schnell zu dem weiter, was du spaeter erneut nutzen moechtest.
+              </p>
+            </div>
+            <div className="grid gap-6 xl:grid-cols-2">
 
           {/* Studio card with tab switcher */}
           <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
@@ -1901,9 +1921,21 @@ function ProfilePageInner() {
               </div>
             )}
           </div>
-        </div>}
+          </div>
+        </section>
+        )}
 
         {/* ── Aktive Rollen-Schnellzugriffe ───────────────────────────────── */}
+        {(authReady && userId && !isAnonymous) && (
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+            <div className="pd24-kicker-warm">Rollen & Zugaenge</div>
+            <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Spezielle Bereiche und Freischaltungen</h2>
+            <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+              Aktive Zugaenge stehen oben. Weitere Programme und Ausbaustufen kannst du darunter bei Bedarf aufklappen.
+            </p>
+          </div>
+        )}
+
         {userId && hasRoleBadge && (
           <div className="overflow-hidden rounded-[var(--radius-card)] bg-[var(--text-strong)] p-6">
             <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/50">
@@ -1960,14 +1992,21 @@ function ProfilePageInner() {
 
         {/* ── Mitmachen / Zugänge-Upsell ──────────────────────────────────── */}
         {authReady && userId && !isAnonymous && (
-          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
-            <div className="pd24-kicker-warm">
-              Mitmachen
-            </div>
-            <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Rollen & Zugänge</h2>
-            <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-              Erweiterte Bereiche für Creator, Partner und Unternehmen.
-            </p>
+          <details className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
+              <div>
+                <div className="pd24-kicker-warm">
+                  Mitmachen
+                </div>
+                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Weitere Rollen & Zugänge</h2>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+                  Erweiterte Bereiche für Creator, Partner und Unternehmen.
+                </p>
+              </div>
+              <span className="mt-1 text-xs font-medium uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">
+                Oeffnen
+              </span>
+            </summary>
 
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
               {/* Creator */}
@@ -2042,7 +2081,7 @@ function ProfilePageInner() {
                 </div>
               </div>
             </div>
-          </div>
+          </details>
         )}
       </div>
     </div>

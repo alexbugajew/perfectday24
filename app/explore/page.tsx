@@ -1294,6 +1294,50 @@ function ExplorePageContent() {
             )}
           </section>
 
+          <section className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 shadow-[var(--shadow-soft)]">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                <div className="pd24-kicker-warm">Schneller finden</div>
+                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Starte mit oeffentlichen Routen und verfeinere dann deine Auswahl.</h2>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+                  Beginne mit allen verfuegbaren Routen, merke interessante Vorlagen und gehe erst danach tiefer in Trends, Themen oder Creator-Empfehlungen.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <a href="#explore-all-routes" className="inline-flex min-h-10 items-center rounded-xl bg-[#171717] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                  Alle Routen ansehen
+                </a>
+                <Link
+                  href="/saved"
+                  className="inline-flex min-h-10 items-center rounded-xl border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]"
+                >
+                  Meine Plaene oeffnen
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          <section id="explore-all-routes">
+            <SectionHeader
+              title="Alle Routen"
+              subtitle="Alle Routen passend zu deiner Auswahl."
+            />
+            {filteredRoutes.length === 0 ? (
+              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen fuer diese Filter gefunden.</div>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {filteredRoutes.map((route) => (
+                  <RouteCard
+                    key={route.id}
+                    route={route}
+                    creator={route.creator_profile_id ? creatorById.get(route.creator_profile_id) ?? null : null}
+                    cityMap={cityMap}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+
           <section>
             <SectionHeader
               title="Gerade beliebt"
@@ -1380,8 +1424,8 @@ function ExplorePageContent() {
 
           <section>
             <SectionHeader
-              title="Alle Routen"
-              subtitle="Alle Routen passend zu deiner Auswahl."
+              title="Mehr aus der Community"
+              subtitle="Weitere oeffentliche Routen fuer spaetere Vertiefung."
             />
             {filteredRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen für diese Filter gefunden.</div>
@@ -1401,35 +1445,54 @@ function ExplorePageContent() {
         </div>
       )}
 
-      {/* Creator-Sektion — nachgeordnet, nur für Interessierte */}
-      {!loading && topCreators.length > 0 && (
-        <section className="mt-4">
-          <SectionHeader
-            title="Starke Creator"
-            subtitle="Kuratorinnen, Kuratoren und Creator mit den stärksten Routen."
-          />
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {topCreators.map((creator) => (
-              <CreatorCard
-                key={creator.id}
-                creator={creator}
-                cityMap={cityMap}
-                rankingScore={creatorRankingMap[creator.id] ?? 0}
-              />
-            ))}
-          </div>
+      {!loading && (
+        <section className="mt-10 border-t border-[var(--line-subtle)] pt-8">
+          <details className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 shadow-[var(--shadow-soft)]">
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
+              <div>
+                <div className="pd24-kicker-warm">Sekundaer</div>
+                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Fuer Creator und Kurator:innen</h2>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+                  Wenn du eigene Inhalte veroeffentlichen oder gezielt starken Accounts folgen moechtest, findest du hier die passenden Einstiege.
+                </p>
+              </div>
+              <span className="mt-1 text-xs font-medium uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">
+                Mehr anzeigen
+              </span>
+            </summary>
+
+            <div className="mt-5 space-y-6">
+              {topCreators.length > 0 ? (
+                <section>
+                  <SectionHeader
+                    title="Starke Creator"
+                    subtitle="Kuratorinnen, Kuratoren und Creator mit den staerksten Routen."
+                  />
+                  <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                    {topCreators.map((creator) => (
+                      <CreatorCard
+                        key={creator.id}
+                        creator={creator}
+                        cityMap={cityMap}
+                        rankingScore={creatorRankingMap[creator.id] ?? 0}
+                      />
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              <div className="flex justify-center">
+                <Link
+                  href="/routes"
+                  className="inline-flex min-h-10 items-center rounded-xl border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]"
+                >
+                  Eigene Route erstellen
+                </Link>
+              </div>
+            </div>
+          </details>
         </section>
       )}
-
-      {/* Eigene Route erstellen — nachgeordnet, kleiner Textlink */}
-      <div className="mt-10 flex justify-center border-t border-[var(--line-subtle)] pt-8">
-        <Link
-          href="/routes"
-          className="text-sm text-[var(--text-muted)] underline-offset-2 transition hover:text-[var(--text-strong)] hover:underline"
-        >
-          Eigene Route erstellen →
-        </Link>
-      </div>
     </main>
   );
 }

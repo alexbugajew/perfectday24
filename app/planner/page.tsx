@@ -1833,16 +1833,20 @@ function PlannerPageContent() {
             </div>
           )}
 
-          {/* Weitere Optionen — Mobile: hinter Toggle; Desktop: sichtbar */}
+          <div className="text-xs text-[var(--text-muted)]">
+            Starte direkt oder sichere erst diesen Stand. Alles Weitere ist bewusst nachgeordnet.
+          </div>
+
+          {/* Weitere Optionen — bewusst sekundär */}
           <button
             type="button"
             onClick={() => setShowWeitere((v) => !v)}
-            className="self-start text-xs text-[var(--text-muted)] transition hover:text-[var(--text-strong)] sm:hidden"
+            className="self-start rounded-full border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] hover:text-[var(--text-strong)]"
           >
-            {showWeitere ? "Weniger ↑" : "Weitere Optionen ↓"}
+            {showWeitere ? "Feinschliff ausblenden ↑" : "Feinschliff & Spezialfälle ↓"}
           </button>
           <div
-            className={`flex flex-wrap items-center gap-2 border-t border-[var(--line-subtle)] pt-2 ${showWeitere ? "" : "hidden sm:flex"}`}
+            className={`flex flex-wrap items-center gap-2 border-t border-[var(--line-subtle)] pt-2 ${showWeitere ? "" : "hidden"}`}
           >
             <button
               type="button"
@@ -1852,28 +1856,6 @@ function PlannerPageContent() {
             >
               Anderer Vorschlag
             </button>
-            <button
-              type="button"
-              onClick={() => {
-                const planToShare = selectedPlan ?? latestSavedPlan;
-                if (planToShare) void sharePlan(planToShare);
-                else showToast("Speichere den Plan zuerst, um ihn zu teilen.");
-              }}
-              disabled={plannedStops.length === 0}
-              className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
-            >
-              {groupEnabled ? "Link an Gruppe" : "Teilen"}
-            </button>
-            {!groupEnabled ? (
-              <button
-                type="button"
-                onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
-                disabled={!authReady || !userId || saving || plannedStops.length === 0}
-                className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
-              >
-                {!authReady ? "Auth..." : !userId ? "Login nötig" : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
-              </button>
-            ) : null}
             <button
               type="button"
               onClick={resetPlan}
@@ -1887,7 +1869,7 @@ function PlannerPageContent() {
               disabled={plannedStops.length === 0}
               className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
             >
-              Als Creator-Route vorbereiten
+              Im Routenstudio weiterbearbeiten
             </button>
             {groupEnabled && activeVariant ? (
               <button
