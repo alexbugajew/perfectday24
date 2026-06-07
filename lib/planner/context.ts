@@ -3,6 +3,12 @@ import type { GroupMember, PlannerRequest, PlanningContext } from "./types";
 import { norm } from "./features";
 import { getOccasionModule } from "./occasions/registry";
 import { applyExperienceModeToSlotTemplate } from "./events";
+import {
+  DEFAULT_FAMILY_AGE_BAND,
+  familyAgeBandAutoInterests,
+  resolveFamilyAgeBand,
+} from "./family-age";
+import { buildFamilySlotTemplate } from "./occasions/family";
 
 function defaultEventStrictnessForMode(mode: PlannerRequest["experienceMode"]) {
   if (mode === "show") return "required" as const;
@@ -110,8 +116,22 @@ function buildGroupSignals(owner: string[], members: GroupMember[], enabled: boo
 }
 
 export function buildPlanningContext(request: PlannerRequest): PlanningContext {
-  const merged = mergeInterests(request.interests, request.group.members, request.group.enabled);
-  const weights = interestWeights(request.interests, request.group.members, request.group.enabled);
+  const familyAgeBand =
+    request.occasion === "family"
+      ? resolveFamilyAgeBand(request.familyAgeBand) ?? DEFAULT_FAMILY_AGE_BAND
+      : null;
+  const baseInterests = mergeInterests(request.interests, request.group.members, request.group.enabled);
+  const merged =
+    request.occasion === "family"
+      ? Array.from(new Set([...baseInterests, ...familyAgeBandAutoInterests(familyAgeBand)])).slice(0, 24)
+      : baseInterests;
+  const weights = interestWeights(
+    request.occasion === "family"
+      ? [...request.interests, ...familyAgeBandAutoInterests(familyAgeBand)]
+      : request.interests,
+    request.group.members,
+    request.group.enabled
+  );
   const groupSignals = buildGroupSignals(
     request.interests,
     request.group.members,
@@ -123,7 +143,10 @@ export function buildPlanningContext(request: PlannerRequest): PlanningContext {
     request.eventStrictness ?? defaultEventStrictnessForMode(experienceMode);
   const eventPlanningMode = request.eventPlanningMode ?? "auto";
   const slotTemplate = applyExperienceModeToSlotTemplate({
-    slotTemplate: occasionModule.buildSlotTemplate(request.planMode),
+    slotTemplate:
+      request.occasion === "family"
+        ? buildFamilySlotTemplate(request.planMode, familyAgeBand)
+        : occasionModule.buildSlotTemplate(request.planMode),
     experienceMode,
     occasion: request.occasion,
     planMode: request.planMode,
@@ -156,6 +179,7 @@ export function buildPlanningContext(request: PlannerRequest): PlanningContext {
     filters: {
       budget: request.budget,
       occasion: request.occasion,
+      familyAgeBand,
       radiusKm: request.radiusKm,
       sortMode: request.sortMode ?? "match",
       routeProfile: request.routeProfile ?? "foot",

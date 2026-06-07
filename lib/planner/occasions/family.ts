@@ -1,5 +1,6 @@
 import { buildLocationSearchText, classify, hasAudience, hasOccasionTag, hasSubtype } from "../features";
 import type {
+  FamilyAgeBand,
   LocationRow,
   OccasionPhase,
   PlanMode,
@@ -7,6 +8,10 @@ import type {
   ScoredLocation,
   SlotDefinition,
 } from "../types";
+import {
+  DEFAULT_FAMILY_AGE_BAND,
+  resolveFamilyAgeBand,
+} from "../family-age";
 import {
   capSignals,
   dedupeReasons,
@@ -230,7 +235,187 @@ export function inferFamilySignals(loc: LocationRow): FamilySignals {
   );
 }
 
-export function buildFamilySlotTemplate(planMode: PlanMode): SlotDefinition[] {
+function normalizedFamilyAgeBand(ageBand: FamilyAgeBand | null | undefined) {
+  return resolveFamilyAgeBand(ageBand) ?? DEFAULT_FAMILY_AGE_BAND;
+}
+
+function familyAgeMarkers(loc: LocationRow) {
+  const category = classify(loc);
+  const text = buildLocationSearchText(loc);
+
+  const toddlerFriendly =
+    hasSubtype(loc, "playground", "farm_experience", "zoo", "wildpark", "water_park") ||
+    /(spielplatz|abenteuerspielplatz|streichelzoo|bauernhof|karussell|indoor playground|soft play|wasserpark)/i.test(text);
+  const interactiveKids =
+    hasSubtype(loc, "children_museum", "science_center", "aquarium", "theme_park", "swimming_pool", "climbing") ||
+    /(kindermuseum|minigolf|mini golf|trampolin|trampoline|aquarium|science|technik|planetarium)/i.test(text);
+  const challengePreteen =
+    hasSubtype(loc, "climbing", "science_center", "swimming_pool") ||
+    /(escape|escape room|klettern|bould|trampolin|trampoline|arcade|gaming|lasertag|bowling|skate|science|kino|cinema)/i.test(text);
+  const teenSocial =
+    category === "event" ||
+    /(shopping|streetfood|food hall|bubble tea|arcade|gaming|kino|cinema|bowling|viewpoint|rooftop|workshop|concert|festival|market|hangout)/i.test(text);
+  const tooYoung =
+    category === "nightlife" ||
+    /(nightclub|club|cocktail|bar hopping|late night)/i.test(text);
+  const tooChildish =
+    /(spielplatz|streichelzoo|karussell|indoor playground|soft play|kindergeburtstag)/i.test(text);
+  const adultCultureOnly =
+    category === "culture" &&
+    !hasSubtype(loc, "children_museum", "science_center", "aquarium") &&
+    !/(interaktiv|interactive|technik|science|planetarium|family|familie|kinder)/i.test(text);
+
+  return {
+    toddlerFriendly,
+    interactiveKids,
+    challengePreteen,
+    teenSocial,
+    tooYoung,
+    tooChildish,
+    adultCultureOnly,
+  };
+}
+
+export function familyAgeBandBoost(
+  ageBand: FamilyAgeBand | null | undefined,
+  candidate: LocationRow
+) {
+  const band = normalizedFamilyAgeBand(ageBand);
+  const signals = inferFamilySignals(candidate);
+  const markers = familyAgeMarkers(candidate);
+
+  if (band === "0_6") {
+    let score =
+      signals.safety * 7 +
+      signals.logistics * 7 +
+      signals.freePlay * 8 +
+      signals.parentEase * 6 +
+      signals.foodEase * 5 +
+      signals.movement * 4;
+    if (markers.toddlerFriendly) score += 48;
+    if (markers.interactiveKids) score += 14;
+    if (markers.challengePreteen) score -= 18;
+    if (markers.tooYoung) score -= 90;
+    if (markers.adultCultureOnly) score -= 34;
+    return score;
+  }
+
+  if (band === "4_10") {
+    let score =
+      signals.kidsFun * 7 +
+      signals.movement * 6 +
+      signals.learning * 6 +
+      signals.freePlay * 5 +
+      signals.wow * 4 +
+      signals.foodEase * 3;
+    if (markers.toddlerFriendly) score += 18;
+    if (markers.interactiveKids) score += 34;
+    if (markers.challengePreteen) score += 12;
+    if (markers.tooYoung) score -= 80;
+    return score;
+  }
+
+  if (band === "9_14") {
+    let score =
+      signals.kidsFun * 5 +
+      signals.movement * 7 +
+      signals.learning * 6 +
+      signals.wow * 5 +
+      signals.flexibility * 3;
+    if (markers.interactiveKids) score += 16;
+    if (markers.challengePreteen) score += 42;
+    if (markers.teenSocial) score += 16;
+    if (markers.toddlerFriendly) score -= 18;
+    if (markers.tooChildish) score -= 30;
+    if (markers.tooYoung) score -= 72;
+    return score;
+  }
+
+  let score =
+    signals.wow * 6 +
+    signals.movement * 5 +
+    signals.learning * 4 +
+    signals.flexibility * 4 +
+    signals.foodEase * 3;
+  if (markers.challengePreteen) score += 24;
+  if (markers.teenSocial) score += 42;
+  if (markers.toddlerFriendly) score -= 34;
+  if (markers.tooChildish) score -= 44;
+  if (markers.tooYoung) score -= 68;
+  return score;
+}
+
+export function familyAgeBandPhaseBonus(
+  ageBand: FamilyAgeBand | null | undefined,
+  phase: OccasionPhase | null | undefined,
+  candidate: ScoredLocation
+) {
+  const band = normalizedFamilyAgeBand(ageBand);
+  const signals = inferFamilySignals(candidate);
+  const markers = familyAgeMarkers(candidate);
+
+  if (band === "0_6") {
+    if (phase === "arrival") return signals.logistics * 6 + signals.parentEase * 5 + (markers.toddlerFriendly ? 10 : 0);
+    if (phase === "main_activity") return signals.freePlay * 6 + signals.kidsFun * 5 + (markers.toddlerFriendly ? 18 : 0);
+    if (phase === "pause") return signals.foodEase * 5 + signals.parentEase * 4;
+    if (phase === "light_activity") return signals.freePlay * 6 + signals.flexibility * 4;
+    if (phase === "wind_down") return signals.parentEase * 5 + signals.safety * 4;
+    return 0;
+  }
+
+  if (band === "4_10") {
+    if (phase === "main_activity") return signals.kidsFun * 5 + signals.learning * 4 + signals.movement * 4 + (markers.interactiveKids ? 12 : 0);
+    if (phase === "light_activity") return signals.freePlay * 4 + signals.flexibility * 4;
+    return 0;
+  }
+
+  if (band === "9_14") {
+    if (phase === "main_activity") return signals.movement * 5 + signals.learning * 4 + (markers.challengePreteen ? 16 : 0);
+    if (phase === "light_activity") return signals.flexibility * 4 + (markers.teenSocial ? 8 : 0);
+    return 0;
+  }
+
+  if (phase === "main_activity") return signals.wow * 5 + signals.movement * 4 + (markers.teenSocial ? 14 : 0);
+  if (phase === "pause") return signals.foodEase * 4 + (markers.teenSocial ? 6 : 0);
+  if (phase === "light_activity") return signals.flexibility * 4 + (markers.teenSocial ? 8 : 0);
+  return 0;
+}
+
+export function familyAgeBandPhaseMismatchPenalty(
+  ageBand: FamilyAgeBand | null | undefined,
+  phase: OccasionPhase | null | undefined,
+  candidate: ScoredLocation
+) {
+  const band = normalizedFamilyAgeBand(ageBand);
+  const markers = familyAgeMarkers(candidate);
+
+  if (markers.tooYoung) return 26;
+  if (band === "0_6" && markers.adultCultureOnly) return 24;
+  if ((band === "9_14" || band === "12_16") && markers.tooChildish) return 20;
+  if (phase === "main_activity" && band === "12_16" && markers.toddlerFriendly) return 18;
+  return 0;
+}
+
+export function familyAgeBandGoalBoost(
+  ageBand: FamilyAgeBand | null | undefined,
+  goal: PlanVariantGoal,
+  candidate: ScoredLocation
+) {
+  const band = normalizedFamilyAgeBand(ageBand);
+  const base = familyAgeBandBoost(band, candidate);
+
+  if (goal === "shortest_route" && band === "0_6") return base + inferFamilySignals(candidate).logistics * 12;
+  if (goal === "more_diverse" && band === "4_10") return base + inferFamilySignals(candidate).learning * 8 + inferFamilySignals(candidate).movement * 6;
+  if (goal === "more_diverse" && band === "9_14") return base + inferFamilySignals(candidate).movement * 8 + inferFamilySignals(candidate).wow * 5;
+  if (goal === "premium" && band === "12_16") return base + inferFamilySignals(candidate).wow * 9;
+  return base;
+}
+
+export function buildFamilySlotTemplate(
+  planMode: PlanMode,
+  ageBand?: FamilyAgeBand | null
+): SlotDefinition[] {
+  const band = normalizedFamilyAgeBand(ageBand);
   if (planMode === "morning") {
     return [
       {
@@ -245,9 +430,17 @@ export function buildFamilySlotTemplate(planMode: PlanMode): SlotDefinition[] {
         index: 1,
         kind: "activity",
         label: "Hauptaktivität",
-        hint: "Kinderfreundliches Highlight mit Bewegung oder Entdecken",
+        hint:
+          band === "12_16"
+            ? "Challenge, Szene-Spot oder aktiver Start"
+            : band === "9_14"
+              ? "Interaktives Highlight mit Bewegung oder Challenge"
+              : "Kinderfreundliches Highlight mit Bewegung oder Entdecken",
         phase: "main_activity",
-        phaseGoal: "Den Höhepunkt früh legen, solange die Energie hoch ist",
+        phaseGoal:
+          band === "12_16"
+            ? "Früh mit einem eigenständigen, spannenden Programmpunkt starten"
+            : "Den Höhepunkt früh legen, solange die Energie hoch ist",
       },
     ];
   }
@@ -258,7 +451,14 @@ export function buildFamilySlotTemplate(planMode: PlanMode): SlotDefinition[] {
         index: 0,
         kind: "activity",
         label: "Highlight",
-        hint: "Zoo, Museum, Indoor oder Bewegung",
+        hint:
+          band === "0_6"
+            ? "Zoo, Wasser, Indoor-Spiel oder Bauernhof"
+            : band === "12_16"
+              ? "Arcade, Kino, Klettern, Spot oder Szene-Ort"
+              : band === "9_14"
+                ? "Science, Challenge, Sport oder interaktive Aktivität"
+                : "Zoo, Museum, Indoor oder Bewegung",
         phase: "main_activity",
         phaseGoal: "Spaß und Aufmerksamkeit in die stärkste Tagesphase legen",
       },
@@ -273,8 +473,13 @@ export function buildFamilySlotTemplate(planMode: PlanMode): SlotDefinition[] {
       {
         index: 2,
         kind: "walk",
-        label: "Freies Spielen",
-        hint: "Spielplatz, Wiese oder entspannter Weg",
+        label: band === "12_16" ? "Freier Block" : "Freies Spielen",
+        hint:
+          band === "12_16"
+            ? "Chillen, kurzer Spot-Wechsel oder flexibler Abschluss"
+            : band === "9_14"
+              ? "Freier Block, Bewegung oder lockerer Ortswechsel"
+              : "Spielplatz, Wiese oder entspannter Weg",
         phase: "light_activity",
         phaseGoal: "Leicht auslaufen und Konflikte abbauen",
       },
@@ -295,7 +500,12 @@ export function buildFamilySlotTemplate(planMode: PlanMode): SlotDefinition[] {
         index: 1,
         kind: "activity",
         label: "Leichte Aktivität",
-        hint: "Kleines Highlight mit geringer Reibung",
+        hint:
+          band === "12_16"
+            ? "Kino, Spot oder ruhiger Szene-Ort"
+            : band === "9_14"
+              ? "Kleine Challenge oder interaktiver Abend-Stop"
+              : "Kleines Highlight mit geringer Reibung",
         phase: "light_activity",
         phaseGoal: "Etwas Schönes erleben, aber rechtzeitig runterfahren",
       },
@@ -323,9 +533,19 @@ export function buildFamilySlotTemplate(planMode: PlanMode): SlotDefinition[] {
       index: 1,
       kind: "activity",
       label: "Hauptaktivität",
-      hint: "Zoo, Park, Museum oder Familien-Highlight",
+      hint:
+        band === "0_6"
+          ? "Spielplatz, Tiere, Wasser oder sicheres Mitmach-Highlight"
+          : band === "4_10"
+            ? "Zoo, Park, Mitmach-Museum oder aktives Familien-Highlight"
+            : band === "9_14"
+              ? "Challenge, Science, Klettern oder interaktives Highlight"
+              : "Arcade, Klettern, Kino, Streetfood-Spot oder urbanes Highlight",
       phase: "main_activity",
-      phaseGoal: "Das große Highlight früh legen, wenn die Kinder noch Energie haben",
+      phaseGoal:
+        band === "12_16"
+          ? "Den stärksten Programmpunkt so setzen, dass er Eigenständigkeit und gemeinsame Zeit verbindet"
+          : "Das große Highlight früh legen, wenn die Kinder noch Energie haben",
     },
     {
       index: 2,
@@ -338,8 +558,15 @@ export function buildFamilySlotTemplate(planMode: PlanMode): SlotDefinition[] {
     {
       index: 3,
       kind: "activity",
-      label: "Leichte Zweitaktivität",
-      hint: "Freies Spielen, kleine Aktivität oder ruhiger Lern-Mix",
+      label: band === "12_16" ? "Freier Social-Block" : "Leichte Zweitaktivität",
+      hint:
+        band === "0_6"
+          ? "Freies Spielen oder ruhiger zweiter Block"
+          : band === "4_10"
+            ? "Freies Spielen, kleine Aktivität oder ruhiger Lern-Mix"
+            : band === "9_14"
+              ? "Kurze Challenge, freier Block oder lockerer Szenenwechsel"
+              : "Freier Block, urbaner Spot oder kurzer gemeinsamer Szenenwechsel",
       phase: "light_activity",
       phaseGoal: "Nur noch leicht und flexibel weiterführen",
     },
@@ -347,7 +574,12 @@ export function buildFamilySlotTemplate(planMode: PlanMode): SlotDefinition[] {
       index: 4,
       kind: "walk",
       label: "Ausklang",
-      hint: "Spielplatz, Wiese oder kurzer entspannter Abschluss",
+      hint:
+        band === "12_16"
+          ? "Dessert, Spot oder kurzer gemeinsamer Abschluss"
+          : band === "9_14"
+            ? "Lockerer Abschluss mit wenig Reibung"
+            : "Spielplatz, Wiese oder kurzer entspannter Abschluss",
       phase: "wind_down",
       phaseGoal: "Positiv beenden und nicht zu spät überziehen",
     },

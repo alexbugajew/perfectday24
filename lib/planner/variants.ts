@@ -4,6 +4,7 @@ import { summarizeRoute } from "./summary";
 import { classify } from "./features";
 import { buildInterestKeywords, preferenceBoost } from "./interest";
 import { getOccasionModule } from "./occasions/registry";
+import { familyAgeBandGoalBoost } from "./occasions/family";
 import type {
   PlanMode,
   PlanVariant,
@@ -292,10 +293,11 @@ function tweakForGoal(goal: PlanVariant["goal"], candidates: ScoredLocation[]) {
 
 function tweakForGoalAndOccasion(
   goal: PlanVariant["goal"],
-  occasion: string,
+  context: PlanningContext,
   candidates: ScoredLocation[]
 ) {
   const base = tweakForGoal(goal, candidates);
+  const occasion = context.filters.occasion;
 
   if (
     occasion !== "date" &&
@@ -310,8 +312,16 @@ function tweakForGoalAndOccasion(
   const occasionModule = getOccasionModule(occasion);
 
   return base.sort((a, b) => {
-    const scoreA = (a.totalScore ?? 0) + occasionModule.goalBoost(goal, a);
-    const scoreB = (b.totalScore ?? 0) + occasionModule.goalBoost(goal, b);
+    const familyGoalA =
+      occasion === "family"
+        ? familyAgeBandGoalBoost(context.filters.familyAgeBand, goal, a)
+        : 0;
+    const familyGoalB =
+      occasion === "family"
+        ? familyAgeBandGoalBoost(context.filters.familyAgeBand, goal, b)
+        : 0;
+    const scoreA = (a.totalScore ?? 0) + occasionModule.goalBoost(goal, a) + familyGoalA;
+    const scoreB = (b.totalScore ?? 0) + occasionModule.goalBoost(goal, b) + familyGoalB;
 
     if (scoreB !== scoreA) return scoreB - scoreA;
 
@@ -396,7 +406,7 @@ function buildVariant(params: {
 
   const adjustedCandidates = tweakForGoalAndOccasion(
     goal,
-    context.filters.occasion,
+    context,
     candidates
   );
   const focusedCandidates = applyVariantFocus(adjustedCandidates, focus);

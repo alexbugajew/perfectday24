@@ -15,6 +15,7 @@ import {
   isEligibleMarketFestival,
   marketFestivalSpecificityScore,
 } from "./market-festival";
+import { familyAgeBandBoost } from "./occasions/family";
 import type {
   CandidateLocation,
   CandidateScore,
@@ -407,16 +408,20 @@ function buildCandidateScore(
   );
 
   const slotFit = daytimeFitBoost(context, candidate) + mealFitBoost(context, candidate);
+  const familyAgeScore =
+    context.filters.occasion === "family"
+      ? familyAgeBandBoost(context.filters.familyAgeBand, candidate)
+      : 0;
   const diversityPenalty = 0;
 
   return {
     preference,
     occasion: base * 8,
     distance,
-    quality,
+    quality: quality + familyAgeScore,
     slotFit,
     diversityPenalty,
-    total: totalize(base, preference) + quality + distance + slotFit,
+    total: totalize(base, preference) + quality + familyAgeScore + distance + slotFit,
   } satisfies CandidateScore;
 }
 

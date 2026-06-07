@@ -6,6 +6,7 @@ export * from "./occasions";
 export * from "./slots";
 export * from "./context";
 export * from "./interest";
+export * from "./family-age";
 export * from "./events";
 export { retrieveCandidates } from "./retrieval";
 export * from "./scoring";

@@ -67,6 +67,7 @@ import type {
   EvaluationMode,
   EventPlanningMode,
   ExperienceMode,
+  FamilyAgeBand,
   GroupMember,
   PlanMode,
   PlannerRequest,
@@ -74,6 +75,9 @@ import type {
 } from "@/lib/planner";
 import type { MatchLevel, ScoredLocation } from "@/lib/planner/types";
 import {
+  DEFAULT_FAMILY_AGE_BAND,
+  familyAgeBandShortLabel,
+  resolveFamilyAgeBand,
   mergeInterests,
 } from "@/lib/planner";
 
@@ -91,7 +95,7 @@ function PlannerPageContent() {
   // True once URL params (if any) have been applied — prevents auto-generating
   // with stale localStorage values before the homepage preset takes effect.
   const hasHomepageParams = [
-    "citySlug", "city", "occasion", "experienceMode", "mode", "budget", "planDate", "interests", "dayStartMin",
+    "citySlug", "city", "occasion", "familyAgeBand", "experienceMode", "mode", "budget", "planDate", "interests", "dayStartMin",
   ].some((key) => searchParams.has(key));
   const [presetsReady, setPresetsReady] = useState(!hasHomepageParams);
   const [variationSeed, setVariationSeed] = useState(0);
@@ -103,6 +107,7 @@ function PlannerPageContent() {
 
   const [budget, setBudget] = useState("medium");
   const [occasion, setOccasion] = useState("date");
+  const [familyAgeBand, setFamilyAgeBand] = useState<FamilyAgeBand>(DEFAULT_FAMILY_AGE_BAND);
   const [experienceMode, setExperienceMode] = useState<ExperienceMode>("classic");
   const [planDate, setPlanDate] = useState(todayDateInputValue);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
@@ -260,6 +265,7 @@ function PlannerPageContent() {
       searchParams.get("citySlug") ?? searchParams.get("city")
     );
     const requestedOccasion = searchParams.get("occasion");
+    const requestedFamilyAgeBand = resolveFamilyAgeBand(searchParams.get("familyAgeBand"));
     const requestedExperienceMode = searchParams.get("experienceMode") ?? searchParams.get("mode");
     const requestedBudget = searchParams.get("budget");
     const requestedPlanDate = searchParams.get("planDate");
@@ -269,6 +275,7 @@ function PlannerPageContent() {
     const signature = [
       requestedCitySlug ?? "",
       requestedOccasion ?? "",
+      requestedFamilyAgeBand ?? "",
       requestedExperienceMode ?? "",
       requestedBudget ?? "",
       requestedPlanDate ?? "",
@@ -294,6 +301,10 @@ function PlannerPageContent() {
       setOccasion(requestedOccasion);
       // Apply the occasion's default time frame (evening for date/friends, midday for family, etc.)
       setPlanMode(defaultPlanModeForOccasion(requestedOccasion));
+    }
+
+    if (requestedFamilyAgeBand) {
+      setFamilyAgeBand(requestedFamilyAgeBand);
     }
 
     if (
@@ -637,6 +648,7 @@ function PlannerPageContent() {
       radiusKm,
       budget: budget as PlannerRequest["budget"],
       occasion: occasion as PlannerRequest["occasion"],
+      familyAgeBand: occasion === "family" ? familyAgeBand : null,
       experienceMode,
       eventStrictness,
       interests,
@@ -666,6 +678,7 @@ function PlannerPageContent() {
     radiusKm,
     budget,
     occasion,
+    familyAgeBand,
     experienceMode,
     selectedEventId,
     eventPlanningMode,
@@ -762,6 +775,7 @@ function PlannerPageContent() {
     effectiveCitySlug,
     budget,
     occasion,
+    familyAgeBand,
     planMode,
     stopsCount,
     interests,
@@ -864,6 +878,10 @@ function PlannerPageContent() {
 
     if (typeof filters.budget === "string") setBudget(filters.budget);
     if (typeof filters.occasion === "string") setOccasion(filters.occasion);
+    if (filters.familyAgeBand) {
+      const restoredFamilyAgeBand = resolveFamilyAgeBand(filters.familyAgeBand);
+      if (restoredFamilyAgeBand) setFamilyAgeBand(restoredFamilyAgeBand);
+    }
     if (typeof filters.planMode === "string") setPlanMode(filters.planMode as PlanMode);
     if (typeof filters.stopsCount === "number") setStopsCount(filters.stopsCount);
     if (Array.isArray(filters.interests)) {
@@ -1444,16 +1462,18 @@ function PlannerPageContent() {
   const plannerAudienceLabel = compactPartyLabel(occasion, groupEnabled, groupMembers);
   const plannerSummaryLine = [
     occasionLabel(occasion),
+    occasion === "family" ? familyAgeBandShortLabel(familyAgeBand) : null,
     experienceModeLabel(experienceMode, occasion),
     budgetLabel(budget),
     plannerDateLabel(planDate),
-  ].join(" · ");
+  ].filter(Boolean).join(" · ");
   const homepagePresetActive =
     Boolean(plannerTemplateLoadedLabel) ||
     [
       "citySlug",
       "city",
       "occasion",
+      "familyAgeBand",
       "experienceMode",
       "mode",
       "budget",
@@ -1965,6 +1985,8 @@ function PlannerPageContent() {
         setBudget={setBudget}
         occasion={occasion}
         setOccasion={handleOccasionChange}
+        familyAgeBand={familyAgeBand}
+        setFamilyAgeBand={setFamilyAgeBand}
         experienceMode={experienceMode}
         setExperienceMode={setExperienceMode}
         planDate={planDate}

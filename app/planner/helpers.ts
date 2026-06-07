@@ -1,6 +1,7 @@
-import { norm } from "@/lib/planner";
+import { familyAgeBandLabel, familyAgeBandPlannerHint, norm } from "@/lib/planner";
 import type {
   ExperienceMode,
+  FamilyAgeBand,
   GroupMember,
   OccasionPhase,
   PlannedStop,
@@ -182,6 +183,14 @@ export function experienceOptionsForOccasion(
   }
 
   return [classic];
+}
+
+export function familyAgeBandSummary(ageBand: FamilyAgeBand | null | undefined) {
+  return familyAgeBandLabel(ageBand);
+}
+
+export function familyAgeBandHint(ageBand: FamilyAgeBand | null | undefined) {
+  return familyAgeBandPlannerHint(ageBand);
 }
 
 export function savedPlanFamilyKey(plan: SavedPlanRow) {

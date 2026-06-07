@@ -8,11 +8,13 @@ import MonetizationDebugPanel from "@/components/monetization/MonetizationDebugP
 import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLink";
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
 import {
+  FAMILY_AGE_BAND_OPTIONS,
   getInterestCatalog,
   norm,
   type EvaluationMode,
   type EventPlanningMode,
   type ExperienceMode,
+  type FamilyAgeBand,
   type GroupMember,
   type PlannerEventRow,
   type PlanMode,
@@ -26,6 +28,7 @@ import {
   eventDebugSignature,
   eventDedupeFlags,
   eventStrictnessForExperienceMode,
+  familyAgeBandHint,
   experienceModeHint,
   experienceModeLabel,
   experienceOptionsForOccasion,
@@ -79,6 +82,8 @@ type PlannerControlsSectionProps = {
   setBudget: Dispatch<SetStateAction<string>>;
   occasion: string;
   setOccasion: (value: string) => void;
+  familyAgeBand: FamilyAgeBand;
+  setFamilyAgeBand: Dispatch<SetStateAction<FamilyAgeBand>>;
   experienceMode: ExperienceMode;
   setExperienceMode: Dispatch<SetStateAction<ExperienceMode>>;
   planDate: string;
@@ -199,6 +204,8 @@ export default function PlannerControlsSection({
   setBudget,
   occasion,
   setOccasion,
+  familyAgeBand,
+  setFamilyAgeBand,
   experienceMode,
   setExperienceMode,
   planDate,
@@ -498,6 +505,30 @@ export default function PlannerControlsSection({
               </div>
             </div>
 
+            {occasion === "family" ? (
+              <div className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  Kinder-Alter
+                </div>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {FAMILY_AGE_BAND_OPTIONS.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setFamilyAgeBand(option.value)}
+                      className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                        familyAgeBand === option.value
+                          ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                          : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"
+                      }`}
+                    >
+                      {option.shortLabel}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
             <button
               type="button"
               onClick={() => setShowPlannerConfig((current) => !current)}
@@ -571,6 +602,36 @@ export default function PlannerControlsSection({
                     </div>
                   ) : null}
                 </div>
+
+                {occasion === "family" ? (
+                  <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                      Familien-Variante
+                    </div>
+                    <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                      {FAMILY_AGE_BAND_OPTIONS.map((option) => (
+                        <button
+                          key={option.value}
+                          type="button"
+                          onClick={() => setFamilyAgeBand(option.value)}
+                          className={`rounded-2xl border px-4 py-3 text-left transition ${
+                            familyAgeBand === option.value
+                              ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                              : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"
+                          }`}
+                        >
+                          <div className="text-sm font-semibold">{option.label}</div>
+                          <div className={`mt-1 text-xs leading-5 ${familyAgeBand === option.value ? "text-white/80" : "text-[var(--text-muted)]"}`}>
+                            {option.description}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                    <div className="mt-3 text-xs leading-5 text-[var(--text-muted)]">
+                      {familyAgeBandHint(familyAgeBand)}
+                    </div>
+                  </div>
+                ) : null}
 
                 <label className="hidden">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Datum</div>

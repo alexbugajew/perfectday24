@@ -178,6 +178,14 @@ const INTEREST_CATALOG: Record<string, InterestSpec> = {
     group: "activity",
     keywords: ["aquarium"],
   },
+  spielplatz: {
+    group: "activity",
+    keywords: ["spielplatz", "playground", "abenteuerspielplatz", "indoor playground", "soft play"],
+  },
+  bauernhof: {
+    group: "activity",
+    keywords: ["bauernhof", "farm", "streichelzoo", "petting zoo", "tierpark"],
+  },
   science: {
     group: "activity",
     keywords: ["science", "science center", "science centre", "technikmuseum"],
@@ -185,6 +193,22 @@ const INTEREST_CATALOG: Record<string, InterestSpec> = {
   zoo: {
     group: "activity",
     keywords: ["zoo", "tierpark", "wildpark"],
+  },
+  minigolf: {
+    group: "activity",
+    keywords: ["minigolf", "mini golf"],
+  },
+  trampoline: {
+    group: "activity",
+    keywords: ["trampolin", "trampoline", "jumphouse", "jump house"],
+  },
+  kino: {
+    group: "activity",
+    keywords: ["kino", "cinema", "movie theater", "movie theatre"],
+  },
+  shopping: {
+    group: "ambience",
+    keywords: ["shopping", "mall", "boutique", "concept store", "passage"],
   },
   activity: {
     group: "activity",
@@ -240,6 +264,10 @@ const INTEREST_CATALOG: Record<string, InterestSpec> = {
       "kajak",
       "kayak",
     ],
+  },
+  gaming: {
+    group: "activity",
+    keywords: ["gaming", "arcade", "vr", "virtual reality", "retro games", "esports"],
   },
 };
 

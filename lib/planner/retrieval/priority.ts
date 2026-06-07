@@ -11,6 +11,7 @@ import {
 } from "../features";
 import { buildInterestKeywords, preferenceBoost } from "../interest";
 import { getOccasionModule } from "../occasions/registry";
+import { familyAgeBandBoost } from "../occasions/family";
 import type {
   CandidateBuckets,
   CandidateLocation,
@@ -128,6 +129,9 @@ export function scoreRetrievalPriority(loc: LocationRow, context: PlanningContex
   if (typeof loc.duration_min === "number" && loc.duration_min > 0) score += 2;
   if (hasOccasionTag(loc, context.filters.occasion)) score += 18;
   if (hasAudience(loc, context.filters.occasion)) score += 10;
+  if (context.filters.occasion === "family") {
+    score += Math.round(familyAgeBandBoost(context.filters.familyAgeBand, loc) * 0.18);
+  }
   score += Math.min(
     90,
     Math.round(preferenceBoost(loc, interestKeywords, interestWeights) * 0.2)

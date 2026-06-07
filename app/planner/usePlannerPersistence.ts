@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
 import type {
   ExperienceMode,
+  FamilyAgeBand,
   GroupMember,
   PlannedStop,
   PlanMode,
@@ -77,6 +78,7 @@ type UsePlannerPersistenceParams = {
   effectiveCitySlug: string | null;
   budget: string;
   occasion: string;
+  familyAgeBand: FamilyAgeBand;
   planMode: PlanMode;
   stopsCount: number;
   interests: string[];
@@ -121,6 +123,7 @@ export function usePlannerPersistence({
   effectiveCitySlug,
   budget,
   occasion,
+  familyAgeBand,
   planMode,
   stopsCount,
   interests,
@@ -465,6 +468,7 @@ export function usePlannerPersistence({
           filters: {
             budget,
             occasion,
+            familyAgeBand: occasion === "family" ? familyAgeBand : null,
             planMode,
             stopsCount,
             interests,
@@ -584,6 +588,7 @@ export function usePlannerPersistence({
       defaultEditedPlanTitle,
       budget,
       occasion,
+      familyAgeBand,
       planMode,
       stopsCount,
       interests,

@@ -30,6 +30,7 @@ const VALID_SORT_MODES = ["match", "distance"] as const;
 const VALID_ROUTE_PROFILES = ["foot", "public_transit", "car"] as const;
 const VALID_EVAL_MODES = ["normal", "trace"] as const;
 const VALID_STRICTNESS = ["off", "hybrid", "required"] as const;
+const VALID_FAMILY_AGE_BANDS = ["0_6", "4_10", "9_14", "12_16"] as const;
 
 function isOneOf<T extends string>(value: unknown, allowed: readonly T[]): value is T {
   return typeof value === "string" && (allowed as readonly string[]).includes(value);
@@ -47,6 +48,8 @@ function validatePlannerRequest(raw: unknown): { ok: true; body: PlannerRequestB
     return { ok: false, error: `budget ungültig: ${String(r.budget)}` };
   if (!isOneOf(r.occasion, VALID_OCCASIONS))
     return { ok: false, error: `occasion ungültig: ${String(r.occasion)}` };
+  if (r.familyAgeBand !== undefined && r.familyAgeBand !== null && !isOneOf(r.familyAgeBand, VALID_FAMILY_AGE_BANDS))
+    return { ok: false, error: `familyAgeBand ungültig: ${String(r.familyAgeBand)}` };
   if (r.experienceMode !== undefined && !isOneOf(r.experienceMode, VALID_EXPERIENCE_MODES))
     return { ok: false, error: `experienceMode ungültig: ${String(r.experienceMode)}` };
   if (r.eventPlanningMode !== undefined && !isOneOf(r.eventPlanningMode, VALID_EVENT_MODES))
@@ -119,6 +122,7 @@ type PlannerRequestBody = {
   radiusKm: number;
   budget: "low" | "medium" | "high" | "free";
   occasion: "date" | "friends" | "family" | "party" | "tourism";
+  familyAgeBand?: "0_6" | "4_10" | "9_14" | "12_16" | null;
   experienceMode?: "classic" | "show" | "event_visit" | "market_festival";
   eventStrictness?: "off" | "hybrid" | "required";
   interests: string[];
@@ -395,6 +399,7 @@ export async function POST(req: Request) {
       radiusKm: body.radiusKm,
       budget: body.budget,
       occasion: body.occasion,
+      familyAgeBand: body.familyAgeBand ?? null,
       experienceMode: body.experienceMode ?? "classic",
       eventStrictness: body.eventStrictness,
       interests: body.interests ?? [],

@@ -17,6 +17,7 @@ export type ExperienceMode =
   | "show"
   | "event_visit"
   | "market_festival";
+export type FamilyAgeBand = "0_6" | "4_10" | "9_14" | "12_16";
 export type EventStrictness = "off" | "hybrid" | "required";
 export type EventPlanningMode = "auto" | "locked" | "disabled";
 export type PlannerEventCategory =
@@ -123,6 +124,7 @@ export type PlannerRequest = {
   radiusKm: number;
   budget: "low" | "medium" | "high" | "free";
   occasion: OccasionKey;
+  familyAgeBand?: FamilyAgeBand | null;
   experienceMode?: ExperienceMode;
   eventStrictness?: EventStrictness;
   interests: string[];
@@ -290,6 +292,7 @@ export type PlanningContext = {
   filters: {
     budget: string;
     occasion: OccasionKey;
+    familyAgeBand: FamilyAgeBand | null;
     radiusKm: number;
     sortMode: "match" | "distance";
     routeProfile: RouteProfile;
