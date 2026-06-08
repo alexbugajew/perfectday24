@@ -1,4 +1,8 @@
 import type { CandidateLocation } from "../types";
+import {
+  isFamilyAgeBandPoolCandidate,
+  sortFamilyCandidatesForAgeBand,
+} from "../occasions/family";
 import { buildBalancedCandidateList, dedupeCandidates } from "./buckets";
 import { enrichCandidate } from "./enrich";
 import { sortForRetrieval } from "./priority";
@@ -92,9 +96,29 @@ export function retrieveCandidates(params: RetrieveCandidatesParams): RetrievalW
     .map((loc) => enrichCandidate(loc, context))
     .filter((candidate): candidate is CandidateLocation => candidate !== null);
 
-  const retrievalBase = enriched.filter((loc) =>
+  const enrichedSortedBase = sortForRetrieval(enriched, context);
+  const enrichedSorted =
+    context.filters.occasion === "family"
+      ? sortFamilyCandidatesForAgeBand(
+          enrichedSortedBase,
+          context.filters.familyAgeBand,
+          "general"
+        )
+      : enrichedSortedBase;
+
+  const retrievalBaseRaw = enrichedSorted.filter((loc) =>
     isStrongOccasionCandidate(context.filters.occasion, loc)
   );
+  const retrievalBase =
+    context.filters.occasion === "family"
+      ? retrievalBaseRaw.filter((loc) =>
+          isFamilyAgeBandPoolCandidate(
+            context.filters.familyAgeBand,
+            loc,
+            "general"
+          )
+        )
+      : retrievalBaseRaw;
 
   const minOccasionBase =
     context.filters.occasion === "family"
@@ -103,7 +127,33 @@ export function retrieveCandidates(params: RetrieveCandidatesParams): RetrievalW
       ? 18
       : 30;
 
-  const enrichedSorted = sortForRetrieval(enriched, context);
+  const activitySupportSeed = enrichedSorted.filter((loc) => {
+    const category = classify(loc);
+    return category === "activity" || category === "culture" || category === "event";
+  });
+  const activitySupport =
+    context.filters.occasion === "family"
+      ? sortFamilyCandidatesForAgeBand(
+          activitySupportSeed.filter((loc) =>
+            isFamilyAgeBandPoolCandidate(
+              context.filters.familyAgeBand,
+              loc,
+              "activity"
+            )
+          ),
+          context.filters.familyAgeBand,
+          "activity"
+        )
+      : activitySupportSeed;
+  const fallbackActivitySupport =
+    context.filters.occasion === "family" && activitySupport.length === 0
+      ? sortFamilyCandidatesForAgeBand(
+          activitySupportSeed,
+          context.filters.familyAgeBand,
+          "activity"
+        )
+      : activitySupport;
+
   const supportPool = dedupeCandidates([
     ...enrichedSorted.slice(0, Math.min(enrichedSorted.length, Math.max(240, maxCandidates))),
     ...enrichedSorted
@@ -112,18 +162,21 @@ export function retrieveCandidates(params: RetrieveCandidatesParams): RetrievalW
         return category === "restaurant" || category === "cafe";
       })
       .slice(0, Math.max(160, Math.floor(maxCandidates * 0.25))),
-    ...enrichedSorted
-      .filter((loc) => {
-        const category = classify(loc);
-        return category === "activity" || category === "culture" || category === "event";
-      })
-      .slice(0, Math.max(160, Math.floor(maxCandidates * 0.25))),
+    ...fallbackActivitySupport.slice(0, Math.max(160, Math.floor(maxCandidates * 0.25))),
   ]);
 
   const retrievalRows =
     retrievalBase.length >= minOccasionBase
       ? dedupeCandidates([...retrievalBase, ...supportPool])
-      : supportPool;
+      : context.filters.occasion === "family"
+        ? dedupeCandidates([
+            ...fallbackActivitySupport.slice(
+              0,
+              Math.max(120, Math.floor(maxCandidates * 0.4))
+            ),
+            ...supportPool,
+          ])
+        : supportPool;
 
   for (const stepRadius of radiusSteps) {
     const inRadius = retrievalRows.filter((loc) => {

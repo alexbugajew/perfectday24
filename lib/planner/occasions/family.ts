@@ -7,6 +7,7 @@ import type {
   PlanVariantGoal,
   ScoredLocation,
   SlotDefinition,
+  SlotKind,
 } from "../types";
 import {
   DEFAULT_FAMILY_AGE_BAND,
@@ -286,6 +287,219 @@ function familyAgeMarkers(loc: LocationRow) {
     pureToddlerVenue,
     pureTeenSocial,
   };
+}
+
+function familyAgeBandPoolSignatureBoost(
+  ageBand: FamilyAgeBand | null | undefined,
+  candidate: LocationRow,
+  mode: "general" | "activity"
+) {
+  const band = normalizedFamilyAgeBand(ageBand);
+  const category = classify(candidate);
+  const markers = familyAgeMarkers(candidate);
+  const familyTagged =
+    Boolean(candidate.family_friendly) ||
+    hasOccasionTag(candidate, "family") ||
+    hasAudience(candidate, "family");
+
+  let score = familyAgeBandBoost(band, candidate);
+
+  if (familyTagged) score += 14;
+  if (mode === "activity" && (category === "activity" || category === "culture" || category === "event")) {
+    score += 16;
+  }
+
+  if (band === "0_6") {
+    if (
+      hasSubtype(
+        candidate,
+        "playground",
+        "park",
+        "botanical_garden",
+        "zoo",
+        "wildpark",
+        "aquarium",
+        "children_museum",
+        "farm_experience",
+        "swimming_pool",
+        "water_park"
+      )
+    ) {
+      score += 52;
+    }
+    if (hasSubtype(candidate, "science_center", "theme_park")) score += 10;
+    if (markers.challengePreteen) score -= 40;
+    if (markers.pureTeenSocial) score -= 70;
+  } else if (band === "4_10") {
+    if (
+      hasSubtype(
+        candidate,
+        "zoo",
+        "wildpark",
+        "aquarium",
+        "children_museum",
+        "science_center",
+        "playground",
+        "theme_park",
+        "swimming_pool",
+        "water_park",
+        "farm_experience",
+        "minigolf",
+        "climbing"
+      )
+    ) {
+      score += 42;
+    }
+    if (markers.pureTeenSocial) score -= 48;
+  } else if (band === "9_14") {
+    if (
+      hasSubtype(
+        candidate,
+        "science_center",
+        "climbing",
+        "swimming_pool",
+        "bowling",
+        "escape_room",
+        "lasertag",
+        "minigolf",
+        "cinema",
+        "aquarium"
+      )
+    ) {
+      score += 46;
+    }
+    if (hasSubtype(candidate, "zoo", "wildpark")) score += 12;
+    if (markers.pureToddlerVenue || markers.tooChildish) score -= 52;
+  } else {
+    if (
+      hasSubtype(
+        candidate,
+        "bowling",
+        "climbing",
+        "escape_room",
+        "lasertag",
+        "cinema",
+        "science_center",
+        "swimming_pool",
+        "shopping",
+        "viewpoint",
+        "market",
+        "festival"
+      )
+    ) {
+      score += 48;
+    }
+    if (markers.pureToddlerVenue || markers.tooChildish) score -= 66;
+    if (markers.toddlerFriendly) score -= 30;
+  }
+
+  return score;
+}
+
+export function isFamilyAgeBandPoolCandidate(
+  ageBand: FamilyAgeBand | null | undefined,
+  candidate: LocationRow,
+  mode: "general" | "activity" = "general"
+) {
+  const band = normalizedFamilyAgeBand(ageBand);
+  const category = classify(candidate);
+  const markers = familyAgeMarkers(candidate);
+
+  if (category === "nightlife" || markers.tooYoung) return false;
+
+  if (
+    mode === "activity" &&
+    category !== "activity" &&
+    category !== "culture" &&
+    category !== "event"
+  ) {
+    return false;
+  }
+
+  if (band === "0_6") {
+    if (markers.pureTeenSocial || markers.challengePreteen) return false;
+    if (markers.adultCultureOnly && (category === "culture" || mode === "activity")) return false;
+    return true;
+  }
+
+  if (band === "4_10") {
+    if (markers.pureTeenSocial) return false;
+    return true;
+  }
+
+  if (band === "9_14") {
+    if (
+      (markers.pureToddlerVenue || markers.tooChildish) &&
+      (category === "activity" || category === "culture" || category === "event")
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  if (
+    (markers.pureToddlerVenue || markers.tooChildish) &&
+    (category === "activity" || category === "culture" || category === "event" || category === "cafe")
+  ) {
+    return false;
+  }
+
+  if (mode === "activity" && markers.toddlerFriendly && !markers.interactiveKids) {
+    return false;
+  }
+
+  return true;
+}
+
+export function sortFamilyCandidatesForAgeBand<T extends LocationRow>(
+  candidates: T[],
+  ageBand: FamilyAgeBand | null | undefined,
+  mode: "general" | "activity" = "general"
+) {
+  return candidates
+    .map((candidate, index) => {
+      const anyCandidate = candidate as T & {
+        totalScore?: number;
+        retrievalScore?: number;
+        distanceFromOriginKm?: number | null;
+      };
+
+      return {
+        candidate,
+        index,
+        poolCandidate: isFamilyAgeBandPoolCandidate(ageBand, candidate, mode),
+        poolScore: familyAgeBandPoolSignatureBoost(ageBand, candidate, mode),
+        totalScore:
+          typeof anyCandidate.totalScore === "number" ? anyCandidate.totalScore : null,
+        retrievalScore:
+          typeof anyCandidate.retrievalScore === "number"
+            ? anyCandidate.retrievalScore
+            : null,
+        distanceFromOriginKm:
+          typeof anyCandidate.distanceFromOriginKm === "number"
+            ? anyCandidate.distanceFromOriginKm
+            : null,
+      };
+    })
+    .sort((left, right) => {
+      if (left.poolCandidate !== right.poolCandidate) {
+        return left.poolCandidate ? -1 : 1;
+      }
+      if (right.poolScore !== left.poolScore) {
+        return right.poolScore - left.poolScore;
+      }
+      if (right.totalScore !== left.totalScore) {
+        return (right.totalScore ?? Number.NEGATIVE_INFINITY) - (left.totalScore ?? Number.NEGATIVE_INFINITY);
+      }
+      if (right.retrievalScore !== left.retrievalScore) {
+        return (right.retrievalScore ?? Number.NEGATIVE_INFINITY) - (left.retrievalScore ?? Number.NEGATIVE_INFINITY);
+      }
+      if (left.distanceFromOriginKm !== right.distanceFromOriginKm) {
+        return (left.distanceFromOriginKm ?? Number.POSITIVE_INFINITY) - (right.distanceFromOriginKm ?? Number.POSITIVE_INFINITY);
+      }
+      return left.index - right.index;
+    })
+    .map((entry) => entry.candidate);
 }
 
 export function familyAgeBandHardReject(
@@ -645,13 +859,28 @@ export function buildFamilySlotTemplate(
       phase: "pause",
       phaseGoal: "Rechtzeitig regenerieren und Hungerstress vermeiden",
     },
+    ...(band === "0_6"
+      ? [
+          {
+            index: 3,
+            kind: "walk" as SlotKind,
+            label: "Mittagsruhe & Schlafpause",
+            hint: "Kinderwagenrunde, Parkpause oder ruhiger Block zum Runterfahren",
+            phase: "pause" as OccasionPhase,
+            phaseGoal:
+              "Nach dem Essen bewusst Tempo rausnehmen und Raum fuer Schlaf oder Ruhe lassen",
+            minDurationMin: 75,
+            maxDurationMin: 120,
+          },
+        ]
+      : []),
     {
-      index: 3,
-      kind: "activity",
+      index: band === "0_6" ? 4 : 3,
+      kind: "activity" as SlotKind,
       label: band === "12_16" ? "Freier Social-Block" : "Leichte Zweitaktivität",
       hint:
         band === "0_6"
-          ? "Freies Spielen oder ruhiger zweiter Block"
+          ? "Nach der Ruhe nur noch ein kurzer, einfacher Nachmittagsblock"
           : band === "4_10"
             ? "Freies Spielen, kleine Aktivität oder ruhiger Lern-Mix"
             : band === "9_14"
@@ -661,8 +890,8 @@ export function buildFamilySlotTemplate(
       phaseGoal: "Nur noch leicht und flexibel weiterführen",
     },
     {
-      index: 4,
-      kind: "walk",
+      index: band === "0_6" ? 5 : 4,
+      kind: "walk" as SlotKind,
       label: "Ausklang",
       hint:
         band === "12_16"

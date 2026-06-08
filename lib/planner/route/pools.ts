@@ -1,5 +1,9 @@
 import { classify, hasAudience, hasOccasionTag, hasSubtype } from "../features";
 import {
+  isFamilyAgeBandPoolCandidate,
+  sortFamilyCandidatesForAgeBand,
+} from "../occasions/family";
+import {
   buildInterestKeywords,
   buildInterestKeywordsForGroups,
   preferenceBoost,
@@ -468,28 +472,51 @@ export function getPoolForKind(
     }
 
     if (context.filters.occasion === "family") {
-      const familyFocused = actishBroad.filter(
+      const familyActivityPool = sortFamilyCandidatesForAgeBand(
+        actishBroad,
+        context.filters.familyAgeBand,
+        "activity"
+      );
+      const familyFocused = familyActivityPool.filter(
         (candidate) =>
-          hasOccasionTag(candidate, "family") ||
-          hasAudience(candidate, "family") ||
-          hasSubtype(
+          isFamilyAgeBandPoolCandidate(
+            context.filters.familyAgeBand,
             candidate,
-            "zoo",
-            "wildpark",
-            "aquarium",
-            "playground",
-            "children_museum",
-            "science_center",
-            "swimming_pool",
-            "thermal_bath",
-            "theme_park",
-            "water_park",
-            "farm_experience",
-            "climbing"
+            "activity"
+          ) &&
+          (
+            hasOccasionTag(candidate, "family") ||
+            hasAudience(candidate, "family") ||
+            hasSubtype(
+              candidate,
+              "zoo",
+              "wildpark",
+              "aquarium",
+              "playground",
+              "children_museum",
+              "science_center",
+              "swimming_pool",
+              "thermal_bath",
+              "theme_park",
+              "water_park",
+              "farm_experience",
+              "climbing"
+            )
           )
       );
       if (familyFocused.length > 0) {
         return withLockedInterestPreference(familyFocused, context, kind);
+      }
+
+      const familyAgeMatched = familyActivityPool.filter((candidate) =>
+        isFamilyAgeBandPoolCandidate(
+          context.filters.familyAgeBand,
+          candidate,
+          "activity"
+        )
+      );
+      if (familyAgeMatched.length > 0) {
+        return withLockedInterestPreference(familyAgeMatched, context, kind);
       }
     }
 

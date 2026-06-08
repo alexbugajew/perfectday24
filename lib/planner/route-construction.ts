@@ -37,6 +37,7 @@ import type {
   ScoredLocation,
   SlotKind,
   PlanMode,
+  SlotDefinition,
 } from "./types";
 
 const baseCandidatePolicies = [
@@ -48,6 +49,22 @@ const baseCandidatePolicies = [
   continuationPolicy,
   clusterPolicy,
 ];
+
+function clampDurationForSlot(slot: SlotDefinition, durationMin: number) {
+  const minDuration =
+    typeof slot.minDurationMin === "number" && Number.isFinite(slot.minDurationMin)
+      ? slot.minDurationMin
+      : null;
+  const maxDuration =
+    typeof slot.maxDurationMin === "number" && Number.isFinite(slot.maxDurationMin)
+      ? slot.maxDurationMin
+      : null;
+
+  let clamped = durationMin;
+  if (minDuration != null) clamped = Math.max(clamped, minDuration);
+  if (maxDuration != null) clamped = Math.min(clamped, maxDuration);
+  return clamped;
+}
 
 function buildGroupDecision(
   context: PlanningContext,
@@ -1081,7 +1098,10 @@ export function constructRoute(params: {
           travelKm,
           context.filters.routeProfile
         );
-        const durationMin = estimateDurationMin(candidate);
+        const durationMin = clampDurationForSlot(
+          slot,
+          estimateDurationMin(candidate)
+        );
         const hardDistanceLimitKm = maxSegmentDistanceKm(
           context,
           slot.kind,
