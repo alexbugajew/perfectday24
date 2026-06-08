@@ -15,9 +15,9 @@ export const FAMILY_AGE_BAND_OPTIONS: Array<{
     label: "Kinder 0-6 Jahre",
     shortLabel: "0-6 Jahre",
     description:
-      "Kurze Wege, viel freies Spiel, Tiere, Wasser, sichere Bewegung und planbare Pausen.",
+      "Kurze Wege, Tiere, Spielplatz, einfache kreative Mini-Erlebnisse und eine echte Ruhephase.",
     plannerHint:
-      "Ideal fuer Kita- und Vorschulalter: wenig Orga, viele Pausen, sichere Spiel- und Tiermomente statt langer Programmbloecke.",
+      "Ideal fuer Kita- und Vorschulalter: ruhiger Start, Park oder Tiere, unkompliziertes Essen, Mittagsruhe und nur ein kleiner zweiter Programmpunkt.",
     autoInterests: [
       "spielplatz",
       "zoo",
@@ -28,6 +28,8 @@ export const FAMILY_AGE_BAND_OPTIONS: Array<{
       "wasser",
       "indoor spielplatz",
       "karussell",
+      "toepfern",
+      "kindermuseum",
       "eis",
       "cafe",
     ],
@@ -37,9 +39,9 @@ export const FAMILY_AGE_BAND_OPTIONS: Array<{
     label: "Kinder 4-10 Jahre",
     shortLabel: "4-10 Jahre",
     description:
-      "Viel Bewegung, Tiere, Mitmach-Museen, leichte Abenteuer und genug Raum zum Auspowern.",
+      "Mitmach-Museen, Abenteuer, Bewegung und kreative Erfolgserlebnisse zum Mitnehmen.",
     plannerHint:
-      "Ideal fuer Grundschulkinder: aktiv, neugierig, spielerisch und mit klaren Highlights zum Mitmachen und Entdecken.",
+      "Ideal fuer Grundschulkinder: morgens entdecken, nachmittags auspowern und spaeter noch ein kreativer oder spielerischer Abschluss.",
     autoInterests: [
       "zoo",
       "aquarium",
@@ -51,6 +53,8 @@ export const FAMILY_AGE_BAND_OPTIONS: Array<{
       "park",
       "playful",
       "schwimmbad",
+      "toepfern",
+      "basteln",
     ],
   },
   {
@@ -58,9 +62,9 @@ export const FAMILY_AGE_BAND_OPTIONS: Array<{
     label: "Kinder 9-14 Jahre",
     shortLabel: "9-14 Jahre",
     description:
-      "Mehr Herausforderung, mehr Eigenstaendigkeit, interaktive Erlebnisse und sozialere Aktivitaeten.",
+      "Challenge, Mitbestimmung, Special-Interest-Spots und kreative Formate ohne Kinderprogramm-Gefuehl.",
     plannerHint:
-      "Ideal fuer Preteens: deutlich weniger Kleinkind-Programm, dafuer mehr Challenge, Action, Mitmachen und gemeinsame Erfolgsmomente.",
+      "Ideal fuer Preteens: erst Challenge, dann Stadtentdeckung oder Special-Interest und spaeter etwas Kreatives oder ein Abendhighlight.",
     autoInterests: [
       "science",
       "klettern",
@@ -72,6 +76,9 @@ export const FAMILY_AGE_BAND_OPTIONS: Array<{
       "sport",
       "streetfood",
       "aquarium",
+      "vr",
+      "planetarium",
+      "robotik",
       "playful",
     ],
   },
@@ -80,9 +87,9 @@ export const FAMILY_AGE_BAND_OPTIONS: Array<{
     label: "Kinder 12-16 Jahre",
     shortLabel: "12-16 Jahre",
     description:
-      "Mehr Autonomie, Peers, urbane Orte, trendige Food-Spots, Challenge und eigene Interessen.",
+      "Mehr Autonomie, urbane Orte, Action, Style, Food-Spots und kontrollierte Freiheit.",
     plannerHint:
-      "Ideal fuer Teenager: klar weg vom Spielplatz, hin zu Eigenstaendigkeit, Social Spots, urbanen Orten und staerkeren Highlights.",
+      "Ideal fuer Teenager: actionreicher Start, urbanes Essen, freie Stadtzeit, Skill- oder Design-Erlebnis und ein Abendhighlight ohne Kinderprogramm.",
     autoInterests: [
       "arcade",
       "klettern",
@@ -95,6 +102,9 @@ export const FAMILY_AGE_BAND_OPTIONS: Array<{
       "sport",
       "cafe",
       "science",
+      "vr",
+      "foodhall",
+      "design",
     ],
   },
 ];

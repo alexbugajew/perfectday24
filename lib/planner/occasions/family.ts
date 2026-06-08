@@ -275,6 +275,23 @@ function familyAgeMarkers(loc: LocationRow) {
     !interactiveKids &&
     !challengePreteen &&
     !toddlerFriendly;
+  const creativeWorkshop =
+    hasSubtype(loc, "workshop_pottery", "workshop_painting") ||
+    /(toepfer|töpfer|keramik|bastel|atelier|workshop|lego|musikgarten|malen|manga|graffiti|foto|robotik|makerspace|schmuck|3d-druck|sneaker|kochkurs)/i.test(text);
+  const relaxedFamilyCafe =
+    (category === "cafe" || category === "restaurant") &&
+    /(familiencafe|familien-cafe|spielecke|wickeltisch|kinderstuhl|bäckerei|baeckerei|fruehstueck|frühstück|brunch|bagel|pancake|markthalle|foodhall|food market|coffee)/i.test(text);
+  const activeAfternoon =
+    hasSubtype(loc, "theme_park", "water_park", "swimming_pool", "minigolf", "climbing") ||
+    /(freizeitpark|indoor spielplatz|trampolin|trampoline|abenteuerspielplatz|wasserspielplatz|bootfahren)/i.test(text);
+  const specialInterestSpot =
+    hasSubtype(loc, "science_center", "children_museum", "museum", "aquarium", "cinema", "viewpoint") ||
+    /(planetarium|technikmuseum|naturkundemuseum|gaming|vr|comic|stadion|street-art|street art|music|musikladen|fotospot|makerspace)/i.test(text);
+  const urbanFreeTimeSpot =
+    /(shopping|sneaker|concept store|comicshop|manga|musikladen|buchladen|street-art|street art|fotospot|viewpoint|aussicht|foodhall|food market)/i.test(text);
+  const eveningHighlight =
+    hasSubtype(loc, "cinema", "bowling", "market", "festival", "viewpoint") ||
+    /(kino|bowling|abendmarkt|open-air-kino|open air kino|rooftop|stadtstrand|hafenpromenade|dessert|eisdiele)/i.test(text);
 
   return {
     toddlerFriendly,
@@ -286,6 +303,12 @@ function familyAgeMarkers(loc: LocationRow) {
     adultCultureOnly,
     pureToddlerVenue,
     pureTeenSocial,
+    creativeWorkshop,
+    relaxedFamilyCafe,
+    activeAfternoon,
+    specialInterestSpot,
+    urbanFreeTimeSpot,
+    eveningHighlight,
   };
 }
 
@@ -328,6 +351,9 @@ function familyAgeBandPoolSignatureBoost(
       score += 52;
     }
     if (hasSubtype(candidate, "science_center", "theme_park")) score += 10;
+    if (markers.relaxedFamilyCafe) score += 24;
+    if (markers.creativeWorkshop) score += 18;
+    if (markers.eveningHighlight) score += 8;
     if (markers.challengePreteen) score -= 40;
     if (markers.pureTeenSocial) score -= 70;
   } else if (band === "4_10") {
@@ -350,6 +376,9 @@ function familyAgeBandPoolSignatureBoost(
     ) {
       score += 42;
     }
+    if (markers.relaxedFamilyCafe) score += 16;
+    if (markers.activeAfternoon) score += 22;
+    if (markers.creativeWorkshop) score += 26;
     if (markers.pureTeenSocial) score -= 48;
   } else if (band === "9_14") {
     if (
@@ -368,6 +397,9 @@ function familyAgeBandPoolSignatureBoost(
     ) {
       score += 46;
     }
+    if (markers.specialInterestSpot) score += 24;
+    if (markers.creativeWorkshop) score += 20;
+    if (markers.eveningHighlight) score += 18;
     if (hasSubtype(candidate, "zoo", "wildpark")) score += 12;
     if (markers.pureToddlerVenue || markers.tooChildish) score -= 52;
   } else {
@@ -389,6 +421,10 @@ function familyAgeBandPoolSignatureBoost(
     ) {
       score += 48;
     }
+    if (markers.relaxedFamilyCafe) score += 10;
+    if (markers.urbanFreeTimeSpot) score += 26;
+    if (markers.creativeWorkshop) score += 24;
+    if (markers.eveningHighlight) score += 24;
     if (markers.pureToddlerVenue || markers.tooChildish) score -= 66;
     if (markers.toddlerFriendly) score -= 30;
   }
@@ -659,29 +695,35 @@ export function familyAgeBandPhaseBonus(
   const markers = familyAgeMarkers(candidate);
 
   if (band === "0_6") {
-    if (phase === "arrival") return signals.logistics * 6 + signals.parentEase * 5 + (markers.toddlerFriendly ? 10 : 0);
+    if (phase === "arrival") return signals.logistics * 6 + signals.parentEase * 5 + (markers.relaxedFamilyCafe ? 16 : 0) + (markers.toddlerFriendly ? 10 : 0);
     if (phase === "main_activity") return signals.freePlay * 6 + signals.kidsFun * 5 + (markers.toddlerFriendly ? 18 : 0);
-    if (phase === "pause") return signals.foodEase * 5 + signals.parentEase * 4;
-    if (phase === "light_activity") return signals.freePlay * 6 + signals.flexibility * 4;
-    if (phase === "wind_down") return signals.parentEase * 5 + signals.safety * 4;
+    if (phase === "pause") return signals.foodEase * 5 + signals.parentEase * 4 + (markers.relaxedFamilyCafe ? 8 : 0);
+    if (phase === "light_activity") return signals.freePlay * 4 + signals.flexibility * 4 + (markers.creativeWorkshop ? 18 : 0);
+    if (phase === "wind_down") return signals.parentEase * 5 + signals.safety * 4 + (markers.eveningHighlight ? 8 : 0);
     return 0;
   }
 
   if (band === "4_10") {
-    if (phase === "main_activity") return signals.kidsFun * 5 + signals.learning * 4 + signals.movement * 4 + (markers.interactiveKids ? 12 : 0);
-    if (phase === "light_activity") return signals.freePlay * 4 + signals.flexibility * 4;
+    if (phase === "arrival") return signals.parentEase * 4 + (markers.relaxedFamilyCafe ? 10 : 0);
+    if (phase === "main_activity") return signals.kidsFun * 5 + signals.learning * 4 + signals.movement * 4 + (markers.interactiveKids ? 12 : 0) + (markers.specialInterestSpot ? 12 : 0);
+    if (phase === "light_activity") return signals.freePlay * 4 + signals.flexibility * 4 + (markers.activeAfternoon ? 18 : 0) + (markers.creativeWorkshop ? 10 : 0);
+    if (phase === "wind_down") return signals.parentEase * 3 + (markers.creativeWorkshop ? 18 : 0) + (markers.eveningHighlight ? 8 : 0);
     return 0;
   }
 
   if (band === "9_14") {
+    if (phase === "arrival") return signals.parentEase * 2 + (markers.relaxedFamilyCafe ? 8 : 0);
     if (phase === "main_activity") return signals.movement * 5 + signals.learning * 4 + (markers.challengePreteen ? 16 : 0);
-    if (phase === "light_activity") return signals.flexibility * 4 + (markers.teenSocial ? 8 : 0);
+    if (phase === "light_activity") return signals.flexibility * 4 + (markers.specialInterestSpot ? 16 : 0) + (markers.creativeWorkshop ? 12 : 0) + (markers.teenSocial ? 8 : 0);
+    if (phase === "wind_down") return signals.wow * 3 + (markers.eveningHighlight ? 18 : 0);
     return 0;
   }
 
-  if (phase === "main_activity") return signals.wow * 5 + signals.movement * 4 + (markers.teenSocial ? 14 : 0);
+  if (phase === "arrival") return signals.parentEase * 2 + (markers.relaxedFamilyCafe ? 10 : 0);
+  if (phase === "main_activity") return signals.wow * 5 + signals.movement * 4 + (markers.challengePreteen ? 12 : 0) + (markers.teenSocial ? 14 : 0);
   if (phase === "pause") return signals.foodEase * 4 + (markers.teenSocial ? 6 : 0);
-  if (phase === "light_activity") return signals.flexibility * 4 + (markers.teenSocial ? 8 : 0);
+  if (phase === "light_activity") return signals.flexibility * 4 + (markers.urbanFreeTimeSpot ? 18 : 0) + (markers.creativeWorkshop ? 14 : 0) + (markers.teenSocial ? 8 : 0);
+  if (phase === "wind_down") return signals.wow * 3 + (markers.eveningHighlight ? 20 : 0);
   return 0;
 }
 
