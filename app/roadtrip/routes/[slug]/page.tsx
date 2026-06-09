@@ -15,6 +15,8 @@ import {
   budgetLabel,
   ROADTRIP_TAGS,
 } from "@/lib/roadtrip/types";
+import { getRoadtripCoverArt } from "@/lib/roadtrip/cover-art";
+import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
 
 const ROADTRIP_CHECKOUT_MIN = 10 * 60;
@@ -78,6 +80,11 @@ function normalizeRoadtripStopTimes<
 }
 
 const ROADTRIP_TRAVEL_WINDOW_LABEL = `${formatTimeLabel(ROADTRIP_CHECKOUT_MIN)}-${formatTimeLabel(ROADTRIP_AFTERNOON_START_MIN)}`;
+
+function buildRoadtripStopMapHref(cityLabel: string, itemName: string | null | undefined): string {
+  const query = encodeURIComponent(itemName?.trim() || cityLabel);
+  return `https://www.google.com/maps/search/?api=1&query=${query}`;
+}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -171,6 +178,9 @@ export default function RoadtripRouteDetailPage() {
   const totalNights = route.stops.reduce((s, st) => s + st.nights, 0);
   const tagDefs = ROADTRIP_TAGS.filter((t) => route.tags.includes(t.value));
   const roadtripRunHref = `/roadtrip/routes/${route.slug}/run?startDate=${startDate}`;
+  const coverArt = getRoadtripCoverArt(route);
+  const firstStop = route.stops[0]?.cityLabel ?? "Start";
+  const lastStop = route.stops[route.stops.length - 1]?.cityLabel ?? "Ziel";
 
   // Welcher Stop ist heute? Nur relevant wenn tripActive = true
   const todayStopIdx = (() => {
@@ -201,6 +211,44 @@ export default function RoadtripRouteDetailPage() {
             <Link href="/roadtrip/routes" className="hover:text-[var(--text-strong)] transition">Roadtrip-Routen</Link>
             <span>/</span>
             <span className="text-[var(--text-strong)]">{route.title}</span>
+          </div>
+
+          <div
+            className="relative mb-4 overflow-hidden rounded-2xl border border-white/10"
+            style={{ backgroundImage: coverArt.backgroundImage }}
+          >
+            <div className="absolute inset-0 opacity-80" style={{ backgroundImage: coverArt.orbImage }} />
+            <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),transparent)]" />
+            <div className="absolute -right-8 top-4 h-24 w-24 rounded-full bg-white/10 blur-2xl" />
+            <div className="absolute -left-8 bottom-0 h-20 w-20 rounded-full bg-black/10 blur-2xl" />
+            <div className="relative flex min-h-[176px] flex-col justify-between gap-4 p-4 text-white sm:min-h-[196px] sm:p-5">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="inline-flex rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] backdrop-blur-sm">
+                  {coverArt.eyebrow}
+                </div>
+                <div className="rounded-full border border-white/16 bg-black/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/88 backdrop-blur-sm">
+                  {firstStop} to {lastStop}
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                <div className="max-w-2xl">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/68">
+                    Scenic Summary
+                  </div>
+                  <div className="mt-1 text-lg font-semibold leading-6 text-white sm:text-xl">
+                    {coverArt.scene}
+                  </div>
+                </div>
+                <div
+                  className="inline-flex w-fit flex-col rounded-2xl border border-white/18 bg-black/16 px-4 py-3 text-right backdrop-blur-sm"
+                  style={{ boxShadow: `0 14px 34px ${coverArt.accent}33` }}
+                >
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/62">Vibe</span>
+                  <span className="mt-1 text-2xl font-semibold leading-none text-white">{coverArt.icon}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Chips */}
@@ -319,6 +367,10 @@ export default function RoadtripRouteDetailPage() {
           const arrivalDate = stopArrivalDate(startDate, route.stops, idx);
           const departureDate = addDays(arrivalDate, stop.nights);
           const isToday = tripActive && idx === todayStopIdx;
+          const plannerSupported = isPlannerSupportedCitySlug(stop.citySlug);
+          const firstPlannedItemName = stop.plannedStops?.find((plannedStop) => plannedStop.itemName)?.itemName ?? null;
+          const stopMapHref = buildRoadtripStopMapHref(stop.cityLabel, firstPlannedItemName);
+          const previewOnlyStop = !plannerSupported && !stop.creatorRouteSlug;
 
           return (
             <div
@@ -454,9 +506,28 @@ export default function RoadtripRouteDetailPage() {
                     : "border-[rgba(23,23,23,0.05)] bg-[rgba(23,23,23,0.015)]"
                 }`}
               >
+                {previewOnlyStop ? (
+                  <>
+                    <span className="text-xs text-[var(--text-muted)]">Roadtrip-Vorschau verfuegbar</span>
+                    <a
+                      href={stopMapHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.97]"
+                    >
+                      Karte oeffnen
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </a>
+                  </>
+                ) : (
+                  <>
                 <span className="text-xs text-[var(--text-muted)]">
                   {stop.creatorRouteSlug
                     ? "Creator-Route verfügbar"
+                    : !plannerSupported
+                    ? "Roadtrip-Preview verfÃ¼gbar"
                     : stop.plannedStops?.length
                     ? `${stop.plannedStops.length} Stopps geplant`
                     : "Noch kein Tagesplan"}
@@ -467,6 +538,18 @@ export default function RoadtripRouteDetailPage() {
                     className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
                   >
                     🗺️ Route starten
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                ) : !plannerSupported ? (
+                  <a
+                    href={stopMapHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.97]"
+                  >
+                    Karte Ã¶ffnen
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -491,6 +574,8 @@ export default function RoadtripRouteDetailPage() {
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </a>
+                )}
+                  </>
                 )}
               </div>
             </div>

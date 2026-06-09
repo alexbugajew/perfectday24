@@ -143,4 +143,5 @@ export const ROADTRIP_TAGS = [
   { value: "family",    label: "Familie",     emoji: "👨‍👩‍👧" },
   { value: "weekend",   label: "Wochenende",  emoji: "📅" },
   { value: "germany",   label: "Deutschland", emoji: "🇩🇪" },
+  { value: "europe",    label: "Europa",      emoji: "🇪🇺" },
 ] as const;

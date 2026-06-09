@@ -19,6 +19,7 @@ import type { DiscoverMapProps } from "@/components/roadtrip/DiscoverMap";
 import { slugifyTitle } from "@/lib/roadtrip/types";
 import type { RoadtripRoute } from "@/lib/roadtrip/types";
 import { fetchPublicRoadtripRoutes } from "@/lib/roadtrip/client";
+import { getRoadtripCoverArt } from "@/lib/roadtrip/cover-art";
 
 // Leaflet braucht dynamischen Import (kein SSR)
 const DiscoverMap = dynamic(
@@ -744,6 +745,7 @@ export default function RoadtripDiscoverPage() {
                 const last  = route.stops[route.stops.length - 1];
                 const emoji = OCCASION_EMOJI[route.occasion] ?? "🗺️";
                 const hasCover = Boolean(route.cover_image_url);
+                const coverArt = getRoadtripCoverArt(route);
                 return (
                   <button
                     key={route.id}
@@ -757,21 +759,41 @@ export default function RoadtripDiscoverPage() {
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
                     ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-600" />
+                      <>
+                        <div className="absolute inset-0" style={{ backgroundImage: coverArt.backgroundImage }} />
+                        <div className="absolute inset-0 opacity-80" style={{ backgroundImage: coverArt.orbImage }} />
+                        <div className="absolute -right-8 top-4 h-20 w-20 rounded-full bg-white/10 blur-2xl transition-transform duration-500 group-hover:scale-125" />
+                        <div className="absolute -left-6 bottom-0 h-16 w-16 rounded-full bg-black/10 blur-2xl transition-transform duration-500 group-hover:scale-110" />
+                        <div className="absolute left-3 top-3 rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
+                          {coverArt.eyebrow}
+                        </div>
+                        <div
+                          className="absolute right-3 top-3 rounded-2xl border border-white/16 bg-black/14 px-3 py-2 text-right text-white backdrop-blur-sm"
+                          style={{ boxShadow: `0 12px 28px ${coverArt.accent}33` }}
+                        >
+                          <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/62">Vibe</div>
+                          <div className="mt-0.5 text-lg font-semibold leading-none">{coverArt.icon}</div>
+                        </div>
+                      </>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-3">
                       <div className="text-base font-bold text-white drop-shadow">
                         {emoji} {route.title}
                       </div>
+                      {!hasCover && (
+                        <div className="mt-1 text-[11px] leading-4 text-white/78">
+                          {coverArt.scene}
+                        </div>
+                      )}
                       {first && last && (
                         <div className="mt-0.5 text-xs text-white/80">
-                          {first.cityLabel} → {last.cityLabel}
+                          {first.cityLabel} {"->"} {last.cityLabel}
                         </div>
                       )}
                       <div className="mt-1.5 flex flex-wrap gap-1">
                         <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm">
-                          {route.stops.length} Städte · {route.total_nights} Nächte
+                          {route.stops.length} Staedte / {route.total_nights} Naechte
                         </span>
                       </div>
                     </div>
@@ -800,7 +822,7 @@ export default function RoadtripDiscoverPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-3">
                     <div className="text-base font-bold text-white drop-shadow">{route.emoji} {route.name}</div>
-                    <div className="mt-0.5 text-xs text-white/80">{route.from} → {route.to}</div>
+                    <div className="mt-0.5 text-xs text-white/80">{route.from} {"->"} {route.to}</div>
                     <div className="mt-1.5 flex flex-wrap gap-1">
                       {route.tags.map((tag) => (
                         <span key={tag} className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm">{tag}</span>
@@ -816,7 +838,7 @@ export default function RoadtripDiscoverPage() {
           )}
 
           <p className="text-center text-xs text-[var(--text-muted)]">
-            Klicke auf eine Route — oder gib oben deinen eigenen Start- und Zielort ein.
+            Klicke auf eine Route - oder gib oben deinen eigenen Start- und Zielort ein.
           </p>
         </div>
       )}

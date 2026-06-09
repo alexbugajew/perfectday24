@@ -9,13 +9,17 @@ import {
   budgetLabel,
   ROADTRIP_TAGS,
 } from "@/lib/roadtrip/types";
+import { getRoadtripCoverArt } from "@/lib/roadtrip/cover-art";
 
 // ─── Route Card ───────────────────────────────────────────────────────────────
 
 function RouteCard({ route }: { route: RoadtripRoute }) {
-  const sequence = route.stops.map((s) => s.cityLabel).join(" → ");
+  const sequence = route.stops.map((s) => s.cityLabel).join(" -> ");
   const tagDefs = ROADTRIP_TAGS.filter((t) => route.tags.includes(t.value)).slice(0, 3);
   const totalNights = route.stops.reduce((s, st) => s + st.nights, 0);
+  const coverArt = getRoadtripCoverArt(route);
+  const firstStop = route.stops[0]?.cityLabel ?? "Start";
+  const lastStop = route.stops[route.stops.length - 1]?.cityLabel ?? "Ziel";
 
   return (
     <Link
@@ -23,9 +27,40 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
       className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white transition hover:shadow-[0_4px_20px_rgba(15,23,42,0.1)] hover:border-[rgba(23,23,23,0.2)]"
     >
       {/* Cover placeholder — gradient with city count badge */}
-      <div className="relative h-32 overflow-hidden bg-[linear-gradient(135deg,rgba(90,118,136,0.18),rgba(183,106,67,0.14))]">
-        <div className="absolute inset-0 flex items-center justify-center text-4xl opacity-30">
-          🗺️
+      <div className="relative h-40 overflow-hidden border-b border-white/10" style={{ backgroundImage: coverArt.backgroundImage }}>
+        <div className="absolute inset-0 opacity-80" style={{ backgroundImage: coverArt.orbImage }} />
+        <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),transparent)]" />
+        <div className="absolute -right-10 top-4 h-24 w-24 rounded-full bg-white/10 blur-2xl transition-transform duration-500 group-hover:scale-125" />
+        <div className="absolute -left-6 bottom-3 h-20 w-20 rounded-full bg-black/10 blur-2xl transition-transform duration-500 group-hover:scale-110" />
+        <div className="absolute inset-0 flex flex-col justify-between p-3.5 text-white">
+          <div className="flex items-start justify-between gap-3">
+            <div className="inline-flex rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] backdrop-blur-sm">
+              {coverArt.eyebrow}
+            </div>
+            {route.is_featured && (
+              <div className="rounded-full bg-black/30 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
+                Featured
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-end justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/72">
+                {firstStop} {"->"} {lastStop}
+              </div>
+              <div className="mt-1 max-w-[16rem] text-sm font-medium leading-5 text-white/92">
+                {coverArt.scene}
+              </div>
+            </div>
+            <div
+              className="shrink-0 rounded-2xl border border-white/18 bg-black/14 px-3 py-2 text-right shadow-[0_12px_30px_rgba(15,23,42,0.18)] backdrop-blur-sm"
+              style={{ boxShadow: `0 12px 30px ${coverArt.accent}33` }}
+            >
+              <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/65">Vibe</div>
+              <div className="mt-0.5 text-lg font-semibold leading-none text-white">{coverArt.icon}</div>
+            </div>
+          </div>
         </div>
 
         {/* Stop count badge */}
@@ -34,14 +69,9 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
             <circle cx="12" cy="9" r="2.5" />
           </svg>
-          {route.stops.length} Städte · {totalNights} Nächte
+          {route.stops.length} Staedte / {totalNights} Naechte
         </div>
 
-        {route.is_featured && (
-          <div className="absolute right-3 top-2 rounded-full bg-[#b76a43] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
-            Featured
-          </div>
-        )}
       </div>
 
       {/* Content */}
@@ -50,7 +80,9 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
           <h3 className="font-semibold text-[var(--text-strong)] leading-snug group-hover:text-[#b76a43] transition-colors">
             {route.title}
           </h3>
-          <p className="mt-1 text-[11px] text-[var(--text-muted)] truncate">{sequence}</p>
+          <p className="mt-1 min-h-[2rem] text-[11px] leading-4 text-[var(--text-muted)] line-clamp-2">
+            {sequence}
+          </p>
         </div>
 
         {route.description && (
@@ -77,7 +109,7 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
         <div className="mt-auto flex items-center justify-between pt-1 text-[11px] text-[var(--text-muted)]">
           <div className="flex items-center gap-2">
             <span>{occasionLabel(route.occasion)}</span>
-            <span>·</span>
+            <span>/</span>
             <span>{budgetLabel(route.budget)}</span>
           </div>
           {route.clone_count > 0 && (
@@ -171,8 +203,8 @@ export default function RoadtripRoutesPage() {
                   {activeRoadtrip.title}
                 </p>
                 <p className="text-xs text-[var(--text-muted)]">
-                  {activeStops.map((s) => s.cityLabel).join(" → ")}
-                  {activeTotal > 0 && ` · ${activeTotal} Nächte`}
+                  {activeStops.map((s) => s.cityLabel).join(" -> ")}
+                  {activeTotal > 0 && ` / ${activeTotal} Naechte`}
                 </p>
               </div>
             </div>
