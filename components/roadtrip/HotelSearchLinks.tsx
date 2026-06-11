@@ -1,52 +1,31 @@
 "use client";
 
 /**
- * HotelSearchLinks — Hotel-Affiliate Deep-Links für einen Roadtrip-Stop.
+ * HotelSearchLinks - Hotel-Affiliate Deep-Links fuer einen Roadtrip-Stop.
  *
- * Zeigt Schnellzugriff-Buttons zu Booking.com, HRS und Hotels.com mit
- * vorausgefüllter Stadt und Datum. Jeder Klick wird als Affiliate-Event
- * über /api/monetization/redirect erfasst.
- *
- * ─── Affiliate-IDs ──────────────────────────────────────────────────────────
- * BOOKING_COM_AID   — Nach Registrierung bei partners.booking.com ersetzen.
- *                     Aktuell: Partner-ID "placeholder" → kein Tracking, aber
- *                     der Link funktioniert (ohne Provision).
- *
- * Für HRS/Hotels.com: Empfehlung ist AWIN. Nach AWIN-Registrierung den
- * jeweiligen Deeplink durch den AWIN-Tracking-Link ersetzen.
- *
- * ─── Provisionen (Richtwerte) ───────────────────────────────────────────────
- *  Booking.com   ~4 % des Nettoumsatzes pro Buchung (CPS)
- *  HRS           ~4–6 % (über AWIN, CPS)
- *  Hotels.com    ~4 % (Expedia Partner Network, CPS)
- *  trivago       ~0,30–0,50 € pro Klick (CPC) — kein CPS
+ * Zeigt eine direkte PD24-Empfehlung fuer die passende Unterkunftslage und
+ * darunter die bekannten Suchanbieter mit vorausgefuellten Daten.
  */
 
 import { useState } from "react";
 import { buildMonetizationRedirectHref } from "@/lib/monetization/client";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
+import { getRoadtripHotelStayPick } from "@/lib/roadtrip/hotel-stays";
 
 export type HotelSearchLinksProps = {
-  cityLabel: string;       // "Hamburg"
-  checkin: string;         // "2025-06-15"  YYYY-MM-DD
-  checkout: string;        // "2025-06-17"  YYYY-MM-DD
-  nights: number;          // 2
-  adults?: number;         // default 2
+  cityLabel: string;
+  checkin: string;
+  checkout: string;
+  nights: number;
+  adults?: number;
   citySlug?: string | null;
   userId?: string | null;
+  occasion?: string | null;
+  budget?: string | null;
+  planSummary?: string | null;
+  anchorLabel?: string | null;
 };
 
-// ─── Affiliate IDs ────────────────────────────────────────────────────────────
-// TODO: Replace with real IDs after affiliate programme approval
-
-/** Booking.com Affiliate Partner ID (partners.booking.com) */
 const BOOKING_COM_AID = "PLACEHOLDER_AID";
-
-/** Hotels.com / Expedia Partner Network tracking tag */
-const HOTELS_COM_EPC = "PLACEHOLDER_EPC";
-
-// ─── Provider definitions ─────────────────────────────────────────────────────
 
 type Provider = {
   id: string;
@@ -54,7 +33,7 @@ type Provider = {
   badge?: string;
   badgeColor?: string;
   logo: React.ReactNode;
-  buildTargetUrl: (city: string, checkin: string, checkout: string, adults: number) => string;
+  buildTargetUrl: (query: string, checkin: string, checkout: string, adults: number) => string;
 };
 
 const PROVIDERS: Provider[] = [
@@ -64,7 +43,6 @@ const PROVIDERS: Provider[] = [
     badge: "~4 % Provision",
     badgeColor: "emerald",
     logo: (
-      // Booking.com blue wordmark-style icon
       <svg viewBox="0 0 40 20" className="h-4 w-auto" aria-hidden>
         <rect width="40" height="20" rx="3" fill="#003580" />
         <text x="4" y="14" fontFamily="Arial,sans-serif" fontWeight="bold" fontSize="9" fill="white">
@@ -73,10 +51,10 @@ const PROVIDERS: Provider[] = [
         <circle cx="35" cy="10" r="4" fill="#FEBB02" />
       </svg>
     ),
-    buildTargetUrl: (city, checkin, checkout, adults) => {
+    buildTargetUrl: (query, checkin, checkout, adults) => {
       const p = new URLSearchParams({
         aid: BOOKING_COM_AID,
-        ss: city,
+        ss: query,
         checkin,
         checkout,
         no_rooms: "1",
@@ -102,18 +80,15 @@ const PROVIDERS: Provider[] = [
         </text>
       </svg>
     ),
-    buildTargetUrl: (city, checkin, checkout, adults) => {
-      // HRS direct link — after AWIN approval wrap in AWIN tracking URL:
-      // https://www.awin1.com/cread.php?awinmid=XXXXX&awinaffid=YYYYY&ued=TARGET_URL
+    buildTargetUrl: (query, checkin, checkout, adults) => {
       const p = new URLSearchParams({
-        destination: city,
+        destination: query,
         arrivalDate: checkin,
         departureDate: checkout,
         numRooms: "1",
         numPersons: String(adults),
         lang: "de",
       });
-      // TODO: Wrap in AWIN tracking URL after AWIN + HRS programme approval
       return `https://www.hrs.de/hotel/list?${p}`;
     },
   },
@@ -133,17 +108,15 @@ const PROVIDERS: Provider[] = [
         </text>
       </svg>
     ),
-    buildTargetUrl: (city, checkin, checkout, adults) => {
+    buildTargetUrl: (query, checkin, checkout, adults) => {
       const p = new URLSearchParams({
-        "q-destination": city,
+        "q-destination": query,
         "q-check-in": checkin,
         "q-check-out": checkout,
         "q-rooms": "1",
         "q-room-0-adults": String(adults),
         locale: "de_DE",
       });
-      // After Hotels.com affiliate approval add EPC tracking:
-      // https://de.hotels.com/search.do?...&epc=${HOTELS_COM_EPC}
       return `https://de.hotels.com/search.do?${p}`;
     },
   },
@@ -158,35 +131,28 @@ const PROVIDERS: Provider[] = [
         <text x="4" y="14" fontFamily="Arial,sans-serif" fontWeight="bold" fontSize="8" fill="white">
           hostel
         </text>
-        <text x="24" y="14" fontFamily="Arial,sans-serif" fontSize="8" fill="white">
-          🌍
-        </text>
       </svg>
     ),
-    buildTargetUrl: (city, checkin, checkout, adults) => {
-      // Hostelworld affiliate via AWIN after registration
-      const citySlug = city.toLowerCase().replace(/[äöüß\s]+/g, (match) => {
-        const map: Record<string, string> = { ä: "ae", ö: "oe", ü: "ue", ß: "ss", " ": "-" };
-        return map[match] ?? "-";
-      });
-      return `https://www.hostelworld.com/hostels/${citySlug}`;
+    buildTargetUrl: (query) => {
+      return `https://www.hostelworld.com/st/hostels/europe/germany/${encodeURIComponent(query.toLowerCase())}/`;
     },
   },
 ];
 
-// ─── Badge colour helper ───────────────────────────────────────────────────────
-
 function badgeClass(color: string | undefined): string {
   switch (color) {
-    case "emerald": return "bg-emerald-50 text-emerald-700";
-    case "sky":     return "bg-sky-50 text-sky-700";
-    case "amber":   return "bg-amber-50 text-amber-700";
-    case "violet":  return "bg-violet-50 text-violet-700";
-    default:        return "bg-[rgba(23,23,23,0.06)] text-[var(--text-muted)]";
+    case "emerald":
+      return "bg-emerald-50 text-emerald-700";
+    case "sky":
+      return "bg-sky-50 text-sky-700";
+    case "amber":
+      return "bg-amber-50 text-amber-700";
+    case "violet":
+      return "bg-violet-50 text-violet-700";
+    default:
+      return "bg-[rgba(23,23,23,0.06)] text-[var(--text-muted)]";
   }
 }
-
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function HotelSearchLinks({
   cityLabel,
@@ -196,28 +162,52 @@ export default function HotelSearchLinks({
   adults = 2,
   citySlug,
   userId,
+  occasion,
+  budget,
+  planSummary,
+  anchorLabel,
 }: HotelSearchLinksProps) {
   const [expanded, setExpanded] = useState(false);
+  const stayPick = getRoadtripHotelStayPick({
+    cityLabel,
+    citySlug,
+    occasion,
+    budget,
+    planSummary,
+    anchorLabel,
+  });
+
+  const recommendationHref = buildMonetizationRedirectHref({
+    targetUrl: PROVIDERS[0].buildTargetUrl(stayPick.searchQuery, checkin, checkout, adults),
+    eventType: "redirect",
+    slotKey: "roadtrip_hotel_search",
+    citySlug: citySlug ?? null,
+    surface: "roadtrip",
+    userId,
+    source: "pd24_stay_pick_booking",
+    label: `hotel_recommended_${cityLabel}`,
+  });
 
   return (
     <div className="rounded-xl border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)]">
-      {/* Summary row — always visible */}
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
         className="flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:bg-[rgba(23,23,23,0.03)]"
       >
-        {/* Hotel icon */}
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[rgba(23,23,23,0.06)] text-base">
-          🏨
+          Hotel
         </span>
 
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="text-sm font-semibold text-[var(--text-strong)]">
             Hotels in {cityLabel}
           </div>
           <div className="text-xs text-[var(--text-muted)]">
-            {nights} {nights === 1 ? "Nacht" : "Nächte"} · {adults} Person{adults !== 1 ? "en" : ""}
+            {nights} {nights === 1 ? "Nacht" : "Naechte"} / {adults} Person{adults !== 1 ? "en" : ""}
+          </div>
+          <div className="mt-1 text-[11px] text-[var(--text-muted)]">
+            Empfohlen: {stayPick.style} in {stayPick.area}
           </div>
         </div>
 
@@ -238,12 +228,51 @@ export default function HotelSearchLinks({
         </div>
       </button>
 
-      {/* Provider buttons — shown when expanded */}
       {expanded && (
         <div className="border-t border-[rgba(23,23,23,0.06)] px-3 pb-3 pt-2.5">
+          <div className="mb-3 rounded-xl border border-[rgba(183,106,67,0.18)] bg-white p-3 shadow-[0_2px_10px_rgba(15,23,42,0.04)]">
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#b76a43]">
+                  PD24 Stay Pick
+                </div>
+                <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
+                  {stayPick.style}
+                </div>
+                <div className="mt-0.5 text-xs font-medium text-[var(--text-muted)]">
+                  {stayPick.area}
+                </div>
+              </div>
+              <span className="rounded-full bg-[rgba(183,106,67,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[#b76a43]">
+                {stayPick.badge}
+              </span>
+            </div>
+
+            <p className="mt-2 text-xs leading-5 text-[var(--text-muted)]">
+              {stayPick.reason}
+            </p>
+
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-2 py-0.5 text-[10px] font-semibold text-[var(--text-muted)]">
+                {stayPick.fitLabel}
+              </span>
+              <a
+                href={recommendationHref}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+              >
+                Empfehlung auf Booking.com oeffnen
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
           <p className="mb-2.5 text-[11px] leading-relaxed text-[var(--text-muted)]">
-            Klicke auf einen Anbieter. Du wirst direkt zur Hotelsuche weitergeleitet —
-            wir erhalten eine Provision, wenn du buchst (kein Aufpreis für dich).
+            Klicke auf einen Anbieter. Du wirst direkt zur Hotelsuche weitergeleitet -
+            wir erhalten eine Provision, wenn du buchst (kein Aufpreis fuer dich).
           </p>
 
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -284,9 +313,8 @@ export default function HotelSearchLinks({
             })}
           </div>
 
-          {/* Disclosure */}
           <p className="mt-2.5 text-[10px] text-[var(--text-muted)]">
-            * Affiliate-Links. Wir verdienen eine kleine Provision bei einer Buchung — ohne Mehrkosten für dich.
+            * Affiliate-Links. Wir verdienen eine kleine Provision bei einer Buchung - ohne Mehrkosten fuer dich.
           </p>
         </div>
       )}
