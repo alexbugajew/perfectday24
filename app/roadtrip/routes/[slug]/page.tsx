@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { supabase } from "@/lib/supabaseClient";
 import {
   fetchRoadtripRouteBySlug,
   incrementRouteViews,
@@ -16,6 +17,7 @@ import {
   ROADTRIP_TAGS,
 } from "@/lib/roadtrip/types";
 import { getRoadtripCoverArt } from "@/lib/roadtrip/cover-art";
+import { getRoadtripEditorial } from "@/lib/roadtrip/editorial";
 import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
 
@@ -86,6 +88,27 @@ function buildRoadtripStopMapHref(cityLabel: string, itemName: string | null | u
   return `https://www.google.com/maps/search/?api=1&query=${query}`;
 }
 
+type CityCreatorRouteSuggestion = {
+  id: string;
+  title: string;
+  slug: string | null;
+  description: string | null;
+  city_slug: string | null;
+  cover_image_url: string | null;
+  avg_rating: number | null;
+  bookmark_count: number | null;
+  stop_count: number | null;
+  creator_type: string | null;
+};
+
+function creatorRouteSuggestionMeta(route: CityCreatorRouteSuggestion): string {
+  const parts: string[] = [];
+  if (route.stop_count && route.stop_count > 0) parts.push(`${route.stop_count} Stops`);
+  if (route.avg_rating && route.avg_rating > 0) parts.push(`${route.avg_rating.toFixed(1)} / 5`);
+  if (route.bookmark_count && route.bookmark_count > 0) parts.push(`${route.bookmark_count} Saves`);
+  return parts.join(" - ") || "Fertige Tagesroute";
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function RoadtripRouteDetailPage() {
@@ -101,6 +124,8 @@ export default function RoadtripRouteDetailPage() {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [copied, setCopied] = useState(false);
   const [tripActive] = useState(false);
+  const [cityRouteSuggestions, setCityRouteSuggestions] = useState<Record<string, CityCreatorRouteSuggestion[]>>({});
+  const [cityRouteSuggestionsLoading, setCityRouteSuggestionsLoading] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (!params?.slug) return;
@@ -118,6 +143,53 @@ export default function RoadtripRouteDetailPage() {
       setLoading(false);
     })();
   }, [params?.slug]);
+
+  useEffect(() => {
+    if (!route) return;
+
+    const uniqueStops = Array.from(new Map(route.stops.map((stop) => [stop.citySlug, stop])).values()).filter(
+      (stop) => !stop.creatorRouteSlug
+    );
+
+    if (uniqueStops.length === 0) {
+      setCityRouteSuggestions({});
+      setCityRouteSuggestionsLoading({});
+      return;
+    }
+
+    let active = true;
+    setCityRouteSuggestions({});
+    setCityRouteSuggestionsLoading(Object.fromEntries(uniqueStops.map((stop) => [stop.citySlug, true])));
+
+    (async () => {
+      const results = await Promise.all(
+        uniqueStops.map(async (stop) => {
+          const { data } = await supabase
+            .from("user_routes")
+            .select("id,title,slug,description,city_slug,cover_image_url,avg_rating,bookmark_count,stop_count,creator_type")
+            .eq("city_slug", stop.citySlug)
+            .eq("visibility", "public")
+            .order("bookmark_count", { ascending: false })
+            .limit(3);
+
+          const routes = ((data as CityCreatorRouteSuggestion[] | null) ?? []).filter(
+            (candidate) => candidate.slug !== stop.creatorRouteSlug
+          );
+
+          return [stop.citySlug, routes] as const;
+        })
+      );
+
+      if (!active) return;
+
+      setCityRouteSuggestions(Object.fromEntries(results));
+      setCityRouteSuggestionsLoading(Object.fromEntries(uniqueStops.map((stop) => [stop.citySlug, false])));
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [route]);
 
   async function copyShareLink() {
     const url = typeof window !== "undefined" ? window.location.href : "";
@@ -179,6 +251,7 @@ export default function RoadtripRouteDetailPage() {
   const tagDefs = ROADTRIP_TAGS.filter((t) => route.tags.includes(t.value));
   const roadtripRunHref = `/roadtrip/routes/${route.slug}/run?startDate=${startDate}`;
   const coverArt = getRoadtripCoverArt(route);
+  const editorial = getRoadtripEditorial(route);
   const firstStop = route.stops[0]?.cityLabel ?? "Start";
   const lastStop = route.stops[route.stops.length - 1]?.cityLabel ?? "Ziel";
 
@@ -217,6 +290,14 @@ export default function RoadtripRouteDetailPage() {
             className="relative mb-4 overflow-hidden rounded-2xl border border-white/10"
             style={{ backgroundImage: coverArt.backgroundImage }}
           >
+            {editorial.coverImageUrl && (
+              <div
+                className="absolute inset-0 bg-cover bg-center opacity-[0.54]"
+                aria-hidden="true"
+                style={{ backgroundImage: `url("${editorial.coverImageUrl}")` }}
+              />
+            )}
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.08),rgba(15,23,42,0.38))]" />
             <div className="absolute inset-0 opacity-80" style={{ backgroundImage: coverArt.orbImage }} />
             <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),transparent)]" />
             <div className="absolute -right-8 top-4 h-24 w-24 rounded-full bg-white/10 blur-2xl" />
@@ -278,7 +359,7 @@ export default function RoadtripRouteDetailPage() {
 
           {route.description && (
             <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-              {route.description}
+              {editorial.intro}
             </p>
           )}
 
@@ -331,6 +412,64 @@ export default function RoadtripRouteDetailPage() {
       </section>
 
       {/* ── Route stops ────────────────────────────────────────────────────── */}
+      <section className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-4 shadow-[0_2px_12px_rgba(15,23,42,0.06)]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            Warum diese Route funktioniert
+          </div>
+          <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
+            {editorial.intro}
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 shadow-[0_2px_12px_rgba(15,23,42,0.04)]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            Besondere Momente auf der Route
+          </div>
+          <div className="mt-3 space-y-2.5">
+            {editorial.highlights.map((highlight) => (
+              <div
+                key={highlight}
+                className="rounded-xl border border-[rgba(23,23,23,0.06)] bg-white px-3 py-2.5 text-sm leading-6 text-[var(--text-muted)]"
+              >
+                {highlight}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {editorial.stopSpotlights.length > 0 && (
+        <section className="space-y-3">
+          <div className="px-1 text-sm font-semibold text-[var(--text-strong)]">
+            Stop-Highlights entlang der Route
+          </div>
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {editorial.stopSpotlights.map((spotlight, index) => (
+              <article
+                key={`${spotlight.city}-${index}`}
+                className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-4 shadow-[0_2px_12px_rgba(15,23,42,0.05)]"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div className="text-base font-semibold text-[var(--text-strong)]">
+                    {spotlight.city}
+                  </div>
+                  <div className="rounded-full bg-[rgba(23,23,23,0.05)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                    {spotlight.nights} {spotlight.nights === 1 ? "Nacht" : "Naechte"}
+                  </div>
+                </div>
+                <div className="mt-2 text-sm font-medium text-[var(--text-strong)]">
+                  {spotlight.title}
+                </div>
+                <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
+                  {spotlight.copy}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="space-y-2">
         <h2 className="px-1 text-sm font-semibold text-[var(--text-strong)]">
           Reiseroute — {route.stops.map((s) => s.cityLabel).join(" → ")}
@@ -370,7 +509,10 @@ export default function RoadtripRouteDetailPage() {
           const plannerSupported = isPlannerSupportedCitySlug(stop.citySlug);
           const firstPlannedItemName = stop.plannedStops?.find((plannedStop) => plannedStop.itemName)?.itemName ?? null;
           const stopMapHref = buildRoadtripStopMapHref(stop.cityLabel, firstPlannedItemName);
-          const previewOnlyStop = !plannerSupported && !stop.creatorRouteSlug;
+          const suggestedRoutes = stop.creatorRouteSlug ? [] : cityRouteSuggestions[stop.citySlug] ?? [];
+          const suggestedRoutesLoading = Boolean(cityRouteSuggestionsLoading[stop.citySlug]);
+          const suggestedPrimaryRoute = suggestedRoutes.find((candidate) => Boolean(candidate.slug)) ?? null;
+          const previewOnlyStop = !plannerSupported && !stop.creatorRouteSlug && !suggestedPrimaryRoute;
 
           return (
             <div
@@ -438,6 +580,97 @@ export default function RoadtripRouteDetailPage() {
                     </div>
                   )}
 
+                  {!stop.creatorRouteTitle && (suggestedRoutesLoading || suggestedRoutes.length > 0) && (
+                    <div className="mt-3 rounded-xl border border-[rgba(90,118,136,0.15)] bg-[rgba(90,118,136,0.05)] p-3">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                          <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                            Passende Creator-Routen
+                          </div>
+                          <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
+                            Statt hier neu zu planen, kannst du direkt eine fertige Tagesroute fuer {stop.cityLabel} uebernehmen.
+                          </p>
+                        </div>
+                        {suggestedPrimaryRoute?.slug && (
+                          <a
+                            href={`/routes/${suggestedPrimaryRoute.slug}/run`}
+                            className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                          >
+                            Top-Route starten
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </a>
+                        )}
+                      </div>
+
+                      {suggestedRoutesLoading ? (
+                        <div className="mt-3 grid gap-2 lg:grid-cols-2">
+                          {[0, 1].map((index) => (
+                            <div
+                              key={index}
+                              className="h-28 animate-pulse rounded-xl border border-[rgba(23,23,23,0.06)] bg-white/80"
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="mt-3 grid gap-2 lg:grid-cols-2">
+                          {suggestedRoutes.map((candidate) => (
+                            <article
+                              key={candidate.id}
+                              className="overflow-hidden rounded-xl border border-[rgba(23,23,23,0.07)] bg-white"
+                            >
+                              <div className="flex h-full gap-3 p-3">
+                                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-[linear-gradient(135deg,rgba(90,118,136,0.2),rgba(183,106,67,0.15))]">
+                                  {candidate.cover_image_url ? (
+                                    <img
+                                      src={candidate.cover_image_url}
+                                      alt={candidate.title}
+                                      className="h-full w-full object-cover"
+                                    />
+                                  ) : (
+                                    <div className="flex h-full w-full items-center justify-center text-xl opacity-40">
+                                      🗺️
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <div className="line-clamp-2 text-sm font-semibold leading-5 text-[var(--text-strong)]">
+                                    {candidate.title}
+                                  </div>
+                                  <p className="mt-1 line-clamp-2 text-[11px] leading-5 text-[var(--text-muted)]">
+                                    {candidate.description?.trim() || `Fertige Route fuer deinen Stop in ${stop.cityLabel}.`}
+                                  </p>
+                                  <div className="mt-2 text-[11px] text-[var(--text-muted)]">
+                                    {creatorRouteSuggestionMeta(candidate)}
+                                  </div>
+                                  <div className="mt-3 flex flex-wrap gap-2">
+                                    {candidate.slug && (
+                                      <a
+                                        href={`/routes/${candidate.slug}/run`}
+                                        className="inline-flex items-center gap-1 rounded-lg bg-[var(--text-strong)] px-2.5 py-1.5 text-[11px] font-semibold text-white transition hover:bg-[#1f2937]"
+                                      >
+                                        Route starten
+                                      </a>
+                                    )}
+                                    {candidate.slug && (
+                                      <a
+                                        href={`/routes/${candidate.slug}`}
+                                        className="inline-flex items-center gap-1 rounded-lg border border-[var(--line-subtle)] px-2.5 py-1.5 text-[11px] font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+                                      >
+                                        Ansehen
+                                      </a>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* Generierter Tagesplan */}
                   {stop.plannedStops && stop.plannedStops.length > 0 && (
                     <div className="mt-2.5 space-y-1.5">
@@ -495,6 +728,10 @@ export default function RoadtripRouteDetailPage() {
                   nights={stop.nights}
                   adults={2}
                   citySlug={stop.citySlug}
+                  occasion={route.occasion}
+                  budget={route.budget}
+                  planSummary={stop.planSummary ?? null}
+                  anchorLabel={firstPlannedItemName}
                 />
               </div>
 
@@ -538,6 +775,16 @@ export default function RoadtripRouteDetailPage() {
                     className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
                   >
                     🗺️ Route starten
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                ) : suggestedPrimaryRoute?.slug ? (
+                  <a
+                    href={`/routes/${suggestedPrimaryRoute.slug}/run`}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                  >
+                    Top-Route starten
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>

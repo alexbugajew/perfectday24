@@ -1175,7 +1175,7 @@ function ExplorePageContent() {
       </div>
 
       {/* Roadtrip-Routen — Mehrtagsreisen entdecken */}
-      <div className="mb-4 flex items-center justify-between gap-4 overflow-hidden rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.2)] bg-[linear-gradient(135deg,rgba(196,137,79,0.07),rgba(90,118,136,0.06))] px-4 py-3 shadow-[var(--shadow-soft)]">
+      <div className="hidden mb-4 items-center justify-between gap-4 overflow-hidden rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.2)] bg-[linear-gradient(135deg,rgba(196,137,79,0.07),rgba(90,118,136,0.06))] px-4 py-3 shadow-[var(--shadow-soft)]">
         <div className="min-w-0">
           <div className="pd24-kicker-warm">Mehrtagsreisen</div>
           <div className="mt-0.5 text-sm font-medium text-[var(--text-strong)]">Roadtrip-Routen — Mehrere Städte, ein Plan. Von echten Reisenden geteilt.</div>
@@ -1316,6 +1316,70 @@ function ExplorePageContent() {
               </div>
             </div>
           </section>
+      <div className="mb-4 rounded-[28px] border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
+        <div className="flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Entdecken-Modus
+            </div>
+            <div className="mt-1 text-base font-semibold text-[var(--text-strong)]">
+              Tagesrouten und Roadtrips auf einen Blick trennen
+            </div>
+            <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
+              Tagesrouten sind fuer einen Tag gedacht. Roadtrips kombinieren mehrere Staedte und fertige Mehrtagesablaeufe.
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <a
+            href="#explore-all-routes"
+            className="rounded-2xl border border-[var(--text-strong)] bg-[var(--bg-surface)] px-4 py-4 transition hover:bg-white"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  Aktuell hier
+                </div>
+                <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
+                  Tagesrouten entdecken
+                </div>
+              </div>
+              <span className="rounded-full bg-[var(--text-strong)] px-2.5 py-1 text-[10px] font-semibold text-white">
+                1 Tag
+              </span>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
+              Kuratierte Stadt-Routen fuer heute, morgen oder den naechsten freien Tag.
+            </p>
+          </a>
+          <Link
+            href="/roadtrip/routes"
+            className="group rounded-2xl border border-[rgba(196,137,79,0.24)] bg-[linear-gradient(135deg,rgba(196,137,79,0.07),rgba(90,118,136,0.06))] px-4 py-4 transition hover:border-[rgba(196,137,79,0.34)] hover:shadow-[0_10px_30px_rgba(15,23,42,0.08)]"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <div className="pd24-kicker-warm">Mehrtagsreisen</div>
+                <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
+                  Roadtrip-Routen entdecken
+                </div>
+              </div>
+              <span className="rounded-full border border-[rgba(196,137,79,0.3)] bg-white px-2.5 py-1 text-[10px] font-semibold text-[var(--brand-warm)]">
+                Mehrere Tage
+              </span>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
+              Fertige Mehrstadt-Routen mit Stops, Vorlagen und direktem Start in deinen Roadtrip.
+            </p>
+            <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--brand-warm)]">
+              Zu den Roadtrip-Routen
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5 transition group-hover:translate-x-0.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+        </div>
+      </div>
+
 
           <section id="explore-all-routes">
             <SectionHeader

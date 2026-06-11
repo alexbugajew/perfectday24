@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
@@ -740,6 +741,43 @@ function RoadtripPageContent() {
           </p>
 
           {/* ── 3 Foto-Einstiegskarten ─────────────────────────────────────── */}
+          <div className="mb-4 grid gap-3 lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                Auf dieser Seite
+              </div>
+              <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
+                Eigenen Roadtrip bauen oder Vorlage direkt in den Builder laden
+              </div>
+              <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
+                `/roadtrip` ist dein Planer. Hier stellst du Staedte, Naechte und Tagesplaene zusammen.
+              </p>
+            </div>
+            <Link
+              href="/roadtrip/routes"
+              className="group rounded-2xl border border-[rgba(183,106,67,0.24)] bg-[linear-gradient(135deg,rgba(183,106,67,0.08),rgba(90,118,136,0.06))] px-4 py-3 transition hover:border-[rgba(183,106,67,0.34)] hover:shadow-[0_10px_30px_rgba(15,23,42,0.08)]"
+            >
+              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9d5a38]">
+                Fertige Roadtrips
+              </div>
+              <div className="mt-1 flex items-center justify-between gap-3">
+                <div>
+                  <div className="text-sm font-semibold text-[var(--text-strong)]">
+                    Alle Roadtrip-Routen entdecken
+                  </div>
+                  <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
+                    `/roadtrip/routes` zeigt dir direkt fertige Mehrtagesrouten zum Sofortstart.
+                  </p>
+                </div>
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-[var(--text-strong)] shadow-sm transition group-hover:translate-x-0.5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </Link>
+          </div>
+
           <div className="grid gap-3 sm:grid-cols-3">
 
             {/* KI-Planung */}
@@ -826,7 +864,7 @@ function RoadtripPageContent() {
               </div>
             </button>
 
-            {/* Creator Routen */}
+            {/* Roadtrip-Vorlagen */}
             <button
               type="button"
               onClick={() => setHeroMode("creator")}
@@ -839,7 +877,7 @@ function RoadtripPageContent() {
             >
               <Image
                 src="/roadtrip/mode-creator.png"
-                alt="Creator Routen"
+                alt="Roadtrip-Vorlagen"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 640px) 100vw, 33vw"
@@ -859,10 +897,10 @@ function RoadtripPageContent() {
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                     </svg>
                   </span>
-                  <span className="text-sm font-bold text-white drop-shadow">Creator Routen</span>
+                  <span className="text-sm font-bold text-white drop-shadow">Roadtrip-Vorlagen</span>
                 </div>
                 <p className="mt-1 text-xs leading-4 text-white/80">
-                  Fertige Routen von Creators als Vorlage nutzen
+                  Fertige Roadtrips direkt in deinen Plan uebernehmen
                 </p>
               </div>
             </button>
@@ -1005,7 +1043,7 @@ function RoadtripPageContent() {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3.5 w-3.5">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
-              Creator-Routen
+              Vorlagen
               {creatorRoutes.length > 0 && (
                 <span className="rounded-full bg-[rgba(183,106,67,0.15)] px-1.5 py-0.5 text-[10px] text-[#b76a43]">
                   {creatorRoutes.length}
