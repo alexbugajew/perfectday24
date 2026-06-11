@@ -363,7 +363,13 @@ export type PlannedStopPolicyTrace = {
 };
 
 export type PlannedStopDebug = {
-  selectedFrom: "feasible" | "relaxed" | "soft" | "forced_peak" | "forced_event";
+  selectedFrom:
+    | "feasible"
+    | "relaxed"
+    | "soft"
+    | "forced_peak"
+    | "forced_event"
+    | "family_meal_fallback";
   finalScore: number;
   candidateTotalScore: number;
   travelFeasible: boolean;

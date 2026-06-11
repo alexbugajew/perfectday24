@@ -45,7 +45,7 @@ export default function ConsentBanner() {
   return (
     <div
       className={[
-        "fixed bottom-0 left-0 right-0 z-[200] px-3 pb-20 pt-3 sm:bottom-24 sm:left-auto sm:right-4 sm:w-[28rem] sm:max-w-[calc(100vw-2rem)] sm:px-0 sm:pb-0 sm:pt-0",
+        "fixed bottom-0 left-0 right-0 z-[200] px-3 pb-[5.4rem] pt-2 sm:bottom-5 sm:left-auto sm:right-4 sm:w-[22rem] sm:max-w-[calc(100vw-2rem)] sm:px-0 sm:pb-0 sm:pt-0",
         "transition-all duration-300 ease-out",
         entered ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
       ].join(" ")}
@@ -53,11 +53,11 @@ export default function ConsentBanner() {
       aria-label="Cookie- und Tracking-Einstellungen"
       aria-modal="false"
     >
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-[22px] border border-[rgba(23,23,23,0.1)] bg-[#fffdf8] shadow-[0_8px_48px_rgba(23,23,23,0.16)] sm:max-w-none">
-        <div className="flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:gap-6">
+      <div className="mx-auto max-w-3xl overflow-hidden rounded-[20px] border border-[rgba(23,23,23,0.1)] bg-[#fffdf8] shadow-[0_8px_32px_rgba(23,23,23,0.14)] sm:max-w-none">
+        <div className="flex flex-col gap-3 px-4 py-3.5">
 
           {/* Text */}
-          <p className="flex-1 text-sm leading-6 text-[#665d55]">
+          <p className="text-[13px] leading-5 text-[#665d55]">
             <span className="font-semibold text-[#171717]">Wir nutzen Tracking </span>
             um Empfehlungen zu verbessern und Partnern eine faire Vergütung zu ermöglichen.
             Dabei werden anonymisierte IDs lokal gespeichert – keine personenbezogenen Daten
@@ -71,18 +71,18 @@ export default function ConsentBanner() {
           </p>
 
           {/* Buttons */}
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => dismiss("declined")}
-              className="rounded-xl border border-[rgba(23,23,23,0.15)] bg-transparent px-4 py-2.5 text-sm font-medium text-[#665d55] transition hover:border-[rgba(23,23,23,0.3)] hover:bg-[rgba(23,23,23,0.04)] active:scale-[0.97]"
+              className="min-h-10 flex-1 rounded-xl border border-[rgba(23,23,23,0.15)] bg-transparent px-3 py-2 text-sm font-medium text-[#665d55] transition hover:border-[rgba(23,23,23,0.3)] hover:bg-[rgba(23,23,23,0.04)] active:scale-[0.97]"
             >
               Nur Notwendige
             </button>
             <button
               type="button"
               onClick={() => dismiss("accepted")}
-              className="rounded-xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+              className="min-h-10 flex-1 rounded-xl bg-[#171717] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
             >
               Akzeptieren
             </button>

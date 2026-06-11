@@ -487,6 +487,109 @@ export function isFamilyAgeBandPoolCandidate(
   return true;
 }
 
+export function isFamilyAgeBandAnchorCandidate(
+  ageBand: FamilyAgeBand | null | undefined,
+  candidate: LocationRow
+) {
+  const band = normalizedFamilyAgeBand(ageBand);
+  const category = classify(candidate);
+  const markers = familyAgeMarkers(candidate);
+
+  if (category === "nightlife" || markers.tooYoung) return false;
+
+  if (band === "0_6") {
+    return (
+      markers.toddlerFriendly ||
+      markers.interactiveKids ||
+      hasSubtype(
+        candidate,
+        "park",
+        "playground",
+        "zoo",
+        "wildpark",
+        "aquarium",
+        "children_museum",
+        "science_center",
+        "swimming_pool",
+        "water_park",
+        "farm_experience",
+        "botanical_garden"
+      )
+    );
+  }
+
+  if (band === "4_10") {
+    return (
+      markers.interactiveKids ||
+      markers.activeAfternoon ||
+      markers.creativeWorkshop ||
+      hasSubtype(
+        candidate,
+        "zoo",
+        "wildpark",
+        "aquarium",
+        "children_museum",
+        "science_center",
+        "playground",
+        "theme_park",
+        "swimming_pool",
+        "water_park",
+        "farm_experience",
+        "minigolf",
+        "climbing"
+      )
+    );
+  }
+
+  if (band === "9_14") {
+    if (markers.pureToddlerVenue || markers.tooChildish) return false;
+    return (
+      markers.challengePreteen ||
+      markers.specialInterestSpot ||
+      markers.creativeWorkshop ||
+      markers.eveningHighlight ||
+      hasSubtype(
+        candidate,
+        "science_center",
+        "climbing",
+        "swimming_pool",
+        "bowling",
+        "escape_room",
+        "lasertag",
+        "cinema",
+        "aquarium",
+        "viewpoint"
+      )
+    );
+  }
+
+  if (markers.pureToddlerVenue || markers.tooChildish || markers.toddlerFriendly) {
+    return false;
+  }
+
+  return (
+    markers.challengePreteen ||
+    markers.teenSocial ||
+    markers.urbanFreeTimeSpot ||
+    markers.creativeWorkshop ||
+    markers.eveningHighlight ||
+    hasSubtype(
+      candidate,
+      "climbing",
+      "bowling",
+      "escape_room",
+      "lasertag",
+      "cinema",
+      "science_center",
+      "swimming_pool",
+      "shopping",
+      "viewpoint",
+      "market",
+      "festival"
+    )
+  );
+}
+
 export function sortFamilyCandidatesForAgeBand<T extends LocationRow>(
   candidates: T[],
   ageBand: FamilyAgeBand | null | undefined,
@@ -602,6 +705,52 @@ export function familyAgeBandHardReject(
       return {
         reject: true,
         reason: "ist fuer 12-16 Jahre zu kindlich und zu wenig eigenstaendig",
+      };
+    }
+  }
+
+  return {
+    reject: false,
+    reason: null as string | null,
+  };
+}
+
+export function familySlotHardReject(params: {
+  ageBand: FamilyAgeBand | null | undefined;
+  candidate: ScoredLocation;
+  slotKind: SlotKind;
+  phase: OccasionPhase | null | undefined;
+  allCandidates: ScoredLocation[];
+}) {
+  const { ageBand, candidate, slotKind, phase, allCandidates } = params;
+  const category = classify(candidate);
+  const normalizedBand = normalizedFamilyAgeBand(ageBand);
+
+  if (slotKind === "breakfast" && category !== "cafe" && category !== "restaurant") {
+    return {
+      reject: true,
+      reason: "passt nicht in den Family-Ankommensslot mit Snack oder Cafe",
+    };
+  }
+
+  if ((slotKind === "lunch" || slotKind === "dinner") && category !== "restaurant") {
+    return {
+      reject: true,
+      reason: "fuellt den Family-Essensslot nicht verlaesslich als richtiger Essens-Stop",
+    };
+  }
+
+  if (slotKind === "activity" && phase === "main_activity") {
+    const anchorExists = allCandidates.some(
+      (other) =>
+        isFamilyAgeBandPoolCandidate(normalizedBand, other, "activity") &&
+        isFamilyAgeBandAnchorCandidate(normalizedBand, other)
+    );
+
+    if (anchorExists && !isFamilyAgeBandAnchorCandidate(normalizedBand, candidate)) {
+      return {
+        reject: true,
+        reason: "verliert den altersgerechten Hauptanker, obwohl passendere Family-Highlights verfuegbar sind",
       };
     }
   }

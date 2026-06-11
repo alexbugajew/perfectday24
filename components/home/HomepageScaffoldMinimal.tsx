@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Cormorant_Garamond } from "next/font/google";
+import type { ReactNode } from "react";
 import { PD24Button, PD24StatusBadge } from "@/components/ui/pd24";
 import HeroIntentBar from "@/components/home/HeroIntentBar";
 
@@ -10,9 +11,9 @@ const display = Cormorant_Garamond({
 });
 
 const trustSignals = [
-  "Echte Events statt Trefferliste",
-  "Realistische Wege und Timing",
-  "Per Link teilen und loslegen",
+  "Echte Events statt Trefferlisten",
+  "Sinnvolle Wege und Timing",
+  "Per Link direkt teilbar",
 ];
 
 const heroStops = [
@@ -20,25 +21,21 @@ const heroStops = [
     time: "17:45",
     title: "Aperitif in Charlottenburg",
     note: "ruhiger Start mit kurzer Anfahrt",
-    tag: "Warm-up",
   },
   {
     time: "19:10",
     title: "Dinner vor dem Hauptmoment",
     note: "genug Luft vor der festen Uhrzeit",
-    tag: "Dinner",
   },
   {
     time: "20:30",
     title: "Live-Event als Peak",
     note: "echter Anlass statt zufälliger Zusatz",
-    tag: "Event",
   },
   {
     time: "22:35",
     title: "Bar für den Ausklang",
     note: "nah an der Venue, kein Takt mehr",
-    tag: "Ausklang",
   },
 ];
 
@@ -48,29 +45,153 @@ const heroSignals = [
   "Bereit zum Teilen",
 ];
 
+const proofCards = [
+  {
+    title: "Echter Anlass",
+    body: "Nicht nur Orte nebeneinander, sondern ein Hauptmoment mit klarer Dramaturgie.",
+  },
+  {
+    title: "Realistische Wege",
+    body: "Wegzeiten und Reihenfolge passen zum Tag, nicht nur zur Wunschliste.",
+  },
+  {
+    title: "Gemeinsam nutzbar",
+    body: "Ein Plan, den du sofort teilen, abstimmen und unterwegs nutzen kannst.",
+  },
+];
+
+const trustTiles = [
+  "Echte Events statt generischer Vorschläge",
+  "Ein Ablauf statt 7 offener Tabs",
+  "Sinnvolle Wege statt Zufallsreihenfolge",
+  "Direkt mit anderen teilbar",
+];
+
+const compareWithout = [
+  "Viele Tabs und Trefferlisten",
+  "Keine klare Reihenfolge",
+  "Eventzeiten passen nicht zusammen",
+  "Niemand hat denselben Stand",
+];
+
+const compareWith = [
+  "Ein fertiger Ablauf",
+  "Ein klarer Hauptmoment",
+  "Wege und Timing passen zusammen",
+  "Per Link direkt teilbar",
+];
+
 const howItWorksSteps = [
   {
     number: "01",
-    title: "Einfach beschreiben",
-    body: "Schreib kurz, was du planst - zum Beispiel »Date-Abend in München« oder »Familientag Hamburg Samstag«. PerfectDay24 versteht dich.",
+    title: "Beschreiben",
+    body: "Schreib in einem Satz, was du vorhast und in welcher Stadt du planst.",
   },
   {
     number: "02",
-    title: "Plan ansehen und anpassen",
-    body: "Du bekommst einen vollständigen Tagesplan mit echten Events, realistischen Wegen und passendem Timing.",
+    title: "Plan bekommen",
+    body: "PerfectDay24 baut daraus einen Ablauf mit Events, Wegen und plausiblen Zeitfenstern.",
   },
   {
     number: "03",
     title: "Teilen und losgehen",
-    body: "Schick den Plan per Link. Alle sehen denselben Stand - und wenn etwas nicht passt, ist er schnell angepasst.",
+    body: "Schick den Plan per Link, passe ihn gemeinsam an und starte direkt los.",
   },
 ];
 
-function MetricPill({ children }: { children: React.ReactNode }) {
+const useCases = [
+  {
+    title: "Date-Abend mit Live-Event",
+    body: "Ein Abend mit Hauptmoment, Dinner und Ausklang statt lose gesammelter Ideen.",
+    cta: "Date planen",
+    href: "/planner?occasion=date",
+  },
+  {
+    title: "Familientag ohne Leerlauf",
+    body: "Weniger Sucherei, mehr passende Stops für alle Altersgruppen und echte Pausen dazwischen.",
+    cta: "Familientag planen",
+    href: "/planner?occasion=family",
+  },
+  {
+    title: "Freunde-Wochenende mit klarer Route",
+    body: "Ein gemeinsamer Ablauf statt endloser Abstimmung in mehreren Chats.",
+    cta: "Mit Freunden planen",
+    href: "/planner?occasion=friends",
+  },
+  {
+    title: "Geburtstag mit Anbieteranfragen",
+    body: "Anbieter anfragen, Preise vergleichen und Einladungen von einem Ort aus steuern.",
+    cta: "Event planen",
+    href: "/events",
+  },
+];
+
+function MetricPill({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-full border border-[rgba(196,137,79,0.2)] bg-[var(--brand-warm-cloud)] px-4 py-2 text-sm text-[var(--text-muted-warm)]">
+    <span className="rounded-full border border-[rgba(196,137,79,0.22)] bg-[rgba(255,253,248,0.86)] px-4 py-2 text-sm text-[var(--text-muted-warm)]">
       {children}
     </span>
+  );
+}
+
+function SectionIntro({
+  eyebrow,
+  title,
+  body,
+  align = "center",
+}: {
+  eyebrow: string;
+  title: string;
+  body?: string;
+  align?: "left" | "center";
+}) {
+  const alignment = align === "left" ? "text-left" : "mx-auto max-w-3xl text-center";
+  return (
+    <div className={alignment}>
+      <div className="pd24-kicker-warm">{eyebrow}</div>
+      <h2 className="mt-3 pd24-display text-[2.35rem] leading-[0.98] tracking-tight text-[var(--text-strong)] sm:text-5xl">
+        {title}
+      </h2>
+      {body ? (
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[var(--text-muted-warm)] sm:text-lg">
+          {body}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function ListBlock({
+  title,
+  items,
+  tone,
+}: {
+  title: string;
+  items: string[];
+  tone: "soft" | "strong";
+}) {
+  const wrapperClass =
+    tone === "strong"
+      ? "border-[rgba(23,23,23,0.06)] bg-[var(--text-strong)] text-white"
+      : "border-[var(--line-subtle)] bg-[rgba(255,253,248,0.84)]";
+  const itemClass =
+    tone === "strong"
+      ? "border-white/10 text-white/80"
+      : "border-[rgba(23,23,23,0.06)] text-[var(--text-muted-warm)]";
+
+  return (
+    <div className={`rounded-[var(--radius-shell)] border p-6 shadow-[var(--shadow-soft)] ${wrapperClass}`}>
+      <h3 className={`text-2xl font-semibold tracking-tight ${tone === "strong" ? "text-white" : "text-[var(--text-strong)]"}`}>
+        {title}
+      </h3>
+      <div className="mt-5 space-y-3">
+        {items.map((item) => (
+          <div key={item} className={`rounded-[var(--radius-card-sm)] border px-4 py-3 text-sm leading-6 ${itemClass}`}>
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -83,17 +204,28 @@ export default function HomepageScaffoldMinimal() {
             <div className="pointer-events-none absolute left-[-4rem] top-[-4rem] h-40 w-40 rounded-full bg-[rgba(196,137,79,0.12)] blur-3xl" />
             <div className="pointer-events-none absolute bottom-[-4rem] right-[-2rem] h-44 w-44 rounded-full bg-[rgba(90,118,136,0.12)] blur-3xl" />
 
-            <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] lg:items-center">
-              <div className="max-w-2xl">
-                <div className="pd24-kicker-warm">Einfach schreiben - fertig geplant.</div>
-                <h1 className="mt-4 pd24-display text-[2.75rem] leading-[0.96] tracking-tight text-[var(--text-strong)] sm:text-6xl lg:text-7xl">
-                  Dein perfekter Tag - konkret geplant, nicht nur gesucht.
-                </h1>
-                <p className="mt-5 max-w-xl text-lg leading-8 text-[var(--text-muted-warm)]">
-                  Schreib kurz, was du planst - PerfectDay24 baut daraus einen vollständigen Tag mit echten Events und klarem Timing.
-                </p>
+            <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_minmax(340px,0.98fr)] lg:items-center">
+              <div className="min-w-0">
+                <div className="max-w-2xl">
+                  <div className="pd24-kicker-warm">Einfach schreiben. Direkt geplant.</div>
+                  <h1 className="mt-4 pd24-display text-[2.7rem] leading-[0.94] tracking-tight text-[var(--text-strong)] sm:text-6xl lg:text-7xl">
+                    Nicht nur Ideen. Sondern ein fertiger Tag, der wirklich funktioniert.
+                  </h1>
+                  <p className="mt-5 max-w-xl text-lg leading-8 text-[var(--text-muted-warm)]">
+                    Du beschreibst kurz, was du vorhast. PerfectDay24 baut daraus einen realistischen Tagesplan mit echten Events, passenden Wegen und klarem Timing.
+                  </p>
+                </div>
 
                 <HeroIntentBar />
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <PD24Button href="/planner" className="min-w-[12rem]">
+                    Tag jetzt planen
+                  </PD24Button>
+                  <PD24Button href="#hero-proof" variant="secondary" className="min-w-[11rem]">
+                    Beispiel ansehen
+                  </PD24Button>
+                </div>
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   {trustSignals.map((signal) => (
@@ -102,7 +234,7 @@ export default function HomepageScaffoldMinimal() {
                 </div>
               </div>
 
-              <div className="hidden pd24-card-featured p-5 sm:p-7 lg:block" style={{ background: "rgba(255,253,248,0.94)" }}>
+              <div id="hero-proof" className="pd24-card-featured p-5 sm:p-7" style={{ background: "rgba(255,253,248,0.94)" }}>
                 <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--line-subtle)] pb-4">
                   <div>
                     <div className="pd24-meta text-[var(--text-soft-warm)]">Beispiel · Date-Abend Berlin</div>
@@ -110,7 +242,7 @@ export default function HomepageScaffoldMinimal() {
                       Berlin · Event-Plan · Heute Abend
                     </div>
                     <div className="mt-2 text-sm leading-6 text-[var(--text-muted-warm)]">
-                      Fester Hauptmoment, kurze Wege, genug Luft zwischen den Stops.
+                      Fester Hauptmoment, kurze Wege und genug Luft zwischen den Stops.
                     </div>
                   </div>
                   <PD24StatusBadge tone="warning">Live-Event</PD24StatusBadge>
@@ -120,7 +252,7 @@ export default function HomepageScaffoldMinimal() {
                   {heroStops.map((stop, index) => (
                     <div
                       key={stop.time}
-                      className="grid grid-cols-[52px_1fr_auto] items-start gap-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/86 px-4 py-4"
+                      className="grid grid-cols-[54px_1fr_auto] items-start gap-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/88 px-4 py-4"
                     >
                       <div className="text-sm font-semibold text-[var(--brand-warm)]">{stop.time}</div>
                       <div>
@@ -141,56 +273,92 @@ export default function HomepageScaffoldMinimal() {
                     ))}
                   </div>
                   <div className="mt-4 text-sm leading-7 text-[var(--text-muted-warm)]">
-                    Genau das bekommst du: nicht nur Orte, sondern eine plausible Dramaturgie für den ganzen Abend.
+                    Nicht nur Orte nebeneinander, sondern ein Ablauf mit Hauptmoment, Timing und einer Plausibilität, die sich direkt gut anfühlt.
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          <section>
-            <div className="text-center">
-              <div className="pd24-kicker-warm">Wähle deinen Einstieg</div>
-              <h2 className="mt-3 pd24-display text-4xl tracking-tight text-[var(--text-strong)] sm:text-5xl">
-                Was möchtest du planen?
-              </h2>
-              <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-[var(--text-muted-warm)]">
-                Ein Tag in der Stadt oder ein ganzes Event - wähle deinen Einstieg.
-              </p>
+          <section className="space-y-8">
+            <SectionIntro
+              eyebrow="So sieht ein guter Plan aus"
+              title="Nicht nur Treffer. Sondern ein nutzbarer Ablauf."
+              body="PerfectDay24 baut aus einer Idee einen Tag mit echtem Anlass, realistischen Wegen und einer Dramaturgie, die man direkt teilen und benutzen kann."
+            />
+
+            <div className="grid gap-5 sm:grid-cols-3">
+              {proofCards.map((card) => (
+                <div
+                  key={card.title}
+                  className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] p-6 shadow-[var(--shadow-soft)]"
+                >
+                  <div className="pd24-kicker-warm">Proof</div>
+                  <h3 className="mt-3 text-xl font-semibold tracking-tight text-[var(--text-strong)]">{card.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[var(--text-muted-warm)]">{card.body}</p>
+                </div>
+              ))}
             </div>
+
+            <div className="flex justify-center">
+              <PD24Button href="/planner">Diesen Stil planen</PD24Button>
+            </div>
+          </section>
+
+          <section className="space-y-8">
+            <SectionIntro
+              eyebrow="Warum das besser ist"
+              title="Warum Nutzer nicht mehr manuell zusammensetzen wollen"
+              body="Listen zeigen Möglichkeiten. PerfectDay24 baut daraus einen Plan, der in sich stimmig ist und direkt funktioniert."
+            />
+
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              {trustTiles.map((tile) => (
+                <div
+                  key={tile}
+                  className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] px-5 py-5 text-sm leading-7 text-[var(--text-muted-warm)] shadow-[var(--shadow-soft)]"
+                >
+                  {tile}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <SectionIntro
+              eyebrow="Wähle deinen Einstieg"
+              title="Was möchtest du planen?"
+              body="Wähle den Modus, der zu deinem Anlass passt: ein Tag in der Stadt oder ein Event mit mehreren Beteiligten."
+            />
 
             <div className="mt-8 grid gap-5 sm:grid-cols-2">
               <div className="flex flex-col rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,var(--bg-canvas-warm),var(--brand-warm-cloud))] p-7 shadow-[var(--shadow-soft)]">
-                <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-[var(--text-strong)] text-xl">
-                  🗓️
-                </div>
+                <div className="pd24-kicker-warm">City Planning</div>
                 <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
                   Einen Tag genießen
                 </h3>
                 <p className="mt-3 flex-1 text-base leading-7 text-[var(--text-muted-warm)]">
-                  Stadt, Anlass, Datum - fertig. PerfectDay24 baut daraus einen vollständigen Tagesplan mit echten Events, sinnvollen Wegen und klarem Timing.
+                  Für Date Night, Familienzeit, Freunde oder Städtereise. Du bekommst einen vollständigen Tagesplan mit echten Events, sinnvollen Wegen und klarem Timing.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {["Date Night", "Familientag", "Mit Freunden"].map((tag) => (
+                  {["Date Night", "Familientag", "Mit Freunden", "Als Tourist"].map((tag) => (
                     <span key={tag} className="rounded-full border border-[var(--line-subtle)] bg-white/80 px-3 py-1.5 text-sm text-[var(--text-soft-warm)]">
                       {tag}
                     </span>
                   ))}
                 </div>
                 <PD24Button href="/planner" className="mt-6 self-start">
-                  Tag planen →
+                  Tag planen
                 </PD24Button>
               </div>
 
               <div className="flex flex-col rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(240,247,243,0.98),rgba(228,240,234,0.94))] p-7 shadow-[var(--shadow-soft)]">
-                <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#2d5a3d] text-xl">
-                  🎉
-                </div>
+                <div className="pd24-kicker-warm text-[#2d5a3d]">Event Flow</div>
                 <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
                   Ein Event veranstalten
                 </h3>
                 <p className="mt-3 flex-1 text-base leading-7 text-[var(--text-muted-warm)]">
-                  Geburtstag, JGA, Teamday oder Dinner-Party. Stelle Anbieter zusammen, frage Preise an und verschicke digitale Einladungen - alles an einem Ort.
+                  Für Geburtstag, JGA, Teamday oder Dinner. Stelle Anbieter zusammen, frage Preise an und verschicke digitale Einladungen - alles an einem Ort.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {["Geburtstag", "JGA", "Teamday", "Dinner"].map((tag) => (
@@ -200,19 +368,36 @@ export default function HomepageScaffoldMinimal() {
                   ))}
                 </div>
                 <PD24Button href="/events" variant="secondary" className="mt-6 self-start">
-                  Event planen →
+                  Event planen
                 </PD24Button>
               </div>
             </div>
           </section>
 
-          <section>
-            <div className="text-center">
-              <div className="pd24-kicker-warm">So funktioniert es</div>
-              <h2 className="mt-3 pd24-display text-4xl tracking-tight text-[var(--text-strong)] sm:text-5xl">
-                Drei Schritte zum fertigen Plan
-              </h2>
+          <section className="space-y-8">
+            <SectionIntro
+              eyebrow="Differenzierung"
+              title="Warum PerfectDay24 besser ist als nur suchen"
+              body="Listen zeigen Möglichkeiten. PerfectDay24 baut daraus einen Ablauf, den du direkt nutzen, teilen und weiterentwickeln kannst."
+            />
+
+            <div className="grid gap-5 sm:grid-cols-2">
+              <ListBlock title="Ohne PerfectDay24" items={compareWithout} tone="soft" />
+              <ListBlock title="Mit PerfectDay24" items={compareWith} tone="strong" />
             </div>
+
+            <div className="flex justify-center">
+              <PD24Button href="/planner">Plan statt Trefferliste ausprobieren</PD24Button>
+            </div>
+          </section>
+
+          <section>
+            <SectionIntro
+              eyebrow="So funktioniert es"
+              title="In drei Schritten zum fertigen Plan"
+              body="Der Flow bleibt bewusst einfach: kurz beschreiben, den Plan ansehen und dann direkt gemeinsam nutzen."
+            />
+
             <div className="relative mt-8 grid gap-5 sm:grid-cols-3">
               <div
                 className="pointer-events-none absolute hidden h-px bg-[var(--line-subtle)] sm:block"
@@ -221,7 +406,7 @@ export default function HomepageScaffoldMinimal() {
               {howItWorksSteps.map((step) => (
                 <div
                   key={step.number}
-                  className="relative rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] p-6"
+                  className="relative rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] p-6 shadow-[var(--shadow-soft)]"
                 >
                   <div className="pd24-display text-4xl leading-none text-[var(--brand-warm)]">{step.number}</div>
                   <h3 className="mt-4 text-lg font-semibold text-[var(--text-strong)]">{step.title}</h3>
@@ -231,32 +416,46 @@ export default function HomepageScaffoldMinimal() {
             </div>
           </section>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[var(--text-soft-warm)]">
-            <span className="font-medium text-[var(--text-muted-warm)]">Mehr entdecken:</span>
-            <Link href="/explore" className="underline-offset-2 transition hover:text-[var(--text-strong)] hover:underline">
-              Routen entdecken
-            </Link>
-            <Link href="/saved" className="underline-offset-2 transition hover:text-[var(--text-strong)] hover:underline">
-              Meine Pläne
-            </Link>
-          </div>
+          <section className="space-y-8">
+            <SectionIntro
+              eyebrow="Konkrete Outcomes"
+              title="Was du konkret damit planen kannst"
+              body="Nicht nur Features, sondern echte Anlässe mit einem klaren Ergebnis für den Nutzer."
+            />
+
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+              {useCases.map((card) => (
+                <div
+                  key={card.title}
+                  className="flex flex-col rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] p-6 shadow-[var(--shadow-soft)]"
+                >
+                  <h3 className="text-xl font-semibold tracking-tight text-[var(--text-strong)]">{card.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-7 text-[var(--text-muted-warm)]">{card.body}</p>
+                  <Link
+                    href={card.href}
+                    className="mt-5 text-sm font-medium text-[var(--text-strong)] underline-offset-2 transition hover:underline"
+                  >
+                    {card.cta} →
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </section>
 
           <section className="rounded-[var(--radius-shell)] bg-[var(--text-strong)] px-6 py-10 text-[#fffdf8] shadow-[var(--shadow-large)] sm:px-8">
             <div className="max-w-3xl">
-              <h2 className="pd24-display text-[2.75rem] leading-[0.98] tracking-tight sm:text-6xl">
-                Einfach beschreiben. Der Plan folgt sofort.
+              <div className="pd24-kicker-warm text-[rgba(255,253,248,0.64)]">Abschluss</div>
+              <h2 className="mt-3 pd24-display text-[2.75rem] leading-[0.98] tracking-tight sm:text-6xl">
+                Schreib deinen Plan in einem Satz. Den Rest baut PerfectDay24.
               </h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-[rgba(255,253,248,0.78)]">
-                »Date-Abend in Berlin morgen Abend« - mehr brauchst du nicht. PerfectDay24 versteht dich und macht daraus einen Tag, der wirklich passt.
+                Für Date Night, Tagesausflug, Freunde oder Events mit mehreren Beteiligten. Du bekommst einen Ablauf, den du direkt nutzen, teilen und weiterentwickeln kannst.
               </p>
-              <div className="mt-8 flex flex-col items-start gap-4">
-                <PD24Button href="/planner">Tag planen</PD24Button>
-                <Link
-                  href="/explore"
-                  className="text-sm text-[rgba(255,253,248,0.65)] underline-offset-2 transition hover:text-[rgba(255,253,248,0.95)] hover:underline"
-                >
-                  Erst Routen ansehen →
-                </Link>
+              <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row">
+                <PD24Button href="/planner">Jetzt starten</PD24Button>
+                <PD24Button href="#hero-proof" variant="secondary" className="border-white/18 bg-white/8 text-white hover:bg-white/12">
+                  Erst Beispiele ansehen
+                </PD24Button>
               </div>
             </div>
           </section>

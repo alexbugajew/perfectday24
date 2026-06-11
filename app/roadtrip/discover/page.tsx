@@ -20,6 +20,7 @@ import { slugifyTitle } from "@/lib/roadtrip/types";
 import type { RoadtripRoute } from "@/lib/roadtrip/types";
 import { fetchPublicRoadtripRoutes } from "@/lib/roadtrip/client";
 import { getRoadtripCoverArt } from "@/lib/roadtrip/cover-art";
+import { getRoadtripEditorial } from "@/lib/roadtrip/editorial";
 
 // Leaflet braucht dynamischen Import (kein SSR)
 const DiscoverMap = dynamic(
@@ -744,7 +745,8 @@ export default function RoadtripDiscoverPage() {
                 const first = route.stops[0];
                 const last  = route.stops[route.stops.length - 1];
                 const emoji = OCCASION_EMOJI[route.occasion] ?? "🗺️";
-                const hasCover = Boolean(route.cover_image_url);
+                const editorial = getRoadtripEditorial(route);
+                const hasCover = Boolean(route.cover_image_url || editorial.coverImageUrl);
                 const coverArt = getRoadtripCoverArt(route);
                 return (
                   <button
@@ -755,7 +757,7 @@ export default function RoadtripDiscoverPage() {
                     style={{ height: 200 }}
                   >
                     {hasCover ? (
-                      <Image src={route.cover_image_url!} alt={route.title} fill
+                      <Image src={(route.cover_image_url ?? editorial.coverImageUrl)!} alt={editorial.coverImageAlt} fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
                     ) : (
@@ -781,11 +783,9 @@ export default function RoadtripDiscoverPage() {
                       <div className="text-base font-bold text-white drop-shadow">
                         {emoji} {route.title}
                       </div>
-                      {!hasCover && (
-                        <div className="mt-1 text-[11px] leading-4 text-white/78">
-                          {coverArt.scene}
-                        </div>
-                      )}
+                      <div className="mt-1 text-[11px] leading-4 text-white/78 line-clamp-3">
+                        {editorial.teaser}
+                      </div>
                       {first && last && (
                         <div className="mt-0.5 text-xs text-white/80">
                           {first.cityLabel} {"->"} {last.cityLabel}

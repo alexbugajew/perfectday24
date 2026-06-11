@@ -1,0 +1,870 @@
+{
+  "version": 1,
+  "createdAt": "2026-06-09",
+  "status": "research_seed",
+  "scope": {
+    "description": "Family-focused Explore routes for additional large cities, each with one strong age-band-led editorial route.",
+    "citySlugs": [
+      "koeln",
+      "stuttgart",
+      "leipzig",
+      "duesseldorf",
+      "hannover",
+      "nuernberg",
+      "bremen",
+      "dortmund",
+      "essen",
+      "bonn",
+      "muenster",
+      "mannheim"
+    ],
+    "routesPerCity": 1
+  },
+  "importNotes": {
+    "targetTables": [
+      "public.user_routes",
+      "public.user_route_stops"
+    ],
+    "recommendedCreatorType": "creator",
+    "recommendedVisibility": "public",
+    "recommendedMetaFields": [
+      "source_urls",
+      "source_type",
+      "editorial_status",
+      "age_band",
+      "explore_card",
+      "rights_note"
+    ],
+    "rightsNote": "Own route copy written for PerfectDay24. Public source URLs are used for attribution and verification only; do not copy third-party article text or images."
+  },
+  "routes": [
+    {
+      "citySlug": "koeln",
+      "slug": "koeln-family-4-10-zoo-rhein-seilbahn",
+      "title": "Familienroute 4-10: Zoo, Rheinpark & Seilbahn",
+      "description": "Eine Koeln-Familienroute fuer 4-10 Jahre mit Tier-Wow, kurzer Rheinseilbahn-Fahrt und viel Raum zum Spielen statt zu dichter Innenstadtlogik.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-4-10",
+        "kids",
+        "zoo",
+        "park",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.koelnerzoo.de/en/visit",
+        "https://www.koelner-seilbahn.de/",
+        "https://www.stadt-koeln.de/artikel/05231/index.html",
+        "https://www.stadt-koeln.de/leben-in-koeln/freizeit-natur-sport/parks/tierpark-lindenthal"
+      ],
+      "sourceType": "official_venue+official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Koelner Zoo",
+          "type": "zoo",
+          "address": "Riehler Strasse 173, 50735 Koeln",
+          "durationMin": 150,
+          "note": "Starker Startanker mit Tieren, Wegen und genug echter Familienenergie fuer das Grundschulalter.",
+          "sourceUrls": [
+            "https://www.koelnerzoo.de/en/visit"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Rheinseilbahn",
+          "type": "attraction",
+          "address": "Riehler Strasse 180, 50735 Koeln",
+          "durationMin": 35,
+          "note": "Kurzer Transfer mit Wow-Effekt, damit die Route nicht nur aus Laufwegen zwischen Orten besteht.",
+          "sourceUrls": [
+            "https://www.koelner-seilbahn.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Rheinpark",
+          "type": "park",
+          "address": "Auenweg, 50679 Koeln",
+          "durationMin": 90,
+          "note": "Freier Bewegungs- und Spielblock fuer den entspannten Teil des Tages.",
+          "sourceUrls": [
+            "https://www.stadt-koeln.de/artikel/05231/index.html"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Lindenthaler Tierpark",
+          "type": "zoo",
+          "address": "Kitschburger Strasse, 50935 Koeln",
+          "durationMin": 75,
+          "note": "Optional ruhigeres Tier-Finale, wenn die Familie noch Lust auf Natur statt auf weitere Innenstadtpunkte hat.",
+          "sourceUrls": [
+            "https://www.stadt-koeln.de/leben-in-koeln/freizeit-natur-sport/parks/tierpark-lindenthal"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "stuttgart",
+      "slug": "stuttgart-family-4-10-tiere-dinos-killesberg",
+      "title": "Familienroute 4-10: Tiere, Dinos & Killesberg",
+      "description": "Eine Stuttgart-Familienroute fuer 4-10 Jahre mit Wilhelma, Naturkundemuseum und einem offenen Park-Finale statt austauschbarer Innenstadtstopps.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-4-10",
+        "kids",
+        "animals",
+        "museum",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.wilhelma.de/en/plan-your-visit",
+        "https://www.naturkundemuseum-bw.de/en/visit",
+        "https://www.junges-schloss.de/en/",
+        "https://www.stuttgart.de/organigramm/adresse/hoehenpark-killesberg.php"
+      ],
+      "sourceType": "official_venue+official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wilhelma",
+          "type": "zoo",
+          "address": "Wilhelma 13, 70376 Stuttgart",
+          "durationMin": 150,
+          "note": "Staerkster Tier- und Pflanzenanker der Stadt und ein klarer Familienauftakt fuer 4-10 Jahre.",
+          "sourceUrls": [
+            "https://www.wilhelma.de/en/plan-your-visit"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Naturkundemuseum",
+          "type": "museum",
+          "address": "Rosenstein 1, 70191 Stuttgart",
+          "durationMin": 90,
+          "note": "Dino- und Naturfaktor halten die Aufmerksamkeit hoch, ohne zu erwachsen zu wirken.",
+          "sourceUrls": [
+            "https://www.naturkundemuseum-bw.de/en/visit"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Kindermuseum Junges Schloss",
+          "type": "museum",
+          "address": "Schillerplatz 6, 70173 Stuttgart",
+          "durationMin": 75,
+          "note": "Guter Mitmachblock fuer Familien, die noch einen wetterfesten Hands-on-Teil wollen.",
+          "sourceUrls": [
+            "https://www.junges-schloss.de/en/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Hoehenpark Killesberg",
+          "type": "park",
+          "address": "Am Koellesbach 1, 70192 Stuttgart",
+          "durationMin": 90,
+          "note": "Offenes Gruen-Finale mit Spiel- und Freiraum statt noch einem weiteren Ticket-Ort.",
+          "sourceUrls": [
+            "https://www.stuttgart.de/organigramm/adresse/hoehenpark-killesberg.php"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "leipzig",
+      "slug": "leipzig-family-4-10-zoo-mitmachen-park",
+      "title": "Familienroute 4-10: Zoo, Mitmachen & Park",
+      "description": "Eine Leipzig-Familienroute fuer 4-10 Jahre mit Zoo, Kindermuseum und freiem Gruen-Ausklang statt reiner Sehenswuerdigkeitenliste.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-4-10",
+        "kids",
+        "zoo",
+        "mitmachen",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-leipzig.de/en/",
+        "https://www.unikatum-leipzig.de/kindermuseum",
+        "https://www.leipzig.travel/en/poi/wildpark-leipzig",
+        "https://www.leipzig.travel/en/poi/clara-zetkin-park"
+      ],
+      "sourceType": "official_venue+official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Leipzig",
+          "type": "zoo",
+          "address": "Pfaffendorfer Strasse 29, 04105 Leipzig",
+          "durationMin": 150,
+          "note": "Klarer Hauptanker der Route mit sehr hohem Tier- und Familien-Wow.",
+          "sourceUrls": [
+            "https://www.zoo-leipzig.de/en/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Kindermuseum UNIKATUM",
+          "type": "museum",
+          "address": "Zschochersche Strasse 26, 04229 Leipzig",
+          "durationMin": 75,
+          "note": "Mitmachen und ausprobieren statt nur schauen, genau richtig fuer neugierige Grundschulkinder.",
+          "sourceUrls": [
+            "https://www.unikatum-leipzig.de/kindermuseum"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wildpark Leipzig",
+          "type": "zoo",
+          "address": "Koburger Strasse 12, 04277 Leipzig",
+          "durationMin": 80,
+          "note": "Freier Tier- und Naturblock, falls die Familie den Tag offener und naturnaeher fortsetzen will.",
+          "sourceUrls": [
+            "https://www.leipzig.travel/en/poi/wildpark-leipzig"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Clara-Zetkin-Park",
+          "type": "park",
+          "address": "Karl-Tauchnitz-Strasse 28, 04107 Leipzig",
+          "durationMin": 75,
+          "note": "Ein lockerer Ausklang mit Wiesen und Wegen, damit die Route nicht in Indoor-Reizen endet.",
+          "sourceUrls": [
+            "https://www.leipzig.travel/en/poi/clara-zetkin-park"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "duesseldorf",
+      "slug": "duesseldorf-family-4-10-aquazoo-wildpark-spielen",
+      "title": "Familienroute 4-10: Aquazoo, Wildpark & Spielen",
+      "description": "Eine Duesseldorf-Familienroute fuer 4-10 Jahre mit Unterwasser-Wow, Natur und echtem Freispiel statt zu viel City-Programm.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-4-10",
+        "kids",
+        "aquarium",
+        "outdoor",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.duesseldorf.de/aquazoo",
+        "https://www.duesseldorf.de/stadtgruen/park/nordpark/",
+        "https://www.duesseldorf.de/stadtgruen/wald/wildpark",
+        "https://www2.duesseldorf.de/kiju/freizeiteinrichtungen/moersenbroich-sankt-franziskus-strasse-125"
+      ],
+      "sourceType": "official_city+official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Aquazoo Loebbecke Museum",
+          "type": "aquarium",
+          "address": "Kaiserswerther Strasse 380, 40474 Duesseldorf",
+          "durationMin": 120,
+          "note": "Starker wetterfester Start mit Tieren, Wasserwelt und Forscherlogik.",
+          "sourceUrls": [
+            "https://www.duesseldorf.de/aquazoo"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Nordpark",
+          "type": "park",
+          "address": "Kaiserswerther Strasse, 40474 Duesseldorf",
+          "durationMin": 80,
+          "note": "Direkter Entspannungs- und Bewegungsblock nach dem Indoor-Teil.",
+          "sourceUrls": [
+            "https://www.duesseldorf.de/stadtgruen/park/nordpark/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wildpark am Grafenberger Wald",
+          "type": "zoo",
+          "address": "Rennbahnstrasse, 40629 Duesseldorf",
+          "durationMin": 90,
+          "note": "Kostenloser Tier- und Naturanker, der juengere Familien sehr niedrigschwellig mitnimmt.",
+          "sourceUrls": [
+            "https://www.duesseldorf.de/stadtgruen/wald/wildpark"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Abenteuerspielplatz Moersenbroich",
+          "type": "playground",
+          "address": "Sankt-Franziskus-Strasse 125, 40470 Duesseldorf",
+          "durationMin": 90,
+          "note": "Freies Spielen, bauen und klettern statt eines zu verschulten Abschlusses.",
+          "sourceUrls": [
+            "https://www2.duesseldorf.de/kiju/freizeiteinrichtungen/moersenbroich-sankt-franziskus-strasse-125"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hannover",
+      "slug": "hannover-family-0-6-zoo-spiel-gruen",
+      "title": "Familienroute 0-6: Zoo, Spiel & ruhiges Gruen",
+      "description": "Eine Hannover-Familienroute fuer 0-6 Jahre mit starkem Tieranker, viel Spielzeit und entspannten Gruenphasen statt zu dichtem Stadtprogramm.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-0-6",
+        "toddlers",
+        "zoo",
+        "playground",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-hannover.de/en",
+        "https://www.wakitu.de/",
+        "https://www.hannover.de/en/Tourism-Culture/Herrenhausen-Gardens/Gardens/Berggarten",
+        "https://www.kindermuseum-hannover.de/"
+      ],
+      "sourceType": "official_venue+official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Erlebnis-Zoo Hannover",
+          "type": "zoo",
+          "address": "Adenauerallee 3, 30175 Hannover",
+          "durationMin": 150,
+          "note": "Der klare Tagesanker mit Tieren, Wegen und genug Abwechslung fuer kleine Kinder.",
+          "sourceUrls": [
+            "https://www.zoo-hannover.de/en"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Wakitu",
+          "type": "playground",
+          "address": "Wakituplatz, 30177 Hannover",
+          "durationMin": 80,
+          "note": "Freispiel und Bewegung ohne harte Programmlogik, genau richtig fuer 0-6.",
+          "sourceUrls": [
+            "https://www.wakitu.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Berggarten",
+          "type": "garden",
+          "address": "Herrenhaeuser Strasse 4, 30419 Hannover",
+          "durationMin": 60,
+          "note": "Ruhiger Gruen- und Kinderwagenblock, wenn der Tag bewusst weich weiterlaufen soll.",
+          "sourceUrls": [
+            "https://www.hannover.de/en/Tourism-Culture/Herrenhausen-Gardens/Gardens/Berggarten"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Kindermuseum Zinnober",
+          "type": "museum",
+          "address": "Badenstedter Strasse 48, 30453 Hannover",
+          "durationMin": 75,
+          "note": "Guter Regen- oder Indoor-Baustein fuer Familien, die noch einen ruhigen Mitmachschluss brauchen.",
+          "sourceUrls": [
+            "https://www.kindermuseum-hannover.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "nuernberg",
+      "slug": "nuernberg-family-4-10-tiere-sinne-zuege",
+      "title": "Familienroute 4-10: Tiere, Sinne & Zuege",
+      "description": "Eine Nuernberg-Familienroute fuer 4-10 Jahre mit Tiergarten, Mitmach-Lernen und Technik-Wow statt beliebigem Altstadt-Mix.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-4-10",
+        "kids",
+        "science",
+        "museum",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://tiergarten.nuernberg.de/",
+        "https://www.erfahrungsfeld.nuernberg.de/",
+        "https://www.dbmuseum.de/nuernberg",
+        "https://museen.nuernberg.de/spielzeugmuseum"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tiergarten Nuernberg",
+          "type": "zoo",
+          "address": "Am Tiergarten 30, 90480 Nuernberg",
+          "durationMin": 150,
+          "note": "Klarer Tier- und Familienanker mit sehr gutem Fit fuer 4-10 Jahre.",
+          "sourceUrls": [
+            "https://tiergarten.nuernberg.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Erfahrungsfeld zur Entfaltung der Sinne",
+          "type": "museum",
+          "address": "Woehrder Wiese 3, 90489 Nuernberg",
+          "durationMin": 90,
+          "note": "Hands-on, experimentell und koerperlich genug, damit Lernen nicht nach Schule wirkt.",
+          "sourceUrls": [
+            "https://www.erfahrungsfeld.nuernberg.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "DB Museum",
+          "type": "museum",
+          "address": "Lessingstrasse 6, 90443 Nuernberg",
+          "durationMin": 90,
+          "note": "Technik- und Fahrzeugmoment fuer neugierige Kinder mit echter Staunqualitaet.",
+          "sourceUrls": [
+            "https://www.dbmuseum.de/nuernberg"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Spielzeugmuseum",
+          "type": "museum",
+          "address": "Karlstrasse 13-15, 90403 Nuernberg",
+          "durationMin": 60,
+          "note": "Leichterer Schlussbaustein mit klarer Familienlesbarkeit mitten in der Stadt.",
+          "sourceUrls": [
+            "https://museen.nuernberg.de/spielzeugmuseum"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bremen",
+      "slug": "bremen-family-9-14-science-jump-skill",
+      "title": "Familienroute 9-14: Science, Jump & Skill",
+      "description": "Eine Bremen-Familienroute fuer 9-14 Jahre mit Science-Center, Bewegung und Skill-Faktor statt zu kindlicher Familienoptik.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-9-14",
+        "preteen",
+        "science",
+        "sports",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://universum-bremen.de/",
+        "https://www.waterfront-bremen.de/shops/jump-house/",
+        "https://www.boulderbase.de/",
+        "https://www.botanika-bremen.de/en/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Universum Bremen",
+          "type": "museum",
+          "address": "Wiener Strasse 1a, 28359 Bremen",
+          "durationMin": 140,
+          "note": "Der staerkste Science- und Mitmachanker der Stadt und perfekt fuer neugierige 9-14-Jaehrige.",
+          "sourceUrls": [
+            "https://universum-bremen.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "JUMP House Bremen",
+          "type": "playground",
+          "address": "AG-Weser-Strasse 3, 28237 Bremen",
+          "durationMin": 90,
+          "note": "Bewusster Energie- und Bewegungsblock statt einer zu musealen Route.",
+          "sourceUrls": [
+            "https://www.waterfront-bremen.de/shops/jump-house/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Boulder Base Bremen",
+          "type": "sports_centre",
+          "address": "Friedrich-Karl-Strasse 4, 28205 Bremen",
+          "durationMin": 90,
+          "note": "Skill- und Challenge-Moment fuer aeltere Kinder, die lieber machen als nur schauen.",
+          "sourceUrls": [
+            "https://www.boulderbase.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "botanika",
+          "type": "museum",
+          "address": "Deliusweg 40, 28359 Bremen",
+          "durationMin": 75,
+          "note": "Ein ruhigerer Natur- und Entdeckungsabschluss, der die Route nicht nur auf Action reduziert.",
+          "sourceUrls": [
+            "https://www.botanika-bremen.de/en/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "dortmund",
+      "slug": "dortmund-family-9-14-technik-klettern-freiraum",
+      "title": "Familienroute 9-14: Technik, Klettern & Freiraum",
+      "description": "Eine Dortmund-Familienroute fuer 9-14 Jahre mit Mitmach-Technik, Bewegung und offenem Freizeitblock statt klassischem Kinderprogramm.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-9-14",
+        "preteen",
+        "technology",
+        "challenge",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.dasa-dortmund.de/",
+        "https://www.kletterhalle-bergwerk.de/",
+        "https://www.dortmund.de/themen/freizeit-und-kultur/parks-seen-und-zoo/revierpark-wischlingen/",
+        "https://www.dortmund.de/themen/freizeit-und-kultur/parks-seen-und-zoo/westfalenpark/"
+      ],
+      "sourceType": "official_venue+official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "DASA Arbeitswelt Ausstellung",
+          "type": "museum",
+          "address": "Friedrich-Henkel-Weg 1-25, 44149 Dortmund",
+          "durationMin": 120,
+          "note": "Grosser Technik- und Mitmachanker, der fuer 9-14 genug Substanz und Interaktion mitbringt.",
+          "sourceUrls": [
+            "https://www.dasa-dortmund.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Kletterhalle Bergwerk",
+          "type": "sports_centre",
+          "address": "Emscherallee 33, 44369 Dortmund",
+          "durationMin": 90,
+          "note": "Bewusster Challenge-Block fuer Familien mit aktiveren aelteren Kindern.",
+          "sourceUrls": [
+            "https://www.kletterhalle-bergwerk.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Revierpark Wischlingen",
+          "type": "park",
+          "address": "Hoefkerstrasse 12, 44149 Dortmund",
+          "durationMin": 90,
+          "note": "Freizeit- und Bewegungsraum, damit die Route offen und nicht zu indoor-lastig bleibt.",
+          "sourceUrls": [
+            "https://www.dortmund.de/themen/freizeit-und-kultur/parks-seen-und-zoo/revierpark-wischlingen/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Westfalenpark",
+          "type": "park",
+          "address": "An der Buschmuehle 3, 44139 Dortmund",
+          "durationMin": 80,
+          "note": "Weiter Parkausklang mit Luft, Blickachsen und genug Freiheit fuer einen nicht zu engen Routenschluss.",
+          "sourceUrls": [
+            "https://www.dortmund.de/themen/freizeit-und-kultur/parks-seen-und-zoo/westfalenpark/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "essen",
+      "slug": "essen-family-4-10-experimente-park-lego",
+      "title": "Familienroute 4-10: Experimente, Park & Bauen",
+      "description": "Eine Essen-Familienroute fuer 4-10 Jahre mit Experimentier-Wow, viel Gruen und starkem Indoor-Bauspot fuer aktive Grundschulkinder.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-4-10",
+        "kids",
+        "science",
+        "lego",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.phaenomania.de/",
+        "https://www.essen.de/leben/park_und_gruen/grugapark_1/grugapark_startseite.de.html",
+        "https://www.legolanddiscoverycentre.com/oberhausen/",
+        "https://www.visitsealife.com/oberhausen/"
+      ],
+      "sourceType": "official_venue+official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Phaenomania Erfahrungsfeld",
+          "type": "museum",
+          "address": "Blucherstrasse 11, 45307 Essen",
+          "durationMin": 120,
+          "note": "Mitmach- und Experimentierstart mit hoher Neugier- und Bewegungsqualitaet.",
+          "sourceUrls": [
+            "https://www.phaenomania.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Grugapark",
+          "type": "park",
+          "address": "Virchowstrasse 167, 45147 Essen",
+          "durationMin": 90,
+          "note": "Viel Gruen und Spielflaeche, damit der Tag offen und familienfreundlich bleibt.",
+          "sourceUrls": [
+            "https://www.essen.de/leben/park_und_gruen/grugapark_1/grugapark_startseite.de.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "LEGOLAND Discovery Centre Oberhausen",
+          "type": "playground",
+          "address": "Promenade 10, 46047 Oberhausen",
+          "durationMin": 105,
+          "note": "Starker Indoor-Bau- und Spielspot fuer Familien mit Grundschulkindern.",
+          "sourceUrls": [
+            "https://www.legolanddiscoverycentre.com/oberhausen/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "SEA LIFE Oberhausen",
+          "type": "aquarium",
+          "address": "Zum Aquarium 1, 46047 Oberhausen",
+          "durationMin": 75,
+          "note": "Unterwasser-Wow als wetterfester Zusatz fuer Familien, die den Tag noch weiterziehen wollen.",
+          "sourceUrls": [
+            "https://www.visitsealife.com/oberhausen/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bonn",
+      "slug": "bonn-family-9-14-tiere-technik-demokratie",
+      "title": "Familienroute 9-14: Tiere, Technik & Demokratie",
+      "description": "Eine Bonn-Familienroute fuer 9-14 Jahre mit Naturwissen, Technik und Geschichte, ohne fuer diese Altersgruppe kindlich zu wirken.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-9-14",
+        "preteen",
+        "museum",
+        "science",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://bonn.leibniz-lib.de/en/visit.html",
+        "https://www.hdg.de/haus-der-geschichte",
+        "https://www.deutsches-museum.de/en/bonn/visit/opening-hours",
+        "https://www.bonn.de/bonn-erleben/aktiv-und-unterwegs/parks-und-gaerten/freizeitpark-rheinaue.php"
+      ],
+      "sourceType": "official_venue+official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Museum Alexander Koenig",
+          "type": "museum",
+          "address": "Adenauerallee 160, 53113 Bonn",
+          "durationMin": 105,
+          "note": "Natur- und Tierwissen mit genug Substanz, damit der Tag nicht nach Kleinkindprogramm aussieht.",
+          "sourceUrls": [
+            "https://bonn.leibniz-lib.de/en/visit.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Haus der Geschichte",
+          "type": "museum",
+          "address": "Willy-Brandt-Allee 14, 53113 Bonn",
+          "durationMin": 90,
+          "note": "Ein relevanter Geschichtsanker, wenn die Route auch inhaltlich etwas groesser wirken soll.",
+          "sourceUrls": [
+            "https://www.hdg.de/haus-der-geschichte"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Deutsches Museum Bonn",
+          "type": "museum",
+          "address": "Ahrstrasse 45, 53175 Bonn",
+          "durationMin": 90,
+          "note": "Technik- und Zukunftsblock, der fuer 9-14 sehr gut anschlussfaehig ist.",
+          "sourceUrls": [
+            "https://www.deutsches-museum.de/en/bonn/visit/opening-hours"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Freizeitpark Rheinaue",
+          "type": "park",
+          "address": "Ludwig-Erhard-Allee 20, 53175 Bonn",
+          "durationMin": 75,
+          "note": "Freier Schlussblock mit Wasser, Wiesen und weniger Reizdichte nach den Museen.",
+          "sourceUrls": [
+            "https://www.bonn.de/bonn-erleben/aktiv-und-unterwegs/parks-und-gaerten/freizeitpark-rheinaue.php"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenster",
+      "slug": "muenster-family-4-10-zoo-pferde-freilicht",
+      "title": "Familienroute 4-10: Zoo, Pferde & Freilicht",
+      "description": "Eine Muenster-Familienroute fuer 4-10 Jahre mit Tier-Highlight, ueberschaubaren Familienmuseen und offenem Naturausklang.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-4-10",
+        "kids",
+        "zoo",
+        "freilicht",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.allwetterzoo.de/",
+        "https://www.pferdemuseum.de/",
+        "https://www.muehlenhof-muenster.org/",
+        "https://www.stadt-muenster.de/tourismus/sehenswertes/aasee"
+      ],
+      "sourceType": "official_venue+official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Allwetterzoo Muenster",
+          "type": "zoo",
+          "address": "Sentruper Strasse 315, 48161 Muenster",
+          "durationMin": 150,
+          "note": "Klarer Tier-Hauptanker der Stadt mit gutem Flow fuer Familien im Grundschulalter.",
+          "sourceUrls": [
+            "https://www.allwetterzoo.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Pferdemuseum",
+          "type": "museum",
+          "address": "Sentruper Strasse 311, 48161 Muenster",
+          "durationMin": 60,
+          "note": "Ein kleinerer Themenstop mit hoher Anschlussfaehigkeit fuer 4-10 Jahre.",
+          "sourceUrls": [
+            "https://www.pferdemuseum.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Muehlenhof Freilichtmuseum",
+          "type": "museum",
+          "address": "Theo-Breider-Weg 1, 48149 Muenster",
+          "durationMin": 75,
+          "note": "Freilichtiger Lern- und Spazierbaustein statt noch eines lauten Indoor-Ortes.",
+          "sourceUrls": [
+            "https://www.muehlenhof-muenster.org/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Aasee-Wiesen",
+          "type": "park",
+          "address": "Annette-Allee, 48149 Muenster",
+          "durationMin": 75,
+          "note": "Ein entspannter Outdoor-Ausklang fuer Familien, die nicht mit noch mehr Input enden wollen.",
+          "sourceUrls": [
+            "https://www.stadt-muenster.de/tourismus/sehenswertes/aasee"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "mannheim",
+      "slug": "mannheim-family-4-10-park-technik-planetarium",
+      "title": "Familienroute 4-10: Park, Technik & Planetarium",
+      "description": "Eine Mannheim-Familienroute fuer 4-10 Jahre mit starkem Parkanker, Mitmach-Technik und einem kurzen Planetarium-Wow statt beliebiger City-Mischung.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-4-10",
+        "kids",
+        "park",
+        "technology",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.luisenpark.de/",
+        "https://www.technoseum.de/",
+        "https://www.planetarium-mannheim.de/",
+        "https://www.mannheim.de/de/service-bieten/gruene-stadt/parks-und-gruenanlagen/stadtparks"
+      ],
+      "sourceType": "official_venue+official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Luisenpark",
+          "type": "park",
+          "address": "Theodor-Heuss-Anlage 2, 68165 Mannheim",
+          "durationMin": 120,
+          "note": "Mannheims staerkster Familienpark und ein sehr guter offener Start fuer 4-10 Jahre.",
+          "sourceUrls": [
+            "https://www.luisenpark.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Technoseum",
+          "type": "museum",
+          "address": "Museumsstrasse 1, 68165 Mannheim",
+          "durationMin": 105,
+          "note": "Mitmach-Technik und Entdecken statt reinem Anschauen, gut anschlussfaehig fuer Grundschulkinder.",
+          "sourceUrls": [
+            "https://www.technoseum.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Planetarium Mannheim",
+          "type": "planetarium",
+          "address": "Wilhelm-Varnholt-Allee 1, 68165 Mannheim",
+          "durationMin": 60,
+          "note": "Kurzer Space-Wow-Moment, der die Route aufwertet ohne sie zu ueberladen.",
+          "sourceUrls": [
+            "https://www.planetarium-mannheim.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Herzogenriedpark",
+          "type": "park",
+          "address": "Max-Joseph-Strasse 64, 68169 Mannheim",
+          "durationMin": 80,
+          "note": "Ruhiger Gruen- und Spielabschluss fuer Familien, die den Tag weich auslaufen lassen wollen.",
+          "sourceUrls": [
+            "https://www.mannheim.de/de/service-bieten/gruene-stadt/parks-und-gruenanlagen/stadtparks"
+          ]
+        }
+      ]
+    }
+  ]
+}

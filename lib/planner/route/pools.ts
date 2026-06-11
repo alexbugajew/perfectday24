@@ -1,5 +1,6 @@
 import { classify, hasAudience, hasOccasionTag, hasSubtype } from "../features";
 import {
+  isFamilyAgeBandAnchorCandidate,
   isFamilyAgeBandPoolCandidate,
   sortFamilyCandidatesForAgeBand,
 } from "../occasions/family";
@@ -477,6 +478,14 @@ export function getPoolForKind(
         context.filters.familyAgeBand,
         "activity"
       );
+      if (phase === "main_activity") {
+        const familyAnchors = familyActivityPool.filter((candidate) =>
+          isFamilyAgeBandAnchorCandidate(context.filters.familyAgeBand, candidate)
+        );
+        if (familyAnchors.length > 0) {
+          return withLockedInterestPreference(familyAnchors, context, kind);
+        }
+      }
       const familyFocused = familyActivityPool.filter(
         (candidate) =>
           isFamilyAgeBandPoolCandidate(

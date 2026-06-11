@@ -5,6 +5,7 @@ import {
   isEligibleMarketFestival,
   marketFestivalSpecificityScore as marketFestivalScoreFromText,
 } from "../market-festival";
+import { isFamilyAgeBandAnchorCandidate } from "../occasions/family";
 import { getOccasionModule } from "../occasions/registry";
 import { estimateTravelMinFromKmForProfile, haversineKm } from "../travel";
 import type {
@@ -16,7 +17,7 @@ import type {
   SlotDefinition,
   SlotKind,
 } from "../types";
-import { isMealKind, maxSegmentDistanceKm } from "./timing";
+import { isMealKind, maxSegmentDistanceKm, maxSegmentTravelMin } from "./timing";
 
 export type PeakAnchor = {
   slotIndex: number;
@@ -863,7 +864,47 @@ export function choosePeakAnchor(params: {
   );
   if (basePool.length === 0) return null;
 
-  const scored = basePool
+  const peakDistanceLimit = maxSegmentDistanceKm(context, peakSlot.kind, false);
+  const peakTravelLimit = maxSegmentTravelMin(context, peakSlot.kind, false);
+  const travelViablePool = basePool.filter((candidate) => {
+    if (
+      context.origin.lat == null ||
+      context.origin.lng == null ||
+      candidate.lat == null ||
+      candidate.lng == null
+    ) {
+      return context.filters.occasion !== "family";
+    }
+
+    const travelKm = haversineKm(
+      context.origin.lat,
+      context.origin.lng,
+      candidate.lat,
+      candidate.lng
+    );
+    const travelMin = estimateTravelMinFromKmForProfile(
+      travelKm,
+      context.filters.routeProfile
+    );
+
+    if (travelKm > peakDistanceLimit) return false;
+    if (travelMin != null && travelMin > peakTravelLimit) return false;
+    return true;
+  });
+  const familyAnchorPool =
+    context.filters.occasion === "family"
+      ? travelViablePool.filter((candidate) =>
+          isFamilyAgeBandAnchorCandidate(context.filters.familyAgeBand, candidate)
+        )
+      : [];
+  const effectivePool =
+    familyAnchorPool.length > 0
+      ? familyAnchorPool
+      : travelViablePool.length > 0
+        ? travelViablePool
+        : basePool;
+
+  const scored = effectivePool
     .map((candidate) => {
       const originTravelKm =
         context.origin.lat != null &&
@@ -920,7 +961,12 @@ export function choosePeakAnchor(params: {
     })
     .sort((a, b) => b.score - a.score);
 
-  const chosen = chooseCandidateWithVariation(scored, variationSeed, peakSlotIndex, 6);
+  const chosen = chooseCandidateWithVariation(
+    scored,
+    variationSeed,
+    peakSlotIndex,
+    context.filters.occasion === "family" && familyAnchorPool.length > 0 ? 3 : 6
+  );
   if (!chosen) return null;
 
   return {

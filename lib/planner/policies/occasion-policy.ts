@@ -4,6 +4,7 @@ import {
   familyAgeBandHardReject,
   familyAgeBandPhaseBonus,
   familyAgeBandPhaseMismatchPenalty,
+  familySlotHardReject,
 } from "../occasions/family";
 import { getOccasionModule } from "../occasions/registry";
 import type { SlotCandidatePolicy } from "./types";
@@ -11,7 +12,7 @@ import type { SlotCandidatePolicy } from "./types";
 export const occasionPolicy: SlotCandidatePolicy = {
   key: "occasion",
   evaluate(input) {
-    const { context, candidate, slot } = input;
+    const { context, candidate, slot, allCandidates } = input;
     const occasionModule = getOccasionModule(context.filters.occasion);
     const candidateCategory = classify(candidate);
     const phaseBonus =
@@ -28,6 +29,16 @@ export const occasionPolicy: SlotCandidatePolicy = {
       context.filters.occasion === "family"
         ? familyAgeBandHardReject(context.filters.familyAgeBand, candidate, slot.phase)
         : { reject: false, reason: null as string | null };
+    const familySlotReject =
+      context.filters.occasion === "family"
+        ? familySlotHardReject({
+            ageBand: context.filters.familyAgeBand,
+            candidate,
+            slotKind: slot.kind,
+            phase: slot.phase,
+            allCandidates,
+          })
+        : { reject: false, reason: null as string | null };
     const baseBonus = occasionBaseBonus(context.filters.occasion, candidate);
     const fitReasons = occasionModule.explainPhaseFit({
       phase: slot.phase,
@@ -41,13 +52,19 @@ export const occasionPolicy: SlotCandidatePolicy = {
     return {
       key: "occasion",
       scoreDelta: phaseBonus - phaseMismatchPenalty + baseBonus,
-      hardFail: familyAgeReject.reject,
-      reasons: [...fitReasons, ...mismatchReasons, ...(familyAgeReject.reason ? [familyAgeReject.reason] : [])],
+      hardFail: familyAgeReject.reject || familySlotReject.reject,
+      reasons: [
+        ...fitReasons,
+        ...mismatchReasons,
+        ...(familyAgeReject.reason ? [familyAgeReject.reason] : []),
+        ...(familySlotReject.reason ? [familySlotReject.reason] : []),
+      ],
       meta: {
         candidateCategory,
         phaseBonus,
         phaseMismatchPenalty,
         familyAgeReject,
+        familySlotReject,
         occasionBaseBonus: baseBonus,
         fitReasons,
         mismatchReasons,

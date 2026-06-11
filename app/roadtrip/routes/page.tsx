@@ -10,6 +10,8 @@ import {
   ROADTRIP_TAGS,
 } from "@/lib/roadtrip/types";
 import { getRoadtripCoverArt } from "@/lib/roadtrip/cover-art";
+import { getRoadtripEditorial } from "@/lib/roadtrip/editorial";
+import ExploreSurfaceSwitch from "@/components/navigation/ExploreSurfaceSwitch";
 
 // ─── Route Card ───────────────────────────────────────────────────────────────
 
@@ -18,6 +20,7 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
   const tagDefs = ROADTRIP_TAGS.filter((t) => route.tags.includes(t.value)).slice(0, 3);
   const totalNights = route.stops.reduce((s, st) => s + st.nights, 0);
   const coverArt = getRoadtripCoverArt(route);
+  const editorial = getRoadtripEditorial(route);
   const firstStop = route.stops[0]?.cityLabel ?? "Start";
   const lastStop = route.stops[route.stops.length - 1]?.cityLabel ?? "Ziel";
 
@@ -28,6 +31,14 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
     >
       {/* Cover placeholder — gradient with city count badge */}
       <div className="relative h-40 overflow-hidden border-b border-white/10" style={{ backgroundImage: coverArt.backgroundImage }}>
+        {editorial.coverImageUrl && (
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-[0.58] transition-transform duration-700 group-hover:scale-[1.04]"
+            aria-hidden="true"
+            style={{ backgroundImage: `url("${editorial.coverImageUrl}")` }}
+          />
+        )}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.08),rgba(15,23,42,0.32))]" />
         <div className="absolute inset-0 opacity-80" style={{ backgroundImage: coverArt.orbImage }} />
         <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),transparent)]" />
         <div className="absolute -right-10 top-4 h-24 w-24 rounded-full bg-white/10 blur-2xl transition-transform duration-500 group-hover:scale-125" />
@@ -49,8 +60,8 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
               <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/72">
                 {firstStop} {"->"} {lastStop}
               </div>
-              <div className="mt-1 max-w-[16rem] text-sm font-medium leading-5 text-white/92">
-                {coverArt.scene}
+              <div className="mt-1 max-w-[16rem] text-sm font-medium leading-5 text-white/92 line-clamp-3">
+                {editorial.teaser}
               </div>
             </div>
             <div
@@ -85,11 +96,9 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
           </p>
         </div>
 
-        {route.description && (
-          <p className="text-xs leading-relaxed text-[var(--text-muted)] line-clamp-2">
-            {route.description}
-          </p>
-        )}
+        <p className="text-xs leading-relaxed text-[var(--text-muted)] line-clamp-3">
+          {editorial.intro}
+        </p>
 
         {/* Tags */}
         {tagDefs.length > 0 && (
@@ -251,6 +260,17 @@ export default function RoadtripRoutesPage() {
               </Link>
             </div>
           </div>
+
+          <ExploreSurfaceSwitch
+            activeKey="roadtrip"
+            activeTitle="Roadtrips: fertige Mehrtagesrouten mit Stops, Hotels und direktem Start"
+            activeDescription="Hier findest du mehrtaegige Vorlagen fuer komplette Reisen. Wenn du lieber einen einzelnen Tag in einer Stadt planst, springe in die Tagesplanung. Fuer Gruppenanlaesse mit Angeboten und Buchung bleibst du im Event-Bereich."
+            primaryCtaHref="/roadtrip/discover"
+            primaryCtaLabel="Route entdecken"
+            secondaryCtaHref="/roadtrip"
+            secondaryCtaLabel="Eigene Route erstellen"
+            className="mt-5"
+          />
 
           {/* Search + Tag filter */}
           <div className="mt-4 flex flex-col gap-2 sm:flex-row">

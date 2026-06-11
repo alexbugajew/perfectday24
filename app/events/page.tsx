@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import { CitySearchInput } from "@/components/ui/CitySearchInput";
 import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
+import ExploreSurfaceSwitch from "@/components/navigation/ExploreSurfaceSwitch";
 
 // ─── Static data (mirrors the DB seed) ────────────────────────────────────────
 
@@ -484,6 +485,17 @@ export default function EventsPage() {
           <p className="mt-3 text-base leading-7 text-[#665d55]">
             Für Gäste, Teams und besondere Anlässe.
           </p>
+
+          <ExploreSurfaceSwitch
+            activeKey="events"
+            activeTitle="Events: Anlaesse planen, Anbieter anfragen und Angebote direkt vergleichen"
+            activeDescription="Hier startest du Gruppenanlaesse mit klarer Bedarfsliste, Anfragen und Angebotsuebersicht. Fuer Stadt-Inspiration springst du in die Tagesplanung, fuer komplette Mehrtagesreisen in die Roadtrip-Routen."
+            primaryCtaHref="/events/dashboard"
+            primaryCtaLabel="Meine Events"
+            secondaryCtaHref="/explore#explore-all-routes"
+            secondaryCtaLabel="Tagesrouten ansehen"
+            className="mt-6"
+          />
         </div>
         {!plansLoading && savedPlans.length > 0 && (
           <div className="mb-10">

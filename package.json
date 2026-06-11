@@ -38,6 +38,8 @@
     "events:refresh:ticketmaster": "npm run events:build && npm run events:ingest:ticketmaster:rollout33 && npm run events:coverage",
     "events:refresh:official": "npm run events:build && npm run events:ingest:official -- --provider=all --delay-ms=1500 --continue-on-error=true && npm run events:coverage",
     "routes:ingest:editorial": "node .codex-scripts-dist/scripts/ingest-editorial-routes.js",
+    "routes:ingest:editorial:family-explore": "node .codex-scripts-dist/scripts/ingest-editorial-routes.js --file=data/editorial_routes/family-explore-age-bands-2026-06.json",
+    "routes:ingest:editorial:family-explore:major-cities": "node .codex-scripts-dist/scripts/ingest-editorial-routes.js --file=data/editorial_routes/family-explore-major-cities-2026-06.json",
     "routes:images:suggest": "node .codex-scripts-dist/scripts/suggest-route-images.js",
     "routes:images:review": "node .codex-scripts-dist/scripts/create-route-image-review.js",
     "routes:images:apply": "node .codex-scripts-dist/scripts/apply-route-images.js",

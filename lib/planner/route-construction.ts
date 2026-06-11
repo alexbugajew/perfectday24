@@ -25,11 +25,13 @@ import {
   applyStopSchedule,
   estimateDurationMin,
   getRouteBufferMin,
+  isMealKind,
   maxSegmentDistanceKm,
   maxSegmentTravelMin,
 } from "./route/timing";
 import { estimateTravelMinFromKmForProfile, haversineKm } from "./travel";
 import { slotCategoryMatch } from "./slots";
+import { familyAgeBandBoost, familySlotHardReject } from "./occasions/family";
 import type {
   LocationCategory,
   PlannedStop,
@@ -639,6 +641,126 @@ function buildTourismRelaxedFallback(params: {
     .sort((a, b) => b.finalScore - a.finalScore);
 
   return pool[0] ?? null;
+}
+
+function buildFamilyMealFallback(params: {
+  context: PlanningContext;
+  slot: PlanningContext["slotTemplate"][number];
+  previousStop: ScoredLocation | null;
+  peakCandidate: ScoredLocation | null;
+  candidates: ScoredLocation[];
+  usedIds: Set<string>;
+}) {
+  const { context, slot, previousStop, peakCandidate, candidates, usedIds } = params;
+
+  if (context.filters.occasion !== "family" || !isMealKind(slot.kind)) {
+    return null;
+  }
+
+  const anchorStop =
+    previousStop != null
+      ? resolveCandidateReferenceCoords(previousStop, candidates)
+      : peakCandidate != null
+        ? resolveCandidateReferenceCoords(peakCandidate, candidates)
+        : null;
+  const anchorLat = anchorStop?.lat ?? context.origin.lat;
+  const anchorLng = anchorStop?.lng ?? context.origin.lng;
+  const hasPreviousStop = previousStop != null;
+  const relaxedDistanceLimit =
+    maxSegmentDistanceKm(context, slot.kind, hasPreviousStop) +
+    (context.filters.routeProfile === "foot"
+      ? 0.9
+      : context.filters.routeProfile === "public_transit"
+        ? 1.8
+        : 4.0);
+  const relaxedTravelLimit =
+    maxSegmentTravelMin(context, slot.kind, hasPreviousStop) +
+    (context.filters.routeProfile === "foot"
+      ? 12
+      : context.filters.routeProfile === "public_transit"
+        ? 18
+        : 22);
+
+  const mealPool = candidates.filter((candidate) => {
+    if (usedIds.has(candidate.id)) return false;
+
+    const slotReject = familySlotHardReject({
+      ageBand: context.filters.familyAgeBand,
+      candidate,
+      slotKind: slot.kind,
+      phase: slot.phase,
+      allCandidates: candidates,
+    });
+    if (slotReject.reject) return false;
+
+    const category = classify(candidate);
+    if (slot.kind === "breakfast") {
+      return category === "cafe" || category === "restaurant";
+    }
+    return category === "restaurant";
+  });
+
+  if (mealPool.length === 0) return null;
+
+  const withTravel = mealPool
+    .map((candidate) => {
+      const travelKm =
+        anchorLat != null &&
+        anchorLng != null &&
+        candidate.lat != null &&
+        candidate.lng != null
+          ? haversineKm(anchorLat, anchorLng, candidate.lat, candidate.lng)
+          : null;
+      const travelMin = estimateTravelMinFromKmForProfile(
+        travelKm,
+        context.filters.routeProfile
+      );
+      const withinRelaxedWindow =
+        travelKm != null &&
+        Number.isFinite(travelKm) &&
+        travelKm <= relaxedDistanceLimit &&
+        travelMin != null &&
+        travelMin <= relaxedTravelLimit;
+
+      const breakfastBonus =
+        slot.kind === "breakfast" && classify(candidate) === "cafe" ? 18 : 0;
+
+      return {
+        candidate,
+        travelMin,
+        withinRelaxedWindow,
+        finalScore:
+          candidate.totalScore +
+          familyAgeBandBoost(context.filters.familyAgeBand, candidate) +
+          breakfastBonus -
+          (travelMin ?? 18),
+      };
+    })
+    .sort((a, b) => b.finalScore - a.finalScore);
+
+  const chosen =
+    withTravel.find((item) => item.withinRelaxedWindow) ??
+    withTravel.find((item) => item.travelMin != null) ??
+    withTravel[0] ??
+    null;
+
+  if (!chosen) return null;
+
+  return {
+    candidate: chosen.candidate,
+    finalScore: chosen.finalScore,
+    travelMin: chosen.travelMin,
+    durationMin: clampDurationForSlot(slot, estimateDurationMin(chosen.candidate)),
+    strictMatch: slotCategoryMatch(slot.kind, chosen.candidate),
+    travelFeasible: true,
+    policyResults: [],
+    policyReasons: [
+      slot.kind === "breakfast"
+        ? "sichert den Family-Start mit einem belastbaren Cafe- oder Fruehstuecks-Fallback"
+        : "sichert den Family-Essensslot mit einem belastbaren Restaurant-Fallback",
+    ],
+    hardFail: false,
+  };
 }
 
 function buildPostShowFallback(params: {
@@ -1252,6 +1374,7 @@ export function constructRoute(params: {
     });
 
     const relaxedFeasible = rotatedPool.filter((item) => {
+      if (item.hardFail) return false;
       const overrunAllowance =
         context.experienceMode === "market_festival" && planMode === "midday"
           ? 35
@@ -1277,6 +1400,7 @@ export function constructRoute(params: {
     });
 
     const softFeasible = rotatedPool.filter((item) => {
+      if (item.hardFail) return false;
       const overrunAllowance =
         context.experienceMode === "market_festival" && planMode === "midday"
           ? 55
@@ -1299,7 +1423,14 @@ export function constructRoute(params: {
       return !item.travelFeasible ? (item.travelMin ?? 0) <= 80 : true;
     });
 
-    let chosenSource: "feasible" | "relaxed" | "soft" | "forced_peak" | "forced_event" | null = null;
+    let chosenSource:
+      | "feasible"
+      | "relaxed"
+      | "soft"
+      | "forced_peak"
+      | "forced_event"
+      | "family_meal_fallback"
+      | null = null;
     let chosen =
       lockedConcreteMarketFestivalEvent ??
       lockedConcreteShowEvent ??
@@ -1355,6 +1486,58 @@ export function constructRoute(params: {
     }
 
     if (!chosen) {
+      const familyMealFallback = buildFamilyMealFallback({
+        context,
+        slot,
+        previousStop,
+        peakCandidate: effectivePeakCandidate,
+        candidates,
+        usedIds,
+      });
+      if (familyMealFallback) {
+        timeUsed += (familyMealFallback.travelMin ?? 0) + familyMealFallback.durationMin;
+        usedIds.add(familyMealFallback.candidate.id);
+        usedCategories.push(classify(familyMealFallback.candidate));
+        previousStop = familyMealFallback.candidate;
+
+        output.push({
+          index: slot.index + 1,
+          label: slot.label,
+          hint: slot.hint,
+          item: familyMealFallback.candidate,
+          durationMin: familyMealFallback.durationMin,
+          travelMinFromPrev: familyMealFallback.travelMin,
+          groupDecision: buildGroupDecision(
+            context,
+            familyMealFallback.candidate,
+            slot.kind
+          ),
+          debug:
+            context.evaluationMode === "trace"
+              ? {
+                  selectedFrom: "family_meal_fallback",
+                  finalScore: Math.round(familyMealFallback.finalScore),
+                  candidateTotalScore: familyMealFallback.candidate.totalScore ?? 0,
+                  travelFeasible: true,
+                  hardFail: false,
+                  policyResults: [],
+                }
+              : null,
+          reasons: buildStopReasons({
+            candidate: familyMealFallback.candidate,
+            occasion: context.filters.occasion,
+            strictMatch: familyMealFallback.strictMatch,
+            travelMin: familyMealFallback.travelMin,
+            usedCategories: usedCategoriesSnapshot,
+            slotKind: slot.kind,
+            phase: slot.phase,
+            phaseGoal: slot.phaseGoal,
+            occasionReasons: familyMealFallback.policyReasons,
+          }),
+        });
+        continue;
+      }
+
       const postShowFallback = buildPostShowFallback({
         context,
         slot,

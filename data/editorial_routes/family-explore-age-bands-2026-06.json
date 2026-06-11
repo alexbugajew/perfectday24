@@ -1,0 +1,316 @@
+{
+  "version": 1,
+  "createdAt": "2026-06-09",
+  "status": "research_seed",
+  "scope": {
+    "description": "Family-focused Explore routes with one lead route per age band.",
+    "citySlugs": [
+      "frankfurt-am-main",
+      "muenchen",
+      "hamburg-hamburg",
+      "berlin-berlin"
+    ],
+    "routesPerAgeBand": 1
+  },
+  "importNotes": {
+    "targetTables": [
+      "public.user_routes",
+      "public.user_route_stops"
+    ],
+    "recommendedCreatorType": "creator",
+    "recommendedVisibility": "public",
+    "recommendedMetaFields": [
+      "source_urls",
+      "source_type",
+      "editorial_status",
+      "age_band",
+      "explore_card",
+      "rights_note"
+    ],
+    "rightsNote": "Own route copy written for PerfectDay24. Public source URLs are used for attribution and verification only; do not copy third-party article text or images. Mark the routes as family editorial content with explicit age-band logic."
+  },
+  "routes": [
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-family-0-6-wasser-gruen-pausen",
+      "title": "Familienroute 0-6: Wasser, Gruen & ruhige Pausen",
+      "description": "Eine stressarme Frankfurt-Familienroute fuer 0-6 Jahre mit Palmengarten, Wasserspiel und viel Raum fuer flexible Pausen statt Reizueberladung.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-0-6",
+        "toddlers",
+        "outdoor",
+        "water-play",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.palmengarten.de/en/visit/palmengarten.html",
+        "https://frankfurt.de/english/discover-and-experience/sightseeing/gardens/palm-garden",
+        "https://frankfurt.de/themen/umwelt-und-gruen/aktivitaeten/spielen/wasserspielplaetze/wasserspielanlage-im-guenthersburgpark",
+        "https://junges-museum-frankfurt.de/en/node/23"
+      ],
+      "sourceType": "official_city+official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Palmengarten",
+          "type": "garden",
+          "address": "Siesmayerstrasse 61, 60323 Frankfurt am Main",
+          "durationMin": 120,
+          "note": "Sanfter Start mit Wegen, Gewaechshaeusern und viel Platz zum Ankommen, bevor der Tag aktiver wird.",
+          "sourceUrls": [
+            "https://www.palmengarten.de/en/visit/palmengarten.html",
+            "https://frankfurt.de/english/discover-and-experience/sightseeing/gardens/palm-garden"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Palmengarten Wasserspielplatz & Minigolf",
+          "type": "activity",
+          "address": "Siesmayerstrasse 63, 60323 Frankfurt am Main",
+          "durationMin": 75,
+          "note": "Hier sitzt der eigentliche Kleinkind-Wow-Moment: spielen, planschen und bei Bedarf sehr flexibel kuerzen.",
+          "sourceUrls": [
+            "https://www.palmengarten.de/en/visit/palmengarten.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wasserspielanlage im Guenthersburgpark",
+          "type": "activity",
+          "address": "Wetteraustrasse, 60389 Frankfurt am Main",
+          "durationMin": 90,
+          "note": "Bester Nachmittagsblock fuer warme Tage mit Wasser, Wiese und wenig starrem Programm.",
+          "sourceUrls": [
+            "https://frankfurt.de/themen/umwelt-und-gruen/aktivitaeten/spielen/wasserspielplaetze/wasserspielanlage-im-guenthersburgpark"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Junges Museum Frankfurt",
+          "type": "museum",
+          "address": "Saalhof 1, 60311 Frankfurt am Main",
+          "durationMin": 75,
+          "note": "Optionaler Regen- oder Ruhebaustein, falls der Tag indoor weiterlaufen soll.",
+          "sourceUrls": [
+            "https://junges-museum-frankfurt.de/en/node/23"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-family-4-10-tiere-technik-mitmachen",
+      "title": "Familienroute 4-10: Tiere, Technik & Mitmachen",
+      "description": "Eine Muenchen-Familienroute fuer 4-10 Jahre mit klaren Highlights: zuerst Tierpark, danach Mitmach-Technik und Forscherenergie im Deutschen Museum.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-4-10",
+        "kids",
+        "zoo",
+        "science",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.hellabrunn.de/parkbesuch/angebote-im-tierpark/fuer-kinder",
+        "https://www.hellabrunn.de/en/park-visit/offers-in-the-zoo/kids",
+        "https://www.deutsches-museum.de/museumsinsel/besuch/besuch-planen/besuch-als-familie",
+        "https://www.deutsches-museum.de/en/museum-island/visit/plan-your-visit/family-visits"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tierpark Hellabrunn",
+          "type": "zoo",
+          "address": "Tierparkstrasse 30, 81543 Muenchen",
+          "durationMin": 150,
+          "note": "Starker Auftakt mit Tieren, Spielplaetzen und echter Bewegungsenergie fuer Grundschulalter.",
+          "sourceUrls": [
+            "https://www.hellabrunn.de/parkbesuch/angebote-im-tierpark/fuer-kinder",
+            "https://www.hellabrunn.de/en/park-visit/offers-in-the-zoo/kids"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Muehlendorf Streichelanlage Hellabrunn",
+          "type": "activity",
+          "address": "Tierparkstrasse 30, 81543 Muenchen",
+          "durationMin": 45,
+          "note": "Bewusster Mid-Route-Anker fuer Naehe, Tiere und niedrigschwellige Interaktion.",
+          "sourceUrls": [
+            "https://www.hellabrunn.de/parkbesuch/angebote-im-tierpark/fuer-kinder"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Deutsches Museum",
+          "type": "museum",
+          "address": "Museumsinsel 1, 80538 Muenchen",
+          "durationMin": 120,
+          "note": "Der zweite starke Hauptanker, wenn die Familie statt nur Bewegung auch Entdecken und Staunen will.",
+          "sourceUrls": [
+            "https://www.deutsches-museum.de/museumsinsel/besuch/besuch-planen/besuch-als-familie",
+            "https://www.deutsches-museum.de/en/museum-island/visit/plan-your-visit/family-visits"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Kinderreich im Deutschen Museum",
+          "type": "activity",
+          "address": "Museumsinsel 1, 80538 Muenchen",
+          "durationMin": 75,
+          "note": "Mitmach-Block fuer Kinder, damit der Museumsanteil nicht zu erwachsen wirkt.",
+          "sourceUrls": [
+            "https://www.deutsches-museum.de/en/museum-island/visit/plan-your-visit/family-visits"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "slug": "hamburg-family-9-14-miniatur-vr-sterne",
+      "title": "Familienroute 9-14: Miniatur, VR & Sterne",
+      "description": "Eine Hamburg-Familienroute fuer 9-14 Jahre mit Detail-Wow, Technik, VR und Planetarium statt zu kindlichen Spielplatz-Setups.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-9-14",
+        "preteen",
+        "technology",
+        "planetarium",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.miniatur-wunderland.com/",
+        "https://www.miniatur-wunderland.com/yullbe/",
+        "https://www.planetarium-hamburg.de/en/shows-tickets/kids",
+        "https://www.planetarium-hamburg.de/shows-tickets/details/secret-of-the-cardboard-rocket-en"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Miniatur Wunderland",
+          "type": "museum",
+          "address": "Kehrwieder 2, 20457 Hamburg",
+          "durationMin": 150,
+          "note": "Perfekter erster Anker fuer diese Altersgruppe: Technik, Details und genug Wow ohne Kleinkindcharakter.",
+          "sourceUrls": [
+            "https://www.miniatur-wunderland.com/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "YULLBE WUNDERLAND",
+          "type": "activity",
+          "address": "Kehrwieder 2, 20457 Hamburg",
+          "durationMin": 60,
+          "note": "VR-Upgrade fuer Familien mit Kindern ab etwa 8 Jahren, wenn der Tag bewusst moderner und spielerischer wirken soll.",
+          "sourceUrls": [
+            "https://www.miniatur-wunderland.com/yullbe/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Planetarium Hamburg",
+          "type": "museum",
+          "address": "Linnering 1, 22299 Hamburg",
+          "durationMin": 90,
+          "note": "Starker zweiter Hauptanker mit Science-, Space- und Abendprogramm-Charakter fuer 9-14.",
+          "sourceUrls": [
+            "https://www.planetarium-hamburg.de/en/shows-tickets/kids"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Das Geheimnis der Papierrakete",
+          "type": "show",
+          "address": "Linnering 1, 22299 Hamburg",
+          "durationMin": 45,
+          "note": "Konkreter Show-Baustein im Planetarium, offiziell fuer Kinder ab 6 Jahren empfohlen und fuer 9-14 gut anschlussfaehig.",
+          "sourceUrls": [
+            "https://www.planetarium-hamburg.de/shows-tickets/details/secret-of-the-cardboard-rocket-en"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "slug": "berlin-family-12-16-future-street-art-sunset",
+      "title": "Familienroute 12-16: Future, Street Art & Sunset",
+      "description": "Eine Berlin-Familienroute fuer 12-16 Jahre mit Eigenstaendigkeit, Zukunft, urbaner Kultur und einem freien Tempelhofer-Feld-Ausklang statt klassischer Kinderroute.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "age-band-12-16",
+        "teens",
+        "street-art",
+        "future",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://futurium.de/futurium-kids",
+        "https://futurium.de/en/guided-tours",
+        "https://urban-nation.com/plan-your-visit/",
+        "https://www.tempelhoferfeld.de/en/service-infos/plan-your-visit/",
+        "https://www.tempelhoferfeld.de/en/"
+      ],
+      "sourceType": "official_venue+official_city_space",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Futurium",
+          "type": "museum",
+          "address": "Alexanderufer 2, 10117 Berlin",
+          "durationMin": 105,
+          "note": "Teen-gerechter Start mit Zukunft, Haltung, Interaktion und genug Substanz fuer aeltere Kinder.",
+          "sourceUrls": [
+            "https://futurium.de/futurium-kids",
+            "https://futurium.de/en/guided-tours"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Family Open Lab im Futurium",
+          "type": "workshop",
+          "address": "Alexanderufer 2, 10117 Berlin",
+          "durationMin": 60,
+          "note": "Optionaler Mitmachblock, offiziell mit wechselnden Schwierigkeitsgraden und anschlussfaehig ab etwa 10 Jahren.",
+          "sourceUrls": [
+            "https://futurium.de/futurium-kids"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "URBAN NATION Museum",
+          "type": "museum",
+          "address": "Buelowstrasse 7, 10783 Berlin",
+          "durationMin": 75,
+          "note": "Street-Art statt Kinderoptik: genau richtig fuer 12-16, wenn der Tag urban und eigenstaendig wirken soll.",
+          "sourceUrls": [
+            "https://urban-nation.com/plan-your-visit/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Tempelhofer Feld",
+          "type": "outdoor",
+          "address": "Tempelhofer Damm, 12101 Berlin",
+          "durationMin": 90,
+          "note": "Freier Schlussblock mit Weite, Bewegung und Stadtenergie statt einem zu engen, kindlichen Finale.",
+          "sourceUrls": [
+            "https://www.tempelhoferfeld.de/en/service-infos/plan-your-visit/",
+            "https://www.tempelhoferfeld.de/en/"
+          ]
+        }
+      ]
+    }
+  ]
+}

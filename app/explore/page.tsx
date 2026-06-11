@@ -8,7 +8,7 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import InternalMonetizationSlot from "@/components/monetization/InternalMonetizationSlot";
 import MonetizationDebugPanel from "@/components/monetization/MonetizationDebugPanel";
-import { inferPublicRouteBadges } from "@/lib/routes/public-route-badges";
+import { inferPublicRouteBadges, type PublicRouteBadge } from "@/lib/routes/public-route-badges";
 import {
   buildCityLookupMap,
   formatCityWithCountry,
@@ -109,6 +109,7 @@ type SuggestedRoute = {
 };
 
 type OccasionFilter = "all" | "date" | "friends" | "family" | "tourism" | "party";
+type ExploreSurfaceKey = "day" | "roadtrip" | "events";
 
 const OCCASION_PILLS: { key: OccasionFilter; emoji: string; label: string }[] = [
   { key: "all", emoji: "", label: "Alle" },
@@ -119,11 +120,117 @@ const OCCASION_PILLS: { key: OccasionFilter; emoji: string; label: string }[] = 
   { key: "party", emoji: "🎉", label: "Feiern" },
 ];
 
-function matchesOccasionFilter(route: UserRouteRow, occasion: OccasionFilter): boolean {
-  if (occasion === "all") return true;
-  const text = [route.title ?? "", route.description ?? "", route.start_label ?? ""]
+const EXPLORE_SURFACES: Array<{
+  key: ExploreSurfaceKey;
+  href: string;
+  eyebrow: string;
+  label: string;
+  badge: string;
+  description: string;
+  helper: string;
+}> = [
+  {
+    key: "day",
+    href: "#explore-all-routes",
+    eyebrow: "Aktiv in Explore",
+    label: "Tagesplanung",
+    badge: "1 Tag",
+    description: "Kuratierte Tagesrouten fuer heute, morgen oder den naechsten freien Tag.",
+    helper: "Direkt in Stadt-Routen, Themen und Varianten einsteigen.",
+  },
+  {
+    key: "roadtrip",
+    href: "/roadtrip/routes",
+    eyebrow: "Mehrtagsreisen",
+    label: "Roadtrips",
+    badge: "Mehrere Tage",
+    description: "Fertige Mehrstadt-Routen mit Stops, Hotels und direktem Start in deinen Roadtrip.",
+    helper: "Ideal, wenn du nicht pro Stadt neu planen willst.",
+  },
+  {
+    key: "events",
+    href: "/events",
+    eyebrow: "Anlaesse & Gruppen",
+    label: "Events",
+    badge: "Buchbar",
+    description: "Hochzeiten, Geburtstage und Firmenfeiern mit Anfragen, Angeboten und Buchungsflow.",
+    helper: "Wenn aus Inspiration direkt eine organisierte Buchung werden soll.",
+  },
+];
+
+function routeText(route: UserRouteRow) {
+  return [route.title ?? "", route.description ?? "", route.start_label ?? "", route.start_type ?? ""]
     .join(" ")
     .toLowerCase();
+}
+
+function routeTags(route: UserRouteRow) {
+  if (!Array.isArray(route.tags)) return [];
+  return route.tags
+    .map((value) => (typeof value === "string" ? value.toLowerCase().trim() : ""))
+    .filter(Boolean);
+}
+
+function routeMetaRecord(route: UserRouteRow) {
+  return route.meta && typeof route.meta === "object" ? (route.meta as Record<string, unknown>) : {};
+}
+
+function normalizedMetaValues(route: UserRouteRow) {
+  return Object.values(routeMetaRecord(route))
+    .map((value) => (typeof value === "string" ? value.toLowerCase().trim() : ""))
+    .filter(Boolean);
+}
+
+function routeHasOccasionHint(route: UserRouteRow, hints: string[]) {
+  const tags = routeTags(route);
+  const metaValues = normalizedMetaValues(route);
+  return hints.some((hint) => tags.includes(hint) || metaValues.includes(hint));
+}
+
+function matchesVisibleFamilyRoute(route: UserRouteRow) {
+  const visibleFamilyText = [route.title ?? "", route.description ?? ""].join(" ").toLowerCase();
+  return /\b(familien(?:route|tag|freundlich)?|family|kinder?|kids|children|kindgerecht|kinderwagen|mit kind(?:ern)?|fuer kinder|für kinder|spielplatz|indoorspielplatz|wasserspielplatz|zoo|tierpark|aquarium|bauernhof|kindermuseum|science center|planetarium)\b/i.test(
+    visibleFamilyText
+  );
+}
+
+function matchesOccasionFilter(route: UserRouteRow, occasion: OccasionFilter): boolean {
+  if (occasion === "all") return true;
+  const text = routeText(route);
+  if (occasion === "date") {
+    return (
+      routeHasOccasionHint(route, ["date"]) ||
+      /(^|[\s,.-])(date|romantik|romantic|wine|wein|zu zweit|paar|paare|paerchen|p.rchen|candlelight)([\s,.-]|$)/i.test(text)
+    );
+  }
+  if (occasion === "friends") {
+    return (
+      routeHasOccasionHint(route, ["friends", "friend"]) ||
+      /(^|[\s,.-])(freund(?:e|innen)?|friend(?:s)?|gruppe|kollegen|team|gemeinsam|jungs|girls)([\s,.-]|$)/i.test(text)
+    );
+  }
+  if (occasion === "family") {
+    const visibleFamilyText = [route.title ?? "", route.description ?? ""].join(" ").toLowerCase();
+    const strongFamilyText = matchesVisibleFamilyRoute(route);
+    const conflictingVisibleTone = /\b(paar|paare|date|romantik|club|party|nightlife|freunde?)\b/i.test(
+      visibleFamilyText
+    );
+
+    if (conflictingVisibleTone && !strongFamilyText) return false;
+    return strongFamilyText;
+  }
+  if (occasion === "tourism") {
+    return (
+      routeHasOccasionHint(route, ["tourism", "tourist"]) ||
+      /(^|[\s,.-])(museum|altstadt|landmark|sightseeing|tour|historisch|denkmal|tourist)([\s,.-]|$)/i.test(text)
+    );
+  }
+  if (occasion === "party") {
+    return (
+      routeHasOccasionHint(route, ["party"]) ||
+      /(^|[\s,.-])(party|club|bar|nacht|nightlife|feiern|ausgehen)([\s,.-]|$)/i.test(text)
+    );
+  }
   switch (occasion) {
     case "date":
       return /date|romantik|romantic|wine|wein|zu zweit|p[aä]rchen|candlelight/i.test(text);
@@ -240,6 +347,77 @@ const NEXT_IMAGE_SAFE_HOSTS = new Set([
   "cdn.pixabay.com",
   "images.pexels.com",
 ]);
+
+function routeTitleFocus(title: string | null | undefined) {
+  const raw = title?.trim();
+  if (!raw) return null;
+
+  const colonParts = raw.split(":");
+  if (colonParts.length > 1) {
+    const focus = colonParts.slice(1).join(":").trim();
+    if (focus) return focus;
+  }
+
+  const dashParts = raw.split(/[–-]/);
+  if (dashParts.length > 1) {
+    const focus = dashParts.slice(1).join(" ").trim();
+    if (focus) return focus;
+  }
+
+  return null;
+}
+
+function buildRouteCardTeaser(
+  route: UserRouteRow,
+  cityMap: Map<string, CityLookupRow>,
+  badges: PublicRouteBadge[]
+) {
+  const cityName = route.city_slug ? cityMap.get(route.city_slug)?.name ?? "deiner Stadt" : "deiner Stadt";
+  const stopCount = route.stop_count ?? route.required_stop_count ?? null;
+  const stopPhrase = stopCount ? `${stopCount} stimmig gesetzte Stopps` : "ein klar kuratierter Tagesflow";
+  const focus = routeTitleFocus(route.title);
+  const focusPhrase = focus ? ` rund um ${focus}` : "";
+  const badgeSet = new Set(badges.map((badge) => badge.label.toLowerCase()));
+  const transportPhrase = badgeSet.has("mit auto")
+    ? " Mit genug Freiheit fuer kleine Umwege."
+    : badgeSet.has("zu fuß") || badgeSet.has("zu fuãÿ")
+      ? " Alles fuehlt sich angenehm leicht erreichbar an."
+      : "";
+
+  if (badgeSet.has("family")) {
+    return `Sanft geplant fuer Familien in ${cityName}: ${stopPhrase}${focusPhrase}, damit sich der Tag leicht waehlen und entspannt erleben laesst.${transportPhrase}`;
+  }
+
+  if (badgeSet.has("date")) {
+    return `Ein Tag zu zweit in ${cityName}, der mit ${stopPhrase}${focusPhrase} sofort Stimmung aufbaut und sich fast von selbst richtig anfuehlt.${transportPhrase}`;
+  }
+
+  if (badgeSet.has("friends")) {
+    return `Perfekt fuer gemeinsame Zeit in ${cityName}: ${stopPhrase}${focusPhrase}, locker geplant und ohne endloses Abstimmen.${transportPhrase}`;
+  }
+
+  if (badgeSet.has("party")) {
+    return `Ein Ausgeh-Flow in ${cityName}, der mit ${stopPhrase}${focusPhrase} direkt Vorfreude auf einen starken Abend macht.${transportPhrase}`;
+  }
+
+  if (badgeSet.has("kultur")) {
+    return `Eine Kulturroute in ${cityName}, die ${stopPhrase}${focusPhrase} zu einem Tag verbindet, der sich inspiriert statt ueberladen anfuehlt.${transportPhrase}`;
+  }
+
+  if (badgeSet.has("tourism")) {
+    return `Ideal, wenn du ${cityName} mit ${stopPhrase}${focusPhrase} kompakt, klar und ohne Suchstress erleben willst.${transportPhrase}`;
+  }
+
+  if (badgeSet.has("food")) {
+    return `Ein genussvoller Flow in ${cityName}: ${stopPhrase}${focusPhrase}, der Appetit weckt und Auswahlstress in Vorfreude verwandelt.${transportPhrase}`;
+  }
+
+  if (badgeSet.has("outdoor")) {
+    return `Ein leichter Outdoor-Tag in ${cityName} mit ${stopPhrase}${focusPhrase} und genau genug Luft fuer spontane Momente.${transportPhrase}`;
+  }
+
+  return `Eine kuratierte Route in ${cityName} mit ${stopPhrase}${focusPhrase}, die sofort Lust macht, den Tag nicht nur zu planen, sondern direkt zu waehlen.${transportPhrase}`;
+}
 
 function isSafeImageHost(url: string | null): boolean {
   if (!url) return false;
@@ -364,7 +542,8 @@ function RouteCard({
   const creatorLabel = creator?.display_name || niceCreatorType(route.creator_type);
   const creatorLink = creatorHref(creator);
   const cover = renderableImageUrl(route.cover_image_url);
-  const shortDesc = desc.length > 120 ? `${desc.slice(0, 117).trim()}...` : desc;
+  const teaser = buildRouteCardTeaser(route, cityMap, badges);
+  const shortDesc = teaser.length > 138 ? `${teaser.slice(0, 135).trim()}...` : teaser;
   const durationLabel = estimateDurationLabel(route);
   const idealFor = idealForLabel(route);
   const variantRole = routeVariantRoleLabel(route);
@@ -660,6 +839,13 @@ function ExplorePageContent() {
   const [variantSort, setVariantSort] = useState<VariantSort>("default");
 
   useEffect(() => {
+    const nextOccasion = (searchParams.get("occasion") as OccasionFilter | null) ?? "all";
+    const nextCitySlug = searchParams.get("citySlug") ?? "all";
+    setOccasionFilter(nextOccasion);
+    setSelectedCitySlug(nextCitySlug);
+  }, [searchParams]);
+
+  useEffect(() => {
     let active = true;
 
     (async () => {
@@ -925,10 +1111,18 @@ function ExplorePageContent() {
     () =>
       filteredRoutes
         .filter((r) => r.creator_type === "editorial")
+        .filter((r) => (occasionFilter === "family" ? matchesVisibleFamilyRoute(r) : true))
         .sort((a, b) => (b.ranking_score ?? 0) - (a.ranking_score ?? 0))
         .slice(0, 12),
-    [filteredRoutes]
+    [filteredRoutes, occasionFilter]
   );
+
+  const visibleEditorialRoutes = useMemo(() => {
+    if (occasionFilter !== "family") return editorialRoutes;
+    return editorialRoutes.filter((route) =>
+      /\bfamilienroute\b/i.test(route.title ?? "")
+    );
+  }, [editorialRoutes, occasionFilter]);
 
   const trendingRoutes = useMemo(
     () => [...filteredRoutes].sort((a, b) => (b.trending_score ?? 0) - (a.trending_score ?? 0)).slice(0, 6),
@@ -960,6 +1154,7 @@ function ExplorePageContent() {
   }, [creators, creatorRankingMap]);
 
   const totalPublic = routes.length;
+  const activeSurface = EXPLORE_SURFACES[0];
   const personalizedRoutes = useMemo(() => {
     if (myInterests.length === 0) return [] as SuggestedRoute[];
 
@@ -1011,6 +1206,101 @@ function ExplorePageContent() {
               <Link href="/saved" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
                 Meine Pläne
               </Link>
+            </div>
+          </div>
+
+          <div className="mt-5 grid gap-3 xl:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)_minmax(0,1fr)]">
+            {EXPLORE_SURFACES.map((surface) => {
+              const isActive = surface.key === activeSurface.key;
+              return (
+                <Link
+                  key={surface.key}
+                  href={surface.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`group rounded-[24px] border px-4 py-4 transition sm:px-5 ${
+                    isActive
+                      ? "border-[var(--text-strong)] bg-white shadow-[0_14px_40px_rgba(15,23,42,0.08)]"
+                      : surface.key === "roadtrip"
+                        ? "border-[rgba(196,137,79,0.24)] bg-[linear-gradient(135deg,rgba(196,137,79,0.06),rgba(90,118,136,0.05))] hover:border-[rgba(196,137,79,0.38)] hover:shadow-[0_12px_32px_rgba(15,23,42,0.06)]"
+                        : "border-[var(--line-subtle)] bg-[rgba(255,255,255,0.72)] hover:border-[var(--line-strong)] hover:bg-white hover:shadow-[0_12px_32px_rgba(15,23,42,0.05)]"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div
+                        className={`text-[10px] font-semibold uppercase tracking-[0.16em] ${
+                          isActive ? "text-[var(--text-muted)]" : surface.key === "roadtrip" ? "text-[var(--brand-warm)]" : "text-[var(--text-muted)]"
+                        }`}
+                      >
+                        {surface.eyebrow}
+                      </div>
+                      <div className="mt-1 text-lg font-semibold text-[var(--text-strong)]">{surface.label}</div>
+                    </div>
+                    <span
+                      className={`rounded-full px-2.5 py-1 text-[10px] font-semibold ${
+                        isActive
+                          ? "bg-[var(--text-strong)] text-white"
+                          : surface.key === "roadtrip"
+                            ? "border border-[rgba(196,137,79,0.32)] bg-white text-[var(--brand-warm)]"
+                            : "border border-[var(--line-subtle)] bg-white text-[var(--text-muted)]"
+                      }`}
+                    >
+                      {surface.badge}
+                    </span>
+                  </div>
+
+                  <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">{surface.description}</p>
+                  <div className="mt-3 flex items-center justify-between gap-3">
+                    <span className="text-xs font-medium text-[var(--text-muted)]">{surface.helper}</span>
+                    <span
+                      className={`inline-flex items-center gap-1.5 text-xs font-semibold ${
+                        isActive ? "text-[var(--text-strong)]" : surface.key === "roadtrip" ? "text-[var(--brand-warm)]" : "text-[var(--text-strong)]"
+                      }`}
+                    >
+                      {isActive ? "Zu den Tagesrouten" : "Oeffnen"}
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        className="h-3.5 w-3.5 transition group-hover:translate-x-0.5"
+                      >
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="mt-4 rounded-[24px] border border-[var(--line-subtle)] bg-white/80 p-4 shadow-[0_8px_24px_rgba(15,23,42,0.04)]">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  Jetzt aktiv
+                </div>
+                <div className="mt-1 text-base font-semibold text-[var(--text-strong)]">
+                  {activeSurface.label}: oeffentliche Tagesrouten direkt vergleichen und filtern
+                </div>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
+                  Starte hier mit kuratierten Stadtplaenen. Fuer Mehrtagesreisen wechselst du in die Roadtrip-Routen, fuer buchbare Gruppenanlaesse direkt in Events.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href={activeSurface.href}
+                  className="inline-flex min-h-10 items-center rounded-xl bg-[#171717] px-4 text-sm font-medium text-white transition hover:opacity-90"
+                >
+                  Tagesrouten ansehen
+                </a>
+                <Link
+                  href="/roadtrip/routes"
+                  className="inline-flex min-h-10 items-center rounded-xl border border-[rgba(196,137,79,0.28)] bg-white px-4 text-sm font-medium text-[var(--brand-warm)] transition hover:bg-[rgba(196,137,79,0.08)]"
+                >
+                  Roadtrip-Routen
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -1161,7 +1451,71 @@ function ExplorePageContent() {
       </div>
 
       {/* Events-Einstieg — größere Anlässe */}
-      <div className="mb-3 flex items-center justify-between gap-4 rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-[0_1px_4px_rgba(15,23,42,0.05)]">
+      <div className="hidden mb-4 rounded-[28px] border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
+        <div className="flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Entdecken-Modus
+            </div>
+            <div className="mt-1 text-base font-semibold text-[var(--text-strong)]">
+              Tagesrouten und Roadtrips auf einen Blick trennen
+            </div>
+            <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
+              Tagesrouten sind fuer einen Tag gedacht. Roadtrips kombinieren mehrere Staedte und fertige Mehrtagesablaeufe.
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <a
+            href="#explore-all-routes"
+            className="rounded-2xl border border-[var(--text-strong)] bg-[var(--bg-surface)] px-4 py-4 transition hover:bg-white"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  Aktuell hier
+                </div>
+                <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
+                  Tagesrouten entdecken
+                </div>
+              </div>
+              <span className="rounded-full bg-[var(--text-strong)] px-2.5 py-1 text-[10px] font-semibold text-white">
+                1 Tag
+              </span>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
+              Kuratierte Stadt-Routen fuer heute, morgen oder den naechsten freien Tag.
+            </p>
+          </a>
+          <Link
+            href="/roadtrip/routes"
+            className="group rounded-2xl border border-[rgba(196,137,79,0.24)] bg-[linear-gradient(135deg,rgba(196,137,79,0.07),rgba(90,118,136,0.06))] px-4 py-4 transition hover:border-[rgba(196,137,79,0.34)] hover:shadow-[0_10px_30px_rgba(15,23,42,0.08)]"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <div className="pd24-kicker-warm">Mehrtagsreisen</div>
+                <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
+                  Roadtrip-Routen entdecken
+                </div>
+              </div>
+              <span className="rounded-full border border-[rgba(196,137,79,0.3)] bg-white px-2.5 py-1 text-[10px] font-semibold text-[var(--brand-warm)]">
+                Mehrere Tage
+              </span>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
+              Fertige Mehrstadt-Routen mit Stops, Vorlagen und direktem Start in deinen Roadtrip.
+            </p>
+            <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--brand-warm)]">
+              Zu den Roadtrip-Routen
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5 transition group-hover:translate-x-0.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+        </div>
+      </div>
+
+      <div className="hidden mb-3 items-center justify-between gap-4 rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-[0_1px_4px_rgba(15,23,42,0.05)]">
         <div className="min-w-0">
           <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Größeres Event geplant?</div>
           <div className="mt-0.5 text-sm font-medium text-[var(--text-strong)]">Hochzeiten, Geburtstage & Firmenfeiern — mit Dienstleister-Suche</div>
@@ -1230,7 +1584,7 @@ function ExplorePageContent() {
         <div className="rounded-[28px] border border-[rgba(161,75,69,0.18)] bg-[rgba(161,75,69,0.08)] p-6 text-[var(--state-error)] shadow-[var(--shadow-soft)]">{errorText}</div>
       ) : (
         <div className="space-y-12">
-          {editorialRoutes.length > 0 ? (
+          {visibleEditorialRoutes.length > 0 ? (
             <section>
               <SectionHeader
                 title="Redaktionelle Routen"
@@ -1239,7 +1593,7 @@ function ExplorePageContent() {
                 actionLabel="Alle ansehen"
               />
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {editorialRoutes.map((route) => (
+                {visibleEditorialRoutes.map((route) => (
                   <RouteCard
                     key={route.id}
                     route={route}
@@ -1316,70 +1670,6 @@ function ExplorePageContent() {
               </div>
             </div>
           </section>
-      <div className="mb-4 rounded-[28px] border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
-        <div className="flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
-          <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-              Entdecken-Modus
-            </div>
-            <div className="mt-1 text-base font-semibold text-[var(--text-strong)]">
-              Tagesrouten und Roadtrips auf einen Blick trennen
-            </div>
-            <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
-              Tagesrouten sind fuer einen Tag gedacht. Roadtrips kombinieren mehrere Staedte und fertige Mehrtagesablaeufe.
-            </p>
-          </div>
-        </div>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <a
-            href="#explore-all-routes"
-            className="rounded-2xl border border-[var(--text-strong)] bg-[var(--bg-surface)] px-4 py-4 transition hover:bg-white"
-          >
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-                  Aktuell hier
-                </div>
-                <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
-                  Tagesrouten entdecken
-                </div>
-              </div>
-              <span className="rounded-full bg-[var(--text-strong)] px-2.5 py-1 text-[10px] font-semibold text-white">
-                1 Tag
-              </span>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
-              Kuratierte Stadt-Routen fuer heute, morgen oder den naechsten freien Tag.
-            </p>
-          </a>
-          <Link
-            href="/roadtrip/routes"
-            className="group rounded-2xl border border-[rgba(196,137,79,0.24)] bg-[linear-gradient(135deg,rgba(196,137,79,0.07),rgba(90,118,136,0.06))] px-4 py-4 transition hover:border-[rgba(196,137,79,0.34)] hover:shadow-[0_10px_30px_rgba(15,23,42,0.08)]"
-          >
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <div className="pd24-kicker-warm">Mehrtagsreisen</div>
-                <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
-                  Roadtrip-Routen entdecken
-                </div>
-              </div>
-              <span className="rounded-full border border-[rgba(196,137,79,0.3)] bg-white px-2.5 py-1 text-[10px] font-semibold text-[var(--brand-warm)]">
-                Mehrere Tage
-              </span>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
-              Fertige Mehrstadt-Routen mit Stops, Vorlagen und direktem Start in deinen Roadtrip.
-            </p>
-            <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--brand-warm)]">
-              Zu den Roadtrip-Routen
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5 transition group-hover:translate-x-0.5">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-        </div>
-      </div>
-
 
           <section id="explore-all-routes">
             <SectionHeader
