@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "leaflet/dist/leaflet.css";
 import "./globals.css";
 import MainNav from "@/components/MainNav";
 import FloatingChat from "@/components/ui/FloatingChat";

@@ -5,7 +5,6 @@
 // Zeigt Start, Ziel, KI-Zwischenstopps und verbindende Linie.
 // WICHTIG: Nur per dynamic import mit ssr:false verwenden.
 
-import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect, useRef } from "react";
 import { MapContainer, Marker, Polyline, Popup, TileLayer, useMap } from "react-leaflet";
