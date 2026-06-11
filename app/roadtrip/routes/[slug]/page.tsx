@@ -1,8 +1,10 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import type { PlanMapStop } from "@/components/PlanMap";
 import { supabase } from "@/lib/supabaseClient";
 import {
   fetchRoadtripRouteBySlug,
@@ -16,10 +18,12 @@ import {
   budgetLabel,
   ROADTRIP_TAGS,
 } from "@/lib/roadtrip/types";
-import { getRoadtripCoverArt } from "@/lib/roadtrip/cover-art";
-import { getRoadtripEditorial } from "@/lib/roadtrip/editorial";
+import { getRoadtripCoverArt, type RoadtripCoverArt } from "@/lib/roadtrip/cover-art";
+import { getRoadtripEditorial, type RoadtripEditorial } from "@/lib/roadtrip/editorial";
 import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
+
+const PlanMap = dynamic(() => import("@/components/PlanMap"), { ssr: false });
 
 const ROADTRIP_CHECKOUT_MIN = 10 * 60;
 const ROADTRIP_AFTERNOON_START_MIN = 14 * 60 + 30;
@@ -110,6 +114,130 @@ function creatorRouteSuggestionMeta(route: CityCreatorRouteSuggestion): string {
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
+
+type RoadtripPreviewCardProps = {
+  coverArt: RoadtripCoverArt;
+  editorial: RoadtripEditorial;
+  stops: RoadtripRoute["stops"];
+  startDate: string;
+  firstStop: string;
+  lastStop: string;
+  totalNights: number;
+};
+
+function RoadtripPreviewCard({
+  coverArt,
+  editorial,
+  stops,
+  startDate,
+  firstStop,
+  lastStop,
+  totalNights,
+}: RoadtripPreviewCardProps) {
+  const visibleStops = stops.slice(0, 5);
+
+  return (
+    <aside className="overflow-hidden rounded-[26px] border border-[rgba(15,23,42,0.08)] bg-white shadow-[0_16px_42px_rgba(15,23,42,0.08)] lg:sticky lg:top-24">
+      <div
+        className="relative overflow-hidden border-b border-[rgba(255,255,255,0.12)] px-5 py-5 text-white"
+        style={{ backgroundImage: coverArt.backgroundImage }}
+      >
+        {editorial.coverImageUrl && (
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-[0.56]"
+            aria-hidden="true"
+            style={{ backgroundImage: `url("${editorial.coverImageUrl}")` }}
+          />
+        )}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.2),rgba(15,23,42,0.56))]" />
+        <div className="absolute inset-0 opacity-80" style={{ backgroundImage: coverArt.orbImage }} />
+        <div className="relative">
+          <div className="flex items-center justify-between gap-3">
+            <span className="rounded-full border border-white/18 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] backdrop-blur-sm">
+              Vorschau
+            </span>
+            <span className="rounded-full border border-white/18 bg-black/16 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/86 backdrop-blur-sm">
+              Route
+            </span>
+          </div>
+          <div className="mt-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/72">
+            {firstStop} bis {lastStop}
+          </div>
+          <div className="mt-2 max-w-[16rem] text-[1.55rem] font-semibold leading-tight text-white">
+            {coverArt.scene}
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-4 px-5 py-5">
+        <div>
+          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            Route auf einen Blick
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <div className="rounded-3xl bg-[var(--bg-surface)] px-4 py-3">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                Staedte
+              </div>
+              <div className="mt-2 text-[2rem] font-semibold leading-none text-[var(--text-strong)]">
+                {stops.length}
+              </div>
+            </div>
+            <div className="rounded-3xl bg-[var(--bg-surface)] px-4 py-3">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                Naechte
+              </div>
+              <div className="mt-2 text-[2rem] font-semibold leading-none text-[var(--text-strong)]">
+                {totalNights}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            Stop-Abfolge
+          </div>
+          <div className="mt-3 space-y-2.5">
+            {visibleStops.map((stop, idx) => {
+              const arrivalDate = stopArrivalDate(startDate, stops, idx);
+              return (
+                <div key={`${stop.citySlug}-${idx}-preview-card`} className="flex items-start gap-3">
+                  <div className="flex w-8 shrink-0 flex-col items-center">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--text-strong)] text-[11px] font-semibold text-white">
+                      {idx + 1}
+                    </div>
+                    {idx < visibleStops.length - 1 ? (
+                      <div className="mt-1 h-10 w-px bg-[rgba(23,23,23,0.12)]" />
+                    ) : null}
+                  </div>
+                  <div className="min-w-0 flex-1 rounded-[22px] border border-[rgba(23,23,23,0.06)] bg-[var(--bg-surface)] px-4 py-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="truncate text-sm font-semibold text-[var(--text-strong)]">
+                        {stop.cityLabel}
+                      </div>
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                        {stop.nights} {stop.nights === 1 ? "Nacht" : "Naechte"}
+                      </div>
+                    </div>
+                    <div className="mt-1 text-xs text-[var(--text-muted)]">
+                      Ankunft {formatDateDE(arrivalDate)}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="rounded-[22px] border border-[rgba(23,23,23,0.06)] bg-white px-4 py-3.5 text-sm leading-6 text-[var(--text-muted)]">
+          {stops.length} Stopps mit {totalNights} Naechten zwischen {firstStop} und {lastStop}.{" "}
+          {editorial.highlights[0] ?? editorial.intro}
+        </div>
+      </div>
+    </aside>
+  );
+}
 
 export default function RoadtripRouteDetailPage() {
   const params = useParams<{ slug: string }>();
@@ -254,6 +382,14 @@ export default function RoadtripRouteDetailPage() {
   const editorial = getRoadtripEditorial(route);
   const firstStop = route.stops[0]?.cityLabel ?? "Start";
   const lastStop = route.stops[route.stops.length - 1]?.cityLabel ?? "Ziel";
+  const mapStops: PlanMapStop[] = route.stops.map((stop, idx) => ({
+    label: stop.cityLabel,
+    name: stop.creatorRouteTitle ? `${stop.cityLabel} - ${stop.creatorRouteTitle}` : stop.cityLabel,
+    lat: stop.lat,
+    lng: stop.lng,
+    markerVariant:
+      idx === 0 ? "start" : idx === route.stops.length - 1 ? "active" : "default",
+  }));
 
   // Welcher Stop ist heute? Nur relevant wenn tripActive = true
   const todayStopIdx = (() => {
@@ -308,7 +444,7 @@ export default function RoadtripRouteDetailPage() {
                   {coverArt.eyebrow}
                 </div>
                 <div className="rounded-full border border-white/16 bg-black/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/88 backdrop-blur-sm">
-                  {firstStop} to {lastStop}
+                  {firstStop} bis {lastStop}
                 </div>
               </div>
 
@@ -332,81 +468,130 @@ export default function RoadtripRouteDetailPage() {
             </div>
           </div>
 
-          {/* Chips */}
-          <div className="mb-2 flex flex-wrap items-center gap-2">
-            <span className="warm-chip rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em]">
-              Roadtrip
-            </span>
-            <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
-              {route.stops.length} Städte · {totalNights} Nächte
-            </span>
-            <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
-              {occasionLabel(route.occasion)}
-            </span>
-            <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
-              {budgetLabel(route.budget)}
-            </span>
-            {route.clone_count > 0 && (
-              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
-                {route.clone_count}× nachgefahren
-              </span>
-            )}
-          </div>
-
-          <h1 className="text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
-            {route.title}
-          </h1>
-
-          {route.description && (
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-              {editorial.intro}
-            </p>
-          )}
-
-          {/* Author */}
-          {route.author_name && (
-            <div className="mt-3 flex items-center gap-2 text-xs text-[var(--text-muted)]">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[10px] font-semibold">
-                {route.author_name.slice(0, 1).toUpperCase()}
-              </div>
-              <span>von <strong className="text-[var(--text-strong)]">{route.author_name}</strong></span>
-              <span>·</span>
-              <span>{new Date(route.created_at).toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" })}</span>
-            </div>
-          )}
-
-          {/* Tags */}
-          {tagDefs.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {tagDefs.map((tag) => (
-                <span
-                  key={tag.value}
-                  className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]"
-                >
-                  {tag.emoji} {tag.label}
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+            <div className="space-y-5">
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <span className="warm-chip rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em]">
+                  Roadtrip
                 </span>
-              ))}
-            </div>
-          )}
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+                  {route.stops.length} Staedte / {totalNights} Naechte
+                </span>
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+                  {occasionLabel(route.occasion)}
+                </span>
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+                  {budgetLabel(route.budget)}
+                </span>
+                {route.clone_count > 0 && (
+                  <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+                    {route.clone_count}x nachgefahren
+                  </span>
+                )}
+              </div>
 
-          {/* Roadtrip-Start CTA */}
-          <div className="mt-4 flex flex-wrap items-center gap-2.5">
-            <Link
-              href={roadtripRunHref}
-              className="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600 active:scale-[0.97]"
-            >
-              🚀 Roadtrip live starten
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <button
-              type="button"
-              onClick={() => setShowDatePicker((v) => !v)}
-              className="rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
-            >
-              📅 Start: {formatDateDE(startDate)}
-            </button>
+              <h1 className="text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
+                {route.title}
+              </h1>
+
+              {route.description && (
+                <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--text-muted)]">
+                  {editorial.intro}
+                </p>
+              )}
+
+              {route.author_name && (
+                <div className="mt-3 flex items-center gap-2 text-xs text-[var(--text-muted)]">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[10px] font-semibold">
+                    {route.author_name.slice(0, 1).toUpperCase()}
+                  </div>
+                  <span>von <strong className="text-[var(--text-strong)]">{route.author_name}</strong></span>
+                  <span>/</span>
+                  <span>{new Date(route.created_at).toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" })}</span>
+                </div>
+              )}
+
+              {tagDefs.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {tagDefs.map((tag) => (
+                    <span
+                      key={tag.value}
+                      className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]"
+                    >
+                      {tag.emoji} {tag.label}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className="mt-4 flex flex-wrap items-center gap-2.5">
+                <Link
+                  href={roadtripRunHref}
+                  className="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600 active:scale-[0.97]"
+                >
+                  Roadtrip live starten
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setShowDatePicker((v) => !v)}
+                  className="rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+                >
+                  Start: {formatDateDE(startDate)}
+                </button>
+              </div>
+
+              {showDatePicker && (
+                <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3.5 py-3">
+                  <label
+                    htmlFor="roadtrip-start-date"
+                    className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]"
+                  >
+                    Startdatum
+                  </label>
+                  <input
+                    id="roadtrip-start-date"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] outline-none focus:border-[rgba(23,23,23,0.4)]"
+                  />
+                </div>
+              )}
+
+              <div className="overflow-hidden rounded-[28px] border border-[rgba(15,23,42,0.09)] bg-[var(--bg-surface)] shadow-[0_14px_36px_rgba(15,23,42,0.06)]">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--line-subtle)] bg-white/72 px-5 py-4 backdrop-blur-sm">
+                  <div>
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                      Roadtrip-Karte
+                    </div>
+                    <div className="mt-1 text-sm text-[var(--text-muted)]">
+                      Vorschau der Route mit allen Uebernachtungsstopps in Reihenfolge.
+                    </div>
+                  </div>
+                  <div className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                    {route.stops.length} Stopps
+                  </div>
+                </div>
+                <div className="p-3 sm:p-4">
+                  <div className="overflow-hidden rounded-[24px] border border-[rgba(15,23,42,0.08)] bg-white ring-1 ring-black/[0.03]">
+                    <PlanMap stops={mapStops} profile="car" height={600} showHeader={false} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <RoadtripPreviewCard
+              coverArt={coverArt}
+              editorial={editorial}
+              stops={route.stops}
+              startDate={startDate}
+              firstStop={firstStop}
+              lastStop={lastStop}
+              totalNights={totalNights}
+            />
           </div>
         </div>
       </section>
@@ -542,7 +727,7 @@ export default function RoadtripRouteDetailPage() {
                       <div className="mt-0.5 text-xs text-[var(--text-muted)]">
                         {showDatePicker
                           ? `${formatDateDE(arrivalDate)} → ${formatDateDE(departureDate)}`
-                          : `${stop.nights} ${stop.nights === 1 ? "Nacht" : "Nächte"}`}
+                          : `${stop.nights} ${stop.nights === 1 ? "Nacht" : "Naechte"}`}
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5">
@@ -553,7 +738,7 @@ export default function RoadtripRouteDetailPage() {
                         </span>
                       )}
                       <span className="rounded-full bg-[rgba(23,23,23,0.06)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]">
-                        {stop.nights} {stop.nights === 1 ? "Nacht" : "Nächte"}
+                        {stop.nights} {stop.nights === 1 ? "Nacht" : "Naechte"}
                       </span>
                     </div>
                   </div>
@@ -762,9 +947,9 @@ export default function RoadtripRouteDetailPage() {
                   <>
                 <span className="text-xs text-[var(--text-muted)]">
                   {stop.creatorRouteSlug
-                    ? "Creator-Route verfügbar"
+                    ? "Creator-Route verfuegbar"
                     : !plannerSupported
-                    ? "Roadtrip-Preview verfÃ¼gbar"
+                    ? "Roadtrip-Preview verfuegbar"
                     : stop.plannedStops?.length
                     ? `${stop.plannedStops.length} Stopps geplant`
                     : "Noch kein Tagesplan"}
@@ -774,7 +959,7 @@ export default function RoadtripRouteDetailPage() {
                     href={`/routes/${stop.creatorRouteSlug}/run`}
                     className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
                   >
-                    🗺️ Route starten
+                    Route starten
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -796,7 +981,7 @@ export default function RoadtripRouteDetailPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.97]"
                   >
-                    Karte Ã¶ffnen
+                    Karte oeffnen
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -931,3 +1116,4 @@ export default function RoadtripRouteDetailPage() {
     </main>
   );
 }
+
