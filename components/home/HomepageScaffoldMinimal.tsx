@@ -126,6 +126,12 @@ const useCases = [
   },
 ];
 
+const partnerHighlights = [
+  "Standort, Angebot oder Event-Baustein anlegen",
+  "Anfragen, Sichtbarkeit und Affiliate-Links an einem Ort steuern",
+  "In Explore, Planner und Event-Flows praesent werden",
+];
+
 function MetricPill({ children }: { children: ReactNode }) {
   return (
     <span className="rounded-full border border-[rgba(196,137,79,0.22)] bg-[rgba(255,253,248,0.86)] px-4 py-2 text-sm text-[var(--text-muted-warm)]">
@@ -199,6 +205,38 @@ export default function HomepageScaffoldMinimal() {
   return (
     <div className={`${display.variable} min-h-screen bg-[var(--bg-canvas-warm)] text-[var(--text-strong)]`}>
       <div className="pd24-page-standard pb-20 pt-6">
+        <header className="rounded-[28px] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.78)] px-4 py-3 shadow-[var(--shadow-soft)] sm:px-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <div className="text-sm font-semibold tracking-tight text-[var(--text-strong)]">PerfectDay24</div>
+              <div className="text-xs uppercase tracking-[0.18em] text-[var(--text-muted-warm)]">
+                Refined City Planning
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <Link
+                href="/planner"
+                className="inline-flex items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+              >
+                Planen
+              </Link>
+              <Link
+                href="/events"
+                className="inline-flex items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+              >
+                Events
+              </Link>
+              <Link
+                href="/partner/onboarding"
+                className="inline-flex items-center justify-center rounded-full border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] hover:bg-white"
+              >
+                Fuer Anbieter
+              </Link>
+            </div>
+          </div>
+        </header>
+
         <main className="mt-6 space-y-16 sm:space-y-24">
           <section className="relative overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(135deg,var(--bg-canvas-warm),var(--brand-warm-cloud))] px-5 py-6 shadow-[var(--shadow-large)] sm:px-8 sm:py-10">
             <div className="pointer-events-none absolute left-[-4rem] top-[-4rem] h-40 w-40 rounded-full bg-[rgba(196,137,79,0.12)] blur-3xl" />
@@ -374,6 +412,43 @@ export default function HomepageScaffoldMinimal() {
             </div>
           </section>
 
+          <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(248,250,252,0.96),rgba(238,244,248,0.92))] p-6 shadow-[var(--shadow-soft)] sm:p-8">
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+              <div className="max-w-3xl">
+                <div className="pd24-kicker-warm text-[var(--text-soft-warm)]">Fuer Anbieter</div>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-4xl">
+                  Eigene Location, Route oder Event-Bausteine direkt in PerfectDay24 vermarkten
+                </h2>
+                <p className="mt-4 text-base leading-7 text-[var(--text-muted-warm)]">
+                  Lege dein Profil an, pflege Standorte und Angebote und werde dort sichtbar, wo Nutzer bereits planen, vergleichen und buchen wollen.
+                </p>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                  {partnerHighlights.map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/84 px-4 py-4 text-sm leading-6 text-[var(--text-muted-warm)]"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col items-start gap-3 lg:items-end">
+                <PD24Button href="/partner/onboarding" variant="secondary" className="min-w-[12rem]">
+                  Partner werden
+                </PD24Button>
+                <Link
+                  href="/partner/dashboard"
+                  className="text-sm font-medium text-[var(--text-strong)] underline-offset-2 transition hover:underline"
+                >
+                  Partner-Portal ansehen -&gt;
+                </Link>
+              </div>
+            </div>
+          </section>
+
           <section className="space-y-8">
             <SectionIntro
               eyebrow="Differenzierung"
@@ -476,6 +551,7 @@ export default function HomepageScaffoldMinimal() {
               <Link href="/saved">Meine Pläne</Link>
               <Link href="/impressum">Impressum</Link>
               <Link href="/datenschutz">Datenschutz</Link>
+              <Link href="/partner/onboarding">Fuer Anbieter</Link>
               <Link href="/agb">AGB</Link>
             </div>
           </div>
