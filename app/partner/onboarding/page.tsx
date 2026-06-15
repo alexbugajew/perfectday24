@@ -195,6 +195,13 @@ function slugify(str: string) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 const TOTAL_STEPS = 5;
+const STEP_HINTS = [
+  "Lege zuerst fest, welche Art von Partner-Profil du aufbauen willst.",
+  "Hinterlege die Basisdaten, unter denen Nutzer dich spaeter finden und kontaktieren.",
+  "Ergaenze Kategorien, Kennzahlen und Staedte fuer besseres Matching.",
+  "Lade starke Bilder hoch, damit dein Eintrag hochwertig und vertrauenswuerdig wirkt.",
+  "Waehle dein Sichtbarkeitsmodell und lege dein Portal danach direkt an.",
+];
 
 export default function PartnerOnboarding() {
   const router = useRouter();
@@ -284,7 +291,8 @@ export default function PartnerOnboarding() {
         type_data: step3.type_data,
         media_urls: cleanMediaUrls,
         is_self_service_enabled: true,
-        status: "active",
+        status: "draft",
+        review_status: "draft",
         visibility_tier: "organic",
         billing_status: "inactive",
       })
@@ -332,16 +340,21 @@ export default function PartnerOnboarding() {
 
   const typeConfig = PARTNER_TYPES.find((t) => t.slug === step1.partner_type_slug)
     ?? { label: step1.partner_type_slug, icon: "🏢", desc: "", partnerType: "other", slug: step1.partner_type_slug };
+  const currentStepHint = STEP_HINTS[step - 1] ?? STEP_HINTS[0];
+  const nextActionLabel = step < TOTAL_STEPS ? "Naechsten Schritt vorbereiten" : "Partner-Portal final anlegen";
 
   return (
     <div className="min-h-screen bg-[var(--bg-app)]">
       {/* Header */}
       <div className="border-b border-[var(--line-subtle)] bg-white px-4 py-6 sm:px-6">
         <div className="mx-auto max-w-2xl">
-          <div className="pd24-kicker mb-1">Partner werden</div>
+          <div className="pd24-kicker mb-1">Partner Studio</div>
           <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
-            Partner-Profil anlegen
+            Partner-Portal einrichten
           </h1>
+          <p className="mt-2 text-sm text-[var(--text-muted)]">
+            Richte Profil, erste Assets und deine Vermarktungsbasis fuer Explore, Planner und Buchungswege ein.
+          </p>
           {/* Progress bar */}
           <div className="mt-5 flex items-center gap-2">
             {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
@@ -357,12 +370,12 @@ export default function PartnerOnboarding() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
+      <div className="mx-auto max-w-2xl px-4 py-8 pb-28 sm:px-6 sm:pb-32">
 
         {/* ── Step 1: Typ ───────────────────────────────────────────────────── */}
         {step === 1 && (
           <StepShell
-            title="Welche Art Partner bist du?"
+            title="Was moechtest du vermarkten?"
             subtitle="Wähle die Kategorie, die am besten zu deinem Angebot passt."
           >
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -391,7 +404,7 @@ export default function PartnerOnboarding() {
         {/* ── Step 2: Basis-Daten ───────────────────────────────────────────── */}
         {step === 2 && (
           <StepShell
-            title="Basis-Informationen"
+            title="Profil und Kontaktwege"
             subtitle={`Pflege die wichtigsten Daten für dein ${typeConfig.label}-Profil ein.`}
           >
             <div className="space-y-4">
@@ -495,7 +508,7 @@ export default function PartnerOnboarding() {
         {/* ── Step 3: Typ-spezifisch ────────────────────────────────────────── */}
         {step === 3 && (
           <StepShell
-            title="Details zu deinem Angebot"
+            title="Angebotsdetails und Reichweite"
             subtitle="Optionale Angaben, die dein Profil vervollständigen."
           >
             <div className="space-y-6">
@@ -572,7 +585,7 @@ export default function PartnerOnboarding() {
         {/* ── Step 4: Medien ────────────────────────────────────────────────── */}
         {step === 4 && (
           <StepShell
-            title="Fotos & Medien"
+            title="Fotos und Medien"
             subtitle="Lade bis zu 5 Fotos hoch. Das erste Bild wird als Titelbild verwendet."
           >
             <PhotoUpload
@@ -587,7 +600,7 @@ export default function PartnerOnboarding() {
         {/* ── Step 5: Tier ─────────────────────────────────────────────────── */}
         {step === 5 && (
           <StepShell
-            title="Dein Plan"
+            title="Sichtbarkeit und Reporting"
             subtitle="Starte kostenlos oder wähle direkt einen bezahlten Plan."
           >
             <div className="space-y-3">
@@ -632,7 +645,57 @@ export default function PartnerOnboarding() {
         )}
 
         {/* ── Navigation ───────────────────────────────────────────────────── */}
-        <div className="mt-6 flex items-center justify-between gap-4">
+        <div className="sticky bottom-4 z-10 mt-6">
+          <div className="rounded-[28px] border border-[var(--line-subtle)] bg-white/95 p-4 shadow-[var(--shadow-soft)] backdrop-blur sm:p-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
+                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
+                  Schritt {step} von {TOTAL_STEPS}
+                </div>
+                <p className="mt-1 text-sm font-medium text-[var(--text-strong)]">{nextActionLabel}</p>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--text-muted)]">{currentStepHint}</p>
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+                {step > 1 ? (
+                  <button
+                    type="button"
+                    onClick={() => setStep((s) => s - 1)}
+                    className="inline-flex w-full items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] sm:w-auto"
+                  >
+                    ← Zurueck
+                  </button>
+                ) : null}
+
+                {step < TOTAL_STEPS ? (
+                  <button
+                    type="button"
+                    disabled={!canNext}
+                    onClick={() => setStep((s) => s + 1)}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-40 sm:w-auto"
+                  >
+                    Weiter →
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={submitting || !userId}
+                    onClick={() => void handleSubmit()}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-50 sm:w-auto"
+                  >
+                    {submitting
+                      ? "Wird angelegt ..."
+                      : step5.tier === "organic"
+                      ? "Portal anlegen"
+                      : "Portal anlegen & zahlen"}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden mt-6 flex items-center justify-between gap-4">
           {step > 1 ? (
             <button
               type="button"
@@ -664,8 +727,8 @@ export default function PartnerOnboarding() {
               {submitting
                 ? "Wird angelegt …"
                 : step5.tier === "organic"
-                ? "Profil anlegen"
-                : "Profil anlegen & zahlen"}
+                ? "Portal anlegen"
+                : "Portal anlegen & zahlen"}
             </button>
           )}
         </div>

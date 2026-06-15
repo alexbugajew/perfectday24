@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import AdminEntityToggle from "@/components/monetization/AdminEntityToggle";
 import {
-  assertInternalMonetizationAdmin,
+  getMonetizationAdminAccessState,
   getMonetizationAdminSnapshot,
+  type MonetizationAdminAccessState,
 } from "@/lib/monetization/admin-server";
 
 export const dynamic = "force-dynamic";
@@ -83,11 +83,48 @@ function Section({
   );
 }
 
+function AdminAccessState({ reason }: { reason: Exclude<MonetizationAdminAccessState["reason"], null> }) {
+  const isLoginRequired = reason === "unauthenticated";
+  const isMisconfigured = reason === "misconfigured";
+
+  return (
+    <main className="mx-auto flex min-h-[70vh] max-w-3xl items-center px-4 py-16 sm:px-6 lg:px-8">
+      <section className="w-full rounded-[32px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-8 text-center shadow-[var(--shadow-soft)] sm:p-10">
+        <div className="pd24-kicker mb-3">{isLoginRequired ? "Admin Login" : "403"}</div>
+        <h1 className="text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
+          {isLoginRequired ? "Bitte mit internem Admin-Konto anmelden" : "Kein Zugriff auf diesen Bereich"}
+        </h1>
+        <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)] sm:text-base">
+          {isLoginRequired
+            ? "Das Monetization-Admin ist nur fuer freigeschaltete interne Admin-Konten sichtbar."
+            : isMisconfigured
+              ? "Die Admin-Allowlist ist fuer diese Umgebung noch nicht konfiguriert. Hinterlege zuerst die internen Admin-Konten in den Server-Umgebungsvariablen."
+              : "Dieses Monetization-Admin ist nur fuer interne Admin-Konten freigegeben."}
+        </p>
+
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Link
+            href="/profile"
+            className="inline-flex items-center justify-center rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+          >
+            Zum Login / Profil
+          </Link>
+          <Link
+            href="/explore"
+            className="inline-flex items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+          >
+            Zurueck zu Explore
+          </Link>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 export default async function MonetizationAdminPage(props: { searchParams?: Promise<any> | any }) {
-  try {
-    assertInternalMonetizationAdmin();
-  } catch {
-    notFound();
+  const access = await getMonetizationAdminAccessState();
+  if (!access.allowed) {
+    return <AdminAccessState reason={access.reason} />;
   }
 
   const resolvedSearchParams = await Promise.resolve(props.searchParams ?? {});
@@ -359,6 +396,14 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
     return true;
   });
 
+  const reviewQueueStatuses = new Set(["submitted", "in_review", "changes_requested", "approved"]);
+  const queuedPartners = snapshot.partners.filter((partner) => reviewQueueStatuses.has(partner.review_status));
+  const queuedProviders = snapshot.providers.filter((provider) => reviewQueueStatuses.has(provider.review_status));
+  const queuedCampaigns = snapshot.campaigns.filter((campaign) => reviewQueueStatuses.has(campaign.review_status));
+  const queuedAffiliateLinks = snapshot.affiliateLinks.filter((link) => reviewQueueStatuses.has(link.review_status));
+  const totalQueuedReviews =
+    queuedPartners.length + queuedProviders.length + queuedCampaigns.length + queuedAffiliateLinks.length;
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8 rounded-[36px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-8 shadow-[var(--shadow-soft)]">
@@ -437,6 +482,181 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 <div>Kampagnen aktiv: {activeCampaigns}</div>
                 <div>Affiliate-Links aktiv: {activeAffiliates}</div>
                 <div>Produkte aktiv: {activeProducts}</div>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        <Section
+          title="Partner Review Queue"
+          subtitle="Self-Service Profil-, Standort-, Kampagnen- und Affiliate-Einreichungen sauber moderieren und veroeffentlichen."
+        >
+          <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              { label: "Profile in Queue", value: queuedPartners.length },
+              { label: "Standorte in Queue", value: queuedProviders.length },
+              { label: "Kampagnen in Queue", value: queuedCampaigns.length },
+              { label: "Affiliate-Links in Queue", value: queuedAffiliateLinks.length },
+            ].map((item) => (
+              <div key={item.label} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
+                <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{item.label}</div>
+                <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{compactNumber(item.value)}</div>
+              </div>
+            ))}
+          </div>
+
+          {totalQueuedReviews === 0 ? (
+            <div className="mb-1 rounded-[24px] border border-dashed border-black/10 bg-white p-5">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="max-w-2xl">
+                  <div className="text-sm font-medium text-[var(--text-strong)]">Aktuell keine offenen Einreichungen</div>
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">
+                    Neue Profile, Standorte, Kampagnen oder Affiliate-Links tauchen hier automatisch auf,
+                    sobald Partner ihre Inhalte zur Freigabe einreichen.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    `Profile ${queuedPartners.length}`,
+                    `Standorte ${queuedProviders.length}`,
+                    `Kampagnen ${queuedCampaigns.length}`,
+                    `Affiliate ${queuedAffiliateLinks.length}`,
+                  ].map((label) => (
+                    <span
+                      key={label}
+                      className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1 text-xs font-medium text-[var(--text-strong)]"
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          <div className={`${totalQueuedReviews === 0 ? "hidden" : "grid gap-6 xl:grid-cols-2"}`}>
+            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+              <div className="text-sm font-medium text-[var(--text-strong)]">Profile</div>
+              <div className="mt-4 space-y-3">
+                {queuedPartners.length > 0 ? queuedPartners.slice(0, 8).map((partner) => (
+                  <div key={partner.id} className="rounded-[20px] border border-black/5 bg-white p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <div className="font-medium text-[var(--text-strong)]">{partner.display_name}</div>
+                        <div className="mt-1 text-xs text-[var(--text-muted)]">
+                          {partner.primary_city_slug ?? "ohne Stadt"} · {partner.review_status} · Update {formatDateTime(partner.updated_at)}
+                        </div>
+                        {partner.review_notes ? (
+                          <div className="mt-2 text-xs text-[var(--text-muted)]">{partner.review_notes}</div>
+                        ) : null}
+                      </div>
+                      <div className="flex flex-wrap justify-end gap-2">
+                        <AdminEntityToggle entity="partner" id={partner.id} patch={{ review_status: "in_review" }} label="In Review" />
+                        <AdminEntityToggle entity="partner" id={partner.id} patch={{ review_status: "changes_requested" }} label="Aenderungen" tone="warning" />
+                        <AdminEntityToggle entity="partner" id={partner.id} patch={{ review_status: "published" }} label="Veroeffentlichen" tone="active" />
+                      </div>
+                    </div>
+                  </div>
+                )) : (
+                  <div className="rounded-[20px] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
+                    Keine Profil-Einreichungen in der Queue.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+              <div className="text-sm font-medium text-[var(--text-strong)]">Standorte</div>
+              <div className="mt-4 space-y-3">
+                {queuedProviders.length > 0 ? queuedProviders.slice(0, 8).map((provider) => {
+                  const partner = provider.partner_profile_id ? partnerById.get(provider.partner_profile_id) ?? null : null;
+                  return (
+                    <div key={provider.id} className="rounded-[20px] border border-black/5 bg-white p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="font-medium text-[var(--text-strong)]">{provider.name}</div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">
+                            {partner?.display_name ?? "Unbekannter Partner"} · {provider.city_slug ?? "ohne Stadt"} · {provider.review_status}
+                          </div>
+                          {provider.review_notes ? <div className="mt-2 text-xs text-[var(--text-muted)]">{provider.review_notes}</div> : null}
+                        </div>
+                        <div className="flex flex-wrap justify-end gap-2">
+                          <AdminEntityToggle entity="provider" id={provider.id} patch={{ review_status: "in_review" }} label="In Review" />
+                          <AdminEntityToggle entity="provider" id={provider.id} patch={{ review_status: "changes_requested" }} label="Aenderungen" tone="warning" />
+                          <AdminEntityToggle entity="provider" id={provider.id} patch={{ review_status: "published" }} label="Veroeffentlichen" tone="active" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }) : (
+                  <div className="rounded-[20px] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
+                    Keine Standort-Einreichungen in der Queue.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+              <div className="text-sm font-medium text-[var(--text-strong)]">Kampagnen</div>
+              <div className="mt-4 space-y-3">
+                {queuedCampaigns.length > 0 ? queuedCampaigns.slice(0, 8).map((campaign) => {
+                  const partner = partnerById.get(campaign.partner_profile_id) ?? null;
+                  return (
+                    <div key={campaign.id} className="rounded-[20px] border border-black/5 bg-white p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="font-medium text-[var(--text-strong)]">{campaign.name}</div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">
+                            {partner?.display_name ?? "Unbekannter Partner"} · {campaign.campaign_type} · {campaign.review_status}
+                          </div>
+                          {campaign.review_notes ? <div className="mt-2 text-xs text-[var(--text-muted)]">{campaign.review_notes}</div> : null}
+                        </div>
+                        <div className="flex flex-wrap justify-end gap-2">
+                          <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "in_review" }} label="In Review" />
+                          <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "changes_requested" }} label="Aenderungen" tone="warning" />
+                          <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "approved" }} label="Freigeben" />
+                          <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "published" }} label="Veroeffentlichen" tone="active" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }) : (
+                  <div className="rounded-[20px] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
+                    Keine Kampagnen-Einreichungen in der Queue.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+              <div className="text-sm font-medium text-[var(--text-strong)]">Affiliate-Links</div>
+              <div className="mt-4 space-y-3">
+                {queuedAffiliateLinks.length > 0 ? queuedAffiliateLinks.slice(0, 8).map((link) => {
+                  const partner = link.partner_profile_id ? partnerById.get(link.partner_profile_id) ?? null : null;
+                  return (
+                    <div key={link.id} className="rounded-[20px] border border-black/5 bg-white p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="font-medium text-[var(--text-strong)]">{link.provider_name}</div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">
+                            {partner?.display_name ?? "Unbekannter Partner"} · {link.link_scope} · {link.review_status}
+                          </div>
+                          {link.review_notes ? <div className="mt-2 text-xs text-[var(--text-muted)]">{link.review_notes}</div> : null}
+                        </div>
+                        <div className="flex flex-wrap justify-end gap-2">
+                          <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "in_review" }} label="In Review" />
+                          <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "changes_requested" }} label="Aenderungen" tone="warning" />
+                          <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "approved" }} label="Freigeben" />
+                          <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "published" }} label="Veroeffentlichen" tone="active" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }) : (
+                  <div className="rounded-[20px] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
+                    Keine Affiliate-Einreichungen in der Queue.
+                  </div>
+                )}
               </div>
             </div>
           </div>

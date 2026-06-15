@@ -27,6 +27,11 @@ type PartnerProfile = {
   media_urls: string[];
   type_data: Record<string, string>;
   booking_type: string;
+  review_status: ReviewStatus;
+  review_notes: string | null;
+  review_submitted_at: string | null;
+  review_reviewed_at: string | null;
+  published_at: string | null;
 };
 
 type ServiceProvider = {
@@ -36,6 +41,11 @@ type ServiceProvider = {
   description: string | null;
   is_verified: boolean;
   status: string;
+  review_status: ReviewStatus;
+  review_notes: string | null;
+  review_submitted_at: string | null;
+  review_reviewed_at: string | null;
+  published_at: string | null;
   provider_packages: ProviderPackage[];
 };
 
@@ -66,6 +76,31 @@ type NewPackageForm = {
   max_guests: string;
 };
 
+type NewCampaignForm = {
+  name: string;
+  campaign_type: string;
+  city_slug: string;
+  starts_at: string;
+  ends_at: string;
+  cta_label: string;
+  cta_url: string;
+  target_kind: "route" | "location" | "event";
+  target_id: string;
+};
+
+type NewAffiliateLinkForm = {
+  provider_name: string;
+  destination_url: string;
+  commission_model: string;
+  link_scope: string;
+  target_kind: "route" | "location" | "planner_event" | "none";
+  target_id: string;
+};
+
+type AssetBuilderType = "location" | "event" | "route" | "affiliate";
+type ReviewStatus = "draft" | "submitted" | "in_review" | "changes_requested" | "approved" | "published";
+type ReviewEntity = "profile" | "provider" | "campaign" | "affiliate";
+
 type BookingRequest = {
   id: string;
   need_slug: string;
@@ -87,6 +122,42 @@ type Stats = {
   impressions: number;
   clicks: number;
   bookings: number;
+};
+
+type PartnerCampaign = {
+  id: string;
+  name: string;
+  campaign_type: string;
+  status: string;
+  review_status: ReviewStatus;
+  review_notes: string | null;
+  review_submitted_at: string | null;
+  review_reviewed_at: string | null;
+  published_at: string | null;
+  city_slug: string | null;
+  starts_at: string | null;
+  ends_at: string | null;
+  cta_label: string | null;
+  target_route_id: string | null;
+  target_location_id: string | null;
+  target_event_id: string | null;
+};
+
+type AffiliateLink = {
+  id: string;
+  link_scope: string;
+  provider_name: string;
+  commission_model: string;
+  destination_url: string;
+  is_active: boolean;
+  review_status: ReviewStatus;
+  review_notes: string | null;
+  review_submitted_at: string | null;
+  review_reviewed_at: string | null;
+  published_at: string | null;
+  route_id: string | null;
+  location_id: string | null;
+  planner_event_id: string | null;
 };
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -164,6 +235,15 @@ const BOOKING_TYPE_LABEL: Record<string, string> = {
   none:     "Keine Buchung",
 };
 
+const REVIEW_META: Record<ReviewStatus, { label: string; tone: "draft" | "ready" | "active" }> = {
+  draft: { label: "Entwurf", tone: "draft" },
+  submitted: { label: "Eingereicht", tone: "ready" },
+  in_review: { label: "In Pruefung", tone: "ready" },
+  changes_requested: { label: "Aenderungen noetig", tone: "draft" },
+  approved: { label: "Freigegeben", tone: "ready" },
+  published: { label: "Veroeffentlicht", tone: "active" },
+};
+
 // ── Self-service: category → service_type mapping ─────────────────────────────
 
 // Maps partner_type_slug and service_category_slugs to the service_type values
@@ -223,6 +303,28 @@ const PRICE_UNIT_LABEL: Record<string, string> = {
   per_hour:   "Pro Stunde",
 };
 
+const CAMPAIGN_TYPE_OPTIONS = [
+  { value: "featured_location", label: "Featured Standort" },
+  { value: "featured_event", label: "Featured Event" },
+  { value: "sponsored_placement", label: "Sponsored Placement" },
+  { value: "city_spotlight", label: "City Spotlight" },
+  { value: "creator_distribution", label: "Route / Creator Distribution" },
+] as const;
+
+const AFFILIATE_SCOPE_OPTIONS = [
+  { value: "hotel", label: "Hotel / Unterkunft" },
+  { value: "ticket", label: "Event / Ticket" },
+  { value: "experience", label: "Erlebnis" },
+  { value: "restaurant", label: "Restaurant / Reservierung" },
+  { value: "tourism", label: "Tourismus / Attraction" },
+] as const;
+
+const COMMISSION_MODEL_OPTIONS = [
+  { value: "cps", label: "CPS" },
+  { value: "cpl", label: "CPL" },
+  { value: "cpc", label: "CPC" },
+] as const;
+
 // Derive which service_types are relevant for a given partner profile.
 function getAvailableServiceTypes(profile: PartnerProfile): string[] {
   const fromCategories = (profile.service_category_slugs ?? [])
@@ -251,14 +353,20 @@ function formatPrice(cents: number, unit: string) {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function Section({ title, subtitle, children }: {
-  title: string; subtitle?: string; children: React.ReactNode;
+function Section({ id, title, subtitle, action, children }: {
+  id?: string; title: string; subtitle?: string; action?: React.ReactNode; children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 shadow-[var(--shadow-soft)]">
-      <div className="mb-5">
-        <h2 className="text-xl font-semibold text-[var(--text-strong)]">{title}</h2>
-        {subtitle && <p className="mt-1 text-sm text-[var(--text-muted)]">{subtitle}</p>}
+    <section
+      id={id}
+      className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 shadow-[var(--shadow-soft)]"
+    >
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h2 className="text-xl font-semibold text-[var(--text-strong)]">{title}</h2>
+          {subtitle && <p className="mt-1 text-sm text-[var(--text-muted)]">{subtitle}</p>}
+        </div>
+        {action ? <div className="shrink-0">{action}</div> : null}
       </div>
       {children}
     </section>
@@ -275,6 +383,80 @@ function StatTile({ label, value, sub }: { label: string; value: string | number
   );
 }
 
+function AssetStatusPill({ label, tone }: { label: string; tone: "draft" | "ready" | "active" }) {
+  const toneClass =
+    tone === "active"
+      ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+      : tone === "ready"
+        ? "border-blue-200 bg-blue-50 text-blue-800"
+        : "border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)]";
+
+  return (
+    <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-medium ${toneClass}`}>
+      {label}
+    </span>
+  );
+}
+
+function ReviewStatusPill({ status }: { status: ReviewStatus }) {
+  const meta = REVIEW_META[status] ?? REVIEW_META.draft;
+  return <AssetStatusPill label={meta.label} tone={meta.tone} />;
+}
+
+function AssetBuilderCard({
+  title,
+  subtitle,
+  status,
+  metric,
+  active,
+  onClick,
+}: {
+  title: string;
+  subtitle: string;
+  status: React.ReactNode;
+  metric: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-[24px] border p-5 text-left transition ${
+        active
+          ? "border-[var(--text-strong)] bg-white shadow-sm"
+          : "border-[var(--line-subtle)] bg-[var(--bg-surface)] hover:border-[var(--text-strong)]"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <div className="text-sm font-semibold text-[var(--text-strong)]">{title}</div>
+          <p className="mt-1 text-xs text-[var(--text-muted)]">{subtitle}</p>
+        </div>
+        {status}
+      </div>
+      <div className="mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">{metric}</div>
+    </button>
+  );
+}
+
+function formatOptionalDateRange(start: string | null, end: string | null) {
+  if (start && end) return `${formatDate(start)} bis ${formatDate(end)}`;
+  if (start) return `ab ${formatDate(start)}`;
+  if (end) return `bis ${formatDate(end)}`;
+  return "ohne Zeitraum";
+}
+
+function getUniqueCities(profile: PartnerProfile) {
+  return Array.from(
+    new Set(
+      [profile.primary_city_slug, ...(profile.operating_cities ?? [])].filter(
+        (value): value is string => Boolean(value)
+      )
+    )
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function PartnerDashboard() {
@@ -284,11 +466,14 @@ export default function PartnerDashboard() {
   const [role, setRole] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [needsAuth, setNeedsAuth] = useState(false);
   const [noAccess, setNoAccess] = useState(false);
 
   const [stats, setStats] = useState<Stats>({ impressions: 0, clicks: 0, bookings: 0 });
   const [providers, setProviders] = useState<ServiceProvider[]>([]);
   const [bookings, setBookings] = useState<BookingRequest[]>([]);
+  const [campaigns, setCampaigns] = useState<PartnerCampaign[]>([]);
+  const [affiliateLinks, setAffiliateLinks] = useState<AffiliateLink[]>([]);
 
   // Profile edit
   const [editMode, setEditMode] = useState(false);
@@ -316,113 +501,168 @@ export default function PartnerDashboard() {
   const [addPkgError, setAddPkgError]             = useState<string | null>(null);
   const [deletingPkg, setDeletingPkg]             = useState<string | null>(null);
 
+  const [newCampaign, setNewCampaign]             = useState<NewCampaignForm>({
+    name: "",
+    campaign_type: "featured_location",
+    city_slug: "",
+    starts_at: "",
+    ends_at: "",
+    cta_label: "",
+    cta_url: "",
+    target_kind: "location",
+    target_id: "",
+  });
+  const [addingCampaign, setAddingCampaign]       = useState(false);
+  const [addCampaignError, setAddCampaignError]   = useState<string | null>(null);
+  const [campaignUpdating, setCampaignUpdating]   = useState<string | null>(null);
+  const [deletingCampaign, setDeletingCampaign]   = useState<string | null>(null);
+
+  const [newAffiliate, setNewAffiliate]           = useState<NewAffiliateLinkForm>({
+    provider_name: "",
+    destination_url: "",
+    commission_model: "cps",
+    link_scope: "hotel",
+    target_kind: "none",
+    target_id: "",
+  });
+  const [addingAffiliate, setAddingAffiliate]     = useState(false);
+  const [addAffiliateError, setAddAffiliateError] = useState<string | null>(null);
+  const [affiliateUpdating, setAffiliateUpdating] = useState<string | null>(null);
+  const [deletingAffiliate, setDeletingAffiliate] = useState<string | null>(null);
+  const [selectedAssetBuilder, setSelectedAssetBuilder] = useState<AssetBuilderType>("location");
+  const [reviewUpdatingKey, setReviewUpdatingKey] = useState<string | null>(null);
+
   const load = useCallback(async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      router.replace("/profile?return=/partner/dashboard");
-      return;
-    }
-    const userId = session.user.id;
-    setUserId(userId);
+    setLoading(true);
+    setNeedsAuth(false);
+    setNoAccess(false);
 
-    // Load membership + profile
-    const { data: membership, error: membershipErr } = await supabase
-      .from("partner_memberships")
-      .select(`
-        role,
-        partner_profiles (
-          id, display_name, partner_type, partner_type_slug, visibility_tier, billing_status,
-          status, website_url, booking_url, contact_email, contact_phone,
-          primary_city_slug, notes,
-          service_category_slugs, operating_cities, media_urls, type_data, booking_type
-        )
-      `)
-      .eq("user_id", userId)
-      .eq("status", "active")
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setNeedsAuth(true);
+        router.replace("/profile?return=/partner/dashboard");
+        return;
+      }
+      const userId = session.user.id;
+      setUserId(userId);
 
-    if (membershipErr || !membership || !membership.partner_profiles) {
-      setNoAccess(true);
-      setLoading(false);
-      return;
-    }
-
-    const prof = membership.partner_profiles as unknown as PartnerProfile;
-    setProfile(prof);
-    setRole(membership.role);
-    setEditForm({
-      display_name:  prof.display_name,
-      website_url:   prof.website_url ?? "",
-      booking_url:   prof.booking_url ?? "",
-      contact_email: prof.contact_email ?? "",
-      contact_phone: prof.contact_phone ?? "",
-      notes:         prof.notes ?? "",
-    });
-
-    const now = new Date();
-    const since30d = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
-
-    // Load stats in parallel
-    const [
-      { count: impressionCount },
-      { count: clickCount },
-      providersResult,
-    ] = await Promise.all([
-      supabase
-        .from("partner_impressions")
-        .select("id", { count: "exact", head: true })
-        .eq("partner_id", prof.id)
-        .gte("created_at", since30d),
-      supabase
-        .from("partner_clicks")
-        .select("id", { count: "exact", head: true })
-        .eq("partner_id", prof.id)
-        .gte("created_at", since30d),
-      supabase
-        .from("service_providers")
+      // Load membership + profile
+      const { data: membership, error: membershipErr } = await supabase
+        .from("partner_memberships")
         .select(`
-          id, name, service_type, description, is_verified, status,
-          provider_packages ( id, name, price_cents, price_unit, status )
+          role,
+          partner_profiles (
+            id, display_name, partner_type, partner_type_slug, visibility_tier, billing_status,
+            status, website_url, booking_url, contact_email, contact_phone,
+            primary_city_slug, notes,
+            service_category_slugs, operating_cities, media_urls, type_data, booking_type,
+            review_status, review_notes, review_submitted_at, review_reviewed_at, published_at
+          )
         `)
-        .eq("partner_profile_id", prof.id)
-        .eq("status", "active"),
-    ]);
-
-    const providerList = (providersResult.data ?? []) as unknown as ServiceProvider[];
-    setProviders(providerList);
-
-    // Booking requests for this partner's providers
-    const providerIds = providerList.map((p) => p.id);
-    let bookingList: BookingRequest[] = [];
-    if (providerIds.length > 0) {
-      const { data: bkgs } = await supabase
-        .from("event_bookings")
-        .select(`
-          id, need_slug, price_cents_agreed, status, created_at,
-          service_providers ( id, name ),
-          provider_packages ( id, name, price_cents, price_unit ),
-          event_plans ( id, title, occasion_slug, guest_count, event_date )
-        `)
-        .in("service_provider_id", providerIds)
+        .eq("user_id", userId)
+        .eq("status", "active")
         .order("created_at", { ascending: false })
-        .limit(50);
-      bookingList = (bkgs ?? []) as unknown as BookingRequest[];
+        .limit(1)
+        .maybeSingle();
+
+      if (membershipErr || !membership || !membership.partner_profiles) {
+        setNoAccess(true);
+        return;
+      }
+
+      const prof = membership.partner_profiles as unknown as PartnerProfile;
+      setProfile(prof);
+      setRole(membership.role);
+      setEditForm({
+        display_name:  prof.display_name,
+        website_url:   prof.website_url ?? "",
+        booking_url:   prof.booking_url ?? "",
+        contact_email: prof.contact_email ?? "",
+        contact_phone: prof.contact_phone ?? "",
+        notes:         prof.notes ?? "",
+      });
+
+      const now = new Date();
+      const since30d = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
+
+      // Load stats in parallel
+      const [
+        { count: impressionCount },
+        { count: clickCount },
+        providersResult,
+        campaignsResult,
+        affiliateLinksResult,
+      ] = await Promise.all([
+        supabase
+          .from("partner_impressions")
+          .select("id", { count: "exact", head: true })
+          .eq("partner_id", prof.id)
+          .gte("created_at", since30d),
+        supabase
+          .from("partner_clicks")
+          .select("id", { count: "exact", head: true })
+          .eq("partner_id", prof.id)
+          .gte("created_at", since30d),
+        supabase
+          .from("service_providers")
+          .select(`
+            id, name, service_type, description, is_verified, status, review_status, review_notes, review_submitted_at, review_reviewed_at, published_at,
+            provider_packages ( id, name, price_cents, price_unit, status )
+          `)
+          .eq("partner_profile_id", prof.id),
+        supabase
+          .from("partner_campaigns")
+          .select("id, name, campaign_type, status, review_status, review_notes, review_submitted_at, review_reviewed_at, published_at, city_slug, starts_at, ends_at, cta_label, target_route_id, target_location_id, target_event_id")
+          .eq("partner_profile_id", prof.id)
+          .order("updated_at", { ascending: false })
+          .limit(12),
+        supabase
+          .from("affiliate_links")
+          .select("id, link_scope, provider_name, commission_model, destination_url, is_active, review_status, review_notes, review_submitted_at, review_reviewed_at, published_at, route_id, location_id, planner_event_id")
+          .eq("partner_profile_id", prof.id)
+          .order("updated_at", { ascending: false })
+          .limit(12),
+      ]);
+
+      const providerList = (providersResult.data ?? []) as unknown as ServiceProvider[];
+      setProviders(providerList);
+      setCampaigns((campaignsResult.data ?? []) as PartnerCampaign[]);
+      setAffiliateLinks((affiliateLinksResult.data ?? []) as AffiliateLink[]);
+
+      // Booking requests for this partner's providers
+      const providerIds = providerList.map((p) => p.id);
+      let bookingList: BookingRequest[] = [];
+      if (providerIds.length > 0) {
+        const { data: bkgs } = await supabase
+          .from("event_bookings")
+          .select(`
+            id, need_slug, price_cents_agreed, status, created_at,
+            service_providers ( id, name ),
+            provider_packages ( id, name, price_cents, price_unit ),
+            event_plans ( id, title, occasion_slug, guest_count, event_date )
+          `)
+          .in("service_provider_id", providerIds)
+          .order("created_at", { ascending: false })
+          .limit(50);
+        bookingList = (bkgs ?? []) as unknown as BookingRequest[];
+      }
+      setBookings(bookingList);
+
+      const bookingCount30d = bookingList.filter(
+        (b) => new Date(b.created_at) >= new Date(since30d)
+      ).length;
+
+      setStats({
+        impressions: impressionCount ?? 0,
+        clicks:      clickCount ?? 0,
+        bookings:    bookingCount30d,
+      });
+    } catch {
+      setNoAccess(true);
+    } finally {
+      setLoading(false);
     }
-    setBookings(bookingList);
-
-    const bookingCount30d = bookingList.filter(
-      (b) => new Date(b.created_at) >= new Date(since30d)
-    ).length;
-
-    setStats({
-      impressions: impressionCount ?? 0,
-      clicks:      clickCount ?? 0,
-      bookings:    bookingCount30d,
-    });
-
-    setLoading(false);
   }, [router]);
 
   useEffect(() => { void load(); }, [load]);
@@ -635,6 +875,250 @@ export default function PartnerDashboard() {
 
   // ─── Render states ────────────────────────────────────────────────────────
 
+  async function handleAddCampaign() {
+    if (!profile || !newCampaign.name.trim() || !newCampaign.campaign_type) return;
+    setAddingCampaign(true);
+    setAddCampaignError(null);
+
+    const token = await getAccessToken();
+    if (!token) {
+      setAddCampaignError("Nicht eingeloggt.");
+      setAddingCampaign(false);
+      return;
+    }
+
+    const res = await fetch("/api/partner/campaigns", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify({
+        name: newCampaign.name.trim(),
+        campaign_type: newCampaign.campaign_type,
+        city_slug: newCampaign.city_slug || profile.primary_city_slug || null,
+        starts_at: newCampaign.starts_at || null,
+        ends_at: newCampaign.ends_at || null,
+        cta_label: newCampaign.cta_label.trim() || null,
+        cta_url: newCampaign.cta_url.trim() || null,
+        target_route_id: newCampaign.target_kind === "route" ? newCampaign.target_id.trim() || null : null,
+        target_location_id: newCampaign.target_kind === "location" ? newCampaign.target_id.trim() || null : null,
+        target_event_id: newCampaign.target_kind === "event" ? newCampaign.target_id.trim() || null : null,
+      }),
+    });
+
+    const data = await res.json() as { campaign?: PartnerCampaign; error?: string };
+    if (!res.ok || !data.campaign) {
+      setAddCampaignError(data.error ?? "Fehler beim Erstellen.");
+      setAddingCampaign(false);
+      return;
+    }
+
+    setCampaigns((prev) => [data.campaign!, ...prev]);
+    setNewCampaign({
+      name: "",
+      campaign_type: "featured_location",
+      city_slug: profile.primary_city_slug ?? "",
+      starts_at: "",
+      ends_at: "",
+      cta_label: "",
+      cta_url: "",
+      target_kind: "location",
+      target_id: "",
+    });
+    setAddingCampaign(false);
+  }
+
+  async function handleCampaignStatus(campaignId: string, status: string) {
+    setCampaignUpdating(campaignId);
+    const token = await getAccessToken();
+    if (!token) {
+      setCampaignUpdating(null);
+      return;
+    }
+
+    const res = await fetch(`/api/partner/campaigns/${campaignId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ status }),
+    });
+
+    if (res.ok) {
+      setCampaigns((prev) => prev.map((campaign) => (
+        campaign.id === campaignId ? { ...campaign, status } : campaign
+      )));
+    }
+
+    setCampaignUpdating(null);
+  }
+
+  async function handleDeleteCampaign(campaignId: string) {
+    if (!confirm("Kampagne wirklich loeschen?")) return;
+    setDeletingCampaign(campaignId);
+    const token = await getAccessToken();
+    if (!token) {
+      setDeletingCampaign(null);
+      return;
+    }
+
+    const res = await fetch(`/api/partner/campaigns/${campaignId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (res.ok) {
+      setCampaigns((prev) => prev.filter((campaign) => campaign.id !== campaignId));
+    }
+
+    setDeletingCampaign(null);
+  }
+
+  async function handleAddAffiliateLink() {
+    if (!newAffiliate.provider_name.trim() || !newAffiliate.destination_url.trim()) return;
+    setAddingAffiliate(true);
+    setAddAffiliateError(null);
+
+    const token = await getAccessToken();
+    if (!token) {
+      setAddAffiliateError("Nicht eingeloggt.");
+      setAddingAffiliate(false);
+      return;
+    }
+
+    const res = await fetch("/api/partner/affiliate-links", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify({
+        provider_name: newAffiliate.provider_name.trim(),
+        destination_url: newAffiliate.destination_url.trim(),
+        commission_model: newAffiliate.commission_model,
+        link_scope: newAffiliate.link_scope,
+        route_id: newAffiliate.target_kind === "route" ? newAffiliate.target_id.trim() || null : null,
+        location_id: newAffiliate.target_kind === "location" ? newAffiliate.target_id.trim() || null : null,
+        planner_event_id: newAffiliate.target_kind === "planner_event" ? newAffiliate.target_id.trim() || null : null,
+      }),
+    });
+
+    const data = await res.json() as { affiliateLink?: AffiliateLink; error?: string };
+    if (!res.ok || !data.affiliateLink) {
+      setAddAffiliateError(data.error ?? "Fehler beim Erstellen.");
+      setAddingAffiliate(false);
+      return;
+    }
+
+    setAffiliateLinks((prev) => [data.affiliateLink!, ...prev]);
+    setNewAffiliate({
+      provider_name: "",
+      destination_url: "",
+      commission_model: "cps",
+      link_scope: "hotel",
+      target_kind: "none",
+      target_id: "",
+    });
+    setAddingAffiliate(false);
+  }
+
+  async function handleAffiliateState(affiliateId: string, isActive: boolean) {
+    setAffiliateUpdating(affiliateId);
+    const token = await getAccessToken();
+    if (!token) {
+      setAffiliateUpdating(null);
+      return;
+    }
+
+    const res = await fetch(`/api/partner/affiliate-links/${affiliateId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ is_active: isActive }),
+    });
+
+    if (res.ok) {
+      setAffiliateLinks((prev) => prev.map((link) => (
+        link.id === affiliateId ? { ...link, is_active: isActive } : link
+      )));
+    }
+
+    setAffiliateUpdating(null);
+  }
+
+  async function handleDeleteAffiliate(affiliateId: string) {
+    if (!confirm("Affiliate-Link wirklich loeschen?")) return;
+    setDeletingAffiliate(affiliateId);
+    const token = await getAccessToken();
+    if (!token) {
+      setDeletingAffiliate(null);
+      return;
+    }
+
+    const res = await fetch(`/api/partner/affiliate-links/${affiliateId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (res.ok) {
+      setAffiliateLinks((prev) => prev.filter((link) => link.id !== affiliateId));
+    }
+
+    setDeletingAffiliate(null);
+  }
+
+  async function handleReviewAction(entity: ReviewEntity, targetId: string | null, action: "submit" | "withdraw") {
+    const key = `${entity}:${targetId ?? "self"}:${action}`;
+    setReviewUpdatingKey(key);
+
+    try {
+      const token = await getAccessToken();
+      if (!token) {
+        setReviewUpdatingKey(null);
+        return;
+      }
+
+      const res = await fetch("/api/partner/review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ entity, targetId, action }),
+      });
+
+      const data = (await res.json()) as {
+        review?: {
+          review_status: ReviewStatus;
+          review_notes: string | null;
+          review_submitted_at: string | null;
+          review_reviewed_at: string | null;
+          published_at: string | null;
+        };
+      };
+
+      if (!res.ok || !data.review) {
+        setReviewUpdatingKey(null);
+        return;
+      }
+
+      const reviewPatch = {
+        review_status: data.review.review_status,
+        review_notes: data.review.review_notes,
+        review_submitted_at: data.review.review_submitted_at,
+        review_reviewed_at: data.review.review_reviewed_at,
+        published_at: data.review.published_at,
+      };
+
+      if (entity === "profile") {
+        setProfile((prev) => (prev ? { ...prev, ...reviewPatch } : prev));
+      } else if (entity === "provider" && targetId) {
+        setProviders((prev) => prev.map((provider) => (
+          provider.id === targetId ? { ...provider, ...reviewPatch } : provider
+        )));
+      } else if (entity === "campaign" && targetId) {
+        setCampaigns((prev) => prev.map((campaign) => (
+          campaign.id === targetId ? { ...campaign, ...reviewPatch } : campaign
+        )));
+      } else if (entity === "affiliate" && targetId) {
+        setAffiliateLinks((prev) => prev.map((affiliate) => (
+          affiliate.id === targetId ? { ...affiliate, ...reviewPatch } : affiliate
+        )));
+      }
+    } finally {
+      setReviewUpdatingKey(null);
+    }
+  }
+
   if (loading) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
@@ -648,16 +1132,55 @@ export default function PartnerDashboard() {
     );
   }
 
+  if (needsAuth) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
+        <p className="text-lg font-semibold text-[var(--text-strong)]">Anmeldung erforderlich</p>
+        <p className="mt-2 text-sm text-[var(--text-muted)]">
+          Melde dich an, damit wir dein Partner-Profil laden und dein Dashboard oeffnen koennen.
+        </p>
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href="/profile?return=/partner/dashboard"
+            className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+          >
+            Zum Login
+          </a>
+          <a
+            href="/partner/onboarding"
+            className="inline-flex items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+          >
+            Partner-Portal anlegen
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   if (noAccess || !profile) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
         <p className="text-lg font-semibold text-[var(--text-strong)]">Kein Partner-Profil gefunden</p>
         <p className="mt-2 text-sm text-[var(--text-muted)]">
-          Du bist noch keinem Partner-Profil zugeordnet.
+          Du bist aktuell noch keinem Partner-Profil zugeordnet oder dein Zugriff ist noch nicht freigeschaltet.
         </p>
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href="/partner/onboarding"
+            className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+          >
+            Jetzt Partner werden →
+          </a>
+          <a
+            href="/profile"
+            className="inline-flex items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+          >
+            Profil pruefen
+          </a>
+        </div>
         <a
           href="/partner/onboarding"
-          className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+          className="mt-6 hidden inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
         >
           Jetzt Partner werden →
         </a>
@@ -674,6 +1197,65 @@ export default function PartnerDashboard() {
 
   const openBookings = bookings.filter((b) => b.status === "interested" || b.status === "pending");
   const pastBookings = bookings.filter((b) => !["interested", "pending"].includes(b.status));
+  const uniqueCities = getUniqueCities(profile);
+  const totalPackages = providers.reduce((sum, provider) => sum + provider.provider_packages.length, 0);
+  const activeCampaigns = campaigns.filter((campaign) => campaign.status === "active");
+  const activeAffiliateLinks = affiliateLinks.filter((link) => link.is_active);
+  const publishedProviders = providers.filter((provider) => provider.review_status === "published");
+  const submittedProviders = providers.filter((provider) => ["submitted", "in_review"].includes(provider.review_status));
+  const submittedCampaigns = campaigns.filter((campaign) => ["submitted", "in_review"].includes(campaign.review_status));
+  const submittedAffiliates = affiliateLinks.filter((link) => ["submitted", "in_review"].includes(link.review_status));
+  const changeRequestItems = [
+    profile.review_status === "changes_requested" ? 1 : 0,
+    ...providers.map((provider) => (provider.review_status === "changes_requested" ? 1 : 0)),
+    ...campaigns.map((campaign) => (campaign.review_status === "changes_requested" ? 1 : 0)),
+    ...affiliateLinks.map((link) => (link.review_status === "changes_requested" ? 1 : 0)),
+  ].reduce((sum, value) => sum + value, 0);
+  const pendingReviewItems =
+    (profile.review_status === "submitted" || profile.review_status === "in_review" ? 1 : 0) +
+    submittedProviders.length +
+    submittedCampaigns.length +
+    submittedAffiliates.length;
+  const profileReadyForReview = Boolean(
+    profile.display_name.trim() &&
+    profile.primary_city_slug &&
+    (profile.website_url || profile.booking_url || profile.contact_email)
+  );
+  const profileCompleteness = [
+    profile.website_url,
+    profile.booking_url,
+    profile.contact_email,
+    profile.contact_phone,
+    profile.notes,
+    profile.media_urls?.[0],
+  ].filter(Boolean).length;
+  const setupTasks = [
+    !profile.media_urls?.length ? "Titelbild hochladen, damit dein Eintrag hochwertig erscheint." : null,
+    !profile.website_url && !profile.booking_url ? "CTA hinterlegen, damit Interessenten direkt weiterklicken koennen." : null,
+    providers.length === 0 ? "Erstes Angebot fuer den Event Planner anlegen." : null,
+    profile.review_status === "draft" && profileReadyForReview ? "Profil zur internen Freigabe einreichen." : null,
+    pendingReviewItems > 0 ? `${pendingReviewItems} Asset${pendingReviewItems > 1 ? "s" : ""} befinden sich aktuell in der Pruefung.` : null,
+    changeRequestItems > 0 ? "Rueckfragen aus der Freigabe pruefen und Assets erneut einreichen." : null,
+    openBookings.length > 0 ? `${openBookings.length} offene Anfrage${openBookings.length > 1 ? "n" : ""} beantworten.` : null,
+    affiliateLinks.length === 0 ? "Affiliate-Angebot oder externen Buchungslink fuer Tracking aktivieren." : null,
+  ].filter(Boolean) as string[];
+  const distributionChannels = Array.from(
+    new Set([
+      providers.length > 0 ? "Event Planner" : null,
+      campaigns.some((campaign) => campaign.target_route_id) ? "Route-Details" : null,
+      campaigns.some((campaign) => campaign.target_location_id) ? "Location-Details" : null,
+      campaigns.some((campaign) => campaign.target_event_id) ? "Event-Details" : null,
+      activeAffiliateLinks.some((link) => link.route_id) ? "Roadtrip / Route" : null,
+      activeAffiliateLinks.some((link) => link.location_id) ? "Location / Spot" : null,
+      activeAffiliateLinks.some((link) => link.planner_event_id) ? "Event-Planung" : null,
+    ].filter(Boolean))
+  ) as string[];
+  const eventCampaignCount = campaigns.filter((campaign) => campaign.campaign_type === "featured_event").length;
+  const routeCampaignCount = campaigns.filter((campaign) => campaign.campaign_type === "creator_distribution" || campaign.target_route_id).length;
+  const locationReady = Boolean(newProvider.name.trim() && newProvider.service_type && newProvider.city_slug);
+  const eventReady = Boolean(newCampaign.name.trim() && (newCampaign.cta_label.trim() || newCampaign.cta_url.trim()));
+  const routeReady = Boolean(newCampaign.name.trim() && newCampaign.target_kind === "route");
+  const affiliateReady = Boolean(newAffiliate.provider_name.trim() && newAffiliate.destination_url.trim());
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
@@ -682,13 +1264,14 @@ export default function PartnerDashboard() {
       <div className="mb-8 rounded-[36px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-7 shadow-[var(--shadow-soft)]">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0">
-            <div className="pd24-kicker mb-1">Partner-Dashboard</div>
+            <div className="pd24-kicker mb-1">Partner Studio</div>
             <h1 className="truncate text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
               {profile.display_name}
             </h1>
-            <p className="mt-1 text-sm text-[var(--text-muted)]">
+            <p className="mt-1 max-w-2xl text-sm text-[var(--text-muted)]">
               {PARTNER_TYPE_LABEL[profile.partner_type] ?? profile.partner_type}
-              {profile.primary_city_slug ? ` · ${profile.primary_city_slug}` : ""}
+              {profile.primary_city_slug ? ` - ${profile.primary_city_slug}` : ""}
+              {" - "}Verwalte Profil, Angebote, Sichtbarkeit und Buchungswege an einem Ort.
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${tierMeta.badge}`}>
@@ -697,6 +1280,7 @@ export default function PartnerDashboard() {
               <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium ${billingMeta.badge}`}>
                 {billingMeta.label}
               </span>
+              <ReviewStatusPill status={profile.review_status} />
               {role && (
                 <span className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
                   {role}
@@ -725,17 +1309,463 @@ export default function PartnerDashboard() {
             </div>
           )}
         </div>
+
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Veroeffentlicht</div>
+            <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">
+              {(publishedProviders.length + activeAffiliateLinks.filter((link) => link.review_status === "published").length + campaigns.filter((campaign) => campaign.review_status === "published").length + (profile.review_status === "published" ? 1 : 0)).toLocaleString("de-DE")}
+            </div>
+            <p className="mt-1 text-xs text-[var(--text-muted)]">Profil, Angebote, Links und Kampagnen mit Freigabe.</p>
+          </div>
+          <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Profil-Readiness</div>
+            <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">
+              {Math.min(100, Math.round((profileCompleteness / 6) * 100))}%
+            </div>
+            <p className="mt-1 text-xs text-[var(--text-muted)]">Kontakt, CTA, Copy und Medien fuer bessere Conversion.</p>
+          </div>
+          <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">In Review</div>
+            <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{pendingReviewItems}</div>
+            <p className="mt-1 text-xs text-[var(--text-muted)]">Eingereichte Assets und Profilbausteine in der Pruefung.</p>
+          </div>
+          <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Aenderungen offen</div>
+            <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{changeRequestItems}</div>
+            <p className="mt-1 text-xs text-[var(--text-muted)]">Assets mit Rueckfragen oder noetigen Nachschaerfungen.</p>
+          </div>
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-3">
+          <a
+            href="#assets"
+            className="inline-flex items-center rounded-2xl bg-[var(--text-strong)] px-5 py-3 text-sm font-medium text-white transition hover:opacity-90"
+          >
+            Assets verwalten
+          </a>
+          <a
+            href="#inquiries"
+            className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+          >
+            Anfragen pruefen
+          </a>
+          <a
+            href="#review"
+            className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+          >
+            Freigaben steuern
+          </a>
+          <a
+            href="#profile"
+            className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+          >
+            Profil optimieren
+          </a>
+        </div>
       </div>
 
       <div className="space-y-6">
+        <div className="flex flex-wrap gap-2">
+          {[
+            ["review", "Freigaben"],
+            ["overview", "Uebersicht"],
+            ["asset-studio", "Asset Studio"],
+            ["visibility", "Sichtbarkeit"],
+            ["inquiries", "Anfragen"],
+            ["assets", "Assets"],
+            ["profile", "Profil"],
+          ].map(([href, label]) => (
+            <a
+              key={href}
+              href={`#${href}`}
+              className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-muted)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+
+        <Section
+          id="review"
+          title="Review und Freigabe"
+          subtitle="Reiche Profil und Assets fuer die interne Qualitaetspruefung ein und verfolge den Publish-Status."
+        >
+          <div className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Profil-Freigabe</div>
+                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                    <span className="text-lg font-semibold text-[var(--text-strong)]">{profile.display_name}</span>
+                    <ReviewStatusPill status={profile.review_status} />
+                  </div>
+                  <p className="mt-2 text-sm text-[var(--text-muted)]">
+                    Dein Profil sollte Basisdaten, Kontaktweg und mindestens einen klaren Buchungs- oder Website-Einstieg haben.
+                  </p>
+                </div>
+                <AssetStatusPill
+                  label={profileReadyForReview ? "Review-ready" : "Profil unvollstaendig"}
+                  tone={profileReadyForReview ? "ready" : "draft"}
+                />
+              </div>
+              {profile.review_notes ? (
+                <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                  {profile.review_notes}
+                </div>
+              ) : null}
+              <div className="mt-4 flex flex-wrap gap-2">
+                <button
+                  onClick={() => void handleReviewAction("profile", null, "submit")}
+                  disabled={!isAdmin || !profileReadyForReview || reviewUpdatingKey === "profile:self:submit"}
+                  className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                >
+                  {reviewUpdatingKey === "profile:self:submit" ? "Wird eingereicht..." : "Profil zur Freigabe senden"}
+                </button>
+                {["submitted", "in_review"].includes(profile.review_status) ? (
+                  <button
+                    onClick={() => void handleReviewAction("profile", null, "withdraw")}
+                    disabled={!isAdmin || reviewUpdatingKey === "profile:self:withdraw"}
+                    className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
+                  >
+                    {reviewUpdatingKey === "profile:self:withdraw" ? "..." : "Einreichung zurueckziehen"}
+                  </button>
+                ) : null}
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Asset-Queue</div>
+                <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{pendingReviewItems}</div>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">Zur Zeit in Pruefung oder bereits eingereicht.</p>
+              </div>
+              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Veroeffentlicht</div>
+                <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">
+                  {publishedProviders.length + campaigns.filter((campaign) => campaign.review_status === "published").length + affiliateLinks.filter((link) => link.review_status === "published").length}
+                </div>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">Assets mit erfolgter Freigabe und Publish-Status.</p>
+              </div>
+              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Rueckfragen</div>
+                <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{changeRequestItems}</div>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">Nacharbeiten, die vor dem Publish erledigt werden sollten.</p>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        <Section
+          id="overview"
+          title="Arbeitsstand im Portal"
+          subtitle="Die naechsten Schritte fuer mehr Sichtbarkeit, mehr Leads und saubere Buchungswege."
+        >
+          <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Offene Aufgaben</div>
+              <div className="mt-4 space-y-3">
+                {setupTasks.length > 0 ? (
+                  setupTasks.map((task) => (
+                    <div key={task} className="flex items-start gap-3 rounded-2xl border border-[var(--line-subtle)] px-4 py-3">
+                      <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--bg-surface)] text-xs font-semibold text-[var(--text-strong)]">
+                        !
+                      </span>
+                      <p className="text-sm text-[var(--text-strong)]">{task}</p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] px-4 py-6 text-sm text-[var(--text-muted)]">
+                    Dein Partnerprofil ist fuer den aktuellen MVP sauber aufgestellt.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Wo du aktuell ausgespielt wirst</div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {distributionChannels.length > 0 ? (
+                  distributionChannels.map((channel) => (
+                    <span
+                      key={channel}
+                      className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1 text-xs font-medium text-[var(--text-strong)]"
+                    >
+                      {channel}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-sm text-[var(--text-muted)]">Noch keine aktive Ausspielung hinterlegt.</span>
+                )}
+              </div>
+              <dl className="mt-5 space-y-3 text-sm">
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-[var(--text-muted)]">Buchungsmodus</dt>
+                  <dd className="font-medium text-[var(--text-strong)]">
+                    {BOOKING_TYPE_LABEL[profile.booking_type] ?? profile.booking_type}
+                  </dd>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-[var(--text-muted)]">Staedte</dt>
+                  <dd className="font-medium text-[var(--text-strong)]">{uniqueCities.length}</dd>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-[var(--text-muted)]">Medien</dt>
+                  <dd className="font-medium text-[var(--text-strong)]">{profile.media_urls?.length ?? 0}</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </Section>
+
 
         {/* ── B) KPIs ──────────────────────────────────────────────────────── */}
-        <Section title="Kennzahlen" subtitle="Letzte 30 Tage">
+        <Section
+          id="asset-studio"
+          title="Asset Studio"
+          subtitle="Vier gefuehrte Builder fuer Standort, Event, Route und Affiliate-Angebot."
+        >
+          <div className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <AssetBuilderCard
+                title="Standort"
+                subtitle="Venue, Hotel, Gastro oder Erlebnis fuer Planner und Buchungsanfragen."
+                metric={`${providers.length} aktive Angebote`}
+                status={<AssetStatusPill label={locationReady ? "Bereit" : "Entwurf"} tone={locationReady ? "ready" : "draft"} />}
+                active={selectedAssetBuilder === "location"}
+                onClick={() => setSelectedAssetBuilder("location")}
+              />
+              <AssetBuilderCard
+                title="Event"
+                subtitle="Featured Event oder Event-Kampagne mit Zeitraum und CTA."
+                metric={`${eventCampaignCount} Event-Kampagnen`}
+                status={<AssetStatusPill label={eventCampaignCount > 0 ? "Live-Bestand" : eventReady ? "Bereit" : "Entwurf"} tone={eventCampaignCount > 0 ? "active" : eventReady ? "ready" : "draft"} />}
+                active={selectedAssetBuilder === "event"}
+                onClick={() => {
+                  setSelectedAssetBuilder("event");
+                  setNewCampaign((prev) => ({ ...prev, campaign_type: "featured_event", target_kind: "event", city_slug: prev.city_slug || profile.primary_city_slug || "" }));
+                }}
+              />
+              <AssetBuilderCard
+                title="Route"
+                subtitle="Route-Distribution, Roadtrip oder Creator-Routen mit klarer Stop-Story."
+                metric={`${routeCampaignCount} Route-Assets`}
+                status={<AssetStatusPill label={routeCampaignCount > 0 ? "Live-Bestand" : routeReady ? "Bereit" : "Entwurf"} tone={routeCampaignCount > 0 ? "active" : routeReady ? "ready" : "draft"} />}
+                active={selectedAssetBuilder === "route"}
+                onClick={() => {
+                  setSelectedAssetBuilder("route");
+                  setNewCampaign((prev) => ({ ...prev, campaign_type: "creator_distribution", target_kind: "route", city_slug: prev.city_slug || profile.primary_city_slug || "" }));
+                }}
+              />
+              <AssetBuilderCard
+                title="Affiliate-Angebot"
+                subtitle="Externer Link mit Tracking, Scope und direkter Monetarisierung."
+                metric={`${affiliateLinks.length} Affiliate-Links`}
+                status={<AssetStatusPill label={activeAffiliateLinks.length > 0 ? "Aktiv" : affiliateReady ? "Bereit" : "Entwurf"} tone={activeAffiliateLinks.length > 0 ? "active" : affiliateReady ? "ready" : "draft"} />}
+                active={selectedAssetBuilder === "affiliate"}
+                onClick={() => setSelectedAssetBuilder("affiliate")}
+              />
+            </div>
+
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              {selectedAssetBuilder === "location" ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <h3 className="text-lg font-semibold text-[var(--text-strong)]">Standort-Builder</h3>
+                      <p className="mt-1 text-sm text-[var(--text-muted)]">Lege einen buchbaren Standort oder Angebotsbaustein fuer den Planner an.</p>
+                    </div>
+                    <AssetStatusPill label={locationReady ? "Bereit zum Anlegen" : "Pflichtfelder offen"} tone={locationReady ? "ready" : "draft"} />
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <input type="text" value={newProvider.name} onChange={(e) => setNewProvider((prev) => ({ ...prev, name: e.target.value }))} placeholder="Standortname" className={inputCls} />
+                    <select value={newProvider.service_type} onChange={(e) => setNewProvider((prev) => ({ ...prev, service_type: e.target.value }))} className={inputCls}>
+                      <option value="">Kategorie waehlen</option>
+                      {getAvailableServiceTypes(profile).map((type) => (
+                        <option key={type} value={type}>{SERVICE_TYPE_LABEL[type] ?? type}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-[0.8fr_1.2fr]">
+                    <select value={newProvider.city_slug} onChange={(e) => setNewProvider((prev) => ({ ...prev, city_slug: e.target.value }))} className={inputCls}>
+                      <option value="">Stadt waehlen</option>
+                      {uniqueCities.map((slug) => (
+                        <option key={slug} value={slug}>{slug}</option>
+                      ))}
+                    </select>
+                    <input type="text" value={newProvider.description} onChange={(e) => setNewProvider((prev) => ({ ...prev, description: e.target.value }))} placeholder="Kurzbeschreibung fuer den Eintrag" className={inputCls} />
+                  </div>
+                  {addProviderError ? <p className="text-xs text-red-600">{addProviderError}</p> : null}
+                  <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                    <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Vorschau</div>
+                    <div className="mt-3 rounded-[20px] border border-[var(--line-subtle)] bg-white p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <div className="font-semibold text-[var(--text-strong)]">{newProvider.name || profile.display_name}</div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">{(SERVICE_TYPE_LABEL[newProvider.service_type] ?? "Kategorie")} - {(newProvider.city_slug || profile.primary_city_slug || "Stadt")}</div>
+                        </div>
+                        <AssetStatusPill label="Planner" tone="ready" />
+                      </div>
+                      <p className="mt-3 text-sm text-[var(--text-muted)]">{newProvider.description || "Erscheint als buchbarer Partner-Baustein in passenden Event- und Planner-Kontexten."}</p>
+                    </div>
+                  </div>
+                  <button onClick={() => void handleAddProvider()} disabled={addingProvider || !locationReady} className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                    {addingProvider ? "Wird angelegt..." : "Standort anlegen"}
+                  </button>
+                </div>
+              ) : null}
+
+              {selectedAssetBuilder === "event" ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <h3 className="text-lg font-semibold text-[var(--text-strong)]">Event-Builder</h3>
+                      <p className="mt-1 text-sm text-[var(--text-muted)]">Erstelle eine Event-Kampagne mit Zeitraum, CTA und klarer Featured-Ausspielung.</p>
+                    </div>
+                    <AssetStatusPill label={eventReady ? "Bereit zum Start" : "Entwurf"} tone={eventReady ? "ready" : "draft"} />
+                  </div>
+                  <input type="text" value={newCampaign.name} onChange={(e) => setNewCampaign((prev) => ({ ...prev, name: e.target.value, campaign_type: "featured_event", target_kind: "event" }))} placeholder="Event-Titel oder Kampagnenname" className={inputCls} />
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <select value={newCampaign.city_slug} onChange={(e) => setNewCampaign((prev) => ({ ...prev, city_slug: e.target.value }))} className={inputCls}>
+                      <option value="">Stadt waehlen</option>
+                      {uniqueCities.map((slug) => (
+                        <option key={slug} value={slug}>{slug}</option>
+                      ))}
+                    </select>
+                    <input type="text" value={newCampaign.target_id} onChange={(e) => setNewCampaign((prev) => ({ ...prev, target_id: e.target.value }))} placeholder="Event-ID optional" className={inputCls} />
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <input type="date" value={newCampaign.starts_at} onChange={(e) => setNewCampaign((prev) => ({ ...prev, starts_at: e.target.value }))} className={inputCls} />
+                    <input type="date" value={newCampaign.ends_at} onChange={(e) => setNewCampaign((prev) => ({ ...prev, ends_at: e.target.value }))} className={inputCls} />
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <input type="text" value={newCampaign.cta_label} onChange={(e) => setNewCampaign((prev) => ({ ...prev, cta_label: e.target.value }))} placeholder="CTA Label" className={inputCls} />
+                    <input type="url" value={newCampaign.cta_url} onChange={(e) => setNewCampaign((prev) => ({ ...prev, cta_url: e.target.value }))} placeholder="https://ticket-link.de" className={inputCls} />
+                  </div>
+                  {addCampaignError ? <p className="text-xs text-red-600">{addCampaignError}</p> : null}
+                  <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                    <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Vorschau</div>
+                    <div className="mt-3 rounded-[20px] border border-[var(--line-subtle)] bg-white p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <div className="font-semibold text-[var(--text-strong)]">{newCampaign.name || "Event-Kampagne"}</div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">{(newCampaign.city_slug || profile.primary_city_slug || "Stadt")} - {formatOptionalDateRange(newCampaign.starts_at || null, newCampaign.ends_at || null)}</div>
+                        </div>
+                        <AssetStatusPill label="Featured Event" tone="active" />
+                      </div>
+                      <p className="mt-3 text-sm text-[var(--text-muted)]">CTA: {newCampaign.cta_label || "Tickets ansehen"} {newCampaign.cta_url ? `- ${newCampaign.cta_url}` : ""}</p>
+                    </div>
+                  </div>
+                  <button onClick={() => void handleAddCampaign()} disabled={addingCampaign || !eventReady} className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                    {addingCampaign ? "Wird angelegt..." : "Event anlegen"}
+                  </button>
+                </div>
+              ) : null}
+
+              {selectedAssetBuilder === "route" ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <h3 className="text-lg font-semibold text-[var(--text-strong)]">Route-Builder</h3>
+                      <p className="mt-1 text-sm text-[var(--text-muted)]">Erstelle ein Route-Asset fuer Explore, Roadtrip oder Creator-Distribution.</p>
+                    </div>
+                    <AssetStatusPill label={routeReady ? "Bereit zum Start" : "Entwurf"} tone={routeReady ? "ready" : "draft"} />
+                  </div>
+                  <input type="text" value={newCampaign.name} onChange={(e) => setNewCampaign((prev) => ({ ...prev, name: e.target.value, campaign_type: "creator_distribution", target_kind: "route" }))} placeholder="Routenname oder Distributions-Titel" className={inputCls} />
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <select value={newCampaign.city_slug} onChange={(e) => setNewCampaign((prev) => ({ ...prev, city_slug: e.target.value }))} className={inputCls}>
+                      <option value="">Stadt waehlen</option>
+                      {uniqueCities.map((slug) => (
+                        <option key={slug} value={slug}>{slug}</option>
+                      ))}
+                    </select>
+                    <input type="text" value={newCampaign.target_id} onChange={(e) => setNewCampaign((prev) => ({ ...prev, target_id: e.target.value, target_kind: "route" }))} placeholder="Route-ID oder Slug" className={inputCls} />
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <input type="text" value={newCampaign.cta_label} onChange={(e) => setNewCampaign((prev) => ({ ...prev, cta_label: e.target.value }))} placeholder="CTA Label" className={inputCls} />
+                    <input type="url" value={newCampaign.cta_url} onChange={(e) => setNewCampaign((prev) => ({ ...prev, cta_url: e.target.value }))} placeholder="https://route-ziel.de" className={inputCls} />
+                  </div>
+                  {addCampaignError ? <p className="text-xs text-red-600">{addCampaignError}</p> : null}
+                  <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                    <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Vorschau</div>
+                    <div className="mt-3 rounded-[20px] border border-[var(--line-subtle)] bg-white p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <div className="font-semibold text-[var(--text-strong)]">{newCampaign.name || "Route-Asset"}</div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">{(newCampaign.city_slug || profile.primary_city_slug || "Stadt")} - {(newCampaign.target_id || "Route-ID folgt")}</div>
+                        </div>
+                        <AssetStatusPill label="Route" tone="active" />
+                      </div>
+                      <p className="mt-3 text-sm text-[var(--text-muted)]">CTA: {newCampaign.cta_label || "Route oeffnen"} - ideal fuer Explore- oder Roadtrip-Distribution.</p>
+                    </div>
+                  </div>
+                  <button onClick={() => void handleAddCampaign()} disabled={addingCampaign || !routeReady} className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                    {addingCampaign ? "Wird angelegt..." : "Route anlegen"}
+                  </button>
+                </div>
+              ) : null}
+
+              {selectedAssetBuilder === "affiliate" ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <h3 className="text-lg font-semibold text-[var(--text-strong)]">Affiliate-Builder</h3>
+                      <p className="mt-1 text-sm text-[var(--text-muted)]">Hinterlege ein Angebot mit Tracking, Scope und optionalem Zielobjekt.</p>
+                    </div>
+                    <AssetStatusPill label={affiliateReady ? "Bereit zum Start" : "Entwurf"} tone={affiliateReady ? "ready" : "draft"} />
+                  </div>
+                  <input type="text" value={newAffiliate.provider_name} onChange={(e) => setNewAffiliate((prev) => ({ ...prev, provider_name: e.target.value }))} placeholder="Anbietername" className={inputCls} />
+                  <input type="url" value={newAffiliate.destination_url} onChange={(e) => setNewAffiliate((prev) => ({ ...prev, destination_url: e.target.value }))} placeholder="https://ziel-url.de" className={inputCls} />
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <select value={newAffiliate.link_scope} onChange={(e) => setNewAffiliate((prev) => ({ ...prev, link_scope: e.target.value }))} className={inputCls}>
+                      {AFFILIATE_SCOPE_OPTIONS.map((option) => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+                    <select value={newAffiliate.commission_model} onChange={(e) => setNewAffiliate((prev) => ({ ...prev, commission_model: e.target.value }))} className={inputCls}>
+                      {COMMISSION_MODEL_OPTIONS.map((option) => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-[0.8fr_1.2fr]">
+                    <select value={newAffiliate.target_kind} onChange={(e) => setNewAffiliate((prev) => ({ ...prev, target_kind: e.target.value as NewAffiliateLinkForm["target_kind"] }))} className={inputCls}>
+                      <option value="none">Ohne Target</option>
+                      <option value="location">Standort</option>
+                      <option value="route">Route</option>
+                      <option value="planner_event">Planner Event</option>
+                    </select>
+                    <input type="text" value={newAffiliate.target_id} onChange={(e) => setNewAffiliate((prev) => ({ ...prev, target_id: e.target.value }))} placeholder="Target-ID optional" className={inputCls} />
+                  </div>
+                  {addAffiliateError ? <p className="text-xs text-red-600">{addAffiliateError}</p> : null}
+                  <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                    <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Vorschau</div>
+                    <div className="mt-3 rounded-[20px] border border-[var(--line-subtle)] bg-white p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <div className="font-semibold text-[var(--text-strong)]">{newAffiliate.provider_name || "Affiliate-Angebot"}</div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">{[newAffiliate.link_scope, newAffiliate.commission_model].join(" - ")}</div>
+                        </div>
+                        <AssetStatusPill label="Tracking" tone="active" />
+                      </div>
+                      <p className="mt-3 truncate text-sm text-[var(--text-muted)]">{newAffiliate.destination_url || "Ziel-URL folgt"}</p>
+                    </div>
+                  </div>
+                  <button onClick={() => void handleAddAffiliateLink()} disabled={addingAffiliate || !affiliateReady} className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                    {addingAffiliate ? "Wird angelegt..." : "Affiliate-Angebot anlegen"}
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </Section>
+
+        <Section id="visibility" title="Kennzahlen" subtitle="Letzte 30 Tage und aktuelle Revenue-Basis">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             <StatTile
               label="Impressionen"
               value={stats.impressions.toLocaleString("de-DE")}
-              sub="Sichtbarkeit in Plänen"
+              sub="Sichtbarkeit in Plaenen"
             />
             <StatTile
               label="Klicks"
@@ -748,15 +1778,234 @@ export default function PartnerDashboard() {
               sub="via Event Planner"
             />
             <StatTile
-              label="Conversion Rate"
+              label="CTR / Conversion"
               value={convRate}
               sub="Klicks / Impressionen"
             />
+          </div>
+          <div className="mt-5 grid gap-4 lg:grid-cols-3">
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Kampagnen</div>
+              <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{activeCampaigns.length}</div>
+              <p className="mt-1 text-sm text-[var(--text-muted)]">
+                {campaigns.length > 0
+                  ? `${campaigns.length} Kampagnen angelegt, ${activeCampaigns.length} davon aktiv.`
+                  : "Noch keine Partner-Kampagnen hinterlegt."}
+              </p>
+            </div>
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Affiliate-Links</div>
+              <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{activeAffiliateLinks.length}</div>
+              <p className="mt-1 text-sm text-[var(--text-muted)]">
+                {affiliateLinks.length > 0
+                  ? `${affiliateLinks.length} Links im Bestand, ${activeAffiliateLinks.length} aktiv getrackt.`
+                  : "Noch keine Affiliate- oder externen Tracking-Links angelegt."}
+              </p>
+            </div>
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Angebotsstruktur</div>
+              <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{totalPackages}</div>
+              <p className="mt-1 text-sm text-[var(--text-muted)]">
+                Pakete und Preislogiken fuer Event-Anfragen und vergleichbare Angebotsbausteine.
+              </p>
+            </div>
           </div>
         </Section>
 
         {/* ── C) Buchungsanfragen ──────────────────────────────────────────── */}
         <Section
+          title="Distribution Control"
+          subtitle="Verwalte deinen Live-Bestand. Neue Assets legst du oben im Asset Studio an."
+        >
+          <div className="mb-4 flex flex-wrap gap-2">
+            <button
+              onClick={() => setSelectedAssetBuilder("location")}
+              className="inline-flex items-center rounded-full border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            >
+              Standort anlegen
+            </button>
+            <button
+              onClick={() => setSelectedAssetBuilder("event")}
+              className="inline-flex items-center rounded-full border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            >
+              Event anlegen
+            </button>
+            <button
+              onClick={() => setSelectedAssetBuilder("route")}
+              className="inline-flex items-center rounded-full border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            >
+              Route anlegen
+            </button>
+            <button
+              onClick={() => setSelectedAssetBuilder("affiliate")}
+              className="inline-flex items-center rounded-full border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            >
+              Affiliate-Angebot anlegen
+            </button>
+          </div>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="mb-4 flex items-start justify-between gap-3">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Partner-Kampagnen</div>
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">Event-, Route- und Featured-Ausspielungen mit Status- und Laufzeitkontrolle.</p>
+                </div>
+                <AssetStatusPill label={`${campaigns.length} im Bestand`} tone={activeCampaigns.length > 0 ? "active" : "draft"} />
+              </div>
+              {campaigns.length > 0 ? (
+                <div className="space-y-3">
+                  {campaigns.slice(0, 6).map((campaign) => (
+                    <div key={campaign.id} className="rounded-2xl border border-[var(--line-subtle)] px-4 py-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <div className="font-medium text-[var(--text-strong)]">{campaign.name}</div>
+                            <ReviewStatusPill status={campaign.review_status} />
+                          </div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">
+                            {[campaign.campaign_type, campaign.city_slug ?? "ohne Stadt", formatOptionalDateRange(campaign.starts_at, campaign.ends_at)].join(" - ")}
+                          </div>
+                        </div>
+                        <span className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-strong)]">
+                          {campaign.status}
+                        </span>
+                      </div>
+                      {campaign.cta_label ? (
+                        <div className="mt-2 text-xs text-[var(--text-muted)]">CTA: {campaign.cta_label}</div>
+                      ) : null}
+                      {campaign.review_notes ? (
+                        <div className="mt-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+                          {campaign.review_notes}
+                        </div>
+                      ) : null}
+                      {isAdmin ? (
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {["draft", "changes_requested"].includes(campaign.review_status) ? (
+                            <button
+                              onClick={() => void handleReviewAction("campaign", campaign.id, "submit")}
+                              disabled={reviewUpdatingKey === `campaign:${campaign.id}:submit`}
+                              className="inline-flex items-center rounded-xl border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-800 transition hover:bg-blue-100 disabled:opacity-50"
+                            >
+                              {reviewUpdatingKey === `campaign:${campaign.id}:submit` ? "..." : "Zur Freigabe senden"}
+                            </button>
+                          ) : null}
+                          {["submitted", "in_review"].includes(campaign.review_status) ? (
+                            <button
+                              onClick={() => void handleReviewAction("campaign", campaign.id, "withdraw")}
+                              disabled={reviewUpdatingKey === `campaign:${campaign.id}:withdraw`}
+                              className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
+                            >
+                              {reviewUpdatingKey === `campaign:${campaign.id}:withdraw` ? "..." : "Zurueckziehen"}
+                            </button>
+                          ) : null}
+                          <button
+                            onClick={() => void handleCampaignStatus(campaign.id, campaign.status === "active" ? "paused" : "active")}
+                            disabled={campaignUpdating === campaign.id || !["approved", "published"].includes(campaign.review_status)}
+                            className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
+                          >
+                            {campaignUpdating === campaign.id ? "..." : campaign.status === "active" ? "Pausieren" : "Aktivieren"}
+                          </button>
+                          <button
+                            onClick={() => void handleDeleteCampaign(campaign.id)}
+                            disabled={deletingCampaign === campaign.id}
+                            className="inline-flex items-center rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50"
+                          >
+                            {deletingCampaign === campaign.id ? "..." : "Loeschen"}
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] px-4 py-6 text-sm text-[var(--text-muted)]">
+                  Noch keine Kampagnen live. Lege oben im Asset Studio dein erstes Event- oder Route-Asset an.
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="mb-4 flex items-start justify-between gap-3">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Affiliate- und externe Links</div>
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">Monetarisierung nach Scope, Zielobjekt und Aktivstatus steuern.</p>
+                </div>
+                <AssetStatusPill label={`${affiliateLinks.length} im Bestand`} tone={activeAffiliateLinks.length > 0 ? "active" : "draft"} />
+              </div>
+              {affiliateLinks.length > 0 ? (
+                <div className="space-y-3">
+                  {affiliateLinks.slice(0, 6).map((link) => (
+                    <div key={link.id} className="rounded-2xl border border-[var(--line-subtle)] px-4 py-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <div className="font-medium text-[var(--text-strong)]">{link.provider_name}</div>
+                            <ReviewStatusPill status={link.review_status} />
+                          </div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">
+                            {[link.link_scope, link.commission_model].join(" - ")}
+                          </div>
+                        </div>
+                        <span className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-strong)]">
+                          {link.is_active ? "aktiv" : "pausiert"}
+                        </span>
+                      </div>
+                      <div className="mt-2 truncate text-xs text-[var(--text-muted)]">{link.destination_url}</div>
+                      {link.review_notes ? (
+                        <div className="mt-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+                          {link.review_notes}
+                        </div>
+                      ) : null}
+                      {isAdmin ? (
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {["draft", "changes_requested"].includes(link.review_status) ? (
+                            <button
+                              onClick={() => void handleReviewAction("affiliate", link.id, "submit")}
+                              disabled={reviewUpdatingKey === `affiliate:${link.id}:submit`}
+                              className="inline-flex items-center rounded-xl border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-800 transition hover:bg-blue-100 disabled:opacity-50"
+                            >
+                              {reviewUpdatingKey === `affiliate:${link.id}:submit` ? "..." : "Zur Freigabe senden"}
+                            </button>
+                          ) : null}
+                          {["submitted", "in_review"].includes(link.review_status) ? (
+                            <button
+                              onClick={() => void handleReviewAction("affiliate", link.id, "withdraw")}
+                              disabled={reviewUpdatingKey === `affiliate:${link.id}:withdraw`}
+                              className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
+                            >
+                              {reviewUpdatingKey === `affiliate:${link.id}:withdraw` ? "..." : "Zurueckziehen"}
+                            </button>
+                          ) : null}
+                          <button
+                            onClick={() => void handleAffiliateState(link.id, !link.is_active)}
+                            disabled={affiliateUpdating === link.id || !["approved", "published"].includes(link.review_status)}
+                            className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
+                          >
+                            {affiliateUpdating === link.id ? "..." : link.is_active ? "Pausieren" : "Aktivieren"}
+                          </button>
+                          <button
+                            onClick={() => void handleDeleteAffiliate(link.id)}
+                            disabled={deletingAffiliate === link.id}
+                            className="inline-flex items-center rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50"
+                          >
+                            {deletingAffiliate === link.id ? "..." : "Loeschen"}
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] px-4 py-6 text-sm text-[var(--text-muted)]">
+                  Noch keine Affiliate-Links live. Lege oben dein erstes Partner-Angebot mit Tracking und Zielobjekt an.
+                </div>
+              )}
+            </div>
+          </div>
+        </Section>
+
+        <Section
+          id="inquiries"
           title="Buchungsanfragen"
           subtitle={`${openBookings.length} offen`}
         >
@@ -811,8 +2060,16 @@ export default function PartnerDashboard() {
 
         {/* ── D1) Dienstleister & Pakete ───────────────────────────────────── */}
         <Section
-          title="Angebote im Event Planner"
-          subtitle="Deine Einträge erscheinen automatisch wenn Nutzer passende Events planen."
+          id="assets"
+          title="Assets und Angebote"
+          subtitle="Deine Event-Planner-Eintraege, Pakete und ersten buchbaren Bausteine."
+          action={
+            isAdmin ? (
+              <span className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
+                {providers.length} Angebote - {totalPackages} Pakete
+              </span>
+            ) : null
+          }
         >
           {/* Provider list */}
           {providers.length > 0 && (
@@ -827,6 +2084,7 @@ export default function PartnerDashboard() {
                         {provider.is_verified && (
                           <span className="rounded-full bg-[var(--brand-accent)] px-1.5 py-0.5 text-[10px] font-bold text-white">✓</span>
                         )}
+                        <ReviewStatusPill status={provider.review_status} />
                         <span className="rounded-full border border-[var(--line-subtle)] px-2.5 py-0.5 text-[11px] text-[var(--text-muted)]">
                           {SERVICE_TYPE_LABEL[provider.service_type] ?? provider.service_type}
                         </span>
@@ -834,6 +2092,33 @@ export default function PartnerDashboard() {
                       {provider.description && (
                         <p className="mt-0.5 text-xs text-[var(--text-muted)]">{provider.description}</p>
                       )}
+                      {provider.review_notes ? (
+                        <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+                          {provider.review_notes}
+                        </div>
+                      ) : null}
+                      {isAdmin ? (
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {["draft", "changes_requested"].includes(provider.review_status) ? (
+                            <button
+                              onClick={() => void handleReviewAction("provider", provider.id, "submit")}
+                              disabled={reviewUpdatingKey === `provider:${provider.id}:submit`}
+                              className="rounded-xl border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-800 transition hover:bg-blue-100 disabled:opacity-50"
+                            >
+                              {reviewUpdatingKey === `provider:${provider.id}:submit` ? "..." : "Zur Freigabe senden"}
+                            </button>
+                          ) : null}
+                          {["submitted", "in_review"].includes(provider.review_status) ? (
+                            <button
+                              onClick={() => void handleReviewAction("provider", provider.id, "withdraw")}
+                              disabled={reviewUpdatingKey === `provider:${provider.id}:withdraw`}
+                              className="rounded-xl border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
+                            >
+                              {reviewUpdatingKey === `provider:${provider.id}:withdraw` ? "..." : "Zurueckziehen"}
+                            </button>
+                          ) : null}
+                        </div>
+                      ) : null}
                     </div>
                     {isAdmin && (
                       <button
@@ -1058,7 +2343,7 @@ export default function PartnerDashboard() {
         </Section>
 
         {/* ── D2) Profil-Einstellungen ─────────────────────────────────────── */}
-        <Section title="Profil-Einstellungen">
+        <Section id="profile" title="Profil-Einstellungen" subtitle="Basisdaten, Kontaktwege und redaktionelle Profilqualitaet.">
           {editMode ? (
             <div className="space-y-4">
               <InputField

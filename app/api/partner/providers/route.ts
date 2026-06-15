@@ -88,9 +88,10 @@ export async function POST(req: NextRequest) {
       min_guests:         body.min_guests ?? null,
       max_guests:         body.max_guests ?? null,
       is_verified:        false,
-      status:             "active",
+      status:             "draft",
+      review_status:      "draft",
     })
-    .select("id, name, service_type, description, is_verified, status")
+    .select("id, name, service_type, description, is_verified, status, review_status, review_notes, review_submitted_at, review_reviewed_at, published_at")
     .single();
 
   if (insertErr || !provider) {

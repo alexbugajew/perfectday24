@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   assertInternalMonetizationAdmin,
   getMonetizationAdminSnapshot,
+  MonetizationAdminAccessError,
 } from "@/lib/monetization/admin-server";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +10,7 @@ export const revalidate = 0;
 
 export async function GET(req: NextRequest) {
   try {
-    assertInternalMonetizationAdmin();
+    await assertInternalMonetizationAdmin();
 
     const params = req.nextUrl.searchParams;
     const surface = params.get("surface");
@@ -139,16 +140,22 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error("monetization debug load failed:", error);
-    const message =
-      error instanceof Error && error.message === "internal monetization admin disabled"
-        ? "internal debug disabled"
-        : error instanceof Error
-          ? error.message
-          : "debug load failed";
+    if (error instanceof MonetizationAdminAccessError) {
+      const message =
+        error.reason === "unauthenticated"
+          ? "authentication_required"
+          : error.reason === "misconfigured"
+            ? "admin_allowlist_not_configured"
+            : "admin_forbidden";
+
+      return NextResponse.json({ error: message }, { status: error.status });
+    }
+
+    const message = error instanceof Error ? error.message : "debug load failed";
 
     return NextResponse.json(
       { error: message },
-      { status: message === "internal debug disabled" ? 404 : 500 }
+      { status: 500 }
     );
   }
 }

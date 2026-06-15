@@ -1,4 +1,6 @@
-import { createClient } from "@supabase/supabase-js";
+import { cookies } from "next/headers";
+import { createServerClient } from "@supabase/ssr";
+import { createClient, type User } from "@supabase/supabase-js";
 import { isInternalMonetizationAvailable } from "./debug";
 
 export type AdminPartnerProfileRow = {
@@ -7,6 +9,11 @@ export type AdminPartnerProfileRow = {
   slug: string;
   partner_type: string;
   status: string;
+  review_status: string;
+  review_notes: string | null;
+  review_submitted_at: string | null;
+  review_reviewed_at: string | null;
+  published_at: string | null;
   billing_status: string;
   visibility_tier: string;
   primary_city_slug: string | null;
@@ -21,6 +28,11 @@ export type AdminCampaignRow = {
   name: string;
   campaign_type: string;
   status: string;
+  review_status: string;
+  review_notes: string | null;
+  review_submitted_at: string | null;
+  review_reviewed_at: string | null;
+  published_at: string | null;
   city_slug: string | null;
   target_route_id: string | null;
   target_location_id: string | null;
@@ -30,6 +42,21 @@ export type AdminCampaignRow = {
   ends_at: string | null;
   cta_label: string | null;
   cta_url: string | null;
+  updated_at: string;
+};
+
+export type AdminProviderRow = {
+  id: string;
+  partner_profile_id: string | null;
+  name: string;
+  service_type: string;
+  city_slug: string | null;
+  status: string;
+  review_status: string;
+  review_notes: string | null;
+  review_submitted_at: string | null;
+  review_reviewed_at: string | null;
+  published_at: string | null;
   updated_at: string;
 };
 
@@ -70,6 +97,11 @@ export type AdminAffiliateLinkRow = {
   destination_url: string;
   commission_model: string;
   is_active: boolean;
+  review_status: string;
+  review_notes: string | null;
+  review_submitted_at: string | null;
+  review_reviewed_at: string | null;
+  published_at: string | null;
   priority: number;
   updated_at: string;
 };
@@ -139,6 +171,117 @@ export type AdminRouteRow = {
   updated_at: string;
 };
 
+type AdminAllowlist = {
+  emails: Set<string>;
+  userIds: Set<string>;
+};
+
+export type MonetizationAdminAccessState =
+  | { allowed: true; reason: null; user: User }
+  | { allowed: false; reason: "unauthenticated" | "forbidden" | "misconfigured"; user: User | null };
+
+export class MonetizationAdminAccessError extends Error {
+  status: 401 | 403;
+  reason: MonetizationAdminAccessState["reason"];
+
+  constructor(reason: NonNullable<MonetizationAdminAccessState["reason"]>) {
+    super(reason);
+    this.name = "MonetizationAdminAccessError";
+    this.reason = reason;
+    this.status = reason === "unauthenticated" ? 401 : 403;
+  }
+}
+
+function parseCsvEnv(value?: string) {
+  return new Set(
+    (value ?? "")
+      .split(",")
+      .map((entry) => entry.trim().toLowerCase())
+      .filter(Boolean)
+  );
+}
+
+function getAdminAllowlist(): AdminAllowlist {
+  return {
+    emails: parseCsvEnv(process.env.PD24_INTERNAL_ADMIN_EMAILS),
+    userIds: parseCsvEnv(process.env.PD24_INTERNAL_ADMIN_USER_IDS),
+  };
+}
+
+function hasConfiguredAdminAllowlist(allowlist: AdminAllowlist) {
+  return allowlist.emails.size > 0 || allowlist.userIds.size > 0;
+}
+
+async function getServerAuthUser() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!url || !anonKey) {
+    throw new Error(
+      "Supabase env vars fehlen: NEXT_PUBLIC_SUPABASE_URL oder NEXT_PUBLIC_SUPABASE_ANON_KEY"
+    );
+  }
+
+  const cookieStore = await cookies();
+  const supabase = createServerClient(url, anonKey, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
+      },
+      setAll(cookiesToSet) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
+        } catch {
+          // Read-only during some server renders; safe to ignore for access checks.
+        }
+      },
+    },
+  });
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return user;
+}
+
+function isUserAllowedAdmin(user: User, allowlist: AdminAllowlist) {
+  const email = user.email?.trim().toLowerCase() ?? "";
+  const userId = user.id.trim().toLowerCase();
+
+  return allowlist.userIds.has(userId) || (email.length > 0 && allowlist.emails.has(email));
+}
+
+export async function getMonetizationAdminAccessState(): Promise<MonetizationAdminAccessState> {
+  const allowlist = getAdminAllowlist();
+  const hasAllowlist = hasConfiguredAdminAllowlist(allowlist);
+
+  if (!hasAllowlist) {
+    if (process.env.NODE_ENV !== "production" && isInternalMonetizationAvailable()) {
+      const user = await getServerAuthUser();
+      if (!user) {
+        return { allowed: false, reason: "unauthenticated", user: null };
+      }
+      return { allowed: true, reason: null, user };
+    }
+
+    return { allowed: false, reason: "misconfigured", user: null };
+  }
+
+  const user = await getServerAuthUser();
+  if (!user) {
+    return { allowed: false, reason: "unauthenticated", user: null };
+  }
+
+  if (!isUserAllowedAdmin(user, allowlist)) {
+    return { allowed: false, reason: "forbidden", user };
+  }
+
+  return { allowed: true, reason: null, user };
+}
+
 export function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -157,19 +300,22 @@ export function getSupabaseAdmin() {
   });
 }
 
-export function assertInternalMonetizationAdmin() {
-  if (!isInternalMonetizationAvailable()) {
-    throw new Error("internal monetization admin disabled");
+export async function assertInternalMonetizationAdmin() {
+  const access = await getMonetizationAdminAccessState();
+  if (!access.allowed) {
+    throw new MonetizationAdminAccessError(access.reason);
   }
+
+  return access.user;
 }
 
 export async function getMonetizationAdminSnapshot() {
-  assertInternalMonetizationAdmin();
   const supabase = getSupabaseAdmin();
 
   const [
     partnersResp,
     campaignsResp,
+    providersResp,
     slotsResp,
     assignmentsResp,
     affiliateResp,
@@ -183,13 +329,19 @@ export async function getMonetizationAdminSnapshot() {
     supabase
       .from("partner_profiles")
       .select(
-        "id,display_name,slug,partner_type,status,billing_status,visibility_tier,primary_city_slug,is_self_service_enabled,updated_at"
+        "id,display_name,slug,partner_type,status,review_status,review_notes,review_submitted_at,review_reviewed_at,published_at,billing_status,visibility_tier,primary_city_slug,is_self_service_enabled,updated_at"
       )
       .order("updated_at", { ascending: false }),
     supabase
       .from("partner_campaigns")
       .select(
-        "id,partner_profile_id,product_id,name,campaign_type,status,city_slug,target_route_id,target_location_id,target_event_id,target_creator_profile_id,starts_at,ends_at,cta_label,cta_url,updated_at"
+        "id,partner_profile_id,product_id,name,campaign_type,status,review_status,review_notes,review_submitted_at,review_reviewed_at,published_at,city_slug,target_route_id,target_location_id,target_event_id,target_creator_profile_id,starts_at,ends_at,cta_label,cta_url,updated_at"
+      )
+      .order("updated_at", { ascending: false }),
+    supabase
+      .from("service_providers")
+      .select(
+        "id,partner_profile_id,name,service_type,city_slug,status,review_status,review_notes,review_submitted_at,review_reviewed_at,published_at,updated_at"
       )
       .order("updated_at", { ascending: false }),
     supabase
@@ -205,7 +357,7 @@ export async function getMonetizationAdminSnapshot() {
     supabase
       .from("affiliate_links")
       .select(
-        "id,partner_profile_id,product_id,location_id,planner_event_id,route_id,link_scope,provider_name,destination_url,commission_model,is_active,priority,updated_at"
+        "id,partner_profile_id,product_id,location_id,planner_event_id,route_id,link_scope,provider_name,destination_url,commission_model,is_active,review_status,review_notes,review_submitted_at,review_reviewed_at,published_at,priority,updated_at"
       )
       .order("updated_at", { ascending: false }),
     supabase
@@ -247,6 +399,7 @@ export async function getMonetizationAdminSnapshot() {
   for (const response of [
     partnersResp,
     campaignsResp,
+    providersResp,
     slotsResp,
     assignmentsResp,
     affiliateResp,
@@ -263,6 +416,7 @@ export async function getMonetizationAdminSnapshot() {
   return {
     partners: (partnersResp.data ?? []) as AdminPartnerProfileRow[],
     campaigns: (campaignsResp.data ?? []) as AdminCampaignRow[],
+    providers: (providersResp.data ?? []) as AdminProviderRow[],
     slots: (slotsResp.data ?? []) as AdminSlotRow[],
     assignments: (assignmentsResp.data ?? []) as AdminSlotAssignmentRow[],
     affiliateLinks: (affiliateResp.data ?? []) as AdminAffiliateLinkRow[],
