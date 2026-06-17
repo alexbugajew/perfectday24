@@ -750,6 +750,11 @@ export default function RoadtripRouteDetailPage() {
           entityId={route.id}
           title="Roadtrip-Foto hinzufuegen"
           subtitle="Lade Bilder zur gesamten Route hoch. Freigegebene Fotos koennen spaeter Cover, Galerie oder Highlights der Etappen staerken."
+          previewItems={roadtripGalleryItems.slice(0, 16).map((item) => ({
+            id: item.id,
+            url: item.url,
+            alt: item.alt,
+          }))}
           onSubmitted={() => setRoadtripMediaVersion((version) => version + 1)}
         />
       </section>

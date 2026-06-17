@@ -719,6 +719,11 @@ export default function EventPlanDetailPage() {
               entityId={plan.id}
               title="Mood-Bild hinzufuegen"
               subtitle="Lade ein Bild fuer Einladung, Anlass oder Rueckblick hoch. Neue Event-Fotos landen zuerst in der Pruefung."
+              previewItems={eventMediaItems.slice(0, 16).map((item) => ({
+                id: item.id,
+                url: item.url,
+                alt: item.alt,
+              }))}
               onSubmitted={() => setEventMediaVersion((version) => version + 1)}
             />
           </div>

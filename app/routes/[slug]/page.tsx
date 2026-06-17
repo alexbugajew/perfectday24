@@ -48,7 +48,6 @@ import {
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
 import { renderableImageUrl } from "@/lib/renderable-image-url";
 import ImageAttribution from "@/components/ImageAttribution";
-import EntityMediaGallery from "@/components/media/EntityMediaGallery";
 import CommunityPhotoSubmission from "@/components/media/CommunityPhotoSubmission";
 import { loadRouteMediaBundle, type MediaGalleryItem } from "@/lib/media/gallery";
 import { loadResolvedRouteCoverMap } from "@/lib/media/resolved-covers";
@@ -2446,18 +2445,15 @@ function RouteDetailPageContent() {
           </div>
       </section>
 
-      <section className="grid gap-5 xl:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">
-        <EntityMediaGallery
-          title="Fotos der Community"
-          subtitle="Bilder zu Route und Stopps machen den Ablauf greifbarer und zeigen direkt, wie sich der Tag vor Ort anfuehlt."
-          items={routeGalleryItems}
-          emptyTitle="Noch keine freigegebenen Bilder"
-          emptyBody="Du kannst den ersten visuellen Eindruck fuer diese Route beitragen. Neue Fotos werden vor der Freigabe geprueft."
-          rightsHint="Bilder werden in Cover, Galerie oder Stop-Kontext ausgespielt. Featured- und Primary-Logik steuert zentral, welches Foto wo bevorzugt erscheint."
-        />
+      <section>
         <CommunityPhotoSubmission
           entityType="route_with_stops"
           entityId={route.id}
+          previewItems={routeGalleryItems.slice(0, 16).map((item) => ({
+            id: item.id,
+            url: item.url,
+            alt: item.alt,
+          }))}
           stopOptions={stops.map((stop) => ({
             id: stop.id,
             label: `Stop ${stop.stop_order}: ${stop.title || `Stop ${stop.stop_order}`}`,
