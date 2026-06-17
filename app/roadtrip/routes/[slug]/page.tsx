@@ -22,6 +22,10 @@ import { getRoadtripCoverArt, type RoadtripCoverArt } from "@/lib/roadtrip/cover
 import { getRoadtripEditorial, type RoadtripEditorial } from "@/lib/roadtrip/editorial";
 import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
+import { loadResolvedRouteCoverMap } from "@/lib/media/resolved-covers";
+import EntityMediaGallery from "@/components/media/EntityMediaGallery";
+import CommunityPhotoSubmission from "@/components/media/CommunityPhotoSubmission";
+import { loadRoadtripMediaBundle, type MediaGalleryItem } from "@/lib/media/gallery";
 
 const PlanMap = dynamic(() => import("@/components/PlanMap"), { ssr: false });
 
@@ -254,6 +258,9 @@ export default function RoadtripRouteDetailPage() {
   const [tripActive] = useState(false);
   const [cityRouteSuggestions, setCityRouteSuggestions] = useState<Record<string, CityCreatorRouteSuggestion[]>>({});
   const [cityRouteSuggestionsLoading, setCityRouteSuggestionsLoading] = useState<Record<string, boolean>>({});
+  const [roadtripGalleryItems, setRoadtripGalleryItems] = useState<MediaGalleryItem[]>([]);
+  const [creatorRouteCoverMap, setCreatorRouteCoverMap] = useState<Map<string, string>>(new Map());
+  const [roadtripMediaVersion, setRoadtripMediaVersion] = useState(0);
 
   useEffect(() => {
     if (!params?.slug) return;
@@ -300,9 +307,14 @@ export default function RoadtripRouteDetailPage() {
             .order("bookmark_count", { ascending: false })
             .limit(3);
 
-          const routes = ((data as CityCreatorRouteSuggestion[] | null) ?? []).filter(
+          const rawRoutes = ((data as CityCreatorRouteSuggestion[] | null) ?? []).filter(
             (candidate) => candidate.slug !== stop.creatorRouteSlug
           );
+          const coverMap = await loadResolvedRouteCoverMap(rawRoutes.map((route) => route.id));
+          const routes = rawRoutes.map((candidate) => ({
+            ...candidate,
+            cover_image_url: coverMap.get(candidate.id) ?? candidate.cover_image_url,
+          }));
 
           return [stop.citySlug, routes] as const;
         })
@@ -318,6 +330,59 @@ export default function RoadtripRouteDetailPage() {
       active = false;
     };
   }, [route]);
+
+  useEffect(() => {
+    if (!route) {
+      setRoadtripGalleryItems([]);
+      setCreatorRouteCoverMap(new Map());
+      return;
+    }
+
+    let active = true;
+
+    (async () => {
+      const creatorRouteIds = Array.from(
+        new Set(route.stops.map((stop) => stop.creatorRouteId).filter((value): value is string => Boolean(value)))
+      );
+      const [roadtripItems, creatorCoverMap] = await Promise.all([
+        loadRoadtripMediaBundle(route.id),
+        loadResolvedRouteCoverMap(creatorRouteIds),
+      ]);
+
+      if (!active) return;
+
+      const creatorFallbacks = route.stops
+        .map((stop, index) => {
+          if (!stop.creatorRouteId) return null;
+          const url = creatorCoverMap.get(stop.creatorRouteId);
+          if (!url) return null;
+          return {
+            id: `creator-route-cover-${stop.creatorRouteId}-${index}`,
+            url,
+            alt: stop.creatorRouteTitle ?? stop.cityLabel,
+            caption: stop.creatorRouteTitle ?? `${stop.cityLabel} erleben`,
+            creditName: null,
+            sourceLabel: `Creator-Route in ${stop.cityLabel}`,
+            badge: "Stop",
+          } satisfies MediaGalleryItem;
+        })
+        .filter(Boolean) as MediaGalleryItem[];
+
+      const seenUrls = new Set<string>();
+      const combinedItems = [...roadtripItems, ...creatorFallbacks].filter((item) => {
+        if (seenUrls.has(item.url)) return false;
+        seenUrls.add(item.url);
+        return true;
+      });
+
+      setCreatorRouteCoverMap(creatorCoverMap);
+      setRoadtripGalleryItems(combinedItems);
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [route, roadtripMediaVersion]);
 
   async function copyShareLink() {
     const url = typeof window !== "undefined" ? window.location.href : "";
@@ -633,8 +698,23 @@ export default function RoadtripRouteDetailPage() {
             {editorial.stopSpotlights.map((spotlight, index) => (
               <article
                 key={`${spotlight.city}-${index}`}
-                className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-4 shadow-[0_2px_12px_rgba(15,23,42,0.05)]"
+                className="overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white shadow-[0_2px_12px_rgba(15,23,42,0.05)]"
               >
+                {creatorRouteCoverMap.get(route.stops[index]?.creatorRouteId ?? "") ? (
+                  <div className="relative h-40 overflow-hidden bg-[var(--bg-surface)]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={creatorRouteCoverMap.get(route.stops[index]?.creatorRouteId ?? "") ?? ""}
+                      alt={spotlight.city}
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.08),rgba(15,23,42,0.5))]" />
+                    <div className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/22 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+                      Stop-Vorschau
+                    </div>
+                  </div>
+                ) : null}
+                <div className="px-4 py-4">
                 <div className="flex items-center justify-between gap-2">
                   <div className="text-base font-semibold text-[var(--text-strong)]">
                     {spotlight.city}
@@ -649,11 +729,30 @@ export default function RoadtripRouteDetailPage() {
                 <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
                   {spotlight.copy}
                 </p>
+                </div>
               </article>
             ))}
           </div>
         </section>
       )}
+
+      <section className="grid gap-5 xl:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">
+        <EntityMediaGallery
+          title="Roadtrip-Impressionen"
+          subtitle="Creator-Cover, Roadtrip-Bilder und spaetere Community-Fotos sorgen dafuer, dass jede Etappe sofort nach einem echten Ziel wirkt."
+          items={roadtripGalleryItems}
+          emptyTitle="Noch keine Roadtrip-Bilder verfuegbar"
+          emptyBody="Sobald Bilder fuer diese Mehrtagesroute vorliegen, erscheinen sie hier als starke Vorschau fuer Cover, Etappen und Community."
+          rightsHint="Roadtrip-Cover, Stop-Bilder und Community-Fotos nutzen dieselbe Prioritaetslogik: manuelles Cover vor freigegebenen Stop- und Galerie-Bildern."
+        />
+        <CommunityPhotoSubmission
+          entityType="roadtrip"
+          entityId={route.id}
+          title="Roadtrip-Foto hinzufuegen"
+          subtitle="Lade Bilder zur gesamten Route hoch. Freigegebene Fotos koennen spaeter Cover, Galerie oder Highlights der Etappen staerken."
+          onSubmitted={() => setRoadtripMediaVersion((version) => version + 1)}
+        />
+      </section>
 
       <section className="space-y-2">
         <h2 className="px-1 text-sm font-semibold text-[var(--text-strong)]">

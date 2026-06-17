@@ -48,6 +48,10 @@ import {
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
 import { renderableImageUrl } from "@/lib/renderable-image-url";
 import ImageAttribution from "@/components/ImageAttribution";
+import EntityMediaGallery from "@/components/media/EntityMediaGallery";
+import CommunityPhotoSubmission from "@/components/media/CommunityPhotoSubmission";
+import { loadRouteMediaBundle, type MediaGalleryItem } from "@/lib/media/gallery";
+import { loadResolvedRouteCoverMap } from "@/lib/media/resolved-covers";
 
 import type { RouteSummary } from "@/components/PlanMap";
 const PlanMap = dynamic(() => import("@/components/PlanMap").then((m) => m.default), {
@@ -548,6 +552,9 @@ function RouteDetailPageContent() {
 
   const [route, setRoute] = useState<UserRouteRow | null>(null);
   const [stops, setStops] = useState<RouteStopRow[]>([]);
+  const [routeGalleryItems, setRouteGalleryItems] = useState<MediaGalleryItem[]>([]);
+  const [routeStopPrimaryMap, setRouteStopPrimaryMap] = useState<Map<string, string>>(new Map());
+  const [routeMediaVersion, setRouteMediaVersion] = useState(0);
   const [creator, setCreator] = useState<CreatorProfileRow | null>(null);
   const [moreFromCreator, setMoreFromCreator] = useState<UserRouteRow[]>([]);
   const [similarRoutes, setSimilarRoutes] = useState<UserRouteRow[]>([]);
@@ -1069,7 +1076,12 @@ function RouteDetailPageContent() {
           return;
         }
 
-        setRoute(data as UserRouteRow);
+        const loadedRoute = data as UserRouteRow;
+        const resolvedCoverMap = await loadResolvedRouteCoverMap([loadedRoute.id]);
+        setRoute({
+          ...loadedRoute,
+          cover_image_url: resolvedCoverMap.get(loadedRoute.id) ?? loadedRoute.cover_image_url,
+        });
       } finally {
         setLoading(false);
       }
@@ -1120,6 +1132,35 @@ function RouteDetailPageContent() {
       }
     })();
   }, [route?.id]);
+
+  useEffect(() => {
+    if (!route?.id) {
+      setRouteGalleryItems([]);
+      setRouteStopPrimaryMap(new Map());
+      return;
+    }
+
+    let active = true;
+
+    (async () => {
+      const mediaBundle = await loadRouteMediaBundle(
+        route.id,
+        stops.map((stop) => ({
+          id: stop.id,
+          title: stop.title,
+          photoUrl: stop.photo_url,
+        }))
+      );
+
+      if (!active) return;
+      setRouteGalleryItems(mediaBundle.galleryItems);
+      setRouteStopPrimaryMap(mediaBundle.stopPrimaryMap);
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [route?.id, stops, routeMediaVersion]);
 
   useEffect(() => {
     if (!route?.id) {
@@ -1751,9 +1792,14 @@ function RouteDetailPageContent() {
     });
     return counts;
   }, [stops]);
-  const firstStopWithPhoto = stops.find((stop) => stop.photo_url?.trim());
+  const firstStopWithPhoto = stops.find((stop) => {
+    const mediaUrl = routeStopPrimaryMap.get(stop.id);
+    return Boolean(mediaUrl || stop.photo_url?.trim());
+  });
   const routeCoverImageUrl = renderableImageUrl(route?.cover_image_url);
-  const stopCoverImageUrl = renderableImageUrl(firstStopWithPhoto?.photo_url);
+  const stopCoverImageUrl = renderableImageUrl(
+    firstStopWithPhoto ? routeStopPrimaryMap.get(firstStopWithPhoto.id) ?? firstStopWithPhoto.photo_url : null
+  );
   const heroCover = routeCoverImageUrl || stopCoverImageUrl || null;
   const heroAttributionMeta = routeCoverImageUrl ? route?.meta : stopCoverImageUrl ? firstStopWithPhoto?.meta : null;
   const routeBadges = inferPublicRouteBadges(route ?? {});
@@ -2400,6 +2446,26 @@ function RouteDetailPageContent() {
           </div>
       </section>
 
+      <section className="grid gap-5 xl:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">
+        <EntityMediaGallery
+          title="Fotos der Community"
+          subtitle="Bilder zu Route und Stopps machen den Ablauf greifbarer und zeigen direkt, wie sich der Tag vor Ort anfuehlt."
+          items={routeGalleryItems}
+          emptyTitle="Noch keine freigegebenen Bilder"
+          emptyBody="Du kannst den ersten visuellen Eindruck fuer diese Route beitragen. Neue Fotos werden vor der Freigabe geprueft."
+          rightsHint="Bilder werden in Cover, Galerie oder Stop-Kontext ausgespielt. Featured- und Primary-Logik steuert zentral, welches Foto wo bevorzugt erscheint."
+        />
+        <CommunityPhotoSubmission
+          entityType="route_with_stops"
+          entityId={route.id}
+          stopOptions={stops.map((stop) => ({
+            id: stop.id,
+            label: `Stop ${stop.stop_order}: ${stop.title || `Stop ${stop.stop_order}`}`,
+          }))}
+          onSubmitted={() => setRouteMediaVersion((version) => version + 1)}
+        />
+      </section>
+
       <section id="route-stops">
         <div className="mb-4 flex items-center justify-between gap-3">
           <div><h2 className="text-2xl font-semibold">Stops</h2><p className="text-sm text-gray-600">Die Route ist in Reihenfolge aufgebaut, damit du den Flow direkt nachvollziehen kannst.</p></div>
@@ -2427,9 +2493,11 @@ function RouteDetailPageContent() {
               const externalTargetUrl =
                 affiliateMatch?.targetUrl ??
                 ((adjustable ? displayCandidate.external_url : stop.external_url) ?? null);
-              const rawStopPhotoUrl = adjustable ? displayCandidate.photo_url : stop.photo_url;
+              const primaryStopMediaUrl = routeStopPrimaryMap.get(stop.id) ?? null;
+              const rawStopPhotoUrl = primaryStopMediaUrl ?? (adjustable ? displayCandidate.photo_url : stop.photo_url);
               const stopPhotoUrl = renderableImageUrl(rawStopPhotoUrl);
-              const stopPhotoAttributionMeta = rawStopPhotoUrl && rawStopPhotoUrl === stop.photo_url ? stop.meta : null;
+              const stopPhotoAttributionMeta =
+                !primaryStopMediaUrl && rawStopPhotoUrl && rawStopPhotoUrl === stop.photo_url ? stop.meta : null;
               return (
               <div key={stop.id} className="rounded-2xl border bg-white p-4 shadow-sm">
                 <div className="space-y-3">

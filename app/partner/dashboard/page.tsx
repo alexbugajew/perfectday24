@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { PhotoUpload } from "@/components/ui/PhotoUpload";
+import EntityMediaGallery from "@/components/media/EntityMediaGallery";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -2557,6 +2558,17 @@ function TypeSpecificSection({
   const [mediaSaved, setMediaSaved] = useState(false);
 
   const mediaDirty = JSON.stringify(mediaUrls) !== JSON.stringify(profile.media_urls ?? []);
+  const mediaPreviewItems = mediaUrls
+    .filter((url) => typeof url === "string" && url.trim().length > 0)
+    .map((url, index) => ({
+      id: `${profile.id}-media-${index}`,
+      url,
+      alt: profile.display_name,
+      caption: index === 0 ? `${profile.display_name} · Titelbild` : `${profile.display_name} · Galerie`,
+      creditName: null,
+      sourceLabel: index === 0 ? "Partner-Cover" : "Partner-Galerie",
+      badge: index === 0 ? "Cover" : "Galerie",
+    }));
 
   async function saveMedia() {
     setMediaSaving(true);
@@ -2608,6 +2620,29 @@ function TypeSpecificSection({
           {mediaSaved && (
             <p className="mt-2 text-xs text-[var(--brand-accent)]">Gespeichert</p>
           )}
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+              Erstes Foto = Titelbild fuer Profil und bevorzugtes Fallback-Cover.
+            </div>
+            <div className="rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+              Weitere Bilder staerken Galerie, Event-Anbieter-Karten und redaktionelle Empfehlungen.
+            </div>
+            <div className="rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+              Spaeter koennen freigegebene Community- und Creator-Bilder zusaetzlich als Featured-Medien genutzt werden.
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <EntityMediaGallery
+              title="Medienvorschau"
+              subtitle="So wirken Cover und Galerie fuer dein Profil aktuell im Frontend."
+              items={mediaPreviewItems}
+              emptyTitle="Noch keine Partner-Bilder"
+              emptyBody="Lade mindestens ein Coverbild hoch, damit dein Profil, deine Anbieterkarte und kuenftige Event-Module hochwertig wirken."
+              rightsHint="Partner-Medien koennen spaeter in Profil, Event-Anbieterflaechen und weiteren Discovery-Modulen ausgespielt werden."
+            />
+          </div>
         </div>
 
         {/* Type-data key/values */}

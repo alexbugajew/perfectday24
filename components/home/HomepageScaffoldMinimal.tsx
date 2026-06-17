@@ -228,7 +228,7 @@ export default function HomepageScaffoldMinimal() {
                 Events
               </Link>
               <Link
-                href="/partner/onboarding"
+                href="/partner"
                 className="inline-flex items-center justify-center rounded-full border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] hover:bg-white"
               >
                 Fuer Anbieter
@@ -436,7 +436,7 @@ export default function HomepageScaffoldMinimal() {
               </div>
 
               <div className="flex flex-col items-start gap-3 lg:items-end">
-                <PD24Button href="/partner/onboarding" variant="secondary" className="min-w-[12rem]">
+                <PD24Button href="/partner" variant="secondary" className="min-w-[12rem]">
                   Partner werden
                 </PD24Button>
                 <Link
@@ -551,7 +551,7 @@ export default function HomepageScaffoldMinimal() {
               <Link href="/saved">Meine Pläne</Link>
               <Link href="/impressum">Impressum</Link>
               <Link href="/datenschutz">Datenschutz</Link>
-              <Link href="/partner/onboarding">Fuer Anbieter</Link>
+              <Link href="/partner">Fuer Anbieter</Link>
               <Link href="/agb">AGB</Link>
             </div>
           </div>

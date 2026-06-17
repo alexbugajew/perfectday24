@@ -4,8 +4,18 @@
 import { supabase } from "@/lib/supabaseClient";
 import type { CreateRoadtripRouteInput, RoadtripRoute, RoadtripRouteStatus } from "./types";
 import { slugifyTitle, totalNights, countryCodes } from "./types";
+import { loadResolvedRoadtripCoverMap } from "@/lib/media/resolved-covers";
 
 const TABLE = "roadtrip_routes";
+
+async function applyResolvedRoadtripCovers(routes: RoadtripRoute[]): Promise<RoadtripRoute[]> {
+  if (routes.length === 0) return routes;
+  const coverMap = await loadResolvedRoadtripCoverMap(routes.map((route) => route.id));
+  return routes.map((route) => ({
+    ...route,
+    cover_image_url: coverMap.get(route.id) ?? route.cover_image_url,
+  }));
+}
 
 // ─── Read ─────────────────────────────────────────────────────────────────────
 
@@ -24,7 +34,7 @@ export async function fetchPublicRoadtripRoutes(limit = 24): Promise<RoadtripRou
     console.error("fetchPublicRoadtripRoutes error:", error.message);
     return [];
   }
-  return (data ?? []) as RoadtripRoute[];
+  return applyResolvedRoadtripCovers((data ?? []) as RoadtripRoute[]);
 }
 
 /** Eine Route per Slug laden */
@@ -39,7 +49,9 @@ export async function fetchRoadtripRouteBySlug(slug: string): Promise<RoadtripRo
     console.error("fetchRoadtripRouteBySlug error:", error.message);
     return null;
   }
-  return (data as RoadtripRoute) ?? null;
+  if (!data) return null;
+  const [withResolvedCover] = await applyResolvedRoadtripCovers([data as RoadtripRoute]);
+  return withResolvedCover ?? null;
 }
 
 /** Eine Route per Share-Token laden */
@@ -54,7 +66,9 @@ export async function fetchRoadtripRouteByToken(shareToken: string): Promise<Roa
     console.error("fetchRoadtripRouteByToken error:", error.message);
     return null;
   }
-  return (data as RoadtripRoute) ?? null;
+  if (!data) return null;
+  const [withResolvedCover] = await applyResolvedRoadtripCovers([data as RoadtripRoute]);
+  return withResolvedCover ?? null;
 }
 
 /** Routen des eingeloggten Nutzers laden (alle Visibility-Stufen) */
@@ -73,7 +87,7 @@ export async function fetchMyRoadtripRoutes(): Promise<RoadtripRoute[]> {
     console.error("fetchMyRoadtripRoutes error:", error.message);
     return [];
   }
-  return (data ?? []) as RoadtripRoute[];
+  return applyResolvedRoadtripCovers((data ?? []) as RoadtripRoute[]);
 }
 
 // ─── Write ────────────────────────────────────────────────────────────────────
@@ -195,7 +209,9 @@ export async function fetchActiveRoadtrip(): Promise<RoadtripRoute | null> {
     console.error("fetchActiveRoadtrip error:", error.message);
     return null;
   }
-  return (data as RoadtripRoute) ?? null;
+  if (!data) return null;
+  const [withResolvedCover] = await applyResolvedRoadtripCovers([data as RoadtripRoute]);
+  return withResolvedCover ?? null;
 }
 
 /** Route löschen (nur eigene) */

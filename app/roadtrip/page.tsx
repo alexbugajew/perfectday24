@@ -18,6 +18,7 @@ import {
   setRoadtripStatus,
   incrementRouteClones,
 } from "@/lib/roadtrip/client";
+import { loadResolvedRouteCoverMap } from "@/lib/media/resolved-covers";
 import { ROADTRIP_TAGS, stopArrivalDate } from "@/lib/roadtrip/types";
 import type { RoadtripRoute, RoadtripRouteVisibility } from "@/lib/roadtrip/types";
 
@@ -596,9 +597,14 @@ function RoadtripPageContent() {
         .eq("visibility", "public")
         .order("bookmark_count", { ascending: false })
         .limit(8);
+      const rows = (data as CityCreatorRoute[] | null) ?? [];
+      const coverMap = await loadResolvedRouteCoverMap(rows.map((route) => route.id));
       setCityCreatorRoutes((prev) => ({
         ...prev,
-        [citySlug]: (data as CityCreatorRoute[]) ?? [],
+        [citySlug]: rows.map((route) => ({
+          ...route,
+          cover_image_url: coverMap.get(route.id) ?? route.cover_image_url,
+        })),
       }));
     } finally {
       setCityCreatorLoading((prev) => ({ ...prev, [citySlug]: false }));

@@ -230,6 +230,10 @@ export default function PartnerOnboarding() {
         setStep1({ partner_type_slug: "corporate" });
         setStep(2);
       }
+      const tier = params.get("tier");
+      if (tier === "organic" || tier === "partner_basic" || tier === "partner_pro") {
+        setStep5({ tier });
+      }
     }
   }, []);
 
