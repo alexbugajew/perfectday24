@@ -29,6 +29,7 @@ import {
 } from "@/lib/routes/recommendation-reasons";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
 import { renderableImageUrl } from "@/lib/renderable-image-url";
+import { loadResolvedRouteCoverMap } from "@/lib/media/resolved-covers";
 import ImageAttribution from "@/components/ImageAttribution";
 
 type RouteVisibility = "private" | "unlisted" | "public";
@@ -570,9 +571,9 @@ function RouteCard({
             />
           </>
         ) : (
-          <div className="flex h-full w-full items-end p-4">
-            <div className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)]/80 px-3 py-1 text-xs text-[var(--text-muted)] backdrop-blur">
-              Kein Coverbild
+          <div className="flex h-full w-full items-end bg-[linear-gradient(135deg,rgba(237,242,246,0.92)_0%,rgba(219,231,239,0.92)_48%,rgba(238,243,247,0.94)_100%)] p-4">
+            <div className="rounded-full border border-white/70 bg-white/80 px-3 py-1 text-xs font-medium text-[var(--text-muted)] backdrop-blur">
+              Route entdecken
             </div>
           </div>
         )}
@@ -931,7 +932,13 @@ function ExplorePageContent() {
           setRoutes([]);
         } else {
           const rows = ((routesRes.data ?? []) as UserRouteRow[]).filter((r) => !!r && !!r.title);
-          setRoutes(rows);
+          const coverMap = await loadResolvedRouteCoverMap(rows.map((route) => route.id));
+          setRoutes(
+            rows.map((route) => ({
+              ...route,
+              cover_image_url: coverMap.get(route.id) ?? route.cover_image_url,
+            }))
+          );
         }
 
         if (creatorsRes.error) {

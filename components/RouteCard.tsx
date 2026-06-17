@@ -54,8 +54,10 @@ export default function RouteCard({ route }: { route: ExploreRouteCard }) {
             className="object-cover transition duration-500 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-sm text-[var(--text-muted)]">
-            Kein Coverbild
+          <div className="flex h-full w-full items-end bg-[linear-gradient(135deg,#edf2f6_0%,#dbe7ef_48%,#eef3f7_100%)] p-4">
+            <span className="rounded-full border border-white/70 bg-white/80 px-3 py-1 text-[11px] font-medium text-[var(--text-muted)] backdrop-blur">
+              Route entdecken
+            </span>
           </div>
         )}
       </div>

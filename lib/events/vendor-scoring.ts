@@ -16,6 +16,7 @@ export type VendorWithScore = {
   id: string;
   name: string;
   media_urls: string[];
+  cover_image_url?: string | null;
   booking_type: string;
   visibility_tier: string;
   service_category_slugs: string[];

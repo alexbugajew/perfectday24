@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import { loadResolvedServiceProviderCoverMap } from "@/lib/media/resolved-covers";
 import { scoreVendors, BADGE_LABEL, BADGE_CLASS } from "@/lib/events/vendor-scoring";
 import type { VendorWithScore, VendorPackage } from "@/lib/events/vendor-scoring";
 
@@ -41,7 +42,7 @@ type RawProvider = {
   is_verified: boolean;
   base_price_cents: number | null;
   contact_email: string | null;
-  partner_profiles: RawPartnerMeta | null;
+  partner_profiles: RawPartnerMeta | RawPartnerMeta[] | null;
   provider_packages: RawPackage[];
 };
 
@@ -135,8 +136,10 @@ function cx(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(" ");
 }
 
-function normalizeProvider(sp: RawProvider): Record<string, unknown> {
-  const pp = sp.partner_profiles;
+function normalizeProvider(sp: RawProvider, resolvedCoverUrl?: string | null): Record<string, unknown> {
+  const pp = Array.isArray(sp.partner_profiles)
+    ? sp.partner_profiles[0] ?? null
+    : sp.partner_profiles;
   return {
     id:                     sp.id,
     name:                   sp.name,
@@ -144,6 +147,7 @@ function normalizeProvider(sp: RawProvider): Record<string, unknown> {
     is_verified:            sp.is_verified,
     contact_email:          pp?.contact_email ?? sp.contact_email,
     media_urls:             pp?.media_urls ?? [],
+    cover_image_url:        resolvedCoverUrl ?? pp?.media_urls?.[0] ?? null,
     booking_type:           pp?.booking_type ?? "request",
     visibility_tier:        pp?.visibility_tier ?? "organic",
     service_category_slugs: pp?.service_category_slugs ?? [],
@@ -240,14 +244,18 @@ function PlanNewInner() {
     const categoryBudget = budget > 0 && needs.length > 0
       ? budget / needs.length
       : 0;
+    const rawProviders = (rows ?? []) as unknown as RawProvider[];
+    const providerCoverMap = await loadResolvedServiceProviderCoverMap(
+      rawProviders.map((provider) => provider.id)
+    );
 
     const allByNeed: Record<string, VendorWithScore[]> = {};
 
     for (const need of needs) {
       const types = NEED_SERVICE_TYPES[need] ?? [];
-      const matching = (rows ?? [])
+      const matching = rawProviders
         .filter((sp) => types.includes(sp.service_type))
-        .map((sp) => normalizeProvider(sp as unknown as RawProvider));
+        .map((sp) => normalizeProvider(sp, providerCoverMap.get(sp.id) ?? null));
 
       allByNeed[need] = scoreVendors(matching, categoryBudget, guests);
     }
@@ -731,7 +739,7 @@ function VendorCard({
   isQuoteRequested: boolean;
   onOpen: () => void;
 }) {
-  const photo = vendor.media_urls?.[0] ?? null;
+  const photo = vendor.cover_image_url ?? vendor.media_urls?.[0] ?? null;
   const hasPackages = vendor.packages.length > 0;
   const bullets = vendor.packages[0]?.includes?.slice(0, 3) ?? [];
 
@@ -760,6 +768,19 @@ function VendorCard({
             🏢
           </div>
         )}
+        {!photo ? (
+          <div className="absolute inset-0 flex h-full w-full flex-col justify-between bg-[linear-gradient(135deg,#f7efe6_0%,#efe7dc_48%,#f6f2ec_100%)] p-4 text-[#6d5f53]">
+            <span className="inline-flex w-fit rounded-full border border-white/70 bg-white/75 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] backdrop-blur">
+              Anbieter
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-[#2b221c]">{vendor.name}</p>
+              <p className="mt-1 text-xs text-[#7c6b5d]">
+                Profilbild folgt. Preise, Pakete und Verfuegbarkeit sind bereits hinterlegt.
+              </p>
+            </div>
+          </div>
+        ) : null}
         {/* Badge */}
         {vendor.badge && (
           <span
@@ -853,7 +874,7 @@ function VendorModal({
   onQuoteRequest: (needSlug: string, vendor: VendorWithScore) => void;
   onClose: () => void;
 }) {
-  const photo = vendor.media_urls?.[0] ?? null;
+  const photo = vendor.cover_image_url ?? vendor.media_urls?.[0] ?? null;
   const hasPackages = vendor.packages.length > 0;
 
   // Close on Escape
@@ -897,6 +918,19 @@ function VendorModal({
           ) : (
             <div className="flex h-full w-full items-center justify-center text-5xl opacity-25">🏢</div>
           )}
+          {!photo ? (
+            <div className="absolute inset-0 flex h-full w-full flex-col justify-between bg-[linear-gradient(135deg,#f7efe6_0%,#efe7dc_48%,#f6f2ec_100%)] p-5 text-[#6d5f53]">
+              <span className="inline-flex w-fit rounded-full border border-white/70 bg-white/75 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] backdrop-blur">
+                Anbieterprofil
+              </span>
+              <div>
+                <p className="text-base font-semibold text-[#2b221c]">{vendor.name}</p>
+                <p className="mt-1 max-w-sm text-sm leading-6 text-[#7c6b5d]">
+                  Noch ohne Titelbild. Leistungen, Kontakt und moegliche Pakete sind trotzdem direkt verfuegbar.
+                </p>
+              </div>
+            </div>
+          ) : null}
           {vendor.badge && (
             <span
               className={cx(
