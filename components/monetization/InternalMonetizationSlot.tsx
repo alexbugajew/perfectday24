@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLink";
 import { getMonetizationProducts, getSponsoredSlotDefinition } from "@/lib/monetization/debug";
+import { trackMonetizationEvent } from "@/lib/monetization/client";
 import type { MonetizationProductKey, SponsoredSlotKey } from "@/lib/monetization/types";
 
 type LiveSlotAssignment = {
@@ -125,6 +126,25 @@ export default function InternalMonetizationSlot({
         : [],
     [liveStatus]
   );
+
+  // Fire impression events for each active partner assignment shown
+  useEffect(() => {
+    if (!livePreview || activeAssignments.length === 0) return;
+    activeAssignments.forEach((assignment) => {
+      void trackMonetizationEvent({
+        eventType: "impression",
+        partnerProfileId: assignment.partnerProfileId,
+        campaignId: assignment.campaignId,
+        slotKey: slotKey,
+        citySlug: assignment.citySlug ?? citySlug ?? null,
+        surface: slot?.surface ?? null,
+        routeId: assignment.targetRouteId ?? routeId ?? null,
+        creatorProfileId: assignment.targetCreatorProfileId ?? creatorProfileId ?? null,
+        onceKey: `impression:${slotKey}:${assignment.id}`,
+      });
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeAssignments.length, slotKey]);
 
   if (!enabled || !slot) return null;
 

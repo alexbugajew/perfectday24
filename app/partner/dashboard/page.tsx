@@ -475,6 +475,7 @@ export default function PartnerDashboard() {
   const [bookings, setBookings] = useState<BookingRequest[]>([]);
   const [campaigns, setCampaigns] = useState<PartnerCampaign[]>([]);
   const [affiliateLinks, setAffiliateLinks] = useState<AffiliateLink[]>([]);
+  const [affiliateClickCounts, setAffiliateClickCounts] = useState<Record<string, number>>({});
 
   // Profile edit
   const [editMode, setEditMode] = useState(false);
@@ -587,24 +588,27 @@ export default function PartnerDashboard() {
       const now = new Date();
       const since30d = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
 
-      // Load stats in parallel
+      // Load stats in parallel — query attribution_events directly (partner_impressions/partner_clicks tables are not populated)
       const [
-        { count: impressionCount },
-        { count: clickCount },
+        impressionResult,
+        clickResult,
         providersResult,
         campaignsResult,
         affiliateLinksResult,
+        affiliateClickBreakdownResult,
       ] = await Promise.all([
         supabase
-          .from("partner_impressions")
+          .from("attribution_events")
           .select("id", { count: "exact", head: true })
-          .eq("partner_id", prof.id)
-          .gte("created_at", since30d),
+          .eq("partner_profile_id", prof.id)
+          .eq("event_type", "impression")
+          .gte("occurred_at", since30d),
         supabase
-          .from("partner_clicks")
+          .from("attribution_events")
           .select("id", { count: "exact", head: true })
-          .eq("partner_id", prof.id)
-          .gte("created_at", since30d),
+          .eq("partner_profile_id", prof.id)
+          .in("event_type", ["click", "redirect"])
+          .gte("occurred_at", since30d),
         supabase
           .from("service_providers")
           .select(`
@@ -624,7 +628,29 @@ export default function PartnerDashboard() {
           .eq("partner_profile_id", prof.id)
           .order("updated_at", { ascending: false })
           .limit(12),
+        supabase
+          .from("attribution_events")
+          .select("affiliate_link_id")
+          .eq("partner_profile_id", prof.id)
+          .in("event_type", ["click", "redirect"])
+          .not("affiliate_link_id", "is", null)
+          .gte("occurred_at", since30d)
+          .limit(500),
       ]);
+
+      // Build click count per affiliate link
+      const clicksByLinkId = (affiliateClickBreakdownResult.data ?? []).reduce<Record<string, number>>(
+        (acc, row) => {
+          const id = row.affiliate_link_id as string;
+          if (id) acc[id] = (acc[id] ?? 0) + 1;
+          return acc;
+        },
+        {}
+      );
+      setAffiliateClickCounts(clicksByLinkId);
+
+      const impressionCount = impressionResult.count;
+      const clickCount = clickResult.count;
 
       const providerList = (providersResult.data ?? []) as unknown as ServiceProvider[];
       setProviders(providerList);
@@ -1965,9 +1991,16 @@ export default function PartnerDashboard() {
                             {[link.link_scope, link.commission_model].join(" - ")}
                           </div>
                         </div>
-                        <span className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-strong)]">
-                          {link.is_active ? "aktiv" : "pausiert"}
-                        </span>
+                        <div className="flex shrink-0 items-center gap-2">
+                          {(affiliateClickCounts[link.id] ?? 0) > 0 && (
+                            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-800">
+                              {affiliateClickCounts[link.id]} Klick{affiliateClickCounts[link.id] !== 1 ? "s" : ""}
+                            </span>
+                          )}
+                          <span className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-strong)]">
+                            {link.is_active ? "aktiv" : "pausiert"}
+                          </span>
+                        </div>
                       </div>
                       <div className="mt-2 truncate text-xs text-[var(--text-muted)]">{link.destination_url}</div>
                       {link.review_notes ? (
