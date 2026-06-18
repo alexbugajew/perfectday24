@@ -4,13 +4,13 @@ import type { Metadata } from "next";
 export const revalidate = 600;
 
 const description =
-  "Stöbere durch kuratierte Routen in Berlin, Hamburg, München und mehr. Finde Inspiration für deinen nächsten Tag.";
+  "Entdecke kuratierte Tagesrouten in Berlin, Hamburg, München und allen deutschen Großstädten — für Date Nights, Familientage, Ausflüge und mehr.";
 
 export const metadata: Metadata = {
-  title: "Stadtrouten entdecken | PerfectDay24",
+  title: "Routen entdecken | PerfectDay24 — Tagesrouten für alle Städte",
   description,
   openGraph: {
-    title: "Stadtrouten entdecken | PerfectDay24",
+    title: "Routen entdecken | PerfectDay24",
     description,
     locale: "de_DE",
     type: "website",

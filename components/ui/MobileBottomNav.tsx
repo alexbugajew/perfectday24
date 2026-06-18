@@ -64,7 +64,7 @@ const NAV_ITEMS = [
   },
   {
     href: "/saved",
-    label: "Gespeichert",
+    label: "Meine Pläne",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

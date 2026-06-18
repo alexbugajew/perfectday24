@@ -1190,38 +1190,51 @@ function ExplorePageContent() {
   return (
     <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
       <div className="mb-5 overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
-        <div className="bg-[linear-gradient(180deg,var(--bg-surface),var(--bg-panel))] p-4 sm:p-5 lg:p-6">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="max-w-3xl">
-              <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
-                Entdecken
-              </div>
-              <div className="mt-3">
-                <PlannerModeSwitcher />
-              </div>
-              <h1 className="mt-4 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Entdecke Routen in deiner Stadt</h1>
-              <p className="mt-1 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-                Stöbere durch kuratierte Routen und finde Inspiration für deinen nächsten Tag.
+        <div className="p-4 sm:p-5 lg:p-6">
+
+          {/* Mode switcher — erste Entscheidung */}
+          <PlannerModeSwitcher />
+
+          {/* Hero-Zeile */}
+          <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-2xl">
+              <h1 className="text-2xl font-bold tracking-tight text-[var(--text-strong)] sm:text-3xl">
+                Kuratierte Routen für deinen nächsten Tag
+              </h1>
+              <p className="mt-1.5 text-sm leading-6 text-[var(--text-muted)]">
+                {totalPublic} Routen für Tagesausflüge, Date Nights, Familientage und mehr — direkt in deinen Planer übernehmen.
               </p>
-
-              <div className="mt-2 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
-                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">{totalPublic} Routen</span>
-                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1">{filteredRoutes.length} Treffer</span>
-              </div>
             </div>
-
-            <div className="flex flex-wrap gap-2">
-              <Link href="/planner" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
-                ← Planen
-              </Link>
-              <Link href="/saved" className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)]">
-                Meine Pläne
-              </Link>
-            </div>
+            <Link
+              href="/planner"
+              className="inline-flex min-h-9 items-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90"
+            >
+              Tag planen →
+            </Link>
           </div>
 
-          <div className="mt-4 grid gap-2 md:grid-cols-[minmax(0,1.6fr)_minmax(150px,0.8fr)_minmax(150px,0.75fr)_auto]">
-            <input
+          {/* Inspiration-Chips: Anlass-Filter als primäre Entscheidung */}
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {OCCASION_PILLS.map((pill) => (
+              <button
+                key={pill.key}
+                type="button"
+                onClick={() => setOccasionFilter(pill.key)}
+                className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition ${
+                  occasionFilter === pill.key
+                    ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                    : "border-[var(--line-subtle)] bg-white text-[var(--text-muted)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]"
+                }`}
+              >
+                {pill.emoji ? `${pill.emoji} ` : ""}{pill.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Filter-Zeile — visuell nachgelagert */}
+          <div className="mt-3 border-t border-[var(--line-subtle)] pt-3">
+            <div className="grid gap-2 md:grid-cols-[minmax(0,1.6fr)_minmax(150px,0.8fr)_minmax(150px,0.75fr)_auto]">
+              <input
               aria-label="Routen suchen"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
@@ -1278,25 +1291,7 @@ function ExplorePageContent() {
             )}
           </div>
 
-          {/* Occasion / Anlass filter pills */}
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {OCCASION_PILLS.map((pill) => (
-              <button
-                key={pill.key}
-                type="button"
-                onClick={() => setOccasionFilter(pill.key)}
-                className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition ${
-                  occasionFilter === pill.key
-                    ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
-                    : "border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] text-[var(--text-muted)] hover:border-[var(--line-strong)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"
-                }`}
-              >
-                {pill.emoji ? `${pill.emoji} ` : ""}{pill.label}
-              </button>
-            ))}
-          </div>
-
-          <details className="mt-2 rounded-2xl border border-black/5 bg-white/50 px-3 py-2">
+            <details className="mt-2 rounded-2xl border border-black/5 bg-white/50 px-3 py-2">
             <summary className="cursor-pointer list-none text-xs font-medium text-[var(--text-muted)]">
               Weitere Filter
               <span className="ml-2 text-[11px] text-gray-400">Land, Quellentyp, Varianten</span>
@@ -1358,11 +1353,10 @@ function ExplorePageContent() {
             </div>
           </details>
 
-          <div className="mt-2 text-xs text-gray-500">
-            {myInterests.length > 0
-              ? "Deine gespeicherten Interessen können die Reihenfolge personalisieren."
-              : "Lege Interessen im Profil an, um persönliche Sortierung zu aktivieren."}
-          </div>
+            {myInterests.length > 0 ? (
+              <p className="mt-2 text-xs text-[var(--text-muted)]">Gespeicherte Interessen beeinflussen die Reihenfolge.</p>
+            ) : null}
+          </div>{/* /filter-zeile */}
         </div>
       </div>
 

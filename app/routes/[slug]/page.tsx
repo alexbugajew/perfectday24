@@ -2151,15 +2151,10 @@ function RouteDetailPageContent() {
             </div>
 
             {route.description ? (
-              <details className="rounded-2xl border border-black/10 bg-white px-3 py-3 text-sm text-gray-700">
-                <summary className="cursor-pointer list-none font-medium text-gray-950">
-                  Kurzbeschreibung
-                </summary>
-                <p className="mt-2 line-clamp-4 whitespace-pre-wrap leading-6">{route.description}</p>
-              </details>
-            ) : (
-              <p className="rounded-2xl border border-black/10 bg-white px-3 py-3 text-sm leading-6 text-gray-500">Diese Route hat noch keine längere Beschreibung. Die Stop-Reihenfolge und Hinweise unten geben dir trotzdem einen guten Überblick.</p>
-            )}
+              <p className="rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm leading-7 text-gray-700 whitespace-pre-wrap">
+                {route.description}
+              </p>
+            ) : null}
 
             {personalizedVariantMeta ? (
               <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-950">
@@ -2235,46 +2230,45 @@ function RouteDetailPageContent() {
         </div>
 
         <div className="mt-5 space-y-4 px-4 pb-5 md:px-8 md:pb-8">
-          <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-            <Link
-              href={`/routes/${route.slug ?? slug}/run`}
-              aria-label={hasRouteRunProgress ? "Route fortsetzen" : "Route starten"}
-              title={hasRouteRunProgress ? "Route fortsetzen" : "Route starten"}
-              className={`flex min-h-12 items-center justify-center rounded-2xl px-3 py-3 text-center text-sm font-semibold shadow-sm transition ${
-                hasRouteRunProgress
-                  ? "border bg-white text-gray-950 hover:bg-gray-50"
-                  : "bg-black text-white hover:opacity-95"
-              }`}
-            >
-              <PlayPauseIcon isPaused={hasRouteRunProgress} />
-              <span className="sr-only">{hasRouteRunProgress ? "Route fortsetzen" : "Route starten"}</span>
-            </Link>
+          {/* Primary CTA — dominant */}
+          <Link
+            href={`/routes/${route.slug ?? slug}/run`}
+            aria-label={hasRouteRunProgress ? "Route fortsetzen" : "Route starten"}
+            className={`flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl text-base font-semibold shadow-sm transition ${
+              hasRouteRunProgress
+                ? "border border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-surface)]"
+                : "bg-[var(--text-strong)] text-white hover:opacity-95"
+            }`}
+          >
+            <PlayPauseIcon isPaused={hasRouteRunProgress} />
+            {hasRouteRunProgress ? "Route fortsetzen" : "Route jetzt starten"}
+          </Link>
+          {/* Secondary actions */}
+          <div className="grid grid-cols-3 gap-2">
             <button
               onClick={handoffRouteToPlanner}
-              aria-label={plannerTemplateQueued ? "Vorlage wird geladen" : "Als Vorlage planen"}
-              title={plannerTemplateQueued ? "Vorlage wird geladen" : "Als Vorlage planen"}
-              className="flex min-h-12 items-center justify-center rounded-2xl border bg-white px-3 py-3 text-center text-sm font-semibold text-gray-950 shadow-sm transition hover:bg-gray-50"
+              title={plannerTemplateQueued ? "Vorlage wird geladen" : "Als Vorlage in Planner übernehmen"}
+              className="flex min-h-10 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-xs font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-surface)]"
             >
               <CopyRouteIcon />
-              <span className="sr-only">{plannerTemplateQueued ? "Vorlage wird geladen..." : "Als Vorlage planen"}</span>
+              <span className="hidden sm:inline">In Planner</span>
             </button>
             <button
               onClick={() => void personalizeRouteForInterests()}
-              aria-label={groupMemberCount > 0 ? "An unsere Vorlieben anpassen" : "An meine Vorlieben anpassen"}
               title={groupMemberCount > 0 ? "An unsere Vorlieben anpassen" : "An meine Vorlieben anpassen"}
-              className="flex min-h-12 items-center justify-center rounded-2xl border border-amber-200 bg-amber-50 px-3 py-3 text-center text-sm font-semibold text-amber-950 shadow-sm transition hover:bg-amber-100"
+              className="flex min-h-10 items-center justify-center gap-1.5 rounded-2xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-950 shadow-sm transition hover:bg-amber-100"
             >
               <SliderRouteIcon />
-              <span className="sr-only">{groupMemberCount > 0 ? "An unsere Vorlieben anpassen" : "An meine Vorlieben anpassen"}</span>
+              <span className="hidden sm:inline">Anpassen</span>
             </button>
             <button
               type="button"
               aria-expanded={routeInfoOpen}
               aria-controls="route-personalization"
               onClick={() => setRouteInfoOpen((open) => !open)}
-              className="flex min-h-12 items-center justify-center rounded-2xl border bg-white px-3 py-3 text-center text-sm font-semibold text-gray-950 shadow-sm transition hover:bg-gray-50"
+              className="flex min-h-10 items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-xs font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-surface)]"
             >
-              Infos
+              Details
             </button>
           </div>
 

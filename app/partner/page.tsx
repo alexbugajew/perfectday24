@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PartnerMarketingCta from "@/components/partner/PartnerMarketingCta";
+
+export const metadata: Metadata = {
+  title: "Partner werden | PerfectDay24 — Sichtbarkeit für Hotels, Locations & Erlebnisse",
+  description: "Werde Partner auf PerfectDay24 und erscheine dort, wo Nutzer aktiv planen: Tagesrouten, Roadtrips, Events und Explore. Kostenlos starten, sofort sichtbar.",
+  openGraph: {
+    title: "Partner werden | PerfectDay24",
+    description: "Zeige dein Angebot Nutzern, die gerade aktiv einen perfekten Tag, Roadtrip oder Event planen. Alle 33 deutschen Großstädte abgedeckt.",
+  },
+};
 
 const partnerTypes = [
   { emoji: "🏨", title: "Hotels & Unterkuenfte", copy: "Direkt dort sichtbar sein, wo Roadtrips, Wochenenden und Staedte-Trips geplant werden." },
@@ -284,6 +294,90 @@ export default function PartnerLandingPage() {
         </div>
       </section>
 
+      {/* T7 — Proof & Zahlen */}
+      <section className="rounded-[32px] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
+        <div className="pd24-kicker-warm">Zahlen & Reichweite</div>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
+          Was du konkret bekommst
+        </h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {[
+            { value: "33", unit: "Städte", copy: "Alle deutschen Großstädte abgedeckt — dein Angebot erscheint stadtspezifisch." },
+            { value: "5+", unit: "Planungsmodi", copy: "Tagesplanung, Roadtrip, Events, Explore und Routen — dein Profil ist in allen sichtbar." },
+            { value: "100%", unit: "Kontext-Targeting", copy: "Nutzer kommen mit konkretem Anlass, Datum und Budgetrahmen — keine Streuverluste." },
+            { value: "0 EUR", unit: "zum Start", copy: "Kostenlos einsteigen, Profil anlegen und erste Anfragen empfangen." },
+          ].map((item) => (
+            <div key={item.unit} className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+              <div className="text-3xl font-semibold text-[var(--text-strong)]">{item.value}</div>
+              <div className="text-sm font-semibold text-[var(--brand-warm)]">{item.unit}</div>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{item.copy}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* T8 — Trust-Layer: Einwände entkräften */}
+      <section className="grid gap-5 lg:grid-cols-2">
+        <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 shadow-[var(--shadow-soft)]">
+          <div className="pd24-kicker-warm">Häufige Fragen</div>
+          <div className="mt-4 space-y-3">
+            {[
+              { q: "Wie groß ist die Reichweite?", a: "PerfectDay24 deckt alle 33 deutschen Großstädte ab. Dein Profil erscheint kontextuell — dort, wo Nutzer aktiv nach Empfehlungen für deinen Standort suchen." },
+              { q: "Wie viel Aufwand ist das?", a: "Profil anlegen dauert unter 15 Minuten. Danach läuft die Sichtbarkeit automatisch — du erhältst Anfragen, ohne aktiv Kampagnen schalten zu müssen." },
+              { q: "Wie seriös ist die Plattform?", a: "Alle Partner durchlaufen einen Freigabeprozess. Dein Profil wird nur verifiziert und sichtbar geschaltet, wenn Qualitätsstandards erfüllt sind." },
+              { q: "Wann lohnt sich ein bezahltes Paket?", a: "Sobald du Featured-Platzierungen, Analytics oder Prioritäts-Matching nutzen möchtest. Free ist dauerhaft kostenlos und kann jederzeit upgraden." },
+            ].map((item) => (
+              <div key={item.q} className="rounded-[20px] border border-[var(--line-subtle)] bg-white px-4 py-4">
+                <div className="text-sm font-semibold text-[var(--text-strong)]">{item.q}</div>
+                <p className="mt-1.5 text-sm leading-6 text-[var(--text-muted)]">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <div className="rounded-[28px] border border-[rgba(196,137,79,0.24)] bg-[linear-gradient(135deg,rgba(255,249,241,0.9),#fff)] p-6 shadow-[var(--shadow-soft)]">
+            <div className="pd24-kicker-warm">So sieht es im Produkt aus</div>
+            <h3 className="mt-3 text-xl font-semibold text-[var(--text-strong)]">Dein Profil im Explore-Kontext</h3>
+            <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
+              Partner-Profile erscheinen als kuratierte Karten in Explore, als Stop-Empfehlungen in Routen und als Angebote im Event-Buchungsflow — immer mit deinen Bildern, Preisen und Direktlinks.
+            </p>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              {["Explore-Karte mit Cover und CTA", "Stop-Empfehlung in Routen", "Angebotsblock im Event-Flow", "Hotelbuchung in Roadtrip-Etappen"].map((item) => (
+                <div key={item} className="rounded-[16px] border border-[rgba(196,137,79,0.2)] bg-white px-3 py-2.5 text-xs leading-5 text-[var(--text-muted)]">
+                  ✓ {item}
+                </div>
+              ))}
+            </div>
+            <div className="mt-5">
+              <PartnerMarketingCta
+                href="/partner/dashboard"
+                label="Demo-Profil öffnen →"
+                variant="secondary"
+                surface="partner_landing_trust"
+                metadata={{ cta_type: "demo_profile" }}
+              />
+            </div>
+          </div>
+
+          <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,#0f172a,#1f2937)] p-6 text-white shadow-[var(--shadow-soft)]">
+            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">Direktkontakt</div>
+            <h3 className="mt-3 text-xl font-semibold text-white">Fragen vor dem Start?</h3>
+            <p className="mt-2 text-sm leading-6 text-white/70">
+              Unser Team beantwortet Fragen zu Paketen, Sichtbarkeit und Integration — per E-Mail oder Demo-Gespräch.
+            </p>
+            <div className="mt-5">
+              <PartnerMarketingCta
+                href="mailto:hello@perfectday24.de?subject=PerfectDay24%20Partner-Demo"
+                label="Demo anfragen"
+                surface="partner_landing_trust"
+                metadata={{ cta_type: "demo_email" }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="rounded-[32px] bg-[var(--text-strong)] px-6 py-10 text-[#fffdf8] shadow-[var(--shadow-large)] sm:px-8">
         <div className="max-w-3xl">
           <div className="pd24-kicker-warm text-white/60">Jetzt starten</div>
@@ -291,10 +385,10 @@ export default function PartnerLandingPage() {
             Werde dort sichtbar, wo perfekte Tage geplant werden
           </h2>
           <p className="mt-4 text-lg leading-8 text-white/76">
-            Starte mit einem Profil, hinterlege Medien und Leistungen und nutze PerfectDay24 als Kanal fuer Sichtbarkeit, Leads und Buchungen.
+            Starte kostenlos, hinterlege Bilder und Leistungen — und sei von Tag 1 in Explore, Events und Roadtrips sichtbar.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <PartnerMarketingCta href="/partner/onboarding" label="Partner werden" surface="partner_landing_footer" metadata={{ cta_type: "start" }} />
+            <PartnerMarketingCta href="/partner/onboarding" label="Kostenlos starten" surface="partner_landing_footer" metadata={{ cta_type: "start" }} />
             <PartnerMarketingCta
               href="mailto:hello@perfectday24.de?subject=PerfectDay24%20Sales"
               label="Sales kontaktieren"

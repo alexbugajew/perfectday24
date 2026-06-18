@@ -540,7 +540,7 @@ export default function RoadtripRouteDetailPage() {
                   Roadtrip
                 </span>
                 <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
-                  {route.stops.length} Staedte / {totalNights} Naechte
+                  {route.stops.length} Städte · {totalNights} Nächte
                 </span>
                 <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
                   {occasionLabel(route.occasion)}
@@ -559,11 +559,20 @@ export default function RoadtripRouteDetailPage() {
                 {route.title}
               </h1>
 
-              {route.description && (
-                <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--text-muted)]">
+              {editorial.intro && (
+                <p className="max-w-2xl text-sm leading-7 text-[var(--text-muted)]">
                   {editorial.intro}
                 </p>
               )}
+
+              {/* Value facts — was du konkret bekommst */}
+              <div className="flex flex-wrap gap-2 text-xs">
+                {editorial.highlights.slice(0, 2).map((highlight) => (
+                  <span key={highlight} className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1.5 text-[var(--text-muted)]">
+                    ✓ {highlight}
+                  </span>
+                ))}
+              </div>
 
               {route.author_name && (
                 <div className="mt-3 flex items-center gap-2 text-xs text-[var(--text-muted)]">
@@ -594,7 +603,7 @@ export default function RoadtripRouteDetailPage() {
                   href={roadtripRunHref}
                   className="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600 active:scale-[0.97]"
                 >
-                  Roadtrip live starten
+                  Jetzt starten — {totalNights} Nächte, {route.stops.length} Städte
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
@@ -633,7 +642,7 @@ export default function RoadtripRouteDetailPage() {
                       Roadtrip-Karte
                     </div>
                     <div className="mt-1 text-sm text-[var(--text-muted)]">
-                      Vorschau der Route mit allen Uebernachtungsstopps in Reihenfolge.
+                      Vorschau der Route mit allen Übernachtungsstopps in Reihenfolge.
                     </div>
                   </div>
                   <div className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
