@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const partnerTypes = [
-  { emoji: "🏨", title: "Hotels & Unterkuenfte", copy: "Direkt dort sichtbar sein, wo Roadtrips, Wochenenden und Staedte-Trips geplant werden." },
+  { emoji: "🏨", title: "Hotels & Unterkünfte", copy: "Direkt dort sichtbar sein, wo Roadtrips, Wochenenden und Städte-Trips geplant werden." },
   { emoji: "🍽️", title: "Restaurants & Bars", copy: "In Tagesrouten, Date-Night-Planungen und Gruppenanlaessen erscheinen." },
   { emoji: "🏛️", title: "Event-Locations", copy: "Anfragen, Angebote und Buchungen direkt aus dem Eventflow erhalten." },
   { emoji: "🎯", title: "Erlebnisse & Touren", copy: "Als fester Stop in Routen, Explore und Roadtrip-Etappen positioniert werden." },
@@ -82,6 +82,32 @@ const workflowSteps = [
   "In Explore, Events und Roadtrips sichtbar werden",
 ];
 
+const partnerPortalModules = [
+  {
+    title: "Profil & Standorte",
+    copy: "Mehrere Standorte, Kategorien, Beschreibungen, Öffnungszeiten und CTA-Links an einem Ort pflegen.",
+  },
+  {
+    title: "Medien & Covers",
+    copy: "Eigene Bilder hochladen, Covers setzen und freigegebene Community-Fotos für Sichtbarkeit nutzen.",
+  },
+  {
+    title: "Pakete & Preise",
+    copy: "Event-Pakete, Angebotsbausteine und Preislogik für Anfrage und Buchung hinterlegen.",
+  },
+  {
+    title: "Kampagnen & Links",
+    copy: "Featured-Platzierungen, Affiliate-Ziele und saisonale Kampagnen selbst steuern.",
+  },
+];
+
+const statusFlow = [
+  { label: "Draft", copy: "Inhalt vorbereitet, noch nicht live." },
+  { label: "In Review", copy: "Qualitaet, Rechte und Darstellung werden geprueft." },
+  { label: "Published", copy: "Im Produkt sichtbar und klickbar." },
+  { label: "Featured", copy: "Zusaetzliche Distribution in kuratierten Flaechen." },
+];
+
 export default function PartnerLandingPage() {
   return (
     <main className="pd24-page-standard space-y-6 pb-20 pt-6">
@@ -119,8 +145,25 @@ export default function PartnerLandingPage() {
               />
             </div>
 
+            <div className="mt-4 flex flex-wrap gap-2">
+              {[
+                { label: "Portal", href: "#portal" },
+                { label: "Pakete", href: "#pakete" },
+                { label: "Trust", href: "#trust" },
+                { label: "FAQ", href: "#faq" },
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="inline-flex min-h-10 items-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+
             <div className="mt-7 flex flex-wrap gap-2">
-              {["Sichtbar in Explore", "Anfragen aus dem Event-Planer", "Affiliate-Links & Buchungswege", "Content fuer Routen und Roadtrips"].map((item) => (
+              {["Sichtbar in Explore", "Anfragen aus dem Event-Planer", "Affiliate-Links & Buchungswege", "Content für Routen und Roadtrips"].map((item) => (
                 <span key={item} className="rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm text-[var(--text-muted-warm)]">
                   {item}
                 </span>
@@ -199,6 +242,46 @@ export default function PartnerLandingPage() {
         </div>
       </section>
 
+      <section id="portal" className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="rounded-[28px] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)]">
+          <div className="pd24-kicker-warm">Self-Service-Portal</div>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
+            Partner steuern ihr Angebot selbst - ohne Ticket-Pingpong
+          </h2>
+          <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
+            Das Portal ist auf operative Selbstbedienung ausgelegt: Profil pflegen, Medien austauschen, Preise hinterlegen, Kampagnen starten und Ausspielung nachvollziehen.
+          </p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            {partnerPortalModules.map((item) => (
+              <div key={item.title} className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                <div className="text-base font-semibold text-[var(--text-strong)]">{item.title}</div>
+                <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{item.copy}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-[28px] border border-[rgba(196,137,79,0.24)] bg-[linear-gradient(180deg,rgba(255,249,241,0.9),#fff)] p-6 shadow-[var(--shadow-soft)]">
+          <div className="pd24-kicker-warm">Statuslogik</div>
+          <div className="mt-4 space-y-3">
+            {statusFlow.map((item, index) => (
+              <div key={item.label} className="flex items-start gap-3 rounded-[20px] border border-[rgba(196,137,79,0.18)] bg-white px-4 py-4">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--text-strong)] text-xs font-semibold text-white">
+                  {index + 1}
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-[var(--text-strong)]">{item.label}</div>
+                  <div className="mt-1 text-sm leading-6 text-[var(--text-muted)]">{item.copy}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 text-sm leading-6 text-[var(--text-muted)]">
+            So bleibt Qualität kontrolliert, während Partner Inhalte, Preise und Kampagnen trotzdem schnell selbst aktualisieren können.
+          </div>
+        </div>
+      </section>
+
       <section id="pakete" className="rounded-[32px] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -263,13 +346,13 @@ export default function PartnerLandingPage() {
           <div className="pd24-kicker-warm">Medien & Vertrauen</div>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">Starke Bilder verkaufen besser als reine Eintraege</h2>
           <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
-            Partner laden eigene Bilder hoch, Creator und Nutzer koennen spaeter Inhalte ergaenzen und freigegebene Fotos steigern Klickrate und Vertrauen entlang des gesamten Flows.
+            Partner laden eigene Bilder hoch, Creator und Nutzer können später Inhalte ergänzen und freigegebene Fotos steigern Klickrate und Vertrauen entlang des gesamten Flows.
           </p>
           <div className="mt-5 space-y-3">
             {[
-              "Review-Workflow und Statusanzeige fuer neue Assets",
+              "Review-Workflow und Statusanzeige für neue Assets",
               "Verifizierte Profile mit klarer Sichtbarkeitslogik",
-              "Kontrollierte Cover-Auswahl statt zufaelliger Bilder",
+              "Kontrollierte Cover-Auswahl statt zufälliger Bilder",
             ].map((item) => (
               <div key={item} className="rounded-[20px] border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
                 {item}
@@ -317,9 +400,9 @@ export default function PartnerLandingPage() {
       </section>
 
       {/* T8 — Trust-Layer: Einwände entkräften */}
-      <section className="grid gap-5 lg:grid-cols-2">
+      <section id="trust" className="grid gap-5 lg:grid-cols-2">
         <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 shadow-[var(--shadow-soft)]">
-          <div className="pd24-kicker-warm">Häufige Fragen</div>
+          <div id="faq" className="pd24-kicker-warm">Häufige Fragen</div>
           <div className="mt-4 space-y-3">
             {[
               { q: "Wie groß ist die Reichweite?", a: "PerfectDay24 deckt alle 33 deutschen Großstädte ab. Dein Profil erscheint kontextuell — dort, wo Nutzer aktiv nach Empfehlungen für deinen Standort suchen." },
@@ -378,6 +461,23 @@ export default function PartnerLandingPage() {
         </div>
       </section>
 
+      <section className="rounded-[28px] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)]">
+        <div className="pd24-kicker-warm">Portal-Nutzen</div>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {[
+            { value: "1 Portal", copy: "Profil, Medien, Pakete und Kampagnen ohne Tool-Wechsel." },
+            { value: "33 Städte", copy: "Ausspielung passend zu Stadt, Anlass und Planungsoberfläche." },
+            { value: "3 Kernflaechen", copy: "Explore, Route/Roadtrip und Event-Buchungsflow." },
+            { value: "0 EUR Start", copy: "Mit Free beginnen und später auf Basic oder Pro erweitern." },
+          ].map((item) => (
+            <div key={item.value} className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+              <div className="text-2xl font-semibold tracking-tight text-[var(--text-strong)]">{item.value}</div>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{item.copy}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="rounded-[32px] bg-[var(--text-strong)] px-6 py-10 text-[#fffdf8] shadow-[var(--shadow-large)] sm:px-8">
         <div className="max-w-3xl">
           <div className="pd24-kicker-warm text-white/60">Jetzt starten</div>
@@ -400,6 +500,24 @@ export default function PartnerLandingPage() {
           </div>
         </div>
       </section>
+
+      <div className="sticky bottom-24 z-20 sm:hidden">
+        <div className="rounded-[22px] border border-[rgba(196,137,79,0.28)] bg-white/96 p-3 shadow-[0_16px_40px_rgba(15,23,42,0.16)] backdrop-blur">
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Partner-Portal</div>
+              <div className="truncate text-sm font-semibold text-[var(--text-strong)]">Profil anlegen und direkt sichtbar werden</div>
+            </div>
+            <PartnerMarketingCta
+              href="/partner/onboarding"
+              label="Starten"
+              surface="partner_landing_mobile_sticky"
+              metadata={{ cta_type: "sticky_mobile" }}
+              className="shrink-0 px-4 py-2"
+            />
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

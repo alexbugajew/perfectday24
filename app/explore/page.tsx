@@ -382,19 +382,19 @@ function buildRouteCardTeaser(
   const transportPhrase = badgeSet.has("mit auto")
     ? " Mit genug Freiheit fuer kleine Umwege."
     : badgeSet.has("zu fuß") || badgeSet.has("zu fuãÿ")
-      ? " Alles fuehlt sich angenehm leicht erreichbar an."
+      ? " Alles fühlt sich angenehm leicht erreichbar an."
       : "";
 
   if (badgeSet.has("family")) {
-    return `Sanft geplant fuer Familien in ${cityName}: ${stopPhrase}${focusPhrase}, damit sich der Tag leicht waehlen und entspannt erleben laesst.${transportPhrase}`;
+    return `Sanft geplant für Familien in ${cityName}: ${stopPhrase}${focusPhrase}, damit sich der Tag leicht wählen und entspannt erleben lässt.${transportPhrase}`;
   }
 
   if (badgeSet.has("date")) {
-    return `Ein Tag zu zweit in ${cityName}, der mit ${stopPhrase}${focusPhrase} sofort Stimmung aufbaut und sich fast von selbst richtig anfuehlt.${transportPhrase}`;
+    return `Ein Tag zu zweit in ${cityName}, der mit ${stopPhrase}${focusPhrase} sofort Stimmung aufbaut und sich fast von selbst richtig anfühlt.${transportPhrase}`;
   }
 
   if (badgeSet.has("friends")) {
-    return `Perfekt fuer gemeinsame Zeit in ${cityName}: ${stopPhrase}${focusPhrase}, locker geplant und ohne endloses Abstimmen.${transportPhrase}`;
+    return `Perfekt für gemeinsame Zeit in ${cityName}: ${stopPhrase}${focusPhrase}, locker geplant und ohne endloses Abstimmen.${transportPhrase}`;
   }
 
   if (badgeSet.has("party")) {
@@ -402,7 +402,7 @@ function buildRouteCardTeaser(
   }
 
   if (badgeSet.has("kultur")) {
-    return `Eine Kulturroute in ${cityName}, die ${stopPhrase}${focusPhrase} zu einem Tag verbindet, der sich inspiriert statt ueberladen anfuehlt.${transportPhrase}`;
+    return `Eine Kulturroute in ${cityName}, die ${stopPhrase}${focusPhrase} zu einem Tag verbindet, der sich inspiriert statt überladen anfühlt.${transportPhrase}`;
   }
 
   if (badgeSet.has("tourism")) {
@@ -1213,7 +1213,7 @@ function ExplorePageContent() {
                 href="/saved"
                 className="inline-flex min-h-10 items-center rounded-full border border-[var(--line-subtle)] bg-white px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
               >
-                Meine Plaene
+                Meine Pläne
               </Link>
             </div>
           </div>
@@ -1297,10 +1297,10 @@ function ExplorePageContent() {
                   Jetzt aktiv
                 </div>
                 <div className="mt-1 text-lg font-semibold tracking-tight text-[var(--text-strong)]">
-                  Tagesrouten direkt vergleichen und in deinen Plan uebernehmen
+                  Tagesrouten direkt vergleichen und in deinen Plan übernehmen
                 </div>
                 <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
-                  Starte hier mit kuratierten Stadtplaenen. Fuer Mehrtagesreisen wechselst du in die Roadtrip-Routen, fuer buchbare Gruppenanlaesse direkt in Events.
+                  Starte hier mit kuratierten Stadtplänen. Für Mehrtagesreisen wechselst du in die Roadtrip-Routen, für buchbare Gruppenanlässe direkt in Events.
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
@@ -1490,7 +1490,7 @@ function ExplorePageContent() {
               Tagesrouten und Roadtrips auf einen Blick trennen
             </div>
             <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
-              Tagesrouten sind fuer einen Tag gedacht. Roadtrips kombinieren mehrere Staedte und fertige Mehrtagesablaeufe.
+              Tagesrouten sind für einen Tag gedacht. Roadtrips kombinieren mehrere Städte und fertige Mehrtagesabläufe.
             </p>
           </div>
         </div>

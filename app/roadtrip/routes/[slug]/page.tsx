@@ -181,7 +181,7 @@ function RoadtripPreviewCard({
           <div className="mt-3 grid grid-cols-2 gap-2">
             <div className="rounded-3xl bg-[var(--bg-surface)] px-4 py-3">
               <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                Staedte
+                Städte
               </div>
               <div className="mt-2 text-[2rem] font-semibold leading-none text-[var(--text-strong)]">
                 {stops.length}
@@ -189,7 +189,7 @@ function RoadtripPreviewCard({
             </div>
             <div className="rounded-3xl bg-[var(--bg-surface)] px-4 py-3">
               <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                Naechte
+                Nächte
               </div>
               <div className="mt-2 text-[2rem] font-semibold leading-none text-[var(--text-strong)]">
                 {totalNights}
@@ -221,7 +221,7 @@ function RoadtripPreviewCard({
                         {stop.cityLabel}
                       </div>
                       <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                        {stop.nights} {stop.nights === 1 ? "Nacht" : "Naechte"}
+                        {stop.nights} {stop.nights === 1 ? "Nacht" : "Nächte"}
                       </div>
                     </div>
                     <div className="mt-1 text-xs text-[var(--text-muted)]">
@@ -235,7 +235,7 @@ function RoadtripPreviewCard({
         </div>
 
         <div className="rounded-[22px] border border-[rgba(23,23,23,0.06)] bg-white px-4 py-3.5 text-sm leading-6 text-[var(--text-muted)]">
-          {stops.length} Stopps mit {totalNights} Naechten zwischen {firstStop} und {lastStop}.{" "}
+          {stops.length} Stopps mit {totalNights} Nächten zwischen {firstStop} und {lastStop}.{" "}
           {editorial.highlights[0] ?? editorial.intro}
         </div>
       </div>
@@ -555,6 +555,10 @@ export default function RoadtripRouteDetailPage() {
                 )}
               </div>
 
+              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                Fertig geplanter Roadtrip
+              </div>
+
               <h1 className="text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
                 {route.title}
               </h1>
@@ -598,6 +602,29 @@ export default function RoadtripRouteDetailPage() {
                 </div>
               )}
 
+              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  Auf los statt neu planen
+                </div>
+                <div className="mt-2 text-base font-semibold text-[var(--text-strong)]">
+                  Reihenfolge, Übernachtungsstopps und Tageslogik stehen bereits.
+                </div>
+                <div className="mt-3 grid gap-2 sm:grid-cols-3">
+                  <div className="rounded-2xl bg-white px-3 py-3 text-sm text-[var(--text-muted)]">
+                    <div className="font-semibold text-[var(--text-strong)]">1. Datum setzen</div>
+                    <div className="mt-1">Ankunftstage und Stop-Abfolge werden direkt berechnet.</div>
+                  </div>
+                  <div className="rounded-2xl bg-white px-3 py-3 text-sm text-[var(--text-muted)]">
+                    <div className="font-semibold text-[var(--text-strong)]">2. Live starten</div>
+                    <div className="mt-1">Die Route ist sofort als Mehrtagesablauf nutzbar.</div>
+                  </div>
+                  <div className="rounded-2xl bg-white px-3 py-3 text-sm text-[var(--text-muted)]">
+                    <div className="font-semibold text-[var(--text-strong)]">3. Pro Stadt verfeinern</div>
+                    <div className="mt-1">Creator-Routen, Hotels und Karten bleiben entlang der Route griffbereit.</div>
+                  </div>
+                </div>
+              </div>
+
               <div className="mt-4 flex flex-wrap items-center gap-2.5">
                 <Link
                   href={roadtripRunHref}
@@ -615,7 +642,17 @@ export default function RoadtripRouteDetailPage() {
                 >
                   Start: {formatDateDE(startDate)}
                 </button>
+                <a
+                  href="#roadtrip-preview"
+                  className="rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+                >
+                  Stop-Abfolge pruefen
+                </a>
               </div>
+
+              <p className="text-sm leading-6 text-[var(--text-muted)]">
+                Startet mit Datum, Stop-Reihenfolge, Übernachtungen und vorbereiteten Tagesfenstern sofort in den Live-Flow.
+              </p>
 
               {showDatePicker && (
                 <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3.5 py-3">
@@ -657,15 +694,17 @@ export default function RoadtripRouteDetailPage() {
               </div>
             </div>
 
-            <RoadtripPreviewCard
-              coverArt={coverArt}
-              editorial={editorial}
-              stops={route.stops}
-              startDate={startDate}
-              firstStop={firstStop}
-              lastStop={lastStop}
-              totalNights={totalNights}
-            />
+            <div id="roadtrip-preview">
+              <RoadtripPreviewCard
+                coverArt={coverArt}
+                editorial={editorial}
+                stops={route.stops}
+                startDate={startDate}
+                firstStop={firstStop}
+                lastStop={lastStop}
+                totalNights={totalNights}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -729,7 +768,7 @@ export default function RoadtripRouteDetailPage() {
                     {spotlight.city}
                   </div>
                   <div className="rounded-full bg-[rgba(23,23,23,0.05)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
-                    {spotlight.nights} {spotlight.nights === 1 ? "Nacht" : "Naechte"}
+                    {spotlight.nights} {spotlight.nights === 1 ? "Nacht" : "Nächte"}
                   </div>
                 </div>
                 <div className="mt-2 text-sm font-medium text-[var(--text-strong)]">
@@ -748,17 +787,17 @@ export default function RoadtripRouteDetailPage() {
       <section className="grid gap-5 xl:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">
         <EntityMediaGallery
           title="Roadtrip-Impressionen"
-          subtitle="Creator-Cover, Roadtrip-Bilder und spaetere Community-Fotos sorgen dafuer, dass jede Etappe sofort nach einem echten Ziel wirkt."
+          subtitle="Creator-Cover, Roadtrip-Bilder und spätere Community-Fotos sorgen dafür, dass jede Etappe sofort nach einem echten Ziel wirkt."
           items={roadtripGalleryItems}
-          emptyTitle="Noch keine Roadtrip-Bilder verfuegbar"
-          emptyBody="Sobald Bilder fuer diese Mehrtagesroute vorliegen, erscheinen sie hier als starke Vorschau fuer Cover, Etappen und Community."
-          rightsHint="Roadtrip-Cover, Stop-Bilder und Community-Fotos nutzen dieselbe Prioritaetslogik: manuelles Cover vor freigegebenen Stop- und Galerie-Bildern."
+          emptyTitle="Noch keine Roadtrip-Bilder verfügbar"
+          emptyBody="Sobald Bilder für diese Mehrtagesroute vorliegen, erscheinen sie hier als starke Vorschau für Cover, Etappen und Community."
+          rightsHint="Roadtrip-Cover, Stop-Bilder und Community-Fotos nutzen dieselbe Prioritätslogik: manuelles Cover vor freigegebenen Stop- und Galerie-Bildern."
         />
         <CommunityPhotoSubmission
           entityType="roadtrip"
           entityId={route.id}
           title="Roadtrip-Foto hinzufuegen"
-          subtitle="Lade Bilder zur gesamten Route hoch. Freigegebene Fotos koennen spaeter Cover, Galerie oder Highlights der Etappen staerken."
+          subtitle="Lade Bilder zur gesamten Route hoch. Freigegebene Fotos können später Cover, Galerie oder Highlights der Etappen stärken."
           previewItems={roadtripGalleryItems.slice(0, 16).map((item) => ({
             id: item.id,
             url: item.url,
@@ -840,7 +879,7 @@ export default function RoadtripRouteDetailPage() {
                       <div className="mt-0.5 text-xs text-[var(--text-muted)]">
                         {showDatePicker
                           ? `${formatDateDE(arrivalDate)} → ${formatDateDE(departureDate)}`
-                          : `${stop.nights} ${stop.nights === 1 ? "Nacht" : "Naechte"}`}
+                          : `${stop.nights} ${stop.nights === 1 ? "Nacht" : "Nächte"}`}
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5">
@@ -851,7 +890,7 @@ export default function RoadtripRouteDetailPage() {
                         </span>
                       )}
                       <span className="rounded-full bg-[rgba(23,23,23,0.06)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]">
-                        {stop.nights} {stop.nights === 1 ? "Nacht" : "Naechte"}
+                        {stop.nights} {stop.nights === 1 ? "Nacht" : "Nächte"}
                       </span>
                     </div>
                   </div>
@@ -886,7 +925,7 @@ export default function RoadtripRouteDetailPage() {
                             Passende Creator-Routen
                           </div>
                           <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
-                            Statt hier neu zu planen, kannst du direkt eine fertige Tagesroute fuer {stop.cityLabel} uebernehmen.
+                            Statt hier neu zu planen, kannst du direkt eine fertige Tagesroute für {stop.cityLabel} übernehmen.
                           </p>
                         </div>
                         {suggestedPrimaryRoute?.slug && (
@@ -1229,4 +1268,3 @@ export default function RoadtripRouteDetailPage() {
     </main>
   );
 }
-

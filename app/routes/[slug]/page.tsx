@@ -2063,6 +2063,20 @@ function RouteDetailPageContent() {
                 <span>•</span>
                 <span>{route.avg_rating} / 5 bei {route.rating_count} Bewertungen</span>
               </div>
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-white/88">
+                {routeIntro}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2 text-xs text-white/92">
+                <span className="rounded-full border border-white/20 bg-black/15 px-3 py-1.5 backdrop-blur">
+                  Sofort live nutzbar
+                </span>
+                <span className="rounded-full border border-white/20 bg-black/15 px-3 py-1.5 backdrop-blur">
+                  Direkt in Planner übernehmbar
+                </span>
+                <span className="rounded-full border border-white/20 bg-black/15 px-3 py-1.5 backdrop-blur">
+                  Auf Vorlieben anpassbar
+                </span>
+              </div>
             </div>
           </div>
         ) : (
@@ -2076,11 +2090,45 @@ function RouteDetailPageContent() {
               <h1 className="max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">{route.title}</h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-gray-700">{routeIntro}</p>
             <div className="mt-3 text-sm text-gray-600">Aktualisiert {formatDate(route.updated_at)}</div>
+            <div className="mt-4 flex flex-wrap gap-2 text-xs text-gray-700">
+              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5">
+                Sofort live nutzbar
+              </span>
+              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5">
+                Direkt in Planner uebernehmbar
+              </span>
+              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5">
+                Auf Vorlieben anpassbar
+              </span>
+            </div>
           </div>
         )}
 
         <div className="grid gap-4 px-4 pt-4 lg:grid-cols-[minmax(0,1fr)_280px] md:px-8 md:pt-6">
           <div className="space-y-4">
+            <div className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                Direkt startklar
+              </div>
+              <div className="mt-2 text-base font-semibold text-[var(--text-strong)]">
+                Diese Route ist kein Ideenboard, sondern ein sofort nutzbarer Ablauf.
+              </div>
+              <div className="mt-3 grid gap-2 sm:grid-cols-3">
+                <div className="rounded-2xl bg-white px-3 py-3 text-sm text-[var(--text-muted)]">
+                  <div className="font-semibold text-[var(--text-strong)]">1. Live folgen</div>
+                  <div className="mt-1">Route öffnen und Stop für Stop nutzen.</div>
+                </div>
+                <div className="rounded-2xl bg-white px-3 py-3 text-sm text-[var(--text-muted)]">
+                  <div className="font-semibold text-[var(--text-strong)]">2. In Planner ziehen</div>
+                  <div className="mt-1">Als Vorlage in deinen eigenen Tagesplan übernehmen.</div>
+                </div>
+                <div className="rounded-2xl bg-white px-3 py-3 text-sm text-[var(--text-muted)]">
+                  <div className="font-semibold text-[var(--text-strong)]">3. Fein anpassen</div>
+                  <div className="mt-1">Auf dich oder eure Gruppe personalisieren.</div>
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-4 gap-1.5">
               {routeQuickFacts.map((fact) => (
                 <div
@@ -2241,8 +2289,11 @@ function RouteDetailPageContent() {
             }`}
           >
             <PlayPauseIcon isPaused={hasRouteRunProgress} />
-            {hasRouteRunProgress ? "Route fortsetzen" : "Route jetzt starten"}
+            {hasRouteRunProgress ? "Route live fortsetzen" : "Route live starten"}
           </Link>
+          <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm text-[var(--text-muted)]">
+            Live-Modus führt dich direkt durch Reihenfolge, Karte und Stop-Details. Wenn du erst übernehmen willst, ziehe die Route in den Planner.
+          </div>
           {/* Secondary actions */}
           <div className="grid grid-cols-3 gap-2">
             <button
@@ -2251,7 +2302,7 @@ function RouteDetailPageContent() {
               className="flex min-h-10 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-xs font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-surface)]"
             >
               <CopyRouteIcon />
-              <span className="hidden sm:inline">In Planner</span>
+              <span className="hidden sm:inline">Als Vorlage</span>
             </button>
             <button
               onClick={() => void personalizeRouteForInterests()}
@@ -2259,7 +2310,7 @@ function RouteDetailPageContent() {
               className="flex min-h-10 items-center justify-center gap-1.5 rounded-2xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-950 shadow-sm transition hover:bg-amber-100"
             >
               <SliderRouteIcon />
-              <span className="hidden sm:inline">Anpassen</span>
+              <span className="hidden sm:inline">Fuer mich</span>
             </button>
             <button
               type="button"

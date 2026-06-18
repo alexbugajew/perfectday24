@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 const description =
-  "Entdecke fertige Roadtrip-Routen durch Deutschland. Mehrere Städte, konkrete Tagespläne und Hotel-Tipps — direkt als Vorlage übernehmen.";
+  "Entdecke fertige Roadtrip-Routen mit mehreren Städten, konkreten Tagesplänen, Hotels und direktem Live-Start für Deutschland und Europa.";
 
 export const metadata: Metadata = {
-  title: "Roadtrip-Routen entdecken | PerfectDay24",
+  title: "Roadtrip-Routen entdecken | PerfectDay24 - fertige Mehrtagesreisen",
   description,
   openGraph: {
-    title: "Roadtrip-Routen | PerfectDay24",
+    title: "Roadtrip-Routen entdecken | PerfectDay24",
     description,
     locale: "de_DE",
     type: "website",
