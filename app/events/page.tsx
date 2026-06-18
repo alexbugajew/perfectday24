@@ -449,6 +449,11 @@ export default function EventsPage() {
     <div className="min-h-screen bg-[#f7f4ee] pb-20 pt-8">
       <div className="pd24-page-narrow">
 
+        {/* Mode switcher */}
+        <div className="mb-4">
+          <PlannerModeSwitcher />
+        </div>
+
         {/* Back-Link + Dashboard-Link */}
         <div className="mb-6 flex items-center justify-between gap-3">
           <a
@@ -466,11 +471,6 @@ export default function EventsPage() {
           >
             Meine Events →
           </a>
-        </div>
-
-        {/* Mode switcher */}
-        <div className="mb-6">
-          <PlannerModeSwitcher />
         </div>
 
         {/* Page header */}
