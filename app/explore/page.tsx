@@ -28,7 +28,6 @@ import {
   scoreRouteAgainstInterests,
 } from "@/lib/routes/recommendation-reasons";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
-import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 import { renderableImageUrl } from "@/lib/renderable-image-url";
 import { loadResolvedRouteCoverMap } from "@/lib/media/resolved-covers";
 import ImageAttribution from "@/components/ImageAttribution";
@@ -1191,9 +1190,6 @@ function ExplorePageContent() {
     <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
       <div className="mb-5 overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
         <div className="p-4 sm:p-5 lg:p-6">
-
-          {/* Mode switcher — erste Entscheidung */}
-          <PlannerModeSwitcher />
 
           {/* Hero-Zeile */}
           <div className="mt-4 flex flex-wrap items-end justify-between gap-4">

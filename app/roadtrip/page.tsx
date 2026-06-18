@@ -7,7 +7,6 @@ import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { dedupeCitiesByCanonicalSlug } from "@/lib/cities/canonical";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
-import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
 import HotelAutocomplete from "@/components/roadtrip/HotelAutocomplete";
 import type { HotelSelection } from "@/components/roadtrip/HotelAutocomplete";
@@ -703,11 +702,6 @@ function RoadtripPageContent() {
         <div className="pointer-events-none absolute bottom-[-3rem] left-[20%] h-36 w-36 rounded-full bg-[rgba(90,118,136,0.1)] blur-3xl" />
 
         <div className="relative">
-          {/* Mode switcher */}
-          <div className="mb-3">
-            <PlannerModeSwitcher />
-          </div>
-
           {/* Template banner — shown when planner was pre-filled from a saved route */}
           {templateBanner && (
             <div className="mb-3 flex items-start gap-2.5 rounded-xl border border-[rgba(183,106,67,0.25)] bg-[rgba(183,106,67,0.07)] px-3 py-2.5">

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 
 export default function MainNav() {
   const pathname = usePathname();
@@ -15,6 +16,13 @@ export default function MainNav() {
   const isRunExperience =
     pathname === "/run" ||
     (pathname.startsWith("/routes/") && pathname.endsWith("/run"));
+
+  const showModeSwitcher =
+    !isRunExperience &&
+    (pathname === "/planner" || pathname.startsWith("/planner/") ||
+     pathname === "/roadtrip" || pathname.startsWith("/roadtrip/") ||
+     pathname === "/events" || pathname.startsWith("/events/") ||
+     pathname === "/explore" || pathname.startsWith("/explore/"));
 
   const isActive = (path: string) => {
     if (path === "/") return pathname === path;
@@ -98,6 +106,15 @@ export default function MainNav() {
           </div>
         </div>
       </div>
+
+      {/* Mode-Switcher sub-nav — consistent position across Planner / Roadtrip / Events / Explore */}
+      {showModeSwitcher && (
+        <div className="border-t border-[var(--line-subtle)] bg-[rgba(248,250,252,0.95)] px-4 py-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <PlannerModeSwitcher />
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
