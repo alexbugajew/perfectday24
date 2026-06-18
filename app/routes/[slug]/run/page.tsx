@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 import type { PlanMapStop } from "@/components/PlanMap";
@@ -126,7 +126,10 @@ function buildMergedProgress(route: UserRouteRow, stops: RouteStopRow[]) {
 
 export default function RouteRunPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const slug = typeof params?.slug === "string" ? params.slug : "";
+  const fromRoadtrip = searchParams.get("fromRoadtrip");
+  const fromRoadtripDate = searchParams.get("startDate");
 
   const [authReady, setAuthReady] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
@@ -333,9 +336,21 @@ export default function RouteRunPage() {
     <main className="mx-auto w-full max-w-7xl space-y-3 px-4 pb-28 pt-3 sm:space-y-6 sm:px-6 sm:pb-6 sm:pt-6 lg:px-8">
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 flex-wrap items-center gap-3 text-xs text-[var(--text-muted)] sm:text-sm">
-          <Link href={`/routes/${route.slug ?? slug}`} className="hover:text-[var(--text-strong)]">
-            Zurück zur Route
-          </Link>
+          {fromRoadtrip ? (
+            <Link
+              href={`/roadtrip/routes/${fromRoadtrip}/run${fromRoadtripDate ? `?startDate=${fromRoadtripDate}` : ""}`}
+              className="flex items-center gap-1.5 hover:text-[var(--text-strong)]"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+                <path fillRule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clipRule="evenodd" />
+              </svg>
+              Zurück zum Roadtrip
+            </Link>
+          ) : (
+            <Link href={`/routes/${route.slug ?? slug}`} className="hover:text-[var(--text-strong)]">
+              Zurück zur Route
+            </Link>
+          )}
           <Link href="/planner" className="hover:text-[var(--text-strong)]">
             Planner
           </Link>

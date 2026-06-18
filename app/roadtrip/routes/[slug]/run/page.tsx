@@ -3,7 +3,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useParams, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { PlanMapStop } from "@/components/PlanMap";
 import { fetchRoadtripRouteBySlug } from "@/lib/roadtrip/client";
 import {
@@ -18,6 +18,7 @@ import {
   type RoadtripRunProgress,
   type RoadtripRunStopState,
 } from "@/lib/roadtrip/roadtrip-run-progress";
+import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
 
 const PlanMap = dynamic(() => import("@/components/PlanMap"), { ssr: false });
 
@@ -132,10 +133,11 @@ function runStepSummary(stop: RunStop) {
   return parts.join(" · ");
 }
 
-function runStepAction(stop: RunStop) {
+function runStepAction(stop: RunStop, roadtripSlug?: string) {
   if (stop.creatorRouteSlug) {
+    const backParam = roadtripSlug ? `?fromRoadtrip=${encodeURIComponent(roadtripSlug)}&startDate=${stop.arrivalDate}` : "";
     return {
-      href: `/routes/${stop.creatorRouteSlug}/run`,
+      href: `/routes/${stop.creatorRouteSlug}/run${backParam}`,
       label: "Creator-Route starten",
     };
   }
@@ -164,6 +166,7 @@ export default function RoadtripRouteRunPage() {
   const [notFound, setNotFound] = useState(false);
   const [route, setRoute] = useState<RoadtripRoute | null>(null);
   const [progress, setProgress] = useState<RoadtripRunProgress | null>(null);
+  const [checkedSubStops, setCheckedSubStops] = useState<Record<string, boolean>>({});
   const currentStopSectionRef = useRef<HTMLElement | null>(null);
   const previousCurrentStopIdRef = useRef<string | null>(null);
 
@@ -232,7 +235,7 @@ export default function RoadtripRouteRunPage() {
   const currentStop = stops.find((stop) => stop.id === progress?.currentStopId) ?? stops[0] ?? null;
   const currentStopState = currentStop ? progress?.stopStates[currentStop.id] ?? "pending" : "pending";
   const currentStopNavigationUrl = currentStop ? cityNavigationUrl(currentStop) : null;
-  const currentStopAction = currentStop ? runStepAction(currentStop) : null;
+  const currentStopAction = currentStop ? runStepAction(currentStop, route?.slug) : null;
   const todayStop = stops.find((stop) => isTodayStop(stop, today)) ?? null;
   const isCurrentStopToday = currentStop ? isTodayStop(currentStop, today) : false;
   const firstPendingStop = stops.find((stop) => (progress?.stopStates[stop.id] ?? "pending") === "pending") ?? null;
@@ -274,6 +277,26 @@ export default function RoadtripRouteRunPage() {
         } satisfies PlanMapStop;
       });
   }, [progress?.currentStopId, progress?.stopStates, stops]);
+
+  const subStopKey = route ? `pd24:roadtrip-substops:${route.id}:${startDate}` : null;
+
+  useEffect(() => {
+    if (!subStopKey) return;
+    try {
+      const raw = localStorage.getItem(subStopKey);
+      if (raw) setCheckedSubStops(JSON.parse(raw) as Record<string, boolean>);
+    } catch { /* ignore */ }
+  }, [subStopKey]);
+
+  const toggleSubStop = useCallback((key: string) => {
+    setCheckedSubStops((prev) => {
+      const next = { ...prev, [key]: !prev[key] };
+      if (subStopKey) {
+        try { localStorage.setItem(subStopKey, JSON.stringify(next)); } catch { /* ignore */ }
+      }
+      return next;
+    });
+  }, [subStopKey]);
 
   function persistProgress(next: RoadtripRunProgress) {
     setProgress(next);
@@ -480,6 +503,79 @@ export default function RoadtripRouteRunPage() {
             </div>
           </div>
 
+          {currentStop.planSummary ? (
+            <div className="mt-4 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">Tagesplan-Zusammenfassung</div>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-strong)]">{currentStop.planSummary}</p>
+            </div>
+          ) : null}
+
+          {currentStop.plannedStops && currentStop.plannedStops.length > 0 ? (
+            <div className="mt-4 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
+              <div className="flex items-center justify-between gap-2">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                  Tagesstopps ({currentStop.plannedStops.filter((_, i) => checkedSubStops[`${currentStop.id}:${i}`]).length}/{currentStop.plannedStops.length})
+                </div>
+                <div className="h-1.5 w-24 overflow-hidden rounded-full bg-[var(--bg-panel)]">
+                  <div
+                    className="h-full rounded-full bg-[var(--brand-warm)] transition-all"
+                    style={{ width: `${Math.round((currentStop.plannedStops.filter((_, i) => checkedSubStops[`${currentStop.id}:${i}`]).length / currentStop.plannedStops.length) * 100)}%` }}
+                  />
+                </div>
+              </div>
+              <div className="mt-3 space-y-2">
+                {currentStop.plannedStops.map((subStop, i) => {
+                  const key = `${currentStop.id}:${i}`;
+                  const done = Boolean(checkedSubStops[key]);
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => toggleSubStop(key)}
+                      className={`flex w-full items-start gap-3 rounded-xl border px-3 py-2.5 text-left transition ${
+                        done
+                          ? "border-emerald-200 bg-emerald-50"
+                          : "border-[var(--line-subtle)] bg-[var(--bg-surface)] hover:bg-[var(--bg-panel)]"
+                      }`}
+                    >
+                      <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[10px] ${
+                        done ? "border-emerald-400 bg-emerald-400 text-white" : "border-[var(--line-subtle)] bg-white"
+                      }`}>
+                        {done ? "✓" : ""}
+                      </span>
+                      <div className="min-w-0">
+                        <div className={`text-sm font-medium leading-snug ${done ? "text-emerald-800 line-through" : "text-[var(--text-strong)]"}`}>
+                          {subStop.label}
+                        </div>
+                        {subStop.hint ? (
+                          <div className="mt-0.5 text-xs text-[var(--text-muted)]">{subStop.hint}</div>
+                        ) : null}
+                        {subStop.time ? (
+                          <div className="mt-1 inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]">
+                            {subStop.time}
+                          </div>
+                        ) : null}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+
+          <div className="mt-4">
+            <HotelSearchLinks
+              cityLabel={currentStop.cityLabel}
+              checkin={currentStop.arrivalDate}
+              checkout={currentStop.departureDate}
+              nights={currentStop.nights}
+              citySlug={currentStop.citySlug}
+              occasion={route?.occasion ?? null}
+              budget={route?.budget ?? null}
+              planSummary={currentStop.planSummary ?? null}
+            />
+          </div>
+
           <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
             {currentStopNavigationUrl ? (
               <Link
@@ -585,7 +681,7 @@ export default function RoadtripRouteRunPage() {
                       : active
                         ? "border-amber-300 bg-amber-50/40 shadow-sm ring-1 ring-amber-200/70"
                         : "border-[var(--line-subtle)] bg-white";
-              const action = runStepAction(stop);
+              const action = runStepAction(stop, route?.slug);
               const todayFlag = isTodayStop(stop, today);
 
               return (
