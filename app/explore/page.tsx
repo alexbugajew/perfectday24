@@ -136,7 +136,7 @@ const EXPLORE_SURFACES: Array<{
     eyebrow: "Aktiv in Explore",
     label: "Tagesplanung",
     badge: "1 Tag",
-    description: "Kuratierte Tagesrouten fuer heute, morgen oder den naechsten freien Tag.",
+    description: "Kuratierte Tagesrouten für heute, morgen oder den nächsten freien Tag.",
     helper: "Direkt in Stadt-Routen, Themen und Varianten einsteigen.",
   },
   {
@@ -380,8 +380,8 @@ function buildRouteCardTeaser(
   const focusPhrase = focus ? ` rund um ${focus}` : "";
   const badgeSet = new Set(badges.map((badge) => badge.label.toLowerCase()));
   const transportPhrase = badgeSet.has("mit auto")
-    ? " Mit genug Freiheit fuer kleine Umwege."
-    : badgeSet.has("zu fuß") || badgeSet.has("zu fuãÿ")
+    ? " Mit genug Freiheit für kleine Umwege."
+    : badgeSet.has("zu fuß")
       ? " Alles fühlt sich angenehm leicht erreichbar an."
       : "";
 
@@ -414,7 +414,7 @@ function buildRouteCardTeaser(
   }
 
   if (badgeSet.has("outdoor")) {
-    return `Ein leichter Outdoor-Tag in ${cityName} mit ${stopPhrase}${focusPhrase} und genau genug Luft fuer spontane Momente.${transportPhrase}`;
+    return `Ein leichter Outdoor-Tag in ${cityName} mit ${stopPhrase}${focusPhrase} und genau genug Luft für spontane Momente.${transportPhrase}`;
   }
 
   return `Eine kuratierte Route in ${cityName} mit ${stopPhrase}${focusPhrase}, die sofort Lust macht, den Tag nicht nur zu planen, sondern direkt zu waehlen.${transportPhrase}`;
@@ -657,26 +657,24 @@ function RouteCard({
           ))}
         </div>
 
-        {/* Mini map */}
-        <div className="overflow-hidden rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)]">
-          <div className="flex items-center gap-2 px-3 pt-2.5">
-            <div className="pd24-meta text-[var(--text-soft)]">Route</div>
-            <div className="min-w-0 flex-1 truncate text-xs font-medium text-[var(--text-strong)]">
-              {route.start_label ? `ab ${route.start_label}` : city}
-            </div>
-          </div>
-          <div className="mt-2 border-t border-[var(--line-subtle)] p-2.5">
-            <RouteMiniMapClient stops={miniStops} height={82} />
-          </div>
-        </div>
-
-        {/* Details expandable */}
+        {/* Details expandable — inkl. Mini-Map */}
         <details className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-[13px] text-[var(--text-muted)]">
           <summary className="cursor-pointer list-none text-sm font-medium text-[var(--text-strong)]">
             Mehr zur Route
           </summary>
-          <div className="mt-3 space-y-2 leading-6">
+          <div className="mt-3 space-y-3 leading-6">
             <p>{desc}</p>
+            <div className="overflow-hidden rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)]">
+              <div className="flex items-center gap-2 px-3 pt-2.5">
+                <div className="pd24-meta text-[var(--text-soft)]">Route</div>
+                <div className="min-w-0 flex-1 truncate text-xs font-medium text-[var(--text-strong)]">
+                  {route.start_label ? `ab ${route.start_label}` : city}
+                </div>
+              </div>
+              <div className="mt-2 border-t border-[var(--line-subtle)] p-2.5">
+                <RouteMiniMapClient stops={miniStops} height={82} />
+              </div>
+            </div>
             <div className="flex flex-wrap gap-3 text-xs text-[var(--text-soft)]">
               <span>{route.required_stop_count ?? 0} Pflicht-Stopps</span>
               <span>{route.avg_rating?.toFixed(1) ?? "0.0"} ⭐</span>
@@ -1257,7 +1255,7 @@ function ExplorePageContent() {
                     <span className={`inline-flex items-center gap-2 text-sm font-semibold ${
                       surface.key === "roadtrip" ? "text-[var(--brand-warm)]" : "text-[var(--text-strong)]"
                     }`}>
-                      {isActive ? "Zu den Tagesrouten" : "Oeffnen"}
+                      {isActive ? "Zu den Tagesrouten" : "Öffnen"}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
@@ -1513,7 +1511,7 @@ function ExplorePageContent() {
               </span>
             </div>
             <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
-              Kuratierte Stadt-Routen fuer heute, morgen oder den naechsten freien Tag.
+              Kuratierte Stadt-Routen für heute, morgen oder den nächsten freien Tag.
             </p>
           </a>
           <Link
@@ -1608,7 +1606,30 @@ function ExplorePageContent() {
       ) : null}
 
       {loading ? (
-            <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 text-[var(--text-muted)] shadow-[var(--shadow-soft)]">Explore-Daten werden geladen...</div>
+        <div className="space-y-12">
+          {[0, 1].map((s) => (
+            <section key={s}>
+              <div className="mb-4 h-6 w-48 animate-pulse rounded-xl bg-[var(--bg-panel)]" />
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {[0, 1, 2].map((i) => (
+                  <div key={i} className="overflow-hidden rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
+                    <div className="aspect-[3/2] w-full animate-pulse bg-[var(--bg-panel)]" />
+                    <div className="space-y-3 p-4">
+                      <div className="h-5 w-3/4 animate-pulse rounded-lg bg-[var(--bg-panel)]" />
+                      <div className="h-4 w-full animate-pulse rounded-lg bg-[var(--bg-panel)]" />
+                      <div className="flex gap-2">
+                        <div className="h-6 w-16 animate-pulse rounded-full bg-[var(--bg-panel)]" />
+                        <div className="h-6 w-20 animate-pulse rounded-full bg-[var(--bg-panel)]" />
+                        <div className="h-6 w-14 animate-pulse rounded-full bg-[var(--bg-panel)]" />
+                      </div>
+                      <div className="h-24 w-full animate-pulse rounded-2xl bg-[var(--bg-panel)]" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
         ) : errorText ? (
         <div className="rounded-[28px] border border-[rgba(161,75,69,0.18)] bg-[rgba(161,75,69,0.08)] p-6 text-[var(--state-error)] shadow-[var(--shadow-soft)]">{errorText}</div>
       ) : (
@@ -1706,7 +1727,7 @@ function ExplorePageContent() {
               subtitle="Alle Routen passend zu deiner Auswahl."
             />
             {filteredRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen fuer diese Filter gefunden.</div>
+              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen für diese Filter gefunden.</div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {filteredRoutes.map((route) => (
@@ -1805,26 +1826,6 @@ function ExplorePageContent() {
             )}
           </section>
 
-          <section>
-            <SectionHeader
-              title="Mehr aus der Community"
-              subtitle="Weitere öffentliche Routen für spätere Vertiefung."
-            />
-            {filteredRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen für diese Filter gefunden.</div>
-            ) : (
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {filteredRoutes.map((route) => (
-                  <RouteCard
-                    key={route.id}
-                    route={route}
-                    creator={route.creator_profile_id ? creatorById.get(route.creator_profile_id) ?? null : null}
-                    cityMap={cityMap}
-                  />
-                ))}
-              </div>
-            )}
-          </section>
         </div>
       )}
 
@@ -1849,7 +1850,7 @@ function ExplorePageContent() {
                 <section>
                   <SectionHeader
                     title="Starke Creator"
-                    subtitle="Kuratorinnen, Kuratoren und Creator mit den staerksten Routen."
+                    subtitle="Kuratorinnen, Kuratoren und Creator mit den stärksten Routen."
                   />
                   <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {topCreators.map((creator) => (

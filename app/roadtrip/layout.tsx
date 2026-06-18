@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 const description =
-  "Plane deinen nächsten Roadtrip mit mehreren Städten, fertigen Vorlagen und konkreten Tagesabläufen. Für jedes Budget und jeden Stil.";
+  "Plane mehrtaegige Roadtrips mit fertigen Stadtfolgen, konkreten Tagesablaeufen, Hotels und sofort nutzbaren Vorlagen fuer deinen naechsten Trip.";
 
 export const metadata: Metadata = {
-  title: "Roadtrip planen | PerfectDay24 — Mehrstädtereisen mit fertigen Vorlagen",
+  title: "Roadtrip planen | PerfectDay24 - Mehrtagesreisen mit fertigen Vorlagen",
   description,
   openGraph: {
     title: "Roadtrip planen | PerfectDay24",

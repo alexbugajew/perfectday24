@@ -338,9 +338,9 @@ export default function HeroIntentBar() {
 
   // ── Idle ──────────────────────────────────────────────────────────────────
   return (
-    <div className="mt-7 space-y-5">
-      {/* Natural language input */}
-      <div className="flex items-center gap-2 rounded-2xl border border-[rgba(23,23,23,0.14)] bg-white/90 px-4 py-1 shadow-[0_2px_10px_rgba(49,39,27,0.06)] transition-all focus-within:border-[rgba(196,137,79,0.5)] focus-within:shadow-[0_2px_16px_rgba(196,137,79,0.12)]">
+    <div className="mt-8 space-y-4">
+      {/* Natural language input — prominent */}
+      <div className="flex items-stretch gap-0 overflow-hidden rounded-2xl border border-[rgba(23,23,23,0.18)] bg-white shadow-[0_4px_20px_rgba(49,39,27,0.10)] transition-all focus-within:border-[rgba(196,137,79,0.6)] focus-within:shadow-[0_4px_24px_rgba(196,137,79,0.16)]">
         <input
           ref={inputRef}
           type="text"
@@ -349,37 +349,35 @@ export default function HeroIntentBar() {
           onKeyDown={(e) => {
             if (e.key === "Enter") handleSubmit();
           }}
-          placeholder="z. B. »Date-Abend in München heute Abend«"
-          className="flex-1 bg-transparent py-3 text-sm text-[var(--text-strong)] placeholder-[#a09890] outline-none"
+          placeholder='z. B. „Date-Abend in München mit Live-Konzert"'
+          className="min-h-[56px] flex-1 bg-transparent px-5 text-base text-[var(--text-strong)] placeholder-[#b0a49a] outline-none"
         />
-        {text.trim().length > 2 && (
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="flex-shrink-0 rounded-xl bg-[var(--text-strong)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 active:scale-[0.97]"
-          >
-            Los →
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={text.trim().length === 0}
+          className="m-1.5 flex shrink-0 items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-90 active:scale-[0.97] disabled:opacity-40"
+        >
+          Plan erstellen
+          <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+            <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
+          </svg>
+        </button>
       </div>
 
       {/* Scenario tiles */}
-      <div>
-        <div className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-soft-warm)]">
-          Oder schnell starten:
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {SCENARIOS.map((scenario) => (
-            <button
-              key={scenario.key}
-              type="button"
-              onClick={() => handleScenarioTile(scenario)}
-              className="rounded-full border border-[rgba(23,23,23,0.12)] bg-white/80 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.35)] hover:bg-[rgba(196,137,79,0.06)] hover:text-[var(--text-strong)] active:scale-[0.97]"
-            >
-              {scenario.emoji} {scenario.label}
-            </button>
-          ))}
-        </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">Schnell starten:</span>
+        {SCENARIOS.map((scenario) => (
+          <button
+            key={scenario.key}
+            type="button"
+            onClick={() => handleScenarioTile(scenario)}
+            className="rounded-full border border-[rgba(23,23,23,0.12)] bg-white/80 px-3.5 py-1.5 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.35)] hover:bg-[rgba(196,137,79,0.06)] hover:text-[var(--text-strong)] active:scale-[0.97]"
+          >
+            {scenario.emoji} {scenario.label}
+          </button>
+        ))}
       </div>
     </div>
   );

@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 
 export default function MainNav() {
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const hideOnMarketingPages =
     pathname === "/" ||
@@ -16,6 +18,12 @@ export default function MainNav() {
   const isRunExperience =
     pathname === "/run" ||
     (pathname.startsWith("/routes/") && pathname.endsWith("/run"));
+
+  const isPartnerSurface =
+    pathname === "/partner" ||
+    pathname.startsWith("/partner/") ||
+    pathname === "/business/dashboard" ||
+    pathname.startsWith("/business/");
 
   const showModeSwitcher =
     !isRunExperience &&
@@ -71,7 +79,7 @@ export default function MainNav() {
           </span>
         </Link>
 
-        {/* Hauptnavigation */}
+        {/* Hauptnavigation — Desktop */}
         <div
           className={`pd24-scrollbar-none hidden min-w-0 w-full max-w-full gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-[var(--line-subtle)] bg-[rgba(255,255,255,0.92)] px-1.5 py-1.5 sm:mx-0 sm:flex sm:w-auto sm:flex-wrap sm:gap-2 sm:rounded-[24px] sm:px-2 sm:py-2 ${
             isRunExperience ? "shadow-sm" : "shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
@@ -83,8 +91,37 @@ export default function MainNav() {
           <Link href="/saved"    className={linkClass("/saved")}>Meine Pläne</Link>
         </div>
 
-        {/* Profil-Icon + Rechtliches */}
+        {/* Mobile: Hamburger-Button */}
+        <button
+          type="button"
+          aria-label={mobileOpen ? "Menü schließen" : "Menü öffnen"}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((v) => !v)}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white text-[var(--text-muted)] transition hover:text-[var(--text-strong)] sm:hidden"
+        >
+          {mobileOpen ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" className="h-5 w-5">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" className="h-5 w-5">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
+
+        {/* Profil-Icon — Desktop */}
         <div className="hidden items-center gap-3 sm:flex">
+          <Link
+            href={isPartnerSurface ? "/partner/dashboard" : "/partner"}
+            className={`inline-flex min-h-10 items-center justify-center rounded-full px-4 text-sm font-medium transition ${
+              isPartnerSurface
+                ? "border border-[rgba(196,137,79,0.3)] bg-[rgba(255,249,241,0.92)] text-[var(--text-strong)] hover:bg-white"
+                : "border border-[rgba(196,137,79,0.24)] bg-[rgba(255,249,241,0.84)] text-[var(--brand-warm)] hover:border-[rgba(196,137,79,0.38)] hover:bg-white"
+            }`}
+          >
+            {isPartnerSurface ? "Partner-Dashboard" : "Partner werden"}
+          </Link>
           <Link
             href="/profile"
             aria-label="Profil"
@@ -99,13 +136,29 @@ export default function MainNav() {
               <circle cx="12" cy="7" r="4" />
             </svg>
           </Link>
-          <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--text-muted)]">
-            <Link href="/impressum"   className="transition hover:text-[var(--text-strong)]">Impressum</Link>
-            <Link href="/datenschutz" className="transition hover:text-[var(--text-strong)]">Datenschutz</Link>
-            <Link href="/agb"         className="transition hover:text-[var(--text-strong)]">AGB</Link>
-          </div>
         </div>
       </div>
+
+      {/* Mobile-Menü Dropdown */}
+      {mobileOpen && (
+        <div className="border-t border-[var(--line-subtle)] bg-[rgba(248,250,252,0.98)] px-4 py-3 sm:hidden">
+          <nav className="flex flex-col gap-1">
+            <Link href="/planner"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/planner") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Planen</Link>
+            <Link href="/explore"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/explore") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Entdecken</Link>
+            <Link href="/events"   onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/events") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Events</Link>
+            <Link href="/saved"    onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/saved") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Meine Pläne</Link>
+            <Link href="/profile"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/profile") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Profil</Link>
+            <div className="my-1 border-t border-[var(--line-subtle)]" />
+            <Link
+              href={isPartnerSurface ? "/partner/dashboard" : "/partner"}
+              onClick={() => setMobileOpen(false)}
+              className="rounded-2xl border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-3 text-sm font-medium text-[var(--brand-warm)] transition hover:bg-white"
+            >
+              {isPartnerSurface ? "Partner-Dashboard" : "Partner werden"}
+            </Link>
+          </nav>
+        </div>
+      )}
 
       {/* Mode-Switcher sub-nav — consistent position across Planner / Roadtrip / Events / Explore */}
       {showModeSwitcher && (

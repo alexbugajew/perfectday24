@@ -132,6 +132,31 @@ const partnerHighlights = [
   "In Explore, Planner und Event-Flows praesent werden",
 ];
 
+const partnerProofStats = [
+  { value: "33", label: "Staedte", note: "stadtspezifische Sichtbarkeit" },
+  { value: "3", label: "Kernausspielungen", note: "Explore, Routen und Events" },
+  { value: "1", label: "Self-Service-Portal", note: "Profil, Medien, Pakete und Links" },
+];
+
+const partnerPortalModules = [
+  {
+    title: "Profil & Standorte",
+    body: "Location, Kategorien, Oeffnungszeiten und passende Buchungslinks selbst pflegen.",
+  },
+  {
+    title: "Medien & Cover",
+    body: "Eigene Bilder hochladen, Covers setzen und freigegebene UGC-Fotos uebernehmen.",
+  },
+  {
+    title: "Pakete & Preise",
+    body: "Event-Pakete, Angebotsbausteine und Preislogik direkt im Portal steuern.",
+  },
+  {
+    title: "Kampagnen & Links",
+    body: "Featured-Platzierungen, Affiliate-Ziele und CTA-Links an einer Stelle verwalten.",
+  },
+];
+
 function MetricPill({ children }: { children: ReactNode }) {
   return (
     <span className="rounded-full border border-[rgba(196,137,79,0.22)] bg-[rgba(255,253,248,0.86)] px-4 py-2 text-sm text-[var(--text-muted-warm)]">
@@ -222,6 +247,12 @@ export default function HomepageScaffoldMinimal() {
                 Planen
               </Link>
               <Link
+                href="/explore"
+                className="inline-flex items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+              >
+                Entdecken
+              </Link>
+              <Link
                 href="/events"
                 className="inline-flex items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
               >
@@ -231,7 +262,7 @@ export default function HomepageScaffoldMinimal() {
                 href="/partner"
                 className="inline-flex items-center justify-center rounded-full border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] hover:bg-white"
               >
-                Fuer Anbieter
+                Partner werden
               </Link>
             </div>
           </div>
@@ -413,7 +444,7 @@ export default function HomepageScaffoldMinimal() {
           </section>
 
           <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(248,250,252,0.96),rgba(238,244,248,0.92))] p-6 shadow-[var(--shadow-soft)] sm:p-8">
-            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
               <div className="max-w-3xl">
                 <div className="pd24-kicker-warm text-[var(--text-soft-warm)]">Fuer Anbieter</div>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-4xl">
@@ -433,18 +464,56 @@ export default function HomepageScaffoldMinimal() {
                     </div>
                   ))}
                 </div>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                  {partnerProofStats.map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.18)] bg-[rgba(255,249,241,0.9)] px-4 py-4"
+                    >
+                      <div className="text-2xl font-semibold tracking-tight text-[var(--text-strong)]">{item.value}</div>
+                      <div className="mt-1 text-sm font-medium text-[var(--brand-warm)]">{item.label}</div>
+                      <div className="mt-2 text-xs leading-5 text-[var(--text-muted-warm)]">{item.note}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className="flex flex-col items-start gap-3 lg:items-end">
-                <PD24Button href="/partner" variant="secondary" className="min-w-[12rem]">
-                  Partner werden
-                </PD24Button>
-                <Link
-                  href="/partner/dashboard"
-                  className="text-sm font-medium text-[var(--text-strong)] underline-offset-2 transition hover:underline"
-                >
-                  Partner-Portal ansehen -&gt;
-                </Link>
+              <div className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-white/88 p-5 shadow-[var(--shadow-soft)]">
+                <div className="pd24-kicker-warm">Self-Service-Portal</div>
+                <div className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
+                  Partner steuern Sichtbarkeit, Medien und Angebote selbst
+                </div>
+                <div className="mt-3 space-y-3">
+                  {partnerPortalModules.map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4"
+                    >
+                      <div className="text-sm font-semibold text-[var(--text-strong)]">{item.title}</div>
+                      <div className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">{item.body}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,var(--brand-warm-cloud),var(--bg-canvas-warm))] px-4 py-4">
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">
+                    Statuslogik
+                  </div>
+                  <div className="mt-2 text-sm leading-6 text-[var(--text-muted-warm)]">
+                    Draft - In Review - Published - Featured. So bleibt Partner-Content steuerbar und trotzdem qualitativ konsistent.
+                  </div>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <PD24Button href="/partner" variant="secondary" className="min-w-[12rem]">
+                    Partner werden
+                  </PD24Button>
+                  <Link
+                    href="/partner/dashboard"
+                    className="inline-flex min-h-12 items-center text-sm font-medium text-[var(--text-strong)] underline-offset-2 transition hover:underline"
+                  >
+                    Partner-Portal ansehen -&gt;
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
