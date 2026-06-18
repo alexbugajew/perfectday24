@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 const description =
-  "Plane mehrtaegige Roadtrips mit fertigen Stadtfolgen, konkreten Tagesablaeufen, Hotels und sofort nutzbaren Vorlagen fuer deinen naechsten Trip.";
+  "Plane mehrtägige Roadtrips mit fertigen Stadtfolgen, konkreten Tagesabläufen, Hotels und sofort nutzbaren Vorlagen für deinen nächsten Trip.";
 
 export const metadata: Metadata = {
   title: "Roadtrip planen | PerfectDay24 - Mehrtagesreisen mit fertigen Vorlagen",

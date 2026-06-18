@@ -80,7 +80,7 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
             <circle cx="12" cy="9" r="2.5" />
           </svg>
-          {route.stops.length} Staedte / {totalNights} Naechte
+          {route.stops.length} Städte / {totalNights} Nächte
         </div>
 
       </div>
@@ -213,7 +213,7 @@ export default function RoadtripRoutesPage() {
                 </p>
                 <p className="text-xs text-[var(--text-muted)]">
                   {activeStops.map((s) => s.cityLabel).join(" -> ")}
-                  {activeTotal > 0 && ` / ${activeTotal} Naechte`}
+                  {activeTotal > 0 && ` / ${activeTotal} Nächte`}
                 </p>
               </div>
             </div>
@@ -264,7 +264,7 @@ export default function RoadtripRoutesPage() {
           <ExploreSurfaceSwitch
             activeKey="roadtrip"
             activeTitle="Roadtrips: fertige Mehrtagesrouten mit Stops, Hotels und direktem Start"
-            activeDescription="Hier findest du mehrtaegige Vorlagen fuer komplette Reisen. Wenn du lieber einen einzelnen Tag in einer Stadt planst, springe in die Tagesplanung. Fuer Gruppenanlaesse mit Angeboten und Buchung bleibst du im Event-Bereich."
+            activeDescription="Hier findest du mehrtägige Vorlagen für komplette Reisen. Wenn du lieber einen einzelnen Tag in einer Stadt planst, springe in die Tagesplanung. Fuer Gruppenanlaesse mit Angeboten und Buchung bleibst du im Event-Bereich."
             primaryCtaHref="/roadtrip/discover"
             primaryCtaLabel="Route entdecken"
             secondaryCtaHref="/roadtrip"

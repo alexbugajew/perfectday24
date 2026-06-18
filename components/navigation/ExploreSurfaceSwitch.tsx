@@ -21,7 +21,7 @@ const SURFACES: SurfaceDefinition[] = [
     eyebrow: "Tagesrouten",
     label: "Tagesplanung",
     badge: "1 Tag",
-    description: "Kuratierte Tagesrouten fuer heute, morgen oder den naechsten freien Tag.",
+    description: "Kuratierte Tagesrouten für heute, morgen oder den nächsten freien Tag.",
     helper: "Direkt in Stadt-Routen, Themen und Varianten einsteigen.",
   },
   {
@@ -36,7 +36,7 @@ const SURFACES: SurfaceDefinition[] = [
   {
     key: "events",
     href: "/events",
-    eyebrow: "Anlaesse & Gruppen",
+    eyebrow: "Anlässe & Gruppen",
     label: "Events",
     badge: "Buchbar",
     description: "Hochzeiten, Geburtstage und Firmenfeiern mit Anfragen, Angeboten und Buchungsflow.",
@@ -94,7 +94,7 @@ export default function ExploreSurfaceSwitch({
                           : "text-[var(--text-muted)]"
                     }`}
                   >
-                    {surface.eyebrow}
+                    {isActive ? `Aktiv in ${surface.label}` : surface.eyebrow}
                   </div>
                   <div className="mt-1 text-lg font-semibold text-[var(--text-strong)]">{surface.label}</div>
                 </div>
@@ -123,7 +123,7 @@ export default function ExploreSurfaceSwitch({
                         : "text-[var(--text-strong)]"
                   }`}
                 >
-                  {isActive ? "Aktiv" : "Oeffnen"}
+                  {isActive ? "Hier aktiv" : "Öffnen"}
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
