@@ -1196,7 +1196,10 @@ function ExplorePageContent() {
               <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
                 Entdecken
               </div>
-              <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Entdecke Routen in deiner Stadt</h1>
+              <div className="mt-3">
+                <PlannerModeSwitcher />
+              </div>
+              <h1 className="mt-4 text-3xl font-bold tracking-tight text-[var(--text-strong)] sm:text-4xl">Entdecke Routen in deiner Stadt</h1>
               <p className="mt-1 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
                 Stöbere durch kuratierte Routen und finde Inspiration für deinen nächsten Tag.
               </p>
@@ -1215,10 +1218,6 @@ function ExplorePageContent() {
                 Meine Pläne
               </Link>
             </div>
-          </div>
-
-          <div className="mt-5">
-            <PlannerModeSwitcher />
           </div>
 
           <div className="mt-4 grid gap-2 md:grid-cols-[minmax(0,1.6fr)_minmax(150px,0.8fr)_minmax(150px,0.75fr)_auto]">
