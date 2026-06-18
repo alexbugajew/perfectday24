@@ -67,7 +67,7 @@ export default function ExploreSurfaceSwitch({
 }: ExploreSurfaceSwitchProps) {
   return (
     <div className={className}>
-      <div className="grid gap-3 xl:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="grid gap-3 xl:grid-cols-3">
         {SURFACES.map((surface) => {
           const isActive = surface.key === activeKey;
           return (
