@@ -54,7 +54,19 @@ type SavedRouteItem = UserRouteRow & {
   saved_at: string;
 };
 
-type Segment = "all" | "plans" | "routes" | "roadtrips" | "drafts";
+type Segment = "all" | "tagesplanung" | "roadtrip" | "events";
+
+type EventPlanRow = {
+  id: string;
+  title: string | null;
+  occasion_slug: string | null;
+  city_slug: string | null;
+  event_date: string | null;
+  guests: number | null;
+  status: string | null;
+  created_at: string;
+  updated_at: string;
+};
 
 type QuickItem = {
   kind: "plan" | "route";
@@ -720,6 +732,76 @@ function RoadtripCard({ route, onDelete }: { route: RoadtripRoute; onDelete: (id
   );
 }
 
+function eventOccasionLabel(slug: string | null) {
+  if (!slug) return "Besonderer Anlass";
+  const map: Record<string, string> = {
+    geburtstag: "Geburtstag", hochzeit: "Hochzeit", jubilaeum: "Jubiläum",
+    ausflug: "Gruppenausflug", weihnachten: "Weihnachten", silvester: "Silvester",
+    valentinstag: "Valentinstag", jga: "JGA", firmenevent: "Firmenevent",
+  };
+  return map[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1);
+}
+
+function EventPlanCard({ plan }: { plan: EventPlanRow }) {
+  const href = `/events?planId=${plan.id}`;
+  const statusTone =
+    plan.status === "complete" ? "bg-emerald-100 text-emerald-700"
+    : plan.status === "active" ? "bg-sky-100 text-sky-700"
+    : "bg-amber-100 text-amber-700";
+  const statusLabel =
+    plan.status === "complete" ? "Abgeschlossen"
+    : plan.status === "active" ? "In Planung"
+    : "Entwurf";
+
+  return (
+    <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm transition hover:shadow-md">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+            {eventOccasionLabel(plan.occasion_slug)}
+            {plan.city_slug ? ` · ${routeCityLabel(plan.city_slug)}` : ""}
+          </div>
+          <h3 className="mt-2 line-clamp-2 text-lg font-semibold text-[var(--text-strong)]">
+            {plan.title?.trim() || eventOccasionLabel(plan.occasion_slug)}
+          </h3>
+        </div>
+        <span className={statusPillClass(statusTone)}>{statusLabel}</span>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
+        {plan.event_date ? (
+          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1">
+            {formatDate(plan.event_date)}
+          </span>
+        ) : null}
+        {typeof plan.guests === "number" && plan.guests > 0 ? (
+          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1">
+            {plan.guests} Personen
+          </span>
+        ) : null}
+        <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1">
+          Bearbeitet {formatDate(plan.updated_at)}
+        </span>
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-2">
+        <Link
+          href={href}
+          className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-95"
+        >
+          Event öffnen
+        </Link>
+        <Link
+          href="/events"
+          className="inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+        >
+          Neues Event
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 export default function SavedPage() {
   const [mounted, setMounted] = useState(false);
   const [authReady, setAuthReady] = useState(false);
@@ -728,6 +810,7 @@ export default function SavedPage() {
   const [plans, setPlans] = useState<SavedPlanRow[]>([]);
   const [savedRoutes, setSavedRoutes] = useState<SavedRouteItem[]>([]);
   const [roadtripRoutes, setRoadtripRoutes] = useState<RoadtripRoute[]>([]);
+  const [eventPlans, setEventPlans] = useState<EventPlanRow[]>([]);
   const [segment, setSegment] = useState<Segment>("all");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -764,6 +847,7 @@ export default function SavedPage() {
       setPlans([]);
       setSavedRoutes([]);
       setRoadtripRoutes([]);
+      setEventPlans([]);
       setIsLoading(false);
       setHasError(false);
       return;
@@ -773,7 +857,7 @@ export default function SavedPage() {
     setHasError(false);
 
     try {
-      const [plansResp, bookmarksResp, myRoadtrips] = await Promise.all([
+      const [plansResp, bookmarksResp, myRoadtrips, eventPlansResp] = await Promise.all([
         supabase
           .from("plans")
           .select("id, title, created_at, filters, slots, share_token, ai_description")
@@ -789,6 +873,12 @@ export default function SavedPage() {
           .order("created_at", { ascending: false })
           .limit(50),
         fetchMyRoadtripRoutes(),
+        supabase
+          .from("event_plans")
+          .select("id, title, occasion_slug, city_slug, event_date, guests, status, created_at, updated_at")
+          .eq("user_id", userId)
+          .order("updated_at", { ascending: false })
+          .limit(50),
       ]);
 
       if (plansResp.error || bookmarksResp.error) {
@@ -812,6 +902,7 @@ export default function SavedPage() {
       setPlans(nextPlans);
       setSavedRoutes(nextRoutes);
       setRoadtripRoutes(myRoadtrips);
+      setEventPlans((eventPlansResp.data as EventPlanRow[] | null) ?? []);
     } catch (error) {
       console.error("Saved content unexpected load error:", error);
       setHasError(true);
@@ -893,16 +984,15 @@ export default function SavedPage() {
 
   const segments = useMemo(
     () => [
-      { key: "all" as const, label: "Alle", count: plans.length + savedRoutes.length + roadtripRoutes.length },
-      { key: "plans" as const, label: "Pläne", count: finishedPlans.length },
-      { key: "routes" as const, label: "Routen", count: savedRoutes.length },
-      { key: "roadtrips" as const, label: "Roadtrips", count: roadtripRoutes.length },
-      { key: "drafts" as const, label: "Entwürfe", count: drafts.length },
+      { key: "all" as const, label: "Alle", count: plans.length + savedRoutes.length + roadtripRoutes.length + eventPlans.length },
+      { key: "tagesplanung" as const, label: "Tagesplanung", count: plans.length + savedRoutes.length },
+      { key: "roadtrip" as const, label: "Roadtrip", count: roadtripRoutes.length },
+      { key: "events" as const, label: "Events", count: eventPlans.length },
     ],
-    [drafts.length, finishedPlans.length, plans.length, savedRoutes.length, roadtripRoutes.length]
+    [plans.length, savedRoutes.length, roadtripRoutes.length, eventPlans.length]
   );
 
-  const isEmpty = !isLoading && !hasError && plans.length === 0 && savedRoutes.length === 0 && roadtripRoutes.length === 0;
+  const isEmpty = !isLoading && !hasError && plans.length === 0 && savedRoutes.length === 0 && roadtripRoutes.length === 0 && eventPlans.length === 0;
 
   if (!mounted) return null;
 
@@ -1045,7 +1135,7 @@ export default function SavedPage() {
         />
       ) : null}
 
-      {(segment === "all" || segment === "plans") && !isEmpty ? (
+      {(segment === "all" || segment === "tagesplanung") && !isEmpty ? (
         <section>
           <SectionHeader
             title="Gespeicherte Pläne"
@@ -1076,7 +1166,7 @@ export default function SavedPage() {
         </section>
       ) : null}
 
-      {(segment === "all" || segment === "routes") && !isEmpty ? (
+      {(segment === "all" || segment === "tagesplanung") && !isEmpty ? (
         <section>
           <SectionHeader
             title="Gespeicherte Routen"
@@ -1107,7 +1197,7 @@ export default function SavedPage() {
         </section>
       ) : null}
 
-      {(segment === "all" || segment === "roadtrips") && !isEmpty ? (
+      {(segment === "all" || segment === "roadtrip") && !isEmpty ? (
         <section>
           <SectionHeader
             title="Meine Roadtrips"
@@ -1140,7 +1230,7 @@ export default function SavedPage() {
         </section>
       ) : null}
 
-      {(segment === "all" || segment === "drafts") && !isEmpty ? (
+      {(segment === "all" || segment === "tagesplanung") && !isEmpty ? (
         <section>
           <SectionHeader
             title="Offene Entwürfe"
@@ -1165,6 +1255,37 @@ export default function SavedPage() {
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {drafts.map((plan) => (
                 <DraftCard key={plan.id} plan={plan} onDelete={deletePlan} />
+              ))}
+            </div>
+          )}
+        </section>
+      ) : null}
+
+      {(segment === "all" || segment === "events") && !isEmpty ? (
+        <section>
+          <SectionHeader
+            title="Meine Event-Pläne"
+            count={eventPlans.length}
+            description="Gespeicherte Planungen für Feiern, Ausflüge und besondere Anlässe."
+          />
+
+          {isLoading ? (
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 2 }).map((_, index) => (
+                <SkeletonCard key={`event-skeleton-${index}`} />
+              ))}
+            </div>
+          ) : eventPlans.length === 0 ? (
+            <EmptyState
+              title="Noch kein Event geplant."
+              description="Plane einen besonderen Anlass für Geburtstage, Jubiläen oder Gruppenausflüge."
+              primaryHref="/events"
+              primaryLabel="Event planen"
+            />
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {eventPlans.map((ep) => (
+                <EventPlanCard key={ep.id} plan={ep} />
               ))}
             </div>
           )}

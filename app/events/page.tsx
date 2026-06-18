@@ -7,7 +7,6 @@ import { supabase } from "@/lib/supabaseClient";
 import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import { CitySearchInput } from "@/components/ui/CitySearchInput";
 import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
-import ExploreSurfaceSwitch from "@/components/navigation/ExploreSurfaceSwitch";
 
 // ─── Static data (mirrors the DB seed) ────────────────────────────────────────
 
@@ -486,33 +485,7 @@ export default function EventsPage() {
             Für Gäste, Teams und besondere Anlässe.
           </p>
 
-          <ExploreSurfaceSwitch
-            activeKey="events"
-            activeTitle="Events: Anlaesse planen, Anbieter anfragen und Angebote direkt vergleichen"
-            activeDescription="Hier startest du Gruppenanlaesse mit klarer Bedarfsliste, Anfragen und Angebotsuebersicht. Fuer Stadt-Inspiration springst du in die Tagesplanung, fuer komplette Mehrtagesreisen in die Roadtrip-Routen."
-            primaryCtaHref="/events/dashboard"
-            primaryCtaLabel="Meine Events"
-            secondaryCtaHref="/explore#explore-all-routes"
-            secondaryCtaLabel="Tagesrouten ansehen"
-            className="mt-6"
-          />
         </div>
-        {!plansLoading && savedPlans.length > 0 && (
-          <div className="mb-10">
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-base font-semibold text-[#171717]">Meine Event-Pläne</h2>
-              <span className="text-xs text-[#8b7767]">{savedPlans.length} Plan{savedPlans.length > 1 ? "e" : ""}</span>
-            </div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {savedPlans.map((plan) => (
-                <SavedPlanCard key={plan.id} plan={plan} onDelete={deletePlan} />
-              ))}
-            </div>
-            <div className="mt-4 border-t border-[rgba(23,23,23,0.06)] pt-6">
-              <p className="text-sm font-semibold text-[#171717]">Neuen Plan starten</p>
-            </div>
-          </div>
-        )}
 
         {/* Wizard card */}
         <div className="overflow-hidden rounded-[32px] border border-[rgba(23,23,23,0.08)] bg-[#fffdf8] shadow-[0_24px_64px_rgba(49,39,27,0.12)]">
