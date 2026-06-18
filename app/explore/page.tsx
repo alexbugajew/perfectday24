@@ -1190,9 +1190,132 @@ function ExplorePageContent() {
     <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
       <div className="mb-5 overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
         <div className="p-4 sm:p-5 lg:p-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="max-w-3xl">
+              <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                Entdecken
+              </div>
+              <h1 className="mt-4 text-2xl font-bold tracking-tight text-[var(--text-strong)] sm:text-3xl">
+                Finde fertige Tagesrouten, Roadtrips oder Events ohne neu bei null zu planen
+              </h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+                {totalPublic} öffentliche Routen für Tagesausflüge, Date Nights, Familientage und Wochenenden. Wechsle direkt zwischen Tagesplanung, Roadtrips und buchbaren Events.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <Link
+                href="/planner"
+                className="inline-flex min-h-10 items-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90"
+              >
+                Tag planen
+              </Link>
+              <Link
+                href="/saved"
+                className="inline-flex min-h-10 items-center rounded-full border border-[var(--line-subtle)] bg-white px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+              >
+                Meine Plaene
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-5 grid gap-3 xl:grid-cols-3">
+            {EXPLORE_SURFACES.map((surface) => {
+              const isActive = surface.key === "day";
+              const cardClassName = isActive
+                ? "border-[var(--text-strong)] bg-white shadow-[0_14px_34px_rgba(15,23,42,0.08)]"
+                : surface.key === "roadtrip"
+                  ? "border-[rgba(196,137,79,0.22)] bg-[linear-gradient(135deg,rgba(196,137,79,0.06),rgba(90,118,136,0.05))] hover:border-[rgba(196,137,79,0.34)] hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)]"
+                  : "border-[var(--line-subtle)] bg-[var(--bg-surface)] hover:border-[var(--line-strong)] hover:bg-white";
+              const content = (
+                <>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className={surface.key === "roadtrip" ? "pd24-kicker-warm" : "text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]"}>
+                        {surface.eyebrow}
+                      </div>
+                      <div className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
+                        {surface.label}
+                      </div>
+                    </div>
+                    <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${
+                      isActive
+                        ? "bg-[var(--text-strong)] text-white"
+                        : surface.key === "roadtrip"
+                          ? "border border-[rgba(196,137,79,0.3)] bg-white text-[var(--brand-warm)]"
+                          : "border border-[var(--line-subtle)] bg-white text-[var(--text-muted)]"
+                    }`}>
+                      {surface.badge}
+                    </span>
+                  </div>
+                  <p className="mt-4 text-sm leading-6 text-[var(--text-muted)]">
+                    {surface.description}
+                  </p>
+                  <div className="mt-5 flex items-end justify-between gap-3">
+                    <p className="max-w-[15rem] text-sm font-medium leading-6 text-[var(--text-muted)]">
+                      {surface.helper}
+                    </p>
+                    <span className={`inline-flex items-center gap-2 text-sm font-semibold ${
+                      surface.key === "roadtrip" ? "text-[var(--brand-warm)]" : "text-[var(--text-strong)]"
+                    }`}>
+                      {isActive ? "Zu den Tagesrouten" : "Oeffnen"}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </>
+              );
+
+              if (surface.href.startsWith("#")) {
+                return (
+                  <a
+                    key={surface.key}
+                    href={surface.href}
+                    className={`rounded-[28px] border px-5 py-5 transition ${cardClassName}`}
+                  >
+                    {content}
+                  </a>
+                );
+              }
+
+              return (
+                <Link
+                  key={surface.key}
+                  href={surface.href}
+                  className={`rounded-[28px] border px-5 py-5 transition ${cardClassName}`}
+                >
+                  {content}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="mt-4 rounded-[24px] border border-[var(--line-subtle)] bg-white px-4 py-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  Jetzt aktiv
+                </div>
+                <div className="mt-1 text-lg font-semibold tracking-tight text-[var(--text-strong)]">
+                  Tagesrouten direkt vergleichen und in deinen Plan uebernehmen
+                </div>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
+                  Starte hier mit kuratierten Stadtplaenen. Fuer Mehrtagesreisen wechselst du in die Roadtrip-Routen, fuer buchbare Gruppenanlaesse direkt in Events.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <a href="#explore-all-routes" className="inline-flex min-h-10 items-center rounded-xl bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                  Tagesrouten ansehen
+                </a>
+                <Link href="/roadtrip/routes" className="inline-flex min-h-10 items-center rounded-xl border border-[rgba(196,137,79,0.3)] bg-white px-4 text-sm font-medium text-[var(--brand-warm)] transition hover:bg-[rgba(196,137,79,0.06)]">
+                  Roadtrip-Routen
+                </Link>
+              </div>
+            </div>
+          </div>
 
           {/* Hero-Zeile */}
-          <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
+          <div className="hidden mt-4 flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-2xl">
               <h1 className="text-2xl font-bold tracking-tight text-[var(--text-strong)] sm:text-3xl">
                 Kuratierte Routen für deinen nächsten Tag
@@ -1558,7 +1681,7 @@ function ExplorePageContent() {
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div className="max-w-2xl">
                 <div className="pd24-kicker-warm">Schneller finden</div>
-                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Starte mit oeffentlichen Routen und verfeinere dann deine Auswahl.</h2>
+                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Starte mit öffentlichen Routen und verfeinere dann deine Auswahl.</h2>
                 <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
                   Beginne mit allen verfuegbaren Routen, merke interessante Vorlagen und gehe erst danach tiefer in Trends, Themen oder Creator-Empfehlungen.
                 </p>
@@ -1571,7 +1694,7 @@ function ExplorePageContent() {
                   href="/saved"
                   className="inline-flex min-h-10 items-center rounded-xl border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]"
                 >
-                  Meine Plaene oeffnen
+                  Meine Pläne öffnen
                 </Link>
               </div>
             </div>
@@ -1685,7 +1808,7 @@ function ExplorePageContent() {
           <section>
             <SectionHeader
               title="Mehr aus der Community"
-              subtitle="Weitere oeffentliche Routen fuer spaetere Vertiefung."
+              subtitle="Weitere öffentliche Routen für spätere Vertiefung."
             />
             {filteredRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen für diese Filter gefunden.</div>
@@ -1710,10 +1833,10 @@ function ExplorePageContent() {
           <details className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 shadow-[var(--shadow-soft)]">
             <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
               <div>
-                <div className="pd24-kicker-warm">Sekundaer</div>
-                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Fuer Creator und Kurator:innen</h2>
+                <div className="pd24-kicker-warm">Sekundär</div>
+                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Für Creator und Kurator:innen</h2>
                 <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-                  Wenn du eigene Inhalte veroeffentlichen oder gezielt starken Accounts folgen moechtest, findest du hier die passenden Einstiege.
+                  Wenn du eigene Inhalte veröffentlichen oder gezielt starken Accounts folgen möchtest, findest du hier die passenden Einstiege.
                 </p>
               </div>
               <span className="mt-1 text-xs font-medium uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">
