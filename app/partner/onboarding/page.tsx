@@ -195,12 +195,13 @@ function slugify(str: string) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 const TOTAL_STEPS = 5;
+const STEP_LABELS = ["Typ", "Profil", "Details", "Medien", "Plan"];
 const STEP_HINTS = [
   "Lege zuerst fest, welche Art von Partner-Profil du aufbauen willst.",
-  "Hinterlege die Basisdaten, unter denen Nutzer dich spaeter finden und kontaktieren.",
-  "Ergaenze Kategorien, Kennzahlen und Staedte fuer besseres Matching.",
-  "Lade starke Bilder hoch, damit dein Eintrag hochwertig und vertrauenswuerdig wirkt.",
-  "Waehle dein Sichtbarkeitsmodell und lege dein Portal danach direkt an.",
+  "Hinterlege die Basisdaten, unter denen Nutzer dich später finden und kontaktieren.",
+  "Ergänze Kategorien, Kennzahlen und Städte für besseres Matching.",
+  "Lade starke Bilder hoch, damit dein Eintrag hochwertig und vertrauenswürdig wirkt.",
+  "Wähle dein Sichtbarkeitsmodell und lege dein Portal danach direkt an.",
 ];
 
 export default function PartnerOnboarding() {
@@ -359,18 +360,35 @@ export default function PartnerOnboarding() {
           <p className="mt-2 text-sm text-[var(--text-muted)]">
             Richte Profil, erste Assets und deine Vermarktungsbasis fuer Explore, Planner und Buchungswege ein.
           </p>
-          {/* Progress bar */}
-          <div className="mt-5 flex items-center gap-2">
-            {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
-              <div
-                key={i}
-                className={`h-1.5 flex-1 rounded-full transition-all ${
-                  i + 1 <= step ? "bg-[var(--text-strong)]" : "bg-[var(--line-subtle)]"
-                }`}
-              />
-            ))}
+          {/* Progress bar with step labels */}
+          <div className="mt-5">
+            <div className="flex items-center gap-2">
+              {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
+                    i + 1 <= step ? "bg-[var(--text-strong)]" : "bg-[var(--line-subtle)]"
+                  }`}
+                />
+              ))}
+            </div>
+            <div className="mt-2 flex items-center justify-between">
+              {STEP_LABELS.map((label, i) => (
+                <span
+                  key={label}
+                  className={`text-[11px] font-medium transition-colors ${
+                    i + 1 === step
+                      ? "text-[var(--text-strong)]"
+                      : i + 1 < step
+                      ? "text-[var(--brand-warm)]"
+                      : "text-[var(--text-soft)]"
+                  }`}
+                >
+                  {i + 1 < step ? "✓ " : ""}{label}
+                </span>
+              ))}
+            </div>
           </div>
-          <p className="mt-2 text-xs text-[var(--text-muted)]">Schritt {step} von {TOTAL_STEPS}</p>
         </div>
       </div>
 
@@ -514,6 +532,8 @@ export default function PartnerOnboarding() {
           <StepShell
             title="Angebotsdetails und Reichweite"
             subtitle="Optionale Angaben, die dein Profil vervollständigen."
+            optional
+            onSkip={() => setStep(4)}
           >
             <div className="space-y-6">
               {/* Type-specific numeric fields */}
@@ -591,6 +611,8 @@ export default function PartnerOnboarding() {
           <StepShell
             title="Fotos und Medien"
             subtitle="Lade bis zu 5 Fotos hoch. Das erste Bild wird als Titelbild verwendet."
+            optional
+            onSkip={() => setStep(5)}
           >
             <PhotoUpload
               folder={userId ?? "anon"}
@@ -607,6 +629,30 @@ export default function PartnerOnboarding() {
             title="Sichtbarkeit und Reporting"
             subtitle="Starte kostenlos oder wähle direkt einen bezahlten Plan."
           >
+            {/* Review summary */}
+            <div className="mb-6 rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-5">
+              <div className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">
+                Deine Angaben im Überblick
+              </div>
+              <div className="grid gap-2 text-sm sm:grid-cols-2">
+                <ReviewRow label="Typ" value={typeConfig.icon + " " + typeConfig.label} />
+                <ReviewRow label="Name" value={step2.display_name || "—"} />
+                <ReviewRow label="Slug" value={step2.slug ? `…/p/${step2.slug}` : "—"} />
+                <ReviewRow label="Hauptstadt" value={cityOptions.find((c) => c.slug === step2.primary_city_slug)?.name ?? step2.primary_city_slug ?? "—"} />
+                {step2.contact_email && <ReviewRow label="E-Mail" value={step2.contact_email} />}
+                {step2.website_url && <ReviewRow label="Website" value={step2.website_url} />}
+                <ReviewRow label="Kategorien" value={step3.service_category_slugs.length > 0 ? `${step3.service_category_slugs.length} ausgewählt` : "Keine"} />
+                <ReviewRow label="Fotos" value={step4.media_urls.filter(Boolean).length > 0 ? `${step4.media_urls.filter(Boolean).length} hochgeladen` : "Keine"} />
+              </div>
+              <button
+                type="button"
+                onClick={() => setStep(1)}
+                className="mt-3 text-xs text-[var(--text-muted)] underline underline-offset-2 hover:text-[var(--text-strong)]"
+              >
+                Angaben bearbeiten
+              </button>
+            </div>
+
             <div className="space-y-3">
               {TIER_OPTIONS.map((opt) => (
                 <button
@@ -699,43 +745,6 @@ export default function PartnerOnboarding() {
           </div>
         </div>
 
-        <div className="hidden mt-6 flex items-center justify-between gap-4">
-          {step > 1 ? (
-            <button
-              type="button"
-              onClick={() => setStep((s) => s - 1)}
-              className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
-            >
-              ← Zurück
-            </button>
-          ) : (
-            <div />
-          )}
-
-          {step < TOTAL_STEPS ? (
-            <button
-              type="button"
-              disabled={!canNext}
-              onClick={() => setStep((s) => s + 1)}
-              className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-40"
-            >
-              Weiter →
-            </button>
-          ) : (
-            <button
-              type="button"
-              disabled={submitting || !userId}
-              onClick={() => void handleSubmit()}
-              className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-50"
-            >
-              {submitting
-                ? "Wird angelegt …"
-                : step5.tier === "organic"
-                ? "Portal anlegen"
-                : "Portal anlegen & zahlen"}
-            </button>
-          )}
-        </div>
       </div>
     </div>
   );
@@ -743,12 +752,46 @@ export default function PartnerOnboarding() {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function StepShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
+function StepShell({
+  title,
+  subtitle,
+  optional,
+  onSkip,
+  children,
+}: {
+  title: string;
+  subtitle: string;
+  optional?: boolean;
+  onSkip?: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <div className="rounded-[32px] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
-      <h2 className="text-xl font-semibold text-[var(--text-strong)]">{title}</h2>
-      <p className="mt-1 mb-6 text-sm text-[var(--text-muted)]">{subtitle}</p>
-      {children}
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-semibold text-[var(--text-strong)]">{title}</h2>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">{subtitle}</p>
+        </div>
+        {optional && onSkip && (
+          <button
+            type="button"
+            onClick={onSkip}
+            className="shrink-0 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+          >
+            Überspringen →
+          </button>
+        )}
+      </div>
+      <div className="mt-6">{children}</div>
+    </div>
+  );
+}
+
+function ReviewRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-2.5">
+      <span className="text-xs text-[var(--text-muted)]">{label}</span>
+      <span className="truncate text-right text-sm font-medium text-[var(--text-strong)]">{value}</span>
     </div>
   );
 }

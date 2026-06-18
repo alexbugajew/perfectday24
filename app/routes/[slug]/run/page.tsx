@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import type { PlanMapStop } from "@/components/PlanMap";
 import { supabase } from "@/lib/supabaseClient";
 import {
@@ -124,7 +124,7 @@ function buildMergedProgress(route: UserRouteRow, stops: RouteStopRow[]) {
   } satisfies RouteRunProgress;
 }
 
-export default function RouteRunPage() {
+function RouteRunPageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const slug = typeof params?.slug === "string" ? params.slug : "";
@@ -654,5 +654,21 @@ export default function RouteRunPage() {
         </div>
       ) : null}
     </main>
+  );
+}
+
+export default function RouteRunPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+          <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-5 shadow-sm">
+            Route wird vorbereitet...
+          </div>
+        </main>
+      }
+    >
+      <RouteRunPageContent />
+    </Suspense>
   );
 }
