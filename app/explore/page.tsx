@@ -589,9 +589,6 @@ function RouteCard({
             <span className="rounded-full border border-white/40 bg-black/40 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur">
               {city}
             </span>
-            <span className="rounded-full border border-white/40 bg-black/40 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur">
-              {niceCreatorType(route.creator_type)}
-            </span>
             {variantRole ? (
               <span className="rounded-full bg-[var(--state-success)]/90 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur">
                 {variantRole}
@@ -613,25 +610,6 @@ function RouteCard({
           <p className="mt-1 line-clamp-2 text-[13px] leading-5 text-[var(--text-muted)]">{shortDesc}</p>
         </div>
 
-        {/* Personalization badges */}
-        {reason || reasonBadges?.length ? (
-          <div className="flex flex-wrap items-center gap-1.5">
-            {reason ? (
-              <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
-                {reason}
-              </span>
-            ) : null}
-            {reasonBadges?.slice(0, 2).map((badge) => (
-              <span
-                key={badge}
-                className="rounded-full border border-[rgba(196,137,79,0.25)] bg-[var(--brand-warm-cloud)] px-2.5 py-1 text-[11px] font-medium text-[var(--brand-warm)]"
-              >
-                {badge}
-              </span>
-            ))}
-          </div>
-        ) : null}
-
         {/* Meta chips */}
         <div className="flex flex-wrap gap-1.5">
           <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
@@ -640,10 +618,7 @@ function RouteCard({
           <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
             {route.stop_count ?? 0} Stopps
           </span>
-          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
-            {idealFor}
-          </span>
-          {badges.slice(0, 2).map((badge, index) => (
+          {badges.slice(0, 1).map((badge, index) => (
             <span
               key={`${badge.label}-${badge.tone}-${index}`}
               className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
@@ -653,6 +628,14 @@ function RouteCard({
               }`}
             >
               {badge.label}
+            </span>
+          ))}
+          {reasonBadges?.slice(0, 1).map((badge) => (
+            <span
+              key={badge}
+              className="rounded-full border border-[rgba(196,137,79,0.25)] bg-[var(--brand-warm-cloud)] px-2.5 py-1 text-[11px] font-medium text-[var(--brand-warm)]"
+            >
+              {badge}
             </span>
           ))}
         </div>
@@ -686,15 +669,15 @@ function RouteCard({
 
         {/* Footer */}
         <div className="flex items-center justify-between gap-3 border-t border-[var(--line-subtle)] pt-3">
-          <div className="min-w-0 space-y-0.5">
-            <div className="truncate text-xs text-[var(--text-muted)]">{creatorLabel}</div>
+          <div className="min-w-0 truncate text-xs text-[var(--text-muted)]">
             {creatorLink ? (
-              <Link href={creatorLink} className="text-xs text-[var(--text-strong)] underline underline-offset-4">
-                Profil öffnen
+              <Link href={creatorLink} className="hover:text-[var(--text-strong)] hover:underline underline-offset-4 transition">
+                {creatorLabel}
               </Link>
-            ) : null}
+            ) : (
+              creatorLabel
+            )}
           </div>
-
           {href ? (
             <Link
               href={href}
@@ -1130,7 +1113,7 @@ function ExplorePageContent() {
   }, [editorialRoutes, occasionFilter]);
 
   const trendingRoutes = useMemo(
-    () => [...filteredRoutes].sort((a, b) => (b.trending_score ?? 0) - (a.trending_score ?? 0)).slice(0, 6),
+    () => [...filteredRoutes].sort((a, b) => (b.trending_score ?? 0) - (a.trending_score ?? 0)).slice(0, 4),
     [filteredRoutes]
   );
 
@@ -1141,14 +1124,14 @@ function ExplorePageContent() {
           if ((b.avg_rating ?? 0) !== (a.avg_rating ?? 0)) return (b.avg_rating ?? 0) - (a.avg_rating ?? 0);
           return (b.rating_count ?? 0) - (a.rating_count ?? 0);
         })
-        .slice(0, 6),
+        .slice(0, 4),
     [filteredRoutes]
   );
 
-  const featuredRoutes = useMemo(() => filteredRoutes.filter((r) => r.is_featured).slice(0, 6), [filteredRoutes]);
+  const featuredRoutes = useMemo(() => filteredRoutes.filter((r) => r.is_featured).slice(0, 4), [filteredRoutes]);
 
   const newestRoutes = useMemo(
-    () => [...filteredRoutes].sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()).slice(0, 6),
+    () => [...filteredRoutes].sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()).slice(0, 4),
     [filteredRoutes]
   );
 
@@ -1655,48 +1638,72 @@ function ExplorePageContent() {
             </section>
           ) : null}
 
-          <section>
-            <SectionHeader
-              title="Passt zu deinen Interessen"
-              subtitle={
-                myInterests.length > 0
-                  ? `Persönliche Vorschläge auf Basis deines Profils: ${myInterests.slice(0, 4).join(", ")}`
-                  : "Melde dich an und hinterlege Interessen im Profil, um persönlichere Vorschläge zu sehen."
-              }
-              actionHref="/profile"
-              actionLabel={myInterests.length > 0 ? "Interessen anpassen" : "Profil öffnen"}
-            />
-            {personalizedRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-4 text-sm text-gray-600 shadow-sm">
-                {myInterests.length > 0 ? (
-                  "Noch keine personalisierten Vorschläge verfügbar."
-                ) : (
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <span>Speichere ein paar Vorlieben, dann sortiert Explore relevanter für dich.</span>
-                    <Link
-                      href="/profile#profile-interests"
-                      className="inline-flex h-9 items-center justify-center rounded-xl bg-black px-3 text-xs font-medium text-white"
-                    >
-                      Vorlieben speichern
-                    </Link>
-                  </div>
-                )}
+          {myInterests.length === 0 ? (
+            <section className="overflow-hidden rounded-[28px] border border-[var(--line-subtle)] bg-[linear-gradient(135deg,var(--bg-canvas-warm),var(--brand-warm-cloud))] p-6 shadow-[var(--shadow-soft)]">
+              <div className="max-w-xl">
+                <div className="pd24-kicker-warm">Persönlich für dich</div>
+                <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
+                  Routen, die wirklich zu dir passen — nicht nur nach Beliebtheit sortiert
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-[var(--text-muted-warm)]">
+                  Hinterlege einmal deine Interessen und Explore sortiert Routen automatisch relevanter für dich — nach Anlass, Stil und Stadt.
+                </p>
               </div>
-            ) : (
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {personalizedRoutes.map((item) => (
-                  <RouteCard
-                    key={`personal-${item.route.id}`}
-                    route={item.route}
-                    creator={item.route.creator_profile_id ? creatorById.get(item.route.creator_profile_id) ?? null : null}
-                    cityMap={cityMap}
-                    reason={item.reason}
-                    reasonBadges={item.reasonBadges}
-                  />
+              <div className="mt-5 flex flex-wrap gap-2">
+                {[
+                  { label: "🥂 Date Night", href: "/explore?occasion=date" },
+                  { label: "👨‍👩‍👧 Familie", href: "/explore?occasion=family" },
+                  { label: "👫 Mit Freunden", href: "/explore?occasion=friends" },
+                  { label: "🗺️ Als Tourist", href: "/explore?occasion=tourism" },
+                  { label: "🎉 Feiern", href: "/explore?occasion=party" },
+                ].map((chip) => (
+                  <Link
+                    key={chip.href}
+                    href={chip.href}
+                    className="rounded-full border border-[rgba(196,137,79,0.28)] bg-white/80 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.5)] hover:bg-white hover:text-[var(--text-strong)]"
+                  >
+                    {chip.label}
+                  </Link>
                 ))}
               </div>
-            )}
-          </section>
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/profile#profile-interests"
+                  className="inline-flex min-h-10 items-center rounded-full bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-90"
+                >
+                  Interessen hinterlegen
+                </Link>
+                <span className="text-xs text-[var(--text-soft-warm)]">Kostenlos · Einmalig · Jederzeit änderbar</span>
+              </div>
+            </section>
+          ) : (
+            <section>
+              <SectionHeader
+                title="Passt zu deinen Interessen"
+                subtitle={`Persönliche Vorschläge auf Basis deines Profils: ${myInterests.slice(0, 4).join(", ")}`}
+                actionHref="/profile"
+                actionLabel="Interessen anpassen"
+              />
+              {personalizedRoutes.length === 0 ? (
+                <div className="rounded-[28px] border border-black/10 bg-white p-4 text-sm text-[var(--text-muted)] shadow-sm">
+                  Noch keine personalisierten Vorschläge verfügbar.
+                </div>
+              ) : (
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                  {personalizedRoutes.map((item) => (
+                    <RouteCard
+                      key={`personal-${item.route.id}`}
+                      route={item.route}
+                      creator={item.route.creator_profile_id ? creatorById.get(item.route.creator_profile_id) ?? null : null}
+                      cityMap={cityMap}
+                      reason={item.reason}
+                      reasonBadges={item.reasonBadges}
+                    />
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
 
           <section className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 shadow-[var(--shadow-soft)]">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -1704,7 +1711,7 @@ function ExplorePageContent() {
                 <div className="pd24-kicker-warm">Schneller finden</div>
                 <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Starte mit öffentlichen Routen und verfeinere dann deine Auswahl.</h2>
                 <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-                  Beginne mit allen verfuegbaren Routen, merke interessante Vorlagen und gehe erst danach tiefer in Trends, Themen oder Creator-Empfehlungen.
+                  Beginne mit allen verfügbaren Routen, merke interessante Vorlagen und gehe erst danach tiefer in Trends, Themen oder Creator-Empfehlungen.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -1746,6 +1753,8 @@ function ExplorePageContent() {
             <SectionHeader
               title="Gerade beliebt"
               subtitle="Routen mit der meisten Aktivität gerade."
+              actionHref="#explore-all-routes"
+              actionLabel="Alle ansehen"
             />
             {trendingRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine aktuell beliebten Routen gefunden.</div>
@@ -1767,6 +1776,8 @@ function ExplorePageContent() {
             <SectionHeader
               title="Bestbewertet"
               subtitle="Die am höchsten bewerteten Routen."
+              actionHref="#explore-all-routes"
+              actionLabel="Alle ansehen"
             />
             {topRatedRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine bestbewerteten Routen gefunden.</div>
@@ -1788,6 +1799,8 @@ function ExplorePageContent() {
             <SectionHeader
               title="Ausgewählte Routen"
               subtitle="Von uns handverlesene Highlights."
+              actionHref="#explore-all-routes"
+              actionLabel="Alle ansehen"
             />
             {featuredRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine ausgewählten Routen gefunden.</div>
@@ -1809,6 +1822,8 @@ function ExplorePageContent() {
             <SectionHeader
               title="Neu eingestellt"
               subtitle="Die zuletzt hinzugefügten Routen."
+              actionHref="#explore-all-routes"
+              actionLabel="Alle ansehen"
             />
             {newestRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine neuen Routen gefunden.</div>
