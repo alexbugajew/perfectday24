@@ -89,14 +89,15 @@ function isInternalPilotCampaignName(name: string) {
 }
 
 function buildAdminFilterHref(
-  current: { scope: string; signal: string; surface: string },
-  patch: Partial<{ scope: string; signal: string; surface: string }>
+  current: { scope: string; signal: string; surface: string; reportReason?: string },
+  patch: Partial<{ scope: string; signal: string; surface: string; reportReason: string }>
 ) {
   const next = { ...current, ...patch };
   const params = new URLSearchParams();
   if (next.scope !== "all") params.set("scope", next.scope);
   if (next.signal !== "all") params.set("signal", next.signal);
   if (next.surface !== "all") params.set("surface", next.surface);
+  if (next.reportReason && next.reportReason !== "all") params.set("reportReason", next.reportReason);
   const query = params.toString();
   return query ? `/admin/monetization?${query}` : "/admin/monetization";
 }
@@ -170,10 +171,12 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
   const scopeFilter = firstSearchParam(resolvedSearchParams.scope) ?? "all";
   const signalFilter = firstSearchParam(resolvedSearchParams.signal) ?? "all";
   const surfaceFilter = firstSearchParam(resolvedSearchParams.surface) ?? "all";
+  const reportReasonFilter = firstSearchParam(resolvedSearchParams.reportReason) ?? "all";
   const activeFilters = {
     scope: scopeFilter,
     signal: signalFilter,
     surface: surfaceFilter,
+    reportReason: reportReasonFilter,
   };
 
   const snapshot = await getMonetizationAdminSnapshot();
@@ -488,7 +491,10 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
     acc.set(report.asset_id, current);
     return acc;
   }, new Map());
-  const prioritizedMediaReports = [...snapshot.mediaReports].sort((a, b) => {
+  const filteredMediaReports = reportReasonFilter === "all"
+    ? snapshot.mediaReports
+    : snapshot.mediaReports.filter((r) => r.reason === reportReasonFilter);
+  const prioritizedMediaReports = [...filteredMediaReports].sort((a, b) => {
     const aOpenSiblings = (mediaReportsByAssetId.get(a.asset_id) ?? []).filter((report) => ["open", "reviewing"].includes(report.status)).length;
     const bOpenSiblings = (mediaReportsByAssetId.get(b.asset_id) ?? []).filter((report) => ["open", "reviewing"].includes(report.status)).length;
     const priorityRank = { kritisch: 0, hoch: 1, normal: 2 };
@@ -497,6 +503,10 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
     if (aPriority !== bPriority) return aPriority - bPriority;
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
+  const reportReasonCounts = snapshot.mediaReports.reduce<Record<string, number>>((acc, r) => {
+    acc[r.reason] = (acc[r.reason] ?? 0) + 1;
+    return acc;
+  }, {});
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -898,9 +908,44 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
             ))}
           </div>
 
+          <div className="mb-4 flex flex-wrap gap-2">
+            {[
+              { label: "Alle", value: "all" },
+              { label: "Copyright", value: "copyright" },
+              { label: "Privatsphaere", value: "privacy" },
+              { label: "Missbrauch", value: "offensive" },
+              { label: "Unpassend", value: "irrelevant" },
+              { label: "Duplikat", value: "duplicate" },
+              { label: "Sonstiges", value: "other" },
+            ].map(({ label, value }) => {
+              const isActive = reportReasonFilter === value;
+              const count = value === "all" ? snapshot.mediaReports.length : (reportReasonCounts[value] ?? 0);
+              return (
+                <Link
+                  key={value}
+                  href={buildAdminFilterHref(activeFilters, { reportReason: value })}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+                    isActive
+                      ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                      : "border-[var(--line-subtle)] bg-white text-[var(--text-muted)] hover:border-[var(--text-strong)]"
+                  }`}
+                >
+                  {label}
+                  {count > 0 && (
+                    <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${
+                      isActive ? "bg-white/20 text-white" : "bg-[var(--bg-panel)] text-[var(--text-muted)]"
+                    }`}>
+                      {count}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+
           <div className="space-y-3">
             {snapshot.mediaReports.length > 0 ? (
-              prioritizedMediaReports.slice(0, 12).map((report) => {
+              prioritizedMediaReports.slice(0, 20).map((report) => {
                 const asset = snapshot.mediaAssets.find((item) => item.id === report.asset_id) ?? null;
                 const targetLabels = mediaTargetsByAssetId.get(report.asset_id) ?? [];
                 const reportHistory = mediaReportsByAssetId.get(report.asset_id) ?? [];

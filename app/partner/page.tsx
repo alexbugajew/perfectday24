@@ -2,12 +2,12 @@ import Link from "next/link";
 import PartnerMarketingCta from "@/components/partner/PartnerMarketingCta";
 
 const partnerTypes = [
-  { title: "Hotels & Unterkuenfte", copy: "Direkt dort sichtbar sein, wo Roadtrips, Wochenenden und Staedte-Trips geplant werden." },
-  { title: "Restaurants & Bars", copy: "In Tagesrouten, Date-Night-Planungen und Gruppenanlaessen erscheinen." },
-  { title: "Event-Locations", copy: "Anfragen, Angebote und Buchungen direkt aus dem Eventflow erhalten." },
-  { title: "Erlebnisse & Touren", copy: "Als fester Stop in Routen, Explore und Roadtrip-Etappen positioniert werden." },
-  { title: "Dienstleister", copy: "Fotografie, Musik, Deko oder Transport direkt im Anfrage- und Buchungsprozess anbieten." },
-  { title: "Stadtmarketing", copy: "Kuratierten Content, saisonale Highlights und Themenrouten sichtbar machen." },
+  { emoji: "🏨", title: "Hotels & Unterkuenfte", copy: "Direkt dort sichtbar sein, wo Roadtrips, Wochenenden und Staedte-Trips geplant werden." },
+  { emoji: "🍽️", title: "Restaurants & Bars", copy: "In Tagesrouten, Date-Night-Planungen und Gruppenanlaessen erscheinen." },
+  { emoji: "🏛️", title: "Event-Locations", copy: "Anfragen, Angebote und Buchungen direkt aus dem Eventflow erhalten." },
+  { emoji: "🎯", title: "Erlebnisse & Touren", copy: "Als fester Stop in Routen, Explore und Roadtrip-Etappen positioniert werden." },
+  { emoji: "🎵", title: "Dienstleister", copy: "Fotografie, Musik, Deko oder Transport direkt im Anfrage- und Buchungsprozess anbieten." },
+  { emoji: "🏙️", title: "Stadtmarketing", copy: "Kuratierten Content, saisonale Highlights und Themenrouten sichtbar machen." },
 ];
 
 const packageCards = [
@@ -151,8 +151,11 @@ export default function PartnerLandingPage() {
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {partnerTypes.map((item) => (
           <article key={item.title} className="rounded-[26px] border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-[14px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-xl">
+              {item.emoji}
+            </div>
             <div className="text-lg font-semibold text-[var(--text-strong)]">{item.title}</div>
-            <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">{item.copy}</p>
+            <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{item.copy}</p>
           </article>
         ))}
       </section>
@@ -283,7 +286,7 @@ export default function PartnerLandingPage() {
 
       <section className="rounded-[32px] bg-[var(--text-strong)] px-6 py-10 text-[#fffdf8] shadow-[var(--shadow-large)] sm:px-8">
         <div className="max-w-3xl">
-          <div className="pd24-kicker-warm text-white/60">Footer CTA</div>
+          <div className="pd24-kicker-warm text-white/60">Jetzt starten</div>
           <h2 className="mt-3 text-[2.4rem] font-semibold leading-[0.96] tracking-tight sm:text-5xl">
             Werde dort sichtbar, wo perfekte Tage geplant werden
           </h2>

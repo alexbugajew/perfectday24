@@ -1464,20 +1464,38 @@ export default function PartnerDashboard() {
         >
           <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
             <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
-              <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Offene Aufgaben</div>
-              <div className="mt-4 space-y-3">
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Setup-Fortschritt</div>
+                <span className="text-xs font-semibold text-[var(--text-muted)]">
+                  {profileCompleteness}/6 erledigt
+                </span>
+              </div>
+              <div className="mt-3 h-2 overflow-hidden rounded-full bg-[var(--bg-surface)]">
+                <div
+                  className="h-full rounded-full bg-[var(--brand-warm)] transition-all"
+                  style={{ width: `${Math.round((profileCompleteness / 6) * 100)}%` }}
+                />
+              </div>
+              <div className="mt-4 space-y-2.5">
                 {setupTasks.length > 0 ? (
                   setupTasks.map((task) => (
-                    <div key={task} className="flex items-start gap-3 rounded-2xl border border-[var(--line-subtle)] px-4 py-3">
-                      <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--bg-surface)] text-xs font-semibold text-[var(--text-strong)]">
-                        !
+                    <div key={task} className="flex items-start gap-3 rounded-2xl border border-amber-100 bg-amber-50 px-4 py-3">
+                      <span className="mt-0.5 shrink-0 text-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+                          <path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                        </svg>
                       </span>
-                      <p className="text-sm text-[var(--text-strong)]">{task}</p>
+                      <p className="text-sm leading-6 text-[var(--text-strong)]">{task}</p>
                     </div>
                   ))
                 ) : (
-                  <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] px-4 py-6 text-sm text-[var(--text-muted)]">
-                    Dein Partnerprofil ist fuer den aktuellen MVP sauber aufgestellt.
+                  <div className="flex items-center gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-4">
+                    <span className="shrink-0 text-emerald-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+                      </svg>
+                    </span>
+                    <p className="text-sm text-emerald-800">Dein Partnerprofil ist vollstaendig aufgestellt.</p>
                   </div>
                 )}
               </div>
