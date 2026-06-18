@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import MediaReportDialog from "@/components/media/MediaReportDialog";
 
 type SubmissionEntityType =
   | "route"
@@ -23,6 +24,17 @@ type CommunityPhotoPreviewItem = {
   alt?: string | null;
 };
 
+type OwnMediaSubmission = {
+  id: string;
+  url: string;
+  caption: string | null;
+  creditName: string | null;
+  moderationStatus: "draft" | "submitted" | "approved" | "rejected" | "featured";
+  createdAt: string;
+  lastAction: string | null;
+  lastNote: string | null;
+};
+
 type CommunityPhotoSubmissionProps = {
   entityType: SubmissionEntityType | "route_with_stops";
   entityId: string;
@@ -37,6 +49,32 @@ type CommunityPhotoSubmissionProps = {
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const BUCKET = "user-media";
+
+const SUBMISSION_STATUS_META: Record<
+  OwnMediaSubmission["moderationStatus"],
+  { label: string; className: string }
+> = {
+  draft: {
+    label: "Entwurf",
+    className: "border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)]",
+  },
+  submitted: {
+    label: "In Pruefung",
+    className: "border-blue-200 bg-blue-50 text-blue-800",
+  },
+  approved: {
+    label: "Freigegeben",
+    className: "border-emerald-200 bg-emerald-50 text-emerald-800",
+  },
+  rejected: {
+    label: "Abgelehnt",
+    className: "border-red-200 bg-red-50 text-red-700",
+  },
+  featured: {
+    label: "Featured",
+    className: "border-amber-200 bg-amber-50 text-amber-800",
+  },
+};
 
 function extensionOf(file: File) {
   const parts = file.name.split(".");
@@ -66,12 +104,26 @@ export default function CommunityPhotoSubmission({
   const [success, setSuccess] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [activePreviewIndex, setActivePreviewIndex] = useState<number | null>(null);
+  const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
+  const [ownSubmissions, setOwnSubmissions] = useState<OwnMediaSubmission[]>([]);
+  const [isLoadingOwnSubmissions, setIsLoadingOwnSubmissions] = useState(false);
 
   const modeOptions = useMemo(() => {
     if (entityType !== "route_with_stops" || stopOptions.length === 0) return [];
     return [{ id: "", label: "Zur ganzen Route" }, ...stopOptions];
   }, [entityType, stopOptions]);
   const isRouteTargetSelectionVisible = modeOptions.length > 0;
+  const isAnyOverlayOpen = isDialogOpen || activePreviewIndex !== null;
+
+  useEffect(() => {
+    if (!isAnyOverlayOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isAnyOverlayOpen]);
 
   useEffect(() => {
     if (!isDialogOpen) return;
@@ -157,6 +209,132 @@ export default function CommunityPhotoSubmission({
       return (current + 1) % previewItems.length;
     });
   }
+
+  async function loadOwnSubmissions() {
+    setIsLoadingOwnSubmissions(true);
+
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session?.user) {
+        setOwnSubmissions([]);
+        return;
+      }
+
+      let assetIds: string[] = [];
+
+      if (entityType === "route_with_stops") {
+        const routeAssetResp = await supabase
+          .from("route_media")
+          .select("asset_id")
+          .eq("route_id", entityId);
+        if (routeAssetResp.error) throw routeAssetResp.error;
+
+        const routeStopIds = stopOptions.map((option) => option.id).filter(Boolean);
+        let stopAssetIds: string[] = [];
+
+        if (routeStopIds.length > 0) {
+          const stopAssetResp = await supabase
+            .from("route_stop_media")
+            .select("asset_id")
+            .in("route_stop_id", routeStopIds);
+          if (stopAssetResp.error) throw stopAssetResp.error;
+          stopAssetIds = (stopAssetResp.data ?? []).map((row) => row.asset_id as string);
+        }
+
+        assetIds = [...(routeAssetResp.data ?? []).map((row) => row.asset_id as string), ...stopAssetIds];
+      } else if (entityType === "route") {
+        const resp = await supabase.from("route_media").select("asset_id").eq("route_id", entityId);
+        if (resp.error) throw resp.error;
+        assetIds = (resp.data ?? []).map((row) => row.asset_id as string);
+      } else if (entityType === "route_stop") {
+        const resp = await supabase.from("route_stop_media").select("asset_id").eq("route_stop_id", entityId);
+        if (resp.error) throw resp.error;
+        assetIds = (resp.data ?? []).map((row) => row.asset_id as string);
+      } else if (entityType === "roadtrip") {
+        const resp = await supabase.from("roadtrip_media").select("asset_id").eq("roadtrip_route_id", entityId);
+        if (resp.error) throw resp.error;
+        assetIds = (resp.data ?? []).map((row) => row.asset_id as string);
+      } else if (entityType === "event_plan") {
+        const resp = await supabase.from("event_plan_media").select("asset_id").eq("event_plan_id", entityId);
+        if (resp.error) throw resp.error;
+        assetIds = (resp.data ?? []).map((row) => row.asset_id as string);
+      } else if (entityType === "partner_profile") {
+        const resp = await supabase.from("partner_profile_media").select("asset_id").eq("partner_profile_id", entityId);
+        if (resp.error) throw resp.error;
+        assetIds = (resp.data ?? []).map((row) => row.asset_id as string);
+      } else if (entityType === "service_provider") {
+        const resp = await supabase.from("service_provider_media").select("asset_id").eq("provider_id", entityId);
+        if (resp.error) throw resp.error;
+        assetIds = (resp.data ?? []).map((row) => row.asset_id as string);
+      }
+
+      const uniqueAssetIds = Array.from(new Set(assetIds));
+      if (uniqueAssetIds.length === 0) {
+        setOwnSubmissions([]);
+        return;
+      }
+
+      const { data: assets, error: assetsError } = await supabase
+        .from("media_assets")
+        .select("id, public_url, caption, credit_name, moderation_status, created_at")
+        .eq("owner_user_id", session.user.id)
+        .in("id", uniqueAssetIds)
+        .order("created_at", { ascending: false });
+      if (assetsError) throw assetsError;
+
+      const ownAssetIds = (assets ?? []).map((asset) => asset.id as string);
+      if (ownAssetIds.length === 0) {
+        setOwnSubmissions([]);
+        return;
+      }
+
+      const { data: events, error: eventsError } = await supabase
+        .from("media_moderation_events")
+        .select("asset_id, action, note, created_at")
+        .in("asset_id", ownAssetIds)
+        .order("created_at", { ascending: false });
+      if (eventsError) throw eventsError;
+
+      const latestEventByAssetId = new Map<string, { action: string | null; note: string | null }>();
+      for (const event of events ?? []) {
+        const assetId = event.asset_id as string;
+        if (!latestEventByAssetId.has(assetId)) {
+          latestEventByAssetId.set(assetId, {
+            action: typeof event.action === "string" ? event.action : null,
+            note: typeof event.note === "string" ? event.note : null,
+          });
+        }
+      }
+
+      setOwnSubmissions(
+        (assets ?? []).map((asset) => {
+          const latestEvent = latestEventByAssetId.get(asset.id as string);
+          return {
+            id: asset.id as string,
+            url: (asset.public_url as string) ?? "",
+            caption: (asset.caption as string | null) ?? null,
+            creditName: (asset.credit_name as string | null) ?? null,
+            moderationStatus: (asset.moderation_status as OwnMediaSubmission["moderationStatus"]) ?? "submitted",
+            createdAt: (asset.created_at as string) ?? new Date().toISOString(),
+            lastAction: latestEvent?.action ?? null,
+            lastNote: latestEvent?.note ?? null,
+          };
+        })
+      );
+    } catch (loadError) {
+      console.error("community media submissions load failed:", loadError);
+      setOwnSubmissions([]);
+    } finally {
+      setIsLoadingOwnSubmissions(false);
+    }
+  }
+
+  useEffect(() => {
+    void loadOwnSubmissions();
+  }, [entityId, entityType, stopOptions]);
 
   async function handleUpload(event: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(event.target.files ?? []);
@@ -263,6 +441,7 @@ export default function CommunityPhotoSubmission({
       setCreditName("");
       setSelectedStopId("");
       setSuccess(`${files.length} ${fileLabel(files.length)} eingereicht. Nach der Freigabe erscheinen sie in der Galerie.`);
+      await loadOwnSubmissions();
       if (onSubmitted) await onSubmitted();
       setIsDialogOpen(false);
     } catch (uploadError) {
@@ -289,9 +468,7 @@ export default function CommunityPhotoSubmission({
           </div>
         </div>
 
-        <div
-          className="overflow-x-auto overflow-y-hidden rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-2"
-        >
+        <div className="overflow-x-auto overflow-y-hidden rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-2 pr-20 pb-20">
           <div className="grid auto-cols-[8.5rem] grid-flow-col grid-rows-2 gap-2 sm:auto-cols-[9.5rem] lg:auto-cols-[10.25rem]">
             {galleryItems.map((item, index) => (
               <button
@@ -300,7 +477,7 @@ export default function CommunityPhotoSubmission({
                 onClick={() => openPreview(index)}
                 disabled={!item.url}
                 className={[
-                  "relative aspect-square overflow-hidden rounded-[18px] border border-[rgba(15,23,42,0.05)] bg-white text-left",
+                  "group relative aspect-square overflow-hidden rounded-[18px] border border-[rgba(15,23,42,0.05)] bg-white text-left",
                   item.url
                     ? "cursor-pointer transition hover:border-[rgba(23,23,23,0.16)] hover:shadow-[0_10px_24px_rgba(15,23,42,0.08)]"
                     : "cursor-default",
@@ -316,6 +493,9 @@ export default function CommunityPhotoSubmission({
                       className="h-full w-full object-cover"
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.02),rgba(15,23,42,0.22))]" />
+                    <div className="absolute right-2 top-2 rounded-full border border-white/18 bg-black/28 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white opacity-0 backdrop-blur-sm transition group-hover:opacity-100">
+                      Vorschau
+                    </div>
                   </>
                 ) : (
                   <div className="flex h-full items-center justify-center bg-[linear-gradient(135deg,#f8fafc,#eef2f7)]">
@@ -327,19 +507,85 @@ export default function CommunityPhotoSubmission({
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => {
-            setError(null);
-            setSuccess(null);
-            setIsDialogOpen(true);
-          }}
-          className="absolute bottom-7 right-7 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--text-strong)] text-3xl font-light text-white shadow-[0_20px_40px_rgba(15,23,42,0.22)] transition hover:scale-[1.03] hover:opacity-92"
-          aria-label="Foto hochladen"
-        >
-          +
-        </button>
+        <div className="pointer-events-none absolute bottom-6 right-6">
+          <button
+            type="button"
+            onClick={() => {
+              setError(null);
+              setSuccess(null);
+              setIsDialogOpen(true);
+            }}
+            className="pointer-events-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--text-strong)] text-3xl font-light text-white shadow-[0_20px_40px_rgba(15,23,42,0.22)] transition hover:scale-[1.03] hover:opacity-92"
+            aria-label="Foto hochladen"
+          >
+            +
+          </button>
+        </div>
+
+        <div className="mt-4 rounded-[22px] border border-[var(--line-subtle)] bg-white p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Meine Uploads
+            </div>
+            <div className="text-xs text-[var(--text-muted)]">
+              {isLoadingOwnSubmissions ? "wird geladen..." : `${ownSubmissions.length} Einreichungen`}
+            </div>
+          </div>
+
+          <div className="mt-3 space-y-3">
+            {ownSubmissions.length > 0 ? (
+              ownSubmissions.slice(0, 4).map((submission) => {
+                const statusMeta = SUBMISSION_STATUS_META[submission.moderationStatus] ?? SUBMISSION_STATUS_META.submitted;
+                return (
+                  <div
+                    key={submission.id}
+                    className="flex items-start gap-3 rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3"
+                  >
+                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-[14px] bg-white">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={submission.url}
+                        alt={submission.caption || "Eingereichtes Bild"}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <div className="truncate text-sm font-medium text-[var(--text-strong)]">
+                          {submission.caption || "Foto ohne Titel"}
+                        </div>
+                        <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-medium ${statusMeta.className}`}>
+                          {statusMeta.label}
+                        </span>
+                      </div>
+                      <div className="mt-1 text-xs text-[var(--text-muted)]">
+                        {new Date(submission.createdAt).toLocaleDateString("de-DE", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                        })}
+                        {submission.creditName ? ` - ${submission.creditName}` : ""}
+                      </div>
+                      {submission.lastNote ? (
+                        <div className="mt-2 rounded-[14px] border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-900">
+                          {submission.lastNote}
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="rounded-[18px] border border-dashed border-[var(--line-subtle)] px-4 py-4 text-sm text-[var(--text-muted)]">
+                Eigene Einreichungen erscheinen hier mit Status, sobald du Bilder hochgeladen hast.
+              </div>
+            )}
+          </div>
+        </div>
       </section>
+
+      {success ? <div className="mt-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{success}</div> : null}
+      {error && !isDialogOpen ? <div className="mt-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div> : null}
 
       {isDialogOpen ? (
         <div
@@ -532,7 +778,16 @@ export default function CommunityPhotoSubmission({
             </div>
 
             {previewItems.length > 1 ? (
-              <div className="border-t border-white/10 px-5 py-5">
+            <div className="border-t border-white/10 px-5 py-5">
+                <div className="mb-4 flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsReportDialogOpen(true)}
+                    className="inline-flex items-center rounded-full border border-white/16 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-white/14"
+                  >
+                    Bild melden
+                  </button>
+                </div>
                 <div className="flex gap-3 overflow-x-auto pb-1">
                   {previewItems.map((item, index) => {
                     const isActive = index === activePreviewIndex;
@@ -561,9 +816,28 @@ export default function CommunityPhotoSubmission({
                 </div>
               </div>
             ) : null}
+
+            {previewItems.length <= 1 ? (
+              <div className="border-t border-white/10 px-5 py-5">
+                <button
+                  type="button"
+                  onClick={() => setIsReportDialogOpen(true)}
+                  className="inline-flex items-center rounded-full border border-white/16 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-white/14"
+                >
+                  Bild melden
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       ) : null}
+
+      <MediaReportDialog
+        assetId={activePreviewItem?.id ?? null}
+        assetLabel={activePreviewItem?.alt || title}
+        open={isReportDialogOpen}
+        onClose={() => setIsReportDialogOpen(false)}
+      />
     </>
   );
 }

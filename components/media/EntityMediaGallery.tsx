@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import MediaReportDialog from "@/components/media/MediaReportDialog";
 
 export type EntityMediaItem = {
   id: string;
@@ -37,6 +38,7 @@ export default function EntityMediaGallery({
   className,
 }: EntityMediaGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
   const hasMultipleItems = items.length > 1;
 
   function openLightbox(index: number) {
@@ -285,6 +287,16 @@ export default function EntityMediaGallery({
                 </div>
               </div>
 
+              <div className="mt-4 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsReportDialogOpen(true)}
+                  className="inline-flex items-center rounded-full border border-white/16 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-white/14"
+                >
+                  Bild melden
+                </button>
+              </div>
+
               {hasMultipleItems ? (
                 <div className="mt-5 flex gap-3 overflow-x-auto pb-1">
                   {items.map((item, index) => {
@@ -317,6 +329,13 @@ export default function EntityMediaGallery({
           </div>
         </div>
       ) : null}
+
+      <MediaReportDialog
+        assetId={activeItem?.id ?? null}
+        assetLabel={activeItem?.caption || activeItem?.alt || title}
+        open={isReportDialogOpen}
+        onClose={() => setIsReportDialogOpen(false)}
+      />
     </>
   );
 }

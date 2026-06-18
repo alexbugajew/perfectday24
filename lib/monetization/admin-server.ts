@@ -171,6 +171,47 @@ export type AdminRouteRow = {
   updated_at: string;
 };
 
+export type AdminMediaRow = {
+  id: string;
+  owner_user_id: string | null;
+  partner_profile_id: string | null;
+  source_type: string;
+  public_url: string;
+  caption: string | null;
+  credit_name: string | null;
+  moderation_status: string;
+  rights_status: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type AdminMediaAttachmentRow = {
+  asset_id: string;
+  target_id: string;
+};
+
+export type AdminRoadtripRow = {
+  id: string;
+  title: string | null;
+  slug: string | null;
+};
+
+export type AdminEventPlanRow = {
+  id: string;
+  title: string | null;
+};
+
+export type AdminMediaReportRow = {
+  id: string;
+  asset_id: string;
+  reported_by_user_id: string | null;
+  reason: string;
+  note: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};
+
 type AdminAllowlist = {
   emails: Set<string>;
   userIds: Set<string>;
@@ -325,6 +366,16 @@ export async function getMonetizationAdminSnapshot() {
     entitlementsResp,
     creatorsResp,
     routesResp,
+    mediaResp,
+    routeMediaResp,
+    routeStopMediaResp,
+    roadtripMediaResp,
+    eventPlanMediaResp,
+    partnerProfileMediaResp,
+    serviceProviderMediaResp,
+    roadtripsResp,
+    eventPlansResp,
+    mediaReportsResp,
   ] = await Promise.all([
     supabase
       .from("partner_profiles")
@@ -394,6 +445,44 @@ export async function getMonetizationAdminSnapshot() {
       .eq("visibility", "public")
       .order("updated_at", { ascending: false })
       .limit(120),
+    supabase
+      .from("media_assets")
+      .select("id,owner_user_id,partner_profile_id,source_type,public_url,caption,credit_name,moderation_status,rights_status,created_at,updated_at")
+      .order("created_at", { ascending: false })
+      .limit(200),
+    supabase
+      .from("route_media")
+      .select("asset_id,route_id"),
+    supabase
+      .from("route_stop_media")
+      .select("asset_id,route_stop_id"),
+    supabase
+      .from("roadtrip_media")
+      .select("asset_id,roadtrip_route_id"),
+    supabase
+      .from("event_plan_media")
+      .select("asset_id,event_plan_id"),
+    supabase
+      .from("partner_profile_media")
+      .select("asset_id,partner_profile_id"),
+    supabase
+      .from("service_provider_media")
+      .select("asset_id,provider_id"),
+    supabase
+      .from("roadtrip_routes")
+      .select("id,title,slug")
+      .order("updated_at", { ascending: false })
+      .limit(120),
+    supabase
+      .from("event_plans")
+      .select("id,title")
+      .order("updated_at", { ascending: false })
+      .limit(120),
+    supabase
+      .from("media_reports")
+      .select("id,asset_id,reported_by_user_id,reason,note,status,created_at,updated_at")
+      .order("created_at", { ascending: false })
+      .limit(200),
   ]);
 
   for (const response of [
@@ -409,6 +498,16 @@ export async function getMonetizationAdminSnapshot() {
     entitlementsResp,
     creatorsResp,
     routesResp,
+    mediaResp,
+    routeMediaResp,
+    routeStopMediaResp,
+    roadtripMediaResp,
+    eventPlanMediaResp,
+    partnerProfileMediaResp,
+    serviceProviderMediaResp,
+    roadtripsResp,
+    eventPlansResp,
+    mediaReportsResp,
   ]) {
     if (response.error) throw response.error;
   }
@@ -426,5 +525,33 @@ export async function getMonetizationAdminSnapshot() {
     entitlements: (entitlementsResp.data ?? []) as AdminEntitlementRow[],
     creators: (creatorsResp.data ?? []) as AdminCreatorProfileRow[],
     routes: (routesResp.data ?? []) as AdminRouteRow[],
+    mediaAssets: (mediaResp.data ?? []) as AdminMediaRow[],
+    routeMedia: ((routeMediaResp.data ?? []) as { asset_id: string; route_id: string }[]).map((row) => ({
+      asset_id: row.asset_id,
+      target_id: row.route_id,
+    })) as AdminMediaAttachmentRow[],
+    routeStopMedia: ((routeStopMediaResp.data ?? []) as { asset_id: string; route_stop_id: string }[]).map((row) => ({
+      asset_id: row.asset_id,
+      target_id: row.route_stop_id,
+    })) as AdminMediaAttachmentRow[],
+    roadtripMedia: ((roadtripMediaResp.data ?? []) as { asset_id: string; roadtrip_route_id: string }[]).map((row) => ({
+      asset_id: row.asset_id,
+      target_id: row.roadtrip_route_id,
+    })) as AdminMediaAttachmentRow[],
+    eventPlanMedia: ((eventPlanMediaResp.data ?? []) as { asset_id: string; event_plan_id: string }[]).map((row) => ({
+      asset_id: row.asset_id,
+      target_id: row.event_plan_id,
+    })) as AdminMediaAttachmentRow[],
+    partnerProfileMedia: ((partnerProfileMediaResp.data ?? []) as { asset_id: string; partner_profile_id: string }[]).map((row) => ({
+      asset_id: row.asset_id,
+      target_id: row.partner_profile_id,
+    })) as AdminMediaAttachmentRow[],
+    serviceProviderMedia: ((serviceProviderMediaResp.data ?? []) as { asset_id: string; provider_id: string }[]).map((row) => ({
+      asset_id: row.asset_id,
+      target_id: row.provider_id,
+    })) as AdminMediaAttachmentRow[],
+    roadtrips: (roadtripsResp.data ?? []) as AdminRoadtripRow[],
+    eventPlans: (eventPlansResp.data ?? []) as AdminEventPlanRow[],
+    mediaReports: (mediaReportsResp.data ?? []) as AdminMediaReportRow[],
   };
 }

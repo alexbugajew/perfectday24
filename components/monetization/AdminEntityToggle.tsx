@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type Props = {
-  entity: "slot" | "campaign" | "affiliate" | "product" | "partner" | "provider";
+  entity: "slot" | "campaign" | "affiliate" | "product" | "partner" | "provider" | "media" | "media_report";
   id: string;
   patch: Record<string, unknown>;
   label: string;

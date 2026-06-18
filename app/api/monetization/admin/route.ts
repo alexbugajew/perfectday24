@@ -5,16 +5,60 @@ import {
   MonetizationAdminAccessError,
 } from "@/lib/monetization/admin-server";
 
-type UpdateEntity = "slot" | "campaign" | "affiliate" | "product" | "assignment" | "partner" | "provider";
+type UpdateEntity = "slot" | "campaign" | "affiliate" | "product" | "assignment" | "partner" | "provider" | "media" | "media_report";
 const REVIEW_STATUSES = ["draft", "submitted", "in_review", "changes_requested", "approved", "published"] as const;
+const MEDIA_STATUSES = ["draft", "submitted", "approved", "rejected", "featured"] as const;
+const MEDIA_REPORT_STATUSES = ["open", "reviewing", "resolved", "dismissed"] as const;
+const MEDIA_REPORT_REASONS = ["copyright", "irrelevant", "offensive", "duplicate", "privacy", "other"] as const;
+
+type MediaReportStatus = (typeof MEDIA_REPORT_STATUSES)[number];
+type MediaReportReason = (typeof MEDIA_REPORT_REASONS)[number];
 
 function isReviewStatus(value: unknown): value is (typeof REVIEW_STATUSES)[number] {
   return typeof value === "string" && REVIEW_STATUSES.includes(value as (typeof REVIEW_STATUSES)[number]);
 }
 
+function isMediaStatus(value: unknown): value is (typeof MEDIA_STATUSES)[number] {
+  return typeof value === "string" && MEDIA_STATUSES.includes(value as (typeof MEDIA_STATUSES)[number]);
+}
+
+function isMediaReportStatus(value: unknown): value is (typeof MEDIA_REPORT_STATUSES)[number] {
+  return typeof value === "string" && MEDIA_REPORT_STATUSES.includes(value as (typeof MEDIA_REPORT_STATUSES)[number]);
+}
+
+function isMediaReportReason(value: unknown): value is MediaReportReason {
+  return typeof value === "string" && MEDIA_REPORT_REASONS.includes(value as MediaReportReason);
+}
+
+function buildResolvedReportAssetPatch(reason: MediaReportReason, now: string) {
+  const assetPatch: Record<string, unknown> = {
+    moderation_status: "rejected",
+    visibility: "private",
+    updated_at: now,
+  };
+
+  if (reason === "copyright") {
+    assetPatch.rights_status = "rejected";
+  }
+
+  const noteByReason: Record<MediaReportReason, string> = {
+    copyright: "Policy-Aktion: Copyright-Meldung bestaetigt, Asset deaktiviert.",
+    privacy: "Policy-Aktion: Privatsphaeren-Meldung bestaetigt, Asset deaktiviert.",
+    offensive: "Policy-Aktion: Missbrauchs-/Offensive-Meldung bestaetigt, Asset deaktiviert.",
+    duplicate: "Policy-Aktion: Duplikat-Meldung bestaetigt, Asset deaktiviert.",
+    irrelevant: "Policy-Aktion: Qualitaets-/Relevanz-Meldung bestaetigt, Asset deaktiviert.",
+    other: "Policy-Aktion: Sonstige Meldung bestaetigt, Asset deaktiviert.",
+  };
+
+  return {
+    assetPatch,
+    moderationNote: noteByReason[reason],
+  };
+}
+
 export async function PATCH(req: NextRequest) {
   try {
-    await assertInternalMonetizationAdmin();
+    const adminUser = await assertInternalMonetizationAdmin();
     const body = (await req.json()) as {
       entity?: UpdateEntity;
       id?: string;
@@ -53,6 +97,110 @@ export async function PATCH(req: NextRequest) {
 
       const { error } = await supabase.from(table).update(updatePatch).eq("id", body.id);
       if (error) throw error;
+      return NextResponse.json({ ok: true });
+    }
+
+    if (body.entity === "media") {
+      const moderationStatus = body.patch.moderation_status;
+      if (!isMediaStatus(moderationStatus)) {
+        return NextResponse.json({ error: "invalid media status" }, { status: 400 });
+      }
+
+      const now = new Date().toISOString();
+      const updatePatch: Record<string, unknown> = {
+        moderation_status: moderationStatus,
+        updated_at: now,
+      };
+
+      if (moderationStatus === "draft") {
+        updatePatch.visibility = "private";
+      }
+      if (moderationStatus === "rejected") {
+        updatePatch.visibility = "private";
+      }
+      if (moderationStatus === "approved" || moderationStatus === "featured") {
+        updatePatch.visibility = "public";
+      }
+
+      const { error } = await supabase.from("media_assets").update(updatePatch).eq("id", body.id);
+      if (error) throw error;
+
+      const moderationEventAction =
+        moderationStatus === "featured"
+          ? "featured"
+          : moderationStatus === "approved"
+            ? "approved"
+            : moderationStatus === "rejected"
+              ? "rejected"
+              : moderationStatus === "submitted"
+                ? "submitted"
+                : null;
+
+      if (moderationEventAction) {
+        const { error: eventError } = await supabase.from("media_moderation_events").insert({
+          asset_id: body.id,
+          acted_by_user_id: adminUser.id,
+          action: moderationEventAction,
+        });
+        if (eventError) throw eventError;
+      }
+
+      return NextResponse.json({ ok: true });
+    }
+
+    if (body.entity === "media_report") {
+      const nextStatus = body.patch.status;
+      if (!isMediaReportStatus(nextStatus)) {
+        return NextResponse.json({ error: "invalid media report status" }, { status: 400 });
+      }
+
+      const { data: report, error: reportError } = await supabase
+        .from("media_reports")
+        .select("id, asset_id, reason, note")
+        .eq("id", body.id)
+        .maybeSingle();
+
+      if (reportError) throw reportError;
+      if (!report) {
+        return NextResponse.json({ error: "media report not found" }, { status: 404 });
+      }
+
+      const now = new Date().toISOString();
+
+      const { error } = await supabase
+        .from("media_reports")
+        .update({ status: nextStatus, updated_at: now })
+        .eq("id", body.id);
+      if (error) throw error;
+
+      if (nextStatus === "resolved") {
+        if (!isMediaReportReason(report.reason)) {
+          throw new Error("unsupported media report reason");
+        }
+
+        const { assetPatch, moderationNote } = buildResolvedReportAssetPatch(report.reason, now);
+
+        const { error: assetError } = await supabase
+          .from("media_assets")
+          .update(assetPatch)
+          .eq("id", report.asset_id);
+
+        if (assetError) throw assetError;
+
+        const moderationEventNote = report.note
+          ? `${moderationNote} Hinweis: ${report.note}`.slice(0, 500)
+          : moderationNote;
+
+        const { error: moderationEventError } = await supabase.from("media_moderation_events").insert({
+          asset_id: report.asset_id,
+          acted_by_user_id: adminUser.id,
+          action: "rejected",
+          note: moderationEventNote,
+        });
+
+        if (moderationEventError) throw moderationEventError;
+      }
+
       return NextResponse.json({ ok: true });
     }
 

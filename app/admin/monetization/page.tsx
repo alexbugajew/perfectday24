@@ -40,6 +40,45 @@ function formatDayLabel(value: string) {
   });
 }
 
+function formatMediaReportReason(reason: string) {
+  switch (reason) {
+    case "copyright":
+      return "Copyright";
+    case "privacy":
+      return "Privatsphaere";
+    case "offensive":
+      return "Missbrauch";
+    case "irrelevant":
+      return "Unpassend";
+    case "duplicate":
+      return "Duplikat";
+    default:
+      return "Sonstiges";
+  }
+}
+
+function getMediaReportPriority(reason: string, siblingOpenCount: number) {
+  if (reason === "privacy" || reason === "copyright") return "kritisch";
+  if (reason === "offensive" || siblingOpenCount >= 2) return "hoch";
+  return "normal";
+}
+
+function mediaReportPriorityClasses(priority: "kritisch" | "hoch" | "normal") {
+  if (priority === "kritisch") {
+    return "border-red-200 bg-red-50 text-red-800";
+  }
+  if (priority === "hoch") {
+    return "border-amber-200 bg-amber-50 text-amber-900";
+  }
+  return "border-black/10 bg-white text-[var(--text-muted)]";
+}
+
+function pushMediaTarget(map: Map<string, string[]>, assetId: string, label: string) {
+  const current = map.get(assetId) ?? [];
+  current.push(label);
+  map.set(assetId, current);
+}
+
 function firstSearchParam(value: string | string[] | undefined) {
   if (Array.isArray(value)) return value[0] ?? null;
   return value ?? null;
@@ -140,10 +179,13 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
   const snapshot = await getMonetizationAdminSnapshot();
 
   const partnerById = new Map(snapshot.partners.map((partner) => [partner.id, partner]));
+  const providerById = new Map(snapshot.providers.map((provider) => [provider.id, provider]));
   const productById = new Map(snapshot.products.map((product) => [product.id, product]));
   const slotById = new Map(snapshot.slots.map((slot) => [slot.id, slot]));
   const creatorById = new Map(snapshot.creators.map((creator) => [creator.id, creator]));
   const routeById = new Map(snapshot.routes.map((route) => [route.id, route]));
+  const roadtripById = new Map(snapshot.roadtrips.map((roadtrip) => [roadtrip.id, roadtrip]));
+  const eventPlanById = new Map(snapshot.eventPlans.map((eventPlan) => [eventPlan.id, eventPlan]));
 
   const activeSlots = snapshot.slots.filter((slot) => slot.status === "active").length;
   const activeCampaigns = snapshot.campaigns.filter((campaign) => campaign.status === "active").length;
@@ -404,6 +446,58 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
   const totalQueuedReviews =
     queuedPartners.length + queuedProviders.length + queuedCampaigns.length + queuedAffiliateLinks.length;
 
+  const mediaTargetsByAssetId = new Map<string, string[]>();
+  for (const row of snapshot.routeMedia) {
+    const route = routeById.get(row.target_id);
+    pushMediaTarget(mediaTargetsByAssetId, row.asset_id, `Route: ${route?.title ?? "oeffentliche Route"}`);
+  }
+  for (const row of snapshot.routeStopMedia) {
+    pushMediaTarget(mediaTargetsByAssetId, row.asset_id, "Route-Stop");
+  }
+  for (const row of snapshot.roadtripMedia) {
+    const roadtrip = roadtripById.get(row.target_id);
+    pushMediaTarget(mediaTargetsByAssetId, row.asset_id, `Roadtrip: ${roadtrip?.title ?? "Mehrtagesroute"}`);
+  }
+  for (const row of snapshot.eventPlanMedia) {
+    const eventPlan = eventPlanById.get(row.target_id);
+    pushMediaTarget(mediaTargetsByAssetId, row.asset_id, `Event: ${eventPlan?.title ?? "Event-Plan"}`);
+  }
+  for (const row of snapshot.partnerProfileMedia) {
+    const partner = partnerById.get(row.target_id);
+    pushMediaTarget(mediaTargetsByAssetId, row.asset_id, `Partner-Profil: ${partner?.display_name ?? "Profil"}`);
+  }
+  for (const row of snapshot.serviceProviderMedia) {
+    const provider = providerById.get(row.target_id);
+    pushMediaTarget(mediaTargetsByAssetId, row.asset_id, `Anbieter: ${provider?.name ?? "Service"}`);
+  }
+
+  const queuedMediaAssets = snapshot.mediaAssets.filter((asset) =>
+    ["submitted", "approved"].includes(asset.moderation_status)
+  );
+  const submittedMediaAssets = snapshot.mediaAssets.filter((asset) => asset.moderation_status === "submitted").length;
+  const approvedMediaAssets = snapshot.mediaAssets.filter((asset) => asset.moderation_status === "approved").length;
+  const featuredMediaAssets = snapshot.mediaAssets.filter((asset) => asset.moderation_status === "featured").length;
+  const rejectedMediaAssets = snapshot.mediaAssets.filter((asset) => asset.moderation_status === "rejected").length;
+  const openMediaReports = snapshot.mediaReports.filter((report) => report.status === "open");
+  const reviewingMediaReports = snapshot.mediaReports.filter((report) => report.status === "reviewing");
+  const resolvedMediaReports = snapshot.mediaReports.filter((report) => report.status === "resolved");
+  const dismissedMediaReports = snapshot.mediaReports.filter((report) => report.status === "dismissed");
+  const mediaReportsByAssetId = snapshot.mediaReports.reduce<Map<string, typeof snapshot.mediaReports>>((acc, report) => {
+    const current = acc.get(report.asset_id) ?? [];
+    current.push(report);
+    acc.set(report.asset_id, current);
+    return acc;
+  }, new Map());
+  const prioritizedMediaReports = [...snapshot.mediaReports].sort((a, b) => {
+    const aOpenSiblings = (mediaReportsByAssetId.get(a.asset_id) ?? []).filter((report) => ["open", "reviewing"].includes(report.status)).length;
+    const bOpenSiblings = (mediaReportsByAssetId.get(b.asset_id) ?? []).filter((report) => ["open", "reviewing"].includes(report.status)).length;
+    const priorityRank = { kritisch: 0, hoch: 1, normal: 2 };
+    const aPriority = priorityRank[getMediaReportPriority(a.reason, aOpenSiblings)];
+    const bPriority = priorityRank[getMediaReportPriority(b.reason, bOpenSiblings)];
+    if (aPriority !== bPriority) return aPriority - bPriority;
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8 rounded-[36px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-8 shadow-[var(--shadow-soft)]">
@@ -659,6 +753,271 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 )}
               </div>
             </div>
+          </div>
+        </Section>
+
+        <Section
+          title="Foto Moderation"
+          subtitle="Community-, Partner- und UGC-Bilder freigeben, ablehnen oder als Featured markieren."
+        >
+          <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              { label: "neu eingereicht", value: submittedMediaAssets },
+              { label: "freigegeben", value: approvedMediaAssets },
+              { label: "featured", value: featuredMediaAssets },
+              { label: "abgelehnt", value: rejectedMediaAssets },
+            ].map((item) => (
+              <div key={item.label} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
+                <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{item.label}</div>
+                <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{compactNumber(item.value)}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-3">
+            {queuedMediaAssets.length > 0 ? (
+              queuedMediaAssets.slice(0, 12).map((asset) => {
+                const partner = asset.partner_profile_id ? partnerById.get(asset.partner_profile_id) ?? null : null;
+                const targetLabels = mediaTargetsByAssetId.get(asset.id) ?? [];
+                const reportHistory = mediaReportsByAssetId.get(asset.id) ?? [];
+                const openReportCount = reportHistory.filter((report) => ["open", "reviewing"].includes(report.status)).length;
+                const hasSafetyHold = asset.moderation_status === "submitted" && reportHistory.length > 0;
+                return (
+                  <div key={asset.id} className="rounded-[24px] border border-black/5 bg-white p-4">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                      <div className="flex min-w-0 gap-4">
+                        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[18px] border border-black/5 bg-[var(--bg-panel)]">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={asset.public_url} alt={asset.caption ?? "Medienvorschau"} className="h-full w-full object-cover" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <div className="text-sm font-semibold text-[var(--text-strong)]">
+                              {asset.caption || "Foto ohne Titel"}
+                            </div>
+                            <span className="rounded-full border border-black/10 bg-[var(--bg-panel)] px-3 py-1 text-[11px] font-medium text-[var(--text-strong)]">
+                              {asset.moderation_status}
+                            </span>
+                            <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] text-[var(--text-muted)]">
+                              {asset.source_type}
+                            </span>
+                            {hasSafetyHold ? (
+                              <span className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-[11px] font-medium text-red-800">
+                                Safety Hold
+                              </span>
+                            ) : null}
+                          </div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">
+                            {partner?.display_name ?? "Community Upload"} - Rechte: {asset.rights_status} - Upload {formatDateTime(asset.created_at)}
+                          </div>
+                          {asset.credit_name ? (
+                            <div className="mt-2 text-xs text-[var(--text-muted)]">Quelle: {asset.credit_name}</div>
+                          ) : null}
+                          {targetLabels.length > 0 ? (
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              {targetLabels.slice(0, 3).map((label) => (
+                                <span
+                                  key={`${asset.id}-${label}`}
+                                  className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1 text-[11px] font-medium text-[var(--text-strong)]"
+                                >
+                                  {label}
+                                </span>
+                              ))}
+                            </div>
+                          ) : null}
+                          {reportHistory.length > 0 ? (
+                            <div className="mt-3 rounded-[18px] border border-amber-200 bg-amber-50 px-3 py-3">
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-950">
+                                  Meldehistorie
+                                </span>
+                                <span className="rounded-full border border-amber-300 bg-white px-2.5 py-1 text-[11px] font-medium text-amber-950">
+                                  {reportHistory.length} Meldungen
+                                </span>
+                                {openReportCount > 0 ? (
+                                  <span className="rounded-full border border-amber-300 bg-white px-2.5 py-1 text-[11px] font-medium text-amber-950">
+                                    {openReportCount} offen
+                                  </span>
+                                ) : null}
+                              </div>
+                              <div className="mt-2 space-y-2">
+                                {reportHistory.slice(0, 3).map((report) => (
+                                  <div key={report.id} className="rounded-[14px] border border-amber-200 bg-white px-3 py-2 text-xs text-amber-950">
+                                    <div className="flex flex-wrap items-center gap-2">
+                                      <span className="font-medium">{formatMediaReportReason(report.reason)}</span>
+                                      <span className="text-amber-800">· {report.status}</span>
+                                      <span className="text-amber-700">· {formatDateTime(report.created_at)}</span>
+                                    </div>
+                                    {report.note ? <div className="mt-1 text-amber-900/90">{report.note}</div> : null}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap justify-end gap-2">
+                        <AdminEntityToggle entity="media" id={asset.id} patch={{ moderation_status: "approved" }} label="Freigeben" />
+                        <AdminEntityToggle entity="media" id={asset.id} patch={{ moderation_status: "featured" }} label="Feature" tone="active" />
+                        <AdminEntityToggle entity="media" id={asset.id} patch={{ moderation_status: "rejected" }} label="Ablehnen" tone="warning" />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="rounded-[24px] border border-dashed border-black/10 bg-white p-5 text-sm text-[var(--text-muted)]">
+                Aktuell keine offenen Foto-Einreichungen in der Moderation.
+              </div>
+            )}
+          </div>
+        </Section>
+
+        <Section
+          title="Foto Meldungen"
+          subtitle="Copyright-, Missbrauchs- und Qualitaetsmeldungen direkt pruefen und abschliessen."
+        >
+          <div className="mb-6 rounded-[24px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950">
+            Wenn du eine Meldung als <span className="font-semibold">Geloest</span> markierst, wird das betroffene Bild aus
+            Sicherheitsgruenden automatisch auf <span className="font-semibold">rejected + private</span> gesetzt. Bei
+            bestaetigtem Copyright-Verstoss wird zusaetzlich der Rechte-Status auf <span className="font-semibold">rejected</span> gesetzt.
+          </div>
+
+          <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              { label: "offen", value: openMediaReports.length },
+              { label: "in Pruefung", value: reviewingMediaReports.length },
+              { label: "geloest", value: resolvedMediaReports.length },
+              { label: "abgewiesen", value: dismissedMediaReports.length },
+            ].map((item) => (
+              <div key={item.label} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
+                <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{item.label}</div>
+                <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{compactNumber(item.value)}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-3">
+            {snapshot.mediaReports.length > 0 ? (
+              prioritizedMediaReports.slice(0, 12).map((report) => {
+                const asset = snapshot.mediaAssets.find((item) => item.id === report.asset_id) ?? null;
+                const targetLabels = mediaTargetsByAssetId.get(report.asset_id) ?? [];
+                const reportHistory = mediaReportsByAssetId.get(report.asset_id) ?? [];
+                const openSiblingCount = reportHistory.filter((entry) => ["open", "reviewing"].includes(entry.status)).length;
+                const priority = getMediaReportPriority(report.reason, openSiblingCount);
+                const hasSafetyHold = asset?.moderation_status === "submitted" && asset?.rights_status !== "rejected";
+                return (
+                  <div key={report.id} className="rounded-[24px] border border-black/5 bg-white p-4">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                      <div className="flex min-w-0 gap-4">
+                        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[18px] border border-black/5 bg-[var(--bg-panel)]">
+                          {asset?.public_url ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={asset.public_url} alt={asset.caption ?? "Gemeldetes Bild"} className="h-full w-full object-cover" />
+                          ) : null}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <div className="text-sm font-semibold text-[var(--text-strong)]">
+                              {asset?.caption || "Gemeldetes Bild"}
+                            </div>
+                            <span className="rounded-full border border-black/10 bg-[var(--bg-panel)] px-3 py-1 text-[11px] font-medium text-[var(--text-strong)]">
+                              {report.reason}
+                            </span>
+                            <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] text-[var(--text-muted)]">
+                              {report.status}
+                            </span>
+                            <span className={`rounded-full border px-3 py-1 text-[11px] font-medium ${mediaReportPriorityClasses(priority)}`}>
+                              {priority}
+                            </span>
+                            {hasSafetyHold ? (
+                              <span className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-[11px] font-medium text-red-800">
+                                Auto Hold aktiv
+                              </span>
+                            ) : null}
+                          </div>
+                          <div className="mt-1 text-xs text-[var(--text-muted)]">
+                            Meldung vom {formatDateTime(report.created_at)}
+                            {asset?.credit_name ? ` - Quelle ${asset.credit_name}` : ""}
+                          </div>
+                          {openSiblingCount > 1 ? (
+                            <div className="mt-2 text-xs font-medium text-amber-900">
+                              {openSiblingCount} aktive Meldungen fuer dieses Bild.
+                            </div>
+                          ) : null}
+                          {asset ? (
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              <span className="rounded-full border border-black/10 bg-[var(--bg-panel)] px-3 py-1 text-[11px] font-medium text-[var(--text-strong)]">
+                                Asset: {asset.moderation_status}
+                              </span>
+                              <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] text-[var(--text-muted)]">
+                                Rechte: {asset.rights_status}
+                              </span>
+                            </div>
+                          ) : null}
+                          {report.note ? (
+                            <div className="mt-2 rounded-[14px] border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-900">
+                              {report.note}
+                            </div>
+                          ) : null}
+                          {targetLabels.length > 0 ? (
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              {targetLabels.slice(0, 3).map((label) => (
+                                <span
+                                  key={`${report.id}-${label}`}
+                                  className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1 text-[11px] font-medium text-[var(--text-strong)]"
+                                >
+                                  {label}
+                                </span>
+                              ))}
+                            </div>
+                          ) : null}
+                          {reportHistory.length > 1 ? (
+                            <div className="mt-3 rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3">
+                              <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                                Historie fuer dieses Bild
+                              </div>
+                              <div className="mt-2 space-y-2">
+                                {reportHistory.slice(0, 4).map((historyEntry) => (
+                                  <div
+                                    key={historyEntry.id}
+                                    className={`rounded-[14px] border px-3 py-2 text-xs ${
+                                      historyEntry.id === report.id
+                                        ? "border-amber-200 bg-amber-50 text-amber-950"
+                                        : "border-black/5 bg-white text-[var(--text-muted)]"
+                                    }`}
+                                  >
+                                    <div className="flex flex-wrap items-center gap-2">
+                                      <span className="font-medium text-[var(--text-strong)]">
+                                        {formatMediaReportReason(historyEntry.reason)}
+                                      </span>
+                                      <span>· {historyEntry.status}</span>
+                                      <span>· {formatDateTime(historyEntry.created_at)}</span>
+                                    </div>
+                                    {historyEntry.note ? <div className="mt-1">{historyEntry.note}</div> : null}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap justify-end gap-2">
+                        <AdminEntityToggle entity="media_report" id={report.id} patch={{ status: "reviewing" }} label="In Pruefung" />
+                        <AdminEntityToggle entity="media_report" id={report.id} patch={{ status: "resolved" }} label="Geloest" tone="active" />
+                        <AdminEntityToggle entity="media_report" id={report.id} patch={{ status: "dismissed" }} label="Abweisen" tone="warning" />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="rounded-[24px] border border-dashed border-black/10 bg-white p-5 text-sm text-[var(--text-muted)]">
+                Aktuell liegen keine Foto-Meldungen vor.
+              </div>
+            )}
           </div>
         </Section>
 
