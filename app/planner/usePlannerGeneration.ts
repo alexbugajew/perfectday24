@@ -27,6 +27,7 @@ import {
   EMPTY_PLANNER_RESULTS,
   EMPTY_PLANNED_STOPS,
 } from "./helpers";
+import { rescheduleStops, sortStopsChronologically } from "./rescheduleStops";
 import type {
   GroupPlanSummary,
   PlannerApiResponse,
@@ -272,13 +273,16 @@ export function usePlannerGeneration({
     activeVariant?.plannedStops ?? plannerData?.plannedStops ?? EMPTY_PLANNED_STOPS;
 
   const plannedStops: PlannedStop[] = useMemo(() => {
-    if (!manualStopOrder?.length) return rawPlannedStops;
+    if (!manualStopOrder?.length) {
+      return sortStopsChronologically(rawPlannedStops);
+    }
     const byIndex = new Map(rawPlannedStops.map((stop) => [stop.index, stop] as const));
     const ordered = manualStopOrder
       .map((index) => byIndex.get(index))
       .filter((stop): stop is PlannedStop => Boolean(stop));
     const remaining = rawPlannedStops.filter((stop) => !manualStopOrder.includes(stop.index));
-    return [...ordered, ...remaining];
+    const rescheduled = rescheduleStops([...ordered, ...remaining]);
+    return sortStopsChronologically(rescheduled);
   }, [rawPlannedStops, manualStopOrder]);
 
   const occasionFlow = useMemo(() => {
@@ -292,8 +296,8 @@ export function usePlannerGeneration({
       return [];
     }
 
-    return plannedStops.map((stop) => {
-      const slot = plannerData?.context.slotTemplate[Math.max(0, stop.index - 1)];
+    return plannedStops.map((stop, i) => {
+      const slot = plannerData?.context.slotTemplate[i];
       return {
         stop,
         phase: slot?.phase ?? null,

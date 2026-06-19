@@ -280,35 +280,66 @@ export function applyStopSchedule(params: {
       // Backward pass — each pre-anchor stop is scheduled before the event.
       // Floor to 07:00 so we never produce impossible pre-dawn times.
       const dayFloor = new Date(dayBase.getTime() + earliestStartMin * 60000);
-      let cursor = entryAt;
-      for (let i = anchorIndex - 1; i >= 0; i--) {
+
+      // Pre-check: do all pre-stops fit between dayFloor and the event?
+      let requiredMin = 0;
+      for (let i = 0; i < anchorIndex; i++) {
         const stop = cloned[i];
-        const durationMin = stop.durationMin ?? stop.item?.duration_min ?? 60;
-        const travelMin = cloned[i + 1].travelMinFromPrev ?? 0;
-        const endAt = withMinutes(cursor, -travelMin);
-        // Apply floor: don't go earlier than 07:00
-        const startAtRaw = withMinutes(endAt, -durationMin);
-        const startAt = startAtRaw.getTime() < dayFloor.getTime() ? dayFloor : startAtRaw;
-        const endAtFloored = startAt.getTime() < endAt.getTime() ? endAt : withMinutes(startAt, durationMin);
-        stop.scheduledStartAt = startAt.toISOString();
-        stop.scheduledEndAt = endAtFloored.toISOString();
-        stop.timingLock = "none";
-        stop.timingWarnings = [];
-        cursor = startAt;
+        requiredMin += stop.durationMin ?? stop.item?.duration_min ?? 60;
+        const travelMin = cloned[i + 1]?.travelMinFromPrev ?? 0;
+        requiredMin += travelMin;
+      }
+      const availableMin = Math.max(
+        0,
+        Math.round((entryAt.getTime() - dayFloor.getTime()) / 60000)
+      );
+
+      if (requiredMin > availableMin && anchorIndex > 0) {
+        // Forward distribution from dayFloor instead — chronologically valid,
+        // but flagged so the user sees the squeeze.
+        let cursor = dayFloor;
+        for (let i = 0; i < anchorIndex; i++) {
+          const stop = cloned[i];
+          const durationMin = stop.durationMin ?? stop.item?.duration_min ?? 60;
+          const travelMin = i === 0 ? 0 : stop.travelMinFromPrev ?? 0;
+          const startAt = withMinutes(cursor, travelMin);
+          const endAt = withMinutes(startAt, durationMin);
+          stop.scheduledStartAt = startAt.toISOString();
+          stop.scheduledEndAt = endAt.toISOString();
+          stop.timingLock = "none";
+          stop.timingWarnings = [
+            "Der Vorlauf vor dem Event ist sehr knapp. Plan zeigt einen früheren Start, kann sich kurzfristig verschieben.",
+          ];
+          cursor = endAt;
+        }
+      } else {
+        let cursor = entryAt;
+        for (let i = anchorIndex - 1; i >= 0; i--) {
+          const stop = cloned[i];
+          const durationMin = stop.durationMin ?? stop.item?.duration_min ?? 60;
+          const travelMin = cloned[i + 1].travelMinFromPrev ?? 0;
+          const endAt = withMinutes(cursor, -travelMin);
+          const startAt = withMinutes(endAt, -durationMin);
+          stop.scheduledStartAt = startAt.toISOString();
+          stop.scheduledEndAt = endAt.toISOString();
+          stop.timingLock = "none";
+          stop.timingWarnings = [];
+          cursor = startAt;
+        }
       }
 
-      cursor = eventEnd;
+      let forwardCursor = eventEnd;
       for (let i = anchorIndex + 1; i < cloned.length; i++) {
         const stop = cloned[i];
         const durationMin = stop.durationMin ?? stop.item?.duration_min ?? 60;
         const travelMin = stop.travelMinFromPrev ?? 0;
-        const startAt = withMinutes(cursor, travelMin);
+        const startAt = withMinutes(forwardCursor, travelMin);
         const endAt = withMinutes(startAt, durationMin);
         stop.scheduledStartAt = startAt.toISOString();
         stop.scheduledEndAt = endAt.toISOString();
         stop.timingLock = "none";
         stop.timingWarnings = [];
-        cursor = endAt;
+        forwardCursor = endAt;
       }
 
       anchor.timingWarnings = [];

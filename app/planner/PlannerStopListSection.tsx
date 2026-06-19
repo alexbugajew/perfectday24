@@ -402,7 +402,7 @@ export default function PlannerStopListSection({
                         }`}
                       >
                         {phaseMeta(
-                          plannerData?.context.slotTemplate[Math.max(0, stop.index - 1)]?.phase,
+                          plannerData?.context.slotTemplate[i]?.phase,
                           occasion
                         )?.label ??
                           (occasion === "date"
