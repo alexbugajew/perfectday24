@@ -81,10 +81,10 @@ function plannerStopVisualMeta(stop: PlannedStop) {
     return { icon: "FO", label: "Food" };
   }
   if (category === "cafe" || type.includes("cafe") || type.includes("coffee")) {
-    return { icon: "CA", label: "Cafe" };
+    return { icon: "CA", label: "Café" };
   }
   if (category === "nightlife" || type.includes("bar") || type.includes("club")) {
-    return { icon: "NI", label: "Nightlife" };
+    return { icon: "NI", label: "Bar" };
   }
   if (category === "culture" || type.includes("museum") || type.includes("gallery")) {
     return { icon: "CU", label: "Kultur" };
@@ -100,83 +100,50 @@ function hasPlannerEvent(stop: PlannedStop) {
   return stop.item?.source_primary === "planner_event" || stop.item?.category === "event";
 }
 
-function formatShortMinutes(minutes: number | null | undefined) {
-  if (typeof minutes !== "number" || !Number.isFinite(minutes) || minutes <= 0) return "-";
-  if (minutes < 60) return `${Math.round(minutes)} Min`;
-  const hours = Math.floor(minutes / 60);
-  const rest = Math.round(minutes % 60);
-  return rest > 0 ? `${hours} h ${rest} Min` : `${hours} h`;
-}
-
 function compactReason(reason: string) {
   return reason.replace(/\s+/g, " ").trim();
 }
 
-function routeQualityMetrics(plannedStops: PlannedStop[], routeProfile: RouteProfile) {
-  const activeStops = plannedStops.filter((stop) => stop.item).length;
-  const eventStops = plannedStops.filter(hasPlannerEvent).length;
-  const timedStops = plannedStops.filter((stop) => stop.scheduledStartAt || stop.timingLock === "event").length;
-  const warningCount = plannedStops.reduce((sum, stop) => sum + (stop.timingWarnings?.length ?? 0), 0);
-  const travelMinutes = plannedStops.reduce((sum, stop) => sum + (stop.travelMinFromPrev ?? 0), 0);
-
-  return [
-    { label: "Stops", value: `${activeStops}/${plannedStops.length}`, note: "aktiv geplant" },
-    {
-      label: "Event-Anker",
-      value: eventStops > 0 ? String(eventStops) : "0",
-      note: eventStops > 0 ? "zeitlich eingebaut" : "optional",
-    },
-    {
-      label: "Timing",
-      value: warningCount > 0 ? `${warningCount} Hinweis` : timedStops > 0 ? `${timedStops} fix` : "flex",
-      note: warningCount > 0 ? "bitte prüfen" : "route stabil",
-    },
-    { label: "Transfer", value: formatShortMinutes(travelMinutes), note: routeProfileLabel(routeProfile) },
-  ];
-}
-
-function stopQualitySignals(stop: PlannedStop, index: number, routeProfile: RouteProfile, groupEnabled: boolean) {
+/**
+ * Returns max 2 quality signals — focused on what's actually useful to the
+ * user (warnings, event anchors, group context, transfer character).
+ * Match-score chips, "Zeitfenster gesetzt" and "Guter Einstieg" were noise.
+ */
+function stopQualitySignals(
+  stop: PlannedStop,
+  index: number,
+  routeProfile: RouteProfile,
+  groupEnabled: boolean
+): string[] {
   const signals: string[] = [];
 
+  if (stop.timingWarnings?.length) signals.push("Timing prüfen");
   if (hasPlannerEvent(stop)) signals.push("Event-Anker");
-  if (stop.timingLock === "event") {
-    signals.push("Zeit fixiert");
-  } else if (stop.scheduledStartAt) {
-    signals.push("Zeitfenster gesetzt");
-  } else {
-    signals.push("Flexibler Slot");
-  }
-
-  if (index === 0) {
-    signals.push("Guter Einstieg");
-  } else if (typeof stop.travelMinFromPrev === "number") {
-    if (stop.travelMinFromPrev <= 12) signals.push("Kurzer Wechsel");
-    else if (stop.travelMinFromPrev <= 25) signals.push("Weg geprüft");
-    else signals.push("Bewusster Transfer");
-  }
 
   if (groupEnabled && stop.groupDecision) {
     if (stop.groupDecision.compromiseLevel === "shared") signals.push("Gruppenfit");
-    else if (stop.groupDecision.compromiseLevel === "balanced") signals.push("Balance-Stop");
-    else signals.push("Persönlicher Fit");
+    else if (stop.groupDecision.compromiseLevel === "balanced") signals.push("Kompromiss");
   }
 
-  if (typeof stop.item?.totalScore === "number") {
-    if (stop.item.totalScore >= 80) signals.push("Hoher Match-Score");
-    else if (stop.item.totalScore >= 60) signals.push("Solider Match");
+  if (index > 0 && typeof stop.travelMinFromPrev === "number") {
+    if (routeProfile === "foot" && stop.travelMinFromPrev <= 18) signals.push("Fußläufig");
+    else if (stop.travelMinFromPrev > 30) signals.push("Längerer Transfer");
   }
 
-  if (routeProfile === "foot" && index > 0) signals.push("Fußläufig");
-  if (stop.timingWarnings?.length) signals.push("Timing prüfen");
-
-  return Array.from(new Set(signals)).slice(0, 5);
+  return Array.from(new Set(signals)).slice(0, 2);
 }
 
 function visibleStopReasons(stop: PlannedStop) {
   const reasons = (stop.reasons ?? []).map(compactReason).filter(Boolean);
   if (reasons.length > 0) return Array.from(new Set(reasons)).slice(0, 2);
-
   return (stop.item?.retrievalReasons ?? []).map(compactReason).filter(Boolean).slice(0, 2);
+}
+
+function travelConnectorLabel(stop: PlannedStop, routeProfile: RouteProfile): string | null {
+  if (typeof stop.travelMinFromPrev !== "number" || stop.travelMinFromPrev <= 0) return null;
+  const verb =
+    routeProfile === "foot" ? "zu Fuß" : routeProfile === "public_transit" ? "mit ÖPNV" : "mit Auto";
+  return `${stop.travelMinFromPrev} Min ${verb}`;
 }
 
 export default function PlannerStopListSection({
@@ -184,7 +151,6 @@ export default function PlannerStopListSection({
   occasion,
   plannerData,
   routeProfile,
-  activeVariantLabel,
   activeVariantReason,
   draggedStopPosition,
   groupEnabled,
@@ -196,72 +162,27 @@ export default function PlannerStopListSection({
   onSetDraggedStopPosition,
   onBumpStop,
 }: PlannerStopListSectionProps) {
-  const routeMetrics = routeQualityMetrics(plannedStops, routeProfile);
-
   return (
-    <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
-      <div className="mb-3 border-b border-[rgba(68,57,46,0.08)] pb-3">
-        {/* Header: kompakt auf Mobile, ausführlicher auf Desktop */}
-        <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
-              Euer Plan
-            </div>
-            <h3 className="mt-0.5 text-base font-semibold tracking-tight text-[var(--text-strong)] sm:text-xl">
-              {occasion === "date" ? "Euer Abend, Schritt für Schritt." : occasion === "tourism" ? "Euer Tag, Schritt für Schritt." : "Euer Plan, Schritt für Schritt."}
-            </h3>
-            {activeVariantReason ? (
-              <p className="mt-1 line-clamp-2 max-w-2xl text-xs leading-5 text-[var(--text-muted)] italic sm:text-sm sm:leading-relaxed">
-                {activeVariantReason}
-              </p>
-            ) : null}
-          </div>
+    <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)] sm:p-5">
+      <header className="mb-5 border-b border-[rgba(68,57,46,0.08)] pb-4">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+          Euer Plan
         </div>
+        <h3 className="mt-1 text-base font-semibold tracking-tight text-[var(--text-strong)] sm:text-xl">
+          {occasion === "date"
+            ? "Euer Abend, Schritt für Schritt."
+            : occasion === "tourism"
+              ? "Euer Tag, Schritt für Schritt."
+              : "Euer Plan, Schritt für Schritt."}
+        </h3>
+        {activeVariantReason ? (
+          <p className="mt-1.5 line-clamp-2 max-w-2xl text-xs leading-5 text-[var(--text-muted)] italic sm:text-sm sm:leading-relaxed">
+            {activeVariantReason}
+          </p>
+        ) : null}
+      </header>
 
-        {/* Chips + Metriken: auf Mobile als kompakte Inline-Zeile */}
-        <div className="mt-2 flex flex-wrap items-center gap-1.5">
-          <span className="warm-chip rounded-full px-2.5 py-1 text-[11px]">
-            {plannedStops.filter((stop) => stop.item).length} Stops
-          </span>
-          <span className="rounded-full border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
-            {routeProfileLabel(routeProfile)}
-          </span>
-          <span className="rounded-full border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
-            {activeVariantLabel ?? "Hauptvariante"}
-          </span>
-          {/* Metriken inline auf Mobile */}
-          {routeMetrics.map((metric) => (
-            <span
-              key={metric.label}
-              className="rounded-full border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-2.5 py-1 text-[11px] text-[var(--text-muted)] sm:hidden"
-              title={metric.note}
-            >
-              <span className="font-semibold text-[var(--text-strong)]">{metric.value}</span>
-              {" "}{metric.label}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Metrik-Kacheln: nur auf sm+ sichtbar */}
-      <div className="mb-4 hidden gap-2 sm:grid sm:grid-cols-2 lg:grid-cols-4">
-        {routeMetrics.map((metric) => (
-          <div
-            key={metric.label}
-            className="rounded-lg border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] px-3 py-2"
-          >
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-              {metric.label}
-            </div>
-            <div className="mt-1 text-base font-semibold tracking-tight text-[var(--text-strong)]">
-              {metric.value}
-            </div>
-            <div className="mt-0.5 text-[11px] text-[var(--text-muted)]">{metric.note}</div>
-          </div>
-        ))}
-      </div>
-
-      <div className="space-y-4">
+      <ol className="relative space-y-0">
         {plannedStops.map((stop, i) => {
           const sourceRefs = readEventSourceRefs(stop.item?.source_refs);
           const eventTravelNote = eventTravelPriorityNote(stop, i, routeProfile);
@@ -269,169 +190,181 @@ export default function PlannerStopListSection({
           const visualMeta = plannerStopVisualMeta(stop);
           const qualitySignals = stopQualitySignals(stop, i, routeProfile, groupEnabled);
           const primaryReasons = visibleStopReasons(stop);
+          const isLast = i === plannedStops.length - 1;
+          const phaseLabel =
+            phaseMeta(plannerData?.context.slotTemplate[i]?.phase, occasion)?.label ?? null;
+          const travelLabel = travelConnectorLabel(stop, routeProfile);
 
           return (
-            <div
-              key={stop.index}
-              draggable
-              onDragStart={(event) => {
-                event.dataTransfer.effectAllowed = "move";
-                event.dataTransfer.setData("text/plain", String(i));
-                onSetDraggedStopPosition(i);
-              }}
-              onDragOver={(event) => {
-                event.preventDefault();
-                event.dataTransfer.dropEffect = "move";
-              }}
-              onDrop={(event) => {
-                event.preventDefault();
-                const fromPosition = Number.parseInt(event.dataTransfer.getData("text/plain"), 10);
-                if (Number.isNaN(fromPosition)) return;
-                onMovePlannedStop(fromPosition, i);
-                onSetDraggedStopPosition(null);
-              }}
-              onDragEnd={() => onSetDraggedStopPosition(null)}
-              className={`relative overflow-hidden rounded-lg border p-3 shadow-[0_10px_24px_rgba(49,39,27,0.05)] sm:p-4 ${
-                draggedStopPosition === i
-                  ? "border-[rgba(199,104,60,0.28)] bg-[rgba(255,248,240,0.96)] opacity-75"
-                  : "border-[rgba(68,57,46,0.08)] bg-[rgba(255,253,248,0.94)]"
-              }`}
-            >
-              <div className="pointer-events-none absolute right-0 top-0 h-24 w-24 rounded-full bg-[rgba(199,104,60,0.08)] blur-2xl" />
-              <div className="relative flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                <div className="relative h-36 overflow-hidden rounded-lg border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] md:h-32 md:w-36 md:shrink-0">
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-[linear-gradient(135deg,rgba(248,244,237,0.96),rgba(231,238,242,0.92))] text-center">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-md border border-[rgba(68,57,46,0.12)] bg-white text-sm font-semibold tracking-[0.14em] text-[var(--text-strong)] shadow-sm">
-                      {visualMeta.icon}
-                    </div>
-                    <div className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
-                      {visualMeta.label}
-                    </div>
-                  </div>
-                  {imageUrl ? (
-                    <Image
-                      src={imageUrl}
-                      alt={stop.item?.name ? `Bild von ${stop.item.name}` : `${visualMeta.label} Bild`}
-                      fill
-                      sizes="(min-width: 768px) 144px, 100vw"
-                      className="object-cover"
-                      loading="lazy"
-                      unoptimized
-                      onError={(event) => {
-                        event.currentTarget.style.display = "none";
-                      }}
-                    />
-                  ) : null}
-                  <div className="absolute left-2 top-2 rounded-md bg-white/90 px-2 py-1 text-[10px] font-semibold text-[var(--text-strong)] shadow-sm">
-                    {i + 1}
-                  </div>
+            <li key={stop.index} className="relative">
+              {/* Travel connector before this stop (not for first) */}
+              {i > 0 && travelLabel ? (
+                <div className="ml-[88px] flex items-center gap-3 py-2 sm:ml-[112px]">
+                  <span className="h-5 w-px bg-[rgba(68,57,46,0.18)]" />
+                  <span className="text-[11px] text-[var(--text-muted)]">↓ {travelLabel}</span>
+                </div>
+              ) : null}
+
+              <div
+                draggable
+                onDragStart={(event) => {
+                  event.dataTransfer.effectAllowed = "move";
+                  event.dataTransfer.setData("text/plain", String(i));
+                  onSetDraggedStopPosition(i);
+                }}
+                onDragOver={(event) => {
+                  event.preventDefault();
+                  event.dataTransfer.dropEffect = "move";
+                }}
+                onDrop={(event) => {
+                  event.preventDefault();
+                  const fromPosition = Number.parseInt(event.dataTransfer.getData("text/plain"), 10);
+                  if (Number.isNaN(fromPosition)) return;
+                  onMovePlannedStop(fromPosition, i);
+                  onSetDraggedStopPosition(null);
+                }}
+                onDragEnd={() => onSetDraggedStopPosition(null)}
+                className={`relative flex gap-3 sm:gap-4 ${
+                  draggedStopPosition === i ? "opacity-60" : ""
+                }`}
+              >
+                {/* Time column + timeline marker */}
+                <div className="relative flex w-[72px] shrink-0 flex-col items-end pr-3 sm:w-[96px] sm:pr-4">
                   {stop.scheduledStartAt ? (
-                    <div className="absolute bottom-0 left-0 right-0 flex items-center gap-1 bg-black/55 px-2 py-1.5 text-[10px] font-medium text-white">
-                      <span>⏰</span>
-                      <span>
+                    <>
+                      <div className="text-base font-semibold tabular-nums tracking-tight text-[var(--text-strong)] sm:text-lg">
                         {formatPlannerTime(stop.scheduledStartAt)}
-                        {stop.scheduledEndAt ? ` – ${formatPlannerTime(stop.scheduledEndAt)}` : ""}
-                        {stop.timingLock === "event" ? " · fix" : ""}
-                      </span>
-                    </div>
+                      </div>
+                      {stop.scheduledEndAt ? (
+                        <div className="text-[11px] tabular-nums text-[var(--text-muted)]">
+                          – {formatPlannerTime(stop.scheduledEndAt)}
+                        </div>
+                      ) : null}
+                      {stop.timingLock === "event" ? (
+                        <div className="mt-0.5 rounded-full bg-[var(--brand-accent-soft)] px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-[var(--brand-accent)]">
+                          fix
+                        </div>
+                      ) : null}
+                    </>
+                  ) : (
+                    <div className="text-xs text-[var(--text-muted)]">flexibel</div>
+                  )}
+
+                  {/* Vertical timeline line + position marker */}
+                  <span
+                    aria-hidden
+                    className="absolute right-0 top-1 z-10 flex h-6 w-6 -translate-x-[-3px] items-center justify-center rounded-full bg-[var(--text-strong)] text-[10px] font-semibold text-white shadow-sm"
+                  >
+                    {i + 1}
+                  </span>
+                  {!isLast ? (
+                    <span
+                      aria-hidden
+                      className="absolute right-[10px] top-8 bottom-[-16px] w-px bg-[rgba(68,57,46,0.18)]"
+                    />
                   ) : null}
                 </div>
 
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--text-strong)] text-xs font-semibold text-white shadow-sm">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                        className="inline-flex cursor-grab items-center gap-1.5 rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-2 py-1 text-[11px] font-medium text-[var(--text-muted)] shadow-sm active:cursor-grabbing"
-                      title="Zum Verschieben ziehen"
-                    >
-                      <span className="text-sm leading-none text-[var(--text-muted)]">⋮⋮</span>
-                      <span>Verschieben</span>
-                    </span>
-                    <div className="flex items-center gap-1 sm:hidden">
-                      <button
-                        type="button"
-                        onClick={() => onMovePlannedStop(i, Math.max(0, i - 1))}
-                        disabled={i === 0}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[rgba(68,57,46,0.12)] bg-white text-xs text-[var(--text-muted)] disabled:cursor-not-allowed disabled:opacity-40"
-                        aria-label="Stop nach oben verschieben"
-                      >
-                        ↑
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => onMovePlannedStop(i, Math.min(plannedStops.length - 1, i + 1))}
-                        disabled={i === plannedStops.length - 1}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[rgba(68,57,46,0.12)] bg-white text-xs text-[var(--text-muted)] disabled:cursor-not-allowed disabled:opacity-40"
-                        aria-label="Stop nach unten verschieben"
-                      >
-                        ↓
-                      </button>
+                {/* Card */}
+                <div
+                  className={`min-w-0 flex-1 rounded-lg border p-3 sm:p-4 ${
+                    draggedStopPosition === i
+                      ? "border-[rgba(199,104,60,0.32)] bg-[rgba(255,248,240,0.96)]"
+                      : "border-[rgba(68,57,46,0.08)] bg-[rgba(255,253,248,0.94)]"
+                  }`}
+                >
+                  <div className="flex gap-3 sm:gap-4">
+                    {/* Thumb */}
+                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] sm:h-24 sm:w-24">
+                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[linear-gradient(135deg,rgba(248,244,237,0.96),rgba(231,238,242,0.92))]">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-md border border-[rgba(68,57,46,0.12)] bg-white text-xs font-semibold tracking-[0.14em] text-[var(--text-strong)] shadow-sm">
+                          {visualMeta.icon}
+                        </div>
+                        <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                          {visualMeta.label}
+                        </div>
+                      </div>
+                      {imageUrl ? (
+                        <Image
+                          src={imageUrl}
+                          alt={stop.item?.name ? `Bild von ${stop.item.name}` : `${visualMeta.label} Bild`}
+                          fill
+                          sizes="(min-width: 768px) 96px, 80px"
+                          className="object-cover"
+                          loading="lazy"
+                          unoptimized
+                          onError={(event) => {
+                            event.currentTarget.style.display = "none";
+                          }}
+                        />
+                      ) : null}
                     </div>
-                    {occasion === "date" ||
-                    occasion === "family" ||
-                    occasion === "friends" ||
-                    occasion === "tourism" ||
-                    occasion === "party" ? (
-                      <span
-                        className={`text-[11px] px-2 py-1 rounded-full border font-medium ${
-                          occasion === "date"
-                            ? "bg-rose-100 text-rose-700 border-rose-200"
-                            : occasion === "family"
-                              ? "bg-[var(--brand-accent-soft)] text-[var(--brand-accent)] border-[var(--brand-accent)]/25"
-                              : occasion === "friends"
-                                ? "bg-[var(--brand-accent-cloud)] text-[var(--state-warning)] border-[var(--state-warning)]/25"
-                                : occasion === "tourism"
-                                  ? "bg-[var(--brand-accent-cloud)] text-[var(--state-success)] border-[var(--state-success)]/25"
-                                  : "bg-fuchsia-100 text-fuchsia-700 border-fuchsia-200"
-                        }`}
-                      >
-                        {phaseMeta(
-                          plannerData?.context.slotTemplate[i]?.phase,
-                          occasion
-                        )?.label ??
-                          (occasion === "date"
-                            ? "Date-Phase"
-                            : occasion === "family"
-                              ? "Familien-Phase"
-                              : occasion === "friends"
-                                ? "Freunde-Phase"
-                                : occasion === "tourism"
-                                  ? "Tourism-Phase"
-                                  : "Party-Phase")}
-                      </span>
-                    ) : null}
-                    <h3 className="text-base font-semibold tracking-tight text-[var(--text-strong)]">
-                      {stop.label}{" "}
-                      <span className="text-xs font-normal text-[var(--text-muted)]">| {stop.hint}</span>
-                    </h3>
+
+                    {/* Body */}
+                    <div className="min-w-0 flex-1">
+                      {/* Phase chip + mobile reorder controls */}
+                      <div className="flex items-center justify-between gap-2">
+                        {phaseLabel ? (
+                          <span className="rounded-full bg-[var(--bg-panel)] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[var(--text-muted)]">
+                            {phaseLabel}
+                          </span>
+                        ) : <span />}
+                        <div className="flex items-center gap-1 sm:hidden">
+                          <button
+                            type="button"
+                            onClick={() => onMovePlannedStop(i, Math.max(0, i - 1))}
+                            disabled={i === 0}
+                            className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[rgba(68,57,46,0.12)] bg-white text-xs text-[var(--text-muted)] disabled:opacity-40"
+                            aria-label="Stop nach oben"
+                          >
+                            ↑
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => onMovePlannedStop(i, Math.min(plannedStops.length - 1, i + 1))}
+                            disabled={i === plannedStops.length - 1}
+                            className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[rgba(68,57,46,0.12)] bg-white text-xs text-[var(--text-muted)] disabled:opacity-40"
+                            aria-label="Stop nach unten"
+                          >
+                            ↓
+                          </button>
+                        </div>
+                      </div>
+
+                      <h3 className="mt-1.5 text-base font-semibold tracking-tight text-[var(--text-strong)] sm:text-lg">
+                        {stop.item?.name ?? stop.label}
+                      </h3>
+                      <div className="mt-1 text-xs text-[var(--text-muted)]">
+                        {stop.hint}
+                        {stop.durationMin != null ? ` · ${stop.durationMin} Min` : null}
+                      </div>
+
+                      {/* Max 2 quality signals + warning chip */}
+                      {qualitySignals.length > 0 || stop.timingWarnings?.length ? (
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {stop.timingWarnings?.length ? (
+                            <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-0.5 text-[10px] font-medium text-rose-700">
+                              ⚠ Timing prüfen
+                            </span>
+                          ) : null}
+                          {qualitySignals
+                            .filter((s) => s !== "Timing prüfen")
+                            .map((signal) => (
+                              <span
+                                key={`${stop.index}-${signal}`}
+                                className="rounded-full border border-[rgba(68,57,46,0.1)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]"
+                              >
+                                {signal}
+                              </span>
+                            ))}
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
 
                   {stop.item ? (
                     <>
-                      <p className="mt-2 text-lg font-semibold tracking-tight text-[var(--text-strong)]">
-                        {stop.item.name}
-                      </p>
-                      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--text-muted)]">
-                        <span className="rounded-full border border-[rgba(68,57,46,0.08)] bg-white px-2.5 py-1">
-                          {stop.item.type}
-                        </span>
-                        <span>
-                          {stop.durationMin ?? "-"} Min
-                          {stop.travelMinFromPrev != null ? ` · ~${stop.travelMinFromPrev} Min Weg` : ""}
-                        </span>
-                        {stop.item.distanceFromOriginKm != null ? (
-                          <span>{stop.item.distanceFromOriginKm.toFixed(1)} km vom Start</span>
-                        ) : null}
-                        {stop.timingWarnings?.length ? (
-                          <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-1 text-[11px] font-medium text-rose-700">
-                            ⚠ Timing prüfen
-                          </span>
-                        ) : null}
-                      </div>
-
-                      {/* Event-Highlight info (compact, always visible for event stops) */}
+                      {/* Event quick info */}
                       {stop.item.source_primary === "planner_event" ? (
                         <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-[var(--state-warning)]">
                           <span className="font-semibold">
@@ -485,112 +418,119 @@ export default function PlannerStopListSection({
                         </div>
                       ) : null}
 
-                      {/* Reservation link for non-events */}
-                      {stop.item.source_primary !== "planner_event" ? (
-                        (() => {
-                          const affiliateMatch = affiliateResolution.byLocationId[stop.item!.id] ?? null;
-                          const reservationTargetUrl = affiliateMatch?.targetUrl ?? stop.item!.reservation_url ?? null;
-                          if (!reservationTargetUrl) return null;
-                          return (
-                            <div className="mt-3">
-                              <MonetizedExternalLink
-                                href={reservationTargetUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                userId={userId}
-                                locationId={stop.item!.id}
-                                partnerProfileId={affiliateMatch?.partnerProfileId ?? null}
-                                affiliateLinkId={affiliateMatch?.id ?? null}
-                                citySlug={effectiveCitySlug}
-                                surface="planner_stop"
-                                label={stop.item!.name}
-                                source={affiliateMatch ? "planner_stop_affiliate_cta" : "planner_stop_primary_cta"}
-                                className="rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)] hover:bg-[var(--brand-accent-cloud)]"
-                              >
-                                {affiliateMatch ? `${affiliateMatch.providerName} öffnen` : "Reservieren"}
-                              </MonetizedExternalLink>
-                            </div>
-                          );
-                        })()
-                      ) : null}
+                      {/* Reservation CTA for non-events */}
+                      {stop.item.source_primary !== "planner_event"
+                        ? (() => {
+                            const affiliateMatch = affiliateResolution.byLocationId[stop.item!.id] ?? null;
+                            const reservationTargetUrl = affiliateMatch?.targetUrl ?? stop.item!.reservation_url ?? null;
+                            if (!reservationTargetUrl) return null;
+                            return (
+                              <div className="mt-3">
+                                <MonetizedExternalLink
+                                  href={reservationTargetUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  userId={userId}
+                                  locationId={stop.item!.id}
+                                  partnerProfileId={affiliateMatch?.partnerProfileId ?? null}
+                                  affiliateLinkId={affiliateMatch?.id ?? null}
+                                  citySlug={effectiveCitySlug}
+                                  surface="planner_stop"
+                                  label={stop.item!.name}
+                                  source={affiliateMatch ? "planner_stop_affiliate_cta" : "planner_stop_primary_cta"}
+                                  className="rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)] hover:bg-[var(--brand-accent-cloud)]"
+                                >
+                                  {affiliateMatch ? `${affiliateMatch.providerName} öffnen` : "Reservieren"}
+                                </MonetizedExternalLink>
+                              </div>
+                            );
+                          })()
+                        : null}
 
-                      {/* "Warum passt das?" — collapsible */}
-                      <details className="mt-3 group">
-                        <summary className="inline-flex cursor-pointer list-none items-center gap-1 text-xs font-medium text-[var(--brand-accent)] hover:underline">
-                          <span className="select-none transition-transform group-open:rotate-90">▶</span>
-                          Warum passt das?
-                        </summary>
-                        <div className="mt-2 rounded-lg border border-[rgba(68,57,46,0.08)] bg-white/80 p-3 space-y-3">
-                          {/* Quality signals */}
-                          <div className="flex flex-wrap gap-2">
-                            {qualitySignals.map((signal) => (
-                              <span
-                                key={`${stop.index}-${signal}`}
-                                className="rounded-full border border-[rgba(68,57,46,0.1)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]"
-                              >
-                                {signal}
-                              </span>
-                            ))}
-                          </div>
-                          {/* Primary reasons */}
-                          {primaryReasons.length ? (
-                            <div className="grid gap-1.5 text-xs leading-5 text-[var(--text-muted)]">
-                              {primaryReasons.map((reason) => (
-                                <div key={`${stop.index}-${reason}`} className="flex items-start gap-2">
-                                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--text-muted)]/50" />
-                                  <span>{reason}</span>
-                                </div>
-                              ))}
-                            </div>
-                          ) : null}
-                          {/* Timing warnings */}
-                          {Array.isArray(stop.timingWarnings) && stop.timingWarnings.length ? (
-                            <div className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2">
-                              <div className="text-[11px] uppercase tracking-wide text-rose-700 font-semibold">Timing-Hinweise</div>
-                              <div className="mt-1 space-y-1">
-                                {stop.timingWarnings.map((warning) => (
-                                  <div key={warning} className="text-xs text-rose-800">{warning}</div>
+                      {/* Action row */}
+                      <div className="mt-3 flex items-center justify-between gap-3">
+                        <details className="group flex-1">
+                          <summary className="inline-flex cursor-pointer list-none items-center gap-1 text-xs font-medium text-[var(--brand-accent)] hover:underline">
+                            <span className="select-none transition-transform group-open:rotate-90">▶</span>
+                            Warum passt das?
+                          </summary>
+                          <div className="mt-2 space-y-2 rounded-lg border border-[rgba(68,57,46,0.08)] bg-white/80 p-3">
+                            {primaryReasons.length ? (
+                              <ul className="space-y-1.5 text-xs leading-5 text-[var(--text-muted)]">
+                                {primaryReasons.map((reason) => (
+                                  <li key={`${stop.index}-${reason}`} className="flex items-start gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--text-muted)]/50" />
+                                    <span>{reason}</span>
+                                  </li>
                                 ))}
+                              </ul>
+                            ) : (
+                              <div className="text-xs text-[var(--text-muted)]">
+                                Passt zum gewählten Anlass und der Tageszeit.
                               </div>
-                            </div>
-                          ) : null}
-                          {/* Group decision */}
-                          {stop.groupDecision && groupEnabled && groupMembersCount > 0 ? (
-                            <div className="rounded-xl border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)]/70 p-3 text-xs text-[var(--brand-accent)]">
-                              <div className="font-semibold">Gruppenentscheidung</div>
-                              <div className="mt-1">
-                                {stop.groupDecision.explanation}
-                                {stop.groupDecision.matchCount > 0
-                                  ? ` · für ${stop.groupDecision.matchCount} von ${stop.groupDecision.participantCount}`
-                                  : ""}
+                            )}
+                            {Array.isArray(stop.timingWarnings) && stop.timingWarnings.length ? (
+                              <div className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2">
+                                <div className="text-[10px] font-semibold uppercase tracking-wide text-rose-700">
+                                  Timing-Hinweise
+                                </div>
+                                <ul className="mt-1 space-y-1">
+                                  {stop.timingWarnings.map((warning) => (
+                                    <li key={warning} className="text-xs text-rose-800">
+                                      {warning}
+                                    </li>
+                                  ))}
+                                </ul>
                               </div>
-                            </div>
-                          ) : null}
-                          {/* Detailed event info */}
-                          {stop.item.source_primary === "planner_event" ? (
-                            <div className="rounded-xl border border-[var(--state-warning)]/25 bg-[var(--brand-accent-cloud)]/70 p-3">
-                              <div className="text-xs text-[var(--state-warning)] space-y-1">
+                            ) : null}
+                            {stop.groupDecision && groupEnabled && groupMembersCount > 0 ? (
+                              <div className="rounded-lg border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)]/70 px-3 py-2 text-xs text-[var(--brand-accent)]">
+                                <div className="font-semibold">Gruppe</div>
+                                <div className="mt-0.5">
+                                  {stop.groupDecision.explanation}
+                                  {stop.groupDecision.matchCount > 0
+                                    ? ` · für ${stop.groupDecision.matchCount} von ${stop.groupDecision.participantCount}`
+                                    : ""}
+                                </div>
+                              </div>
+                            ) : null}
+                            {stop.item.source_primary === "planner_event" ? (
+                              <div className="rounded-lg border border-[var(--state-warning)]/25 bg-[var(--brand-accent-cloud)]/70 px-3 py-2 text-xs text-[var(--state-warning)] space-y-1">
                                 {sourceRefs?.doorsAt ? (
-                                  <div>Doors: <span className="font-semibold">{formatPlannerTime(sourceRefs.doorsAt)}</span></div>
+                                  <div>
+                                    Einlass: <span className="font-semibold">{formatPlannerTime(sourceRefs.doorsAt)}</span>
+                                  </div>
                                 ) : null}
                                 {sourceRefs?.endsAt ? (
-                                  <div>Ende: <span className="font-semibold">{formatPlannerTime(sourceRefs.endsAt)}</span></div>
+                                  <div>
+                                    Ende: <span className="font-semibold">{formatPlannerTime(sourceRefs.endsAt)}</span>
+                                  </div>
                                 ) : null}
-                                {eventTravelNote ? <div className="mt-1">{eventTravelNote}</div> : null}
+                                {eventTravelNote ? <div>{eventTravelNote}</div> : null}
                                 {eventMetaBadges(stop).length ? (
                                   <div className="flex flex-wrap gap-1.5 pt-1">
                                     {eventMetaBadges(stop).map((badge) => (
-                                      <span key={badge} className="rounded-full border border-[var(--state-warning)]/25 bg-white px-2 py-0.5 text-[11px] text-[var(--state-warning)]">
+                                      <span
+                                        key={badge}
+                                        className="rounded-full border border-[var(--state-warning)]/25 bg-white px-2 py-0.5 text-[10px]"
+                                      >
                                         {badge}
                                       </span>
                                     ))}
                                   </div>
                                 ) : null}
                               </div>
-                            </div>
-                          ) : null}
-                        </div>
-                      </details>
+                            ) : null}
+                          </div>
+                        </details>
+                        <button
+                          onClick={() => onBumpStop(i)}
+                          aria-label={`Alternative für ${stop.item?.name ?? stop.label} suchen`}
+                          className="shrink-0 rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-panel)]"
+                        >
+                          Alternative
+                        </button>
+                      </div>
                     </>
                   ) : (
                     <p className="mt-2 text-sm text-[var(--text-muted)]">
@@ -598,20 +538,17 @@ export default function PlannerStopListSection({
                     </p>
                   )}
                 </div>
-
-                <div className="flex shrink-0 flex-col gap-2 items-end">
-                  <button
-                    onClick={() => onBumpStop(i)}
-                    aria-label={`Alternative für ${stop.item?.name ?? stop.label} suchen`}
-                    className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:opacity-95"
-                  >
-                    Alternative
-                  </button>
-                </div>
               </div>
-            </div>
+            </li>
           );
         })}
+      </ol>
+
+      <div className="mt-4 flex items-center justify-between border-t border-[rgba(68,57,46,0.08)] pt-3 text-[11px] text-[var(--text-muted)]">
+        <span>
+          {plannedStops.filter((s) => s.item).length} Stops · {routeProfileLabel(routeProfile)}
+        </span>
+        <span className="hidden sm:inline">Tipp: Stops verschieben oder &bdquo;Alternative&ldquo; antippen.</span>
       </div>
     </section>
   );
