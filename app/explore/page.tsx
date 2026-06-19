@@ -819,6 +819,7 @@ function ExplorePageContent() {
   const [personalizedSort, setPersonalizedSort] = useState(true);
   const [variantFilter, setVariantFilter] = useState<VariantFilter>("all");
   const [variantSort, setVariantSort] = useState<VariantSort>("default");
+  const [allRoutesDisplayCount, setAllRoutesDisplayCount] = useState(24);
 
   useEffect(() => {
     const nextOccasion = (searchParams.get("occasion") as OccasionFilter | null) ?? "all";
@@ -1164,6 +1165,10 @@ function ExplorePageContent() {
     () => shouldShowInternalMonetization(searchParams.get("monetization")),
     [searchParams]
   );
+
+  useEffect(() => {
+    setAllRoutesDisplayCount(24);
+  }, [selectedCitySlug, selectedCountryCode, creatorFilter, occasionFilter, searchText, sortBy, variantFilter]);
   const filterControlClass =
     "h-10 w-full min-w-0 rounded-xl border border-black/10 bg-white px-3 text-xs text-[var(--text-strong)] shadow-sm outline-none transition focus:border-[var(--text-strong)] sm:text-sm";
 
@@ -1731,21 +1736,40 @@ function ExplorePageContent() {
           <section id="explore-all-routes">
             <SectionHeader
               title="Alle Routen"
-              subtitle="Alle Routen passend zu deiner Auswahl."
+              subtitle={`${filteredRoutes.length} Route${filteredRoutes.length !== 1 ? "n" : ""} passend zu deiner Auswahl.`}
             />
             {filteredRoutes.length === 0 ? (
               <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen für diese Filter gefunden.</div>
             ) : (
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {filteredRoutes.map((route) => (
-                  <RouteCard
-                    key={route.id}
-                    route={route}
-                    creator={route.creator_profile_id ? creatorById.get(route.creator_profile_id) ?? null : null}
-                    cityMap={cityMap}
-                  />
-                ))}
-              </div>
+              <>
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                  {filteredRoutes.slice(0, allRoutesDisplayCount).map((route) => (
+                    <RouteCard
+                      key={route.id}
+                      route={route}
+                      creator={route.creator_profile_id ? creatorById.get(route.creator_profile_id) ?? null : null}
+                      cityMap={cityMap}
+                    />
+                  ))}
+                </div>
+                {allRoutesDisplayCount < filteredRoutes.length && (
+                  <div className="mt-8 flex flex-col items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setAllRoutesDisplayCount((prev) => prev + 24)}
+                      className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-black/10 bg-white px-6 text-sm font-medium text-[var(--text-strong)] shadow-sm transition hover:border-black/20 hover:shadow-md active:scale-[0.98]"
+                    >
+                      Mehr laden
+                      <span className="rounded-full bg-[rgba(23,23,23,0.07)] px-2 py-0.5 text-xs text-[var(--text-muted)]">
+                        {Math.min(24, filteredRoutes.length - allRoutesDisplayCount)} weitere
+                      </span>
+                    </button>
+                    <p className="text-xs text-[var(--text-muted)]">
+                      {allRoutesDisplayCount} von {filteredRoutes.length} Routen
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </section>
 

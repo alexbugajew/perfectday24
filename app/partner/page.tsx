@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const partnerTypes = [
   { emoji: "🏨", title: "Hotels & Unterkünfte", copy: "Direkt dort sichtbar sein, wo Roadtrips, Wochenenden und Städte-Trips geplant werden." },
-  { emoji: "🍽️", title: "Restaurants & Bars", copy: "In Tagesrouten, Date-Night-Planungen und Gruppenanlaessen erscheinen." },
+  { emoji: "🍽️", title: "Restaurants & Bars", copy: "In Tagesrouten, Date-Night-Planungen und Gruppenanlässen erscheinen." },
   { emoji: "🏛️", title: "Event-Locations", copy: "Anfragen, Angebote und Buchungen direkt aus dem Eventflow erhalten." },
   { emoji: "🎯", title: "Erlebnisse & Touren", copy: "Als fester Stop in Routen, Explore und Roadtrip-Etappen positioniert werden." },
   { emoji: "🎵", title: "Dienstleister", copy: "Fotografie, Musik, Deko oder Transport direkt im Anfrage- und Buchungsprozess anbieten." },
@@ -31,10 +31,10 @@ const packageCards = [
   {
     name: "Partner Basic",
     price: "49 EUR / Monat",
-    cta: "Basic waehlen",
+    cta: "Basic wählen",
     tier: "partner_basic",
     featured: true,
-    features: ["Alles aus Free", "Featured-Platzierung", "Analytics-Dashboard", "Prioritaets-Matching"],
+    features: ["Alles aus Free", "Featured-Platzierung", "Analytics-Dashboard", "Prioritäts-Matching"],
   },
   {
     name: "Partner Pro",
@@ -103,9 +103,9 @@ const partnerPortalModules = [
 
 const statusFlow = [
   { label: "Draft", copy: "Inhalt vorbereitet, noch nicht live." },
-  { label: "In Review", copy: "Qualitaet, Rechte und Darstellung werden geprueft." },
+  { label: "In Review", copy: "Qualität, Rechte und Darstellung werden geprüft." },
   { label: "Published", copy: "Im Produkt sichtbar und klickbar." },
-  { label: "Featured", copy: "Zusaetzliche Distribution in kuratierten Flaechen." },
+  { label: "Featured", copy: "Zusaetzliche Distribution in kuratierten Flächen." },
 ];
 
 export default function PartnerLandingPage() {
@@ -116,10 +116,10 @@ export default function PartnerLandingPage() {
           <div>
             <div className="pd24-kicker-warm">Partner werden</div>
             <h1 className="mt-4 text-[2.6rem] font-semibold leading-[0.94] tracking-tight text-[var(--text-strong)] sm:text-6xl">
-              Gewinne Gaeste, Buchungen und Sichtbarkeit ueber PerfectDay24
+              Gewinne Gäste, Buchungen und Sichtbarkeit über PerfectDay24
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[var(--text-muted-warm)]">
-              Praesentiere deine Location, Erlebnisse, Hotels, Routen oder Event-Services dort, wo Nutzer bereits ihren perfekten Tag planen.
+              Präsentiere deine Location, Erlebnisse, Hotels, Routen oder Event-Services dort, wo Nutzer bereits ihren perfekten Tag planen.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -286,7 +286,7 @@ export default function PartnerLandingPage() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="pd24-kicker-warm">Pakete</div>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">Waehle das Modell, das zu deiner Reichweite passt</h2>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">Wähle das Modell, das zu deiner Reichweite passt</h2>
           </div>
           <Link href="/partner/onboarding" className="text-sm font-medium text-[var(--text-strong)] underline underline-offset-4">
             Direkt ins Onboarding
@@ -344,7 +344,7 @@ export default function PartnerLandingPage() {
 
         <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,#fffdf8,#f6f1ea)] p-6 shadow-[var(--shadow-soft)]">
           <div className="pd24-kicker-warm">Medien & Vertrauen</div>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">Starke Bilder verkaufen besser als reine Eintraege</h2>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">Starke Bilder verkaufen besser als reine Einträge</h2>
           <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
             Partner laden eigene Bilder hoch, Creator und Nutzer können später Inhalte ergänzen und freigegebene Fotos steigern Klickrate und Vertrauen entlang des gesamten Flows.
           </p>
@@ -467,7 +467,7 @@ export default function PartnerLandingPage() {
           {[
             { value: "1 Portal", copy: "Profil, Medien, Pakete und Kampagnen ohne Tool-Wechsel." },
             { value: "33 Städte", copy: "Ausspielung passend zu Stadt, Anlass und Planungsoberfläche." },
-            { value: "3 Kernflaechen", copy: "Explore, Route/Roadtrip und Event-Buchungsflow." },
+            { value: "3 Kernflächen", copy: "Explore, Route/Roadtrip und Event-Buchungsflow." },
             { value: "0 EUR Start", copy: "Mit Free beginnen und später auf Basic oder Pro erweitern." },
           ].map((item) => (
             <div key={item.value} className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">

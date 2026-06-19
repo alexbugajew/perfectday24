@@ -725,6 +725,43 @@ export default function EventsPage() {
         <p className="mt-6 text-center text-xs text-[#8b7767]">
           Kein Account nötig für die Planung. Speichern und Teilen erfordert eine kostenlose Anmeldung.
         </p>
+
+        {/* Saved plans */}
+        {(plansLoading || savedPlans.length > 0) && (
+          <div className="mt-10">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <h2 className="text-lg font-semibold text-[#171717]">Meine gespeicherten Pläne</h2>
+              {savedPlans.length > 0 && (
+                <a
+                  href="/events/dashboard"
+                  className="text-xs font-medium text-[#8b7767] underline-offset-2 hover:underline"
+                >
+                  Alle ansehen →
+                </a>
+              )}
+            </div>
+
+            {plansLoading ? (
+              <div className="space-y-3">
+                {[1, 2].map((i) => (
+                  <div
+                    key={i}
+                    className="animate-pulse rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-white p-4"
+                  >
+                    <div className="h-4 w-1/2 rounded-full bg-[rgba(23,23,23,0.07)]" />
+                    <div className="mt-2 h-3 w-1/3 rounded-full bg-[rgba(23,23,23,0.05)]" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {savedPlans.slice(0, 3).map((plan) => (
+                  <SavedPlanCard key={plan.id} plan={plan} onDelete={deletePlan} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
