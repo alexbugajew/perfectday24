@@ -2089,6 +2089,23 @@ function PlannerPageContent() {
         </section>
       </div>
 
+      {plannedStops.length > 0 ? (
+        <div className="fixed bottom-16 left-0 right-0 z-[1200] sm:hidden pb-safe">
+          <div className="mx-3 mb-2 rounded-2xl border border-[rgba(68,57,46,0.08)] bg-white/96 p-2 shadow-[0_16px_40px_rgba(15,23,42,0.18)] backdrop-blur">
+            <button
+              type="button"
+              onClick={() => void startPlannerRouteRun()}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--text-strong)] px-5 py-3 text-sm font-semibold text-white transition active:scale-[0.98]"
+            >
+              Route starten
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       {toast ? (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-[var(--text-strong)] text-white text-sm px-4 py-2 rounded-lg shadow-lg z-50">
           {toast}

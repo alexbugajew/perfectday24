@@ -412,27 +412,9 @@ export default function PlannerControlsSection({
       ) : null}
 
       <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">
-        <div className="mb-3 flex flex-col gap-3 border-b border-[rgba(68,57,46,0.08)] pb-3">
-          <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
-              Filter
-            </div>
-            <h2 className="mt-1 text-base font-semibold tracking-tight text-[var(--text-strong)]">
-              Suche anpassen
-            </h2>
-            <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
-              Stadt, Anlass, Event-Fokus, Gruppe und Mobilität definieren. Danach wird aus den starken lokalen Kandidaten ein plausibler Ablauf statt nur einer Liste von Orten.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            <span className="warm-chip rounded-md px-2 py-1 text-[11px]">{cityLabel}</span>
-            <span className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]">
-              {groupEnabled ? "Gruppenplanung aktiv" : "Persönlicher Plan"}
-            </span>
-            <span className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]">
-              {eventCandidates.length} Event-Kandidaten
-            </span>
-          </div>
+        <div className="mb-3 flex items-center justify-between gap-2 border-b border-[rgba(68,57,46,0.08)] pb-2">
+          <h2 className="text-sm font-semibold tracking-tight text-[var(--text-strong)]">Filter</h2>
+          <span className="warm-chip rounded-md px-2 py-0.5 text-[11px]">{cityLabel}</span>
         </div>
 
         <div className="space-y-3">
