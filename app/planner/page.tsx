@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
@@ -1502,11 +1501,6 @@ function PlannerPageContent() {
         : "Noch kein Vorschlag — wähle einen Startpunkt oder justiere die Parameter."
     : "Wähle Stadt und Anlass. PerfectDay24 erstellt automatisch einen konkreten Tagesplan mit Orten, Zeiten und Wegen.";
 
-  const quickExperienceOptions = eventModesAvailable
-    ? experienceOptionsForOccasion(occasion)
-    : experienceOptionsForOccasion(occasion).filter(
-        (option) => option.value !== "event_visit" && option.value !== "market_festival"
-      );
   const displayedStartPointLabel =
     startPoint.mode === "current_location" && !shouldUseCurrentLocationAsOrigin
       ? effectiveStartPoint.label
@@ -1588,7 +1582,7 @@ function PlannerPageContent() {
       )}
 
       <section className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3 shadow-[var(--shadow-soft)]">
-        <div className="grid gap-2 sm:grid-cols-2 lg:flex lg:overflow-visible">
+        <div className="flex flex-col gap-2 lg:flex-row lg:overflow-visible">
           <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[150px] lg:flex-1">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Stadt
@@ -1712,24 +1706,6 @@ function PlannerPageContent() {
             </select>
           </label>
 
-          <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[160px] lg:flex-1">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-              Fokus
-            </div>
-            <select
-              data-testid="planner-quick-experience-mode"
-              value={experienceMode}
-              onChange={(e) => setExperienceMode(e.target.value as ExperienceMode)}
-              className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
-            >
-              {quickExperienceOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
           <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[145px] lg:flex-[0.85]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Datum
@@ -1757,26 +1733,11 @@ function PlannerPageContent() {
           showToast={showToast}
         />
 
-        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--text-muted)]">
-          <div>
-            {manualStartFallsBackToCityCenter && selectedCity ? (
-              <>
-                Bis zur genauen Auswahl planen wir ab <span className="font-semibold">{selectedCityFallbackLabel}</span>.
-              </>
-            ) : (
-              <>
-                Start: <span className="font-semibold">{effectiveStartPoint.label || "-"}</span>
-              </>
-            )}
+        {manualStartFallsBackToCityCenter && selectedCity ? (
+          <div className="mt-2 text-xs text-[var(--text-muted)]">
+            Bis zur genauen Auswahl planen wir ab <span className="font-semibold">{selectedCityFallbackLabel}</span>.
           </div>
-          <button
-            type="button"
-            onClick={useCurrentLocationAsStartPoint}
-            className="rounded-md border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
-          >
-            Aktueller Standort
-          </button>
-        </div>
+        ) : null}
 
         <div className="mt-3 flex flex-col gap-3 border-t border-[rgba(68,57,46,0.08)] pt-3">
           <div className="min-w-0">
@@ -1845,13 +1806,9 @@ function PlannerPageContent() {
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
-              <span>Gruppe aktiv — "Link an Gruppe" kopiert den Plan als teilbaren Link für alle.</span>
+              <span>Gruppe aktiv — &bdquo;Link an Gruppe&ldquo; kopiert den Plan als teilbaren Link für alle.</span>
             </div>
           )}
-
-          <div className="text-xs text-[var(--text-muted)]">
-            Starte direkt oder sichere erst diesen Stand. Alles Weitere ist bewusst nachgeordnet.
-          </div>
 
           {/* Weitere Optionen — bewusst sekundär */}
           <button
@@ -1859,7 +1816,7 @@ function PlannerPageContent() {
             onClick={() => setShowWeitere((v) => !v)}
             className="self-start rounded-full border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] hover:text-[var(--text-strong)]"
           >
-            {showWeitere ? "Feinschliff ausblenden ↑" : "Feinschliff & Spezialfälle ↓"}
+            {showWeitere ? "Weitere Aktionen ausblenden" : "Weitere Aktionen"}
           </button>
           <div
             className={`flex flex-wrap items-center gap-2 border-t border-[var(--line-subtle)] pt-2 ${showWeitere ? "" : "hidden"}`}
@@ -1917,16 +1874,6 @@ function PlannerPageContent() {
                   Im Chat besprechen
                 </button>
               </>
-            ) : null}
-            {!userId && authReady ? (
-              <button
-                type="button"
-                onClick={() => void continueAsGuest()}
-                disabled={authLoading}
-                className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
-              >
-                {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
-              </button>
             ) : null}
           </div>
         </div>
