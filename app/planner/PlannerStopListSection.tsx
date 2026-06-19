@@ -1,6 +1,6 @@
 import Image from "next/image";
 import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLink";
-import { plannerEventLabel, type PlannedStop, type RouteProfile } from "@/lib/planner";
+import type { PlannedStop, RouteProfile } from "@/lib/planner";
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
 import {
   eventMetaBadges,
@@ -30,20 +30,6 @@ type PlannerStopListSectionProps = {
   onSetDraggedStopPosition: (position: number | null) => void;
   onBumpStop: (position: number) => void;
 };
-
-function plannerStopEventKind(stop: PlannedStop) {
-  if (!Array.isArray(stop.item?.subtypes)) return "other";
-  const lowerSubtypes = stop.item.subtypes.map((value) => String(value).toLowerCase());
-  if (lowerSubtypes.some((value) => value.includes("concert"))) return "concert";
-  if (lowerSubtypes.some((value) => value.includes("theater"))) return "theater";
-  if (lowerSubtypes.some((value) => value.includes("show"))) return "show";
-  if (lowerSubtypes.some((value) => value.includes("market"))) return "market";
-  if (lowerSubtypes.some((value) => value.includes("festival"))) return "festival";
-  if (lowerSubtypes.some((value) => value.includes("fair"))) return "fair";
-  if (lowerSubtypes.some((value) => value.includes("food"))) return "food_event";
-  if (lowerSubtypes.some((value) => value.includes("seasonal"))) return "seasonal";
-  return "other";
-}
 
 function stringField(source: unknown, key: string) {
   if (!source || typeof source !== "object") return null;
@@ -557,10 +543,6 @@ export default function PlannerStopListSection({
                               ))}
                             </div>
                           ) : null}
-                          {/* Scoring */}
-                          <div className="text-[11px] text-[var(--text-muted)]">
-                            Score: {stop.item.totalScore ?? "-"} · Base: {stop.item.score ?? "-"} · Pref: +{stop.item.prefBoost ?? 0}
-                          </div>
                           {/* Timing warnings */}
                           {Array.isArray(stop.timingWarnings) && stop.timingWarnings.length ? (
                             <div className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2">
@@ -606,27 +588,6 @@ export default function PlannerStopListSection({
                                 ) : null}
                               </div>
                             </div>
-                          ) : null}
-                          {/* Policy trace */}
-                          {stop.debug ? (
-                            <details className="rounded-lg border border-dashed border-[rgba(68,57,46,0.14)] bg-white px-3 py-2">
-                              <summary className="cursor-pointer text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
-                                Policy Trace
-                              </summary>
-                              <div className="mt-2 space-y-2">
-                                {stop.debug.policyResults.map((result) => (
-                                  <div key={result.key} className="rounded border p-2 text-xs">
-                                    <div className="font-medium">
-                                      {result.key} | {result.scoreDelta >= 0 ? "+" : ""}{result.scoreDelta}
-                                      {result.hardFail ? " | hard fail" : ""}
-                                    </div>
-                                    {result.reasons?.length ? (
-                                      <div className="mt-1 text-[var(--text-muted)]">{result.reasons.join(" | ")}</div>
-                                    ) : null}
-                                  </div>
-                                ))}
-                              </div>
-                            </details>
                           ) : null}
                         </div>
                       </details>

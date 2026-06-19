@@ -125,35 +125,25 @@ function buildActivationState({
 export default function PlannerActivationPanel(props: PlannerActivationPanelProps) {
   const {
     citiesLoading,
-    expandedRadius,
     hasValidPlannerOrigin,
-    interestsCount,
-    latestPlanMeta,
     latestPlanTitle,
-    loadingPlans,
     plannerError,
     plannerLoading,
     plannedStopsCount,
-    presetActive,
-    relaxedFilters,
     resultsCount,
-    routeProfileLabel,
-    templateLabel,
     hasPlannerData,
     onOpenConfig,
     onRerollPlan,
     onResumeLatestPlan,
-    onShareLatestPlan,
     onUseCurrentLocation,
   } = props;
 
   const isLoading = plannerLoading || citiesLoading;
-
   const activation = buildActivationState(props);
 
   return (
     <div className="w-full rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3">
-      <div className="flex flex-wrap items-center justify-end gap-2">
+      <div className="flex items-center justify-end gap-2">
         {isLoading && (
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--brand-accent)] opacity-60" />
@@ -170,80 +160,22 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
       </h2>
       <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{activation.body}</p>
 
-      {templateLabel ? (
-        <div className="mt-3 rounded-md border border-[var(--brand-accent)]/25 bg-white px-3 py-2 text-xs text-[var(--brand-accent)]">
-          Vorlage geladen: <span className="font-semibold">{templateLabel}</span>
-        </div>
-      ) : presetActive ? (
-        <div className="mt-3 rounded-md border border-[var(--state-success)]/25 bg-white px-3 py-2 text-xs text-[var(--state-success)]">
-          Deine Auswahl von der Startseite wurde übernommen.
-        </div>
-      ) : null}
-
-      {latestPlanTitle ? (
-        <div className="mt-3 rounded-md border border-[var(--line-subtle)] bg-white px-3 py-2">
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-              Weitermachen
-            </span>
-            {latestPlanMeta ? (
-              <span className="shrink-0 rounded-full bg-[var(--bg-panel)] px-2 py-1 text-[10px] text-[var(--text-muted)]">
-                {latestPlanMeta}
-              </span>
-            ) : null}
-          </div>
-          <div className="mt-1 line-clamp-1 text-sm font-semibold text-[var(--text-strong)]">
-            {latestPlanTitle}
-          </div>
-          <div className="mt-2 flex gap-2">
-            <button
-              type="button"
-              onClick={onResumeLatestPlan}
-              className="rounded-md bg-[var(--text-strong)] px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-[#1f2937]"
-            >
-              Fortsetzen
-            </button>
-            <button
-              type="button"
-              onClick={onShareLatestPlan}
-              className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
-            >
-              Teilen
-            </button>
-          </div>
-        </div>
-      ) : loadingPlans ? (
-        <div className="mt-3 rounded-md border border-[var(--line-subtle)] bg-white px-3 py-2 text-xs text-[var(--text-muted)]">
-          Gespeicherte Pläne werden geprüft.
-        </div>
-      ) : null}
-
-      {(expandedRadius || relaxedFilters) && plannedStopsCount > 0 ? (
-        <div className="mt-3 rounded-md border border-[var(--brand-accent)]/25 bg-white px-3 py-2 text-xs leading-5 text-[var(--brand-accent)]">
-          Der Planner hat den Suchraum intelligent erweitert, damit der erste Vorschlag nicht leer bleibt.
-        </div>
-      ) : null}
-
       {plannedStopsCount > 0 ? (
-        <div className="mt-4 flex flex-col gap-2">
-          <a
-            href="#planner-results"
-            className="flex w-full items-center justify-center rounded-2xl bg-[#171717] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98]"
-          >
-            Plan ansehen →
-          </a>
-        </div>
+        <a
+          href="#planner-results"
+          className="mt-4 flex w-full items-center justify-center rounded-2xl bg-[#171717] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98]"
+        >
+          Plan ansehen →
+        </a>
       ) : plannerError || (hasPlannerData && resultsCount === 0) ? (
-        <div className="mt-4">
-          <button
-            type="button"
-            onClick={onRerollPlan}
-            disabled={plannerLoading}
-            className="flex w-full items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
-          >
-            Neu generieren
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={onRerollPlan}
+          disabled={plannerLoading}
+          className="mt-4 flex w-full items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
+        >
+          Neu generieren
+        </button>
       ) : null}
 
       <div className="mt-3 flex flex-wrap gap-2">
@@ -252,7 +184,7 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
           onClick={onOpenConfig}
           className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
         >
-          Feinjustieren
+          Mehr anpassen
         </button>
         {!hasValidPlannerOrigin ? (
           <button
@@ -263,17 +195,15 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
             Standort nutzen
           </button>
         ) : null}
-        {interestsCount === 0 ? (
-          <a
-            href="/profile#profile-interests"
-            className="rounded-md border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)] px-3 py-1.5 text-xs font-medium text-[var(--brand-accent)] transition hover:bg-white"
+        {latestPlanTitle ? (
+          <button
+            type="button"
+            onClick={onResumeLatestPlan}
+            className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
           >
-            Vorlieben speichern
-          </a>
+            Letzten Plan fortsetzen
+          </button>
         ) : null}
-        <span className="rounded-md border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)]">
-          {routeProfileLabel}
-        </span>
       </div>
     </div>
   );

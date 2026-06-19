@@ -2111,15 +2111,8 @@ function PlannerPageContent() {
         />
       <PlannerOutputSection
         routeProfile={routeProfile}
-        onRouteProfileChange={setRouteProfile}
-        googleRouteUrl={googleRouteUrl}
-        effectiveStartPointLabel={effectiveStartPoint.label || null}
-        mapStops={mapStops}
-        routeSummary={routeSummary}
-        onRouteSummaryChange={setRouteSummary}
         plannerLoading={plannerLoading}
         plannerError={plannerError}
-        fallbackSummary={fallbackSummary}
         resultsCount={results.length}
         plannedStops={plannedStops}
         occasion={occasion}

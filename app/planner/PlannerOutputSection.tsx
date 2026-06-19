@@ -1,14 +1,11 @@
 import { useMemo } from "react";
-import dynamic from "next/dynamic";
-import type { RouteSummary, PlanMapStop } from "@/components/PlanMap";
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
-import type { PlannedStop, RouteProfile, RouteSummaryLite } from "@/lib/planner";
+import type { PlannedStop, RouteProfile } from "@/lib/planner";
 import PlannerStopListSection from "./PlannerStopListSection";
 import {
   compareSavedPlans,
   deriveConfirmationMoment,
   eventTravelPriorityNoteForSavedSlot,
-  routeProfileLabel,
   savedPlanFamilyKey,
   savedPlanRoleLabel,
 } from "./helpers";
@@ -21,15 +18,8 @@ import type {
 
 type PlannerOutputSectionProps = {
   routeProfile: RouteProfile;
-  onRouteProfileChange: (profile: RouteProfile) => void;
-  googleRouteUrl: string | null;
-  effectiveStartPointLabel: string | null;
-  mapStops: PlanMapStop[];
-  routeSummary: RouteSummary | null;
-  onRouteSummaryChange: (summary: RouteSummary | null) => void;
   plannerLoading: boolean;
   plannerError: string | null;
-  fallbackSummary: RouteSummaryLite;
   resultsCount: number;
   plannedStops: PlannedStop[];
   occasion: string;
@@ -75,21 +65,10 @@ type SavedPlanSlotForOutput = {
   } | null;
 };
 
-const PlanMap = dynamic(
-  () => import("@/components/PlanMap").then((module) => module.default),
-  { ssr: false }
-);
-
-const PLANNER_LOADING_STEPS = [
-  "Lokale Kandidaten prüfen",
-  "Wege und Zeitfenster clustern",
-  "Ablauf als erste Variante bauen",
-];
-
 const PLANNER_EMPTY_ACTIONS = [
   "Startpunkt genauer setzen",
   "Umkreis erweitern",
-  "Kurz auf Klassisch wechseln",
+  "Anderen Fokus wählen",
 ];
 
 function isSavedPlanSlotForOutput(value: unknown): value is SavedPlanSlotForOutput {
@@ -106,15 +85,8 @@ function savedPlanSlotKey(slot: SavedPlanSlotForOutput, index: number) {
 
 export default function PlannerOutputSection({
   routeProfile,
-  onRouteProfileChange,
-  googleRouteUrl,
-  effectiveStartPointLabel,
-  mapStops,
-  routeSummary,
-  onRouteSummaryChange,
   plannerLoading,
   plannerError,
-  fallbackSummary,
   resultsCount,
   plannedStops,
   occasion,
@@ -236,120 +208,31 @@ export default function PlannerOutputSection({
 
   return (
     <>
-      <div className="hidden">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <div className="font-semibold">Route</div>
-            <div className="text-xs text-[var(--text-muted)]">
-              Echte Wege über OSRM. Startpunkt: {effectiveStartPointLabel || "-"} | Profil:{" "}
-              {routeProfileLabel(routeProfile)}
-            </div>
-            {routeProfile === "public_transit" ? (
-              <div className="mt-1 text-xs text-[var(--text-muted)]">
-                Die Kartenroute nutzt hier eine Auto-Näherung. Für die Planner-Logik gelten trotzdem gelockerte ÖPNV-Wege statt eines reinen Fuß-Clusters.
-              </div>
-            ) : null}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <select
-              aria-label="Mobilität für Routenausgabe auswählen"
-              value={routeProfile}
-              onChange={(e) => onRouteProfileChange(e.target.value as RouteProfile)}
-              className="rounded-2xl border border-[rgba(68,57,46,0.1)] bg-white/95 px-3 py-2 text-sm text-[var(--text-strong)]"
-            >
-              <option value="foot">Zu Fuß</option>
-              <option value="public_transit">ÖPNV</option>
-              <option value="car">Auto</option>
-            </select>
-
-            <button
-              disabled={!googleRouteUrl}
-              onClick={() => {
-                if (googleRouteUrl) window.open(googleRouteUrl, "_blank", "noreferrer");
-              }}
-              className="rounded bg-[var(--text-strong)] px-3 py-2 text-sm text-white disabled:opacity-60"
-            >
-              Route öffnen
-            </button>
-          </div>
-        </div>
-
-        <PlanMap
-          stops={mapStops}
-          profile={routeProfile}
-          height={360}
-          onSummary={onRouteSummaryChange}
-        />
-
-        <div className="rounded-lg border p-3 text-sm text-[var(--text-muted)]">
-          <div className="mb-1 font-semibold">Travel Summary</div>
-
-          {mapStops.length < 2 ? (
-            <div className="text-xs text-[var(--text-muted)]">
-              Für eine Route brauchen wir mindestens Start + 1 Stop mit Koordinaten.
-            </div>
-          ) : routeSummary ? (
-            <>
-              <div className="text-sm">
-                Gesamt: <span className="font-semibold">{routeSummary.totalDistanceKm} km</span> |{" "}
-                <span className="font-semibold">{routeSummary.totalDurationMin} Min</span>
-              </div>
-
-              <div className="mt-2 space-y-1">
-                {routeSummary.legs.map((leg, index) => (
-                  <div key={index} className="text-xs text-[var(--text-muted)]">
-                    {leg.fromLabel} to {leg.toLabel}: {leg.distanceKm} km | {leg.durationMin} Min
-                  </div>
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="text-xs text-[var(--text-muted)]">
-              {plannerLoading
-                ? "Route wird berechnet..."
-                : "Route wird berechnet oder ist aktuell nicht verfügbar."}
-              <div className="mt-2">
-                Schätzung: ~{fallbackSummary.distanceKm} km | Aktivitäten ~
-                {fallbackSummary.activityMin} Min | Wege ~{fallbackSummary.travelMin} Min | Gesamt ~
-                {fallbackSummary.totalMin} Min
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
       {plannerLoading ? (
-        <div className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
-                Erster Vorschlag
-              </div>
-              <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
-                Dein Plan wird zusammengesetzt.
+        <div className="space-y-3">
+          <div className="rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
+            <div className="flex items-center gap-3">
+              <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-[var(--brand-warm)] border-t-transparent" />
+              <h2 className="text-base font-semibold tracking-tight text-[var(--text-strong)] sm:text-lg">
+                Dein Plan wird zusammengestellt …
               </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-                Orte, Wege, Event-Fenster und Timing werden gerade zu einem belastbaren Ablauf
-                verdichtet. Du kannst die Parameter oben schon weiter anpassen.
-              </p>
             </div>
-            <span className="rounded-full border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)] px-3 py-1 text-xs font-medium text-[var(--brand-accent)]">
-              Live-Berechnung
-            </span>
           </div>
-          <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            {PLANNER_LOADING_STEPS.map((step) => (
-              <div
-                key={step}
-                className="min-h-24 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3"
-              >
-                <div className="h-2 w-16 rounded-full bg-[rgba(68,57,46,0.12)]" />
-                <div className="mt-5 text-sm font-medium text-[var(--text-strong)]">{step}</div>
-                <div className="mt-3 h-2 w-full rounded-full bg-[rgba(68,57,46,0.08)]" />
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              className="animate-pulse rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]"
+            >
+              <div className="flex gap-4">
+                <div className="h-28 w-28 shrink-0 rounded-md bg-[rgba(68,57,46,0.08)]" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-3 w-24 rounded-full bg-[rgba(68,57,46,0.10)]" />
+                  <div className="h-5 w-3/5 rounded-full bg-[rgba(68,57,46,0.12)]" />
+                  <div className="h-3 w-2/5 rounded-full bg-[rgba(68,57,46,0.08)]" />
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       ) : plannerError ? (
         <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
@@ -407,14 +290,17 @@ export default function PlannerOutputSection({
             onBumpStop={onBumpStop}
           />
 
-          <h3 className="mb-3 text-xl font-semibold">Meine gespeicherten Pläne</h3>
-
-          {plans.length === 0 ? (
-            <div className="mb-6 rounded-lg border p-4 text-sm text-[var(--text-muted)]">
-              Noch keine Pläne gespeichert. Sichere einen guten Stand, damit du später daran weiterarbeiten oder ihn teilen kannst.
-            </div>
-          ) : (
-            <div className="mb-6 space-y-3">
+          {plans.length === 0 ? null : (
+          <details className="mb-6 mt-6 rounded-lg border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)]">
+            <summary className="flex cursor-pointer items-center justify-between gap-3 px-4 py-3 text-sm">
+              <span className="font-semibold text-[var(--text-strong)]">
+                Meine gespeicherten Pläne
+              </span>
+              <span className="rounded-full bg-[var(--bg-panel)] px-2 py-0.5 text-xs text-[var(--text-muted)]">
+                {plans.length}
+              </span>
+            </summary>
+            <div className="space-y-3 border-t border-[var(--line-subtle)] p-4">
               {plans.map((plan, index) => {
                 const familySummary = familySummaryByKey.get(savedPlanFamilyKey(plan));
                 return (
@@ -433,14 +319,14 @@ export default function PlannerOutputSection({
                     <div className="flex items-start justify-between gap-4 rounded-lg border p-4 hover:bg-[var(--bg-panel)]">
                       <button onClick={() => onSelectPlan(plan)} className="flex-1 text-left">
                         <div className="flex flex-wrap items-center gap-2">
-                          <div className="font-semibold">{plan.title || "Untitled Plan"}</div>
+                          <div className="font-semibold">{plan.title || "Unbenannter Plan"}</div>
                           <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2 py-1 text-[11px] text-[var(--text-muted)]">
                             {savedPlanRoleLabel(plan)}
                           </span>
                         </div>
                         <div className="text-xs text-[var(--text-muted)]">
-                          {new Date(plan.created_at).toLocaleString()} | Mode: {plan.filters?.planMode ?? "-"} | Stops:{" "}
-                          {plan.filters?.stopsCount ?? "-"}
+                          {new Date(plan.created_at).toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" })}
+                          {plan.filters?.stopsCount ? ` · ${plan.filters.stopsCount} Stops` : null}
                         </div>
                         {plan.filters?.pinnedVariantLabel ? (
                           <div className="mt-2 inline-block rounded-full border border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)] px-2 py-1 text-[11px] text-[var(--state-success)]">
@@ -492,10 +378,6 @@ export default function PlannerOutputSection({
                             </div>
                           ) : null;
                         })()}
-                        <div className="mt-2 inline-block rounded border px-2 py-1 text-xs">
-                          {plan.active_level || "n/a"}
-                        </div>
-
                         {plan.filters?.startPoint?.label ? (
                           <div className="mt-2 text-xs text-[var(--text-muted)]">
                             Start: {plan.filters.startPoint.label}
@@ -529,27 +411,23 @@ export default function PlannerOutputSection({
                             Gruppenchat
                           </button>
                         ) : null}
-                        {plan.share_token ? (
-                          <div className="text-[11px] text-[var(--text-muted)]">
-                            Share-ID: /p/{String(plan.share_token).slice(0, 6)}...
-                          </div>
-                        ) : null}
                       </div>
                     </div>
                   </div>
                 );
               })}
             </div>
+          </details>
           )}
 
           {selectedPlan ? (
             <div className="rounded-lg border p-4">
               <div className="mb-3 flex items-center justify-between gap-3">
                 <div>
-                  <div className="font-semibold">{selectedPlan.title || "Untitled Plan"}</div>
+                  <div className="font-semibold">{selectedPlan.title || "Unbenannter Plan"}</div>
                   <div className="text-xs text-[var(--text-muted)]">
-                    Radius: {selectedPlan.radius_km} km | Sort: {selectedPlan.sort_mode} | Mode:{" "}
-                    {selectedPlan.filters?.planMode ?? "-"} | Stops: {selectedPlan.filters?.stopsCount ?? "-"}
+                    {selectedPlan.filters?.stopsCount ? `${selectedPlan.filters.stopsCount} Stops` : null}
+                    {selectedPlan.radius_km ? ` · ${selectedPlan.radius_km} km Umkreis` : null}
                   </div>
                 </div>
                 <button onClick={() => onSelectPlan(null)} className="rounded border px-3 py-2 text-sm">
