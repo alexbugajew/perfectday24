@@ -589,7 +589,10 @@ async function main() {
   const focusArg = normalizeText(parseArg("focus") ?? "full").toLowerCase();
   const focus: IngestFocus = focusArg === "food" ? "food" : "full";
   const radiusM = Number(parseArg("radius") ?? city.radiusM);
-  const publishLimit = Math.max(1, Number(parseArg("publishLimit") ?? "25"));
+  const publishLimit = Math.max(0, Number(parseArg("publishLimit") ?? "25"));
+  // Cap per RPC call to stay below statement timeout (each call walks the
+  // PostGIS match query for every seed). Tested values: 50 = safe, 1000 = timeout.
+  const PUBLISH_BATCH_SIZE = 50;
   const importBatch =
     parseArg("batch") ??
     `osm_seed_${city.slug}_${new Date().toISOString().replace(/[:.]/g, "-")}`;
@@ -682,25 +685,31 @@ async function main() {
 
   let published = 0;
   let merged = 0;
-  while (true) {
+  if (publishLimit > 0) {
+    const totalLimit = publishLimit;
+    let totalProcessed = 0;
+    while (totalProcessed < totalLimit) {
+      const batchLimit = Math.min(PUBLISH_BATCH_SIZE, totalLimit - totalProcessed);
       const { data, error } = await supabase.rpc("pd24_publish_manual_seed_batch", {
         p_city_slug: city.slug,
         p_import_batch: importBatch,
-        p_limit: publishLimit,
+        p_limit: batchLimit,
         p_max_distance_m: 250,
       });
 
-    if (error) {
-      throw new Error(`Manual seed publish fehlgeschlagen: ${error.message}`);
+      if (error) {
+        throw new Error(`Manual seed publish fehlgeschlagen: ${error.message}`);
+      }
+
+      const rows = (data ?? []) as Array<{ publish_status?: string | null }>;
+      if (rows.length === 0) break;
+
+      published += rows.filter((row) => row.publish_status === "published").length;
+      merged += rows.filter((row) => row.publish_status === "merged").length;
+      totalProcessed += rows.length;
+
+      if (rows.length < batchLimit) break;
     }
-
-    const rows = (data ?? []) as Array<{ publish_status?: string | null }>;
-    if (rows.length === 0) break;
-
-    published += rows.filter((row) => row.publish_status === "published").length;
-    merged += rows.filter((row) => row.publish_status === "merged").length;
-
-    if (rows.length < publishLimit) break;
   }
 
   const { count: locationCount, error: countError } = await supabase
