@@ -29,6 +29,8 @@
     "scripts/report-route-image-gaps.ts",
     "scripts/check-planner-visible-cities.ts",
     "scripts/check-planner-rollout-scope.ts",
+    "scripts/check-missing-city-slugs.ts",
+    "scripts/upsert-missing-cities-wave4.ts",
     "scripts/planner-live-check.ts",
     "scripts/planner-wave1-audit.ts",
     "scripts/planner-wave2-audit.ts",

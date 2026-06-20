@@ -30,9 +30,11 @@ function resolveRolloutCities(scope: string | null): RolloutCity[] {
         ? ["wave2"]
         : normalized === "wave3"
           ? ["wave3"]
-          : normalized === "prepared"
-            ? ["wave1", "wave2", "wave3"]
-            : ["core", "top10", "wave1", "wave2", "wave3"];
+          : normalized === "wave4"
+            ? ["wave4"]
+            : normalized === "prepared"
+              ? ["wave1", "wave2", "wave3", "wave4"]
+              : ["core", "top10", "wave1", "wave2", "wave3", "wave4"];
 
   return stages.flatMap((stage) =>
     getPlannerRolloutCitiesByStage(stage).map((city) => ({
@@ -43,7 +45,7 @@ function resolveRolloutCities(scope: string | null): RolloutCity[] {
 }
 
 async function main() {
-  const publishLimit = Math.max(1, Number(parseArg("publishLimit") ?? "10"));
+  const publishLimit = Math.max(0, Number(parseArg("publishLimit") ?? "10"));
   const scope = parseArg("scope");
   const rolloutCities = resolveRolloutCities(scope);
   const compiledScript = resolve(process.cwd(), ".codex-scripts-dist/scripts/ingest-city-location-seeds.js");
