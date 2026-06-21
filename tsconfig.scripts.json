@@ -33,6 +33,7 @@
     "scripts/upsert-missing-cities-wave4.ts",
     "scripts/audit-wave4-locations.ts",
     "scripts/publish-pending-seed-drafts.ts",
+    "scripts/backfill-opening-hours.ts",
     "scripts/planner-live-check.ts",
     "scripts/planner-wave1-audit.ts",
     "scripts/planner-wave2-audit.ts",

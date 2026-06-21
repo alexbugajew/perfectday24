@@ -52,6 +52,7 @@ type ManualSeedRow = {
   family_friendly: boolean;
   nightlife_fit: boolean;
   duration_min: number | null;
+  opening_hours_raw: string | null;
   manual_boost: number;
   data_confidence: number;
   source_primary: string;
@@ -384,6 +385,7 @@ function normalizeOverpassElement(
     family_friendly: audiences.includes("family"),
     nightlife_fit: category === "nightlife",
     duration_min: durationForSeed(category, subtypes),
+    opening_hours_raw: normalizeText(tags.opening_hours) || null,
     manual_boost: manualBoostForSeed(category, subtypes, tags),
     data_confidence: 0.82,
     source_primary: "osm_seed",
