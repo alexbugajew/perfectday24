@@ -30,7 +30,9 @@ async function main() {
   const slugCounts = new Map<string, number>();
   let offset = 0;
   const pageSize = 1000;
+  console.log("Scan offene Drafts ...");
   while (true) {
+    const t = Date.now();
     const { data, error } = await supabase
       .from("location_manual_seeds")
       .select("city_slug")
@@ -44,6 +46,7 @@ async function main() {
       const slug = (row as { city_slug: string }).city_slug;
       slugCounts.set(slug, (slugCounts.get(slug) ?? 0) + 1);
     }
+    console.log(`  page offset=${offset}: ${data.length} rows in ${Date.now() - t}ms`);
     if (data.length < pageSize) break;
     offset += pageSize;
   }
@@ -60,31 +63,80 @@ async function main() {
     const expected = slugCounts.get(slug) ?? 0;
     let published = 0;
     let merged = 0;
+    let batchNum = 0;
+    let zeroProgressStreak = 0;
     const t0 = Date.now();
+    console.log(`Starte ${slug} (${expected} Drafts erwartet)`);
 
     while (true) {
-      const { data, error } = await supabase.rpc("pd24_publish_manual_seed_batch", {
-        p_city_slug: slug,
-        p_import_batch: null,
-        p_limit: BATCH_SIZE,
-        p_max_distance_m: MAX_DISTANCE_M,
-      });
-      if (error) {
-        console.error(`  ${slug} FEHLER: ${error.message}`);
+      batchNum++;
+      const tBatch = Date.now();
+      let data: Array<{ publish_status?: string | null }> | null = null;
+      let lastError: string | null = null;
+
+      // Retry mit Backoff bei transient errors (fetch failed, network reset, etc).
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          const res = await supabase.rpc("pd24_publish_manual_seed_batch", {
+            p_city_slug: slug,
+            p_import_batch: null,
+            p_limit: BATCH_SIZE,
+            p_max_distance_m: MAX_DISTANCE_M,
+          });
+          if (res.error) {
+            lastError = res.error.message;
+            if (!res.error.message.includes("fetch")) break; // non-transient → abort
+            await new Promise((r) => setTimeout(r, 1000 * (attempt + 1)));
+            continue;
+          }
+          data = res.data as Array<{ publish_status?: string | null }>;
+          lastError = null;
+          break;
+        } catch (err) {
+          lastError = err instanceof Error ? err.message : String(err);
+          await new Promise((r) => setTimeout(r, 1000 * (attempt + 1)));
+        }
+      }
+
+      if (lastError && !data) {
+        console.error(`  ${slug} Batch ${batchNum} FEHLER nach 3 Retries: ${lastError}`);
         totalErrored += 1;
         break;
       }
-      const rows = (data ?? []) as Array<{ publish_status?: string | null }>;
+
+      const rows = data ?? [];
       if (rows.length === 0) break;
-      published += rows.filter((r) => r.publish_status === "published").length;
-      merged += rows.filter((r) => r.publish_status === "merged").length;
+      const batchPublished = rows.filter((r) => r.publish_status === "published").length;
+      const batchMerged = rows.filter((r) => r.publish_status === "merged").length;
+      published += batchPublished;
+      merged += batchMerged;
+
+      // Safety: wenn 5 Batches in Folge nichts published, bricht ab.
+      // Verhindert Endlos-Loop wenn die SQL-Function alle Seeds als
+      // "draft" zurückgibt (z.B. NOT NULL constraint violations werden
+      // vom batch-wrapper geschluckt, Seed bleibt im draft state).
+      if (batchPublished + batchMerged === 0) {
+        zeroProgressStreak += 1;
+        if (zeroProgressStreak >= 5) {
+          console.error(`  ${slug} Batch ${batchNum} ABBRUCH: 5 Batches in Folge ohne Progress (vermutlich Constraint-Violation, Seeds bleiben im draft state)`);
+          break;
+        }
+      } else {
+        zeroProgressStreak = 0;
+      }
+
+      // Heartbeat alle 10 Batches
+      if (batchNum % 10 === 0) {
+        console.log(`  batch ${batchNum}: ${published + merged} progress (${Date.now() - tBatch}ms last)`);
+      }
+
       if (rows.length < BATCH_SIZE) break;
     }
 
     const ms = Date.now() - t0;
     totalPublished += published;
     totalMerged += merged;
-    console.log(`  ${slug.padEnd(30)} ${published + merged} / ${expected} (${published} neu, ${merged} merged, ${ms}ms)`);
+    console.log(`  FERTIG ${slug}: ${published + merged} / ${expected} (${published} neu, ${merged} merged, ${ms}ms)\n`);
   }
 
   console.log("");
