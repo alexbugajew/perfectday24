@@ -2,6 +2,7 @@ import Image from "next/image";
 import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLink";
 import type { PlannedStop, RouteProfile } from "@/lib/planner";
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
+import { stopPhotoFallback } from "@/lib/stop-photo-fallback";
 import {
   eventMetaBadges,
   eventTravelPriorityNote,
@@ -60,14 +61,26 @@ function plannerStopImageUrl(stop: PlannedStop) {
   const item = stop.item;
   if (!item) return null;
 
-  return (
+  const own =
     stringField(item, "photo_url") ??
     stringField(item, "image_url") ??
     stringField(item, "cover_image_url") ??
     stringField(item, "thumbnail_url") ??
     stringField(item, "picture_url") ??
-    firstNestedImageUrl(item)
-  );
+    firstNestedImageUrl(item);
+
+  if (own) return own;
+
+  // Stockfoto-Fallback nach Kategorie. Seed = id, damit derselbe Stop
+  // immer dasselbe Foto bekommt.
+  return stopPhotoFallback({
+    category: item.category ?? null,
+    type: item.type ?? null,
+    sourcePrimary: item.source_primary ?? null,
+    seed: String(item.id ?? stop.label ?? stop.index),
+    width: 200,
+    height: 200,
+  });
 }
 
 function plannerStopVisualMeta(stop: PlannedStop) {

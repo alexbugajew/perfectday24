@@ -129,17 +129,35 @@ function StepHeader({ step, label }: { step: Step; label: string }) {
   );
 }
 
+const NEED_ICONS: Record<string, string> = {
+  location: "📍",
+  catering: "🍽️",
+  musik: "🎵",
+  deko: "🎨",
+  moderation: "🎤",
+  transport: "🚐",
+  fotografie: "📸",
+  video: "🎥",
+  florist: "🌷",
+  torte: "🎂",
+  animation: "🎪",
+  technik: "🎛️",
+};
+
 function NeedToggle({
+  slug,
   label,
   required,
   selected,
   onToggle,
 }: {
+  slug: string;
   label: string;
   required: boolean;
   selected: boolean;
   onToggle: () => void;
 }) {
+  const icon = NEED_ICONS[slug] ?? "✨";
   return (
     <button
       type="button"
@@ -147,14 +165,23 @@ function NeedToggle({
       disabled={required}
       aria-pressed={selected}
       className={cx(
-        "flex w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition",
+        "flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition",
         selected
           ? "border-[#171717] bg-[#171717] text-white"
           : "border-[rgba(23,23,23,0.12)] bg-white text-[#171717] hover:border-[#171717]",
         required && "cursor-default opacity-80"
       )}
     >
-      <span className="font-medium">{label}</span>
+      <span
+        aria-hidden
+        className={cx(
+          "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-lg",
+          selected ? "bg-white/15" : "bg-[rgba(23,23,23,0.05)]"
+        )}
+      >
+        {icon}
+      </span>
+      <span className="flex-1 font-medium">{label}</span>
       {required && (
         <span
           className={cx(
@@ -643,6 +670,7 @@ export default function EventsPage() {
                   {needs.map((need) => (
                     <NeedToggle
                       key={need.slug}
+                      slug={need.slug}
                       label={need.label}
                       required={need.required}
                       selected={form.selectedNeeds.includes(need.slug)}
