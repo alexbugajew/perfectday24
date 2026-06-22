@@ -53,6 +53,9 @@ async function fetchOpeningHours(city: CityArg): Promise<Map<string, string>> {
   const map = new Map<string, string>();
   for (let attempt = 0; attempt < 3; attempt++) {
     for (const endpoint of endpoints) {
+      // Hard timeout — sonst kann fetch endlos hängen ohne Fehler.
+      const ac = new AbortController();
+      const timeoutId = setTimeout(() => ac.abort(), 90_000);
       try {
         const res = await fetch(endpoint, {
           method: "POST",
@@ -61,6 +64,7 @@ async function fetchOpeningHours(city: CityArg): Promise<Map<string, string>> {
             "user-agent": "perfectday24-opening-hours-backfill/1.0",
           },
           body: query,
+          signal: ac.signal,
         });
         if (!res.ok) {
           if (res.status === 429 || res.status === 504) continue;
@@ -76,8 +80,10 @@ async function fetchOpeningHours(city: CityArg): Promise<Map<string, string>> {
           const key = norm(name);
           if (!map.has(key)) map.set(key, oh);
         }
+        clearTimeout(timeoutId);
         return map;
       } catch (err) {
+        clearTimeout(timeoutId);
         if (attempt === 2 && endpoint === endpoints[endpoints.length - 1]) throw err;
         // Try next endpoint
       }
@@ -91,14 +97,25 @@ async function backfillCity(
   supabase: ReturnType<typeof createClient>,
   city: CityArg
 ): Promise<{ matched: number; updated: number; total: number; osmHits: number }> {
-  // Fetch all locations for the city
-  const { data: rows, error } = await supabase
-    .from("locations")
-    .select("id, name, opening_hours_raw")
-    .eq("city_slug", city.slug)
-    .eq("is_plannable", true);
-  if (error) throw new Error(`Locations laden für ${city.slug}: ${error.message}`);
-  const locations = (rows ?? []) as Array<{ id: string; name: string; opening_hours_raw: string | null }>;
+  // Fetch all locations for the city (paginated — Supabase REST liefert
+  // standardmäßig max 1000 rows pro Request).
+  const locations: Array<{ id: string; name: string; opening_hours_raw: string | null }> = [];
+  const pageSize = 1000;
+  let from = 0;
+  while (true) {
+    const { data, error } = await supabase
+      .from("locations")
+      .select("id, name, opening_hours_raw")
+      .eq("city_slug", city.slug)
+      .eq("is_plannable", true)
+      .range(from, from + pageSize - 1);
+    if (error) throw new Error(`Locations laden für ${city.slug}: ${error.message}`);
+    const rows = (data ?? []) as Array<{ id: string; name: string; opening_hours_raw: string | null }>;
+    if (rows.length === 0) break;
+    locations.push(...rows);
+    if (rows.length < pageSize) break;
+    from += pageSize;
+  }
   if (locations.length === 0) return { matched: 0, updated: 0, total: 0, osmHits: 0 };
 
   // Fetch OSM data
