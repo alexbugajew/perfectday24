@@ -23,6 +23,7 @@
     "check:planner:quality": "npm run typecheck && npm run regression:build && npm run check:quality",
     "check:planner:stack": "npm run typecheck && npm run regression:build && npm run regression:core-cities && npm run check:quality",
     "locations:build": "tsc -p tsconfig.scripts.json",
+    "test:planner": "tsc -p tsconfig.scripts.json && node --test .codex-scripts-dist/tests/*.test.js",
     "locations:backfill:duration": "node .codex-scripts-dist/scripts/backfill-duration-defaults.js",
     "locations:dedup": "node .codex-scripts-dist/scripts/dedup-plannable-locations.js",
     "events:build": "tsc -p tsconfig.scripts.json",
