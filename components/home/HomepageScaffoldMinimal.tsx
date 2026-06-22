@@ -87,16 +87,22 @@ const howItWorksSteps = [
     number: "01",
     title: "Beschreiben",
     body: "Schreib in einem Satz, was du vorhast und in welcher Stadt du planst.",
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=300&fit=crop&auto=format&q=80",
+    imageAlt: "Person tippt am Laptop, plant einen Tag",
   },
   {
     number: "02",
     title: "Plan bekommen",
     body: "PerfectDay24 baut daraus einen Ablauf mit Events, Wegen und plausiblen Zeitfenstern.",
+    image: "https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=600&h=300&fit=crop&auto=format&q=80",
+    imageAlt: "Stadtkarte mit eingezeichneter Route",
   },
   {
     number: "03",
     title: "Teilen und losgehen",
     body: "Schick den Plan per Link, passe ihn gemeinsam an und starte direkt los.",
+    image: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=600&h=300&fit=crop&auto=format&q=80",
+    imageAlt: "Freunde gemeinsam unterwegs in der Stadt",
   },
 ];
 
@@ -106,24 +112,32 @@ const useCases = [
     body: "Ein Abend mit Hauptmoment, Dinner und Ausklang statt lose gesammelter Ideen.",
     cta: "Date planen",
     href: "/planner?occasion=date",
+    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=380&fit=crop&auto=format&q=80",
+    imageAlt: "Gedeckter Tisch bei Kerzenschein für einen Date-Abend",
   },
   {
     title: "Familientag ohne Leerlauf",
     body: "Weniger Sucherei, mehr passende Stops für alle Altersgruppen und echte Pausen dazwischen.",
     cta: "Familientag planen",
     href: "/planner?occasion=family",
+    image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=600&h=380&fit=crop&auto=format&q=80",
+    imageAlt: "Familie im Park bei Sonnenuntergang",
   },
   {
     title: "Freunde-Wochenende mit klarer Route",
     body: "Ein gemeinsamer Ablauf statt endloser Abstimmung in mehreren Chats.",
     cta: "Mit Freunden planen",
     href: "/planner?occasion=friends",
+    image: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=600&h=380&fit=crop&auto=format&q=80",
+    imageAlt: "Freundesgruppe gemeinsam in der Stadt",
   },
   {
     title: "Geburtstag mit Anbieteranfragen",
     body: "Anbieter anfragen, Preise vergleichen und Einladungen von einem Ort aus steuern.",
     cta: "Event planen",
     href: "/events",
+    image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&h=380&fit=crop&auto=format&q=80",
+    imageAlt: "Geburtstagsfeier mit Lichterkette",
   },
 ];
 
@@ -421,44 +435,68 @@ export default function HomepageScaffoldMinimal() {
             />
 
             <div className="mt-8 grid gap-5 sm:grid-cols-2">
-              <div className="flex flex-col rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,var(--bg-canvas-warm),var(--brand-warm-cloud))] p-7 shadow-[var(--shadow-soft)]">
-                <div className="pd24-kicker-warm">City Planning</div>
-                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
-                  Einen Tag genießen
-                </h3>
-                <p className="mt-3 flex-1 text-base leading-7 text-[var(--text-muted-warm)]">
-                  Für Date Night, Familienzeit, Freunde oder Städtereise. Du bekommst einen vollständigen Tagesplan mit echten Events, sinnvollen Wegen und klarem Timing.
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {["Date Night", "Familientag", "Mit Freunden", "Als Tourist"].map((tag) => (
-                    <span key={tag} className="rounded-full border border-[var(--line-subtle)] bg-white/80 px-3 py-1.5 text-sm text-[var(--text-soft-warm)]">
-                      {tag}
-                    </span>
-                  ))}
+              <div className="flex flex-col overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,var(--bg-canvas-warm),var(--brand-warm-cloud))] shadow-[var(--shadow-soft)]">
+                <div className="relative h-44 w-full overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900&h=420&fit=crop&auto=format&q=80"
+                    alt="Stadt am Abend, Spaziergänger und Lichter"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(196,137,79,0.35)] via-transparent to-transparent" />
                 </div>
-                <PD24Button href="/planner" className="mt-6 self-start">
-                  Tag planen
-                </PD24Button>
+                <div className="flex flex-1 flex-col p-7">
+                  <div className="pd24-kicker-warm">City Planning</div>
+                  <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
+                    Einen Tag genießen
+                  </h3>
+                  <p className="mt-3 flex-1 text-base leading-7 text-[var(--text-muted-warm)]">
+                    Für Date Night, Familienzeit, Freunde oder Städtereise. Du bekommst einen vollständigen Tagesplan mit echten Events, sinnvollen Wegen und klarem Timing.
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {["Date Night", "Familientag", "Mit Freunden", "Als Tourist"].map((tag) => (
+                      <span key={tag} className="rounded-full border border-[var(--line-subtle)] bg-white/80 px-3 py-1.5 text-sm text-[var(--text-soft-warm)]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <PD24Button href="/planner" className="mt-6 self-start">
+                    Tag planen
+                  </PD24Button>
+                </div>
               </div>
 
-              <div className="flex flex-col rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(240,247,243,0.98),rgba(228,240,234,0.94))] p-7 shadow-[var(--shadow-soft)]">
-                <div className="pd24-kicker-warm text-[#2d5a3d]">Event Flow</div>
-                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
-                  Ein Event veranstalten
-                </h3>
-                <p className="mt-3 flex-1 text-base leading-7 text-[var(--text-muted-warm)]">
-                  Für Geburtstag, JGA, Teamday oder Dinner. Stelle Anbieter zusammen, frage Preise an und verschicke digitale Einladungen - alles an einem Ort.
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {["Geburtstag", "JGA", "Teamday", "Dinner"].map((tag) => (
-                    <span key={tag} className="rounded-full border border-[rgba(45,90,61,0.15)] bg-white/80 px-3 py-1.5 text-sm text-[#2d5a3d]">
-                      {tag}
-                    </span>
-                  ))}
+              <div className="flex flex-col overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(240,247,243,0.98),rgba(228,240,234,0.94))] shadow-[var(--shadow-soft)]">
+                <div className="relative h-44 w-full overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=900&h=420&fit=crop&auto=format&q=80"
+                    alt="Eingedeckter Eventsaal mit Tischen und Atmosphäre"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(45,90,61,0.32)] via-transparent to-transparent" />
                 </div>
-                <PD24Button href="/events" variant="secondary" className="mt-6 self-start">
-                  Event planen
-                </PD24Button>
+                <div className="flex flex-1 flex-col p-7">
+                  <div className="pd24-kicker-warm text-[#2d5a3d]">Event Flow</div>
+                  <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
+                    Ein Event veranstalten
+                  </h3>
+                  <p className="mt-3 flex-1 text-base leading-7 text-[var(--text-muted-warm)]">
+                    Für Geburtstag, JGA, Teamday oder Dinner. Stelle Anbieter zusammen, frage Preise an und verschicke digitale Einladungen - alles an einem Ort.
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {["Geburtstag", "JGA", "Teamday", "Dinner"].map((tag) => (
+                      <span key={tag} className="rounded-full border border-[rgba(45,90,61,0.15)] bg-white/80 px-3 py-1.5 text-sm text-[#2d5a3d]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <PD24Button href="/events" variant="secondary" className="mt-6 self-start">
+                    Event planen
+                  </PD24Button>
+                </div>
               </div>
             </div>
           </section>
@@ -563,18 +601,28 @@ export default function HomepageScaffoldMinimal() {
             />
 
             <div className="relative mt-8 grid gap-5 sm:grid-cols-3">
-              <div
-                className="pointer-events-none absolute hidden h-px bg-[var(--line-subtle)] sm:block"
-                style={{ top: "3.25rem", left: "calc(33.33% + 10px)", right: "calc(33.33% + 10px)" }}
-              />
               {howItWorksSteps.map((step) => (
                 <div
                   key={step.number}
-                  className="relative rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] p-6 shadow-[var(--shadow-soft)]"
+                  className="relative flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] shadow-[var(--shadow-soft)]"
                 >
-                  <div className="pd24-display text-4xl leading-none text-[var(--brand-warm)]">{step.number}</div>
-                  <h3 className="mt-4 text-lg font-semibold text-[var(--text-strong)]">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[var(--text-muted-warm)]">{step.body}</p>
+                  <div className="relative h-32 w-full overflow-hidden">
+                    <Image
+                      src={step.image}
+                      alt={step.imageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(255,253,248,0.9)]" />
+                    <div className="absolute right-3 top-3 pd24-display text-5xl leading-none text-white drop-shadow-md">
+                      {step.number}
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-[var(--text-strong)]">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[var(--text-muted-warm)]">{step.body}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -591,16 +639,28 @@ export default function HomepageScaffoldMinimal() {
               {useCases.map((card) => (
                 <div
                   key={card.title}
-                  className="flex flex-col rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] p-6 shadow-[var(--shadow-soft)]"
+                  className="flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-large)]"
                 >
-                  <h3 className="text-xl font-semibold tracking-tight text-[var(--text-strong)]">{card.title}</h3>
-                  <p className="mt-3 flex-1 text-sm leading-7 text-[var(--text-muted-warm)]">{card.body}</p>
-                  <Link
-                    href={card.href}
-                    className="mt-5 text-sm font-medium text-[var(--text-strong)] underline-offset-2 transition hover:underline"
-                  >
-                    {card.cta} →
-                  </Link>
+                  <div className="relative h-36 w-full overflow-hidden">
+                    <Image
+                      src={card.image}
+                      alt={card.imageAlt}
+                      fill
+                      className="object-cover transition-transform duration-500 hover:scale-[1.04]"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="text-xl font-semibold tracking-tight text-[var(--text-strong)]">{card.title}</h3>
+                    <p className="mt-3 flex-1 text-sm leading-7 text-[var(--text-muted-warm)]">{card.body}</p>
+                    <Link
+                      href={card.href}
+                      className="mt-5 text-sm font-medium text-[var(--text-strong)] underline-offset-2 transition hover:underline"
+                    >
+                      {card.cta} →
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>

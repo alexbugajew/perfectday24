@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PartnerMarketingCta from "@/components/partner/PartnerMarketingCta";
 
@@ -12,12 +13,48 @@ export const metadata: Metadata = {
 };
 
 const partnerTypes = [
-  { emoji: "🏨", title: "Hotels & Unterkünfte", copy: "Direkt dort sichtbar sein, wo Roadtrips, Wochenenden und Städte-Trips geplant werden." },
-  { emoji: "🍽️", title: "Restaurants & Bars", copy: "In Tagesrouten, Date-Night-Planungen und Gruppenanlässen erscheinen." },
-  { emoji: "🏛️", title: "Event-Locations", copy: "Anfragen, Angebote und Buchungen direkt aus dem Eventflow erhalten." },
-  { emoji: "🎯", title: "Erlebnisse & Touren", copy: "Als fester Stop in Routen, Explore und Roadtrip-Etappen positioniert werden." },
-  { emoji: "🎵", title: "Dienstleister", copy: "Fotografie, Musik, Deko oder Transport direkt im Anfrage- und Buchungsprozess anbieten." },
-  { emoji: "🏙️", title: "Stadtmarketing", copy: "Kuratierten Content, saisonale Highlights und Themenrouten sichtbar machen." },
+  {
+    emoji: "🏨",
+    title: "Hotels & Unterkünfte",
+    copy: "Direkt dort sichtbar sein, wo Roadtrips, Wochenenden und Städte-Trips geplant werden.",
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=320&fit=crop&auto=format&q=80",
+    imageAlt: "Hotelzimmer mit warmer Atmosphäre",
+  },
+  {
+    emoji: "🍽️",
+    title: "Restaurants & Bars",
+    copy: "In Tagesrouten, Date-Night-Planungen und Gruppenanlässen erscheinen.",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=320&fit=crop&auto=format&q=80",
+    imageAlt: "Restaurant-Innenraum mit Gästen",
+  },
+  {
+    emoji: "🏛️",
+    title: "Event-Locations",
+    copy: "Anfragen, Angebote und Buchungen direkt aus dem Eventflow erhalten.",
+    image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=600&h=320&fit=crop&auto=format&q=80",
+    imageAlt: "Eventsaal eingedeckt für Feier",
+  },
+  {
+    emoji: "🎯",
+    title: "Erlebnisse & Touren",
+    copy: "Als fester Stop in Routen, Explore und Roadtrip-Etappen positioniert werden.",
+    image: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&h=320&fit=crop&auto=format&q=80",
+    imageAlt: "Stadtführung mit Gruppe vor Sehenswürdigkeit",
+  },
+  {
+    emoji: "🎵",
+    title: "Dienstleister",
+    copy: "Fotografie, Musik, Deko oder Transport direkt im Anfrage- und Buchungsprozess anbieten.",
+    image: "https://images.unsplash.com/photo-1493676304819-0d7a8d026dcf?w=600&h=320&fit=crop&auto=format&q=80",
+    imageAlt: "DJ am Mischpult bei Event",
+  },
+  {
+    emoji: "🏙️",
+    title: "Stadtmarketing",
+    copy: "Kuratierten Content, saisonale Highlights und Themenrouten sichtbar machen.",
+    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&h=320&fit=crop&auto=format&q=80",
+    imageAlt: "Stadtszene am Abend mit Beleuchtung",
+  },
 ];
 
 const packageCards = [
@@ -171,30 +208,35 @@ export default function PartnerLandingPage() {
             </div>
           </div>
 
-          <div className="rounded-[28px] border border-[rgba(23,23,23,0.06)] bg-white/88 p-5 shadow-[var(--shadow-soft)]">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
-                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Explore</div>
-                <div className="mt-2 text-base font-semibold text-[var(--text-strong)]">Karten, Covers und Empfehlungslisten</div>
-              </div>
-              <div className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
-                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Eventflow</div>
-                <div className="mt-2 text-base font-semibold text-[var(--text-strong)]">Anfragen, Preise und Direktbuchung</div>
-              </div>
-              <div className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
-                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Roadtrip</div>
-                <div className="mt-2 text-base font-semibold text-[var(--text-strong)]">Etappen, Hotels und Stop-Empfehlungen</div>
-              </div>
-              <div className="rounded-[22px] border border-[rgba(196,137,79,0.22)] bg-[rgba(255,249,241,0.88)] p-4">
-                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Analytics</div>
-                <div className="mt-2 text-base font-semibold text-[var(--text-strong)]">Klicks, Paketinteresse und Lead-Tracking</div>
-              </div>
-            </div>
-            <div className="mt-4 rounded-[22px] border border-[var(--line-subtle)] bg-[linear-gradient(135deg,#0f172a,#1f2937)] p-4 text-white">
-              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-white/60">Warum das konvertiert</div>
-              <div className="mt-2 text-lg font-semibold">Dein Angebot erscheint genau im Entscheidungsfenster des Nutzers.</div>
-              <div className="mt-2 text-sm leading-7 text-white/72">
-                Statt nur gelistet zu sein, bist du Teil von Tagesrouten, Roadtrips und buchbaren Event-Setups.
+          <div className="relative overflow-hidden rounded-[28px] border border-[rgba(23,23,23,0.06)] shadow-[var(--shadow-large)]">
+            <div className="relative h-[420px] w-full">
+              <Image
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=900&h=860&fit=crop&auto=format&q=80"
+                alt="Restaurant-Atmosphäre mit Tischen, Lichtern und Gästen — wo PerfectDay24 Partner sichtbar werden"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 480px"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/85 via-[#0f172a]/30 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">Warum das konvertiert</div>
+                <div className="mt-2 text-xl font-semibold text-white sm:text-2xl">
+                  Dein Angebot erscheint genau im Entscheidungsfenster des Nutzers.
+                </div>
+                <div className="mt-2 max-w-sm text-sm leading-6 text-white/82">
+                  Statt nur gelistet zu sein, bist du Teil von Tagesrouten, Roadtrips und buchbaren Event-Setups.
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {["Explore", "Eventflow", "Roadtrip", "Analytics"].map((surface) => (
+                    <span
+                      key={surface}
+                      className="rounded-full border border-white/25 bg-white/12 px-3 py-1 text-xs font-medium text-white backdrop-blur"
+                    >
+                      {surface}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -203,12 +245,24 @@ export default function PartnerLandingPage() {
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {partnerTypes.map((item) => (
-          <article key={item.title} className="rounded-[26px] border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-[14px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-xl">
-              {item.emoji}
+          <article key={item.title} className="flex flex-col overflow-hidden rounded-[26px] border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-large)]">
+            <div className="relative h-40 w-full overflow-hidden">
+              <Image
+                src={item.image}
+                alt={item.imageAlt}
+                fill
+                className="object-cover transition-transform duration-500 hover:scale-[1.04]"
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+              <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-[14px] border border-white/30 bg-white/90 text-xl backdrop-blur">
+                {item.emoji}
+              </div>
             </div>
-            <div className="text-lg font-semibold text-[var(--text-strong)]">{item.title}</div>
-            <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{item.copy}</p>
+            <div className="flex flex-1 flex-col p-5">
+              <div className="text-lg font-semibold text-[var(--text-strong)]">{item.title}</div>
+              <p className="mt-2 flex-1 text-sm leading-7 text-[var(--text-muted)]">{item.copy}</p>
+            </div>
           </article>
         ))}
       </section>
