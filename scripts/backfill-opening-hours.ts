@@ -30,8 +30,25 @@ function parseArg(name: string) {
   return found ? found.slice(prefix.length) : null;
 }
 
+// Normalisiert Stadt-POI-Namen für Matching zwischen Overpass und unserer DB.
+// Behandelt: Großschreibung, deutsche Umlaute, Diakritik (é, ñ, ç), Punctuation
+// (Apostroph in "L'Etoile"), häufige Suffixe ("GmbH", "& Co. KG"), Whitespace.
 function norm(name: string): string {
-  return name.replace(/\s+/g, " ").trim().toLowerCase();
+  return name
+    .toLowerCase()
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss")
+    // Diakritik via NFD + Combining-Mark-Removal (é → e, ñ → n, ç → c, etc.)
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    // Common business suffixes als Wort-Boundary
+    .replace(/\b(gmbh|ag|kg|gbr|ohg|ug|e\s*v|inc|ltd|co\.?\s*kg)\b\.?/g, " ")
+    // & + andere Punctuation → Whitespace
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 async function fetchOpeningHours(city: CityArg): Promise<Map<string, string>> {
@@ -121,12 +138,42 @@ async function backfillCity(
   // Fetch OSM data
   const osmMap = await fetchOpeningHours(city);
 
-  // Build name lookup für locations, match auf OSM
+  // Build name lookup für locations, match auf OSM.
+  // Strategie: 1) exakter Match auf normalisiertem Namen, 2) Substring-Match
+  // wenn beide Seiten ≥8 Zeichen lang (filtert "pizza"/"hotel" etc. die
+  // sonst gefährliche false positives erzeugen würden).
+  const SUBSTRING_MIN_LENGTH = 8;
+  const osmEntries = Array.from(osmMap.entries()).filter(
+    ([key]) => key.length >= SUBSTRING_MIN_LENGTH
+  );
+
   const updates: Array<{ id: string; opening_hours_raw: string }> = [];
+  let exactCount = 0;
+  let substringCount = 0;
   for (const loc of locations) {
     if (loc.opening_hours_raw) continue; // schon gesetzt, skip
-    const osmHours = osmMap.get(norm(loc.name));
-    if (osmHours) updates.push({ id: loc.id, opening_hours_raw: osmHours });
+    const key = norm(loc.name);
+
+    // Exakter Match (Fast Path)
+    const exact = osmMap.get(key);
+    if (exact) {
+      updates.push({ id: loc.id, opening_hours_raw: exact });
+      exactCount++;
+      continue;
+    }
+
+    // Substring-Match nur bei längeren Namen
+    if (key.length < SUBSTRING_MIN_LENGTH) continue;
+    for (const [osmName, hours] of osmEntries) {
+      if (key.includes(osmName) || osmName.includes(key)) {
+        updates.push({ id: loc.id, opening_hours_raw: hours });
+        substringCount++;
+        break;
+      }
+    }
+  }
+  if (substringCount > 0) {
+    console.log(`    (exakt: ${exactCount}, substring: ${substringCount})`);
   }
 
   if (updates.length === 0) {
