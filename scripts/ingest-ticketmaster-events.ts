@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import {
   fetchTicketmasterEvents,
   normalizeTicketmasterEvent,
+  type NormalizedProviderEvent,
   type TicketmasterCityInput,
 } from "../lib/events/ticketmaster";
 import { reconcilePlannerEventQualityForCity } from "../lib/events/quality";
@@ -204,7 +205,7 @@ async function main() {
       await sleep(delayMs);
     }
 
-    const normalizedBatch = [];
+    const normalizedBatch: NormalizedProviderEvent[] = [];
 
     try {
       for (let page = 0; page < pageLimit; page++) {
@@ -240,10 +241,12 @@ async function main() {
       }
 
       // Upsert with retry — transient Supabase / network blips shouldn't abort a run.
+      // Note: PostgrestFilterBuilder ist thenable aber kein striktes Promise<T>,
+      // deshalb wickeln wir es in eine async-Function (= echtes Promise).
       const { error: upsertError } = await withRetry(
         `upsert:${city.slug}`,
-        () =>
-          supabase.from("planner_events").upsert(normalizedBatch, {
+        async () =>
+          await supabase.from("planner_events").upsert(normalizedBatch, {
             onConflict: "source,external_id",
             ignoreDuplicates: false,
           })

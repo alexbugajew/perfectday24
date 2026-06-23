@@ -110,8 +110,9 @@ async function fetchOpeningHours(city: CityArg): Promise<Map<string, string>> {
   throw new Error("overpass all endpoints failed");
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function backfillCity(
-  supabase: ReturnType<typeof createClient>,
+  supabase: any,
   city: CityArg
 ): Promise<{ matched: number; updated: number; total: number; osmHits: number }> {
   // Fetch all locations for the city (paginated — Supabase REST liefert

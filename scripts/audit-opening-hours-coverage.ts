@@ -16,8 +16,9 @@ function loadEnvFile(path: string) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function exactCount(
-  supabase: ReturnType<typeof createClient>,
+  supabase: any,
   citySlug: string,
   filter?: "with_hours" | "without_hours"
 ) {
