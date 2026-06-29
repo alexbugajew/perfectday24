@@ -280,100 +280,107 @@ export default function PlannerStopListSection({
 
                 {/* Card */}
                 <div
-                  className={`min-w-0 flex-1 rounded-lg border p-3 sm:p-4 ${
+                  className={`min-w-0 flex-1 overflow-hidden rounded-lg border ${
                     draggedStopPosition === i
                       ? "border-[rgba(199,104,60,0.32)] bg-[rgba(255,248,240,0.96)]"
                       : "border-[rgba(68,57,46,0.08)] bg-[rgba(255,253,248,0.94)]"
                   }`}
                 >
-                  <div className="flex gap-3 sm:gap-4">
-                    {/* Thumb */}
-                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md border border-[rgba(68,57,46,0.08)] bg-[var(--bg-panel)] sm:h-24 sm:w-24">
-                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[linear-gradient(135deg,rgba(248,244,237,0.96),rgba(231,238,242,0.92))]">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-md border border-[rgba(68,57,46,0.12)] bg-white text-xs font-semibold tracking-[0.14em] text-[var(--text-strong)] shadow-sm">
-                          {visualMeta.icon}
-                        </div>
-                        <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-                          {visualMeta.label}
-                        </div>
+                  {/* Großformatiges Hero-Foto */}
+                  <div className="relative h-32 w-full overflow-hidden sm:h-40">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-[linear-gradient(135deg,rgba(248,244,237,0.96),rgba(231,238,242,0.92))]">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-md border border-[rgba(68,57,46,0.12)] bg-white text-xs font-semibold tracking-[0.14em] text-[var(--text-strong)] shadow-sm">
+                        {visualMeta.icon}
                       </div>
-                      {imageUrl ? (
-                        <Image
-                          src={imageUrl}
-                          alt={stop.item?.name ? `Bild von ${stop.item.name}` : `${visualMeta.label} Bild`}
-                          fill
-                          sizes="(min-width: 768px) 96px, 80px"
-                          className="object-cover"
-                          loading="lazy"
-                          unoptimized
-                          onError={(event) => {
-                            event.currentTarget.style.display = "none";
-                          }}
-                        />
-                      ) : null}
+                      <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                        {visualMeta.label}
+                      </div>
                     </div>
-
-                    {/* Body */}
-                    <div className="min-w-0 flex-1">
-                      {/* Phase chip + mobile reorder controls */}
-                      <div className="flex items-center justify-between gap-2">
-                        {phaseLabel ? (
-                          <span className="rounded-full bg-[var(--bg-panel)] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[var(--text-muted)]">
-                            {phaseLabel}
-                          </span>
-                        ) : <span />}
-                        <div className="flex items-center gap-1 sm:hidden">
-                          <button
-                            type="button"
-                            onClick={() => onMovePlannedStop(i, Math.max(0, i - 1))}
-                            disabled={i === 0}
-                            className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[rgba(68,57,46,0.12)] bg-white text-xs text-[var(--text-muted)] disabled:opacity-40"
-                            aria-label="Stop nach oben"
-                          >
-                            ↑
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => onMovePlannedStop(i, Math.min(plannedStops.length - 1, i + 1))}
-                            disabled={i === plannedStops.length - 1}
-                            className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[rgba(68,57,46,0.12)] bg-white text-xs text-[var(--text-muted)] disabled:opacity-40"
-                            aria-label="Stop nach unten"
-                          >
-                            ↓
-                          </button>
-                        </div>
-                      </div>
-
-                      <h3 className="mt-1.5 text-base font-semibold tracking-tight text-[var(--text-strong)] sm:text-lg">
+                    {imageUrl ? (
+                      <Image
+                        src={imageUrl}
+                        alt={stop.item?.name ? `Bild von ${stop.item.name}` : `${visualMeta.label} Bild`}
+                        fill
+                        sizes="(min-width: 768px) 500px, 100vw"
+                        className="object-cover"
+                        loading="lazy"
+                        unoptimized
+                        onError={(event) => {
+                          event.currentTarget.style.display = "none";
+                        }}
+                      />
+                    ) : null}
+                    {/* Gradient overlay für Lesbarkeit der Chips */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/15" />
+                    {/* Phase-Chip oben links */}
+                    {phaseLabel ? (
+                      <span className="absolute left-3 top-3 rounded-full border border-white/30 bg-white/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-[var(--text-strong)] backdrop-blur-sm">
+                        {phaseLabel}
+                      </span>
+                    ) : null}
+                    {/* Mobile-Reorder-Buttons oben rechts */}
+                    <div className="absolute right-2 top-2 flex items-center gap-1 sm:hidden">
+                      <button
+                        type="button"
+                        onClick={() => onMovePlannedStop(i, Math.max(0, i - 1))}
+                        disabled={i === 0}
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/40 bg-white/85 text-xs text-[var(--text-strong)] backdrop-blur-sm disabled:opacity-40"
+                        aria-label="Stop nach oben"
+                      >
+                        ↑
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => onMovePlannedStop(i, Math.min(plannedStops.length - 1, i + 1))}
+                        disabled={i === plannedStops.length - 1}
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/40 bg-white/85 text-xs text-[var(--text-strong)] backdrop-blur-sm disabled:opacity-40"
+                        aria-label="Stop nach unten"
+                      >
+                        ↓
+                      </button>
+                    </div>
+                    {/* Name und Type-Pill unten auf dem Foto */}
+                    <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                      {stop.item?.type ? (
+                        <span className="inline-block rounded-full border border-white/30 bg-white/85 px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)] backdrop-blur-sm">
+                          {stop.item.type}
+                        </span>
+                      ) : null}
+                      <div className="mt-1.5 text-base font-semibold leading-tight tracking-tight text-white drop-shadow sm:text-lg">
                         {stop.item?.name ?? stop.label}
-                      </h3>
-                      <div className="mt-1 text-xs text-[var(--text-muted)]">
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content unter dem Foto */}
+                  <div className="p-3 sm:p-4">
+                    {(stop.hint || stop.durationMin != null) ? (
+                      <div className="text-xs text-[var(--text-muted)]">
                         {stop.hint}
                         {stop.durationMin != null ? ` · ${stop.durationMin} Min` : null}
                       </div>
+                    ) : null}
 
-                      {/* Max 2 quality signals + warning chip */}
-                      {qualitySignals.length > 0 || stop.timingWarnings?.length ? (
-                        <div className="mt-2 flex flex-wrap gap-1.5">
-                          {stop.timingWarnings?.length ? (
-                            <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-0.5 text-[10px] font-medium text-rose-700">
-                              ⚠ Timing prüfen
+                    {/* Max 2 quality signals + warning chip */}
+                    {qualitySignals.length > 0 || stop.timingWarnings?.length ? (
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {stop.timingWarnings?.length ? (
+                          <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-0.5 text-[10px] font-medium text-rose-700">
+                            ⚠ Timing prüfen
+                          </span>
+                        ) : null}
+                        {qualitySignals
+                          .filter((s) => s !== "Timing prüfen")
+                          .map((signal) => (
+                            <span
+                              key={`${stop.index}-${signal}`}
+                              className="rounded-full border border-[rgba(68,57,46,0.1)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]"
+                            >
+                              {signal}
                             </span>
-                          ) : null}
-                          {qualitySignals
-                            .filter((s) => s !== "Timing prüfen")
-                            .map((signal) => (
-                              <span
-                                key={`${stop.index}-${signal}`}
-                                className="rounded-full border border-[rgba(68,57,46,0.1)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]"
-                              >
-                                {signal}
-                              </span>
-                            ))}
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
+                          ))}
+                      </div>
+                    ) : null}
 
                   {stop.item ? (
                     <>
@@ -550,6 +557,7 @@ export default function PlannerStopListSection({
                       Keine passende Location für diesen Block gefunden.
                     </p>
                   )}
+                  </div> {/* close p-3 sm:p-4 */}
                 </div>
               </div>
             </li>

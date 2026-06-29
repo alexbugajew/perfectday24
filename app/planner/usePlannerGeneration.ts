@@ -27,7 +27,7 @@ import {
   EMPTY_PLANNER_RESULTS,
   EMPTY_PLANNED_STOPS,
 } from "./helpers";
-import { rescheduleStops, sortStopsChronologically } from "./rescheduleStops";
+import { rescheduleStops, sortStopsChronologically, optimizeStopOrderByGeo } from "./rescheduleStops";
 import type {
   GroupPlanSummary,
   PlannerApiResponse,
@@ -408,6 +408,12 @@ export function usePlannerGeneration({
     [plannedStops]
   );
 
+  const optimizeStopOrder = useCallback(() => {
+    if (plannedStops.length < 3) return;
+    const optimized = optimizeStopOrderByGeo(plannedStops);
+    setManualStopOrder(optimized.map((stop) => stop.index));
+  }, [plannedStops]);
+
   const fallbackSummary: RouteSummaryLite = useMemo(() => {
     if (activeVariant?.fallbackSummary) return activeVariant.fallbackSummary;
     if (plannerData?.fallbackSummary) return plannerData.fallbackSummary;
@@ -558,6 +564,7 @@ export function usePlannerGeneration({
     mapStops,
     googleRouteUrl,
     movePlannedStop,
+    optimizeStopOrder,
     toggleVariantReaction,
   };
 }

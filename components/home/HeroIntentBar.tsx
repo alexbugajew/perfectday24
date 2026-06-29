@@ -358,7 +358,7 @@ export default function HeroIntentBar() {
           disabled={text.trim().length === 0}
           className="m-1.5 flex shrink-0 items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-90 active:scale-[0.97] disabled:opacity-40"
         >
-          Plan erstellen
+          Autopilot starten
           <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
             <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
           </svg>
@@ -367,7 +367,7 @@ export default function HeroIntentBar() {
 
       {/* Scenario tiles */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">Schnell starten:</span>
+        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">Oder Vorlage:</span>
         {SCENARIOS.map((scenario) => (
           <button
             key={scenario.key}

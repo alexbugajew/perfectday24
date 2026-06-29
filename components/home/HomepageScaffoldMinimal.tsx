@@ -4,6 +4,9 @@ import { Cormorant_Garamond } from "next/font/google";
 import type { ReactNode } from "react";
 import { PD24Button, PD24StatusBadge } from "@/components/ui/pd24";
 import HeroIntentBar from "@/components/home/HeroIntentBar";
+import EditorialRoutesShowcase from "@/components/home/EditorialRoutesShowcase";
+import FeatureShowcase from "@/components/home/FeatureShowcase";
+import AiExploreTeaser from "@/components/home/AiExploreTeaser";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -291,12 +294,20 @@ export default function HomepageScaffoldMinimal() {
             <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_minmax(340px,0.98fr)] lg:items-center">
               <div className="min-w-0">
                 <div className="max-w-2xl">
-                  <div className="pd24-kicker-warm">Einfach schreiben. Direkt geplant.</div>
+                  <div className="pd24-kicker-warm">
+                    <span className="inline-flex items-center gap-1.5">
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--brand-warm)] opacity-60" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--brand-warm)]" />
+                      </span>
+                      Autopilot · ein Satz reicht
+                    </span>
+                  </div>
                   <h1 className="mt-4 pd24-display text-[2.7rem] leading-[0.94] tracking-tight text-[var(--text-strong)] sm:text-6xl lg:text-7xl">
-                    Nicht nur Ideen. Sondern ein fertiger Tag, der wirklich funktioniert.
+                    Schreib was du vorhast. Der Autopilot baut den Tag.
                   </h1>
                   <p className="mt-5 max-w-xl text-lg leading-8 text-[var(--text-muted-warm)]">
-                    Du beschreibst kurz, was du vorhast. PerfectDay24 baut daraus einen realistischen Tagesplan mit echten Events, passenden Wegen und klarem Timing.
+                    Ein Satz wie &bdquo;Date-Abend in München mit Live-Konzert&ldquo; reicht. PerfectDay24 generiert einen kompletten Ablauf mit echten Events, passenden Wegen und sauberem Timing — direkt teilbar.
                   </p>
                 </div>
 
@@ -383,6 +394,25 @@ export default function HomepageScaffoldMinimal() {
             </div>
           </section>
 
+          <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-white/82 px-5 py-6 shadow-[var(--shadow-soft)] sm:px-8 sm:py-7">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { value: "78", label: "Deutsche Großstädte", note: "Berlin bis Moers" },
+                { value: "68.975", label: "Plannable Locations", note: "kuratiert + gefiltert" },
+                { value: "36.000+", label: "mit Öffnungszeiten", note: "Stand heute, wächst täglich" },
+                { value: "6.500+", label: "Event-Anbieter", note: "von Florist bis Location" },
+              ].map((stat) => (
+                <div key={stat.label} className="border-l border-[var(--line-subtle)] pl-4 first:border-l-0 first:pl-0 sm:border-l sm:first:border-l-0">
+                  <div className="pd24-display text-3xl tracking-tight text-[var(--text-strong)] sm:text-4xl">
+                    {stat.value}
+                  </div>
+                  <div className="mt-1 text-sm font-semibold text-[var(--brand-warm)]">{stat.label}</div>
+                  <div className="mt-0.5 text-xs text-[var(--text-muted-warm)]">{stat.note}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
           <section className="space-y-8">
             <SectionIntro
               eyebrow="So sieht ein guter Plan aus"
@@ -427,10 +457,19 @@ export default function HomepageScaffoldMinimal() {
             </div>
           </section>
 
+          <section className="space-y-6">
+            <SectionIntro
+              eyebrow="Vier Modi · ein Stack"
+              title="Was möchtest du planen?"
+              body="Tag, Roadtrip, Event oder einfach entdecken — alle vier sind tiefer integriert als eine reine Linkliste."
+            />
+            <FeatureShowcase />
+          </section>
+
           <section>
             <SectionIntro
               eyebrow="Wähle deinen Einstieg"
-              title="Was möchtest du planen?"
+              title="Direkt loslegen"
               body="Wähle den Modus, der zu deinem Anlass passt: ein Tag in der Stadt oder ein Event mit mehreren Beteiligten."
             />
 
@@ -499,6 +538,29 @@ export default function HomepageScaffoldMinimal() {
                 </div>
               </div>
             </div>
+          </section>
+
+          <AiExploreTeaser />
+
+          <section className="space-y-6">
+            <div className="flex items-end justify-between gap-3">
+              <div>
+                <div className="pd24-kicker-warm">Kuratiert von uns</div>
+                <h2 className="mt-2 pd24-display text-3xl tracking-tight text-[var(--text-strong)] sm:text-4xl">
+                  Fertige Routen mit Hauptmoment.
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--text-muted-warm)] sm:text-base">
+                  Klick einen Tag an, übernimm ihn in den Planner und passe ihn nach Lust an.
+                </p>
+              </div>
+              <Link
+                href="/explore"
+                className="hidden text-sm font-medium text-[var(--text-strong)] underline-offset-2 hover:underline sm:inline"
+              >
+                Alle entdecken →
+              </Link>
+            </div>
+            <EditorialRoutesShowcase />
           </section>
 
           <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(248,250,252,0.96),rgba(238,244,248,0.92))] p-6 shadow-[var(--shadow-soft)] sm:p-8">

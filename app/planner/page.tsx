@@ -726,6 +726,7 @@ function PlannerPageContent() {
     mapStops,
     googleRouteUrl,
     movePlannedStop,
+    optimizeStopOrder,
     toggleVariantReaction,
   } = usePlannerGeneration({
     mounted,
@@ -1828,6 +1829,14 @@ function PlannerPageContent() {
               className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
             >
               Anderer Vorschlag
+            </button>
+            <button
+              type="button"
+              onClick={optimizeStopOrder}
+              disabled={plannedStops.length < 3}
+              className="rounded-md border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.55)] px-3 py-1.5 text-xs font-medium text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,0.85)] disabled:opacity-60"
+            >
+              Reihenfolge optimieren
             </button>
             <button
               type="button"

@@ -734,10 +734,17 @@ function RoadtripPageContent() {
             </span>
           </div>
           <h1 className="text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
-            Wie möchtest du planen?
+            Von wo nach wo soll's gehen?
           </h1>
-          <p className="mt-1.5 mb-4 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-            Wähle deinen Einstieg — die KI macht Vorschläge, du planst selbst oder nutzt fertige Creator-Routen.
+          <p className="mt-1.5 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+            Trag zwei Städte ein, wähle die Tage — wir bauen die Etappen, Hotels und Tagespläne dazu.
+          </p>
+
+          {/* Point-to-Point Quick Start */}
+          <P2PQuickStart cities={cities} addStop={addStop} />
+
+          <p className="mt-4 mb-4 text-xs text-[var(--text-muted)]">
+            Oder weiter unten Stops einzeln hinzufügen, eine fertige Route übernehmen, oder beim Anlegen die KI Vorschläge machen lassen.
           </p>
 
           {/* ── 3 Foto-Einstiegskarten ─────────────────────────────────────── */}
@@ -2023,6 +2030,101 @@ function RoadtripPageContent() {
         </div>
       )}
     </main>
+  );
+}
+
+function P2PQuickStart({
+  cities,
+  addStop,
+}: {
+  cities: CityRow[];
+  addStop: (city: CityRow) => void;
+}) {
+  const [fromSlug, setFromSlug] = useState<string>("");
+  const [toSlug, setToSlug] = useState<string>("");
+  const [days, setDays] = useState<number>(3);
+
+  const canStart =
+    fromSlug !== "" &&
+    toSlug !== "" &&
+    fromSlug !== toSlug &&
+    days >= 1 &&
+    cities.length > 0;
+
+  function handleStart() {
+    if (!canStart) return;
+    const from = cities.find((c) => c.slug === fromSlug);
+    const to = cities.find((c) => c.slug === toSlug);
+    if (!from || !to) return;
+    addStop(from);
+    // Nights für Startstadt setzen so dass to-date korrekt ist
+    // Wir fügen To erst nach kurzer Pause hinzu, damit die Stops sequenziell aufgebaut werden
+    setTimeout(() => addStop(to), 0);
+  }
+
+  return (
+    <div className="mt-3 grid gap-2 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3 sm:grid-cols-[1fr_1fr_120px_auto]">
+      <label className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+          Von
+        </div>
+        <select
+          value={fromSlug}
+          onChange={(e) => setFromSlug(e.target.value)}
+          className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
+        >
+          <option value="">— Start wählen —</option>
+          {cities.map((c) => (
+            <option key={c.slug} value={c.slug}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+          Nach
+        </div>
+        <select
+          value={toSlug}
+          onChange={(e) => setToSlug(e.target.value)}
+          className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
+        >
+          <option value="">— Ziel wählen —</option>
+          {cities
+            .filter((c) => c.slug !== fromSlug)
+            .map((c) => (
+              <option key={c.slug} value={c.slug}>
+                {c.name}
+              </option>
+            ))}
+        </select>
+      </label>
+      <label className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+          Tage
+        </div>
+        <input
+          type="number"
+          min={1}
+          max={30}
+          value={days}
+          onChange={(e) => setDays(Math.max(1, Number(e.target.value) || 1))}
+          className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
+        />
+      </label>
+      <button
+        type="button"
+        onClick={handleStart}
+        disabled={!canStart}
+        className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-95 active:scale-[0.98] disabled:opacity-40"
+      >
+        Roadtrip bauen
+        <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+          <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
+        </svg>
+      </button>
+    </div>
   );
 }
 
