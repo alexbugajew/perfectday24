@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import type { PlanMapStop } from "@/components/PlanMap";
 import { supabase } from "@/lib/supabaseClient";
+import PlanExpensesPanel from "@/components/events/PlanExpensesPanel";
 import {
   clearRouteRunProgress,
   readRouteRunProgress,
@@ -653,6 +654,14 @@ function RouteRunPageContent() {
           </div>
         </div>
       ) : null}
+
+      <section>
+        <PlanExpensesPanel
+          targetType="route"
+          targetId={route.id}
+          participantCount={1}
+        />
+      </section>
     </main>
   );
 }

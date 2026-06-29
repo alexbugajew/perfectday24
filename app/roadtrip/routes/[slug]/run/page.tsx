@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useParams, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { PlanMapStop } from "@/components/PlanMap";
+import PlanExpensesPanel from "@/components/events/PlanExpensesPanel";
 import { fetchRoadtripRouteBySlug } from "@/lib/roadtrip/client";
 import {
   stopArrivalDate,
@@ -816,6 +817,14 @@ export default function RoadtripRouteRunPage() {
           </div>
         </div>
       ) : null}
+
+      <section>
+        <PlanExpensesPanel
+          targetType="roadtrip"
+          targetId={route.id}
+          participantCount={1}
+        />
+      </section>
     </main>
   );
 }

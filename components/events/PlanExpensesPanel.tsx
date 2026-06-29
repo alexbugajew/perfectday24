@@ -3,9 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
+type TargetType = "event_plan" | "roadtrip" | "route";
+
 type PlanExpense = {
   id: string;
-  plan_id: string;
+  target_type: TargetType;
+  target_id: string;
   stop_index: number | null;
   label: string;
   amount_cents: number;
@@ -16,7 +19,11 @@ type PlanExpense = {
 };
 
 type Props = {
-  planId: string;
+  /** Polymorphic target. Default 'event_plan' für Backwards-Kompatibilität. */
+  targetType?: TargetType;
+  targetId: string;
+  /** Deprecated — wenn übergeben wird targetType='event_plan' angenommen. */
+  planId?: string;
   participantCount?: number;
   participantLabels?: string[];
 };
@@ -37,7 +44,17 @@ function formatEuro(cents: number): string {
  * Erweiterungen für später: pro-Stop-Zuordnung, custom Splits,
  * Saldo-Übersicht "Wer schuldet wem wie viel".
  */
-export default function PlanExpensesPanel({ planId, participantCount = 1, participantLabels = [] }: Props) {
+export default function PlanExpensesPanel({
+  targetType,
+  targetId,
+  planId,
+  participantCount = 1,
+  participantLabels = [],
+}: Props) {
+  // Resolve target. Old API (planId) → event_plan. New API (targetType+targetId) wins.
+  const resolvedType: TargetType = targetType ?? "event_plan";
+  const resolvedId = targetId ?? planId ?? "";
+
   const [expenses, setExpenses] = useState<PlanExpense[] | null>(null);
   const [adding, setAdding] = useState(false);
   const [label, setLabel] = useState("");
@@ -48,15 +65,19 @@ export default function PlanExpensesPanel({ planId, participantCount = 1, partic
 
   useEffect(() => {
     let active = true;
+    if (!resolvedId) {
+      setExpenses([]);
+      return;
+    }
     (async () => {
       const { data, error: e } = await supabase
         .from("plan_expenses")
         .select("*")
-        .eq("plan_id", planId)
+        .eq("target_type", resolvedType)
+        .eq("target_id", resolvedId)
         .order("created_at", { ascending: true });
       if (!active) return;
       if (e) {
-        // Schema noch nicht deployed? Stub-Mode bleibt leer.
         setExpenses([]);
         return;
       }
@@ -65,7 +86,7 @@ export default function PlanExpensesPanel({ planId, participantCount = 1, partic
     return () => {
       active = false;
     };
-  }, [planId]);
+  }, [resolvedType, resolvedId]);
 
   const total = useMemo(() => {
     if (!expenses) return 0;
@@ -82,15 +103,22 @@ export default function PlanExpensesPanel({ planId, participantCount = 1, partic
     }
     setSaving(true);
     setError(null);
+    const insertPayload: Record<string, unknown> = {
+      target_type: resolvedType,
+      target_id: resolvedId,
+      label: label.trim(),
+      amount_cents: Math.round(amount),
+      paid_by_label: paidBy.trim() || null,
+      equal_split: true,
+    };
+    // Für Backwards-Compat: plan_id setzen wenn event_plan (Legacy-Spalte ist
+    // nullable, aber Constraints in alten Migrations könnten sie erwarten).
+    if (resolvedType === "event_plan") {
+      insertPayload.plan_id = resolvedId;
+    }
     const { data, error: e } = await supabase
       .from("plan_expenses")
-      .insert({
-        plan_id: planId,
-        label: label.trim(),
-        amount_cents: Math.round(amount),
-        paid_by_label: paidBy.trim() || null,
-        equal_split: true,
-      })
+      .insert(insertPayload)
       .select()
       .single();
     setSaving(false);

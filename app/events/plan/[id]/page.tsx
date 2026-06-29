@@ -1166,7 +1166,8 @@ export default function EventPlanDetailPage() {
       {activeTab === "expenses" && (
         <div className="space-y-4">
           <PlanExpensesPanel
-            planId={plan.id}
+            targetType="event_plan"
+            targetId={plan.id}
             participantCount={plan.guest_count ?? 1}
             participantLabels={
               rsvps && rsvps.length > 0
