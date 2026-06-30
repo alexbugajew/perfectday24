@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import AiPlanModal from "./AiPlanModal";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { canonicalCitySlug, dedupeCitiesByCanonicalSlug } from "@/lib/cities/canonical";
@@ -134,6 +135,7 @@ function PlannerPageContent() {
   const [plannerTemplateInterests, setPlannerTemplateInterests] = useState<string[]>([]);
   const [showPlannerConfig, setShowPlannerConfig] = useState(false);
   const [showWeitere, setShowWeitere] = useState(false);
+  const [showAiModal, setShowAiModal] = useState(false);
 
   const [stopOffsets, setStopOffsets] = useState<number[]>([]);
 
@@ -596,6 +598,26 @@ function PlannerPageContent() {
     setActivePlanGroupChatId(null);
     setEditingPlanId(null);
     setVariationSeed((prev) => prev + 1);
+  }
+
+  function applyAiPlan(aiStops: import("@/lib/planner").PlannedStop[], summary: string) {
+    // AI-Plan in den State injizieren — überschreibt aktuelle Stops.
+    setPinnedVariantId(null);
+    setSelectedVariantId("ai-plan");
+    setPlannerData({
+      context: {} as PlannerApiResponse["context"],
+      results: [],
+      activeLevel: "strict" as MatchLevel,
+      effectiveRadiusKm: 10,
+      eventCandidates: [],
+      eventDebugRows: [],
+      plannedStops: aiStops,
+      fallbackSummary: { distanceKm: 0, travelMin: 0, activityMin: 0, totalMin: 0 },
+      variants: [],
+      recommendedVariantId: null,
+    });
+    setAiText(summary);
+    setShowAiModal(false);
   }
 
   function defaultEditedPlanTitle(saveMode: PlannerSaveMode, finalizeGroupPlan: boolean) {
@@ -1832,6 +1854,13 @@ function PlannerPageContent() {
             </button>
             <button
               type="button"
+              onClick={() => setShowAiModal(true)}
+              className="rounded-md border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(90deg,rgba(255,249,241,0.85),rgba(255,253,248,0.85))] px-3 py-1.5 text-xs font-semibold text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,0.95)]"
+            >
+              ✨ Mit AI planen
+            </button>
+            <button
+              type="button"
               onClick={optimizeStopOrder}
               disabled={plannedStops.length < 3}
               className="rounded-md border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.55)] px-3 py-1.5 text-xs font-medium text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,0.85)] disabled:opacity-60"
@@ -2097,6 +2126,15 @@ function PlannerPageContent() {
       />
         </section>
       </div>
+
+      <AiPlanModal
+        open={showAiModal}
+        citySlug={effectiveCitySlug}
+        planDate={planDate}
+        budget={budget}
+        onClose={() => setShowAiModal(false)}
+        onApply={applyAiPlan}
+      />
 
       {plannedStops.length > 0 ? (
         <div className="fixed bottom-16 left-0 right-0 z-[1200] sm:hidden pb-safe">
