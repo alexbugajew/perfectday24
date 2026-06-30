@@ -601,7 +601,9 @@ function PlannerPageContent() {
   }
 
   function applyAiPlan(aiStops: import("@/lib/planner").PlannedStop[], summary: string) {
-    // AI-Plan in den State injizieren — überschreibt aktuelle Stops.
+    // AI-Plan-Modus aktivieren BEVOR wir Daten setzen — sonst überschreibt der
+    // normale /api/planner/generate-Effekt unseren State beim nächsten Re-Render.
+    setAiPlanActive(true);
     setPinnedVariantId(null);
     setSelectedVariantId("ai-plan");
     // slotTemplate muss mind. so lang sein wie aiStops, damit occasionFlow nicht crasht.
@@ -729,6 +731,7 @@ function PlannerPageContent() {
     setPlannerError,
     plannerData,
     setPlannerData,
+    setAiPlanActive,
     selectedVariantId,
     setSelectedVariantId,
     setPinnedVariantId,

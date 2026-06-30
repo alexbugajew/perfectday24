@@ -84,9 +84,11 @@ export function usePlannerGeneration({
   const [pinnedVariantId, setPinnedVariantId] = useState<string | null>(null);
   const [variantVotes, setVariantVotes] = useState<Record<string, string[]>>({});
   const [manualStopOrder, setManualStopOrder] = useState<number[] | null>(null);
+  const [aiPlanActive, setAiPlanActive] = useState(false);
 
   useEffect(() => {
     if (!mounted) return;
+    if (aiPlanActive) return;
     if (!presetsReady) return;
     if (!effectiveCitySlug) return;
     if (!hasValidPlannerOrigin) {
@@ -170,6 +172,7 @@ export function usePlannerGeneration({
     };
   }, [
     mounted,
+    aiPlanActive,
     presetsReady,
     effectiveCitySlug,
     hasValidPlannerOrigin,
@@ -533,6 +536,8 @@ export function usePlannerGeneration({
     setPlannerError,
     plannerData,
     setPlannerData,
+    aiPlanActive,
+    setAiPlanActive,
     selectedVariantId,
     setSelectedVariantId,
     pinnedVariantId,
