@@ -92,11 +92,28 @@ const SYSTEM = `Du klassifizierst deutsche Stadt-Locations (Restaurants, Bars, M
 
 Regeln:
 - Nur Tags aus dieser Whitelist verwenden: ${VIBE_LIST}
-- Max 4 Tags pro Location.
-- Wenn dir nichts klar wird (Name ist generisch oder unbekannt), gib leeres Array.
-- Output: JSON-Objekt mit "classifications" Array.
+- Min 1, max 4 Tags pro Location.
+- IMMER mindestens 1 Tag vergeben — leite es aus Type/Category ab wenn Name unbekannt.
 
-Beispiel-Mapping:
+OUTPUT-FORMAT (STRIKT, JSON):
+{
+  "classifications": [
+    { "id": "<exakt die uuid aus der Eingabe>", "vibes": ["tag1","tag2"] }
+  ]
+}
+Antworte ausschließlich mit diesem JSON-Objekt.
+WICHTIG: Das Feld heisst "vibes" (nicht "tags", nicht "labels"). Nutze IMMER den Schlüssel "vibes".
+
+Heuristik wenn Name unbekannt:
+- type=restaurant → mindestens ["casual"] oder ["refined"] je nach budget (low→casual, medium/high→refined oder date-friendly)
+- type=cafe → ["cozy","casual"] oder ["breakfast-spot"]
+- category=culture → ["tourist-classic"] + ggf. ["refined"]
+- category=nightlife (bar) → ["lively","casual"] oder ["late-night"]
+- category=nightlife (club) → ["late-night","lively"]
+- category=activity outdoor → ["outdoor","family-friendly"]
+- category=activity indoor → ["family-friendly","group-friendly"]
+
+Beispiel-Mapping bei bekanntem Namen:
 - "Schumann's Bar" (München, Bar) → ["refined","date-friendly","iconic"]
 - "Pinakothek der Moderne" → ["tourist-classic","iconic","refined"]
 - "Berghain" → ["lively","late-night","iconic"]
@@ -137,6 +154,8 @@ const RESPONSE_SCHEMA = {
   required: ["classifications"],
 } as const;
 
+let DEBUG_FIRST_BATCH = true;
+
 async function classifyBatch(
   client: OpenAI,
   rows: LocRow[]
@@ -144,7 +163,7 @@ async function classifyBatch(
   const completion = await client.chat.completions.create({
     model: "gpt-4o-mini",
     temperature: 0.2,
-    max_tokens: 600,
+    max_tokens: 1000,
     response_format: { type: "json_object" },
     messages: [
       { role: "system", content: SYSTEM },
@@ -152,12 +171,27 @@ async function classifyBatch(
     ],
   });
   const raw = completion.choices[0]?.message?.content ?? "{}";
+  if (DEBUG_FIRST_BATCH) {
+    DEBUG_FIRST_BATCH = false;
+    console.log("\n  DEBUG first batch raw response (truncated 400 chars):");
+    console.log("  " + raw.slice(0, 400).replace(/\n/g, "\n  "));
+    console.log();
+  }
   try {
-    const parsed = JSON.parse(raw) as { classifications: Classification[] };
+    const parsed = JSON.parse(raw) as {
+      classifications: Array<{ id?: string; vibes?: string[]; tags?: string[] }>;
+    };
     if (!Array.isArray(parsed.classifications)) return [];
-    return parsed.classifications.filter(
-      (c) => typeof c.id === "string" && Array.isArray(c.vibes)
-    );
+    const result: Classification[] = [];
+    for (const c of parsed.classifications) {
+      if (typeof c.id !== "string") continue;
+      const list = Array.isArray(c.vibes) ? c.vibes : Array.isArray(c.tags) ? c.tags : [];
+      const filtered = list.filter((t): t is VibeTag =>
+        (ALLOWED_VIBES as readonly string[]).includes(t)
+      );
+      result.push({ id: c.id, vibes: filtered });
+    }
+    return result;
   } catch {
     return [];
   }
