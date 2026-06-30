@@ -229,15 +229,22 @@ export async function POST(req: Request) {
         });
       }
 
-      const completion = await client.chat.completions.create({
-        model: "gpt-4o-mini",
-        temperature: 0.4,
-        max_tokens: 800,
-        tools: exhausted ? undefined : (AI_PLANNER_TOOLS as unknown as OpenAI.Chat.ChatCompletionTool[]),
-        tool_choice: exhausted ? "none" : "auto",
-        response_format: exhausted ? { type: "json_object" } : undefined,
-        messages,
-      });
+      const completion = exhausted
+        ? await client.chat.completions.create({
+            model: "gpt-4o-mini",
+            temperature: 0.4,
+            max_tokens: 800,
+            response_format: { type: "json_object" },
+            messages,
+          })
+        : await client.chat.completions.create({
+            model: "gpt-4o-mini",
+            temperature: 0.4,
+            max_tokens: 800,
+            tools: AI_PLANNER_TOOLS as unknown as OpenAI.Chat.ChatCompletionTool[],
+            tool_choice: "auto",
+            messages,
+          });
 
       const msg = completion.choices[0]?.message;
       if (!msg) break;
