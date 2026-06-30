@@ -57,40 +57,26 @@ Vorgehen:
    - tags: curated Tags (z.B. "romantic", "kid-friendly", "live-music"). Match gegen Anlass.
    - distance_km: Entfernung vom Startpunkt. Bevorzuge < 3 km wenn vorhanden.
 5. Wähle EXAKT so viele Stops wie unter "Gewünschte Stops" angegeben. Wenn nichts angegeben: 4.
-6. Antworte am Ende mit EINEM JSON-Block:
+6. Wenn du genug Kandidaten gesammelt hast, ruf das Tool **build_final_plan** auf. Das ist die ABSCHLIESSENDE Aktion. KEINE Antwort als freier Text — IMMER build_final_plan.
 
-{
-  "summary": "Kurze Beschreibung was den Plan ausmacht (max 200 Zeichen).",
-  "stops": [
-    {
-      "location_id": "<id aus den Tool-Results>",
-      "label": "z.B. Aperitif | Lunch | Hauptmoment | Ausklang",
-      "hint": "Was passiert hier konkret",
-      "scheduled_start_at": "ISO timestamp im Datum",
-      "duration_min": 60,
-      "source": "location" oder "event"
-    }
-  ]
-}
-
-KRITISCH (Korrekheit):
-- location_id MUSS exakt einer "id" aus den Tool-Returns entsprechen — diese sind UUIDs im Format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
+KRITISCH (Korrektheit):
+- location_id in build_final_plan MUSS exakt einer "id" aus den vorherigen Tool-Returns entsprechen — diese sind UUIDs im Format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
 - NIE den Namen einer Location als location_id einsetzen. NIE eine ID einer anderen Location verwenden.
-- Bevor du das finale JSON schreibst: für jede location_id prüfe, dass sie als "id" in einem Tool-Result auftaucht.
 - Wenn du keine passende Location findest, lass sie weg statt eine falsche ID zu schreiben.
 
 Sonstiges:
 - Zeitfenster realistisch: Wege ~15 Min zwischen Stops, Essen 60-90 Min, Kultur 90-120 Min, Event laut Event-Zeit.
-- Stops in chronologischer Reihenfolge ausgeben.
-- KEIN Text außerhalb des JSON-Blocks.
+- Stops in chronologischer Reihenfolge.
 
-Anlass-Voice:
-- Date: romantisch, intim, kulinarisch, nicht überladen
-- Familie: kinderfreundlich, kürzere Wege, mittlere Stop-Dauern, Park/Spielplatz wenn passend
-- Freunde: gesellig, mix aus Action und Genuss, abends gerne Bar/Nightlife
-- Tourismus: Highlights & "must-see", Kultur priorisiert, Wege auch länger ok
-- Party: spätstart, eskalierende Energie, endet in Bar/Club
-- Solo: ruhig, kontemplativ, weniger Stops, längere Verweildauer
+Anlass-Voice + Vibe-Tag-Mapping (für requireTags im Tool-Call):
+- Date: romantisch, intim → requireTags: ["romantic","date-friendly","intimate","refined"]
+- Familie: kinderfreundlich, kürzere Wege → requireTags: ["family-friendly","kid-friendly","outdoor"]
+- Freunde: gesellig, mix → requireTags: ["lively","group-friendly","casual"]
+- Tourismus: Highlights, must-see → requireTags: ["tourist-classic","iconic","view"]
+- Party: spätstart, eskalierend → requireTags: ["late-night","lively","iconic"]
+- Solo: ruhig, kontemplativ → requireTags: ["cozy","refined","hidden-gem"]
+
+Wichtig: requireTags ist OPTIONAL. Wenn du sie verwendest und 0 Kandidaten zurückkommen, ruf das gleiche Tool nochmal OHNE requireTags auf — sonst fehlen Stops.
 
 Startpunkt-Regel:
 - Wenn der User im Wunsch-Text einen Startpunkt nennt → der gewinnt.
@@ -232,32 +218,25 @@ export async function POST(req: Request) {
     for (let iter = 0; iter < MAX_ITER; iter++) {
       const exhausted = iter >= TOOL_BUDGET;
 
-      // Wenn Tool-Budget aufgebraucht: letzte Nudge-Nachricht + tool_choice="none"
-      // damit das Modell zwangsweise mit dem JSON-Plan antwortet.
+      // Wenn Tool-Budget aufgebraucht: User-Nudge + zwinge build_final_plan-Aufruf.
       if (exhausted && messages[messages.length - 1]?.role !== "user") {
         messages.push({
           role: "user",
           content:
-            "Genug Kandidaten gesammelt. Antworte JETZT mit dem finalen JSON-Block — keine weiteren Tool-Calls.",
+            "Genug Kandidaten gesammelt. Ruf JETZT build_final_plan auf — keine weiteren Discovery-Tools.",
         });
       }
 
-      const completion = exhausted
-        ? await client.chat.completions.create({
-            model: "gpt-4o-mini",
-            temperature: 0.4,
-            max_tokens: 800,
-            response_format: { type: "json_object" },
-            messages,
-          })
-        : await client.chat.completions.create({
-            model: "gpt-4o-mini",
-            temperature: 0.4,
-            max_tokens: 800,
-            tools: AI_PLANNER_TOOLS as unknown as OpenAI.Chat.ChatCompletionTool[],
-            tool_choice: "auto",
-            messages,
-          });
+      const completion = await client.chat.completions.create({
+        model: "gpt-4o-mini",
+        temperature: 0.4,
+        max_tokens: 800,
+        tools: AI_PLANNER_TOOLS as unknown as OpenAI.Chat.ChatCompletionTool[],
+        tool_choice: exhausted
+          ? { type: "function", function: { name: "build_final_plan" } }
+          : "auto",
+        messages,
+      });
 
       const msg = completion.choices[0]?.message;
       if (!msg) break;
@@ -332,7 +311,75 @@ export async function POST(req: Request) {
         });
       }
 
-      // Execute tool calls
+      // Erst pruefen: hat das Modell build_final_plan aufgerufen? Wenn ja, fertig.
+      const finalCall = msg.tool_calls.find(
+        (tc) => tc.type === "function" && tc.function.name === "build_final_plan"
+      );
+      if (finalCall && finalCall.type === "function") {
+        let finalArgs: AiPlanResult | null = null;
+        try {
+          finalArgs = JSON.parse(finalCall.function.arguments || "{}") as AiPlanResult;
+        } catch {
+          finalArgs = null;
+        }
+        if (!finalArgs || !Array.isArray(finalArgs.stops)) {
+          // Modell hat das Tool kaputt aufgerufen → Korrektur-Loop
+          messages.push({
+            role: "tool",
+            tool_call_id: finalCall.id,
+            content: JSON.stringify({ error: "build_final_plan args invalid — please retry with correct schema" }),
+          });
+          continue;
+        }
+
+        const invalidIds = finalArgs.stops
+          .filter((s) => s.source !== "event")
+          .map((s) => s.location_id)
+          .filter((id) => !validCandidateIds.has(id));
+        const countMismatch = Math.abs(finalArgs.stops.length - TARGET_STOPS) > 1;
+        if ((invalidIds.length > 0 || countMismatch) && !retriedForValidation) {
+          retriedForValidation = true;
+          const issues: string[] = [];
+          if (invalidIds.length > 0) {
+            issues.push(
+              `${invalidIds.length} location_id(s) sind keine echten UUIDs aus den Tool-Returns: ${invalidIds.slice(0, 3).join(", ")}.`
+            );
+          }
+          if (countMismatch) {
+            issues.push(
+              `Du hast ${finalArgs.stops.length} Stops geliefert, gewünscht waren ${TARGET_STOPS}.`
+            );
+          }
+          messages.push({
+            role: "tool",
+            tool_call_id: finalCall.id,
+            content: JSON.stringify({ error: issues.join(" ") + " Bitte build_final_plan nochmal korrigiert aufrufen." }),
+          });
+          continue;
+        }
+
+        const resolved = await resolveStopsFromDb(finalArgs.stops);
+        if (resolved.length === 0) {
+          return NextResponse.json(
+            { error: "no valid locations resolved", rawStops: finalArgs.stops },
+            { status: 500 }
+          );
+        }
+        return NextResponse.json({
+          summary: finalArgs.summary ?? "",
+          stops: resolved,
+          meta: {
+            model: "gpt-4o-mini",
+            toolCalls: toolCallCount,
+            candidatesPulled: totalCandidates.length,
+            usage: completion.usage,
+            retried: retriedForValidation,
+            via: "build_final_plan",
+          },
+        });
+      }
+
+      // Normale Discovery-Tools ausführen
       for (const tc of msg.tool_calls) {
         if (tc.type !== "function") continue;
         toolCallCount += 1;

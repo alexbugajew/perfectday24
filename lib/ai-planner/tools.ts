@@ -102,9 +102,13 @@ function compactRow(
 function applyNearAndSort(
   rows: LocationRow[],
   near?: { lat: number; lng: number; maxKm?: number },
-  limit?: number
+  limit?: number,
+  requireTags?: string[]
 ): AiCandidate[] {
   let candidates = rows.map((r) => compactRow(r, near));
+  if (requireTags && requireTags.length > 0) {
+    candidates = filterByTags(candidates, requireTags);
+  }
   if (near?.maxKm) {
     candidates = candidates.filter(
       (c) => c.distance_km === undefined || c.distance_km <= near.maxKm!
@@ -144,12 +148,21 @@ async function runQuery(builder: any): Promise<LocationRow[]> {
 }
 
 type NearArgs = { nearLat?: number; nearLng?: number; maxKm?: number };
+type TagArgs = { requireTags?: string[] };
 
 function near(args: NearArgs): { lat: number; lng: number; maxKm?: number } | undefined {
   if (typeof args.nearLat === "number" && typeof args.nearLng === "number") {
     return { lat: args.nearLat, lng: args.nearLng, maxKm: args.maxKm };
   }
   return undefined;
+}
+
+function filterByTags(candidates: AiCandidate[], requireTags?: string[]): AiCandidate[] {
+  if (!requireTags || requireTags.length === 0) return candidates;
+  return candidates.filter((c) => {
+    if (!c.tags || c.tags.length === 0) return false;
+    return requireTags.some((t) => c.tags!.includes(t));
+  });
 }
 
 // Wir fetchen einen größeren Pool als der LLM braucht, damit applyNearAndSort
@@ -161,7 +174,7 @@ export async function findFood(args: {
   meal?: "breakfast" | "lunch" | "dinner" | "any";
   budget?: BudgetLevel;
   limit?: number;
-} & NearArgs): Promise<AiCandidate[]> {
+} & NearArgs & TagArgs): Promise<AiCandidate[]> {
   const sb = getSupabase();
   const limit = Math.min(args.limit ?? 8, 15);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -181,14 +194,14 @@ export async function findFood(args: {
   if (args.meal === "dinner") query = query.neq("evening_only", false);
 
   const rows = await runQuery(query);
-  return applyNearAndSort(rows, near(args), limit);
+  return applyNearAndSort(rows, near(args), limit, args.requireTags);
 }
 
 export async function findCulture(args: {
   citySlug: string;
   budget?: BudgetLevel;
   limit?: number;
-} & NearArgs): Promise<AiCandidate[]> {
+} & NearArgs & TagArgs): Promise<AiCandidate[]> {
   const sb = getSupabase();
   const limit = Math.min(args.limit ?? 8, 15);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -206,14 +219,14 @@ export async function findCulture(args: {
   if (bv) query = query.in("budget", bv);
 
   const rows = await runQuery(query);
-  return applyNearAndSort(rows, near(args), limit);
+  return applyNearAndSort(rows, near(args), limit, args.requireTags);
 }
 
 export async function findActivity(args: {
   citySlug: string;
   familyFriendly?: boolean;
   limit?: number;
-} & NearArgs): Promise<AiCandidate[]> {
+} & NearArgs & TagArgs): Promise<AiCandidate[]> {
   const sb = getSupabase();
   const limit = Math.min(args.limit ?? 8, 15);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -230,13 +243,13 @@ export async function findActivity(args: {
   if (args.familyFriendly === true) query = query.eq("family_friendly", true);
 
   const rows = await runQuery(query);
-  return applyNearAndSort(rows, near(args), limit);
+  return applyNearAndSort(rows, near(args), limit, args.requireTags);
 }
 
 export async function findNightlife(args: {
   citySlug: string;
   limit?: number;
-} & NearArgs): Promise<AiCandidate[]> {
+} & NearArgs & TagArgs): Promise<AiCandidate[]> {
   const sb = getSupabase();
   const limit = Math.min(args.limit ?? 6, 12);
   const { data, error } = await sb
@@ -249,14 +262,14 @@ export async function findNightlife(args: {
     .order("manual_boost", { ascending: false })
     .limit(POOL_SIZE);
   if (error) throw new Error(`findNightlife: ${error.message}`);
-  return applyNearAndSort((data ?? []) as LocationRow[], near(args), limit);
+  return applyNearAndSort((data ?? []) as LocationRow[], near(args), limit, args.requireTags);
 }
 
 export async function findEvent(args: {
   citySlug: string;
   date: string; // YYYY-MM-DD
   limit?: number;
-} & NearArgs): Promise<AiCandidate[]> {
+} & NearArgs & TagArgs): Promise<AiCandidate[]> {
   const sb = getSupabase();
   const limit = Math.min(args.limit ?? 6, 12);
   const dayStart = `${args.date}T00:00:00.000Z`;
@@ -333,6 +346,11 @@ export const AI_PLANNER_TOOLS = [
           nearLat: { type: "number", description: "Optional: Latitude vom Startpunkt. Wenn gesetzt, werden nahe Locations bevorzugt." },
           nearLng: { type: "number", description: "Optional: Longitude vom Startpunkt." },
           maxKm: { type: "number", description: "Optional: Locations weiter als maxKm vom Startpunkt werden verworfen." },
+          requireTags: {
+            type: "array",
+            items: { type: "string" },
+            description: "Optional: Nur Locations zurückgeben, die mind. einen dieser Vibe-Tags haben. Beispiele: 'romantic', 'kid-friendly', 'live-music', 'date-friendly', 'hip', 'refined', 'lively', 'cozy', 'outdoor', 'late-night'.",
+          },
           budget: { type: "string", enum: ["low", "medium", "high", "any"], default: "any" },
           limit: { type: "number", default: 8, maximum: 15 },
         },
@@ -352,6 +370,11 @@ export const AI_PLANNER_TOOLS = [
           nearLat: { type: "number", description: "Optional: Latitude vom Startpunkt. Wenn gesetzt, werden nahe Locations bevorzugt." },
           nearLng: { type: "number", description: "Optional: Longitude vom Startpunkt." },
           maxKm: { type: "number", description: "Optional: Locations weiter als maxKm vom Startpunkt werden verworfen." },
+          requireTags: {
+            type: "array",
+            items: { type: "string" },
+            description: "Optional: Nur Locations zurückgeben, die mind. einen dieser Vibe-Tags haben. Beispiele: 'romantic', 'kid-friendly', 'live-music', 'date-friendly', 'hip', 'refined', 'lively', 'cozy', 'outdoor', 'late-night'.",
+          },
           familyFriendly: { type: "boolean", default: false },
           limit: { type: "number", default: 8, maximum: 15 },
         },
@@ -371,6 +394,11 @@ export const AI_PLANNER_TOOLS = [
           nearLat: { type: "number", description: "Optional: Latitude vom Startpunkt. Wenn gesetzt, werden nahe Locations bevorzugt." },
           nearLng: { type: "number", description: "Optional: Longitude vom Startpunkt." },
           maxKm: { type: "number", description: "Optional: Locations weiter als maxKm vom Startpunkt werden verworfen." },
+          requireTags: {
+            type: "array",
+            items: { type: "string" },
+            description: "Optional: Nur Locations zurückgeben, die mind. einen dieser Vibe-Tags haben. Beispiele: 'romantic', 'kid-friendly', 'live-music', 'date-friendly', 'hip', 'refined', 'lively', 'cozy', 'outdoor', 'late-night'.",
+          },
           limit: { type: "number", default: 6, maximum: 12 },
         },
         required: ["citySlug"],
@@ -390,10 +418,72 @@ export const AI_PLANNER_TOOLS = [
           nearLat: { type: "number", description: "Optional: Latitude vom Startpunkt. Wenn gesetzt, werden nahe Locations bevorzugt." },
           nearLng: { type: "number", description: "Optional: Longitude vom Startpunkt." },
           maxKm: { type: "number", description: "Optional: Locations weiter als maxKm vom Startpunkt werden verworfen." },
+          requireTags: {
+            type: "array",
+            items: { type: "string" },
+            description: "Optional: Nur Locations zurückgeben, die mind. einen dieser Vibe-Tags haben. Beispiele: 'romantic', 'kid-friendly', 'live-music', 'date-friendly', 'hip', 'refined', 'lively', 'cozy', 'outdoor', 'late-night'.",
+          },
           date: { type: "string", description: "ISO date YYYY-MM-DD" },
           limit: { type: "number", default: 6, maximum: 12 },
         },
         required: ["citySlug", "date"],
+      },
+    },
+  },
+  {
+    type: "function" as const,
+    function: {
+      name: "build_final_plan",
+      description:
+        "FINALE-Aktion: Wenn du genug Kandidaten hast, ruf NUR dieses Tool auf um den fertigen Plan abzuliefern. Danach wird nichts mehr gemacht. Alle location_ids MUESSEN exakt einer id aus den vorherigen Tool-Returns entsprechen.",
+      parameters: {
+        type: "object",
+        properties: {
+          summary: {
+            type: "string",
+            description: "Kurze Beschreibung was den Plan ausmacht. Max 200 Zeichen, deutsch.",
+            maxLength: 220,
+          },
+          stops: {
+            type: "array",
+            minItems: 2,
+            maxItems: 8,
+            items: {
+              type: "object",
+              properties: {
+                location_id: {
+                  type: "string",
+                  description: "UUID einer Location/Event aus den Tool-Returns. NIEMALS Name verwenden.",
+                },
+                label: {
+                  type: "string",
+                  description: "Z.B. 'Aperitif', 'Dinner', 'Hauptmoment', 'Ausklang'.",
+                  maxLength: 40,
+                },
+                hint: {
+                  type: "string",
+                  description: "Was passiert hier konkret. 1 Satz.",
+                  maxLength: 160,
+                },
+                scheduled_start_at: {
+                  type: "string",
+                  description: "ISO timestamp im Plan-Datum.",
+                },
+                duration_min: {
+                  type: "integer",
+                  minimum: 15,
+                  maximum: 240,
+                },
+                source: {
+                  type: "string",
+                  enum: ["location", "event"],
+                },
+              },
+              required: ["location_id", "label", "scheduled_start_at", "duration_min", "source"],
+            },
+          },
+        },
+        required: ["summary", "stops"],
       },
     },
   },
