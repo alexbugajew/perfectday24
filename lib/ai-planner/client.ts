@@ -71,6 +71,15 @@ export async function generateAiPlan(params: {
   citySlug: string;
   planDate?: string;
   budget?: string;
+  occasion?: string;
+  startPointLabel?: string;
+  startPointLat?: number;
+  startPointLng?: number;
+  interests?: string[];
+  stopsCount?: number;
+  familyAgeBand?: string;
+  groupEnabled?: boolean;
+  groupSize?: number;
   signal?: AbortSignal;
 }): Promise<{ summary: string; stops: PlannedStop[]; meta?: AiPlanResponse["meta"] }> {
   const res = await fetch("/api/generate-plan-ai", {
@@ -81,6 +90,15 @@ export async function generateAiPlan(params: {
       citySlug: params.citySlug,
       planDate: params.planDate ?? "",
       budget: params.budget ?? "medium",
+      occasion: params.occasion,
+      startPointLabel: params.startPointLabel,
+      startPointLat: params.startPointLat,
+      startPointLng: params.startPointLng,
+      interests: params.interests,
+      stopsCount: params.stopsCount,
+      familyAgeBand: params.familyAgeBand,
+      groupEnabled: params.groupEnabled,
+      groupSize: params.groupSize,
     }),
     signal: params.signal,
   });

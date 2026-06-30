@@ -2203,8 +2203,18 @@ function PlannerPageContent() {
       <AiPlanModal
         open={showAiModal}
         citySlug={effectiveCitySlug}
+        cityLabel={selectedCity?.name ?? null}
         planDate={planDate}
         budget={budget}
+        occasion={occasion}
+        startPointLabel={effectiveStartPoint?.label ?? null}
+        startPointLat={typeof effectiveStartPoint?.lat === "number" ? effectiveStartPoint.lat : null}
+        startPointLng={typeof effectiveStartPoint?.lng === "number" ? effectiveStartPoint.lng : null}
+        interests={interests}
+        stopsCount={stopsCount}
+        familyAgeBand={occasion === "family" ? familyAgeBand : null}
+        groupEnabled={groupEnabled}
+        groupSize={groupEnabled ? groupMembers.length + 1 : undefined}
         onClose={() => setShowAiModal(false)}
         onApply={applyAiPlan}
         onOpen={() => {

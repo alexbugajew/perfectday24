@@ -48,10 +48,10 @@ type ResolvedStop = {
 const SYSTEM_PROMPT = `Du planst Tagesabläufe für PerfectDay24 in deutschen Städten.
 
 Vorgehen:
-1. Lies User-Wunsch + Stadt + Datum.
+1. Lies User-Wunsch + alle Constraints (Stadt, Datum, Anlass, Startpunkt, Interessen, gewünschte Stop-Anzahl, Budget).
 2. Ruf die passenden Tools auf um Kandidaten zu bekommen (find_food, find_culture, find_activity, find_nightlife, find_event).
-3. Wenn der User ein Event/Konzert/Show erwähnt, IMMER zuerst find_event aufrufen — Events sind feste Anker.
-4. Wähle 3–6 Stops aus den Kandidaten aus.
+3. Wenn der User ein Event/Konzert/Show erwähnt ODER eine eindeutige Event-Affinität signalisiert, IMMER zuerst find_event aufrufen — Events sind feste Anker.
+4. Wähle exakt so viele Stops wie unter "Gewünschte Stops" angegeben (Default: 4). Wenn nichts angegeben: 3–5.
 5. Antworte am Ende mit EINEM JSON-Block:
 
 {
@@ -72,7 +72,20 @@ Wichtig:
 - Nur location_id aus den Tool-Results verwenden (KEINE erfundenen IDs).
 - Zeitfenster realistisch: Wege ~15 Min zwischen Stops, Essen 60-90 Min, Kultur 90-120 Min, Event laut Event-Zeit.
 - Stops in chronologischer Reihenfolge ausgeben.
-- KEIN Text außerhalb des JSON-Blocks.`;
+- KEIN Text außerhalb des JSON-Blocks.
+
+Anlass-Voice:
+- Date: romantisch, intim, kulinarisch, nicht überladen
+- Familie: kinderfreundlich, kürzere Wege, mittlere Stop-Dauern, Park/Spielplatz wenn passend
+- Freunde: gesellig, mix aus Action und Genuss, abends gerne Bar/Nightlife
+- Tourismus: Highlights & "must-see", Kultur priorisiert, Wege auch länger ok
+- Party: spätstart, eskalierende Energie, endet in Bar/Club
+- Solo: ruhig, kontemplativ, weniger Stops, längere Verweildauer
+
+Startpunkt-Regel:
+- Wenn der User im Wunsch-Text einen Startpunkt nennt → der gewinnt.
+- Sonst bevorzuge Stops, die nah am angegebenen Startpunkt liegen (idealerweise <5 km Luftlinie).
+- Erster Stop sollte zeitlich/räumlich gut von dort erreichbar sein.`;
 
 async function resolveStopsFromDb(stops: AiStopPlan[]): Promise<ResolvedStop[]> {
   if (stops.length === 0) return [];
@@ -149,6 +162,17 @@ export async function POST(req: Request) {
     const citySlug = typeof body?.citySlug === "string" ? body.citySlug.trim() : "";
     const planDate = typeof body?.planDate === "string" ? body.planDate.trim() : "";
     const budget = typeof body?.budget === "string" ? body.budget.trim() : "medium";
+    const occasion = typeof body?.occasion === "string" ? body.occasion.trim() : "";
+    const startPointLabel = typeof body?.startPointLabel === "string" ? body.startPointLabel.trim() : "";
+    const startPointLat = typeof body?.startPointLat === "number" ? body.startPointLat : null;
+    const startPointLng = typeof body?.startPointLng === "number" ? body.startPointLng : null;
+    const interests = Array.isArray(body?.interests)
+      ? body.interests.filter((x: unknown): x is string => typeof x === "string").slice(0, 12)
+      : [];
+    const stopsCount = typeof body?.stopsCount === "number" ? Math.max(2, Math.min(8, body.stopsCount)) : null;
+    const familyAgeBand = typeof body?.familyAgeBand === "string" ? body.familyAgeBand.trim() : "";
+    const groupEnabled = body?.groupEnabled === true;
+    const groupSize = typeof body?.groupSize === "number" ? body.groupSize : null;
 
     if (!prompt || !citySlug) {
       return NextResponse.json({ error: "prompt + citySlug required" }, { status: 400 });
@@ -157,14 +181,32 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "prompt too long" }, { status: 400 });
     }
 
+    const userLines: string[] = [
+      `Stadt: ${citySlug}`,
+      `Datum: ${planDate || "(heute)"}`,
+      `Budget: ${budget}`,
+    ];
+    if (occasion) userLines.push(`Anlass: ${occasion}`);
+    if (familyAgeBand && occasion === "family") userLines.push(`Familien-Altersband: ${familyAgeBand}`);
+    if (startPointLabel) {
+      const coords =
+        typeof startPointLat === "number" && typeof startPointLng === "number"
+          ? ` (${startPointLat.toFixed(4)}, ${startPointLng.toFixed(4)})`
+          : "";
+      userLines.push(`Startpunkt: ${startPointLabel}${coords}`);
+    }
+    if (interests.length > 0) userLines.push(`Interessen: ${interests.join(", ")}`);
+    if (typeof stopsCount === "number") userLines.push(`Gewünschte Stops: ${stopsCount}`);
+    if (groupEnabled) {
+      userLines.push(`Gruppe: ${groupSize ? `${groupSize} Personen` : "ja"}`);
+    }
+    userLines.push("", `Wunsch: ${prompt}`);
+
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
       { role: "system", content: SYSTEM_PROMPT },
-      {
-        role: "user",
-        content: `Stadt: ${citySlug}\nDatum: ${planDate || "(heute)"}\nBudget: ${budget}\n\nWunsch: ${prompt}`,
-      },
+      { role: "user", content: userLines.join("\n") },
     ];
 
     let toolCallCount = 0;

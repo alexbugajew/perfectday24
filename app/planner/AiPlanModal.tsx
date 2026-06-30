@@ -5,17 +5,40 @@ import type { PlannedStop } from "@/lib/planner";
 import { generateAiPlan } from "@/lib/ai-planner/client";
 import { formatPlannerTime } from "./helpers";
 
-type Props = {
-  open: boolean;
+export type AiPlanContext = {
   citySlug: string | null;
+  cityLabel?: string | null;
   planDate?: string;
   budget?: string;
+  occasion?: string | null;
+  startPointLabel?: string | null;
+  startPointLat?: number | null;
+  startPointLng?: number | null;
+  interests?: string[];
+  stopsCount?: number;
+  familyAgeBand?: string | null;
+  groupEnabled?: boolean;
+  groupSize?: number;
+};
+
+type Props = AiPlanContext & {
+  open: boolean;
   onClose: () => void;
   /** Wird gerufen wenn der User den AI-Plan übernimmt. */
   onApply: (stops: PlannedStop[], summary: string, prompt: string) => void;
   /** Optional: Telemetrie-Hooks fürs Funnel-Tracking. */
   onOpen?: () => void;
   onGenerated?: (stopCount: number) => void;
+};
+
+const OCCASION_LABELS: Record<string, string> = {
+  date: "Date",
+  family: "Familie",
+  friends: "Freunde",
+  tourism: "Tourismus",
+  party: "Party",
+  solo: "Solo",
+  work: "Business",
 };
 
 const EXAMPLE_PROMPTS = [
@@ -25,7 +48,26 @@ const EXAMPLE_PROMPTS = [
   "Solo-Tag mit Café, Galerie und Bar am Abend",
 ];
 
-export default function AiPlanModal({ open, citySlug, planDate, budget, onClose, onApply, onOpen, onGenerated }: Props) {
+export default function AiPlanModal({
+  open,
+  citySlug,
+  cityLabel,
+  planDate,
+  budget,
+  occasion,
+  startPointLabel,
+  startPointLat,
+  startPointLng,
+  interests,
+  stopsCount,
+  familyAgeBand,
+  groupEnabled,
+  groupSize,
+  onClose,
+  onApply,
+  onOpen,
+  onGenerated,
+}: Props) {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -68,6 +110,15 @@ export default function AiPlanModal({ open, citySlug, planDate, budget, onClose,
         citySlug,
         planDate,
         budget,
+        occasion: occasion ?? undefined,
+        startPointLabel: startPointLabel ?? undefined,
+        startPointLat: startPointLat ?? undefined,
+        startPointLng: startPointLng ?? undefined,
+        interests: interests && interests.length > 0 ? interests : undefined,
+        stopsCount,
+        familyAgeBand: familyAgeBand ?? undefined,
+        groupEnabled,
+        groupSize,
         signal: ac.signal,
       });
       setPreview({ summary: result.summary, stops: result.stops, prompt: cleaned });
@@ -122,6 +173,37 @@ export default function AiPlanModal({ open, citySlug, planDate, budget, onClose,
         <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-6">
           {!preview ? (
             <>
+              {/* Constraints aus dem Formular — was die AI mitnutzt */}
+              {(() => {
+                const chips: string[] = [];
+                if (cityLabel) chips.push(cityLabel);
+                else if (citySlug) chips.push(citySlug);
+                if (startPointLabel) chips.push(`ab ${startPointLabel}`);
+                if (occasion) chips.push(`Anlass: ${OCCASION_LABELS[occasion] ?? occasion}`);
+                if (familyAgeBand && occasion === "family") chips.push(`Alter: ${familyAgeBand}`);
+                if (interests && interests.length > 0) chips.push(`${interests.length} Interesse${interests.length === 1 ? "" : "n"}`);
+                if (typeof stopsCount === "number" && stopsCount > 0) chips.push(`${stopsCount} Stops`);
+                if (planDate) chips.push(planDate);
+                if (groupEnabled && typeof groupSize === "number" && groupSize > 1) chips.push(`Gruppe: ${groupSize}`);
+                if (chips.length === 0) return null;
+                return (
+                  <div className="mb-3 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2.5">
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                      Aus deinem Formular
+                    </div>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      {chips.map((c) => (
+                        <span
+                          key={c}
+                          className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-0.5 text-[11px] text-[var(--text-strong)]"
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
               <textarea
                 ref={inputRef}
                 value={prompt}
