@@ -212,13 +212,30 @@ export async function POST(req: Request) {
     let toolCallCount = 0;
     let totalCandidates: AiCandidate[] = [];
 
-    // Tool-Calling-Loop. Max 6 Iterationen damit das Modell nicht endlos läuft.
-    for (let iter = 0; iter < 6; iter++) {
+    const MAX_ITER = 10;
+    const TOOL_BUDGET = 6; // ab dieser Iteration werden Tools gesperrt und JSON erzwungen
+
+    // Tool-Calling-Loop. Cap damit das Modell nicht endlos lookt.
+    for (let iter = 0; iter < MAX_ITER; iter++) {
+      const exhausted = iter >= TOOL_BUDGET;
+
+      // Wenn Tool-Budget aufgebraucht: letzte Nudge-Nachricht + tool_choice="none"
+      // damit das Modell zwangsweise mit dem JSON-Plan antwortet.
+      if (exhausted && messages[messages.length - 1]?.role !== "user") {
+        messages.push({
+          role: "user",
+          content:
+            "Genug Kandidaten gesammelt. Antworte JETZT mit dem finalen JSON-Block — keine weiteren Tool-Calls.",
+        });
+      }
+
       const completion = await client.chat.completions.create({
         model: "gpt-4o-mini",
         temperature: 0.4,
         max_tokens: 800,
-        tools: AI_PLANNER_TOOLS as unknown as OpenAI.Chat.ChatCompletionTool[],
+        tools: exhausted ? undefined : (AI_PLANNER_TOOLS as unknown as OpenAI.Chat.ChatCompletionTool[]),
+        tool_choice: exhausted ? "none" : "auto",
+        response_format: exhausted ? { type: "json_object" } : undefined,
         messages,
       });
 
@@ -299,6 +316,11 @@ export async function POST(req: Request) {
       }
     }
 
+    console.error("[generate-plan-ai] max iterations reached", {
+      toolCallCount,
+      candidatesPulled: totalCandidates.length,
+      lastMessages: messages.slice(-3).map((m) => ({ role: m.role, contentLength: typeof m.content === "string" ? m.content.length : -1 })),
+    });
     return NextResponse.json({ error: "max iterations reached" }, { status: 500 });
   } catch (err) {
     console.error("[generate-plan-ai]", err);
