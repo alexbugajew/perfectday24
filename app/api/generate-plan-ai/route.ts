@@ -49,10 +49,15 @@ const SYSTEM_PROMPT = `Du planst Tagesabläufe für PerfectDay24 in deutschen St
 
 Vorgehen:
 1. Lies User-Wunsch + alle Constraints (Stadt, Datum, Anlass, Startpunkt, Interessen, gewünschte Stop-Anzahl, Budget).
-2. Ruf die passenden Tools auf um Kandidaten zu bekommen (find_food, find_culture, find_activity, find_nightlife, find_event).
+2. Wenn ein Startpunkt mit Koordinaten gegeben ist, übergib bei JEDEM Tool-Call nearLat/nearLng und maxKm=5 — du bekommst dann nahe Kandidaten zurück.
 3. Wenn der User ein Event/Konzert/Show erwähnt ODER eine eindeutige Event-Affinität signalisiert, IMMER zuerst find_event aufrufen — Events sind feste Anker.
-4. Wähle exakt so viele Stops wie unter "Gewünschte Stops" angegeben (Default: 4). Wenn nichts angegeben: 3–5.
-5. Antworte am Ende mit EINEM JSON-Block:
+4. Tool-Returns enthalten:
+   - id: UUID — NUR DIESEN als location_id verwenden. NIEMALS den Namen, NIEMALS einen anderen String.
+   - score (0-100): höher = besser. Bevorzuge Kandidaten mit score >= 60.
+   - tags: curated Tags (z.B. "romantic", "kid-friendly", "live-music"). Match gegen Anlass.
+   - distance_km: Entfernung vom Startpunkt. Bevorzuge < 3 km wenn vorhanden.
+5. Wähle EXAKT so viele Stops wie unter "Gewünschte Stops" angegeben. Wenn nichts angegeben: 4.
+6. Antworte am Ende mit EINEM JSON-Block:
 
 {
   "summary": "Kurze Beschreibung was den Plan ausmacht (max 200 Zeichen).",
@@ -68,8 +73,13 @@ Vorgehen:
   ]
 }
 
-Wichtig:
-- Nur location_id aus den Tool-Results verwenden (KEINE erfundenen IDs).
+KRITISCH (Korrekheit):
+- location_id MUSS exakt einer "id" aus den Tool-Returns entsprechen — diese sind UUIDs im Format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
+- NIE den Namen einer Location als location_id einsetzen. NIE eine ID einer anderen Location verwenden.
+- Bevor du das finale JSON schreibst: für jede location_id prüfe, dass sie als "id" in einem Tool-Result auftaucht.
+- Wenn du keine passende Location findest, lass sie weg statt eine falsche ID zu schreiben.
+
+Sonstiges:
 - Zeitfenster realistisch: Wege ~15 Min zwischen Stops, Essen 60-90 Min, Kultur 90-120 Min, Event laut Event-Zeit.
 - Stops in chronologischer Reihenfolge ausgeben.
 - KEIN Text außerhalb des JSON-Blocks.
@@ -211,6 +221,9 @@ export async function POST(req: Request) {
 
     let toolCallCount = 0;
     let totalCandidates: AiCandidate[] = [];
+    const validCandidateIds = new Set<string>();
+    let retriedForValidation = false;
+    const TARGET_STOPS = stopsCount ?? 4;
 
     const MAX_ITER = 10;
     const TOOL_BUDGET = 6; // ab dieser Iteration werden Tools gesperrt und JSON erzwungen
@@ -270,6 +283,34 @@ export async function POST(req: Request) {
           );
         }
 
+        // Validation: alle location_ids müssen aus den Tool-Returns stammen,
+        // und stops.length sollte TARGET_STOPS treffen. Ein Retry.
+        const invalidIds = plan.stops
+          .filter((s) => s.source !== "event")
+          .map((s) => s.location_id)
+          .filter((id) => !validCandidateIds.has(id));
+        const countMismatch =
+          Math.abs(plan.stops.length - TARGET_STOPS) > 1; // ±1 toleriert
+        if ((invalidIds.length > 0 || countMismatch) && !retriedForValidation) {
+          retriedForValidation = true;
+          const issues: string[] = [];
+          if (invalidIds.length > 0) {
+            issues.push(
+              `${invalidIds.length} location_id(s) sind keine echten UUIDs aus den Tool-Returns: ${invalidIds.slice(0, 3).join(", ")}. Bitte ERSETZEN mit gueltigen IDs aus den bisherigen Kandidaten.`
+            );
+          }
+          if (countMismatch) {
+            issues.push(
+              `Du hast ${plan.stops.length} Stops geliefert, gewünscht waren ${TARGET_STOPS}. Bitte korrigieren auf genau ${TARGET_STOPS} Stops.`
+            );
+          }
+          messages.push({
+            role: "user",
+            content: `Dein Plan hat Probleme:\n- ${issues.join("\n- ")}\n\nGib mir den korrigierten JSON-Plan.`,
+          });
+          continue; // Loop läuft weiter, nächste Iteration liefert hoffentlich besseren Plan
+        }
+
         const resolved = await resolveStopsFromDb(plan.stops);
         if (resolved.length === 0) {
           return NextResponse.json(
@@ -286,6 +327,7 @@ export async function POST(req: Request) {
             toolCalls: toolCallCount,
             candidatesPulled: totalCandidates.length,
             usage: completion.usage,
+            retried: retriedForValidation,
           },
         });
       }
@@ -304,10 +346,17 @@ export async function POST(req: Request) {
         // Always inject citySlug to prevent LLM from forgetting
         if (!args.citySlug) args.citySlug = citySlug;
         if (name === "find_event" && !args.date) args.date = planDate;
+        // Auto-inject Startpunkt-Geo wenn vorhanden — Modell vergisst es sonst
+        if (typeof startPointLat === "number" && typeof startPointLng === "number") {
+          if (typeof args.nearLat !== "number") args.nearLat = startPointLat;
+          if (typeof args.nearLng !== "number") args.nearLng = startPointLng;
+          if (typeof args.maxKm !== "number") args.maxKm = 5;
+        }
 
         try {
           const result = await callTool(name, args);
           totalCandidates = totalCandidates.concat(result);
+          for (const c of result) validCandidateIds.add(c.id);
           messages.push({
             role: "tool",
             tool_call_id: tc.id,
