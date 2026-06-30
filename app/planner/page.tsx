@@ -604,8 +604,17 @@ function PlannerPageContent() {
     // AI-Plan in den State injizieren — überschreibt aktuelle Stops.
     setPinnedVariantId(null);
     setSelectedVariantId("ai-plan");
+    // slotTemplate muss mind. so lang sein wie aiStops, damit occasionFlow nicht crasht.
+    // Wir bauen ein minimales Template — Phase-Labels kommen sonst leer raus, was ok ist.
+    const stubSlotTemplate = aiStops.map(() => ({
+      phase: null,
+      phaseGoal: null,
+      kind: "anything" as const,
+    }));
     setPlannerData({
-      context: {} as PlannerApiResponse["context"],
+      context: {
+        slotTemplate: stubSlotTemplate,
+      } as unknown as PlannerApiResponse["context"],
       results: [],
       activeLevel: "strict" as MatchLevel,
       effectiveRadiusKm: 10,

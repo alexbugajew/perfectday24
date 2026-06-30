@@ -297,7 +297,7 @@ export function usePlannerGeneration({
     }
 
     return plannedStops.map((stop, i) => {
-      const slot = plannerData?.context.slotTemplate[i];
+      const slot = plannerData?.context?.slotTemplate?.[i];
       return {
         stop,
         phase: slot?.phase ?? null,

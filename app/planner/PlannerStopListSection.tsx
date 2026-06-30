@@ -205,7 +205,7 @@ export default function PlannerStopListSection({
           const primaryReasons = visibleStopReasons(stop);
           const isLast = i === plannedStops.length - 1;
           const phaseLabel =
-            phaseMeta(plannerData?.context.slotTemplate[i]?.phase, occasion)?.label ?? null;
+            phaseMeta(plannerData?.context?.slotTemplate?.[i]?.phase, occasion)?.label ?? null;
           const travelLabel = travelConnectorLabel(stop, routeProfile);
 
           return (
