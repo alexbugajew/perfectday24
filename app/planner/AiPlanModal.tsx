@@ -12,7 +12,10 @@ type Props = {
   budget?: string;
   onClose: () => void;
   /** Wird gerufen wenn der User den AI-Plan übernimmt. */
-  onApply: (stops: PlannedStop[], summary: string) => void;
+  onApply: (stops: PlannedStop[], summary: string, prompt: string) => void;
+  /** Optional: Telemetrie-Hooks fürs Funnel-Tracking. */
+  onOpen?: () => void;
+  onGenerated?: (stopCount: number) => void;
 };
 
 const EXAMPLE_PROMPTS = [
@@ -22,16 +25,17 @@ const EXAMPLE_PROMPTS = [
   "Solo-Tag mit Café, Galerie und Bar am Abend",
 ];
 
-export default function AiPlanModal({ open, citySlug, planDate, budget, onClose, onApply }: Props) {
+export default function AiPlanModal({ open, citySlug, planDate, budget, onClose, onApply, onOpen, onGenerated }: Props) {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [preview, setPreview] = useState<{ summary: string; stops: PlannedStop[] } | null>(null);
+  const [preview, setPreview] = useState<{ summary: string; stops: PlannedStop[]; prompt: string } | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     if (open) {
+      onOpen?.();
       setTimeout(() => inputRef.current?.focus(), 60);
     } else {
       setPrompt("");
@@ -66,7 +70,8 @@ export default function AiPlanModal({ open, citySlug, planDate, budget, onClose,
         budget,
         signal: ac.signal,
       });
-      setPreview({ summary: result.summary, stops: result.stops });
+      setPreview({ summary: result.summary, stops: result.stops, prompt: cleaned });
+      onGenerated?.(result.stops.length);
     } catch (err) {
       if ((err as Error).name === "AbortError") return;
       setError(err instanceof Error ? err.message : "AI-Plan fehlgeschlagen.");
@@ -77,7 +82,7 @@ export default function AiPlanModal({ open, citySlug, planDate, budget, onClose,
 
   function handleApply() {
     if (!preview) return;
-    onApply(preview.stops, preview.summary);
+    onApply(preview.stops, preview.summary, preview.prompt);
   }
 
   if (!open) return null;

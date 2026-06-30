@@ -83,7 +83,11 @@ export type AttributionEventType =
   | "route_copy"
   | "route_view"
   | "route_publish"
-  | "creator_follow";
+  | "creator_follow"
+  | "ai_plan_open"
+  | "ai_plan_generated"
+  | "ai_plan_applied"
+  | "ai_plan_exited";
 
 export type CreatorRewardType =
   | "distribution_credit"

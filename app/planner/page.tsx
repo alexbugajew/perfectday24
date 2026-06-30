@@ -136,6 +136,7 @@ function PlannerPageContent() {
   const [showPlannerConfig, setShowPlannerConfig] = useState(false);
   const [showWeitere, setShowWeitere] = useState(false);
   const [showAiModal, setShowAiModal] = useState(false);
+  const [aiPlanPrompt, setAiPlanPrompt] = useState<string | null>(null);
 
   const [stopOffsets, setStopOffsets] = useState<number[]>([]);
 
@@ -600,12 +601,22 @@ function PlannerPageContent() {
     setVariationSeed((prev) => prev + 1);
   }
 
-  function applyAiPlan(aiStops: import("@/lib/planner").PlannedStop[], summary: string) {
+  function applyAiPlan(aiStops: import("@/lib/planner").PlannedStop[], summary: string, prompt: string) {
     // AI-Plan-Modus aktivieren BEVOR wir Daten setzen — sonst überschreibt der
     // normale /api/planner/generate-Effekt unseren State beim nächsten Re-Render.
     setAiPlanActive(true);
+    setAiPlanPrompt(prompt);
     setPinnedVariantId(null);
     setSelectedVariantId("ai-plan");
+    if (effectiveCitySlug) {
+      void trackMonetizationEvent({
+        eventType: "ai_plan_applied",
+        userId,
+        citySlug: effectiveCitySlug,
+        surface: "planner",
+        metadata: { stopCount: aiStops.length, promptLength: prompt.length },
+      });
+    }
     // slotTemplate muss mind. so lang sein wie aiStops, damit occasionFlow nicht crasht.
     // Wir bauen ein minimales Template — Phase-Labels kommen sonst leer raus, was ok ist.
     const stubSlotTemplate = aiStops.map(() => ({
@@ -629,6 +640,23 @@ function PlannerPageContent() {
     });
     setAiText(summary);
     setShowAiModal(false);
+  }
+
+  function exitAiPlanMode() {
+    if (effectiveCitySlug) {
+      void trackMonetizationEvent({
+        eventType: "ai_plan_exited",
+        userId,
+        citySlug: effectiveCitySlug,
+        surface: "planner",
+        metadata: {},
+      });
+    }
+    setAiPlanActive(false);
+    setAiPlanPrompt(null);
+    setAiText(null);
+    setSelectedVariantId("best-match");
+    // plannerData wird vom useEffect frisch geladen sobald aiPlanActive false ist.
   }
 
   function defaultEditedPlanTitle(saveMode: PlannerSaveMode, finalizeGroupPlan: boolean) {
@@ -731,6 +759,7 @@ function PlannerPageContent() {
     setPlannerError,
     plannerData,
     setPlannerData,
+    aiPlanActive,
     setAiPlanActive,
     selectedVariantId,
     setSelectedVariantId,
@@ -1779,7 +1808,11 @@ function PlannerPageContent() {
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
               Dein Plan
             </div>
-            {activeVariant ? (
+            {aiPlanActive ? (
+              <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
+                ✨ AI-Vorschlag · {plannedStops.length} {plannedStops.length === 1 ? "Stop" : "Stops"}
+              </div>
+            ) : activeVariant ? (
               <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
                 {activeVariant.label}
                 {typeof activeVariant.totalScore === "number" ? ` | Score ${activeVariant.totalScore}` : ""}
@@ -1789,6 +1822,28 @@ function PlannerPageContent() {
               <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">Noch kein Plan erstellt</div>
             )}
           </div>
+
+          {aiPlanActive ? (
+            <div className="flex items-start justify-between gap-3 rounded-xl border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(90deg,rgba(255,249,241,0.85),rgba(255,253,248,0.85))] px-3 py-2">
+              <div className="min-w-0 flex-1">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-warm)]">
+                  AI-Modus aktiv
+                </div>
+                {aiPlanPrompt ? (
+                  <div className="mt-0.5 truncate text-xs text-[var(--text-muted)]" title={aiPlanPrompt}>
+                    „{aiPlanPrompt}"
+                  </div>
+                ) : null}
+              </div>
+              <button
+                type="button"
+                onClick={exitAiPlanMode}
+                className="shrink-0 rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
+              >
+                Standard
+              </button>
+            </div>
+          ) : null}
 
           {/* Primäraktion — Route starten */}
           <button
@@ -1845,6 +1900,19 @@ function PlannerPageContent() {
             </div>
           )}
 
+          {/* AI als prominente Sekundär-Aktion — gehört nicht in die "Weitere Aktionen"-Schublade */}
+          {!aiPlanActive ? (
+            <button
+              type="button"
+              onClick={() => setShowAiModal(true)}
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[rgba(196,137,79,0.45)] bg-[linear-gradient(90deg,rgba(255,249,241,0.95),rgba(255,253,248,0.95))] px-4 py-3 text-sm font-semibold text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,1)] active:scale-[0.98]"
+            >
+              <span aria-hidden>✨</span>
+              <span>Mit AI planen</span>
+              <span className="rounded-full bg-[var(--brand-warm)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">Neu</span>
+            </button>
+          ) : null}
+
           {/* Weitere Optionen — bewusst sekundär */}
           <button
             type="button"
@@ -1863,13 +1931,6 @@ function PlannerPageContent() {
               className="rounded-md border border-[var(--line-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
             >
               Anderer Vorschlag
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowAiModal(true)}
-              className="rounded-md border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(90deg,rgba(255,249,241,0.85),rgba(255,253,248,0.85))] px-3 py-1.5 text-xs font-semibold text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,0.95)]"
-            >
-              ✨ Mit AI planen
             </button>
             <button
               type="button"
@@ -2146,6 +2207,28 @@ function PlannerPageContent() {
         budget={budget}
         onClose={() => setShowAiModal(false)}
         onApply={applyAiPlan}
+        onOpen={() => {
+          if (effectiveCitySlug) {
+            void trackMonetizationEvent({
+              eventType: "ai_plan_open",
+              userId,
+              citySlug: effectiveCitySlug,
+              surface: "planner",
+              metadata: {},
+            });
+          }
+        }}
+        onGenerated={(stopCount) => {
+          if (effectiveCitySlug) {
+            void trackMonetizationEvent({
+              eventType: "ai_plan_generated",
+              userId,
+              citySlug: effectiveCitySlug,
+              surface: "planner",
+              metadata: { stopCount },
+            });
+          }
+        }}
       />
 
       {plannedStops.length > 0 ? (
