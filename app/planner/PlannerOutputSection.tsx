@@ -247,7 +247,7 @@ export default function PlannerOutputSection({
             Planner automatisch einen neuen Lauf an.
           </p>
         </div>
-      ) : resultsCount === 0 ? (
+      ) : resultsCount === 0 && plannedStops.length === 0 ? (
         <div className="rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
           <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
             Noch kein Vorschlag
