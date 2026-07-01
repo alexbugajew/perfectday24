@@ -12,6 +12,7 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { AI_PLANNER_TOOLS, callTool, type ToolName, type AiCandidate } from "@/lib/ai-planner/tools";
 import { createClient } from "@supabase/supabase-js";
+import { getUserPremiumStatus, FREE_AI_PLANS_PER_MONTH } from "@/lib/premium/limits";
 
 export const runtime = "nodejs";
 
@@ -175,6 +176,34 @@ export async function POST(req: Request) {
     }
     if (prompt.length > 500) {
       return NextResponse.json({ error: "prompt too long" }, { status: 400 });
+    }
+
+    // Premium-Gate: eingeloggte User gegen Free-Limit prüfen.
+    // Ohne Auth kein Gate → Marketing/Demo funktioniert weiter.
+    const authHeader = req.headers.get("authorization") ?? "";
+    const accessToken = authHeader.replace(/^Bearer\s+/i, "").trim();
+    if (accessToken) {
+      const sbAuth = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!,
+        { auth: { persistSession: false } }
+      );
+      const { data: userRes } = await sbAuth.auth.getUser(accessToken);
+      const userId = userRes?.user?.id ?? null;
+      if (userId) {
+        const status = await getUserPremiumStatus(sbAuth, userId);
+        if (status.limitReached) {
+          return NextResponse.json(
+            {
+              error: "free_limit_reached",
+              limit: FREE_AI_PLANS_PER_MONTH,
+              used: status.aiPlansUsedThisMonth,
+              upgradeUrl: "/api/stripe/user-checkout",
+            },
+            { status: 402 }
+          );
+        }
+      }
     }
 
     const userLines: string[] = [

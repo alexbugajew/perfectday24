@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { PlannedStop } from "@/lib/planner";
-import { generateAiPlan } from "@/lib/ai-planner/client";
+import { generateAiPlan, FreeLimitReachedError } from "@/lib/ai-planner/client";
+import UpgradeModal from "@/components/premium/UpgradeModal";
 import { formatPlannerTime } from "./helpers";
 
 export type AiPlanContext = {
@@ -72,6 +73,7 @@ export default function AiPlanModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<{ summary: string; stops: PlannedStop[]; prompt: string } | null>(null);
+  const [limitInfo, setLimitInfo] = useState<{ used: number; limit: number } | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -125,7 +127,11 @@ export default function AiPlanModal({
       onGenerated?.(result.stops.length);
     } catch (err) {
       if ((err as Error).name === "AbortError") return;
-      setError(err instanceof Error ? err.message : "AI-Plan fehlgeschlagen.");
+      if (err instanceof FreeLimitReachedError) {
+        setLimitInfo({ used: err.used, limit: err.limit });
+      } else {
+        setError(err instanceof Error ? err.message : "AI-Plan fehlgeschlagen.");
+      }
     } finally {
       setLoading(false);
     }
@@ -137,6 +143,20 @@ export default function AiPlanModal({
   }
 
   if (!open) return null;
+
+  if (limitInfo) {
+    return (
+      <UpgradeModal
+        open={true}
+        used={limitInfo.used}
+        limit={limitInfo.limit}
+        onClose={() => {
+          setLimitInfo(null);
+          onClose();
+        }}
+      />
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-[1500] flex items-end bg-black/45 sm:items-center sm:p-4">

@@ -1,0 +1,154 @@
+"use client";
+
+import { useState } from "react";
+
+// Zeigt sich wenn ein Free-User das AI-Plan-Monatslimit erreicht hat.
+// Startet den Stripe-User-Checkout und routet zurück auf /profile.
+
+type Props = {
+  open: boolean;
+  used: number;
+  limit: number;
+  onClose: () => void;
+};
+
+const BENEFITS: { emoji: string; title: string; body: string }[] = [
+  {
+    emoji: "✨",
+    title: "Unlimited AI-Pläne",
+    body: "Kein monatliches Limit mehr. Plan spontan, so oft du willst.",
+  },
+  {
+    emoji: "💾",
+    title: "Unlimited Speichern",
+    body: "Behalte jeden Plan im Zugriff, nicht nur die letzten 10.",
+  },
+  {
+    emoji: "📄",
+    title: "Export als PDF & Kalender",
+    body: "Plan direkt drucken oder in deinen Kalender übernehmen.",
+  },
+  {
+    emoji: "⚡",
+    title: "Priorisierte Verarbeitung",
+    body: "AI-Pläne werden schneller berechnet, auch bei Peak-Nutzung.",
+  },
+];
+
+export default function UpgradeModal({ open, used, limit, onClose }: Props) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  if (!open) return null;
+
+  async function handleUpgrade() {
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/stripe/user-checkout", { method: "POST" });
+      if (!res.ok) {
+        const text = await res.text().catch(() => "");
+        throw new Error(`Checkout fehlgeschlagen (${res.status}) ${text.slice(0, 120)}`);
+      }
+      const json = (await res.json()) as { url?: string; error?: string };
+      if (json.url) {
+        window.location.href = json.url;
+        return;
+      }
+      throw new Error(json.error ?? "Kein Checkout-URL zurück");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unbekannter Fehler");
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-[1500] flex items-end bg-black/50 sm:items-center sm:p-4">
+      <div className="flex w-full max-h-[92vh] flex-col overflow-hidden rounded-t-2xl bg-white shadow-xl sm:mx-auto sm:max-w-lg sm:rounded-2xl">
+        <div className="flex justify-center pt-3 sm:hidden">
+          <div className="h-1 w-10 rounded-full bg-[var(--bg-panel)]" />
+        </div>
+
+        <div className="flex items-start justify-between gap-3 border-b border-[var(--line-subtle)] px-5 pb-3 pt-4 sm:px-6">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-warm)]">
+              PerfectDay24 Premium
+            </div>
+            <h2 className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
+              Dein Free-Limit ist erreicht.
+            </h2>
+            <p className="mt-1 text-xs text-[var(--text-muted)]">
+              {used} von {limit} AI-Plänen diesen Monat verwendet.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Schließen"
+            className="shrink-0 rounded-full border border-[var(--line-subtle)] px-2.5 py-1 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+          >
+            Schließen
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-6">
+          <div className="rounded-xl border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(180deg,rgba(255,249,241,0.85),rgba(255,253,248,0.85))] px-4 py-4">
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-semibold tracking-tight text-[var(--text-strong)]">4,99 €</span>
+              <span className="text-sm text-[var(--text-muted)]">/ Monat</span>
+            </div>
+            <div className="mt-1 text-xs text-[var(--text-muted)]">
+              Jederzeit kündbar. Erste 7 Tage risikofrei.
+            </div>
+          </div>
+
+          <div className="mt-4 space-y-2.5">
+            {BENEFITS.map((b) => (
+              <div
+                key={b.title}
+                className="flex items-start gap-3 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-3"
+              >
+                <span className="text-lg leading-none">{b.emoji}</span>
+                <div className="min-w-0">
+                  <div className="text-sm font-semibold text-[var(--text-strong)]">{b.title}</div>
+                  <div className="mt-0.5 text-xs leading-5 text-[var(--text-muted)]">{b.body}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {error ? (
+            <div className="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700">
+              {error}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="flex items-center justify-between gap-2 border-t border-[var(--line-subtle)] bg-[var(--bg-surface)] px-5 py-3 sm:px-6">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
+          >
+            Später
+          </button>
+          <button
+            type="button"
+            onClick={() => void handleUpgrade()}
+            disabled={loading}
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
+          >
+            {loading ? (
+              <>
+                <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-white/60 border-t-transparent" />
+                Weiterleitung…
+              </>
+            ) : (
+              "Premium starten →"
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

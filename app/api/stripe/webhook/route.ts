@@ -15,10 +15,51 @@ function getSupabaseAdmin() {
   );
 }
 
+function isUserPremiumSub(subscription: Stripe.Subscription): boolean {
+  return subscription.metadata?.plan_key === "user_premium";
+}
+
+async function updateUserPremiumFromSubscription(
+  subscription: Stripe.Subscription,
+  supabase: ReturnType<typeof getSupabaseAdmin>
+) {
+  const userId = subscription.metadata?.user_id ?? null;
+  if (!userId) {
+    console.warn("webhook: user_premium sub missing user_id", subscription.id);
+    return;
+  }
+
+  const firstItem = subscription.items.data[0];
+  const rawPeriodEnd = firstItem?.current_period_end ?? null;
+  const periodEnd = rawPeriodEnd ? new Date(rawPeriodEnd * 1000).toISOString() : null;
+
+  const active = ["active", "trialing"].includes(subscription.status);
+
+  const patch: Record<string, unknown> = {
+    is_premium: active,
+    premium_until: periodEnd,
+    stripe_subscription_id: subscription.id,
+    updated_at: new Date().toISOString(),
+  };
+  if (active) patch.premium_started_at = new Date().toISOString();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any)
+    .from("profiles")
+    .update(patch)
+    .eq("user_id", userId);
+  if (error) console.error("webhook: updateUserPremiumFromSubscription failed", error);
+}
+
 async function updatePartnerFromSubscription(
   subscription: Stripe.Subscription,
   supabase: ReturnType<typeof getSupabaseAdmin>
 ) {
+  if (isUserPremiumSub(subscription)) {
+    await updateUserPremiumFromSubscription(subscription, supabase);
+    return;
+  }
+
   const partnerProfileId =
     subscription.metadata?.partner_profile_id ??
     (subscription as any).subscription_data?.metadata?.partner_profile_id ??
@@ -70,15 +111,17 @@ async function handleCheckoutSessionCompleted(
   session: Stripe.Checkout.Session,
   supabase: ReturnType<typeof getSupabaseAdmin>
 ) {
+  const planKey = session.metadata?.plan_key ?? null;
+  const isUserPremium = planKey === "user_premium";
   const partnerProfileId = session.metadata?.partner_profile_id ?? null;
 
-  if (!partnerProfileId) {
-    console.warn("webhook: checkout.session.completed missing partner_profile_id", session.id);
+  if (!partnerProfileId && !isUserPremium) {
+    console.warn("webhook: checkout.session.completed missing routing metadata", session.id);
     return;
   }
 
-  // Persist the Stripe customer id if the partner doesn't have one yet.
-  if (session.customer) {
+  if (partnerProfileId && session.customer) {
+    // Persist the Stripe customer id if the partner doesn't have one yet.
     await supabase
       .from("partner_profiles")
       .update({
@@ -102,6 +145,26 @@ async function handleSubscriptionDeleted(
   subscription: Stripe.Subscription,
   supabase: ReturnType<typeof getSupabaseAdmin>
 ) {
+  if (isUserPremiumSub(subscription)) {
+    const userId = subscription.metadata?.user_id ?? null;
+    if (!userId) {
+      console.warn("webhook: user_premium sub.deleted missing user_id", subscription.id);
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase as any)
+      .from("profiles")
+      .update({
+        is_premium: false,
+        stripe_subscription_id: null,
+        premium_cancelled_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      })
+      .eq("user_id", userId);
+    if (error) console.error("webhook: user_premium delete failed", error);
+    return;
+  }
+
   const partnerProfileId = subscription.metadata?.partner_profile_id ?? null;
 
   if (!partnerProfileId) {

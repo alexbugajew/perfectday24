@@ -24,7 +24,16 @@ export const stripe = new Proxy({} as Stripe, {
   },
 });
 
-export type StripePlanKey = "partner_basic" | "partner_pro";
+export type StripePlanKey = "partner_basic" | "partner_pro" | "user_premium";
+
+export const USER_PREMIUM_PLAN = {
+  key: "user_premium" as const,
+  label: "PerfectDay24 Premium",
+  priceId: process.env.STRIPE_USER_PREMIUM_PRICE_ID ?? "",
+  amountCents: 499,
+  currency: "eur",
+  interval: "month" as const,
+};
 
 export type StripePlan = {
   key: StripePlanKey;
@@ -65,6 +74,15 @@ export const STRIPE_PLANS: Record<StripePlanKey, StripePlan> = {
     currency: "eur",
     interval: "month",
     tier: "partner_pro",
+  },
+  user_premium: {
+    key: "user_premium",
+    label: USER_PREMIUM_PLAN.label,
+    priceId: USER_PREMIUM_PLAN.priceId,
+    amountCents: USER_PREMIUM_PLAN.amountCents,
+    currency: USER_PREMIUM_PLAN.currency,
+    interval: USER_PREMIUM_PLAN.interval,
+    tier: "user_premium",
   },
 };
 

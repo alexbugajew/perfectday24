@@ -8,6 +8,7 @@ import { getInterestCatalog, norm } from "@/lib/planner";
 import { supabase } from "@/lib/supabaseClient";
 import { deleteRoadtripRoute, fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
 import type { RoadtripRoute } from "@/lib/roadtrip/types";
+import PremiumStatusCard from "@/components/premium/PremiumStatusCard";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -1279,6 +1280,11 @@ function ProfilePageInner() {
             </>
           )}
         </div>
+
+        {/* ── Premium-Status ───────────────────────────────────────────────── */}
+        {authReady && userId && !isAnonymous ? (
+          <PremiumStatusCard userId={userId} />
+        ) : null}
 
         {/* ── Two-column layout: interests + public profile ───────────────── */}
         {authReady && userId && !isAnonymous && (

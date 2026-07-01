@@ -3,6 +3,18 @@
 
 import type { PlannedStop } from "@/lib/planner";
 import type { MatchLevel, ScoredLocation } from "@/lib/planner/types";
+import { supabase } from "@/lib/supabaseClient";
+
+export class FreeLimitReachedError extends Error {
+  used: number;
+  limit: number;
+  constructor(used: number, limit: number) {
+    super(`Free-Limit erreicht (${used}/${limit})`);
+    this.name = "FreeLimitReachedError";
+    this.used = used;
+    this.limit = limit;
+  }
+}
 
 type ResolvedStop = {
   index: number;
@@ -82,9 +94,17 @@ export async function generateAiPlan(params: {
   groupSize?: number;
   signal?: AbortSignal;
 }): Promise<{ summary: string; stops: PlannedStop[]; meta?: AiPlanResponse["meta"] }> {
+  // Auth-Header mitschicken, damit der Server das Free-Limit pruefen kann.
+  // Wenn kein Session-Token verfuegbar: Anfrage geht anonym raus (kein Gate).
+  const { data: sessionData } = await supabase.auth.getSession();
+  const accessToken = sessionData?.session?.access_token ?? null;
+
   const res = await fetch("/api/generate-plan-ai", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+    },
     body: JSON.stringify({
       prompt: params.prompt,
       citySlug: params.citySlug,
@@ -102,6 +122,12 @@ export async function generateAiPlan(params: {
     }),
     signal: params.signal,
   });
+  if (res.status === 402) {
+    const info = await res.json().catch(() => ({}));
+    const used = typeof info.used === "number" ? info.used : 0;
+    const limit = typeof info.limit === "number" ? info.limit : 3;
+    throw new FreeLimitReachedError(used, limit);
+  }
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`AI plan failed (${res.status}): ${text.slice(0, 200)}`);
