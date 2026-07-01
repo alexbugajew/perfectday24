@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import AdminEntityToggle from "@/components/monetization/AdminEntityToggle";
 import EventCommissionsSection from "@/components/monetization/EventCommissionsSection";
+import AffiliateConversionsSection from "@/components/monetization/AffiliateConversionsSection";
 import {
   getMonetizationAdminAccessState,
   getMonetizationAdminSnapshot,
@@ -2115,6 +2116,10 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
         <Section title="Event-Provisionen" subtitle="Automatisch erfasst wenn ein Vendor-Quote auf status=accepted geht. Rate default 10%, pro Partner ueberschreibbar.">
           <EventCommissionsSection />
+        </Section>
+
+        <Section title="Affiliate-Conversions" subtitle="Netzwerk-Postbacks (Awin, Tradedoubler, Booking). click_id wird beim Redirect automatisch injiziert.">
+          <AffiliateConversionsSection />
         </Section>
 
         <Section title="Creator & Profilsignale" subtitle="Wer bereits Reichweite, Kopien und Reward-Vorbereitung erzeugt.">
