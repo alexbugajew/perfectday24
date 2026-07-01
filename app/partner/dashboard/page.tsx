@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { PhotoUpload } from "@/components/ui/PhotoUpload";
 import EntityMediaGallery from "@/components/media/EntityMediaGallery";
+import PartnerOnboardingWizard from "@/components/partner/PartnerOnboardingWizard";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -1286,6 +1287,26 @@ export default function PartnerDashboard() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+
+      {/* ── Onboarding Wizard ── Nur fuer neue/unfertige Partner sichtbar */}
+      <PartnerOnboardingWizard
+        profile={{
+          display_name: profile.display_name,
+          contact_email: profile.contact_email,
+          contact_phone: profile.contact_phone,
+          website_url: profile.website_url,
+          booking_url: profile.booking_url,
+          notes: profile.notes,
+          media_urls: profile.media_urls,
+          primary_city_slug: profile.primary_city_slug,
+          review_status: profile.review_status,
+        }}
+        providersCount={providers.length}
+        onSubmitForReview={() => void handleReviewAction("profile", null, "submit")}
+        onDismissForever={() => { /* Nur clientseitig persistiert, keine DB-Aktion. */ }}
+        isSubmitting={reviewUpdatingKey === "profile:self:submit"}
+        reviewReady={profileReadyForReview}
+      />
 
       {/* ── A) Status Header ─────────────────────────────────────────────────── */}
       <div className="mb-8 rounded-[36px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-7 shadow-[var(--shadow-soft)]">
