@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Cormorant_Garamond } from "next/font/google";
 import type { ReactNode } from "react";
-import { PD24Button, PD24StatusBadge } from "@/components/ui/pd24";
+import { PD24Button } from "@/components/ui/pd24";
 import HeroIntentBar from "@/components/home/HeroIntentBar";
+import HeroLiveDemo from "@/components/home/HeroLiveDemo";
 import EditorialRoutesShowcase from "@/components/home/EditorialRoutesShowcase";
 import FeatureShowcase from "@/components/home/FeatureShowcase";
 import AiExploreTeaser from "@/components/home/AiExploreTeaser";
@@ -18,29 +19,6 @@ const trustSignals = [
   "Echte Events statt Trefferlisten",
   "Sinnvolle Wege und Timing",
   "Per Link direkt teilbar",
-];
-
-const heroStops = [
-  {
-    time: "17:45",
-    title: "Aperitif in Charlottenburg",
-    note: "ruhiger Start mit kurzer Anfahrt",
-  },
-  {
-    time: "19:10",
-    title: "Dinner vor dem Hauptmoment",
-    note: "genug Luft vor der festen Uhrzeit",
-  },
-  {
-    time: "20:30",
-    title: "Live-Event als Peak",
-    note: "echter Anlass statt zufälliger Zusatz",
-  },
-  {
-    time: "22:35",
-    title: "Bar für den Ausklang",
-    note: "nah an der Venue, kein Takt mehr",
-  },
 ];
 
 const heroSignals = [
@@ -329,66 +307,17 @@ export default function HomepageScaffoldMinimal() {
                 </div>
               </div>
 
-              <div id="hero-proof" className="pd24-card-featured overflow-hidden" style={{ background: "rgba(255,253,248,0.94)" }}>
-                {/* Hero-Foto */}
-                <div className="relative h-44 w-full overflow-hidden sm:h-52">
-                  <Image
-                    src="https://images.unsplash.com/photo-1560969184-10fe8719e047?w=800&h=400&fit=crop&auto=format&q=80"
-                    alt="Berlin am Abend — Beispielszene für einen Date-Abend-Plan"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 500px"
-                    priority
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
-                  <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
-                    <div>
-                      <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/85">
-                        Beispiel · Date-Abend Berlin
-                      </div>
-                      <div className="mt-0.5 text-base font-semibold tracking-tight text-white sm:text-lg">
-                        Berlin · Event-Plan · Heute Abend
-                      </div>
-                    </div>
-                    <PD24StatusBadge tone="warning">Live-Event</PD24StatusBadge>
-                  </div>
-                </div>
-
-                <div className="p-5 sm:p-7">
-                  <div className="border-b border-[var(--line-subtle)] pb-3">
-                    <div className="text-sm leading-6 text-[var(--text-muted-warm)]">
-                      Fester Hauptmoment, kurze Wege und genug Luft zwischen den Stops.
-                    </div>
-                  </div>
-
-                <div className="mt-5 space-y-3">
-                  {heroStops.map((stop, index) => (
-                    <div
-                      key={stop.time}
-                      className="grid grid-cols-[54px_1fr_auto] items-start gap-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/88 px-4 py-4"
-                    >
-                      <div className="text-sm font-semibold text-[var(--brand-warm)]">{stop.time}</div>
-                      <div>
-                        <div className="text-base font-medium text-[var(--text-strong)]">{stop.title}</div>
-                        <div className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">{stop.note}</div>
-                      </div>
-                      <div className="flex min-h-8 min-w-8 items-center justify-center rounded-[var(--radius-control)] bg-[var(--text-strong)] px-2 text-xs font-semibold text-white">
-                        {index + 1}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-5 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,var(--brand-warm-cloud),var(--bg-canvas-warm))] p-5">
+              <div id="hero-proof">
+                <HeroLiveDemo />
+                <div className="mt-4 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,var(--brand-warm-cloud),var(--bg-canvas-warm))] p-5">
                   <div className="flex flex-wrap gap-2">
                     {heroSignals.map((signal) => (
                       <MetricPill key={signal}>{signal}</MetricPill>
                     ))}
                   </div>
-                  <div className="mt-4 text-sm leading-7 text-[var(--text-muted-warm)]">
+                  <div className="mt-3 text-sm leading-7 text-[var(--text-muted-warm)]">
                     Nicht nur Orte nebeneinander, sondern ein Ablauf mit Hauptmoment, Timing und einer Plausibilität, die sich direkt gut anfühlt.
                   </div>
-                </div>
                 </div>
               </div>
             </div>
