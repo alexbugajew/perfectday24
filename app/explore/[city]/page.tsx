@@ -69,6 +69,12 @@ const OCCASION_LABELS: Record<string, { emoji: string; label: string }> = {
 
 // ─── Data fetching ────────────────────────────────────────────────────────────
 
+type CityCover = {
+  editorial_cover_url: string | null;
+  editorial_cover_alt: string | null;
+  editorial_cover_credit: string | null;
+};
+
 async function fetchCityData(citySlug: string) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -78,7 +84,7 @@ async function fetchCityData(citySlug: string) {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
-  const [routesResult, creatorsResult] = await Promise.all([
+  const [routesResult, creatorsResult, cityCoverResult] = await Promise.all([
     supabase
       .from("user_routes")
       .select("id, slug, title, description, cover_image_url, creator_type, stop_count, like_count, bookmark_count, ranking_score, is_featured, start_label")
@@ -92,11 +98,17 @@ async function fetchCityData(citySlug: string) {
       .eq("home_city_slug", citySlug)
       .order("route_count", { ascending: false })
       .limit(6),
+    supabase
+      .from("cities")
+      .select("editorial_cover_url, editorial_cover_alt, editorial_cover_credit")
+      .eq("slug", citySlug)
+      .maybeSingle(),
   ]);
 
   return {
     routes: (routesResult.data ?? []) as RouteRow[],
     creators: (creatorsResult.data ?? []) as CreatorRow[],
+    cityCover: (cityCoverResult.data ?? null) as CityCover | null,
   };
 }
 
@@ -114,10 +126,17 @@ export default async function CityExplorePage({
   const data = await fetchCityData(city);
   const routes = data?.routes ?? [];
   const creators = data?.creators ?? [];
+  const cityCover = data?.cityCover ?? null;
 
   const featuredRoutes = routes.filter((r) => r.is_featured);
   const allRoutes = featuredRoutes.length >= 6 ? routes : routes;
   const coverRoute = allRoutes.find((r) => r.cover_image_url) ?? null;
+
+  // Editorial-Cover hat Vorrang. Fallback: erstes Route-Cover, dann Gradient.
+  const heroImage = cityCover?.editorial_cover_url ?? coverRoute?.cover_image_url ?? null;
+  const heroAlt = cityCover?.editorial_cover_alt ?? cityConfig.label;
+  const heroCredit = cityCover?.editorial_cover_credit ?? null;
+  const isEditorialCover = Boolean(cityCover?.editorial_cover_url);
 
   return (
     <main className="pd24-page-standard space-y-6 pb-20 pt-6">
@@ -132,30 +151,41 @@ export default async function CityExplorePage({
       {/* Hero */}
       <section className="overflow-hidden rounded-[32px] border border-[var(--line-subtle)] shadow-[var(--shadow-large)]">
         <div className="relative">
-          {coverRoute?.cover_image_url ? (
-            <div className="relative h-52 w-full sm:h-72">
+          {heroImage ? (
+            <div className="relative h-56 w-full sm:h-80">
               <Image
-                src={coverRoute.cover_image_url}
-                alt={cityConfig.label}
+                src={heroImage}
+                alt={heroAlt}
                 fill
-                unoptimized={!isSafeHost(coverRoute.cover_image_url)}
+                unoptimized={!isSafeHost(heroImage)}
                 className="object-cover"
                 priority
+                sizes="(max-width: 1024px) 100vw, 1200px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
+              {isEditorialCover ? (
+                <span className="absolute right-4 top-4 rounded-full border border-white/22 bg-black/32 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/86 backdrop-blur">
+                  Editorial
+                </span>
+              ) : null}
+              {heroCredit ? (
+                <span className="absolute bottom-2 right-3 text-[9px] text-white/60">
+                  Foto: {heroCredit}
+                </span>
+              ) : null}
             </div>
           ) : (
             <div className="h-40 bg-[linear-gradient(135deg,var(--bg-canvas-warm),#eef4f7)] sm:h-52" />
           )}
 
-          <div className={`${coverRoute?.cover_image_url ? "absolute bottom-0 left-0 right-0 p-6 text-white" : "bg-[var(--bg-surface)] p-6"}`}>
-            <div className="pd24-kicker-warm" style={coverRoute?.cover_image_url ? { color: "rgba(255,249,241,0.7)" } : {}}>
+          <div className={`${heroImage ? "absolute bottom-0 left-0 right-0 p-6 text-white" : "bg-[var(--bg-surface)] p-6"}`}>
+            <div className="pd24-kicker-warm" style={heroImage ? { color: "rgba(255,249,241,0.7)" } : {}}>
               Entdecken
             </div>
             <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
               {cityConfig.label}
             </h1>
-            <div className={`mt-3 flex flex-wrap gap-2 text-sm ${coverRoute?.cover_image_url ? "text-white/80" : "text-[var(--text-muted)]"}`}>
+            <div className={`mt-3 flex flex-wrap gap-2 text-sm ${heroImage ? "text-white/80" : "text-[var(--text-muted)]"}`}>
               <span>{routes.length} Routen</span>
               {creators.length > 0 && <><span>·</span><span>{creators.length} Creator</span></>}
               {featuredRoutes.length > 0 && <><span>·</span><span>{featuredRoutes.length} Featured</span></>}
