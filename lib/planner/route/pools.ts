@@ -10,6 +10,7 @@ import {
   preferenceBoost,
 } from "../interest";
 import { slotCategoryMatch } from "../slots";
+import { filterByOpeningHours } from "./opening-filter";
 import type {
   OccasionPhase,
   PlanMode,
@@ -339,13 +340,17 @@ function isGentleAfterShowCandidate(candidate: ScoredLocation) {
 }
 
 export function getPoolForKind(
-  candidates: ScoredLocation[],
+  candidatesRaw: ScoredLocation[],
   slot: SlotDefinition,
   mode: PlanMode,
   context: PlanningContext
 ) {
   const kind = slot.kind;
   const phase = slot.phase ?? null;
+  // Kandidaten die zur geplanten Slot-Zeit garantiert geschlossen sind
+  // werden vorne rausgefiltert. Bei duenner Datenlage (0 open) faellt der
+  // Filter auf die urspruengliche Liste zurueck.
+  const candidates = filterByOpeningHours(candidatesRaw, slot, mode, context);
   const strict = withEventExperiencePreference(
     candidates.filter((candidate) => slotCategoryMatch(kind, candidate)),
     context,

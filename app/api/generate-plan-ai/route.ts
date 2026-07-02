@@ -13,6 +13,7 @@ import OpenAI from "openai";
 import { AI_PLANNER_TOOLS, callTool, type ToolName, type AiCandidate } from "@/lib/ai-planner/tools";
 import { createClient } from "@supabase/supabase-js";
 import { getUserPremiumStatus, FREE_AI_PLANS_PER_MONTH } from "@/lib/premium/limits";
+import { isOpenAt } from "@/lib/planner/opening-hours";
 
 export const runtime = "nodejs";
 
@@ -44,6 +45,7 @@ type ResolvedStop = {
   scheduledEndAt: string | null;
   durationMin: number | null;
   source: "location" | "event";
+  openingHoursRaw?: string | null;
 };
 
 const SYSTEM_PROMPT = `Du planst Tagesabläufe für PerfectDay24 in deutschen Städten.
@@ -68,6 +70,15 @@ KRITISCH (Korrektheit):
 Sonstiges:
 - Zeitfenster realistisch: Wege ~15 Min zwischen Stops, Essen 60-90 Min, Kultur 90-120 Min, Event laut Event-Zeit.
 - Stops in chronologischer Reihenfolge.
+
+Öffnungszeiten (KRITISCH):
+- Tool-Returns enthalten "opening_hours" pro Kandidat (Format: OSM z.B. "Mo-Fr 11:00-15:00,17:00-23:00" oder "24/7").
+- Vor jedem Stop pruefe die opening_hours gegen die geplante scheduled_start_at.
+- Beispiele:
+  * "Mo-Fr 11:00-15:00,17:00-23:00" ist Fr um 16:00 GESCHLOSSEN → nicht einplanen.
+  * "Mo-Su 18:00-02:00" ist Sa 22:00 offen, Sa 15:00 zu.
+  * "24/7" ist immer offen.
+- Wenn eine Location zur geplanten Zeit zu waere, waehle eine passende offene Alternative aus den bereits gepullten Kandidaten. Wenn keine da ist, ruf den Discovery-Tool nochmal auf.
 
 Anlass-Voice + Vibe-Tag-Mapping (für requireTags im Tool-Call):
 - Date: romantisch, intim → requireTags: ["romantic","date-friendly","intimate","refined"]
@@ -99,7 +110,7 @@ async function resolveStopsFromDb(stops: AiStopPlan[]): Promise<ResolvedStop[]> 
     locationIds.length > 0
       ? sb
           .from("locations")
-          .select("id,name,type,category,lat,lng,duration_min,reservation_url")
+          .select("id,name,type,category,lat,lng,duration_min,reservation_url,opening_hours_raw")
           .in("id", locationIds)
       : Promise.resolve({ data: [] as Array<Record<string, unknown>>, error: null }),
     eventIds.length > 0
@@ -143,6 +154,7 @@ async function resolveStopsFromDb(stops: AiStopPlan[]): Promise<ResolvedStop[]> 
       scheduledEndAt: end,
       durationMin: duration,
       source: isEvent ? "event" : "location",
+      openingHoursRaw: (row.opening_hours_raw as string | null) ?? null,
     });
   }
   return resolved;
@@ -394,6 +406,31 @@ export async function POST(req: Request) {
             { status: 500 }
           );
         }
+
+        // Post-Validation: Oeffnungszeiten. Modell weiss oft nicht ob
+        // "Piccola Pizza" um 23:30 noch offen ist. Wir pruefen hier gegen
+        // opening_hours_raw und schicken eine Correction-Round wenn zu.
+        const closedStops = resolved.filter((r) => {
+          if (r.source === "event") return false; // Events haben starts_at, kein opening_hours-Konzept
+          if (!r.scheduledStartAt) return false;
+          const at = new Date(r.scheduledStartAt);
+          if (!Number.isFinite(at.getTime())) return false;
+          const raw = (r as unknown as { openingHoursRaw?: string | null }).openingHoursRaw ?? null;
+          return !isOpenAt(raw, at, { bufferMin: 30 });
+        });
+        if (closedStops.length > 0 && !retriedForValidation) {
+          retriedForValidation = true;
+          const list = closedStops.map((s) => `${s.itemName} (geplant ${s.scheduledStartAt?.slice(11, 16)})`).join(", ");
+          messages.push({
+            role: "tool",
+            tool_call_id: finalCall.id,
+            content: JSON.stringify({
+              error: `Diese Locations sind zur geplanten Zeit geschlossen: ${list}. Bitte ersetze sie durch geeignete Alternativen aus den vorherigen Tool-Returns die zur geplanten Uhrzeit geoeffnet haben. Ruf danach build_final_plan erneut auf.`,
+            }),
+          });
+          continue;
+        }
+
         return NextResponse.json({
           summary: finalArgs.summary ?? "",
           stops: resolved,
@@ -404,6 +441,7 @@ export async function POST(req: Request) {
             usage: completion.usage,
             retried: retriedForValidation,
             via: "build_final_plan",
+            closedStopsDropped: 0,
           },
         });
       }

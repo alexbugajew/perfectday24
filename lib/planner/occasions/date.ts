@@ -307,6 +307,10 @@ export function buildDateSlotTemplate(planMode: PlanMode): SlotDefinition[] {
   }
 
   if (planMode === "evening") {
+    // Abend-Date: fruehes Dinner → gemeinsamer Highlight-Moment → Ausklang.
+    // Kein "walk"-Slot mehr — bei ~21 Uhr ist ein Park-Spaziergang meist
+    // dunkel/unwirtlich. Stattdessen "culture" mit interaktiver Note
+    // (Kino, Live-Musik, Rooftop) oder als Fallback fruehe Cocktail-Bar.
     return [
       {
         index: 0,
@@ -318,17 +322,17 @@ export function buildDateSlotTemplate(planMode: PlanMode): SlotDefinition[] {
       },
       {
         index: 1,
-        kind: "walk",
+        kind: "culture",
         label: "Moment zu zweit",
-        hint: "Spaziergang / Aussicht / Ufer",
+        hint: "Live-Musik / Kino / Rooftop-Bar mit Aussicht",
         phase: "highlight",
-        phaseGoal: "Ein besonderer Moment mit Dynamikwechsel",
+        phaseGoal: "Ein Highlight das Gespraech oder Nähe erzeugt",
       },
       {
         index: 2,
         kind: "nightlife",
         label: "Ausklang",
-        hint: "Bar / Cocktails / ruhiger Late Spot",
+        hint: "Cocktailbar oder ruhiger Late Spot",
         phase: "close",
         phaseGoal: "Positiv, ruhig und nah enden",
       },
