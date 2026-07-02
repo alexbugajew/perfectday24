@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import PartnerMarketingCta from "@/components/partner/PartnerMarketingCta";
+import PartnerRoiCalculator from "@/components/partner/PartnerRoiCalculator";
+
+const partnerOg = "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&h=630&fit=crop&auto=format&q=80";
 
 export const metadata: Metadata = {
   title: "Partner werden | PerfectDay24 — Sichtbarkeit für Hotels, Locations & Erlebnisse",
@@ -9,6 +12,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Partner werden | PerfectDay24",
     description: "Zeige dein Angebot Nutzern, die gerade aktiv einen perfekten Tag, Roadtrip oder Event planen. Alle 33 deutschen Großstädte abgedeckt.",
+    type: "website",
+    locale: "de_DE",
+    images: [{ url: partnerOg, width: 1200, height: 630, alt: "Restaurant-Atmosphaere — PerfectDay24 Partner" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Partner werden | PerfectDay24",
+    description: "Zeige dein Angebot dort, wo Nutzer aktiv planen und buchen. Kostenlos starten.",
+    images: [partnerOg],
   },
 };
 
@@ -335,6 +347,8 @@ export default function PartnerLandingPage() {
           </div>
         </div>
       </section>
+
+      <PartnerRoiCalculator />
 
       <section id="pakete" className="rounded-[32px] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">

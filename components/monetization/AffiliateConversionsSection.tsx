@@ -118,8 +118,8 @@ export default async function AffiliateConversionsSection() {
           </ul>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-[24px] border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)]">
-          <table className="w-full text-sm">
+        <div className="overflow-x-auto rounded-[24px] border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)]">
+          <table className="w-full min-w-[720px] text-sm">
             <thead className="bg-[var(--bg-panel)]">
               <tr className="text-left text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
                 <th className="px-4 py-3">Empfangen</th>

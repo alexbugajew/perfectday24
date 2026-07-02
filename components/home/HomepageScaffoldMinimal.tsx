@@ -326,18 +326,25 @@ export default function HomepageScaffoldMinimal() {
           <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-white/82 px-5 py-6 shadow-[var(--shadow-soft)] sm:px-8 sm:py-7">
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { value: "78", label: "Deutsche Großstädte", note: "Berlin bis Moers" },
-                { value: "68.975", label: "Plannable Locations", note: "kuratiert + gefiltert" },
-                { value: "36.000+", label: "mit Öffnungszeiten", note: "Stand heute, wächst täglich" },
-                { value: "6.500+", label: "Event-Anbieter", note: "von Florist bis Location" },
+                { value: "78", label: "Deutsche Großstädte", note: "Berlin bis Moers", href: "/explore" },
+                { value: "68.975", label: "Plannable Locations", note: "kuratiert + gefiltert", href: "/explore" },
+                { value: "36.000+", label: "mit Öffnungszeiten", note: "Stand heute, wächst täglich", href: "/planner" },
+                { value: "6.500+", label: "Event-Anbieter", note: "von Florist bis Location", href: "/events" },
               ].map((stat) => (
-                <div key={stat.label} className="border-l border-[var(--line-subtle)] pl-4 first:border-l-0 first:pl-0 sm:border-l sm:first:border-l-0">
-                  <div className="pd24-display text-3xl tracking-tight text-[var(--text-strong)] sm:text-4xl">
+                <Link
+                  key={stat.label}
+                  href={stat.href}
+                  className="group block border-l border-[var(--line-subtle)] pl-4 transition first:border-l-0 first:pl-0 hover:opacity-90 sm:border-l sm:first:border-l-0"
+                >
+                  <div className="pd24-display text-3xl tracking-tight text-[var(--text-strong)] transition group-hover:text-[var(--brand-warm)] sm:text-4xl">
                     {stat.value}
                   </div>
                   <div className="mt-1 text-sm font-semibold text-[var(--brand-warm)]">{stat.label}</div>
-                  <div className="mt-0.5 text-xs text-[var(--text-muted-warm)]">{stat.note}</div>
-                </div>
+                  <div className="mt-0.5 flex items-center gap-1 text-xs text-[var(--text-muted-warm)]">
+                    {stat.note}
+                    <span className="translate-x-0 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100">→</span>
+                  </div>
+                </Link>
               ))}
             </div>
           </section>

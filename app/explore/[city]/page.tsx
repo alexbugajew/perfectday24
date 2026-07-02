@@ -84,7 +84,11 @@ async function fetchCityData(citySlug: string) {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
-  const [routesResult, creatorsResult, cityCoverResult] = await Promise.all([
+  const now = new Date();
+  const in30Days = new Date();
+  in30Days.setDate(in30Days.getDate() + 30);
+
+  const [routesResult, creatorsResult, cityCoverResult, eventCountResult] = await Promise.all([
     supabase
       .from("user_routes")
       .select("id, slug, title, description, cover_image_url, creator_type, stop_count, like_count, bookmark_count, ranking_score, is_featured, start_label")
@@ -103,12 +107,20 @@ async function fetchCityData(citySlug: string) {
       .select("editorial_cover_url, editorial_cover_alt, editorial_cover_credit")
       .eq("slug", citySlug)
       .maybeSingle(),
+    supabase
+      .from("planner_events")
+      .select("*", { count: "exact", head: true })
+      .eq("city_slug", citySlug)
+      .eq("status", "scheduled")
+      .gte("starts_at", now.toISOString())
+      .lte("starts_at", in30Days.toISOString()),
   ]);
 
   return {
     routes: (routesResult.data ?? []) as RouteRow[],
     creators: (creatorsResult.data ?? []) as CreatorRow[],
     cityCover: (cityCoverResult.data ?? null) as CityCover | null,
+    upcomingEventCount: eventCountResult.count ?? 0,
   };
 }
 
@@ -127,6 +139,7 @@ export default async function CityExplorePage({
   const routes = data?.routes ?? [];
   const creators = data?.creators ?? [];
   const cityCover = data?.cityCover ?? null;
+  const upcomingEvents = data?.upcomingEventCount ?? 0;
 
   const featuredRoutes = routes.filter((r) => r.is_featured);
   const allRoutes = featuredRoutes.length >= 6 ? routes : routes;
@@ -189,6 +202,19 @@ export default async function CityExplorePage({
               <span>{routes.length} Routen</span>
               {creators.length > 0 && <><span>·</span><span>{creators.length} Creator</span></>}
               {featuredRoutes.length > 0 && <><span>·</span><span>{featuredRoutes.length} Featured</span></>}
+              {upcomingEvents > 0 && (
+                <>
+                  <span>·</span>
+                  <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${
+                    heroImage
+                      ? "bg-white/20 text-white backdrop-blur"
+                      : "bg-[rgba(196,137,79,0.14)] text-[var(--brand-warm)]"
+                  }`}>
+                    <span className={`h-1.5 w-1.5 animate-pulse rounded-full ${heroImage ? "bg-white/90" : "bg-[var(--brand-warm)]"}`} />
+                    {upcomingEvents} Events · 30 Tage
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </div>
