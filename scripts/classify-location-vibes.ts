@@ -18,6 +18,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import OpenAI from "openai";
+import { PLANNER_33_ROLLOUT } from "../lib/cities/rollout";
 
 function loadEnvFile(path: string) {
   try {
@@ -233,18 +234,8 @@ async function main() {
 
   let citySlugs: string[];
   if (citiesArg === "all") {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (supabase as any)
-      .from("locations")
-      .select("city_slug")
-      .eq("is_plannable", true)
-      .limit(50000);
-    if (error) throw new Error(error.message);
-    const setSlugs = new Set<string>();
-    for (const row of (data ?? []) as Array<{ city_slug: string }>) {
-      if (row.city_slug) setSlugs.add(row.city_slug);
-    }
-    citySlugs = Array.from(setSlugs).sort();
+    // Quelle: rollout.ts (statisch, kein Risiko mit Supabase REST-Pagination).
+    citySlugs = PLANNER_33_ROLLOUT.map((c) => c.slug).sort();
   } else {
     citySlugs = citiesArg.split(",").map((s) => s.trim()).filter(Boolean);
   }

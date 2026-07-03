@@ -115,6 +115,34 @@ type SelectedLocation = {
   lng: number;
 };
 
+function shortLocationLabel(location: SelectedLocation | null): string {
+  return location?.label.split(",")[0]?.trim() || location?.label || "";
+}
+
+function stopDurationTotal(stops: SuggestedStop[]): number {
+  return stops.reduce((sum, stop) => sum + stop.duration_min, 0);
+}
+
+function selectedPreferenceLabels(preferences: Set<RoutePreference>): string[] {
+  return ROUTE_PREFERENCES
+    .filter((preference) => preferences.has(preference.value))
+    .map((preference) => preference.label);
+}
+
+function strongestDetourLabel(stops: SuggestedStop[]): string {
+  const detourRank: Record<SuggestedStop["detour"], number> = {
+    none: 0,
+    slight: 1,
+    moderate: 2,
+    significant: 3,
+  };
+  const strongest = stops.reduce<SuggestedStop["detour"] | null>((current, stop) => {
+    if (!current) return stop.detour;
+    return detourRank[stop.detour] > detourRank[current] ? stop.detour : current;
+  }, null);
+  return strongest ? DETOUR_LABELS[strongest] : "Noch keine Stops";
+}
+
 // ── LocationInput-Komponente ──────────────────────────────────────────────────
 
 function LocationInput({
@@ -185,7 +213,7 @@ function LocationInput({
   }
 
   return (
-    <div ref={wrapperRef} className="relative flex-1">
+    <div ref={wrapperRef} className="relative min-w-0 flex-1">
       <div className="flex items-center gap-2 rounded-xl border border-white/40 bg-white/90 px-3 py-2.5 backdrop-blur-sm transition focus-within:border-white focus-within:ring-2 focus-within:ring-white/30">
         <span className="text-base">{icon}</span>
         <input
@@ -194,7 +222,7 @@ function LocationInput({
           onChange={(e) => handleChange(e.target.value)}
           onFocus={() => suggestions.length > 0 && setOpen(true)}
           placeholder={placeholder}
-          className="flex-1 bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-500"
+          className="min-w-0 flex-1 bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-500"
         />
         {loading && (
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-500" />
@@ -233,6 +261,7 @@ function LocationInput({
 
 // ── Stop-Karte ────────────────────────────────────────────────────────────────
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function StopCard({
   stop,
   number,
@@ -315,6 +344,90 @@ function StopCard({
 }
 
 // ── Hauptseite ────────────────────────────────────────────────────────────────
+
+function StopCardV2({
+  stop,
+  number,
+  selected,
+  active,
+  onToggle,
+  onHover,
+}: {
+  stop: SuggestedStop;
+  number: number;
+  selected: boolean;
+  active: boolean;
+  onToggle: () => void;
+  onHover: (id: string | null) => void;
+}) {
+  const gradientClass = CATEGORY_GRADIENT[stop.category] ?? "from-amber-400 to-orange-500";
+
+  return (
+    <button
+      type="button"
+      onMouseEnter={() => onHover(stop.id)}
+      onMouseLeave={() => onHover(null)}
+      onFocus={() => onHover(stop.id)}
+      onBlur={() => onHover(null)}
+      onClick={onToggle}
+      aria-pressed={selected}
+      className={`group relative w-full overflow-hidden rounded-2xl border bg-white text-left transition-all active:scale-[0.99] ${
+        active
+          ? "border-amber-300 shadow-[0_16px_34px_rgba(180,83,9,0.14)]"
+          : selected
+            ? "border-emerald-300 shadow-[0_12px_28px_rgba(16,185,129,0.12)]"
+            : "border-[var(--line-subtle)] shadow-sm hover:border-[rgba(23,23,23,0.18)] hover:shadow-[0_14px_30px_rgba(15,23,42,0.08)]"
+      }`}
+    >
+      <div className="grid min-h-[148px] grid-cols-[72px_minmax(0,1fr)]">
+        <div className={`relative flex flex-col items-center justify-between bg-gradient-to-b ${gradientClass} px-3 py-3 text-white`}>
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/20 text-sm font-bold shadow-sm backdrop-blur">
+            {number}
+          </span>
+          <span className="text-3xl drop-shadow-sm">{stop.emoji}</span>
+          <span className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold shadow-sm ${
+            selected ? "bg-emerald-500 text-white" : "bg-white/25 text-white"
+          }`}>
+            {selected ? "✓" : "+"}
+          </span>
+        </div>
+
+        <div className={`flex min-w-0 flex-col p-4 ${selected ? "bg-emerald-50/45" : active ? "bg-amber-50/60" : "bg-white"}`}>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                Waypoint {number}
+              </div>
+              <div className="mt-1 text-base font-semibold leading-tight text-[var(--text-strong)]">
+                {stop.name}
+              </div>
+            </div>
+            <span className={`shrink-0 rounded-full border px-2 py-1 text-[10px] font-semibold ${DETOUR_COLORS[stop.detour]}`}>
+              {DETOUR_LABELS[stop.detour]}
+            </span>
+          </div>
+
+          <p className="mt-2 text-sm leading-5 text-[var(--text-muted)] line-clamp-3">
+            {stop.description}
+          </p>
+
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+              {durationLabel(stop.duration_min)}
+            </span>
+            <span className="rounded-full border border-[rgba(183,106,67,0.18)] bg-[rgba(183,106,67,0.08)] px-2.5 py-1 text-[11px] font-medium text-[#8a5436]">
+              {stop.why_visit}
+            </span>
+          </div>
+
+          <div className={`mt-auto pt-3 text-xs font-semibold ${selected ? "text-emerald-700" : "text-[var(--text-muted)]"}`}>
+            {selected ? "✓ In deiner Route" : "Zur Route hinzufuegen"}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+}
 
 export default function RoadtripDiscoverPage() {
   const router = useRouter();
@@ -474,12 +587,27 @@ export default function RoadtripDiscoverPage() {
   const selectedCount = selectedIds.size;
   const canSuggest = !!from && !!to && !loading;
   const hasResults = result.length > 0 && resultFrom && resultTo;
+  const selectedStops = result.filter((stop) => selectedIds.has(stop.id));
+  const selectedDurationLabel = selectedStops.length > 0
+    ? durationLabel(stopDurationTotal(selectedStops))
+    : "0 Min";
+  const resultDurationLabel = result.length > 0
+    ? durationLabel(stopDurationTotal(result))
+    : "0 Min";
+  const easyStopsCount = result.filter((stop) => stop.detour === "none" || stop.detour === "slight").length;
+  const preferenceLabels = selectedPreferenceLabels(preferences);
+  const routeLabel = from && to
+    ? `${shortLocationLabel(from)} -> ${shortLocationLabel(to)}`
+    : "Start und Ziel setzen";
+  const resultRouteLabel = resultFrom && resultTo
+    ? `${shortLocationLabel(resultFrom)} -> ${shortLocationLabel(resultTo)}`
+    : routeLabel;
 
   return (
-    <main className="pd24-page-wide space-y-6">
+    <main className="pd24-page-wide min-w-0 space-y-6" style={{ width: "calc(100vw - 2rem)", maxWidth: "80rem" }}>
 
       {/* ── Hero mit Hintergrundfoto ───────────────────────────────────────── */}
-      <section className="relative overflow-hidden rounded-2xl shadow-lg" style={{ minHeight: 280 }}>
+      <section className="relative w-full max-w-full overflow-hidden rounded-2xl border border-white/20 shadow-[0_24px_70px_rgba(15,23,42,0.22)]" style={{ minHeight: 360 }}>
         <Image
           src="/roadtrip/hero-discover.png"
           alt="Roadtrip auf der Autobahn im Sonnenuntergang"
@@ -489,10 +617,10 @@ export default function RoadtripDiscoverPage() {
           sizes="(max-width: 768px) 100vw, 1200px"
         />
         {/* Gradient-Overlay: unten dunkel für Lesbarkeit */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/42 to-black/12" />
 
         {/* Inhalt */}
-        <div className="relative z-10 px-6 pb-8 pt-6">
+        <div className="relative z-10 px-5 pb-6 pt-5 sm:px-6 sm:pb-8 sm:pt-6">
           {/* Breadcrumb */}
           <div className="mb-4 flex items-center gap-1.5 text-xs text-white/70">
             <Link href="/roadtrip" className="transition hover:text-white">Roadtrip</Link>
@@ -500,17 +628,46 @@ export default function RoadtripDiscoverPage() {
             <span className="text-white/90">Route entdecken</span>
           </div>
 
-          <h1 className="text-2xl font-bold tracking-tight text-white drop-shadow-md sm:text-3xl">
+          <h1 className="max-w-[18rem] text-2xl font-bold leading-tight tracking-tight text-white drop-shadow-md sm:max-w-none sm:text-3xl">
             Dein Roadtrip, perfekt geplant ✨
           </h1>
-          <p className="mt-2 max-w-xl text-sm leading-6 text-white/85 drop-shadow-sm">
+          <p className="mt-2 max-w-[18.5rem] text-sm leading-6 text-white/85 drop-shadow-sm sm:max-w-xl">
             KI findet die schönsten Zwischenstopps für deine Route —
             Seen, Panoramen, Burgen und Geheimtipps.
           </p>
 
           {/* Such-Formular direkt im Hero */}
-          <div className="mt-5 space-y-3 max-w-2xl">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-white/82">
+            {[
+              { step: "1", label: "Route", active: Boolean(from && to) },
+              { step: "2", label: "Stopps", active: result.length > 0 },
+              { step: "3", label: "Planen", active: selectedCount > 0 },
+            ].map((item) => (
+              <span
+                key={item.step}
+                className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 backdrop-blur-sm ${
+                  item.active
+                    ? "border-emerald-300/50 bg-emerald-400/18 text-white"
+                    : "border-white/18 bg-white/10"
+                }`}
+              >
+                <span className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${
+                  item.active ? "bg-emerald-400 text-white" : "bg-white/18 text-white/75"
+                }`}>
+                  {item.step}
+                </span>
+                {item.label}
+              </span>
+            ))}
+            <span className="ml-0 rounded-full border border-white/18 bg-black/18 px-3 py-1.5 backdrop-blur-sm sm:ml-1">
+              {routeLabel}
+            </span>
+          </div>
+
+          <div className="mt-5 w-full max-w-[17.5rem] overflow-hidden rounded-2xl border border-white/18 bg-black/28 p-3 shadow-[0_18px_46px_rgba(0,0,0,0.18)] backdrop-blur-md sm:max-w-4xl sm:p-4">
+            <div
+              className="flex w-full min-w-0 flex-col gap-2 sm:flex-row sm:items-center"
+            >
               <LocationInput
                 placeholder="Startort eingeben…"
                 value={from}
@@ -531,7 +688,9 @@ export default function RoadtripDiscoverPage() {
             </div>
 
             {/* Präferenzen + Button in einer Zeile */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div
+              className="mt-3 flex w-full max-w-full flex-wrap items-center gap-2"
+            >
               {ROUTE_PREFERENCES.map((p) => (
                 <button
                   key={p.value}
@@ -548,7 +707,9 @@ export default function RoadtripDiscoverPage() {
               ))}
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div
+              className="mt-3 flex w-full flex-wrap items-center gap-3"
+            >
               <div className="flex items-center gap-1.5">
                 <span className="text-xs text-white/70">Stopps:</span>
                 {[3, 5, 6, 8, 10].map((n) => (
@@ -571,7 +732,7 @@ export default function RoadtripDiscoverPage() {
                 type="button"
                 onClick={handleSuggest}
                 disabled={!canSuggest}
-                className={`ml-auto inline-flex items-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-semibold transition active:scale-[0.97] ${
+                className={`inline-flex w-full items-center justify-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-semibold transition active:scale-[0.97] sm:ml-auto sm:w-auto ${
                   canSuggest
                     ? "bg-amber-500 text-white shadow-md hover:bg-amber-400"
                     : "cursor-not-allowed bg-white/20 text-white/40 backdrop-blur-sm"
@@ -602,7 +763,51 @@ export default function RoadtripDiscoverPage() {
       {hasResults && resultFrom && resultTo && (
         <>
           {/* Zusammenfassung */}
-          <div className="flex flex-wrap items-center gap-3 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm">
+          <div className="rounded-2xl border border-[var(--line-subtle)] bg-white/92 p-3 shadow-[var(--shadow-soft)] backdrop-blur">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-accent)]">
+                  Route Workspace
+                </div>
+                <div className="mt-1 truncate text-lg font-semibold text-[var(--text-strong)]">
+                  {resultRouteLabel}
+                </div>
+                <div className="mt-1 text-xs text-[var(--text-muted)]">
+                  {easyStopsCount} nahe Stopps, {result.length} Vorschlaege insgesamt
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:min-w-[520px]">
+                {[
+                  { label: "Ausgewaehlt", value: `${selectedCount}/${result.length}` },
+                  { label: "Zeit vor Ort", value: selectedDurationLabel },
+                  { label: "Alle Stopps", value: resultDurationLabel },
+                  { label: "Umweg", value: strongestDetourLabel(selectedStops) },
+                ].map((stat) => (
+                  <div key={stat.label} className="rounded-xl border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-3 py-2">
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                      {stat.label}
+                    </div>
+                    <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
+                      {stat.value}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {preferenceLabels.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-1.5 border-t border-[var(--line-subtle)] pt-3">
+                {preferenceLabels.map((label) => (
+                  <span key={label} className="rounded-full border border-[rgba(183,106,67,0.18)] bg-[rgba(183,106,67,0.08)] px-2.5 py-1 text-[11px] font-medium text-[#8a5436]">
+                    {label}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="hidden flex-wrap items-center gap-3 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm">
             <span className="text-[var(--text-muted)]">
               <strong className="text-[var(--text-strong)]">{result.length}</strong> Stopps zwischen{" "}
               <strong className="text-[var(--text-strong)]">{resultFrom.label.split(",")[0]}</strong>
@@ -615,10 +820,18 @@ export default function RoadtripDiscoverPage() {
           </div>
 
           {/* Zweispaltiges Layout: Karte + Stopps */}
-          <div className="grid gap-4 lg:grid-cols-[1fr_380px]">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_400px]">
             {/* Karte (sticky auf Desktop) */}
-            <div className="order-2 lg:order-1">
-              <div className="sticky top-4 overflow-hidden rounded-2xl border border-[var(--line-subtle)] shadow-sm" style={{ height: 520 }}>
+            <div className="order-1">
+              <div className="sticky top-4 h-[360px] overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)] lg:h-[560px]">
+                <div className="pointer-events-none absolute left-3 right-3 top-3 z-[500] flex flex-wrap items-center gap-2">
+                  <span className="rounded-full border border-white/50 bg-white/92 px-3 py-1.5 text-xs font-semibold text-[var(--text-strong)] shadow-sm backdrop-blur">
+                    {selectedCount} von {result.length} Stopps aktiv
+                  </span>
+                  <span className="rounded-full border border-white/50 bg-white/92 px-3 py-1.5 text-xs text-[var(--text-muted)] shadow-sm backdrop-blur">
+                    {selectedDurationLabel}
+                  </span>
+                </div>
                 <DiscoverMap
                   fromLabel={resultFrom.label.split(",")[0] ?? resultFrom.label}
                   fromLat={resultFrom.lat}
@@ -640,9 +853,20 @@ export default function RoadtripDiscoverPage() {
             </div>
 
             {/* Stop-Karten */}
-            <div className="order-1 space-y-3 lg:order-2">
+            <div className="order-2 space-y-3">
+              <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-sm">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                  Waypoints
+                </div>
+                <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
+                  Stopps entlang deiner Route
+                </div>
+                <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
+                  Nah am Weg, schnell vergleichbar, bereit fuer die Planung.
+                </p>
+              </div>
               {result.map((stop, idx) => (
-                <StopCard
+                <StopCardV2
                   key={stop.id}
                   stop={stop}
                   number={idx + 1}
@@ -656,10 +880,10 @@ export default function RoadtripDiscoverPage() {
           </div>
 
           {/* ── CTA: Roadtrip planen ──────────────────────────────────────── */}
-          <section className={`sticky bottom-4 z-40 rounded-2xl border shadow-lg px-5 py-4 transition-all ${
+          <section className={`sticky bottom-4 z-40 rounded-2xl border px-4 py-3 shadow-[0_20px_50px_rgba(15,23,42,0.18)] backdrop-blur transition-all sm:px-5 sm:py-4 ${
             selectedCount > 0
-              ? "border-amber-300 bg-amber-50"
-              : "border-[var(--line-subtle)] bg-white"
+              ? "border-amber-300 bg-amber-50/96"
+              : "border-[var(--line-subtle)] bg-white/96"
           }`}>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
@@ -668,15 +892,18 @@ export default function RoadtripDiscoverPage() {
                     <div className="font-semibold text-amber-900">
                       {selectedCount} {selectedCount === 1 ? "Stopp" : "Stopps"} ausgewählt
                     </div>
-                    <div className="mt-0.5 text-sm text-amber-700">
+                    <div className="mt-0.5 max-w-3xl truncate text-sm text-amber-700">
+                      {resultRouteLabel} / {selectedDurationLabel} vor Ort
+                    </div>
+                    <div className="hidden">
                       {resultFrom.label.split(",")[0]} →{" "}
                       {result.filter((s) => selectedIds.has(s.id)).map((s) => s.name).join(" → ")}{" "}
                       → {resultTo.label.split(",")[0]}
                     </div>
                   </>
                 ) : (
-                  <div className="text-sm text-[var(--text-muted)]">
-                    Klicke auf Stopps um sie zur Route hinzuzufügen
+                  <div className="text-sm font-medium text-[var(--text-muted)]">
+                    Noch keine Stopps aktiv
                   </div>
                 )}
               </div>
@@ -726,9 +953,9 @@ export default function RoadtripDiscoverPage() {
             </h2>
             <div className="h-px flex-1 bg-[var(--line-subtle)]" />
             {dbRoutes.length > 0 && (
-              <a href="/roadtrip/routes" className="shrink-0 text-xs text-[var(--text-muted)] underline underline-offset-2 hover:text-[var(--text-strong)]">
+              <Link href="/roadtrip/routes" className="shrink-0 text-xs text-[var(--text-muted)] underline underline-offset-2 hover:text-[var(--text-strong)]">
                 Alle ansehen
-              </a>
+              </Link>
             )}
           </div>
 

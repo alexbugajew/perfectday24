@@ -44,3 +44,10 @@ Plattform Architektur*.txt
 restaurant.lua
 
 .vercel
+
+# QA-Screenshots und lokale Pruef-Artefakte
+tmp-*
+.deploy-check/
+
+# Business-Dokumente (bewusst nicht im Code-Repo versioniert)
+presentations/
