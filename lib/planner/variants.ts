@@ -219,18 +219,59 @@ function applyVariantFocus(
   });
 }
 
-function tweakForGoal(goal: PlanVariant["goal"], candidates: ScoredLocation[]) {
+// Seeded deterministischer PRNG (Mulberry32) — jede Variante bekommt anderen
+// Seed und produziert damit konsistent unterschiedliche Sortierungen bei
+// Score-Ties. Wichtig fuer die Muenchen-Familie-Situation wo Top-30
+// identisches quality_score/importance_score haben.
+function seededRandom(seed: number): () => number {
+  let state = seed >>> 0;
+  return () => {
+    state = (state + 0x6D2B79F5) >>> 0;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Stabile Hash-Ableitung von String → Zahl. Fuer den candidate.id-Anteil.
+function hashStr(str: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i += 1) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+function tweakForGoal(
+  goal: PlanVariant["goal"],
+  candidates: ScoredLocation[],
+  variationSeed = 0
+) {
   const cloned = cloneCandidates(candidates);
+  const rng = seededRandom((variationSeed + 1) * 2654435761);
+  // Pro Kandidat einen kleinen Tie-Break-Wert vor-berechnen: id-Hash gemischt
+  // mit variantSeed über Mulberry32. So haben Ties in jeder Variante andere
+  // Sub-Ranking, aber innerhalb einer Variante deterministisch.
+  const tieBreak = new Map<string, number>();
+  for (const c of cloned) {
+    const idHash = hashStr(c.id ?? "");
+    tieBreak.set(c.id, ((idHash ^ (variationSeed * 2654435761)) >>> 0) / 4294967296);
+  }
+  // Sicherstellen dass rng auch benutzt wird (fuer Fall dass Ids fehlen).
+  if (cloned.length === 0) rng();
 
   if (goal === "best_match") {
     return cloned.sort((a, b) => {
       if ((b.totalScore ?? 0) !== (a.totalScore ?? 0)) {
         return (b.totalScore ?? 0) - (a.totalScore ?? 0);
       }
-
+      // Bei Score-Gleichstand: distanceBased vor Tie-Break-Random.
       const da = a.distanceFromOriginKm ?? Number.POSITIVE_INFINITY;
       const db = b.distanceFromOriginKm ?? Number.POSITIVE_INFINITY;
-      return da - db;
+      if (Math.abs(da - db) > 0.5) return da - db;
+      return (tieBreak.get(a.id) ?? 0) - (tieBreak.get(b.id) ?? 0);
     });
   }
 
@@ -238,9 +279,11 @@ function tweakForGoal(goal: PlanVariant["goal"], candidates: ScoredLocation[]) {
     return cloned.sort((a, b) => {
       const da = a.distanceFromOriginKm ?? Number.POSITIVE_INFINITY;
       const db = b.distanceFromOriginKm ?? Number.POSITIVE_INFINITY;
-
-      if (da !== db) return da - db;
-      return (b.totalScore ?? 0) - (a.totalScore ?? 0);
+      if (Math.abs(da - db) > 0.5) return da - db;
+      if ((b.totalScore ?? 0) !== (a.totalScore ?? 0)) {
+        return (b.totalScore ?? 0) - (a.totalScore ?? 0);
+      }
+      return (tieBreak.get(a.id) ?? 0) - (tieBreak.get(b.id) ?? 0);
     });
   }
 
@@ -248,7 +291,6 @@ function tweakForGoal(goal: PlanVariant["goal"], candidates: ScoredLocation[]) {
     return cloned.sort((a, b) => {
       const categoryBoost = (candidate: ScoredLocation) => {
         const cat = classify(candidate);
-
         if (cat === "culture") return 18;
         if (cat === "activity") return 16;
         if (cat === "event") return 15;
@@ -257,11 +299,10 @@ function tweakForGoal(goal: PlanVariant["goal"], candidates: ScoredLocation[]) {
         if (cat === "cafe") return 3;
         return 0;
       };
-
       const scoreA = (a.totalScore ?? 0) + categoryBoost(a);
       const scoreB = (b.totalScore ?? 0) + categoryBoost(b);
-
-      return scoreB - scoreA;
+      if (scoreA !== scoreB) return scoreB - scoreA;
+      return (tieBreak.get(a.id) ?? 0) - (tieBreak.get(b.id) ?? 0);
     });
   }
 
@@ -270,21 +311,20 @@ function tweakForGoal(goal: PlanVariant["goal"], candidates: ScoredLocation[]) {
       const premiumScore = (candidate: ScoredLocation) => {
         const ratingBoost =
           typeof candidate.rating === "number" ? candidate.rating * 8 : 0;
-
         const qualityBoost =
           typeof candidate.quality_score === "number"
             ? candidate.quality_score * 0.8
             : 0;
-
         const importanceBoost =
           typeof candidate.importance_score === "number"
             ? candidate.importance_score * 0.6
             : 0;
-
         return (candidate.totalScore ?? 0) + ratingBoost + qualityBoost + importanceBoost;
       };
-
-      return premiumScore(b) - premiumScore(a);
+      const scoreA = premiumScore(a);
+      const scoreB = premiumScore(b);
+      if (scoreA !== scoreB) return scoreB - scoreA;
+      return (tieBreak.get(a.id) ?? 0) - (tieBreak.get(b.id) ?? 0);
     });
   }
 
@@ -294,9 +334,10 @@ function tweakForGoal(goal: PlanVariant["goal"], candidates: ScoredLocation[]) {
 function tweakForGoalAndOccasion(
   goal: PlanVariant["goal"],
   context: PlanningContext,
-  candidates: ScoredLocation[]
+  candidates: ScoredLocation[],
+  variationSeed = 0
 ) {
-  const base = tweakForGoal(goal, candidates);
+  const base = tweakForGoal(goal, candidates, variationSeed);
   const occasion = context.filters.occasion;
 
   if (
@@ -390,6 +431,8 @@ function buildVariant(params: {
   variationSeed?: number;
   focus?: VariantFocus | null;
   preserveCustomLabel?: boolean;
+  /** Explizit auszuschliessende Location-IDs (z.B. Top-Picks anderer Varianten). */
+  excludeIds?: Set<string>;
 }): PlanVariant {
   const {
     variantId,
@@ -402,12 +445,25 @@ function buildVariant(params: {
     variationSeed = 0,
     focus = null,
     preserveCustomLabel = false,
+    excludeIds,
   } = params;
+
+  // Diversity-Enforcement: wenn eine Ausschluss-Liste vorliegt, filtern wir
+  // die Kandidaten vorher. Fallback: wenn Filter zu strikt (0 uebrig), nutzen
+  // wir die originalen Kandidaten (leerer Plan waere schlimmer).
+  const preFilteredCandidates =
+    excludeIds && excludeIds.size > 0
+      ? (() => {
+          const filtered = candidates.filter((c) => !excludeIds.has(c.id));
+          return filtered.length > 0 ? filtered : candidates;
+        })()
+      : candidates;
 
   const adjustedCandidates = tweakForGoalAndOccasion(
     goal,
     context,
-    candidates
+    preFilteredCandidates,
+    variationSeed
   );
   const focusedCandidates = applyVariantFocus(adjustedCandidates, focus);
   const variantCandidates = sliceCandidatesForVariant(goal, focusedCandidates);
@@ -473,48 +529,88 @@ export function buildPlanVariants(params: {
     variationSeed = 0,
   } = params;
 
-  const variants: PlanVariant[] = [
-    buildVariant({
-      variantId: "best-match",
-      label: "Best Match",
-      goal: "best_match",
-      context,
-      candidates,
-      planMode,
-      stopOffsets,
-      variationSeed,
-    }),
-    buildVariant({
-      variantId: "shortest-route",
-      label: "Shortest Route",
-      goal: "shortest_route",
-      context,
-      candidates,
-      planMode,
-      stopOffsets,
-      variationSeed: variationSeed + 1,
-    }),
-    buildVariant({
-      variantId: "more-diverse",
-      label: "More Diverse",
-      goal: "more_diverse",
-      context,
-      candidates,
-      planMode,
-      stopOffsets,
-      variationSeed: variationSeed + 2,
-    }),
-    buildVariant({
-      variantId: "premium",
-      label: "Premium",
-      goal: "premium",
-      context,
-      candidates,
-      planMode,
-      stopOffsets,
-      variationSeed: variationSeed + 3,
-    }),
-  ];
+  // Sequentielles Build: jede Variante bekommt die Stops der vorherigen
+  // Varianten als Ausschluss-Liste. So sind die 4 Vorschlaege garantiert
+  // unterschiedlich (Fallback greift wenn Pool zu klein).
+  const bestMatch = buildVariant({
+    variantId: "best-match",
+    label: "Best Match",
+    goal: "best_match",
+    context,
+    candidates,
+    planMode,
+    stopOffsets,
+    variationSeed,
+  });
+  const bestMatchIds = new Set(
+    bestMatch.plannedStops.map((s) => s.item?.id).filter((id): id is string => Boolean(id))
+  );
+
+  const shortestRoute = buildVariant({
+    variantId: "shortest-route",
+    label: "Shortest Route",
+    goal: "shortest_route",
+    context,
+    candidates,
+    planMode,
+    stopOffsets,
+    variationSeed: variationSeed + 1,
+  });
+  const shortestIds = new Set(
+    shortestRoute.plannedStops.map((s) => s.item?.id).filter((id): id is string => Boolean(id))
+  );
+
+  const moreDiverseExclude = new Set<string>([...bestMatchIds, ...shortestIds]);
+  const moreDiverse = buildVariant({
+    variantId: "more-diverse",
+    label: "More Diverse",
+    goal: "more_diverse",
+    context,
+    candidates,
+    planMode,
+    stopOffsets,
+    variationSeed: variationSeed + 2,
+    excludeIds: moreDiverseExclude,
+  });
+  const moreDiverseIds = new Set(
+    moreDiverse.plannedStops.map((s) => s.item?.id).filter((id): id is string => Boolean(id))
+  );
+
+  // Premium ist Qualitäts-getrieben, darf aber die bereits gewaehlten Top-Stops
+  // wiederverwenden — Score kommt vor Diversitaet. Deshalb kein excludeIds hier.
+  const premium = buildVariant({
+    variantId: "premium",
+    label: "Premium",
+    goal: "premium",
+    context,
+    candidates,
+    planMode,
+    stopOffsets,
+    variationSeed: variationSeed + 3,
+  });
+
+  // Falls Premium exakt gleich wie Best Match ist, versuche einmal mit
+  // Best-Match-Excludes: Premium waehlt dann die zweitbeste Reihe.
+  const premiumIds = new Set(
+    premium.plannedStops.map((s) => s.item?.id).filter((id): id is string => Boolean(id))
+  );
+  const overlapWithBestMatch = [...premiumIds].filter((id) => bestMatchIds.has(id)).length;
+  const finalPremium =
+    overlapWithBestMatch >= premium.plannedStops.length && premium.plannedStops.length > 0
+      ? buildVariant({
+          variantId: "premium",
+          label: "Premium",
+          goal: "premium",
+          context,
+          candidates,
+          planMode,
+          stopOffsets,
+          variationSeed: variationSeed + 3,
+          excludeIds: new Set([...bestMatchIds, ...moreDiverseIds]),
+        })
+      : premium;
+
+  const variants: PlanVariant[] = [bestMatch, shortestRoute, moreDiverse, finalPremium];
 
   if (context.groupSignals.enabled && context.groupSignals.participantCount > 1) {
     if (context.groupSignals.sharedAcrossAll.length > 0) {

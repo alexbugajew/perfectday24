@@ -57,6 +57,85 @@ export function inferFamilySignals(loc: LocationRow): FamilySignals {
   const structuredLearning = hasSubtype(loc, "children_museum", "science_center");
   const structuredWater = hasSubtype(loc, "swimming_pool", "thermal_bath");
   const structuredClimb = hasSubtype(loc, "climbing");
+  // Interaktive Familien-Aktivitäten (Bowling, Kart, Escape, Trampoline etc.)
+  // — allen Altersbaendern zugaenglich, oft die besten Regen-Alternativen zu
+  // Museum/Zoo. Waren bisher unsichtbar fuers Family-Modul.
+  const structuredActiveFun =
+    hasSubtype(
+      loc,
+      "bowling_alley",
+      "bowling",
+      "go_kart",
+      "karting",
+      "miniature_golf",
+      "trampoline_park",
+      "trampoline",
+      "laser_tag",
+      "escape_room",
+      "arcade",
+      "video_arcade",
+      "vr_arcade",
+      "rope_course",
+      "ninja_course",
+      "adventure_park",
+      "ice_rink",
+      "roller_rink",
+      "skatepark",
+      "riding_school",
+      "horse_riding",
+      "board_game_cafe"
+    ) ||
+    /(bowling|minigolf|mini golf|neongolf|escape room|escaperoom|escape game|lasertag|laser-tag|kart|karting|gokart|go-kart|trampolin|arcade|vr\s|virtual reality|kletterwald|hochseilgarten|ninja|reithalle|reitschule|eishalle|ice rink|rollschuh|skatepark|brettspiel|board.game)/i.test(text);
+  const structuredCreativeWorkshop =
+    hasSubtype(
+      loc,
+      "workshop_pottery",
+      "workshop_painting",
+      "makerspace",
+      "robotics_workshop",
+      "craft_workshop",
+      "ceramics",
+      "cooking_class_kids",
+      "lego"
+    ) ||
+    /(toepferei|töpferei|toepfern|töpfern|keramik|bastelworkshop|kreativstudio|makerspace|lego\s|robotik|kochkurs.*kinder|kinderkochkurs)/i.test(text);
+  const structuredKidsCulture =
+    hasSubtype(
+      loc,
+      "planetarium",
+      "observatory",
+      "puppet_theater",
+      "children_theater",
+      "family_cinema"
+    ) ||
+    /(planetarium|sternwarte|puppentheater|marionettentheater|kindertheater|kinderkino|familienkino)/i.test(text);
+  const structuredKidsNature =
+    hasSubtype(
+      loc,
+      "petting_zoo",
+      "botanical_garden",
+      "treetop_walk",
+      "canopy_walk",
+      "nature_trail",
+      "adventure_trail",
+      "barefoot_trail",
+      "water_playground",
+      "splash_pad"
+    ) ||
+    /(streichelzoo|botanischer garten|baumwipfelpfad|naturlehrpfad|erlebnispfad|barfusspfad|barfußpfad|wasserspielplatz|splashpad|splash pad)/i.test(text);
+  // Familien-Food nach einer Aktivitaet — Eis, Familien-Cafe, Pancake.
+  // Gibt gezielt Boost fuer relaxte Anschluss-Stops.
+  const structuredFamilyFood =
+    hasSubtype(
+      loc,
+      "ice_cream_parlor",
+      "ice_cream_shop",
+      "ice_cream",
+      "family_cafe",
+      "pancake_house",
+      "family_restaurant"
+    ) ||
+    /(eisdiele|eiscafe|eiscafé|eismanufaktur|gelateria|pancake|familiencafe|familien-cafe|familien\s?cafe|kinderfreundlich|spielecke|kinderteller|kindermenue|kindermenü)/i.test(text);
 
   let kidsFun = 0;
   let parentEase = 0;
@@ -127,6 +206,39 @@ export function inferFamilySignals(loc: LocationRow): FamilySignals {
     kidsFun += 3;
     movement += 5;
     wow += 2;
+  }
+
+  // ── Neue Signal-Boosts ─────────────────────────────────────────────────
+  if (structuredActiveFun) {
+    kidsFun += 5;
+    movement += 4;
+    wow += 2;
+    flexibility += 2;
+    parentEase += 1;
+  }
+  if (structuredCreativeWorkshop) {
+    learning += 3;
+    kidsFun += 3;
+    parentEase += 2;
+    indoor += 2;
+  }
+  if (structuredKidsCulture) {
+    learning += 4;
+    wow += 3;
+    indoor += 2;
+    parentEase += 1;
+  }
+  if (structuredKidsNature) {
+    kidsFun += 4;
+    movement += 3;
+    freePlay += 3;
+    safety += 2;
+  }
+  if (structuredFamilyFood) {
+    foodEase += 5;
+    parentEase += 3;
+    logistics += 2;
+    safety += 1;
   }
 
   if (hasOpeningInfo(loc)) {
@@ -331,6 +443,53 @@ function familyAgeBandPoolSignatureBoost(
   if (mode === "activity" && (category === "activity" || category === "culture" || category === "event")) {
     score += 16;
   }
+
+  // Milder +2 Boost fuer die neu integrierten Familien-Signale:
+  // bowling/kart/trampoline/arcade/rope_course/etc. plus Familien-Food.
+  // Bewusst klein — der grosse Age-Band-Boost unten macht die Hauptarbeit,
+  // dieser Nudge sorgt nur dafuer dass bei sonst gleichem Score die
+  // interaktiven Familien-Aktivitaeten vor generischen "activity"-Locations
+  // gewinnen.
+  const activeFunSubtype = hasSubtype(
+    candidate,
+    "bowling_alley",
+    "bowling",
+    "go_kart",
+    "karting",
+    "miniature_golf",
+    "trampoline_park",
+    "trampoline",
+    "arcade",
+    "video_arcade",
+    "vr_arcade",
+    "rope_course",
+    "ninja_course",
+    "adventure_park",
+    "ice_rink",
+    "roller_rink",
+    "skatepark",
+    "board_game_cafe",
+    "puppet_theater",
+    "children_theater",
+    "family_cinema",
+    "petting_zoo",
+    "treetop_walk",
+    "canopy_walk",
+    "nature_trail",
+    "adventure_trail",
+    "water_playground",
+    "splash_pad",
+    "makerspace",
+    "robotics_workshop",
+    "lego",
+    "ice_cream_parlor",
+    "ice_cream_shop",
+    "ice_cream",
+    "family_cafe",
+    "pancake_house",
+    "family_restaurant"
+  );
+  if (activeFunSubtype) score += 2;
 
   if (band === "0_6") {
     if (
@@ -641,6 +800,25 @@ export function sortFamilyCandidatesForAgeBand<T extends LocationRow>(
     .map((entry) => entry.candidate);
 }
 
+// Text-Marker fuer "Kids/Family-Edition" — genutzt bei Escape Room fuer
+// juengere Age-Bands damit ein "Escape Kids 6+" NICHT hart abgewiesen wird.
+const KIDS_EDITION_TEXT_PATTERN =
+  /(kids?[- ]?edition|family[- ]?edition|familien[- ]?edition|kinder[- ]?version|kinder[- ]?edition|6\+|7\+|8\+|kids?[- ]?escape|escape.*kinder|kinder.*escape|familien.?escape|escape.*family|family.*escape)/i;
+
+function hasEscapeRoomLikeSubtype(loc: ScoredLocation): boolean {
+  return hasSubtype(loc, "escape_room", "escape_game");
+}
+
+function isEscapeRoomKidsFriendly(loc: ScoredLocation): boolean {
+  const text = buildLocationSearchText(loc);
+  return (
+    Boolean(loc.family_friendly) ||
+    hasOccasionTag(loc, "family") ||
+    hasAudience(loc, "family") ||
+    KIDS_EDITION_TEXT_PATTERN.test(text)
+  );
+}
+
 export function familyAgeBandHardReject(
   ageBand: FamilyAgeBand | null | undefined,
   candidate: ScoredLocation,
@@ -657,6 +835,31 @@ export function familyAgeBandHardReject(
       reject: true,
       reason: "passt nicht zu einem familienfreundlichen Ausflug",
     };
+  }
+
+  // Alkohol-lastige Locations bei Familie immer raus.
+  if (isFamilyAlcoholReject(candidate)) {
+    return {
+      reject: true,
+      reason: "ist zu stark auf Alkohol/Cocktails ausgerichtet fuer einen Familientag",
+    };
+  }
+
+  // Escape Room ist bei 0_6 immer zu, bei 4_10 nur wenn explizit als
+  // Family-Edition markiert.
+  if (hasEscapeRoomLikeSubtype(candidate)) {
+    if (band === "0_6") {
+      return {
+        reject: true,
+        reason: "Escape Rooms sind fuer 0-6 Jahre nicht loesbar",
+      };
+    }
+    if (band === "4_10" && !isEscapeRoomKidsFriendly(candidate)) {
+      return {
+        reject: true,
+        reason: "Escape Room ohne Family-Edition ist fuer 4-10 Jahre zu komplex",
+      };
+    }
   }
 
   if (band === "0_6") {
@@ -1096,10 +1299,24 @@ export function buildFamilySlotTemplate(
   ];
 }
 
+// Alkohol-nahe Locations die bei Familien-Anlaessen keinen Platz haben.
+// Biergarten / Wein sind bewusst NICHT gelistet — in Deutschland
+// familientauglich (Spielplatz, Kinderteller).
+const FAMILY_ALCOHOL_REJECT_PATTERN =
+  /(cocktail bar|cocktailbar|craft cocktail|craft-cocktail|speakeasy|nightclub|night club|hard drinks?|spirituose|after work bar|whisky bar|shot bar|absinth|distillery bar)/i;
+
+function isFamilyAlcoholReject(loc: LocationRow): boolean {
+  const text = buildLocationSearchText(loc);
+  return FAMILY_ALCOHOL_REJECT_PATTERN.test(text);
+}
+
 export function isStrongFamilyCandidate(loc: LocationRow) {
   const category = classify(loc);
   const text = buildLocationSearchText(loc);
   const signals = inferFamilySignals(loc);
+
+  // Alkohol-lastige Locations raus, selbst wenn irgendwo family_friendly=true steht.
+  if (isFamilyAlcoholReject(loc)) return false;
 
   if (
     loc.family_friendly ||
@@ -1107,6 +1324,7 @@ export function isStrongFamilyCandidate(loc: LocationRow) {
     hasAudience(loc, "family") ||
     hasSubtype(
       loc,
+      // Klassische Familien-Locations
       "zoo",
       "wildpark",
       "aquarium",
@@ -1117,7 +1335,56 @@ export function isStrongFamilyCandidate(loc: LocationRow) {
       "thermal_bath",
       "theme_park",
       "water_park",
-      "farm_experience"
+      "farm_experience",
+      // Neu: interaktive Familien-Aktivitaeten
+      "bowling_alley",
+      "bowling",
+      "miniature_golf",
+      "trampoline_park",
+      "trampoline",
+      "go_kart",
+      "karting",
+      "laser_tag",
+      "arcade",
+      "video_arcade",
+      "vr_arcade",
+      "rope_course",
+      "ninja_course",
+      "adventure_park",
+      "ice_rink",
+      "roller_rink",
+      "skatepark",
+      "board_game_cafe",
+      // Neu: Familien-Kultur & Nature
+      "planetarium",
+      "observatory",
+      "puppet_theater",
+      "children_theater",
+      "family_cinema",
+      "petting_zoo",
+      "botanical_garden",
+      "treetop_walk",
+      "canopy_walk",
+      "nature_trail",
+      "adventure_trail",
+      "barefoot_trail",
+      "water_playground",
+      "splash_pad",
+      // Neu: Familien-Kreativ-Workshops
+      "workshop_pottery",
+      "workshop_painting",
+      "makerspace",
+      "robotics_workshop",
+      "craft_workshop",
+      "ceramics",
+      "lego",
+      // Neu: Familien-Food
+      "ice_cream_parlor",
+      "ice_cream_shop",
+      "ice_cream",
+      "family_cafe",
+      "pancake_house",
+      "family_restaurant"
     ) ||
     (hasSubtype(loc, "climbing") &&
       (loc.family_friendly ||

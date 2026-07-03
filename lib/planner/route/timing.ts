@@ -1,5 +1,5 @@
 import { ROUTE_BUFFER_FULLDAY_MIN, ROUTE_BUFFER_PARTIALDAY_MIN } from "../constants";
-import { classify } from "../features";
+import { classify, hasSubtype } from "../features";
 import type {
   PlanMode,
   PlannedStop,
@@ -7,6 +7,42 @@ import type {
   ScoredLocation,
   SlotKind,
 } from "../types";
+
+// Locations wie Bauernhof, Reitschule, Baumwipfelpfad liegen typischerweise
+// 5-15 km vom Stadtzentrum. Bei Auto/Public-Transit + Fullday-Family sollten
+// sie erreichbar sein — bei Halbtag/Foot bleibt der enge Radius.
+function familyOutskirtCandidate(candidate?: ScoredLocation | null): boolean {
+  if (!candidate) return false;
+  return hasSubtype(
+    candidate,
+    "farm_experience",
+    "petting_zoo",
+    "riding_school",
+    "horse_riding",
+    "treetop_walk",
+    "canopy_walk",
+    "nature_trail",
+    "adventure_trail",
+    "barefoot_trail"
+  );
+}
+
+export function familyRadiusMultiplier(
+  context: PlanningContext,
+  candidate?: ScoredLocation | null
+): number {
+  if (context.occasion !== "family") return 1;
+  if (!familyOutskirtCandidate(candidate)) return 1;
+  // PlanningContext hat kein direktes routeProfile — nutze filters.
+  const routeProfile = (context as unknown as { filters?: { routeProfile?: string } }).filters
+    ?.routeProfile;
+  // Bei foot-Profil bleibt die enge Grenze — 15 km Bauernhof mit dem
+  // Kinderwagen zu Fuss ist unrealistisch.
+  if (routeProfile === "foot") return 1;
+  // Halbtag zu kurz fuer 15+ Min Anfahrt. Heuristik: fullday >= 400 Min.
+  if (context.timeBudgetMin < 400) return 1;
+  return 1.6;
+}
 
 export function estimateDurationMin(loc: ScoredLocation) {
   if (typeof loc.duration_min === "number" && loc.duration_min > 0) {
@@ -36,10 +72,13 @@ export function getRouteBufferMin(planMode: PlanMode) {
 export function maxSegmentDistanceKm(
   context: PlanningContext,
   slotKind: SlotKind,
-  hasPreviousStop: boolean
+  hasPreviousStop: boolean,
+  candidate?: ScoredLocation | null
 ) {
   const routeProfile = context.filters.routeProfile;
   const occasion = context.filters.occasion;
+
+  const familyMult = familyRadiusMultiplier(context, candidate ?? null);
 
   if (routeProfile === "foot") {
     const firstLegLimit =
@@ -51,7 +90,7 @@ export function maxSegmentDistanceKm(
     return Math.max(
       1.4,
       (hasPreviousStop ? nextLegLimit : firstLegLimit) - mealTightening
-    );
+    ) * familyMult;
   }
 
   if (routeProfile === "public_transit") {
@@ -64,10 +103,10 @@ export function maxSegmentDistanceKm(
     return Math.max(
       3.2,
       (hasPreviousStop ? nextLegLimit : firstLegLimit) - mealTightening
-    );
+    ) * familyMult;
   }
 
-  if (occasion === "date" || occasion === "family") return 12;
+  if (occasion === "date" || occasion === "family") return 12 * familyMult;
   if (occasion === "party") return 10;
   if (occasion === "friends") return 16;
   return 18;
