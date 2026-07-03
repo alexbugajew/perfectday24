@@ -278,7 +278,28 @@ export default function PlannerStopListSection({
                   ) : null}
                 </div>
 
-                {/* Card */}
+                {/* Leerer Slot: kompakte Karte statt voller Foto-Karte — die grosse
+                    graue Hero-Flaeche wirkt sonst wie ein Rendering-Fehler. */}
+                {!stop.item ? (
+                  <div className="min-w-0 flex-1 self-start rounded-lg border border-dashed border-[rgba(68,57,46,0.22)] bg-[rgba(255,253,248,0.6)] px-4 py-3">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold text-[var(--text-strong)]">
+                          {stop.label} · noch offen
+                        </div>
+                        <div className="mt-0.5 text-xs leading-5 text-[var(--text-muted)]">
+                          Hier hat aktuell keine Location gepasst. Umkreis erweitern, Mobilität wechseln oder Alternative suchen.
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => onBumpStop(i)}
+                        className="shrink-0 rounded-md border border-[rgba(68,57,46,0.16)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-panel)]"
+                      >
+                        Alternative suchen
+                      </button>
+                    </div>
+                  </div>
+                ) : (
                 <div
                   className={`min-w-0 flex-1 overflow-hidden rounded-lg border ${
                     draggedStopPosition === i
@@ -552,13 +573,10 @@ export default function PlannerStopListSection({
                         </button>
                       </div>
                     </>
-                  ) : (
-                    <p className="mt-2 text-sm text-[var(--text-muted)]">
-                      Keine passende Location für diesen Block gefunden.
-                    </p>
-                  )}
+                  ) : null}
                   </div> {/* close p-3 sm:p-4 */}
                 </div>
+                )}
               </div>
             </li>
           );
