@@ -578,6 +578,10 @@ function PlannerPageContent() {
     (value: string) => {
       setOccasion(value);
       setPlanMode(defaultPlanModeForOccasion(value));
+      // Family + Fuß + Innenstadt filtert alle Bowling/Kart/Klettern-Kandidaten
+      // durch den engen 3km-Radius weg. Fuer Family default deshalb "car",
+      // fuer alle anderen Anlaesse "foot" (Innenstadt-zentrisch).
+      setRouteProfile(value === "family" ? "car" : "foot");
     },
     []
   );

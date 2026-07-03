@@ -697,14 +697,35 @@ export default function PlannerControlsSection({
                   </select>
                 </label>
 
-                <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
+                <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
                   <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Mobilität</div>
-                  <select value={routeProfile} onChange={(e) => setRouteProfile(e.target.value as RouteProfile)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
-                    <option value="foot">Zu Fuß</option>
-                    <option value="public_transit">ÖPNV</option>
-                    <option value="car">Auto</option>
-                  </select>
-                </label>
+                  <div className="mt-2 grid grid-cols-3 gap-1.5" role="radiogroup" aria-label="Mobilität">
+                    {[
+                      { value: "foot", label: "Fuß", icon: "🚶" },
+                      { value: "car", label: "Auto", icon: "🚗" },
+                      { value: "public_transit", label: "ÖPNV", icon: "🚊" },
+                    ].map((opt) => {
+                      const active = routeProfile === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          role="radio"
+                          aria-checked={active}
+                          onClick={() => setRouteProfile(opt.value as RouteProfile)}
+                          className={`flex flex-col items-center justify-center gap-0.5 rounded-xl border px-2 py-2 text-xs font-medium transition ${
+                            active
+                              ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+                              : "border-[var(--line-subtle)] bg-white text-[var(--text-muted)] hover:border-[rgba(23,23,23,0.28)] hover:text-[var(--text-strong)]"
+                          }`}
+                        >
+                          <span className="text-base leading-none" aria-hidden>{opt.icon}</span>
+                          <span>{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
 
               <div className="mt-3 grid gap-2">
