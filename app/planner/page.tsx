@@ -1573,71 +1573,136 @@ function PlannerPageContent() {
     startPoint.mode === "current_location" && !shouldUseCurrentLocationAsOrigin
       ? effectiveStartPoint.label
       : startPoint.label;
+  const plannerReadinessSteps = [
+    {
+      label: "Start",
+      value: hasValidPlannerOrigin
+        ? effectiveStartPoint.label || selectedCityFallbackLabel || cityLabel
+        : "offen",
+      state: hasValidPlannerOrigin ? "done" : "active",
+    },
+    {
+      label: "Plan",
+      value: plannerLoading
+        ? "wird gebaut"
+        : plannedStops.length > 0
+          ? `${plannedStops.length} ${plannedStops.length === 1 ? "Stop" : "Stops"}`
+          : "bereit",
+      state: plannedStops.length > 0 ? "done" : plannerLoading ? "active" : "idle",
+    },
+    {
+      label: "Route",
+      value:
+        plannedStops.length > 1
+          ? routeSummary
+            ? `${routeSummary.totalDurationMin} Min`
+            : `~${fallbackSummary.totalMin} Min`
+          : routeProfileLabel(routeProfile),
+      state: plannedStops.length > 1 ? "done" : "idle",
+    },
+    {
+      label: "Sichern",
+      value: userId ? "aktiv" : "Login",
+      state: userId && plannedStops.length > 0 ? "done" : "idle",
+    },
+  ];
 
   return (
     <main className="pd24-page-wide space-y-4">
-      <section className="relative overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
-        <div className="pointer-events-none absolute right-[-4rem] top-[-4rem] h-40 w-40 rounded-full bg-[rgba(90,118,136,0.14)] blur-3xl" />
-        <div className="pointer-events-none absolute bottom-[-3rem] left-[16%] h-32 w-32 rounded-full bg-[rgba(124,144,160,0.12)] blur-3xl" />
-        <div className="relative flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-3xl">
-            <div className="mb-2 flex flex-wrap gap-2">
-              <span className="warm-chip rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em]">
-                {occasionTitle}
-              </span>
-              {cityLabel !== "-" && (
-                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
-                  {cityLabel}
+      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
+        <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
+          <div className="flex flex-col gap-5">
+            <div>
+              <div className="mb-2 flex flex-wrap gap-2">
+                <span className="warm-chip rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em]">
+                  {occasionTitle}
                 </span>
-              )}
-              {plannerTemplateLoadedLabel ? (
-                <span className="rounded-full border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)] px-2.5 py-1 text-[11px] font-medium text-[var(--brand-accent)]">
-                  Vorlage
-                </span>
-              ) : null}
+                {cityLabel !== "-" && (
+                  <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+                    {cityLabel}
+                  </span>
+                )}
+                {plannerTemplateLoadedLabel ? (
+                  <span className="rounded-full border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)] px-2.5 py-1 text-[11px] font-medium text-[var(--brand-accent)]">
+                    Vorlage
+                  </span>
+                ) : null}
+              </div>
+              <h1 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
+                {plannerPageTitle}
+              </h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+                {plannerHeaderDescription}
+              </p>
             </div>
-            <h1 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
-              {plannerPageTitle}
-            </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
-              {plannerHeaderDescription}
-            </p>
-          </div>
-
-          <div className="w-full max-w-md">
-            <PlannerActivationPanel
-              cityLabel={cityLabel}
-              plannerSummaryLine={plannerSummaryLine}
-              startPointLabel={effectiveStartPoint.label || selectedCityFallbackLabel || "-"}
-              routeProfileLabel={`${routeProfileLabel(routeProfile)} | ${planMode}`}
-              plannerLoading={plannerLoading}
-              plannerError={plannerError}
-              hasPlannerData={Boolean(plannerData)}
-              hasValidPlannerOrigin={hasValidPlannerOrigin}
-              citiesLoading={citiesLoading}
-              presetActive={homepagePresetActive}
-              templateLabel={plannerTemplateLoadedLabel}
-              plannedStopsCount={plannedStops.length}
-              resultsCount={results.length}
-              eventCandidatesCount={eventCandidates.length}
-              interestsCount={effectiveInterests.length}
-              expandedRadius={Boolean(expandedText)}
-              relaxedFilters={Boolean(relaxedText)}
-              latestPlanTitle={latestSavedPlanTitle}
-              latestPlanMeta={latestSavedPlanMeta}
-              loadingPlans={loadingPlans}
-              onOpenConfig={() => setShowPlannerConfig(true)}
-              onResumeLatestPlan={() => {
-                if (latestSavedPlan) continueEditingSavedPlan(latestSavedPlan);
-              }}
-              onShareLatestPlan={() => {
-                if (latestSavedPlan) void sharePlan(latestSavedPlan);
-              }}
-              onUseCurrentLocation={useCurrentLocationAsStartPoint}
-              onRerollPlan={rerollPlan}
-            />
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {plannerReadinessSteps.map((step, index) => (
+                <div
+                  key={step.label}
+                  className={`min-w-0 rounded-[var(--radius-control)] border px-3 py-2 ${
+                    step.state === "done"
+                      ? "border-[var(--state-success)]/25 bg-[var(--brand-accent-cloud)]"
+                      : step.state === "active"
+                        ? "border-[var(--state-warning)]/30 bg-[var(--brand-warm-cloud)]"
+                        : "border-[var(--line-subtle)] bg-white"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${
+                        step.state === "done"
+                          ? "bg-[var(--state-success)] text-white"
+                          : step.state === "active"
+                            ? "bg-[var(--state-warning)] text-white"
+                            : "bg-[var(--bg-panel)] text-[var(--text-muted)]"
+                      }`}
+                    >
+                      {index + 1}
+                    </span>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                      {step.label}
+                    </span>
+                  </div>
+                  <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
+                    {step.value}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
+        <PlannerActivationPanel
+          cityLabel={cityLabel}
+          plannerSummaryLine={plannerSummaryLine}
+          startPointLabel={effectiveStartPoint.label || selectedCityFallbackLabel || "-"}
+          routeProfileLabel={`${routeProfileLabel(routeProfile)} | ${planMode}`}
+          plannerLoading={plannerLoading}
+          plannerError={plannerError}
+          hasPlannerData={Boolean(plannerData)}
+          hasValidPlannerOrigin={hasValidPlannerOrigin}
+          citiesLoading={citiesLoading}
+          presetActive={homepagePresetActive}
+          templateLabel={plannerTemplateLoadedLabel}
+          plannedStopsCount={plannedStops.length}
+          resultsCount={results.length}
+          eventCandidatesCount={eventCandidates.length}
+          interestsCount={effectiveInterests.length}
+          expandedRadius={Boolean(expandedText)}
+          relaxedFilters={Boolean(relaxedText)}
+          latestPlanTitle={latestSavedPlanTitle}
+          latestPlanMeta={latestSavedPlanMeta}
+          loadingPlans={loadingPlans}
+          onOpenConfig={() => setShowPlannerConfig(true)}
+          onResumeLatestPlan={() => {
+            if (latestSavedPlan) continueEditingSavedPlan(latestSavedPlan);
+          }}
+          onShareLatestPlan={() => {
+            if (latestSavedPlan) void sharePlan(latestSavedPlan);
+          }}
+          onUseCurrentLocation={useCurrentLocationAsStartPoint}
+          onRerollPlan={rerollPlan}
+        />
       </section>
 
       {!homepagePresetActive && !effectiveCitySlug && !citiesLoading && (
@@ -1807,8 +1872,8 @@ function PlannerPageContent() {
           </div>
         ) : null}
 
-        <div className="mt-3 flex flex-col gap-3 border-t border-[rgba(68,57,46,0.08)] pt-3">
-          <div className="min-w-0">
+        <div className="mt-3 flex flex-col gap-3 border-t border-[rgba(68,57,46,0.08)] pt-3 lg:flex-row lg:flex-wrap lg:items-center">
+          <div className="min-w-0 lg:flex-1">
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
               Dein Plan
             </div>
@@ -1819,8 +1884,7 @@ function PlannerPageContent() {
             ) : activeVariant ? (
               <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
                 {activeVariant.label}
-                {typeof activeVariant.totalScore === "number" ? ` | Score ${activeVariant.totalScore}` : ""}
-                {pinnedVariant?.variantId === activeVariant.variantId ? " | Unsere Wahl" : ""}
+                {pinnedVariant?.variantId === activeVariant.variantId ? " · Unsere Wahl" : ""}
               </div>
             ) : (
               <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">Noch kein Plan erstellt</div>
@@ -1835,7 +1899,10 @@ function PlannerPageContent() {
                 </div>
                 {aiPlanPrompt ? (
                   <div className="mt-0.5 truncate text-xs text-[var(--text-muted)]" title={aiPlanPrompt}>
+                    &bdquo;{aiPlanPrompt}&ldquo;
+                    {/*
                     „{aiPlanPrompt}"
+                    */}
                   </div>
                 ) : null}
               </div>
@@ -1854,7 +1921,7 @@ function PlannerPageContent() {
             type="button"
             onClick={() => void startPlannerRouteRun()}
             disabled={plannedStops.length === 0}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60 lg:w-auto lg:min-w-[220px]"
           >
             Route starten
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
@@ -1863,7 +1930,7 @@ function PlannerPageContent() {
           </button>
 
           {/* Sekundäraktion — nur ein klarer nächster Schritt */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 lg:w-auto">
             {groupEnabled ? (
               <button
                 type="button"
@@ -1909,7 +1976,7 @@ function PlannerPageContent() {
             <button
               type="button"
               onClick={() => setShowAiModal(true)}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[rgba(196,137,79,0.45)] bg-[linear-gradient(90deg,rgba(255,249,241,0.95),rgba(255,253,248,0.95))] px-4 py-3 text-sm font-semibold text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,1)] active:scale-[0.98]"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[rgba(196,137,79,0.45)] bg-[linear-gradient(90deg,rgba(255,249,241,0.95),rgba(255,253,248,0.95))] px-4 py-3 text-sm font-semibold text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,1)] active:scale-[0.98] lg:w-auto lg:min-w-[190px]"
             >
               <span aria-hidden>✨</span>
               <span>Mit AI planen</span>
@@ -1994,8 +2061,8 @@ function PlannerPageContent() {
         </div>
       </section>
 
-      <div className="grid gap-4 xl:grid-cols-[340px_minmax(0,1fr)] xl:items-start">
-        <aside className="space-y-4 xl:sticky xl:top-24 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto xl:pr-1">
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
+        <aside className="order-2 space-y-4 xl:sticky xl:top-24 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto xl:pl-1">
           <PlannerMapPanel
             routeProfile={routeProfile}
             onRouteProfileChange={setRouteProfile}
@@ -2124,7 +2191,7 @@ function PlannerPageContent() {
 
         </aside>
 
-        <section id="planner-results" className="min-w-0 scroll-mt-24 space-y-4">
+        <section id="planner-results" className="order-1 min-w-0 scroll-mt-24 space-y-4">
           <PlannerVariantPanel
         activeVariant={activeVariant}
         pinnedVariant={pinnedVariant}

@@ -45,6 +45,9 @@ async function main() {
       .eq("city_slug", city.slug)
       .eq("is_plannable", true)
       .order("quality_score", { ascending: false, nullsFirst: false })
+      // Gleicher Tiebreaker wie im Classify-Script — sonst vergleichen beide
+      // Scripts verschiedene Top-300-Teilmengen (flache Scores im Manual-Seed).
+      .order("id", { ascending: true })
       .limit(300);
     if (error) {
       console.log(`| ${city.slug} | ERROR | — |`);

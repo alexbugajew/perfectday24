@@ -73,13 +73,14 @@ function plannerStopImageUrl(stop: PlannedStop) {
 
   // Stockfoto-Fallback nach Kategorie. Seed = id, damit derselbe Stop
   // immer dasselbe Foto bekommt.
+  // 600x320 passt zum full-width Hero (h-32/h-40) — 200x200 war sichtbar unscharf.
   return stopPhotoFallback({
     category: item.category ?? null,
     type: item.type ?? null,
     sourcePrimary: item.source_primary ?? null,
     seed: String(item.id ?? stop.label ?? stop.index),
-    width: 200,
-    height: 200,
+    width: 600,
+    height: 320,
   });
 }
 

@@ -23,7 +23,10 @@ const FALLBACKS: Record<FallbackCategory, string[]> = {
     "photo-1495474472287-4d71bcdd2085", // coffee shop morning
   ],
   culture: [
-    "photo-1565060169187-5284992c6fb6", // museum architecture
+    // Alle IDs sind live gegen images.unsplash.com verifiziert (2026-07-03).
+    // Die fruehere erste ID (photo-1565060169187…) war 404 → Deutsches Museum
+    // & Co. zeigten den grauen Gradient statt eines Fotos.
+    "photo-1503152394-c571994fd383", // museum grand hall
     "photo-1518998053901-5348d3961a04", // gallery interior
     "photo-1544967082-d9d25d867d66", // art exhibition
     "photo-1574375927938-d5a98e8ffe85", // museum hall
@@ -38,7 +41,7 @@ const FALLBACKS: Record<FallbackCategory, string[]> = {
     "photo-1514933651103-005eec06c04b", // bar atmosphere
     "photo-1572116469696-31de0f17cc34", // cocktail bar
     "photo-1470337458703-46ad1756a187", // pub interior
-    "photo-1572116469694-9d3a4a4f3a4a", // nightclub
+    "photo-1470225620780-dba8ba36b745", // dj set (Ersatz fuer 404-ID)
   ],
   event: [
     "photo-1492684223066-81342ee5ff30", // concert crowd

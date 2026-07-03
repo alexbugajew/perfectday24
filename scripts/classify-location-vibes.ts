@@ -253,6 +253,10 @@ async function main() {
       .eq("city_slug", citySlug)
       .eq("is_plannable", true)
       .order("quality_score", { ascending: false, nullsFirst: false })
+      // Deterministischer Tiebreaker: bei flachen Scores (Manual-Seed = alle 85)
+      // liefert Postgres sonst pro Query eine ANDERE Top-300-Teilmenge —
+      // Classify und Coverage-Audit sahen dadurch verschiedene Locations.
+      .order("id", { ascending: true })
       .limit(topN);
     if (error) {
       console.error(`fetch failed for ${citySlug}:`, error.message);

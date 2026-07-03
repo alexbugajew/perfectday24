@@ -123,7 +123,12 @@ function variantGoalCopy(goal: PlanVariant["goal"]) {
 function variantQualityMetrics(variant: PlanVariant) {
   const activeStops = variant.plannedStops.filter((stop) => stop.item).length;
   const eventStops = variant.plannedStops.filter((stop) => stop.item?.source_primary === "planner_event").length;
-  const timedStops = variant.plannedStops.filter((stop) => stop.scheduledStartAt || stop.timingLock === "event").length;
+  // "Fest" heisst: an eine Event-Uhrzeit gebunden, nicht verschiebbar.
+  // Frueher zaehlte das jede geplante Uhrzeit (auch leerer Slots) — Ergebnis
+  // war "3 fix" bei 2 Stops und fuer Nutzer unverstaendlich.
+  const lockedStops = variant.plannedStops.filter(
+    (stop) => stop.item && stop.timingLock === "event"
+  ).length;
 
   return [
     { label: "Stops", value: String(activeStops) },
@@ -131,8 +136,22 @@ function variantQualityMetrics(variant: PlanVariant) {
     { label: "Weg", value: formatVariantMinutes(variant.fallbackSummary.travelMin) },
     { label: "Distanz", value: formatVariantDistance(variant.fallbackSummary.distanceKm) },
     { label: "Events", value: eventStops > 0 ? String(eventStops) : "0" },
-    { label: "Timing", value: timedStops > 0 ? `${timedStops} fix` : "flex" },
+    { label: "Timing", value: lockedStops > 0 ? `${lockedStops}× fest` : "flexibel" },
   ];
+}
+
+// Uebersetzt den internen totalScore in eine relative, verstaendliche Aussage.
+// Roh-Werte wie "Score 991" sagen Nutzern nichts — relativ zur besten Variante
+// schon ("Beste Passung" / "Passung 65 %").
+function variantFitLabel(variant: PlanVariant, allVariants: PlanVariant[]): string | null {
+  if (typeof variant.totalScore !== "number") return null;
+  const scores = allVariants
+    .map((v) => v.totalScore)
+    .filter((s): s is number => typeof s === "number" && s > 0);
+  if (scores.length === 0 || variant.totalScore <= 0) return null;
+  const max = Math.max(...scores);
+  if (variant.totalScore >= max) return "Beste Passung";
+  return `Passung ${Math.round((variant.totalScore / max) * 100)} %`;
 }
 
 function variantProofBadges(variant: PlanVariant) {
@@ -181,8 +200,8 @@ export default function PlannerVariantPanel({
           {activeVariant ? (
             <div className="mt-1 text-sm text-[var(--text-muted)]">
               <span className="font-semibold">{activeVariant.label}</span>
-              {typeof activeVariant.totalScore === "number" ? ` | Score ${activeVariant.totalScore}` : ""}
-              {pinnedVariant?.variantId === activeVariant.variantId ? " | Unsere Wahl" : ""}
+              {` · ${variantGoalLabel(activeVariant.goal)}`}
+              {pinnedVariant?.variantId === activeVariant.variantId ? " · Unsere Wahl" : ""}
             </div>
           ) : null}
         </div>
@@ -466,9 +485,15 @@ export default function PlannerVariantPanel({
                   </div>
 
                   <div className={`mt-auto pt-3 text-[11px] ${active ? "text-white/70" : "text-[var(--text-muted)]"}`}>
-                    {variant.groupSummary?.label ? variant.groupSummary.label : "Ohne Gruppenwahl"}
-                    {voteCount > 0 ? ` · ${voteCount} von ${reactionParticipants.length || 0} Stimmen` : ""}
-                    {typeof variant.totalScore === "number" ? ` · Score ${variant.totalScore}` : ""}
+                    {(() => {
+                      const fit = variantFitLabel(variant, plannerData.variants);
+                      const parts = [
+                        fit,
+                        groupEnabled && variant.groupSummary?.label ? variant.groupSummary.label : null,
+                        voteCount > 0 ? `${voteCount} von ${reactionParticipants.length || 0} Stimmen` : null,
+                      ].filter(Boolean);
+                      return parts.length > 0 ? parts.join(" · ") : variantGoalLabel(variant.goal);
+                    })()}
                   </div>
                 </button>
               );
@@ -487,7 +512,9 @@ export default function PlannerVariantPanel({
       ) : null}
 
       {plannerError ? (
-        <div className="mb-4 p-3 border rounded-lg text-sm text-red-700">{plannerError}</div>
+        <div className="mb-4 rounded-lg border border-[var(--state-warning)]/25 bg-[var(--brand-warm-cloud)] p-3 text-sm text-[var(--state-warning)]">
+          {plannerError}
+        </div>
       ) : null}
     </>
   );
