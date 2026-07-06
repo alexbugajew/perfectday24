@@ -51,3 +51,6 @@ tmp-*
 
 # Business-Dokumente (bewusst nicht im Code-Repo versioniert)
 presentations/
+
+# Brand-Exploration (nicht referenziert, bewusst nicht versioniert)
+public/brand/ventiqa/
