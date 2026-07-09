@@ -99,6 +99,22 @@ function isLocalRoadtrip(stops: Array<{ lat?: number | null; lng?: number | null
   return maxKm < ROADTRIP_LOCAL_SPAN_KM;
 }
 
+// Explizite Per-Route-Flags schlagen die Distanz-Heuristik.
+//   Tag "local-trip"  → immer Morgenstart (z. B. Insel-/Stadt-Touren)
+//   Tag "road-trip"   → immer Nachmittags-Anreisetag (echte Fernstrecke)
+// Ohne Tag entscheidet die geografische Spannweite (isLocalRoadtrip).
+const ROADTRIP_LOCAL_TAG = "local-trip";
+const ROADTRIP_FERN_TAG = "road-trip";
+
+function resolveLocalTrip(
+  tags: string[] | null | undefined,
+  stops: Array<{ lat?: number | null; lng?: number | null }>
+): boolean {
+  if (tags?.includes(ROADTRIP_LOCAL_TAG)) return true;
+  if (tags?.includes(ROADTRIP_FERN_TAG)) return false;
+  return isLocalRoadtrip(stops);
+}
+
 function normalizeRoadtripStopTimes<
   T extends {
     time: string | null;
@@ -876,7 +892,7 @@ export default function RoadtripRouteDetailPage() {
         {route.stops.map((stop, idx) => {
           const arrivalDate = stopArrivalDate(startDate, route.stops, idx);
           const departureDate = addDays(arrivalDate, stop.nights);
-          const isLocalTrip = isLocalRoadtrip(route.stops);
+          const isLocalTrip = resolveLocalTrip(route.tags, route.stops);
           // Lokaler Trip → Planner startet morgens (Sylt-Locations schliessen oft
           // gegen 18 Uhr). Fernstrecke → Nachmittagsstart nach der Anfahrt.
           const plannerDayStart = isLocalTrip ? ROADTRIP_LOCAL_START_MIN : ROADTRIP_AFTERNOON_START_MIN;
