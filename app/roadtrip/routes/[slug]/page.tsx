@@ -67,12 +67,46 @@ function formatTimeLabel(totalMinutes: number): string {
   return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
 }
 
+// Haversine-Distanz in km zwischen zwei Koordinaten.
+function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number): number {
+  const R = 6371;
+  const dLat = ((bLat - aLat) * Math.PI) / 180;
+  const dLng = ((bLng - aLng) * Math.PI) / 180;
+  const s =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((aLat * Math.PI) / 180) * Math.cos((bLat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(s)));
+}
+
+// Ein "lokaler Trip" (Insel-Tour, Stadt-Umgebung) hat alle Stops eng beieinander
+// — keine morgendliche Fernanfahrt. Dann startet der Tag morgens statt nachmittags
+// und der "Anreise & Check-in"-Block entfällt. Schwelle: max. Distanz zwischen
+// je zwei Stops < 45 km (Sylt komplett ~38 km lang; echte Roadtrips spannen mehr).
+const ROADTRIP_LOCAL_SPAN_KM = 45;
+const ROADTRIP_LOCAL_START_MIN = 9 * 60 + 30; // 09:30 Morgenstart für lokale Trips
+
+function isLocalRoadtrip(stops: Array<{ lat?: number | null; lng?: number | null }>): boolean {
+  const pts = stops.filter(
+    (s): s is { lat: number; lng: number } => typeof s.lat === "number" && typeof s.lng === "number"
+  );
+  if (pts.length < 2) return true; // Ein Ort → immer lokal.
+  let maxKm = 0;
+  for (let i = 0; i < pts.length; i += 1) {
+    for (let j = i + 1; j < pts.length; j += 1) {
+      maxKm = Math.max(maxKm, haversineKm(pts[i].lat, pts[i].lng, pts[j].lat, pts[j].lng));
+    }
+  }
+  return maxKm < ROADTRIP_LOCAL_SPAN_KM;
+}
+
 function normalizeRoadtripStopTimes<
   T extends {
     time: string | null;
   },
->(stops: T[]): T[] {
+>(stops: T[], isLocal = false): T[] {
   if (stops.length === 0) return stops;
+  // Lokale Trips: Autoren-Zeiten unverändert lassen (starten schon morgens).
+  if (isLocal) return stops;
   const firstTimedStop = stops.find((stop) => parseTimeLabel(stop.time) !== null);
   const firstStopMinutes = parseTimeLabel(firstTimedStop?.time);
   if (firstStopMinutes === null || firstStopMinutes >= ROADTRIP_AFTERNOON_START_MIN) {
@@ -842,6 +876,10 @@ export default function RoadtripRouteDetailPage() {
         {route.stops.map((stop, idx) => {
           const arrivalDate = stopArrivalDate(startDate, route.stops, idx);
           const departureDate = addDays(arrivalDate, stop.nights);
+          const isLocalTrip = isLocalRoadtrip(route.stops);
+          // Lokaler Trip → Planner startet morgens (Sylt-Locations schliessen oft
+          // gegen 18 Uhr). Fernstrecke → Nachmittagsstart nach der Anfahrt.
+          const plannerDayStart = isLocalTrip ? ROADTRIP_LOCAL_START_MIN : ROADTRIP_AFTERNOON_START_MIN;
           const isToday = tripActive && idx === todayStopIdx;
           const plannerSupported = isPlannerSupportedCitySlug(stop.citySlug);
           const firstPlannedItemName = stop.plannedStops?.find((plannedStop) => plannedStop.itemName)?.itemName ?? null;
@@ -1015,22 +1053,24 @@ export default function RoadtripRouteDetailPage() {
                         <p className="text-[11px] italic text-[var(--text-muted)]">{stop.planSummary}</p>
                       )}
                       <ol className="space-y-1.5">
-                        <li className="flex items-start gap-2">
-                          <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[9px] font-bold text-[var(--text-strong)]">
-                            1
-                          </span>
-                          <div className="flex-1 min-w-0">
-                            <span className="text-xs font-medium text-[var(--text-strong)]">Anreise &amp; Check-in</span>
-                            <span className="ml-1.5 text-[11px] text-[var(--text-muted)]">- Check-out, Anfahrt und Hotel-Check-in bis zum Nachmittag</span>
-                          </div>
-                          <span className="shrink-0 rounded bg-[rgba(23,23,23,0.06)] px-1.5 py-0.5 text-[10px] tabular-nums text-[var(--text-muted)]">
-                            {ROADTRIP_TRAVEL_WINDOW_LABEL}
-                          </span>
-                        </li>
-                        {normalizeRoadtripStopTimes(stop.plannedStops).map((s, i) => (
+                        {!isLocalTrip && (
+                          <li className="flex items-start gap-2">
+                            <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[9px] font-bold text-[var(--text-strong)]">
+                              1
+                            </span>
+                            <div className="flex-1 min-w-0">
+                              <span className="text-xs font-medium text-[var(--text-strong)]">Anreise &amp; Check-in</span>
+                              <span className="ml-1.5 text-[11px] text-[var(--text-muted)]">- Check-out, Anfahrt und Hotel-Check-in bis zum Nachmittag</span>
+                            </div>
+                            <span className="shrink-0 rounded bg-[rgba(23,23,23,0.06)] px-1.5 py-0.5 text-[10px] tabular-nums text-[var(--text-muted)]">
+                              {ROADTRIP_TRAVEL_WINDOW_LABEL}
+                            </span>
+                          </li>
+                        )}
+                        {normalizeRoadtripStopTimes(stop.plannedStops, isLocalTrip).map((s, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.08)] text-[9px] font-bold text-[var(--text-strong)]">
-                              {i + 2}
+                              {isLocalTrip ? i + 1 : i + 2}
                             </span>
                             <div className="flex-1 min-w-0">
                               <span className="text-xs font-medium text-[var(--text-strong)]">{s.label}</span>
@@ -1140,7 +1180,7 @@ export default function RoadtripRouteDetailPage() {
                   </a>
                 ) : stop.plannedStops?.length ? (
                   <a
-                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}&dayStartMin=${ROADTRIP_AFTERNOON_START_MIN}`}
+                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}&dayStartMin=${plannerDayStart}`}
                     className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
                   >
                     📋 Im Planner öffnen
@@ -1150,7 +1190,7 @@ export default function RoadtripRouteDetailPage() {
                   </a>
                 ) : (
                   <a
-                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}&dayStartMin=${ROADTRIP_AFTERNOON_START_MIN}`}
+                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}&dayStartMin=${plannerDayStart}`}
                     className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.97]"
                   >
                     📍 Tag planen
