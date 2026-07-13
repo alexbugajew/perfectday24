@@ -674,9 +674,24 @@ async function main() {
     return;
   }
 
+  // Schema-Drift-Guard: die Migration 20260621120000_opening_hours_raw.sql ist evtl.
+  // noch nicht auf der Live-DB. Fehlt die Spalte, Seeds ohne sie schreiben (Warnung) —
+  // Öffnungszeiten können später via backfill-opening-hours nachgezogen werden.
+  const { error: hoursColumnError } = await supabase
+    .from("location_manual_seeds")
+    .select("opening_hours_raw")
+    .limit(1);
+  let upsertRows: Array<Record<string, unknown>> = curated;
+  if (hoursColumnError) {
+    console.warn(
+      `[locations] ${city.slug}: opening_hours_raw fehlt in location_manual_seeds (Migration 20260621120000 nicht angewandt) — Seeds werden ohne Öffnungszeiten geschrieben`
+    );
+    upsertRows = curated.map(({ opening_hours_raw: _hours, ...rest }) => rest);
+  }
+
   const { error: upsertError } = await supabase
     .from("location_manual_seeds")
-    .upsert(curated, {
+    .upsert(upsertRows, {
       onConflict: "city_slug,name,type",
       ignoreDuplicates: false,
     });
