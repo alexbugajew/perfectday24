@@ -37,7 +37,7 @@ for (const c of todo) {
   i++;
   const start = Date.now();
   const res = spawnSync("node", [SCRIPT, `--city=${c.slug}`, `--radius=${c.radiusM}`, `--publishLimit=${PUBLISH_LIMIT}`, `--batch=${BATCH}`], {
-    encoding: "utf8", timeout: 15 * 60 * 1000,
+    encoding: "utf8", timeout: 15 * 60 * 1000, killSignal: "SIGKILL",
   });
   const ms = Date.now() - start;
   const out = (res.stdout || "") + (res.stderr || "");

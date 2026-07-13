@@ -451,6 +451,9 @@ out center tags;
             "user-agent": "perfectday24-location-ingest/1.0",
           },
           body: query,
+          // Hänger-Schutz: ein toter Mirror (z.B. kumi.systems ohne Response) darf
+          // die Stadt nicht ewig blockieren — Server-Timeout ist 75s, Client 120s.
+          signal: AbortSignal.timeout(120_000),
         });
 
         if (!response.ok) {
@@ -559,6 +562,7 @@ async function fetchNominatimFallbackSeeds(
         "user-agent": "perfectday24-location-ingest/1.0",
         accept: "application/json",
       },
+      signal: AbortSignal.timeout(60_000),
     });
 
     if (!response.ok) continue;
