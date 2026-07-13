@@ -19,10 +19,18 @@ const all = JSON.parse(readFileSync("tmp/wave5-final.json", "utf8"))
   .filter((c) => !STAGE || c.stage === STAGE)
   .sort((a, b) => b._meta.pop - a._meta.pop);
 const ckpt = existsSync(CKPT) ? JSON.parse(readFileSync(CKPT, "utf8")) : { done: {}, failed: {} };
-const todo = all.filter((c) => !ckpt.done[c.slug]).slice(0, LIMIT);
-console.log(`[batch] ${all.length} cities in scope, ${Object.keys(ckpt.done).length} done, running ${todo.length} now (batch=${BATCH})`);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const PASSES = 3; // Fehlgeschlagene (z.B. Overpass-Timeouts) werden in Folgepässen erneut versucht.
+for (let pass = 1; pass <= PASSES; pass++) {
+  const todo = all.filter((c) => !ckpt.done[c.slug]).slice(0, LIMIT);
+  if (todo.length === 0) break;
+  console.log(`[batch] pass ${pass}/${PASSES}: ${all.length} cities in scope, ${Object.keys(ckpt.done).length} done, running ${todo.length} now (batch=${BATCH})`);
+  if (pass > 1) await sleep(60000); // Overpass etwas Luft geben
+  await runPass(todo);
+}
+
+async function runPass(todo) {
 let i = 0;
 const t0 = Date.now();
 for (const c of todo) {
@@ -48,5 +56,7 @@ for (const c of todo) {
   writeFileSync(CKPT, JSON.stringify(ckpt, null, 1));
   await sleep(DELAY_MS);
 }
+}
+
 console.log(`[batch] finished run: done ${Object.keys(ckpt.done).length}/${all.length}, failed ${Object.keys(ckpt.failed).length}`);
 if (Object.keys(ckpt.failed).length) console.log("failed slugs:", Object.keys(ckpt.failed).join(", "));
