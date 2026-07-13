@@ -1,4 +1,14 @@
-export type PlannerRolloutStage = "core" | "top10" | "wave1" | "wave2" | "wave3" | "wave4";
+import { PLANNER_EXPANSION_ROLLOUT } from "./rollout-expansion.generated";
+
+export type PlannerRolloutStage =
+  | "core"
+  | "top10"
+  | "wave1"
+  | "wave2"
+  | "wave3"
+  | "wave4"
+  | "wave5" // Expansion: Städte >= 50.000 Einw. (generiert, s. rollout-expansion.generated.ts)
+  | "wave6"; // Expansion: Mittelstädte 20.000-50.000 Einw. (generiert)
 export type PlannerReadinessTier = "full" | "planner_ready" | "prepared";
 export type PlannerVisibility = "visible" | "hidden";
 
@@ -22,7 +32,10 @@ export const PLANNER_VISIBILITY_GATES = {
   requiresActiveOfficialEventSource: true,
 } as const;
 
-export const PLANNER_33_ROLLOUT: PlannerRolloutCity[] = [
+// Handkuratierte Rollout-Städte (core/top10/wave1-4). Die Expansion (wave5/wave6,
+// alle deutschen Groß- und Mittelstädte) lebt in rollout-expansion.generated.ts
+// und wird unten in PLANNER_33_ROLLOUT zusammengeführt.
+const PLANNER_CURATED_ROLLOUT: PlannerRolloutCity[] = [
   {
     slug: "berlin-berlin",
     label: "Berlin",
@@ -962,6 +975,11 @@ export const PLANNER_33_ROLLOUT: PlannerRolloutCity[] = [
     plannerVisibility: "visible",
     aliasSlugs: ["moers-nordrhein-westfalen"],
   },
+];
+
+export const PLANNER_33_ROLLOUT: PlannerRolloutCity[] = [
+  ...PLANNER_CURATED_ROLLOUT,
+  ...PLANNER_EXPANSION_ROLLOUT,
 ];
 
 export const PLANNER_33_ROLLOUT_MAP = new Map(
