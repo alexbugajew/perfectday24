@@ -104,6 +104,9 @@ function normalizeScope(value: string | null): RolloutScope {
     normalized === "wave1" ||
     normalized === "wave2" ||
     normalized === "wave3" ||
+    normalized === "wave4" ||
+    normalized === "wave5" ||
+    normalized === "wave6" ||
     normalized === "prepared" ||
     normalized === "all"
   ) {
