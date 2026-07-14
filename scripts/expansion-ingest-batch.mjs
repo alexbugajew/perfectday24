@@ -9,7 +9,7 @@ const CKPT = "tmp/ingest-checkpoint.json";
 const SCRIPT = ".codex-scripts-dist/scripts/ingest-city-location-seeds.js";
 const PUBLISH_LIMIT = 1500;
 const BATCH = `expansion_${new Date().toISOString().slice(0, 10).replace(/-/g, "")}`;
-const DELAY_MS = 5000;
+const DELAY_MS = 20000; // Overpass-Slots schonen (Rate-Limit-Lektion vom 14.07.)
 
 const arg = (n) => { const p = `--${n}=`; const f = process.argv.find((a) => a.startsWith(p)); return f ? f.slice(p.length) : null; };
 const LIMIT = arg("limit") ? parseInt(arg("limit"), 10) : Infinity;
@@ -35,6 +35,8 @@ let i = 0;
 const t0 = Date.now();
 for (const c of todo) {
   i++;
+  // Server-Slots räumen (gekillte Vorgänger-Queries blockieren sonst -> 429-Kaskade)
+  try { await fetch("https://overpass-api.de/api/kill_my_queries", { signal: AbortSignal.timeout(10_000) }); } catch {}
   const start = Date.now();
   const res = spawnSync("node", [SCRIPT, `--city=${c.slug}`, `--radius=${c.radiusM}`, `--publishLimit=${PUBLISH_LIMIT}`, `--batch=${BATCH}`], {
     encoding: "utf8", timeout: 15 * 60 * 1000, killSignal: "SIGKILL",
@@ -52,6 +54,7 @@ for (const c of todo) {
   } else {
     ckpt.failed[c.slug] = { status: res.status, at: new Date().toISOString(), tail: out.slice(-400) };
     console.log(`[${i}/${todo.length}] FAIL ${c.slug} (status ${res.status})\n${out.slice(-400)}`);
+    await sleep(120000); // Cooldown nach Fehlschlag — Overpass nicht weiter treiben
   }
   writeFileSync(CKPT, JSON.stringify(ckpt, null, 1));
   await sleep(DELAY_MS);

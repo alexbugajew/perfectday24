@@ -427,6 +427,7 @@ async function fetchOverpassSeedsForQueryGroups(
 ) {
   const endpoints = [
     "https://overpass-api.de/api/interpreter",
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
   ];
   const elements = new Map<string, OverpassElement>();
@@ -442,6 +443,11 @@ out center tags;
 
     let lastError: string | null = null;
 
+    // Zwei Runden über alle Mirrors (mit Abkühlpause) BEVOR auf den mageren
+    // Nominatim-Fallback degradiert wird — ein temporäres 429 darf die
+    // Datenqualität einer Stadt nicht ruinieren.
+    rounds: for (let round = 0; round < 2; round++) {
+    if (round > 0) await new Promise((r) => setTimeout(r, 60_000));
     for (const endpoint of endpoints) {
       try {
         const response = await fetch(endpoint, {
@@ -474,11 +480,15 @@ out center tags;
           elements.set(`${element.type}/${element.id}`, element);
         }
         lastError = null;
-        break;
+        break rounds;
       } catch (error) {
         lastError = `${endpoint} ${error instanceof Error ? error.message : String(error)}`;
       }
     }
+    }
+
+    // Höflichkeits-Delay zwischen Query-Groups (Overpass-Slots schonen)
+    await new Promise((r) => setTimeout(r, 2_000));
 
     if (lastError) {
       const fallback = await fetchNominatimFallbackSeeds(city, radiusM, bodyLine, fallbackLimit);
