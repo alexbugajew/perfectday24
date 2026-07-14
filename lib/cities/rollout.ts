@@ -32,6 +32,28 @@ export const PLANNER_VISIBILITY_GATES = {
   requiresActiveOfficialEventSource: true,
 } as const;
 
+export type PlannerVisibilityGates = {
+  minimumPlannableLocations: number;
+  minimumFoodLocations: number;
+  minimumScheduledEvents: number;
+  requiresActiveOfficialEventSource: boolean;
+};
+
+// Expansion-Gates (Entscheidung 14.07.2026): wave5/wave6 werden über die
+// Location-Basis sichtbar geschaltet — das Event-Gate entfällt, weil für die
+// neuen Städte noch keine Eventquellen existieren (Events folgen sukzessive).
+// wave6 (20-50k Einw.) bekommt skalierte Schwellen: Kleinstädte erreichen
+// 250 plannable Locations strukturell nie.
+export function getVisibilityGatesForStage(stage: PlannerRolloutStage): PlannerVisibilityGates {
+  if (stage === "wave5") {
+    return { minimumPlannableLocations: 250, minimumFoodLocations: 120, minimumScheduledEvents: 0, requiresActiveOfficialEventSource: false };
+  }
+  if (stage === "wave6") {
+    return { minimumPlannableLocations: 120, minimumFoodLocations: 50, minimumScheduledEvents: 0, requiresActiveOfficialEventSource: false };
+  }
+  return { ...PLANNER_VISIBILITY_GATES };
+}
+
 // Handkuratierte Rollout-Städte (core/top10/wave1-4). Die Expansion (wave5/wave6,
 // alle deutschen Groß- und Mittelstädte) lebt in rollout-expansion.generated.ts
 // und wird unten in PLANNER_33_ROLLOUT zusammengeführt.

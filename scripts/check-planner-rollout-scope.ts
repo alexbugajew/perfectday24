@@ -5,6 +5,7 @@ import {
   PLANNER_33_ROLLOUT,
   PLANNER_VISIBLE_CITY_ROLLOUT,
   PLANNER_VISIBILITY_GATES,
+  getVisibilityGatesForStage,
   type PlannerRolloutCity,
   type PlannerRolloutStage,
 } from "../lib/cities/rollout";
@@ -199,18 +200,21 @@ async function main() {
     const roadmap = roadmapByCity.get(city.slug);
     const activeOfficialProviders = activeProvidersByCity.get(city.slug) ?? [];
     const roadmapStatus: RolloutAuditRow["roadmapStatus"] = roadmap?.rolloutStatus ?? "missing";
+    // Stage-abhängige Gates: wave5/wave6 werden über die Location-Basis
+    // sichtbar (Event-Gate entfällt), Kernwellen behalten die vollen Gates.
+    const gates = getVisibilityGatesForStage(city.stage);
     const passesVisibilityGate =
-      locations >= PLANNER_VISIBILITY_GATES.minimumPlannableLocations &&
-      foodLocations >= PLANNER_VISIBILITY_GATES.minimumFoodLocations &&
-      scheduledEvents >= PLANNER_VISIBILITY_GATES.minimumScheduledEvents &&
-      (!PLANNER_VISIBILITY_GATES.requiresActiveOfficialEventSource || activeOfficialProviders.length > 0);
+      locations >= gates.minimumPlannableLocations &&
+      foodLocations >= gates.minimumFoodLocations &&
+      scheduledEvents >= gates.minimumScheduledEvents &&
+      (!gates.requiresActiveOfficialEventSource || activeOfficialProviders.length > 0);
     const gateSummary = passesVisibilityGate
       ? "passed"
       : [
-          locations < PLANNER_VISIBILITY_GATES.minimumPlannableLocations ? "locations" : null,
-          foodLocations < PLANNER_VISIBILITY_GATES.minimumFoodLocations ? "food" : null,
-          scheduledEvents < PLANNER_VISIBILITY_GATES.minimumScheduledEvents ? "events" : null,
-          PLANNER_VISIBILITY_GATES.requiresActiveOfficialEventSource && activeOfficialProviders.length === 0
+          locations < gates.minimumPlannableLocations ? "locations" : null,
+          foodLocations < gates.minimumFoodLocations ? "food" : null,
+          scheduledEvents < gates.minimumScheduledEvents ? "events" : null,
+          gates.requiresActiveOfficialEventSource && activeOfficialProviders.length === 0
             ? "official-source"
             : null,
         ]

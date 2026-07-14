@@ -1,9 +1,12 @@
 // GENERATED FILE — nicht von Hand editieren.
 // Quelle: Wikipedia "Liste der Groß- und Mittelstädte in Deutschland" (Stand 2024/25),
 // Koordinaten via Nominatim, Slugs kanonisiert gegen die cities-Tabelle.
-// Regenerieren: node scripts/expansion-generate-rollout.mjs (Pipeline: expansion-match-cities -> expansion-geocode-cities -> expansion-canonicalize)
+// Regenerieren: node scripts/expansion-generate-rollout.mjs
+// (Pipeline: expansion-match-cities -> expansion-geocode-cities -> expansion-canonicalize;
+//  Sichtbarkeit: expansion-apply-visibility nach Gates-Audit)
 // wave5 = Städte >= 50.000 Einw., wave6 = 20.000-50.000 Einw.
-// Alle Einträge starten prepared/hidden — sichtbar erst nach OSM-Ingest + Gates-Check.
+// Sichtbarkeit folgt den stage-Gates (getVisibilityGatesForStage): Location-Basis,
+// Event-Gate für Expansion ausgesetzt (Entscheidung 14.07.2026).
 import type { PlannerRolloutCity } from "./rollout";
 
 export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
