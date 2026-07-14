@@ -18,8 +18,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.768995,
     radiusM: 11000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["kaiserslautern-rheinland-pfalz"],
   }, // Kaiserslautern (Rheinland-Pfalz), 100.247 Einw.
   {
@@ -77,8 +77,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.307169,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["esslingen-am-neckar-baden-w-rttemberg","esslingen-am-neckar-baden-wuerttemberg"],
   }, // Esslingen am Neckar (Baden-Württemberg), 96.182 Einw.
   {
@@ -89,8 +89,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 12.083267,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["gera-freistaat-th-ringen","gera-freistaat-thueringen"],
   }, // Gera (Thüringen), 95.608 Einw.
   {
@@ -101,8 +101,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.433326,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["flensburg-schleswig-holstein"],
   }, // Flensburg (Schleswig-Holstein), 95.568 Einw.
   {
@@ -113,8 +113,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 14.335731,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["cottbus-brandenburg"],
   }, // Cottbus (Brandenburg), 95.140 Einw.
   {
@@ -125,8 +125,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.482081,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["d-ren-nordrhein-westfalen","dueren-nordrhein-westfalen"],
   }, // Düren (Nordrhein-Westfalen), 94.539 Einw.
   {
@@ -137,8 +137,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.189515,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["ludwigsburg-baden-w-rttemberg","ludwigsburg-baden-wuerttemberg"],
   }, // Ludwigsburg (Baden-Württemberg), 92.858 Einw.
   {
@@ -149,8 +149,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.053596,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["t-bingen-baden-w-rttemberg","tuebingen-baden-wuerttemberg"],
   }, // Tübingen (Baden-Württemberg), 92.322 Einw.
   {
@@ -161,8 +161,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.335124,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["witten-nordrhein-westfalen"],
   }, // Witten (Nordrhein-Westfalen), 91.474 Einw.
   {
@@ -173,8 +173,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.699971,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["iserlohn-nordrhein-westfalen"],
   }, // Iserlohn (Nordrhein-Westfalen), 91.317 Einw.
   {
@@ -185,8 +185,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.492962,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["villingen-schwenningen-baden-w-rttemberg","villingen-schwenningen-baden-wuerttemberg"],
   }, // Villingen-Schwenningen (Baden-Württemberg), 89.756 Einw.
   {
@@ -197,8 +197,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.84935,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["ratingen-nordrhein-westfalen"],
   }, // Ratingen (Nordrhein-Westfalen), 88.914 Einw.
   {
@@ -209,8 +209,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.674231,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Gießen (Hessen), 88.544 Einw.
   {
     slug: "worms",
@@ -232,8 +232,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.175072,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["konstanz-baden-w-rttemberg","konstanz-baden-wuerttemberg"],
   }, // Konstanz (Baden-Württemberg), 86.919 Einw.
   {
@@ -244,8 +244,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.082905,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["marl-nordrhein-westfalen"],
   }, // Marl (Nordrhein-Westfalen), 86.899 Einw.
   {
@@ -268,8 +268,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.522809,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["l-nen-nordrhein-westfalen","luenen-nordrhein-westfalen"],
   }, // Lünen (Nordrhein-Westfalen), 85.844 Einw.
   {
@@ -280,8 +280,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.916885,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["minden-nordrhein-westfalen"],
   }, // Minden (Nordrhein-Westfalen), 83.598 Einw.
   {
@@ -292,8 +292,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.989191,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["norderstedt-schleswig-holstein"],
   }, // Norderstedt (Schleswig-Holstein), 83.196 Einw.
   {
@@ -304,8 +304,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.043991,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["velbert-nordrhein-westfalen"],
   }, // Velbert (Nordrhein-Westfalen), 82.166 Einw.
   {
@@ -340,8 +340,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.390548,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["viersen-nordrhein-westfalen"],
   }, // Viersen (Nordrhein-Westfalen), 78.227 Einw.
   {
@@ -376,8 +376,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.159327,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["troisdorf-nordrhein-westfalen"],
   }, // Troisdorf (Nordrhein-Westfalen), 75.742 Einw.
   {
@@ -388,8 +388,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.987734,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["gladbeck-nordrhein-westfalen"],
   }, // Gladbeck (Nordrhein-Westfalen), 75.647 Einw.
   {
@@ -400,8 +400,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.106301,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["wilhelmshaven-niedersachsen"],
   }, // Wilhelmshaven (Niedersachsen), 75.324 Einw.
   {
@@ -495,8 +495,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.144667,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["aschaffenburg-freistaat-bayern"],
   }, // Aschaffenburg (Bayern), 73.326 Einw.
   {
@@ -519,8 +519,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.574354,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bayreuth-freistaat-bayern"],
   }, // Bayreuth (Bayern), 72.919 Einw.
   {
@@ -531,8 +531,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.310618,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["castrop-rauxel-nordrhein-westfalen"],
   }, // Castrop-Rauxel (Nordrhein-Westfalen), 72.353 Einw.
   {
@@ -543,8 +543,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 12.151655,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["landshut-freistaat-bayern"],
   }, // Landshut (Bayern), 71.922 Einw.
   {
@@ -579,8 +579,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.316884,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["kempten","kempten-freistaat-bayern"],
   }, // Kempten (Allgäu) (Bayern), 67.916 Einw.
   {
@@ -591,8 +591,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.092959,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Aalen (Baden-Württemberg), 67.621 Einw.
   {
     slug: "neuwied",
@@ -602,8 +602,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.466302,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["neuwied-rheinland-pfalz"],
   }, // Neuwied (Rheinland-Pfalz), 67.201 Einw.
   {
@@ -614,8 +614,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.671112,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["herford-nordrhein-westfalen"],
   }, // Herford (Nordrhein-Westfalen), 67.074 Einw.
   {
@@ -638,8 +638,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.734511,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["dinslaken-nordrhein-westfalen"],
   }, // Dinslaken (Nordrhein-Westfalen), 66.869 Einw.
   {
@@ -662,8 +662,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.411719,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["r-sselsheim-am-main-hessen","ruesselsheim-am-main-hessen"],
   }, // Rüsselsheim am Main (Hessen), 66.028 Einw.
   {
@@ -674,8 +674,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.329792,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["weimar-freistaat-th-ringen","weimar-freistaat-thueringen"],
   }, // Weimar (Thüringen), 65.954 Einw.
   {
@@ -686,8 +686,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 12.127298,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["rosenheim-freistaat-bayern"],
   }, // Rosenheim (Bayern), 65.808 Einw.
   {
@@ -698,8 +698,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.676216,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["fulda-hessen"],
   }, // Fulda (Hessen), 65.755 Einw.
   {
@@ -734,8 +734,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.797758,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Schwäbisch Gmünd (Baden-Württemberg), 64.416 Einw.
   {
     slug: "dormagen",
@@ -745,8 +745,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.841616,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["dormagen-nordrhein-westfalen"],
   }, // Dormagen (Nordrhein-Westfalen), 63.619 Einw.
   {
@@ -757,8 +757,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.942924,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Offenburg (Baden-Württemberg), 62.993 Einw.
   {
     slug: "neu-ulm",
@@ -768,8 +768,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.000521,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["neu-ulm-freistaat-bayern"],
   }, // Neu-Ulm (Bayern), 62.843 Einw.
   {
@@ -780,8 +780,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.480086,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["friedrichshafen-baden-w-rttemberg","friedrichshafen-baden-wuerttemberg"],
   }, // Friedrichshafen (Baden-Württemberg), 62.796 Einw.
   {
@@ -792,8 +792,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.641,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bergheim-nordrhein-westfalen"],
   }, // Bergheim (Nordrhein-Westfalen), 61.976 Einw.
   {
@@ -804,8 +804,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.876568,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["h-rth-nordrhein-westfalen","huerth-nordrhein-westfalen"],
   }, // Hürth (Nordrhein-Westfalen), 61.732 Einw.
   {
@@ -816,8 +816,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.003546,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["sindelfingen-baden-w-rttemberg","sindelfingen-baden-wuerttemberg"],
   }, // Sindelfingen (Baden-Württemberg), 61.422 Einw.
   {
@@ -828,8 +828,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.617087,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["wesel-nordrhein-westfalen"],
   }, // Wesel (Nordrhein-Westfalen), 60.717 Einw.
   {
@@ -840,8 +840,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.136807,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["herten-nordrhein-westfalen"],
   }, // Herten (Nordrhein-Westfalen), 60.707 Einw.
   {
@@ -852,8 +852,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.60051,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["garbsen-niedersachsen"],
   }, // Garbsen (Niedersachsen), 60.007 Einw.
   {
@@ -876,8 +876,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.945938,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["langenfeld","langenfeld-nordrhein-westfalen"],
   }, // Langenfeld (Rheinland) (Nordrhein-Westfalen), 59.821 Einw.
   {
@@ -900,8 +900,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.654112,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["g-ppingen-baden-w-rttemberg","goeppingen-baden-wuerttemberg"],
   }, // Göppingen (Baden-Württemberg), 58.937 Einw.
   {
@@ -924,8 +924,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.689014,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["unna-nordrhein-westfalen"],
   }, // Unna (Nordrhein-Westfalen), 57.961 Einw.
   {
@@ -936,8 +936,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.228,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["stolberg","stolberg-nordrhein-westfalen"],
   }, // Stolberg (Rheinland) (Nordrhein-Westfalen), 57.678 Einw.
   {
@@ -948,8 +948,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.263089,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["eschweiler-nordrhein-westfalen"],
   }, // Eschweiler (Nordrhein-Westfalen), 57.573 Einw.
   {
@@ -972,8 +972,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.316382,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["waiblingen-baden-w-rttemberg","waiblingen-baden-wuerttemberg"],
   }, // Waiblingen (Baden-Württemberg), 57.313 Einw.
   {
@@ -984,8 +984,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.676096,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["meerbusch-nordrhein-westfalen"],
   }, // Meerbusch (Nordrhein-Westfalen), 56.947 Einw.
   {
@@ -996,8 +996,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.613013,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bad-homburg-vor-der-h-he-hessen","bad-homburg-vor-der-hoehe-hessen"],
   }, // Bad Homburg vor der Höhe (Hessen), 56.938 Einw.
   {
@@ -1008,8 +1008,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.239959,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["baden-baden-baden-w-rttemberg","baden-baden-baden-wuerttemberg"],
   }, // Baden-Baden (Baden-Württemberg), 56.881 Einw.
   {
@@ -1055,8 +1055,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.189551,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["sankt-augustin-nordrhein-westfalen"],
   }, // Sankt Augustin (Nordrhein-Westfalen), 56.033 Einw.
   {
@@ -1067,8 +1067,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.802541,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["pulheim-nordrhein-westfalen"],
   }, // Pulheim (Nordrhein-Westfalen), 55.979 Einw.
   {
@@ -1091,8 +1091,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 14.991018,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["g-rlitz-freistaat-sachsen","goerlitz-freistaat-sachsen"],
   }, // Görlitz (Sachsen), 55.065 Einw.
   {
@@ -1103,8 +1103,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.531245,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Wetzlar (Hessen), 54.865 Einw.
   {
     slug: "hilden",
@@ -1114,8 +1114,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.930727,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["hilden-nordrhein-westfalen"],
   }, // Hilden (Nordrhein-Westfalen), 54.859 Einw.
   {
@@ -1126,8 +1126,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.234065,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Schweinfurt (Bayern), 54.539 Einw.
   {
     slug: "bad-kreuznach",
@@ -1137,8 +1137,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.912522,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Bad Kreuznach (Rheinland-Pfalz), 54.347 Einw.
   {
     slug: "langenhagen",
@@ -1148,8 +1148,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.738994,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["langenhagen-niedersachsen"],
   }, // Langenhagen (Niedersachsen), 54.059 Einw.
   {
@@ -1160,8 +1160,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.755474,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bad-salzuflen-nordrhein-westfalen"],
   }, // Bad Salzuflen (Nordrhein-Westfalen), 53.807 Einw.
   {
@@ -1196,8 +1196,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.186249,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["hattingen-nordrhein-westfalen"],
   }, // Hattingen (Nordrhein-Westfalen), 52.969 Einw.
   {
@@ -1256,8 +1256,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.808194,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["frechen-nordrhein-westfalen"],
   }, // Frechen (Nordrhein-Westfalen), 51.927 Einw.
   {
@@ -1280,8 +1280,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.011344,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["b-blingen-baden-w-rttemberg","boeblingen-baden-wuerttemberg"],
   }, // Böblingen (Baden-Württemberg), 51.483 Einw.
   {
@@ -1292,8 +1292,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.652456,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["elmshorn-schleswig-holstein"],
   }, // Elmshorn (Schleswig-Holstein), 51.375 Einw.
   {
@@ -1304,8 +1304,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.660722,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["l-rrach-baden-w-rttemberg","loerrach-baden-wuerttemberg"],
   }, // Lörrach (Baden-Württemberg), 51.349 Einw.
   {
@@ -1340,8 +1340,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.871083,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["lahr-schwarzwald-baden-w-rttemberg","lahr-schwarzwald-baden-wuerttemberg"],
   }, // Lahr/Schwarzwald (Baden-Württemberg), 50.775 Einw.
   {
@@ -1352,8 +1352,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.204045,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["rastatt-baden-w-rttemberg","rastatt-baden-wuerttemberg"],
   }, // Rastatt (Baden-Württemberg), 50.741 Einw.
   {
@@ -1364,8 +1364,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.612468,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["ravensburg-baden-w-rttemberg","ravensburg-baden-wuerttemberg"],
   }, // Ravensburg (Baden-Württemberg), 50.628 Einw.
   {
@@ -1376,8 +1376,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.152923,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["heidenheim-an-der-brenz-baden-w-rttemberg","heidenheim-an-der-brenz-baden-wuerttemberg"],
   }, // Heidenheim an der Brenz (Baden-Württemberg), 50.618 Einw.
   {
@@ -1388,8 +1388,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.798124,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bad-oeynhausen-nordrhein-westfalen"],
   }, // Bad Oeynhausen (Nordrhein-Westfalen), 50.515 Einw.
   {
@@ -1400,8 +1400,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.026444,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["gronau","gronau-niedersachsen","gronau-nordrhein-westfalen"],
   }, // Gronau (Westf.) (Nordrhein-Westfalen), 50.349 Einw.
   {
@@ -1412,8 +1412,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 13.245759,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["oranienburg-brandenburg"],
   }, // Oranienburg (Brandenburg), 49.824 Einw.
   {
@@ -1424,8 +1424,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.698286,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["cuxhaven-niedersachsen"],
   }, // Cuxhaven (Niedersachsen), 49.545 Einw.
   {
@@ -1436,8 +1436,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.015003,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["leonberg-baden-w-rttemberg","leonberg-baden-wuerttemberg"],
   }, // Leonberg (Baden-Württemberg), 49.480 Einw.
   {
@@ -1448,8 +1448,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.544696,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["willich-nordrhein-westfalen"],
   }, // Willich (Nordrhein-Westfalen), 49.374 Einw.
   {
@@ -1460,8 +1460,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.636288,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bergkamen-nordrhein-westfalen"],
   }, // Bergkamen (Nordrhein-Westfalen), 49.198 Einw.
   {
@@ -1472,8 +1472,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 12.569716,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["straubing-freistaat-bayern"],
   }, // Straubing (Bayern), 49.061 Einw.
   {
@@ -1484,8 +1484,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.433615,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["speyer-rheinland-pfalz"],
   }, // Speyer (Rheinland-Pfalz), 49.035 Einw.
   {
@@ -1496,8 +1496,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.20583,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["emden-niedersachsen"],
   }, // Emden (Niedersachsen), 49.009 Einw.
   {
@@ -1508,8 +1508,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.743957,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["freising-freistaat-bayern"],
   }, // Freising (Bayern), 48.953 Einw.
   {
@@ -1520,8 +1520,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.162077,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["alsdorf-nordrhein-westfalen"],
   }, // Alsdorf (Nordrhein-Westfalen), 48.893 Einw.
   {
@@ -1532,8 +1532,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.803163,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["erftstadt-nordrhein-westfalen"],
   }, // Erftstadt (Nordrhein-Westfalen), 48.724 Einw.
   {
@@ -1544,8 +1544,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.475438,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["stade-niedersachsen"],
   }, // Stade (Niedersachsen), 48.699 Einw.
   {
@@ -1556,8 +1556,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.095051,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["herzogenrath-nordrhein-westfalen"],
   }, // Herzogenrath (Nordrhein-Westfalen), 48.666 Einw.
   {
@@ -1568,8 +1568,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.112344,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["landau-in-der-pfalz-rheinland-pfalz"],
   }, // Landau in der Pfalz (Rheinland-Pfalz), 48.280 Einw.
   {
@@ -1580,8 +1580,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.354139,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["frankenthal","frankenthal-rheinland-pfalz"],
   }, // Frankenthal (Pfalz) (Rheinland-Pfalz), 48.134 Einw.
   {
@@ -1592,8 +1592,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.284795,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["hennef","hennef-nordrhein-westfalen"],
   }, // Hennef (Sieg) (Nordrhein-Westfalen), 48.112 Einw.
   {
@@ -1604,8 +1604,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.298562,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["rheda-wiedenbr-ck-nordrhein-westfalen","rheda-wiedenbrueck-nordrhein-westfalen"],
   }, // Rheda-Wiedenbrück (Nordrhein-Westfalen), 47.935 Einw.
   {
@@ -1616,8 +1616,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.989051,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bornheim-nordrhein-westfalen"],
   }, // Bornheim (Nordrhein-Westfalen), 47.890 Einw.
   {
@@ -1628,8 +1628,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.598024,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bruchsal-baden-w-rttemberg","bruchsal-baden-wuerttemberg"],
   }, // Bruchsal (Baden-Württemberg), 47.784 Einw.
   {
@@ -1652,8 +1652,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.106126,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Soest (Nordrhein-Westfalen), 47.752 Einw.
   {
     slug: "singen-hohentwiel",
@@ -1663,8 +1663,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.834871,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["singen","singen-baden-w-rttemberg","singen-baden-wuerttemberg"],
   }, // Singen (Hohentwiel) (Baden-Württemberg), 47.621 Einw.
   {
@@ -1675,8 +1675,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.434672,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["dachau-freistaat-bayern"],
   }, // Dachau (Bayern), 47.461 Einw.
   {
@@ -1687,8 +1687,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.426628,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["goslar-niedersachsen"],
   }, // Goslar (Niedersachsen), 47.454 Einw.
   {
@@ -1699,8 +1699,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.274523,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["fellbach-baden-w-rttemberg","fellbach-baden-wuerttemberg"],
   }, // Fellbach (Baden-Württemberg), 47.120 Einw.
   {
@@ -1711,8 +1711,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.999148,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["albstadt-baden-w-rttemberg","albstadt-baden-wuerttemberg"],
   }, // Albstadt (Baden-Württemberg), 46.950 Einw.
   {
@@ -1723,8 +1723,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.184156,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Neunkirchen (Saarland), 46.896 Einw.
   {
     slug: "oberursel-taunus",
@@ -1734,8 +1734,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.583368,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["oberursel","oberursel-hessen"],
   }, // Oberursel (Taunus) (Hessen), 46.757 Einw.
   {
@@ -1746,8 +1746,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.916299,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["hof-freistaat-bayern"],
   }, // Hof (Bayern), 46.624 Einw.
   {
@@ -1758,8 +1758,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.701444,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["gotha-freistaat-th-ringen","gotha-freistaat-thueringen"],
   }, // Gotha (Thüringen), 46.400 Einw.
   {
@@ -1782,8 +1782,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.622246,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["kaufbeuren-freistaat-bayern"],
   }, // Kaufbeuren (Bayern), 46.282 Einw.
   {
@@ -1794,8 +1794,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.219965,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["filderstadt-baden-w-rttemberg","filderstadt-baden-wuerttemberg"],
   }, // Filderstadt (Baden-Württemberg), 46.243 Einw.
   {
@@ -1806,8 +1806,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.582894,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["b-nde-nordrhein-westfalen","buende-nordrhein-westfalen"],
   }, // Bünde (Nordrhein-Westfalen), 46.235 Einw.
   {
@@ -1818,8 +1818,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 13.08824,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["falkensee-brandenburg"],
   }, // Falkensee (Brandenburg), 46.213 Einw.
   {
@@ -1830,8 +1830,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.671746,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["weinheim-baden-w-rttemberg","weinheim-baden-wuerttemberg"],
   }, // Weinheim (Baden-Württemberg), 45.852 Einw.
   {
@@ -1842,8 +1842,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.567465,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["schwerte-nordrhein-westfalen"],
   }, // Schwerte (Nordrhein-Westfalen), 45.794 Einw.
   {
@@ -1854,8 +1854,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.933679,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["rottenburg-am-neckar-baden-w-rttemberg","rottenburg-am-neckar-baden-wuerttemberg"],
   }, // Rottenburg am Neckar (Baden-Württemberg), 45.677 Einw.
   {
@@ -1866,8 +1866,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.903706,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["br-hl-nordrhein-westfalen","bruehl-nordrhein-westfalen"],
   }, // Brühl (Nordrhein-Westfalen), 45.653 Einw.
   {
@@ -1878,8 +1878,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.316068,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["erkelenz-nordrhein-westfalen"],
   }, // Erkelenz (Nordrhein-Westfalen), 45.239 Einw.
   {
@@ -1890,8 +1890,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.885339,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["rodgau-hessen"],
   }, // Rodgau (Hessen), 45.197 Einw.
   {
@@ -1902,8 +1902,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.79679,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["pinneberg-schleswig-holstein"],
   }, // Pinneberg (Schleswig-Holstein), 44.941 Einw.
   {
@@ -1914,8 +1914,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 12.646761,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Lutherstadt Wittenberg (Sachsen-Anhalt), 44.937 Einw.
   {
     slug: "bernau-bei-berlin",
@@ -1925,8 +1925,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 13.588111,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bernau-bei-berlin-brandenburg"],
   }, // Bernau bei Berlin (Brandenburg), 44.706 Einw.
   {
@@ -1949,8 +1949,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.180802,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["memmingen-freistaat-bayern"],
   }, // Memmingen (Bayern), 44.378 Einw.
   {
@@ -1973,8 +1973,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.017695,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Seevetal (Niedersachsen), 44.091 Einw.
   {
     slug: "monheim-am-rhein",
@@ -1984,8 +1984,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.881239,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["monheim-am-rhein-freistaat-bayern","monheim-am-rhein-nordrhein-westfalen"],
   }, // Monheim am Rhein (Nordrhein-Westfalen), 43.716 Einw.
   {
@@ -1996,8 +1996,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.136423,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bietigheim-bissingen-baden-w-rttemberg","bietigheim-bissingen-baden-wuerttemberg"],
   }, // Bietigheim-Bissingen (Baden-Württemberg), 43.556 Einw.
   {
@@ -2008,8 +2008,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.905608,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["erkrath-nordrhein-westfalen"],
   }, // Erkrath (Nordrhein-Westfalen), 43.555 Einw.
   {
@@ -2020,8 +2020,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.340903,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["homburg-saarland"],
   }, // Homburg (Saarland), 43.412 Einw.
   {
@@ -2032,8 +2032,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.619392,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["kaarst-nordrhein-westfalen"],
   }, // Kaarst (Nordrhein-Westfalen), 43.350 Einw.
   {
@@ -2044,8 +2044,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.858328,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["borken-hessen","borken-nordrhein-westfalen"],
   }, // Borken (Nordrhein-Westfalen), 43.170 Einw.
   {
@@ -2056,8 +2056,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.098446,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["heinsberg-nordrhein-westfalen"],
   }, // Heinsberg (Nordrhein-Westfalen), 43.116 Einw.
   {
@@ -2068,8 +2068,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.464793,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["wismar-mecklenburg-vorpommern"],
   }, // Wismar (Mecklenburg-Vorpommern), 43.103 Einw.
   {
@@ -2080,8 +2080,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.545304,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["gifhorn-niedersachsen"],
   }, // Gifhorn (Niedersachsen), 42.816 Einw.
   {
@@ -2092,8 +2092,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.847402,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["amberg-freistaat-bayern"],
   }, // Amberg (Bayern), 42.631 Einw.
   {
@@ -2104,8 +2104,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.737125,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Schwäbisch Hall (Baden-Württemberg), 42.598 Einw.
   {
     slug: "aurich",
@@ -2115,8 +2115,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.482381,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["aurich-niedersachsen"],
   }, // Aurich (Niedersachsen), 42.575 Einw.
   {
@@ -2127,8 +2127,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 12.163164,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["weiden-in-der-oberpfalz-freistaat-bayern"],
   }, // Weiden in der Oberpfalz (Bayern), 42.453 Einw.
   {
@@ -2139,8 +2139,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.451023,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["kirchheim-unter-teck-baden-w-rttemberg","kirchheim-unter-teck-baden-wuerttemberg"],
   }, // Kirchheim unter Teck (Baden-Württemberg), 42.299 Einw.
   {
@@ -2151,8 +2151,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.207077,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["siegburg-nordrhein-westfalen"],
   }, // Siegburg (Nordrhein-Westfalen), 42.204 Einw.
   {
@@ -2163,8 +2163,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.66168,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["kamen-nordrhein-westfalen"],
   }, // Kamen (Nordrhein-Westfalen), 42.139 Einw.
   {
@@ -2175,8 +2175,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.712391,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["dreieich-hessen"],
   }, // Dreieich (Hessen), 41.965 Einw.
   {
@@ -2199,8 +2199,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.814618,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["laatzen-niedersachsen"],
   }, // Laatzen (Niedersachsen), 41.724 Einw.
   {
@@ -2211,8 +2211,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.271417,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["nettetal-nordrhein-westfalen"],
   }, // Nettetal (Nordrhein-Westfalen), 41.711 Einw.
   {
@@ -2223,8 +2223,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.527267,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["schorndorf-baden-w-rttemberg","schorndorf-baden-wuerttemberg"],
   }, // Schorndorf (Baden-Württemberg), 41.647 Einw.
   {
@@ -2235,8 +2235,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.866665,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["buchholz-in-der-nordheide-niedersachsen"],
   }, // Buchholz in der Nordheide (Niedersachsen), 41.636 Einw.
   {
@@ -2247,8 +2247,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.458535,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Neumarkt in der Oberpfalz (Bayern), 41.258 Einw.
   {
     slug: "freiberg",
@@ -2258,8 +2258,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 13.342889,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["freiberg-freistaat-sachsen"],
   }, // Freiberg (Sachsen), 41.205 Einw.
   {
@@ -2270,8 +2270,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.152573,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["leinfelden-echterdingen-baden-w-rttemberg","leinfelden-echterdingen-baden-wuerttemberg"],
   }, // Leinfelden-Echterdingen (Baden-Württemberg), 41.185 Einw.
   {
@@ -2282,8 +2282,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.361434,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["germering-freistaat-bayern"],
   }, // Germering (Bayern), 41.155 Einw.
   {
@@ -2294,8 +2294,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.224732,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Hückelhoven (Nordrhein-Westfalen), 41.148 Einw.
   {
     slug: "wunstorf",
@@ -2305,8 +2305,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.429443,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["wunstorf-niedersachsen"],
   }, // Wunstorf (Niedersachsen), 41.126 Einw.
   {
@@ -2329,8 +2329,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.964561,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["coburg-freistaat-bayern"],
   }, // Coburg (Bayern), 40.970 Einw.
   {
@@ -2341,8 +2341,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.622758,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bensheim-hessen","bensheim-freistaat-bayern"],
   }, // Bensheim (Hessen), 40.848 Einw.
   {
@@ -2353,8 +2353,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.336546,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["n-rtingen-baden-w-rttemberg","nuertingen-baden-wuerttemberg"],
   }, // Nürtingen (Baden-Württemberg), 40.773 Einw.
   {
@@ -2365,8 +2365,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.792532,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Nordhausen (Thüringen), 40.767 Einw.
   {
     slug: "loehne",
@@ -2376,8 +2376,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.714159,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["l-hne-nordrhein-westfalen","loehne-nordrhein-westfalen"],
   }, // Löhne (Nordrhein-Westfalen), 40.757 Einw.
   {
@@ -2388,8 +2388,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.319357,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["eisenach-freistaat-th-ringen","eisenach-freistaat-thueringen"],
   }, // Eisenach (Thüringen), 40.747 Einw.
   {
@@ -2400,8 +2400,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.020768,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["schwabach-freistaat-bayern"],
   }, // Schwabach (Bayern), 40.702 Einw.
   {
@@ -2412,8 +2412,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.859519,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Völklingen (Saarland), 40.565 Einw.
   {
     slug: "ansbach",
@@ -2423,8 +2423,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.572229,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["ansbach-freistaat-bayern"],
   }, // Ansbach (Bayern), 40.554 Einw.
   {
@@ -2435,8 +2435,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.193099,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["k-nigswinter-nordrhein-westfalen","koenigswinter-nordrhein-westfalen"],
   }, // Königswinter (Nordrhein-Westfalen), 40.458 Einw.
   {
@@ -2447,8 +2447,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.134111,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Würselen (Nordrhein-Westfalen), 40.249 Einw.
   {
     slug: "ahaus",
@@ -2470,8 +2470,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 13.93792,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["pirna-freistaat-sachsen"],
   }, // Pirna (Sachsen), 40.039 Einw.
   {
@@ -2482,8 +2482,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.901289,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["lemgo-nordrhein-westfalen"],
   }, // Lemgo (Nordrhein-Westfalen), 39.959 Einw.
   {
@@ -2494,8 +2494,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.263069,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["ostfildern-baden-w-rttemberg","ostfildern-baden-wuerttemberg"],
   }, // Ostfildern (Baden-Württemberg), 39.778 Einw.
   {
@@ -2506,8 +2506,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.977778,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["mettmann-nordrhein-westfalen"],
   }, // Mettmann (Nordrhein-Westfalen), 39.595 Einw.
   {
@@ -2518,8 +2518,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 13.624439,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Königs Wusterhausen (Brandenburg), 39.590 Einw.
   {
     slug: "kehl",
@@ -2529,8 +2529,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.8114,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["kehl-baden-w-rttemberg","kehl-baden-wuerttemberg"],
   }, // Kehl (Baden-Württemberg), 39.584 Einw.
   {
@@ -2541,8 +2541,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.608785,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["pirmasens-rheinland-pfalz"],
   }, // Pirmasens (Rheinland-Pfalz), 39.389 Einw.
   {
@@ -2553,8 +2553,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 13.653033,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["freital-freistaat-sachsen"],
   }, // Freital (Sachsen), 39.174 Einw.
   {
@@ -2565,8 +2565,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.42285,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["hofheim-am-taunus-hessen","hofheim-am-taunus-freistaat-bayern"],
   }, // Hofheim am Taunus (Hessen), 39.149 Einw.
   {
@@ -2577,8 +2577,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.837127,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["maintal-hessen"],
   }, // Maintal (Hessen), 39.130 Einw.
   {
@@ -2589,8 +2589,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.666702,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["langen-hessen","langen-niedersachsen"],
   }, // Langen (Hessen), 39.009 Einw.
   {
@@ -2601,8 +2601,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 10.914239,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["ilmenau-freistaat-th-ringen","ilmenau-freistaat-thueringen"],
   }, // Ilmenau (Thüringen), 38.834 Einw.
   {
@@ -2613,8 +2613,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 9.430364,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["backnang-baden-w-rttemberg","backnang-baden-wuerttemberg"],
   }, // Backnang (Baden-Württemberg), 38.818 Einw.
   {
@@ -2625,8 +2625,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.407635,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["ettlingen-baden-w-rttemberg","ettlingen-baden-wuerttemberg"],
   }, // Ettlingen (Baden-Württemberg), 38.578 Einw.
   {
@@ -2637,8 +2637,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.035194,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["niederkassel-nordrhein-westfalen"],
   }, // Niederkassel (Nordrhein-Westfalen), 38.357 Einw.
   {
@@ -2649,8 +2649,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.671775,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["neu-isenburg-hessen"],
   }, // Neu-Isenburg (Hessen), 38.236 Einw.
   {
@@ -2673,8 +2673,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.547923,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["kamp-lintfort-nordrhein-westfalen"],
   }, // Kamp-Lintfort (Nordrhein-Westfalen), 38.150 Einw.
   {
@@ -2697,8 +2697,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.981085,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["wesseling-nordrhein-westfalen"],
   }, // Wesseling (Nordrhein-Westfalen), 38.051 Einw.
   {
@@ -2709,8 +2709,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 7.187221,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["haltern-am-see-nordrhein-westfalen"],
   }, // Haltern am See (Nordrhein-Westfalen), 38.029 Einw.
   {
@@ -2745,8 +2745,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 6.749846,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["saarlouis-saarland"],
   }, // Saarlouis (Saarland), 37.675 Einw.
   {
@@ -2757,8 +2757,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.25472,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Fürstenfeldbruck (Bayern), 37.666 Einw.
   {
     slug: "erding",
@@ -2768,8 +2768,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.907658,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["erding-freistaat-bayern"],
   }, // Erding (Bayern), 37.341 Einw.
   {
@@ -2780,8 +2780,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 11.966786,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
   }, // Weißenfels (Sachsen-Anhalt), 37.308 Einw.
   {
     slug: "bautzen",
@@ -2791,8 +2791,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 14.4276,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["bautzen-freistaat-sachsen"],
   }, // Bautzen (Sachsen), 37.306 Einw.
   {
@@ -2815,8 +2815,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.818661,
     radiusM: 7000,
     stage: "wave6",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["tuttlingen-baden-w-rttemberg","tuttlingen-baden-wuerttemberg"],
   }, // Tuttlingen (Baden-Württemberg), 37.109 Einw.
   {
