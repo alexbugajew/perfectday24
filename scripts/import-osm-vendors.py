@@ -125,7 +125,8 @@ OSM_CATEGORIES: list[tuple[str, str, str]] = [
     ('[\"craft\"=\"caterer\"]',            "catering",    "Catering-Unternehmen"),
 ]
 
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+OVERPASS_URL  = "https://overpass-api.de/api/interpreter"
+OVERPASS_MIRROR = "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
 HEADERS_OVP  = {"User-Agent": "PD24OSMBot/1.0 (contact@perfectday24.de)"}
 
 
@@ -153,11 +154,12 @@ HEADERS_SB   = {
 
 
 # ── HTTP helpers ───────────────────────────────────────────────────────────────
-def overpass_query(query: str, retries: int = 3) -> list[dict]:
-    """Run an Overpass QL query and return the elements list."""
-    url  = OVERPASS_URL
+def overpass_query(query: str, retries: int = 4) -> list[dict]:
+    """Run an Overpass QL query and return the elements list.
+    Rotiert ab dem 3. Versuch auf den mail.ru-Mirror (Rate-Limit-Lektion 14.07.)."""
     data = ("data=" + urllib.parse.quote(query)).encode()
     for attempt in range(retries):
+        url = OVERPASS_URL if attempt < 2 else OVERPASS_MIRROR
         req = urllib.request.Request(url, data=data, headers=HEADERS_OVP, method="POST")
         try:
             resp = urllib.request.urlopen(req, timeout=90)
@@ -273,6 +275,17 @@ def build_query(osm_city_name: str, tag_filters: list[str]) -> str:
     return f"[out:json][timeout:90];\n{area_selector};\n(\n  {inner}\n);\nout center tags;"
 
 
+def build_query_around(lat: float, lng: float, radius_m: int, tag_filters: list[str]) -> str:
+    """Radius-based query (expansion cities): no name collisions (Senden x2),
+    no OSM area-name maintenance — coordinates come from the canonical rollout."""
+    node_ways = []
+    for f in tag_filters:
+        node_ways.append(f"node{f}(around:{radius_m},{lat},{lng});")
+        node_ways.append(f"way{f}(around:{radius_m},{lat},{lng});")
+    inner = "\n  ".join(node_ways)
+    return f"[out:json][timeout:90];\n(\n  {inner}\n);\nout center tags;"
+
+
 # ── Deduplication ──────────────────────────────────────────────────────────────
 def load_existing_osm_ids() -> set[str]:
     """Return set of osm_ids already in service_providers."""
@@ -305,18 +318,37 @@ def main() -> None:
     parser.add_argument("--apply", action="store_true", help="Write to DB (default: dry-run)")
     parser.add_argument("--city",  default=None, help="Limit to one city_slug")
     parser.add_argument("--type",  default=None, help="Limit to one service_type (florist|location|photography|decoration)")
+    parser.add_argument("--cities-file", default=None, help="JSON-Liste [{slug,lat,lng,radiusM}] statt CITY_OSM (Radius-Queries)")
+    parser.add_argument("--done-file", default=None, help="Checkpoint-Datei: erledigte Slugs überspringen/fortschreiben")
+    parser.add_argument("--limit", type=int, default=None, help="Nur die ersten N Städte (Probelauf)")
     args = parser.parse_args()
 
     mode = "APPLY" if args.apply else "DRY-RUN"
     print(f"=== OSM Event Vendor Import  [{mode}] ===\n")
 
-    cities_to_run = list(CITY_OSM.items())
+    # cities_to_run: Liste (slug, spec) — spec ist str (OSM-Area-Name, Legacy)
+    # oder dict {lat,lng,radiusM} (Radius-Query, Expansion).
+    cities_to_run: list[tuple[str, object]] = list(CITY_OSM.items())
+    if args.cities_file:
+        with open(args.cities_file, encoding="utf-8") as f:
+            file_cities = json.load(f)
+        cities_to_run = [(c["slug"], {"lat": c["lat"], "lng": c["lng"], "radiusM": c["radiusM"]}) for c in file_cities]
     if args.city:
-        if args.city not in CITY_OSM:
+        available = dict(cities_to_run)
+        if args.city not in available:
             print(f"Unknown city slug: {args.city}")
-            print(f"Available: {', '.join(CITY_OSM)}")
             sys.exit(1)
-        cities_to_run = [(args.city, CITY_OSM[args.city])]
+        cities_to_run = [(args.city, available[args.city])]
+
+    done_slugs: set[str] = set()
+    if args.done_file and os.path.exists(args.done_file):
+        with open(args.done_file, encoding="utf-8") as f:
+            done_slugs = set(json.load(f))
+    if done_slugs:
+        cities_to_run = [(s, spec) for s, spec in cities_to_run if s not in done_slugs]
+        print(f"Checkpoint: {len(done_slugs)} Städte übersprungen, {len(cities_to_run)} verbleiben")
+    if args.limit:
+        cities_to_run = cities_to_run[: args.limit]
 
     categories_to_run = OSM_CATEGORIES
     if args.type:
@@ -341,7 +373,10 @@ def main() -> None:
         print(f"[{city_slug}]  querying {len(tag_filters)} categories …", end=" ", flush=True)
 
         try:
-            query    = build_query(osm_city, tag_filters)
+            if isinstance(osm_city, dict):
+                query = build_query_around(osm_city["lat"], osm_city["lng"], int(osm_city["radiusM"]), tag_filters)
+            else:
+                query = build_query(osm_city, tag_filters)
             elements = overpass_query(query)
         except RuntimeError as e:
             print(f"OVERPASS ERROR: {e}")
@@ -439,6 +474,21 @@ def main() -> None:
             total_new += 1
 
         print(f"    → {city_new} new, {len(elements) - city_new} skipped/existing")
+
+        # Expansion-Modus: pro Stadt sofort schreiben + Checkpoint fortschreiben,
+        # damit ein Abbruch bei Stadt 500 nicht alles verliert.
+        if args.apply and args.done_file:
+            city_rows = [r for r in all_rows]
+            for i in range(0, len(city_rows), 100):
+                try:
+                    sb_post_batch(city_rows[i : i + 100])
+                except RuntimeError as e:
+                    print(f"    INSERT ERROR: {e}")
+                    total_errors += 1
+            all_rows = []
+            done_slugs.add(city_slug)
+            with open(args.done_file, "w", encoding="utf-8") as f:
+                json.dump(sorted(done_slugs), f)
 
         # Polite delay between cities
         time.sleep(2)
