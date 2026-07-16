@@ -5,7 +5,7 @@
 import { spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 
-const CKPT = "tmp/ingest-checkpoint.json";
+const CKPT = process.argv.find((a) => a.startsWith("--ckpt="))?.slice(7) ?? "tmp/ingest-checkpoint.json";
 const SCRIPT = ".codex-scripts-dist/scripts/ingest-city-location-seeds.js";
 const PUBLISH_LIMIT = 1500;
 const BATCH = `expansion_${new Date().toISOString().slice(0, 10).replace(/-/g, "")}`;
@@ -14,9 +14,13 @@ const DELAY_MS = 20000; // Overpass-Slots schonen (Rate-Limit-Lektion vom 14.07.
 const arg = (n) => { const p = `--${n}=`; const f = process.argv.find((a) => a.startsWith(p)); return f ? f.slice(p.length) : null; };
 const LIMIT = arg("limit") ? parseInt(arg("limit"), 10) : Infinity;
 const STAGE = arg("stage");
+const FOCUS = arg("focus"); // z.B. "food" für gezielten Food-Nachlauf
+const ONLY = arg("only");   // Pfad zu JSON-Array von Slugs (schränkt Scope ein)
 
+const onlySet = ONLY ? new Set(JSON.parse(readFileSync(ONLY, "utf8"))) : null;
 const all = JSON.parse(readFileSync("tmp/wave5-final.json", "utf8"))
   .filter((c) => !STAGE || c.stage === STAGE)
+  .filter((c) => !onlySet || onlySet.has(c.slug))
   .sort((a, b) => b._meta.pop - a._meta.pop);
 const ckpt = existsSync(CKPT) ? JSON.parse(readFileSync(CKPT, "utf8")) : { done: {}, failed: {} };
 
@@ -38,7 +42,9 @@ for (const c of todo) {
   // Server-Slots räumen (gekillte Vorgänger-Queries blockieren sonst -> 429-Kaskade)
   try { await fetch("https://overpass-api.de/api/kill_my_queries", { signal: AbortSignal.timeout(10_000) }); } catch {}
   const start = Date.now();
-  const res = spawnSync("node", [SCRIPT, `--city=${c.slug}`, `--radius=${c.radiusM}`, `--publishLimit=${PUBLISH_LIMIT}`, `--batch=${BATCH}`], {
+  const spawnArgs = [SCRIPT, `--city=${c.slug}`, `--radius=${c.radiusM}`, `--publishLimit=${PUBLISH_LIMIT}`, `--batch=${BATCH}`];
+  if (FOCUS) spawnArgs.push(`--focus=${FOCUS}`);
+  const res = spawnSync("node", spawnArgs, {
     encoding: "utf8", timeout: 15 * 60 * 1000, killSignal: "SIGKILL",
   });
   const ms = Date.now() - start;
