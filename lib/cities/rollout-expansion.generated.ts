@@ -42,8 +42,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.91698,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["hanau-hessen"],
   }, // Hanau (Hessen), 98.582 Einw.
   {
