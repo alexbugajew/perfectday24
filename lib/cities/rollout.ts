@@ -45,11 +45,15 @@ export type PlannerVisibilityGates = {
 // wave6 (20-50k Einw.) bekommt skalierte Schwellen: Kleinstädte erreichen
 // 250 plannable Locations strukturell nie.
 export function getVisibilityGatesForStage(stage: PlannerRolloutStage): PlannerVisibilityGates {
+  // Food-Schwellen kalibriert 16.07.2026: Nach dem Food-Backfill lagen viele
+  // Städte haarscharf unter 120/50 (Bocholt 118, Beckum 49) — OSM gibt dort
+  // nicht mehr her. 100/40 ist die datenbasierte Grenze; für Tagespläne mit
+  // 3-5 Stops genügen 40+ Food-Spots deutlich.
   if (stage === "wave5") {
-    return { minimumPlannableLocations: 250, minimumFoodLocations: 120, minimumScheduledEvents: 0, requiresActiveOfficialEventSource: false };
+    return { minimumPlannableLocations: 250, minimumFoodLocations: 100, minimumScheduledEvents: 0, requiresActiveOfficialEventSource: false };
   }
   if (stage === "wave6") {
-    return { minimumPlannableLocations: 120, minimumFoodLocations: 50, minimumScheduledEvents: 0, requiresActiveOfficialEventSource: false };
+    return { minimumPlannableLocations: 120, minimumFoodLocations: 40, minimumScheduledEvents: 0, requiresActiveOfficialEventSource: false };
   }
   return { ...PLANNER_VISIBILITY_GATES };
 }
