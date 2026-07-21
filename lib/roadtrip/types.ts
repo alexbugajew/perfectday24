@@ -117,6 +117,7 @@ export function occasionLabel(occasion: string): string {
     friends: "Mit Freunden",
     date: "Zu zweit",
     family: "Familienurlaub",
+    party: "Party & Nightlife",
   };
   return MAP[occasion] ?? occasion;
 }
@@ -140,6 +141,7 @@ export const ROADTRIP_TAGS = [
   { value: "luxury",    label: "Luxus",       emoji: "✨" },
   { value: "adventure", label: "Abenteuer",   emoji: "🏔️" },
   { value: "nightlife", label: "Nightlife",   emoji: "🎉" },
+  { value: "jga",       label: "JGA",         emoji: "🥂" },
   { value: "family",    label: "Familie",     emoji: "👨‍👩‍👧" },
   { value: "weekend",   label: "Wochenende",  emoji: "📅" },
   { value: "germany",   label: "Deutschland", emoji: "🇩🇪" },
