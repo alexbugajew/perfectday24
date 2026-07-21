@@ -235,6 +235,29 @@ export default function PlannerOutputSection({
           ))}
         </div>
       ) : plannerError ? (
+        <div className="rounded-lg border border-[var(--state-warning)]/25 bg-[var(--brand-warm-cloud)] p-4 text-[var(--text-strong)] shadow-[var(--shadow-soft)]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--state-warning)]">
+            Nächster Schritt
+          </div>
+          <h2 className="mt-2 text-xl font-semibold tracking-tight">
+            Für den ersten Vorschlag fehlt noch ein belastbarer Start.
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+            {plannerError} Setze oben einen konkreten Startpunkt oder nutze deinen Standort. Danach
+            kann der Planner die Route automatisch neu bewerten.
+          </p>
+          <div className="mt-4 grid gap-2 sm:grid-cols-3">
+            {["Startpunkt setzen", "Umkreis prüfen", "Fokus lockern"].map((action) => (
+              <div
+                key={action}
+                className="rounded-[var(--radius-control)] border border-[var(--state-warning)]/20 bg-white px-3 py-2 text-sm font-medium text-[var(--state-warning)]"
+              >
+                {action}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : plannerError ? (
         <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
           <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-red-700">
             Planner braucht Eingriff
@@ -253,7 +276,7 @@ export default function PlannerOutputSection({
             Noch kein Vorschlag
           </div>
           <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
-            Es fehlen noch belastbare Kandidaten.
+            Bereit, sobald Start und Suchraum passen.
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
             Der Planner zeigt lieber keinen schwachen Ablauf als eine zufällige Liste. Diese

@@ -6,17 +6,22 @@ import { useState, useRef, useEffect } from "react";
 
 type City = { slug: string; name: string };
 
-type SingleProps = {
+type SharedProps = {
   cities: City[];
   placeholder?: string;
+  /** "bare" rendert nur Input + Dropdown ohne eigenen Rahmen — für kompakte Leisten. */
+  variant?: "default" | "bare";
+  /** Chip mit der gewählten Stadt unter dem Input anzeigen (default: true). */
+  showSelectedChip?: boolean;
+};
+
+type SingleProps = SharedProps & {
   multi?: false;
   value: string;
   onChange: (value: string) => void;
 };
 
-type MultiProps = {
-  cities: City[];
-  placeholder?: string;
+type MultiProps = SharedProps & {
   multi: true;
   value: string[];
   onChange: (value: string[]) => void;
@@ -27,7 +32,14 @@ export type CitySearchInputProps = SingleProps | MultiProps;
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function CitySearchInput(props: CitySearchInputProps) {
-  const { cities, placeholder = "Stadt suchen …", multi } = props;
+  const {
+    cities,
+    placeholder = "Stadt suchen …",
+    multi,
+    variant = "default",
+    showSelectedChip = true,
+  } = props;
+  const bare = variant === "bare";
 
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
@@ -47,10 +59,6 @@ export function CitySearchInput(props: CitySearchInputProps) {
       : cities.filter((c) =>
           c.name.toLowerCase().includes(query.toLowerCase().trim())
         );
-
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [query]);
 
   // Close on click outside
   useEffect(() => {
@@ -129,11 +137,15 @@ export function CitySearchInput(props: CitySearchInputProps) {
     <div ref={containerRef} className="relative">
       {/* ── Input row ────────────────────────────────────────────────────── */}
       <div
-        className={`flex items-center gap-2 rounded-2xl border bg-white px-4 py-3 transition ${
-          open
-            ? "border-[var(--text-strong)]"
-            : "border-[var(--line-subtle)] focus-within:border-[var(--text-strong)]"
-        }`}
+        className={
+          bare
+            ? "flex items-center gap-2"
+            : `flex items-center gap-2 rounded-2xl border bg-white px-4 py-3 transition ${
+                open
+                  ? "border-[var(--text-strong)]"
+                  : "border-[var(--line-subtle)] focus-within:border-[var(--text-strong)]"
+              }`
+        }
       >
         {/* Search icon */}
         <svg
@@ -157,6 +169,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
+            setActiveIndex(0);
             setOpen(true);
           }}
           onFocus={() => {
@@ -164,7 +177,11 @@ export function CitySearchInput(props: CitySearchInputProps) {
           }}
           onKeyDown={handleKeyDown}
           placeholder={inputPlaceholder}
-          className="min-w-0 flex-1 bg-transparent text-sm text-[var(--text-strong)] placeholder:text-[var(--text-muted)] focus:outline-none"
+          className={`min-w-0 flex-1 bg-transparent text-sm text-[var(--text-strong)] focus:outline-none ${
+            bare && singleSelected
+              ? "font-semibold placeholder:text-[var(--text-strong)]"
+              : "placeholder:text-[var(--text-muted)]"
+          }`}
         />
 
         {/* Clear button for single-select */}
@@ -223,7 +240,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
       )}
 
       {/* ── Selected chips ────────────────────────────────────────────────── */}
-      {multi && selectedCities.length > 0 && (
+      {multi && showSelectedChip && selectedCities.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1.5">
           {selectedCities.map((city) => (
             <span
@@ -246,7 +263,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
       )}
 
       {/* Single-select chip */}
-      {!multi && singleSelected && (
+      {!multi && showSelectedChip && singleSelected && (
         <div className="mt-2">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--text-strong)] bg-[var(--text-strong)] px-3 py-1 text-xs text-white">
             <span>✓</span>

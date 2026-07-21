@@ -23,6 +23,7 @@ import {
 } from "@/lib/monetization/affiliate-shared";
 
 import type { RouteSummary } from "@/components/PlanMap";
+import { CitySearchInput } from "@/components/ui/CitySearchInput";
 import PlannerActionPanel from "./PlannerActionPanel";
 import PlannerActivationPanel from "./PlannerActivationPanel";
 import PlannerControlsSection from "./PlannerControlsSection";
@@ -103,6 +104,21 @@ function PlannerPageContent() {
   const [citiesLoading, setCitiesLoading] = useState(true);
   const [selectedCountryCode, setSelectedCountryCode] = useState<string>("all");
   const [selectedCitySlug, setSelectedCitySlug] = useState<string | null>(null);
+
+  // Startpunkt-Vorschläge nur zeigen, solange der Nutzer im Feld arbeitet
+  const [startPointFieldActive, setStartPointFieldActive] = useState(false);
+  const startPointFieldRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!startPointFieldActive) return;
+    function onMouseDown(e: MouseEvent) {
+      if (startPointFieldRef.current && !startPointFieldRef.current.contains(e.target as Node)) {
+        setStartPointFieldActive(false);
+      }
+    }
+    document.addEventListener("mousedown", onMouseDown);
+    return () => document.removeEventListener("mousedown", onMouseDown);
+  }, [startPointFieldActive]);
 
   const [budget, setBudget] = useState("medium");
   const [occasion, setOccasion] = useState("date");
@@ -1716,38 +1732,38 @@ function PlannerPageContent() {
 
       <section className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3 shadow-[var(--shadow-soft)]">
         <div className="flex flex-col gap-2 lg:flex-row lg:overflow-visible">
-          <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[150px] lg:flex-1">
+          <div className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[150px] lg:flex-1">
             <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Stadt
             </div>
-            <select
-              value={selectedCitySlug ?? "__auto__"}
-              onChange={(e) => {
-                const nextValue = e.target.value;
-                setSelectedCitySlug(nextValue === "__auto__" ? null : nextValue);
-                resetStartPointForSelectedCity();
-                resetPlan();
-              }}
-              className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none"
-              disabled={citiesLoading}
-            >
-              <option value="__auto__">Auto</option>
-              {visibleCities.map((city) => (
-                <option key={city.slug} value={city.slug}>
-                  {city.name}
-                </option>
-              ))}
-            </select>
-          </label>
+            <div className="mt-1">
+              <CitySearchInput
+                cities={visibleCities}
+                value={selectedCitySlug ?? ""}
+                onChange={(slug) => {
+                  setSelectedCitySlug(slug || null);
+                  resetStartPointForSelectedCity();
+                  resetPlan();
+                }}
+                placeholder={citiesLoading ? "Städte werden geladen..." : "Stadt suchen (Auto)"}
+                variant="bare"
+                showSelectedChip={false}
+              />
+            </div>
+          </div>
 
-          <div className="relative min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[240px] lg:flex-[1.5]">
+          <div
+            ref={startPointFieldRef}
+            className="relative min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[240px] lg:flex-[1.5]"
+          >
             <label htmlFor="planner-quick-start" className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Startpunkt
             </label>
             <input
               id="planner-quick-start"
               value={displayedStartPointLabel}
-              onFocus={() =>
+              onFocus={() => {
+                setStartPointFieldActive(true);
                 setStartPoint((prev) =>
                   prev.mode === "custom"
                     ? prev
@@ -1764,8 +1780,8 @@ function PlannerPageContent() {
                         lat: null,
                         lng: null,
                       }
-                )
-              }
+                );
+              }}
               onChange={(e) =>
                 setStartPoint((prev) => ({
                   ...prev,
@@ -1776,11 +1792,15 @@ function PlannerPageContent() {
                   lng: null,
                 }))
               }
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setStartPointFieldActive(false);
+              }}
               placeholder="Hotel, Bahnhof, Adresse..."
               className="mt-1 w-full bg-transparent text-sm font-semibold text-[var(--text-strong)] outline-none placeholder:text-[var(--text-muted)]"
             />
 
-            {startPoint.mode === "custom" &&
+            {startPointFieldActive &&
+            startPoint.mode === "custom" &&
             (startPointSearchLoading || startPointSuggestions.length > 0 || startPointSearchError) ? (
               <div className="absolute left-0 right-0 top-[calc(100%+0.25rem)] z-30 overflow-hidden rounded-md border border-[var(--line-subtle)] bg-white shadow-lg">
                 {startPointSearchLoading ? (
@@ -1792,7 +1812,10 @@ function PlannerPageContent() {
                     <button
                       key={`${suggestion.label}-${suggestion.lat}-${suggestion.lng}`}
                       type="button"
-                      onClick={() => applyStartPointSuggestion(suggestion)}
+                      onClick={() => {
+                        applyStartPointSuggestion(suggestion);
+                        setStartPointFieldActive(false);
+                      }}
                       className="block w-full border-b border-[var(--line-subtle)] px-3 py-2 text-left hover:bg-[var(--bg-panel)] last:border-b-0"
                     >
                       <div className="flex items-start justify-between gap-3">

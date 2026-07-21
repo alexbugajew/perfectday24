@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import type { RouteSummary, PlanMapStop } from "@/components/PlanMap";
 import type { RouteProfile, RouteSummaryLite } from "@/lib/planner";
-import { routeProfileLabel } from "./helpers";
 
 const PlanMap = dynamic(
   () => import("@/components/PlanMap").then((module) => module.default),
@@ -23,6 +22,12 @@ type PlannerMapPanelProps = {
   fallbackSummary: RouteSummaryLite;
 };
 
+const ROUTE_PROFILE_OPTIONS: Array<{ value: RouteProfile; label: string }> = [
+  { value: "foot", label: "Zu Fuß" },
+  { value: "public_transit", label: "ÖPNV" },
+  { value: "car", label: "Auto" },
+];
+
 export default function PlannerMapPanel({
   routeProfile,
   onRouteProfileChange,
@@ -35,7 +40,13 @@ export default function PlannerMapPanel({
   fallbackSummary,
 }: PlannerMapPanelProps) {
   const [mapExpanded, setMapExpanded] = useState(false);
-  const mapHeight = mapExpanded ? 440 : 220;
+  const mapHeight = mapExpanded ? 440 : 260;
+  const routeMetric =
+    mapStops.length < 2
+      ? "Mind. 2 Punkte"
+      : routeSummary
+        ? `${routeSummary.totalDistanceKm} km · ${routeSummary.totalDurationMin} Min`
+        : `~${fallbackSummary.distanceKm} km · ~${fallbackSummary.totalMin} Min`;
 
   return (
     <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)]">
@@ -49,7 +60,7 @@ export default function PlannerMapPanel({
               {effectiveStartPointLabel || "Startpunkt offen"}
             </div>
             <div className="mt-0.5 text-xs text-[var(--text-muted)]">
-              {routeProfileLabel(routeProfile)}
+              {routeMetric}
             </div>
           </div>
 
@@ -58,21 +69,37 @@ export default function PlannerMapPanel({
             onClick={() => setMapExpanded((current) => !current)}
             className="shrink-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1.5 text-xs font-medium text-[var(--text-strong)] hover:border-[var(--line-strong)]"
           >
-            {mapExpanded ? "Kleiner" : "Groesser"}
+            {mapExpanded ? "Kleiner" : "Größer"}
           </button>
         </div>
 
         <div className="mt-3 grid grid-cols-[1fr_auto] gap-2">
-          <select
+          <div
+            className="grid grid-cols-3 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-1"
+            role="radiogroup"
             aria-label="Mobilität für Karte auswählen"
-            value={routeProfile}
-            onChange={(event) => onRouteProfileChange(event.target.value as RouteProfile)}
-            className="min-h-9 rounded-md border border-[var(--line-subtle)] bg-white px-2 text-sm text-[var(--text-strong)]"
           >
-            <option value="foot">Zu Fuß</option>
-            <option value="public_transit">ÖPNV</option>
-            <option value="car">Auto</option>
-          </select>
+            {ROUTE_PROFILE_OPTIONS.map((option) => {
+              const active = routeProfile === option.value;
+
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  role="radio"
+                  aria-checked={active}
+                  onClick={() => onRouteProfileChange(option.value)}
+                  className={`min-h-8 rounded px-2 text-xs font-medium transition ${
+                    active
+                      ? "bg-white text-[var(--text-strong)] shadow-sm"
+                      : "text-[var(--text-muted)] hover:text-[var(--text-strong)]"
+                  }`}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>
 
           <button
             type="button"
@@ -120,9 +147,9 @@ export default function PlannerMapPanel({
           </div>
         ) : (
           <div>
-            {plannerLoading ? "Route wird berechnet..." : "Route aktuell nicht verfuegbar."}
+            {plannerLoading ? "Route wird berechnet..." : "Route aktuell nicht verfügbar."}
             <div className="mt-1">
-              Schaetzung: ~{fallbackSummary.distanceKm} km · {fallbackSummary.totalMin} Min
+              Schätzung: ~{fallbackSummary.distanceKm} km · {fallbackSummary.totalMin} Min
             </div>
           </div>
         )}

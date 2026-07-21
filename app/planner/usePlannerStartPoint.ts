@@ -256,6 +256,15 @@ export function usePlannerStartPoint({
       return;
     }
 
+    // Startpunkt ist bereits konkret gewählt — keine neue Suche anstoßen,
+    // sonst öffnet sich das Vorschlags-Dropdown direkt nach der Auswahl erneut.
+    if (startPoint.lat != null && startPoint.lng != null) {
+      setStartPointSuggestions([]);
+      setStartPointSearchLoading(false);
+      setStartPointSearchError(null);
+      return;
+    }
+
     const query = startPoint.label.trim();
     if (query.length < 2 && !effectiveCitySlug) {
       setStartPointSuggestions([]);
@@ -310,7 +319,7 @@ export function usePlannerStartPoint({
       cancelled = true;
       window.clearTimeout(timeoutId);
     };
-  }, [startPoint.mode, startPoint.label, startPoint.type, effectiveCitySlug]);
+  }, [startPoint.mode, startPoint.label, startPoint.type, startPoint.lat, startPoint.lng, effectiveCitySlug]);
 
   function resetStartPointForSelectedCity() {
     setStartPoint({
