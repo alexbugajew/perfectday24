@@ -240,10 +240,10 @@ const BOOKING_TYPE_LABEL: Record<string, string> = {
 const REVIEW_META: Record<ReviewStatus, { label: string; tone: "draft" | "ready" | "active" }> = {
   draft: { label: "Entwurf", tone: "draft" },
   submitted: { label: "Eingereicht", tone: "ready" },
-  in_review: { label: "In Pruefung", tone: "ready" },
-  changes_requested: { label: "Aenderungen noetig", tone: "draft" },
+  in_review: { label: "In Prüfung", tone: "ready" },
+  changes_requested: { label: "Änderungen nötig", tone: "draft" },
   approved: { label: "Freigegeben", tone: "ready" },
-  published: { label: "Veroeffentlicht", tone: "active" },
+  published: { label: "Veröffentlicht", tone: "active" },
 };
 
 // ── Self-service: category → service_type mapping ─────────────────────────────
@@ -978,7 +978,7 @@ export default function PartnerDashboard() {
   }
 
   async function handleDeleteCampaign(campaignId: string) {
-    if (!confirm("Kampagne wirklich loeschen?")) return;
+    if (!confirm("Kampagne wirklich löschen?")) return;
     setDeletingCampaign(campaignId);
     const token = await getAccessToken();
     if (!token) {
@@ -1067,7 +1067,7 @@ export default function PartnerDashboard() {
   }
 
   async function handleDeleteAffiliate(affiliateId: string) {
-    if (!confirm("Affiliate-Link wirklich loeschen?")) return;
+    if (!confirm("Affiliate-Link wirklich löschen?")) return;
     setDeletingAffiliate(affiliateId);
     const token = await getAccessToken();
     if (!token) {
@@ -1165,7 +1165,7 @@ export default function PartnerDashboard() {
       <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
         <p className="text-lg font-semibold text-[var(--text-strong)]">Anmeldung erforderlich</p>
         <p className="mt-2 text-sm text-[var(--text-muted)]">
-          Melde dich an, damit wir dein Partner-Profil laden und dein Dashboard oeffnen koennen.
+          Melde dich an, damit wir dein Partner-Profil laden und dein Dashboard öffnen können.
         </p>
         <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
@@ -1203,7 +1203,7 @@ export default function PartnerDashboard() {
             href="/profile"
             className="inline-flex items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
           >
-            Profil pruefen
+            Profil prüfen
           </a>
         </div>
         <a
@@ -1259,13 +1259,13 @@ export default function PartnerDashboard() {
   ].filter(Boolean).length;
   const setupTasks = [
     !profile.media_urls?.length ? "Titelbild hochladen, damit dein Eintrag hochwertig erscheint." : null,
-    !profile.website_url && !profile.booking_url ? "CTA hinterlegen, damit Interessenten direkt weiterklicken koennen." : null,
-    providers.length === 0 ? "Erstes Angebot fuer den Event Planner anlegen." : null,
+    !profile.website_url && !profile.booking_url ? "CTA hinterlegen, damit Interessenten direkt weiterklicken können." : null,
+    providers.length === 0 ? "Erstes Angebot für den Event Planner anlegen." : null,
     profile.review_status === "draft" && profileReadyForReview ? "Profil zur internen Freigabe einreichen." : null,
-    pendingReviewItems > 0 ? `${pendingReviewItems} Asset${pendingReviewItems > 1 ? "s" : ""} befinden sich aktuell in der Pruefung.` : null,
-    changeRequestItems > 0 ? "Rueckfragen aus der Freigabe pruefen und Assets erneut einreichen." : null,
+    pendingReviewItems > 0 ? `${pendingReviewItems} Asset${pendingReviewItems > 1 ? "s" : ""} befinden sich aktuell in der Prüfung.` : null,
+    changeRequestItems > 0 ? "Rückfragen aus der Freigabe prüfen und Assets erneut einreichen." : null,
     openBookings.length > 0 ? `${openBookings.length} offene Anfrage${openBookings.length > 1 ? "n" : ""} beantworten.` : null,
-    affiliateLinks.length === 0 ? "Affiliate-Angebot oder externen Buchungslink fuer Tracking aktivieren." : null,
+    affiliateLinks.length === 0 ? "Affiliate-Angebot oder externen Buchungslink für Tracking aktivieren." : null,
   ].filter(Boolean) as string[];
   const distributionChannels = Array.from(
     new Set([
@@ -1288,7 +1288,7 @@ export default function PartnerDashboard() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
 
-      {/* ── Onboarding Wizard ── Nur fuer neue/unfertige Partner sichtbar */}
+      {/* ── Onboarding Wizard ── Nur für neue/unfertige Partner sichtbar */}
       <PartnerOnboardingWizard
         profile={{
           display_name: profile.display_name,
@@ -1360,7 +1360,7 @@ export default function PartnerDashboard() {
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
-            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Veroeffentlicht</div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Veröffentlicht</div>
             <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">
               {(publishedProviders.length + activeAffiliateLinks.filter((link) => link.review_status === "published").length + campaigns.filter((campaign) => campaign.review_status === "published").length + (profile.review_status === "published" ? 1 : 0)).toLocaleString("de-DE")}
             </div>
@@ -1371,17 +1371,17 @@ export default function PartnerDashboard() {
             <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">
               {Math.min(100, Math.round((profileCompleteness / 6) * 100))}%
             </div>
-            <p className="mt-1 text-xs text-[var(--text-muted)]">Kontakt, CTA, Copy und Medien fuer bessere Conversion.</p>
+            <p className="mt-1 text-xs text-[var(--text-muted)]">Kontakt, CTA, Copy und Medien für bessere Conversion.</p>
           </div>
           <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
-            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">In Review</div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">In Prüfung</div>
             <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{pendingReviewItems}</div>
-            <p className="mt-1 text-xs text-[var(--text-muted)]">Eingereichte Assets und Profilbausteine in der Pruefung.</p>
+            <p className="mt-1 text-xs text-[var(--text-muted)]">Eingereichte Assets und Profilbausteine in der Prüfung.</p>
           </div>
           <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
-            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Aenderungen offen</div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Änderungen offen</div>
             <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{changeRequestItems}</div>
-            <p className="mt-1 text-xs text-[var(--text-muted)]">Assets mit Rueckfragen oder noetigen Nachschaerfungen.</p>
+            <p className="mt-1 text-xs text-[var(--text-muted)]">Assets mit Rückfragen oder nötigen Nachschärfungen.</p>
           </div>
         </div>
 
@@ -1390,39 +1390,40 @@ export default function PartnerDashboard() {
             href="#assets"
             className="inline-flex items-center rounded-2xl bg-[var(--text-strong)] px-5 py-3 text-sm font-medium text-white transition hover:opacity-90"
           >
-            Assets verwalten
+            Einträge & Pakete
           </a>
           <a
             href="#inquiries"
             className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
           >
-            Anfragen pruefen
+            Buchungsanfragen
           </a>
           <a
             href="#review"
             className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
           >
-            Freigaben steuern
+            Prüfung & Freigabe
           </a>
           <a
             href="#profile"
             className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
           >
-            Profil optimieren
+            Profil-Einstellungen
           </a>
         </div>
       </div>
 
       <div className="space-y-6">
-        <div className="flex flex-wrap gap-2">
+        <div className="sticky top-0 z-30 -mx-4 flex flex-wrap gap-2 bg-[var(--bg-canvas-warm)]/90 px-4 py-3 backdrop-blur">
           {[
-            ["review", "Freigaben"],
-            ["overview", "Uebersicht"],
-            ["asset-studio", "Asset Studio"],
-            ["visibility", "Sichtbarkeit"],
-            ["inquiries", "Anfragen"],
-            ["assets", "Assets"],
-            ["profile", "Profil"],
+            ["overview", "Überblick"],
+            ["asset-studio", "Angebote anlegen"],
+            ["visibility", "Kennzahlen"],
+            ["distribution", "Live-Bestand"],
+            ["inquiries", "Buchungsanfragen"],
+            ["assets", "Einträge & Pakete"],
+            ["review", "Prüfung & Freigabe"],
+            ["profile", "Profil-Einstellungen"],
           ].map(([href, label]) => (
             <a
               key={href}
@@ -1435,79 +1436,9 @@ export default function PartnerDashboard() {
         </div>
 
         <Section
-          id="review"
-          title="Review und Freigabe"
-          subtitle="Reiche Profil und Assets fuer die interne Qualitaetspruefung ein und verfolge den Publish-Status."
-        >
-          <div className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Profil-Freigabe</div>
-                  <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <span className="text-lg font-semibold text-[var(--text-strong)]">{profile.display_name}</span>
-                    <ReviewStatusPill status={profile.review_status} />
-                  </div>
-                  <p className="mt-2 text-sm text-[var(--text-muted)]">
-                    Dein Profil sollte Basisdaten, Kontaktweg und mindestens einen klaren Buchungs- oder Website-Einstieg haben.
-                  </p>
-                </div>
-                <AssetStatusPill
-                  label={profileReadyForReview ? "Review-ready" : "Profil unvollstaendig"}
-                  tone={profileReadyForReview ? "ready" : "draft"}
-                />
-              </div>
-              {profile.review_notes ? (
-                <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-                  {profile.review_notes}
-                </div>
-              ) : null}
-              <div className="mt-4 flex flex-wrap gap-2">
-                <button
-                  onClick={() => void handleReviewAction("profile", null, "submit")}
-                  disabled={!isAdmin || !profileReadyForReview || reviewUpdatingKey === "profile:self:submit"}
-                  className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
-                >
-                  {reviewUpdatingKey === "profile:self:submit" ? "Wird eingereicht..." : "Profil zur Freigabe senden"}
-                </button>
-                {["submitted", "in_review"].includes(profile.review_status) ? (
-                  <button
-                    onClick={() => void handleReviewAction("profile", null, "withdraw")}
-                    disabled={!isAdmin || reviewUpdatingKey === "profile:self:withdraw"}
-                    className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
-                  >
-                    {reviewUpdatingKey === "profile:self:withdraw" ? "..." : "Einreichung zurueckziehen"}
-                  </button>
-                ) : null}
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
-                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Asset-Queue</div>
-                <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{pendingReviewItems}</div>
-                <p className="mt-1 text-sm text-[var(--text-muted)]">Zur Zeit in Pruefung oder bereits eingereicht.</p>
-              </div>
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
-                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Veroeffentlicht</div>
-                <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">
-                  {publishedProviders.length + campaigns.filter((campaign) => campaign.review_status === "published").length + affiliateLinks.filter((link) => link.review_status === "published").length}
-                </div>
-                <p className="mt-1 text-sm text-[var(--text-muted)]">Assets mit erfolgter Freigabe und Publish-Status.</p>
-              </div>
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
-                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Rueckfragen</div>
-                <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{changeRequestItems}</div>
-                <p className="mt-1 text-sm text-[var(--text-muted)]">Nacharbeiten, die vor dem Publish erledigt werden sollten.</p>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        <Section
           id="overview"
-          title="Arbeitsstand im Portal"
-          subtitle="Die naechsten Schritte fuer mehr Sichtbarkeit, mehr Leads und saubere Buchungswege."
+          title="Überblick"
+          subtitle="Die nächsten Schritte für mehr Sichtbarkeit, mehr Leads und saubere Buchungswege."
         >
           <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
             <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
@@ -1542,7 +1473,7 @@ export default function PartnerDashboard() {
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
                       </svg>
                     </span>
-                    <p className="text-sm text-emerald-800">Dein Partnerprofil ist vollstaendig aufgestellt.</p>
+                    <p className="text-sm text-emerald-800">Dein Partnerprofil ist vollständig aufgestellt.</p>
                   </div>
                 )}
               </div>
@@ -1572,7 +1503,7 @@ export default function PartnerDashboard() {
                   </dd>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <dt className="text-[var(--text-muted)]">Staedte</dt>
+                  <dt className="text-[var(--text-muted)]">Städte</dt>
                   <dd className="font-medium text-[var(--text-strong)]">{uniqueCities.length}</dd>
                 </div>
                 <div className="flex items-center justify-between gap-4">
@@ -1588,14 +1519,14 @@ export default function PartnerDashboard() {
         {/* ── B) KPIs ──────────────────────────────────────────────────────── */}
         <Section
           id="asset-studio"
-          title="Asset Studio"
-          subtitle="Vier gefuehrte Builder fuer Standort, Event, Route und Affiliate-Angebot."
+          title="Angebote anlegen"
+          subtitle="Vier geführte Builder für Standort, Event, Route und Affiliate-Angebot."
         >
           <div className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
             <div className="grid gap-3 sm:grid-cols-2">
               <AssetBuilderCard
                 title="Standort"
-                subtitle="Venue, Hotel, Gastro oder Erlebnis fuer Planner und Buchungsanfragen."
+                subtitle="Venue, Hotel, Gastro oder Erlebnis für Planner und Buchungsanfragen."
                 metric={`${providers.length} aktive Angebote`}
                 status={<AssetStatusPill label={locationReady ? "Bereit" : "Entwurf"} tone={locationReady ? "ready" : "draft"} />}
                 active={selectedAssetBuilder === "location"}
@@ -1639,14 +1570,14 @@ export default function PartnerDashboard() {
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <h3 className="text-lg font-semibold text-[var(--text-strong)]">Standort-Builder</h3>
-                      <p className="mt-1 text-sm text-[var(--text-muted)]">Lege einen buchbaren Standort oder Angebotsbaustein fuer den Planner an.</p>
+                      <p className="mt-1 text-sm text-[var(--text-muted)]">Lege einen buchbaren Standort oder Angebotsbaustein für den Planner an.</p>
                     </div>
                     <AssetStatusPill label={locationReady ? "Bereit zum Anlegen" : "Pflichtfelder offen"} tone={locationReady ? "ready" : "draft"} />
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2">
                     <input type="text" value={newProvider.name} onChange={(e) => setNewProvider((prev) => ({ ...prev, name: e.target.value }))} placeholder="Standortname" className={inputCls} />
                     <select value={newProvider.service_type} onChange={(e) => setNewProvider((prev) => ({ ...prev, service_type: e.target.value }))} className={inputCls}>
-                      <option value="">Kategorie waehlen</option>
+                      <option value="">Kategorie wählen</option>
                       {getAvailableServiceTypes(profile).map((type) => (
                         <option key={type} value={type}>{SERVICE_TYPE_LABEL[type] ?? type}</option>
                       ))}
@@ -1654,12 +1585,12 @@ export default function PartnerDashboard() {
                   </div>
                   <div className="grid gap-3 sm:grid-cols-[0.8fr_1.2fr]">
                     <select value={newProvider.city_slug} onChange={(e) => setNewProvider((prev) => ({ ...prev, city_slug: e.target.value }))} className={inputCls}>
-                      <option value="">Stadt waehlen</option>
+                      <option value="">Stadt wählen</option>
                       {uniqueCities.map((slug) => (
                         <option key={slug} value={slug}>{slug}</option>
                       ))}
                     </select>
-                    <input type="text" value={newProvider.description} onChange={(e) => setNewProvider((prev) => ({ ...prev, description: e.target.value }))} placeholder="Kurzbeschreibung fuer den Eintrag" className={inputCls} />
+                    <input type="text" value={newProvider.description} onChange={(e) => setNewProvider((prev) => ({ ...prev, description: e.target.value }))} placeholder="Kurzbeschreibung für den Eintrag" className={inputCls} />
                   </div>
                   {addProviderError ? <p className="text-xs text-red-600">{addProviderError}</p> : null}
                   <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
@@ -1693,7 +1624,7 @@ export default function PartnerDashboard() {
                   <input type="text" value={newCampaign.name} onChange={(e) => setNewCampaign((prev) => ({ ...prev, name: e.target.value, campaign_type: "featured_event", target_kind: "event" }))} placeholder="Event-Titel oder Kampagnenname" className={inputCls} />
                   <div className="grid gap-3 sm:grid-cols-2">
                     <select value={newCampaign.city_slug} onChange={(e) => setNewCampaign((prev) => ({ ...prev, city_slug: e.target.value }))} className={inputCls}>
-                      <option value="">Stadt waehlen</option>
+                      <option value="">Stadt wählen</option>
                       {uniqueCities.map((slug) => (
                         <option key={slug} value={slug}>{slug}</option>
                       ))}
@@ -1733,14 +1664,14 @@ export default function PartnerDashboard() {
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <h3 className="text-lg font-semibold text-[var(--text-strong)]">Route-Builder</h3>
-                      <p className="mt-1 text-sm text-[var(--text-muted)]">Erstelle ein Route-Asset fuer Explore, Roadtrip oder Creator-Distribution.</p>
+                      <p className="mt-1 text-sm text-[var(--text-muted)]">Erstelle ein Route-Asset für Explore, Roadtrip oder Creator-Distribution.</p>
                     </div>
                     <AssetStatusPill label={routeReady ? "Bereit zum Start" : "Entwurf"} tone={routeReady ? "ready" : "draft"} />
                   </div>
                   <input type="text" value={newCampaign.name} onChange={(e) => setNewCampaign((prev) => ({ ...prev, name: e.target.value, campaign_type: "creator_distribution", target_kind: "route" }))} placeholder="Routenname oder Distributions-Titel" className={inputCls} />
                   <div className="grid gap-3 sm:grid-cols-2">
                     <select value={newCampaign.city_slug} onChange={(e) => setNewCampaign((prev) => ({ ...prev, city_slug: e.target.value }))} className={inputCls}>
-                      <option value="">Stadt waehlen</option>
+                      <option value="">Stadt wählen</option>
                       {uniqueCities.map((slug) => (
                         <option key={slug} value={slug}>{slug}</option>
                       ))}
@@ -1762,7 +1693,7 @@ export default function PartnerDashboard() {
                         </div>
                         <AssetStatusPill label="Route" tone="active" />
                       </div>
-                      <p className="mt-3 text-sm text-[var(--text-muted)]">CTA: {newCampaign.cta_label || "Route oeffnen"} - ideal fuer Explore- oder Roadtrip-Distribution.</p>
+                      <p className="mt-3 text-sm text-[var(--text-muted)]">CTA: {newCampaign.cta_label || "Route öffnen"} - ideal für Explore- oder Roadtrip-Distribution.</p>
                     </div>
                   </div>
                   <button onClick={() => void handleAddCampaign()} disabled={addingCampaign || !routeReady} className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
@@ -1826,12 +1757,12 @@ export default function PartnerDashboard() {
           </div>
         </Section>
 
-        <Section id="visibility" title="Kennzahlen" subtitle="Letzte 30 Tage und aktuelle Revenue-Basis">
+        <Section id="visibility" title="Kennzahlen" subtitle="Letzte 30 Tage und aktuelle Umsatzbasis">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             <StatTile
               label="Impressionen"
               value={stats.impressions.toLocaleString("de-DE")}
-              sub="Sichtbarkeit in Plaenen"
+              sub="Sichtbarkeit in Plänen"
             />
             <StatTile
               label="Klicks"
@@ -1872,7 +1803,7 @@ export default function PartnerDashboard() {
               <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Angebotsstruktur</div>
               <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{totalPackages}</div>
               <p className="mt-1 text-sm text-[var(--text-muted)]">
-                Pakete und Preislogiken fuer Event-Anfragen und vergleichbare Angebotsbausteine.
+                Pakete und Preislogiken für Event-Anfragen und vergleichbare Angebotsbausteine.
               </p>
             </div>
           </div>
@@ -1880,8 +1811,9 @@ export default function PartnerDashboard() {
 
         {/* ── C) Buchungsanfragen ──────────────────────────────────────────── */}
         <Section
-          title="Distribution Control"
-          subtitle="Verwalte deinen Live-Bestand. Neue Assets legst du oben im Asset Studio an."
+          id="distribution"
+          title="Live-Bestand"
+          subtitle="Verwalte deine veröffentlichten Einträge, Kampagnen und Links. Neue Angebote legst du oben unter „Angebote anlegen“ an."
         >
           <div className="mb-4 flex flex-wrap gap-2">
             <button
@@ -1961,7 +1893,7 @@ export default function PartnerDashboard() {
                               disabled={reviewUpdatingKey === `campaign:${campaign.id}:withdraw`}
                               className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
                             >
-                              {reviewUpdatingKey === `campaign:${campaign.id}:withdraw` ? "..." : "Zurueckziehen"}
+                              {reviewUpdatingKey === `campaign:${campaign.id}:withdraw` ? "..." : "Zurückziehen"}
                             </button>
                           ) : null}
                           <button
@@ -1976,7 +1908,7 @@ export default function PartnerDashboard() {
                             disabled={deletingCampaign === campaign.id}
                             className="inline-flex items-center rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50"
                           >
-                            {deletingCampaign === campaign.id ? "..." : "Loeschen"}
+                            {deletingCampaign === campaign.id ? "..." : "Löschen"}
                           </button>
                         </div>
                       ) : null}
@@ -1985,7 +1917,7 @@ export default function PartnerDashboard() {
                 </div>
               ) : (
                 <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] px-4 py-6 text-sm text-[var(--text-muted)]">
-                  Noch keine Kampagnen live. Lege oben im Asset Studio dein erstes Event- oder Route-Asset an.
+                  Noch keine Kampagnen live. Lege oben unter „Angebote anlegen“ dein erstes Event- oder Routen-Angebot an.
                 </div>
               )}
             </div>
@@ -2046,7 +1978,7 @@ export default function PartnerDashboard() {
                               disabled={reviewUpdatingKey === `affiliate:${link.id}:withdraw`}
                               className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
                             >
-                              {reviewUpdatingKey === `affiliate:${link.id}:withdraw` ? "..." : "Zurueckziehen"}
+                              {reviewUpdatingKey === `affiliate:${link.id}:withdraw` ? "..." : "Zurückziehen"}
                             </button>
                           ) : null}
                           <button
@@ -2061,7 +1993,7 @@ export default function PartnerDashboard() {
                             disabled={deletingAffiliate === link.id}
                             className="inline-flex items-center rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50"
                           >
-                            {deletingAffiliate === link.id ? "..." : "Loeschen"}
+                            {deletingAffiliate === link.id ? "..." : "Löschen"}
                           </button>
                         </div>
                       ) : null}
@@ -2134,8 +2066,8 @@ export default function PartnerDashboard() {
         {/* ── D1) Dienstleister & Pakete ───────────────────────────────────── */}
         <Section
           id="assets"
-          title="Assets und Angebote"
-          subtitle="Deine Event-Planner-Eintraege, Pakete und ersten buchbaren Bausteine."
+          title="Einträge & Pakete"
+          subtitle="Deine Event-Planner-Einträge, Pakete und ersten buchbaren Bausteine."
           action={
             isAdmin ? (
               <span className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
@@ -2187,7 +2119,7 @@ export default function PartnerDashboard() {
                               disabled={reviewUpdatingKey === `provider:${provider.id}:withdraw`}
                               className="rounded-xl border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
                             >
-                              {reviewUpdatingKey === `provider:${provider.id}:withdraw` ? "..." : "Zurueckziehen"}
+                              {reviewUpdatingKey === `provider:${provider.id}:withdraw` ? "..." : "Zurückziehen"}
                             </button>
                           ) : null}
                         </div>
@@ -2416,7 +2348,77 @@ export default function PartnerDashboard() {
         </Section>
 
         {/* ── D2) Profil-Einstellungen ─────────────────────────────────────── */}
-        <Section id="profile" title="Profil-Einstellungen" subtitle="Basisdaten, Kontaktwege und redaktionelle Profilqualitaet.">
+        <Section
+          id="review"
+          title="Prüfung & Freigabe"
+          subtitle="Reiche Profil und Einträge zur internen Qualitätsprüfung ein und verfolge den Veröffentlichungsstatus."
+        >
+          <div className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
+            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Profil-Freigabe</div>
+                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                    <span className="text-lg font-semibold text-[var(--text-strong)]">{profile.display_name}</span>
+                    <ReviewStatusPill status={profile.review_status} />
+                  </div>
+                  <p className="mt-2 text-sm text-[var(--text-muted)]">
+                    Dein Profil sollte Basisdaten, Kontaktweg und mindestens einen klaren Buchungs- oder Website-Einstieg haben.
+                  </p>
+                </div>
+                <AssetStatusPill
+                  label={profileReadyForReview ? "Review-ready" : "Profil unvollständig"}
+                  tone={profileReadyForReview ? "ready" : "draft"}
+                />
+              </div>
+              {profile.review_notes ? (
+                <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                  {profile.review_notes}
+                </div>
+              ) : null}
+              <div className="mt-4 flex flex-wrap gap-2">
+                <button
+                  onClick={() => void handleReviewAction("profile", null, "submit")}
+                  disabled={!isAdmin || !profileReadyForReview || reviewUpdatingKey === "profile:self:submit"}
+                  className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                >
+                  {reviewUpdatingKey === "profile:self:submit" ? "Wird eingereicht..." : "Profil zur Freigabe senden"}
+                </button>
+                {["submitted", "in_review"].includes(profile.review_status) ? (
+                  <button
+                    onClick={() => void handleReviewAction("profile", null, "withdraw")}
+                    disabled={!isAdmin || reviewUpdatingKey === "profile:self:withdraw"}
+                    className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
+                  >
+                    {reviewUpdatingKey === "profile:self:withdraw" ? "..." : "Einreichung zurückziehen"}
+                  </button>
+                ) : null}
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Asset-Queue</div>
+                <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{pendingReviewItems}</div>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">Zur Zeit in Prüfung oder bereits eingereicht.</p>
+              </div>
+              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Veröffentlicht</div>
+                <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">
+                  {publishedProviders.length + campaigns.filter((campaign) => campaign.review_status === "published").length + affiliateLinks.filter((link) => link.review_status === "published").length}
+                </div>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">Assets mit erfolgter Freigabe und Publish-Status.</p>
+              </div>
+              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+                <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Rückfragen</div>
+                <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{changeRequestItems}</div>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">Nacharbeiten, die vor dem Publish erledigt werden sollten.</p>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        <Section id="profile" title="Profil-Einstellungen" subtitle="Basisdaten, Kontaktwege und redaktionelle Profilqualität.">
           {editMode ? (
             <div className="space-y-4">
               <InputField
@@ -2695,24 +2697,24 @@ function TypeSpecificSection({
 
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
             <div className="rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
-              Erstes Foto = Titelbild fuer Profil und bevorzugtes Fallback-Cover.
+              Erstes Foto = Titelbild für Profil und bevorzugtes Fallback-Cover.
             </div>
             <div className="rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
-              Weitere Bilder staerken Galerie, Event-Anbieter-Karten und redaktionelle Empfehlungen.
+              Weitere Bilder stärken Galerie, Event-Anbieter-Karten und redaktionelle Empfehlungen.
             </div>
             <div className="rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
-              Spaeter koennen freigegebene Community- und Creator-Bilder zusaetzlich als Featured-Medien genutzt werden.
+              Später können freigegebene Community- und Creator-Bilder zusätzlich als Featured-Medien genutzt werden.
             </div>
           </div>
 
           <div className="mt-4">
             <EntityMediaGallery
               title="Medienvorschau"
-              subtitle="So wirken Cover und Galerie fuer dein Profil aktuell im Frontend."
+              subtitle="So wirken Cover und Galerie für dein Profil aktuell im Frontend."
               items={mediaPreviewItems}
               emptyTitle="Noch keine Partner-Bilder"
-              emptyBody="Lade mindestens ein Coverbild hoch, damit dein Profil, deine Anbieterkarte und kuenftige Event-Module hochwertig wirken."
-              rightsHint="Partner-Medien koennen spaeter in Profil, Event-Anbieterflaechen und weiteren Discovery-Modulen ausgespielt werden."
+              emptyBody="Lade mindestens ein Coverbild hoch, damit dein Profil, deine Anbieterkarte und künftige Event-Module hochwertig wirken."
+              rightsHint="Partner-Medien können später in Profil, Event-Anbieterflächen und weiteren Discovery-Modulen ausgespielt werden."
             />
           </div>
         </div>

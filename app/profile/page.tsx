@@ -1219,13 +1219,9 @@ function ProfilePageInner() {
           ) : (
             /* ── NICHT EINGELOGGT ─────────────────────────────────────────── */
             <>
-              <div className="pd24-kicker-warm">
-                Konto
-              </div>
-              <p className="mt-2 text-sm text-[var(--text-muted-warm)]">Kostenlos anmelden oder registrieren.</p>
-
+              {/* Kicker + Intro stehen bereits im Seitenkopf darüber — hier direkt die Anmeldung */}
               {/* OAuth */}
-              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              <div className="grid gap-2 sm:grid-cols-2">
                 <button
                   onClick={() => void startOAuth("google")}
                   disabled={authLoading}
@@ -1290,10 +1286,10 @@ function ProfilePageInner() {
         {authReady && userId && !isAnonymous && (
           <section className="space-y-5">
             <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
-              <div className="pd24-kicker-warm">Persoenliche Basis</div>
+              <div className="pd24-kicker-warm">Persönliche Basis</div>
               <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Konto, Vorlieben und sichtbares Profil</h2>
               <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-                Pflege hier deine persoenlichen Einstellungen, Interessen und die Informationen, die andere Nutzer sehen sollen.
+                Pflege hier deine persönlichen Einstellungen, Interessen und die Informationen, die andere Nutzer sehen sollen.
               </p>
             </div>
             <div className="grid gap-6 xl:grid-cols-2">
@@ -1592,7 +1588,7 @@ function ProfilePageInner() {
               <div className="pd24-kicker-warm">Meine Inhalte</div>
               <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Eigene Routen, Roadtrips und gemerkte Vorlagen</h2>
               <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-                Verwalte hier deine erstellten Inhalte und springe schnell zu dem weiter, was du spaeter erneut nutzen moechtest.
+                Verwalte hier deine erstellten Inhalte und springe schnell zu dem weiter, was du später erneut nutzen möchtest.
               </p>
             </div>
             <div className="grid gap-6 xl:grid-cols-2">
@@ -1934,10 +1930,10 @@ function ProfilePageInner() {
         {/* ── Aktive Rollen-Schnellzugriffe ───────────────────────────────── */}
         {(authReady && userId && !isAnonymous) && (
           <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
-            <div className="pd24-kicker-warm">Rollen & Zugaenge</div>
+            <div className="pd24-kicker-warm">Rollen & Zugänge</div>
             <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Spezielle Bereiche und Freischaltungen</h2>
             <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-              Aktive Zugaenge stehen oben. Weitere Programme und Ausbaustufen kannst du darunter bei Bedarf aufklappen.
+              Aktive Zugänge stehen oben. Weitere Programme und Ausbaustufen kannst du darunter bei Bedarf aufklappen.
             </p>
           </div>
         )}
@@ -2010,7 +2006,7 @@ function ProfilePageInner() {
                 </p>
               </div>
               <span className="mt-1 text-xs font-medium uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">
-                Oeffnen
+                Öffnen
               </span>
             </summary>
 
