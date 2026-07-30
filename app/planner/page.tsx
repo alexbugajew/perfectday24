@@ -845,11 +845,12 @@ function PlannerPageContent() {
     onPostGroupMessage: postPlanGroupChatSystemMessage,
   });
 
-  // Mobile-UX: Nach abgeschlossener Generierung direkt zum Plan scrollen —
-  // auf 375px liegen Setup-Blöcke davor und das Ergebnis ist sonst erst
-  // nach viel Scrollen sichtbar.
+  // Mobile-UX: Nach abgeschlossener Generierung Setup-Blöcke einklappen
+  // (kompakte Summary-Bar mit "Ändern" ersetzt sie) und direkt zum Plan
+  // scrollen — auf 375px liegen die Blöcke sonst vor dem Ergebnis.
   const planOutputRef = useRef<HTMLDivElement | null>(null);
   const prevPlannerLoadingRef = useRef(false);
+  const [mobileSetupOpen, setMobileSetupOpen] = useState(true);
   useEffect(() => {
     const wasLoading = prevPlannerLoadingRef.current;
     prevPlannerLoadingRef.current = plannerLoading;
@@ -860,6 +861,7 @@ function PlannerPageContent() {
       typeof window !== "undefined" &&
       window.innerWidth < 640
     ) {
+      setMobileSetupOpen(false);
       planOutputRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [plannerLoading, plannedStops.length]);
@@ -1659,7 +1661,11 @@ function PlannerPageContent() {
   return (
     // pb-40: Platz für den sticky "Route starten"-CTA über der Bottom-Nav (nur mobil)
     <main className={`pd24-page-wide space-y-4 ${plannedStops.length > 0 ? "pb-40 sm:pb-0" : ""}`}>
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
+      <section
+        className={`gap-4 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start ${
+          mobileSetupOpen ? "grid" : "hidden sm:grid"
+        }`}
+      >
         <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
           <div className="flex flex-col gap-5">
             <div>
@@ -1756,7 +1762,11 @@ function PlannerPageContent() {
       </section>
 
       {!homepagePresetActive && !effectiveCitySlug && !citiesLoading && (
-        <section className="rounded-xl border border-[var(--brand-accent)]/20 bg-[var(--brand-accent-soft)] px-4 py-3">
+        <section
+          className={`rounded-xl border border-[var(--brand-accent)]/20 bg-[var(--brand-accent-soft)] px-4 py-3 ${
+            mobileSetupOpen ? "" : "hidden sm:block"
+          }`}
+        >
           <div className="font-medium text-[var(--text-strong)]">Wo soll dein Tag stattfinden?</div>
           <div className="mt-0.5 text-sm text-[var(--text-muted)]">
             Wähle unten eine Stadt – PerfectDay24 erstellt deinen Plan automatisch.
@@ -1764,7 +1774,32 @@ function PlannerPageContent() {
         </section>
       )}
 
-      <section className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3 shadow-[var(--shadow-soft)]">
+      {!mobileSetupOpen && plannedStops.length > 0 ? (
+        // Kompakte Mobile-Summary statt der Setup-Blöcke — "Ändern" klappt sie wieder auf.
+        <div className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 sm:hidden">
+          <div className="min-w-0 truncate text-sm text-[var(--text-strong)]">
+            <span className="font-semibold">{occasionTitle}</span>
+            {cityLabel !== "-" ? <span className="text-[var(--text-muted)]"> · {cityLabel}</span> : null}
+            <span className="text-[var(--text-muted)]">
+              {" · "}
+              {new Date(`${planDate}T12:00:00`).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" })}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setMobileSetupOpen(true)}
+            className="pd24-btn pd24-btn-secondary pd24-btn-sm shrink-0"
+          >
+            Ändern
+          </button>
+        </div>
+      ) : null}
+
+      <section
+        className={`rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3 shadow-[var(--shadow-soft)] ${
+          mobileSetupOpen ? "" : "hidden sm:block"
+        }`}
+      >
         <div className="flex flex-col gap-2 lg:flex-row lg:overflow-visible">
           <div className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[150px] lg:flex-1">
             <div className="pd24-meta">
