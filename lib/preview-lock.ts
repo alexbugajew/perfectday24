@@ -4,8 +4,29 @@ export const PREVIEW_LOCK_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 
 const TOKEN_VERSION = "v1";
 
+/**
+ * HMAC-Secret für das Access-Cookie.
+ *
+ * Der Fallback auf das Preview-Passwort bleibt bestehen, damit bestehende
+ * Deployments nicht kaputtgehen — er ist aber schwächer, weil Passwort und
+ * Signaturschlüssel dann identisch sind. Deshalb wird er einmalig geloggt,
+ * damit die fehlende Variable auffällt.
+ */
+let warnedAboutSecretFallback = false;
+
 function getSecret() {
-  return process.env.SITE_PREVIEW_COOKIE_SECRET || process.env.SITE_PREVIEW_PASSWORD || "";
+  const dedicated = process.env.SITE_PREVIEW_COOKIE_SECRET;
+  if (dedicated) return dedicated;
+
+  const fallback = process.env.SITE_PREVIEW_PASSWORD || "";
+  if (fallback && !warnedAboutSecretFallback) {
+    warnedAboutSecretFallback = true;
+    console.warn(
+      "[preview-lock] SITE_PREVIEW_COOKIE_SECRET fehlt — es wird das Preview-Passwort " +
+        "als HMAC-Secret verwendet. Bitte ein separates Secret setzen."
+    );
+  }
+  return fallback;
 }
 
 export function isPreviewLockEnabled() {
@@ -78,5 +99,10 @@ export async function verifyPreviewAccessToken(token?: string | null, now = Date
 }
 
 export function isPreviewPassword(input: FormDataEntryValue | null) {
-  return typeof input === "string" && input === process.env.SITE_PREVIEW_PASSWORD;
+  const expected = process.env.SITE_PREVIEW_PASSWORD;
+  if (!expected) return false;
+  if (typeof input !== "string") return false;
+  // Konstantzeitiger Vergleich statt ===, damit die Antwortzeit nichts über
+  // das Passwort verrät.
+  return timingSafeEqual(input, expected);
 }

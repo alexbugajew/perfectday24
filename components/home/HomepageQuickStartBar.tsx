@@ -278,7 +278,7 @@ export default function HomepageQuickStartBar() {
             className={inputClassName}
           />
           <select
-            aria-label="Stadt auswaehlen"
+            aria-label="Stadt auswählen"
             value={
               filteredCityOptions.some((city) => city.value === selectedCitySlug)
                 ? selectedCitySlug
@@ -300,7 +300,7 @@ export default function HomepageQuickStartBar() {
             ) : null}
             {!filteredCityOptions.some((city) => city.value === selectedCitySlug) &&
             filteredCityOptions.length > 0 ? (
-              <option value="">Stadt auswaehlen</option>
+              <option value="">Stadt auswählen</option>
             ) : null}
             {filteredCityOptions.map((city) => (
               <option key={city.value} value={city.value}>
@@ -329,7 +329,7 @@ export default function HomepageQuickStartBar() {
             {occasionLabel(selectedOccasion)}
           </div>
           <select
-            aria-label="Anlass auswaehlen"
+            aria-label="Anlass auswählen"
             value={selectedOccasion}
             onChange={(e) => setSelectedOccasion(e.target.value as QuickStartOccasion)}
             className={selectClassName}
@@ -348,7 +348,7 @@ export default function HomepageQuickStartBar() {
           </div>
           <div className="mt-2 text-lg font-medium text-[#171717]">{selectedModeLabel}</div>
           <select
-            aria-label="Fokus auswaehlen"
+            aria-label="Fokus auswählen"
             value={resolvedSelectedMode}
             onChange={(e) => setSelectedMode(e.target.value as ExperienceMode)}
             className={selectClassName}
@@ -367,7 +367,7 @@ export default function HomepageQuickStartBar() {
           </div>
           <div className="mt-2 text-lg font-medium text-[#171717]">{selectedDateLabel}</div>
           <input
-            aria-label="Datum auswaehlen"
+            aria-label="Datum auswählen"
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}

@@ -33,7 +33,13 @@ function normStr(v: any) {
 
 function formatDate(d: string) {
   try {
-    return new Date(d).toLocaleString();
+    return new Date(d).toLocaleString("de-DE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   } catch {
     return d;
   }

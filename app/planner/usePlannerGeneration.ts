@@ -79,6 +79,10 @@ export function usePlannerGeneration({
 }: UsePlannerGenerationParams) {
   const [plannerLoading, setPlannerLoading] = useState(false);
   const [plannerError, setPlannerError] = useState<string | null>(null);
+  // Unterscheidet Eingabe-Probleme (fehlender Startpunkt) von Fetch-/Serverfehlern,
+  // damit die UI die passende Hilfestellung zeigen kann.
+  const [plannerErrorKind, setPlannerErrorKind] = useState<"origin" | "fetch" | null>(null);
+  const [plannerRetryNonce, setPlannerRetryNonce] = useState(0);
   const [plannerData, setPlannerData] = useState<PlannerApiResponse | null>(null);
   const [selectedVariantId, setSelectedVariantId] = useState<string>("best-match");
   const [pinnedVariantId, setPinnedVariantId] = useState<string | null>(null);
@@ -94,6 +98,7 @@ export function usePlannerGeneration({
     if (!hasValidPlannerOrigin) {
       setPlannerData(null);
       setPlannerLoading(false);
+      setPlannerErrorKind("origin");
       setPlannerError(
         startPointMode === "custom"
           ? "Ein manueller Startpunkt braucht Latitude und Longitude. Sonst kann der Radius nicht korrekt um den gewählten Ort geplant werden."
@@ -107,6 +112,7 @@ export function usePlannerGeneration({
     (async () => {
       setPlannerLoading(true);
       setPlannerError(null);
+      setPlannerErrorKind(null);
 
       try {
         const res = await fetch("/api/planner/generate", {
@@ -158,6 +164,7 @@ export function usePlannerGeneration({
         console.error("Planner fetch failed:", error);
         if (!isCancelled) {
           setPlannerData(null);
+          setPlannerErrorKind("fetch");
           setPlannerError("Der Plan konnte aktuell nicht generiert werden.");
         }
       } finally {
@@ -184,7 +191,12 @@ export function usePlannerGeneration({
     planMode,
     routeProfile,
     selectedEventId,
+    plannerRetryNonce,
   ]);
+
+  const retryPlannerGeneration = useCallback(() => {
+    setPlannerRetryNonce((nonce) => nonce + 1);
+  }, []);
 
   const results = plannerData?.results ?? EMPTY_PLANNER_RESULTS;
   const activeLevel = plannerData?.activeLevel ?? "fallback";
@@ -534,6 +546,8 @@ export function usePlannerGeneration({
     setPlannerLoading,
     plannerError,
     setPlannerError,
+    plannerErrorKind,
+    retryPlannerGeneration,
     plannerData,
     setPlannerData,
     aiPlanActive,

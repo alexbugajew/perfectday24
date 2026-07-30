@@ -604,7 +604,7 @@ export default function RoadtripDiscoverPage() {
     : routeLabel;
 
   return (
-    <main className="pd24-page-wide min-w-0 space-y-6" style={{ width: "calc(100vw - 2rem)", maxWidth: "80rem" }}>
+    <main className="pd24-page-wide min-w-0 space-y-6">
 
       {/* ── Hero mit Hintergrundfoto ───────────────────────────────────────── */}
       <section className="relative w-full max-w-full overflow-hidden rounded-2xl border border-white/20 shadow-[0_24px_70px_rgba(15,23,42,0.22)]" style={{ minHeight: 360 }}>

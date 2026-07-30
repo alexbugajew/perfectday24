@@ -97,10 +97,11 @@ function EventCard({
   onDelete,
 }: {
   plan: EventPlanRow;
-  onDelete: (id: string) => Promise<void>;
+  onDelete: (id: string) => Promise<boolean>;
 }) {
   const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
   const info = occasionInfo(plan.occasion_slug);
   const badge = statusBadge(plan.status);
   const dateStr = formatEventDate(plan.event_date);
@@ -109,9 +110,14 @@ function EventCard({
 
   async function handleDelete() {
     setDeleting(true);
-    await onDelete(plan.id);
+    setDeleteError(false);
+    const ok = await onDelete(plan.id);
     setDeleting(false);
-    setConfirming(false);
+    if (ok) {
+      setConfirming(false);
+    } else {
+      setDeleteError(true);
+    }
   }
 
   return (
@@ -195,7 +201,12 @@ function EventCard({
       {/* Actions / Confirm delete */}
       {confirming ? (
         <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-red-200 bg-red-50/60 px-4 py-3">
-          <p className="text-xs font-medium text-red-700">Event dauerhaft löschen?</p>
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-red-700">Event dauerhaft löschen?</p>
+            <p role="status" className="text-xs text-red-600">
+              {deleteError ? "Event konnte nicht gelöscht werden. Bitte versuche es erneut." : ""}
+            </p>
+          </div>
           <div className="flex shrink-0 gap-2">
             <button type="button" onClick={() => setConfirming(false)} disabled={deleting}
               className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:border-[var(--line-strong)] disabled:opacity-50">
@@ -253,6 +264,7 @@ function EventsDashboardContent() {
   const [authReady, setAuthReady] = useState(false);
   const [plans, setPlans] = useState<EventPlanRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
 
   useEffect(() => {
@@ -272,6 +284,7 @@ function EventsDashboardContent() {
   const loadPlans = useCallback(async () => {
     if (!userId) { setPlans([]); setLoading(false); return; }
     setLoading(true);
+    setHasError(false);
     try {
       const { data, error } = await supabase
         .from("event_plans")
@@ -284,7 +297,7 @@ function EventsDashboardContent() {
         .order("created_at", { ascending: false })
         .limit(50);
 
-      if (error) { console.error("Events dashboard load error:", error); return; }
+      if (error) { console.error("Events dashboard load error:", error); setHasError(true); return; }
 
       const mapped: EventPlanRow[] = ((data ?? []) as Array<{
         id: string; title: string | null; occasion_slug: string; city_slug: string | null;
@@ -309,6 +322,9 @@ function EventsDashboardContent() {
         };
       });
       setPlans(mapped);
+    } catch (err) {
+      console.error("Events dashboard load error:", err);
+      setHasError(true);
     } finally {
       setLoading(false);
     }
@@ -318,9 +334,14 @@ function EventsDashboardContent() {
     if (authReady) void loadPlans();
   }, [authReady, loadPlans]);
 
-  async function deletePlan(id: string) {
+  async function deletePlan(id: string): Promise<boolean> {
     const { error } = await supabase.from("event_plans").delete().eq("id", id);
-    if (!error) setPlans((prev) => prev.filter((p) => p.id !== id));
+    if (error) {
+      console.error("Event delete error:", error);
+      return false;
+    }
+    setPlans((prev) => prev.filter((p) => p.id !== id));
+    return true;
   }
 
   // ── Not logged in ──
@@ -434,6 +455,21 @@ function EventsDashboardContent() {
       {loading ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)}
+        </div>
+      ) : hasError ? (
+        <div className="rounded-[var(--radius-shell)] border border-red-200 bg-red-50/60 px-6 py-12 text-center">
+          <div className="text-3xl">⚠️</div>
+          <h2 className="mt-3 text-lg font-semibold text-[var(--text-strong)]">Events konnten nicht geladen werden</h2>
+          <p className="mt-2 text-sm text-[var(--text-muted)]">
+            Bitte prüfe deine Internetverbindung und versuche es erneut.
+          </p>
+          <button
+            type="button"
+            onClick={() => void loadPlans()}
+            className="mt-5 inline-flex min-h-10 items-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-90"
+          >
+            Erneut laden
+          </button>
         </div>
       ) : plans.length === 0 ? (
         <div className="rounded-[var(--radius-shell)] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-6 py-12 text-center">

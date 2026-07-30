@@ -455,6 +455,17 @@ function summarizeErrorForUi(error: unknown) {
   return formatted.slice(0, 180);
 }
 
+function friendlyGuestAuthMessage(error: unknown) {
+  const msg = getErrorMessage(error).toLowerCase();
+  if (msg.includes("anonymous sign-ins are disabled"))
+    return "Der Gastzugang ist aktuell deaktiviert. Bitte melde dich mit deinem Konto an.";
+  if (msg.includes("failed to fetch") || msg.includes("network"))
+    return "Keine Verbindung zum Server. Bitte prüfe deine Internetverbindung und versuche es erneut.";
+  if (msg.includes("rate limit") || msg.includes("too many requests"))
+    return "Zu viele Versuche. Bitte warte einen Moment und versuche es dann erneut.";
+  return "Der Gastzugang konnte nicht gestartet werden. Bitte versuche es erneut.";
+}
+
 function buildGoogleMapsDirUrl(points: Array<{ lat: number; lng: number }>, mode: "foot" | "car") {
   if (points.length < 2) return null;
 
@@ -1023,7 +1034,7 @@ function RouteDetailPageContent() {
       const { data, error } = await supabase.auth.signInAnonymously();
       if (error) {
         console.error("Anonymous auth error:", error);
-        showToast(`Gastzugang fehlgeschlagen: ${error.message}`);
+        showToast(friendlyGuestAuthMessage(error));
         return;
       }
 

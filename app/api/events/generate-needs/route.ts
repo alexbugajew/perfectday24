@@ -5,8 +5,13 @@ import OpenAI from "openai";
 import { EVENT_NEEDS_SYSTEM_PROMPT } from "@/lib/ai/event-system-prompt";
 import { buildNeedsPrompt } from "@/lib/ai/event-prompts";
 import type { NeedsPromptInput } from "@/lib/ai/event-prompts";
+import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
+
+// Obergrenzen für Freitextfelder: begrenzen Token-Verbrauch pro Aufruf.
+const MAX_TEXT_LENGTH = 120;
+const MAX_INTERESTS = 12;
 
 type RequestBody = {
   occasion: string;
@@ -37,13 +42,21 @@ function validateBody(body: unknown): body is RequestBody {
   if (!body || typeof body !== "object") return false;
   const b = body as Record<string, unknown>;
   return (
-    typeof b.occasion === "string" && b.occasion.length > 0 &&
-    typeof b.city === "string" && b.city.length > 0 &&
-    typeof b.guests === "number" && b.guests > 0
+    typeof b.occasion === "string" && b.occasion.length > 0 && b.occasion.length <= MAX_TEXT_LENGTH &&
+    typeof b.city === "string" && b.city.length > 0 && b.city.length <= MAX_TEXT_LENGTH &&
+    typeof b.guests === "number" && Number.isFinite(b.guests) && b.guests > 0 && b.guests <= 100000 &&
+    (b.interests === undefined ||
+      b.interests === null ||
+      (Array.isArray(b.interests) &&
+        b.interests.length <= MAX_INTERESTS &&
+        b.interests.every((i) => typeof i === "string" && i.length <= MAX_TEXT_LENGTH)))
   );
 }
 
 export async function POST(req: Request) {
+  const limited = enforceRateLimit(req, "ai:generate-needs", RATE_RULES.ai);
+  if (limited) return limited;
+
   try {
     const body = await req.json() as unknown;
 

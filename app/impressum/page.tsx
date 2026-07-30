@@ -4,7 +4,7 @@ import LegalPageShell, { LegalSection } from "@/components/legal/LegalPageShell"
 
 export const metadata: Metadata = {
   title: "Impressum | PerfectDay24",
-  description: "Impressum fuer PerfectDay24 als detaillierte Platzhalterfassung zum Launch.",
+  description: "Impressum für PerfectDay24.",
 };
 
 function BulletList({ items }: { items: ReactNode[] }) {
@@ -34,18 +34,18 @@ export default function ImpressumPage() {
     <LegalPageShell
       title="Impressum"
       updatedAt="21. April 2026"
-      intro="Diese Seite ist als ausfuehrliche Platzhalterfassung fuer den oeffentlichen Launch gedacht. Sie ist bewusst etwas detaillierter aufgebaut, damit ihr nicht nur die Mindestangaben unterbringt, sondern auch die typischen Zusatzthemen wie Register, USt-IdNr., Verbraucherstreitbeilegung und redaktionelle Verantwortlichkeit strukturiert vorbereiten koennt."
+      intro="Anbieterkennzeichnung und gesetzliche Pflichtangaben für PerfectDay24 gemäß § 5 DDG."
     >
-      <LegalSection title="Vor Veroeffentlichung zwingend pruefen">
+      <LegalSection title="Vor Veröffentlichung zwingend prüfen">
         <BulletList
           items={[
             "Rechtlichen Unternehmensnamen und richtige Rechtsform eintragen.",
-            "Vollstaendige ladungsfaehige Anschrift verwenden.",
+            "Vollständige ladungsfähige Anschrift verwenden.",
             "Vertretungsberechtigte Person oder Personen korrekt nennen.",
             "Aktive Kontakt-E-Mail eintragen; optional Telefonnummer oder weiterer unmittelbarer Kontaktkanal.",
-            "Registergericht und Registernummer ergaenzen, sobald die Eintragung vorliegt.",
+            "Registergericht und Registernummer ergänzen, sobald die Eintragung vorliegt.",
             "USt-IdNr. oder W-IdNr. nur eintragen, wenn bereits vergeben.",
-            "Pruefen, ob zusaetzliche Angaben zu Aufsichtsbehoerden, berufsrechtlichen Regelungen oder journalistisch-redaktioneller Verantwortung erforderlich sind.",
+            "Prüfen, ob zusätzliche Angaben zu Aufsichtsbehörden, berufsrechtlichen Regelungen oder journalistisch-redaktioneller Verantwortung erforderlich sind.",
             "VSBG-Status zur Verbraucherstreitbeilegung klar festlegen.",
           ]}
         />
@@ -53,14 +53,14 @@ export default function ImpressumPage() {
 
       <LegalSection title="Hinweis zur Nutzung dieser Platzhalterseite">
         <p>
-          Diese Seite ist auf einen typischen fruehen Launch von <strong>PerfectDay24</strong> als
-          digitale Plattform vorbereitet. Nicht jeder Abschnitt ist zwingend in jedem Stadium noetig.
-          Die optionalen Bloecke sollten aber bewusst entschieden und nicht einfach leer online
+          Diese Seite ist auf einen typischen frühen Launch von <strong>PerfectDay24</strong> als
+          digitale Plattform vorbereitet. Nicht jeder Abschnitt ist zwingend in jedem Stadium nötig.
+          Die optionalen Blöcke sollten aber bewusst entschieden und nicht einfach leer online
           gelassen werden.
         </p>
       </LegalSection>
 
-      <LegalSection title="1. Angaben gemaess § 5 DDG">
+      <LegalSection title="1. Angaben gemäß § 5 DDG">
         <p>
           Anbieter dieser Website und Web-App ist:
         </p>
@@ -68,13 +68,13 @@ export default function ImpressumPage() {
           lines={[
             <strong key="company-name">[Rechtlicher Unternehmensname]</strong>,
             "[Rechtsform]",
-            "[Strasse und Hausnummer]",
+            "[Straße und Hausnummer]",
             "[PLZ Ort]",
             "[Land]",
           ]}
         />
         <p>
-          Falls Unternehmensname und Rechtsform in einer Zeile gefuehrt werden sollen, koennt ihr den
+          Falls Unternehmensname und Rechtsform in einer Zeile geführt werden sollen, könnt ihr den
           ersten und zweiten Platzhalter auch zusammenziehen, zum Beispiel:
           <br />
           <strong>[PerfectDay24 GmbH]</strong>
@@ -88,7 +88,7 @@ export default function ImpressumPage() {
         <AddressBlock
           lines={[
             <strong key="representative-name">[Vorname Nachname]</strong>,
-            "[Geschaeftsfuehrer/in]",
+            "[Geschäftsführer/in]",
           ]}
         />
         <p>
@@ -98,13 +98,13 @@ export default function ImpressumPage() {
           lines={[
             <strong key="representative-one">[Vorname Nachname]</strong>,
             <strong key="representative-two">[Vorname Nachname]</strong>,
-            "[jeweilige Funktion / gemeinschaftliche oder einzelvertretungsberechtigte Vertretung nur falls gewuenscht]",
+            "[jeweilige Funktion / gemeinschaftliche oder einzelvertretungsberechtigte Vertretung nur falls gewünscht]",
           ]}
         />
       </LegalSection>
 
       <LegalSection title="3. Kontakt">
-        <p>Kontaktaufnahme ueber:</p>
+        <p>Kontaktaufnahme über:</p>
         <AddressBlock
           lines={[
             "E-Mail: [kontakt@deinedomain.de]",
@@ -112,7 +112,7 @@ export default function ImpressumPage() {
           ]}
         />
         <p>
-          Fuer eine schnelle elektronische Kontaktaufnahme und unmittelbare Kommunikation sollte hier
+          Für eine schnelle elektronische Kontaktaufnahme und unmittelbare Kommunikation sollte hier
           mindestens eine aktive E-Mail-Adresse genannt sein.
         </p>
       </LegalSection>
@@ -130,26 +130,26 @@ export default function ImpressumPage() {
         <p>
           Wenn die Gesellschaft noch nicht eingetragen ist, sollte diese Seite nicht mit offenem
           Register-Platzhalter produktiv bleiben. In diesem Fall entweder den Launch noch nicht
-          oeffnen oder den Abschnitt bis zur Eintragung bewusst anders loesen.
+          öffnen oder den Abschnitt bis zur Eintragung bewusst anders lösen.
         </p>
       </LegalSection>
 
       <LegalSection title="5. Umsatzsteuer und Wirtschafts-Identifikation">
         <AddressBlock
           lines={[
-            "Umsatzsteuer-Identifikationsnummer gemaess § 27a UStG: [falls vorhanden]",
-            "Wirtschafts-Identifikationsnummer gemaess § 139c AO: [falls vorhanden]",
+            "Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [falls vorhanden]",
+            "Wirtschafts-Identifikationsnummer gemäß § 139c AO: [falls vorhanden]",
           ]}
         />
         <p>
-          Diese Angaben sollten nur gemacht werden, wenn die jeweilige Nummer bereits tatsaechlich
+          Diese Angaben sollten nur gemacht werden, wenn die jeweilige Nummer bereits tatsächlich
           vergeben wurde.
         </p>
       </LegalSection>
 
-      <LegalSection title="6. Verantwortlich fuer Inhalte">
+      <LegalSection title="6. Verantwortlich für Inhalte">
         <p>
-          Verantwortlich fuer die Inhalte dieser Website:
+          Verantwortlich für die Inhalte dieser Website:
         </p>
         <AddressBlock
           lines={[
@@ -159,26 +159,26 @@ export default function ImpressumPage() {
         />
         <p>
           Dieser Block ist als konservativer Platzhalter gedacht. Wenn ihr keine journalistisch-
-          redaktionellen Inhalte im engeren Sinn veroeffentlicht, sollte vor dem finalen Launch noch
-          einmal geprueft werden, ob ihr diesen Hinweis in genau dieser Form braucht.
+          redaktionellen Inhalte im engeren Sinn veröffentlicht, sollte vor dem finalen Launch noch
+          einmal geprüft werden, ob ihr diesen Hinweis in genau dieser Form braucht.
         </p>
       </LegalSection>
 
-      <LegalSection title="7. Aufsichtsbehoerde oder berufsrechtliche Angaben, falls einschlaegig">
+      <LegalSection title="7. Aufsichtsbehörde oder berufsrechtliche Angaben, falls einschlägig">
         <p>
-          Nur ausfuellen, wenn fuer euer konkretes Angebot eine gesetzliche Aufsicht oder besondere
+          Nur ausfüllen, wenn für euer konkretes Angebot eine gesetzliche Aufsicht oder besondere
           berufsrechtliche Pflichtangaben bestehen.
         </p>
         <AddressBlock
           lines={[
-            "Zustaendige Aufsichtsbehoerde: [falls einschlaegig]",
-            "Berufsbezeichnung und Staat der Verleihung: [falls einschlaegig]",
-            "Berufsrechtliche Regelungen: [falls einschlaegig]",
-            "Fundstelle der Regelungen: [falls einschlaegig]",
+            "Zuständige Aufsichtsbehörde: [falls einschlägig]",
+            "Berufsbezeichnung und Staat der Verleihung: [falls einschlägig]",
+            "Berufsrechtliche Regelungen: [falls einschlägig]",
+            "Fundstelle der Regelungen: [falls einschlägig]",
           ]}
         />
         <p>
-          Fuer das aktuell sichtbare Plattformmodell von PerfectDay24 ist dieser Abschnitt
+          Für das aktuell sichtbare Plattformmodell von PerfectDay24 ist dieser Abschnitt
           voraussichtlich nur ein Sicherheitsplatzhalter.
         </p>
       </LegalSection>
@@ -189,8 +189,8 @@ export default function ImpressumPage() {
           Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
         </p>
         <p>
-          Falls ihr zur Teilnahme verpflichtet seid oder euch freiwillig verpflichtet, muessen hier
-          zusaetzlich Anschrift und Website der zustaendigen Verbraucherschlichtungsstelle genannt
+          Falls ihr zur Teilnahme verpflichtet seid oder euch freiwillig verpflichtet, müssen hier
+          zusätzlich Anschrift und Website der zuständigen Verbraucherschlichtungsstelle genannt
           werden.
         </p>
       </LegalSection>
@@ -199,13 +199,13 @@ export default function ImpressumPage() {
         <BulletList
           items={[
             "Unternehmensname und Rechtsform",
-            "vollstaendige ladungsfaehige Anschrift",
-            "Geschaeftsfuehrer und Vertretungsregelung",
+            "vollständige ladungsfähige Anschrift",
+            "Geschäftsführer und Vertretungsregelung",
             "aktive Kontakt-E-Mail",
             "Registergericht und HRB-Nummer",
             "USt-IdNr. / W-IdNr., falls vorhanden",
             "VSBG-Status zur Schlichtung",
-            "gegebenenfalls Verantwortlichkeit fuer redaktionelle Inhalte",
+            "gegebenenfalls Verantwortlichkeit für redaktionelle Inhalte",
             "gegebenenfalls Aufsichts- oder Berufsangaben",
           ]}
         />

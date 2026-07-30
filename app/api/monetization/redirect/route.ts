@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 import { randomBytes } from "crypto";
 import { recordMonetizationEvent } from "@/lib/monetization/server";
-import type { AttributionEventType, SponsoredSlotKey } from "@/lib/monetization/types";
+import {
+  ATTRIBUTION_EVENT_TYPES,
+  type AttributionEventType,
+  type SponsoredSlotKey,
+} from "@/lib/monetization/types";
+import { checkRedirectTarget } from "@/lib/security/safe-url";
+import { getSessionUserId } from "@/lib/security/session";
+import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
 
 // Netzwerk-spezifische Klick-Parameter fuer Postback-Reconciliation.
 const NETWORK_CLICK_PARAM: Record<string, string> = {
@@ -46,8 +53,14 @@ function readParam(url: URL, key: string) {
   return value && value.trim() ? value.trim() : null;
 }
 
+/**
+ * Prüft das Redirect-Ziel. Interne Pfade sind unkritisch; externe Ziele müssen
+ * gegen die Host-Allowlist in lib/security/safe-url.ts passen, damit die Route
+ * nicht als Open Redirect für Phishing missbraucht werden kann.
+ */
 function safeTarget(target: string | null, requestUrl: URL) {
   if (!target) return null;
+
   if (target.startsWith("/") && !target.startsWith("//")) {
     try {
       return new URL(target, requestUrl).toString();
@@ -55,16 +68,21 @@ function safeTarget(target: string | null, requestUrl: URL) {
       return null;
     }
   }
-  try {
-    const parsed = new URL(target);
-    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null;
-    return parsed.toString();
-  } catch {
+
+  const check = checkRedirectTarget(target);
+  if (!check.ok) {
+    if (check.reason === "host_not_allowed") {
+      console.warn("Monetization redirect blocked for host:", check.host);
+    }
     return null;
   }
+  return check.url;
 }
 
 export async function GET(req: Request) {
+  const limited = enforceRateLimit(req, "monetization:redirect", RATE_RULES.write);
+  if (limited) return limited;
+
   const requestUrl = new URL(req.url);
   const target = safeTarget(readParam(requestUrl, "target"), requestUrl);
 
@@ -72,7 +90,12 @@ export async function GET(req: Request) {
     return NextResponse.redirect(new URL("/", requestUrl));
   }
 
-  const eventType = (readParam(requestUrl, "eventType") ?? "click") as AttributionEventType;
+  const requestedEventType = readParam(requestUrl, "eventType") ?? "click";
+  const eventType = (
+    ATTRIBUTION_EVENT_TYPES.includes(requestedEventType as AttributionEventType)
+      ? requestedEventType
+      : "click"
+  ) as AttributionEventType;
   const affiliateLinkId = readParam(requestUrl, "affiliateLinkId");
 
   // Klick-ID nur fuer Affiliate-Klicks generieren. Andere Klick-Events
@@ -82,10 +105,14 @@ export async function GET(req: Request) {
   const clickId = trackAsAffiliate ? newClickId() : null;
   const finalTarget = clickId ? injectClickId(target, network, clickId) : target;
 
+  // Identität serverseitig bestimmen — der userId-Query-Parameter wird bewusst
+  // ignoriert, sonst lassen sich Klicks fremden Nutzern zuschreiben.
+  const sessionUserId = await getSessionUserId();
+
   try {
     await recordMonetizationEvent({
       eventType,
-      userId: readParam(requestUrl, "userId"),
+      userId: sessionUserId,
       anonymousId: readParam(requestUrl, "anonymousId"),
       sessionId: readParam(requestUrl, "sessionId"),
       planId: readParam(requestUrl, "planId"),

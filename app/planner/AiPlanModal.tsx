@@ -76,9 +76,13 @@ export default function AiPlanModal({
   const [limitInfo, setLimitInfo] = useState<{ used: number; limit: number } | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const restoreFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (open) {
+      restoreFocusRef.current =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null;
       onOpen?.();
       setTimeout(() => inputRef.current?.focus(), 60);
     } else {
@@ -87,8 +91,45 @@ export default function AiPlanModal({
       setError(null);
       setLoading(false);
       abortRef.current?.abort();
+      restoreFocusRef.current?.focus();
+      restoreFocusRef.current = null;
     }
   }, [open]);
+
+  // Escape schließt, Tab bleibt im Dialog (Focus-Trap)
+  useEffect(() => {
+    if (!open) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const container = dialogRef.current;
+      if (!container) return;
+      const focusables = container.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey) {
+        if (active === first || !container.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !container.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
 
   async function handleGenerate() {
     if (!citySlug) {
@@ -159,8 +200,16 @@ export default function AiPlanModal({
   }
 
   return (
-    <div className="fixed inset-0 z-[1500] flex items-end bg-black/45 sm:items-center sm:p-4">
-      <div className="flex w-full max-h-[92vh] flex-col overflow-hidden rounded-t-2xl bg-white shadow-xl sm:mx-auto sm:max-w-2xl sm:rounded-2xl">
+    <div
+      className="fixed inset-0 z-[1500] flex items-end bg-black/45 sm:items-center sm:p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ai-plan-modal-title"
+    >
+      <div
+        ref={dialogRef}
+        className="flex w-full max-h-[92vh] flex-col overflow-hidden rounded-t-2xl bg-white shadow-xl sm:mx-auto sm:max-w-2xl sm:rounded-2xl"
+      >
         {/* Drag handle (mobile) */}
         <div className="flex justify-center pt-3 sm:hidden">
           <div className="h-1 w-10 rounded-full bg-[var(--bg-panel)]" />
@@ -172,7 +221,10 @@ export default function AiPlanModal({
             <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-warm)]">
               Autopilot · AI
             </div>
-            <h2 className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
+            <h2
+              id="ai-plan-modal-title"
+              className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)]"
+            >
               Schreib deinen Tag — in einem Satz.
             </h2>
             <p className="mt-1 text-xs text-[var(--text-muted)]">
@@ -235,6 +287,7 @@ export default function AiPlanModal({
                   }
                 }}
                 placeholder='z.B. "Date-Abend mit Konzert und Drinks danach"'
+                aria-label="Beschreibe deinen Tag"
                 rows={3}
                 maxLength={500}
                 disabled={loading}

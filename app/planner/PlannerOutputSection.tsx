@@ -20,6 +20,8 @@ type PlannerOutputSectionProps = {
   routeProfile: RouteProfile;
   plannerLoading: boolean;
   plannerError: string | null;
+  plannerErrorKind?: "origin" | "fetch" | null;
+  onRetryGeneration?: () => void;
   resultsCount: number;
   plannedStops: PlannedStop[];
   occasion: string;
@@ -87,6 +89,8 @@ export default function PlannerOutputSection({
   routeProfile,
   plannerLoading,
   plannerError,
+  plannerErrorKind,
+  onRetryGeneration,
   resultsCount,
   plannedStops,
   occasion,
@@ -234,6 +238,28 @@ export default function PlannerOutputSection({
             </div>
           ))}
         </div>
+      ) : plannerError && plannerErrorKind === "fetch" ? (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-red-700">
+            Planner braucht Eingriff
+          </div>
+          <h2 className="mt-2 text-xl font-semibold tracking-tight">
+            Der Vorschlag konnte noch nicht gebaut werden.
+          </h2>
+          <p className="mt-2 text-sm leading-6">
+            {plannerError} Das kann an einer kurzen Verbindungs- oder Serverstörung liegen —
+            deine Eingaben bleiben erhalten.
+          </p>
+          {onRetryGeneration ? (
+            <button
+              type="button"
+              onClick={onRetryGeneration}
+              className="mt-4 rounded-[var(--radius-control)] bg-[var(--text-strong)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98]"
+            >
+              Erneut versuchen
+            </button>
+          ) : null}
+        </div>
       ) : plannerError ? (
         <div className="rounded-lg border border-[var(--state-warning)]/25 bg-[var(--brand-warm-cloud)] p-4 text-[var(--text-strong)] shadow-[var(--shadow-soft)]">
           <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--state-warning)]">
@@ -245,29 +271,6 @@ export default function PlannerOutputSection({
           <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
             {plannerError} Setze oben einen konkreten Startpunkt oder nutze deinen Standort. Danach
             kann der Planner die Route automatisch neu bewerten.
-          </p>
-          <div className="mt-4 grid gap-2 sm:grid-cols-3">
-            {["Startpunkt setzen", "Umkreis prüfen", "Fokus lockern"].map((action) => (
-              <div
-                key={action}
-                className="rounded-[var(--radius-control)] border border-[var(--state-warning)]/20 bg-white px-3 py-2 text-sm font-medium text-[var(--state-warning)]"
-              >
-                {action}
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : plannerError ? (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-red-700">
-            Planner braucht Eingriff
-          </div>
-          <h2 className="mt-2 text-xl font-semibold tracking-tight">
-            Der Vorschlag konnte noch nicht gebaut werden.
-          </h2>
-          <p className="mt-2 text-sm leading-6">
-            {plannerError} Prüfe vor allem Startpunkt, Stadt und Fokus. Danach stößt der
-            Planner automatisch einen neuen Lauf an.
           </p>
         </div>
       ) : resultsCount === 0 && plannedStops.length === 0 ? (

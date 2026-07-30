@@ -155,7 +155,7 @@ export default function EntityMediaGallery({
                   </div>
                 ) : null}
                 <div className="inline-flex rounded-full border border-white/18 bg-black/18 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/88 backdrop-blur-sm">
-                  Galerie oeffnen
+                  Galerie öffnen
                 </div>
               </div>
               {lead.caption ? <div className="mt-3 text-lg font-semibold leading-tight">{lead.caption}</div> : null}
@@ -236,9 +236,9 @@ export default function EntityMediaGallery({
                 type="button"
                 onClick={closeLightbox}
                 className="inline-flex h-11 items-center justify-center rounded-full border border-white/16 bg-white/8 px-4 text-sm font-semibold text-white transition hover:bg-white/14"
-                aria-label="Galerie schliessen"
+                aria-label="Galerie schließen"
               >
-                Schliessen
+                Schließen
               </button>
             </div>
 
@@ -251,13 +251,13 @@ export default function EntityMediaGallery({
                     className="absolute left-6 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/16 bg-black/28 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-black/46"
                     aria-label="Vorheriges Bild"
                   >
-                    Zurueck
+                    Zurück
                   </button>
                   <button
                     type="button"
                     onClick={showNext}
                     className="absolute right-6 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/16 bg-black/28 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-black/46"
-                    aria-label="Naechstes Bild"
+                    aria-label="Nächstes Bild"
                   >
                     Weiter
                   </button>
@@ -283,7 +283,7 @@ export default function EntityMediaGallery({
                   ) : null}
                 </div>
                 <div className="text-xs leading-6 text-white/60">
-                  Klick ausserhalb oder druecke Escape, um die Ansicht zu schliessen.
+                  Klick außerhalb oder drücke Escape, um die Ansicht zu schließen.
                 </div>
               </div>
 

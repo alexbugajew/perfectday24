@@ -34,6 +34,15 @@ const NEED_LABEL: Record<string, string> = {
   transport:  "Transport",
 };
 
+/** Fallback für unbekannte Slugs: "jga-party" → "Jga Party" statt roher Techn-Slug. */
+function humanizeSlug(slug: string): string {
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
 type QuoteData = {
   id: string;
   token: string;
@@ -151,8 +160,10 @@ export default function VendorQuotePage() {
       })
     : null;
 
-  const occasionLabel = OCCASION_LABELS[quote.occasion_slug ?? ""] ?? quote.occasion_slug ?? "";
-  const needLabel     = NEED_LABEL[quote.need_slug ?? ""] ?? quote.need_slug ?? "Ihre Leistung";
+  const occasionLabel = OCCASION_LABELS[quote.occasion_slug ?? ""]
+    ?? (quote.occasion_slug ? humanizeSlug(quote.occasion_slug) : "");
+  const needLabel     = NEED_LABEL[quote.need_slug ?? ""]
+    ?? (quote.need_slug ? humanizeSlug(quote.need_slug) : "Ihre Leistung");
 
   // ── Success ───────────────────────────────────────────────────────────────────
   if (submitState === "success") {

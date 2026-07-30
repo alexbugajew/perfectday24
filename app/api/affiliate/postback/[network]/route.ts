@@ -8,12 +8,31 @@
 //   Tradedoubler S2S: /api/affiliate/postback/tradedoubler?click_id={epi}&order_id={reportingID}&amount={orderValue}&currency={currency}&status={status}&pd24_secret={SECRET}
 //   Booking (manuell/CSV upload): POST body im Bulk moeglich, gleiche Felder
 //
-// Security: pd24_secret query param prueft gegen env AFFILIATE_POSTBACK_SECRET.
+// Security: Shared Secret gegen env AFFILIATE_POSTBACK_SECRET.
+//   - Bevorzugt im Header `X-PD24-Postback-Secret` (landet nicht in Access-Logs)
+//   - Query-Parameter `pd24_secret` bleibt als Fallback, weil manche Netzwerke
+//     keine eigenen Header senden können
+//   - Fehlt das Secret in der Umgebung, wird der Endpunkt geschlossen
+//     (fail-closed) statt die Prüfung zu überspringen
 
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
 
 const VALID_NETWORKS = new Set(["awin", "tradedoubler", "booking", "direct", "other"]);
+
+const POSTBACK_SECRET_HEADER = "x-pd24-postback-secret";
+
+/** Längenunabhängiger, konstantzeitiger Vergleich zweier Secrets. */
+function secretsMatch(provided: string | null, expected: string): boolean {
+  if (!provided) return false;
+  if (provided.length !== expected.length) return false;
+  let diff = 0;
+  for (let i = 0; i < expected.length; i += 1) {
+    diff |= provided.charCodeAt(i) ^ expected.charCodeAt(i);
+  }
+  return diff === 0;
+}
 
 function readParam(url: URL, key: string, alt?: string): string | null {
   const primary = url.searchParams.get(key);
@@ -52,9 +71,20 @@ async function handlePostback(
   }
 
   const requestUrl = new URL(req.url);
+
+  // Fail-closed: ohne konfiguriertes Secret nimmt der Endpunkt nichts an.
+  // Vorher entfiel die Prüfung komplett, wenn die Env-Var fehlte — damit
+  // konnte jeder Provisionsdatensätze mit status=approved einschleusen.
   const expectedSecret = process.env.AFFILIATE_POSTBACK_SECRET;
-  const providedSecret = readParam(requestUrl, "pd24_secret");
-  if (expectedSecret && providedSecret !== expectedSecret) {
+  if (!expectedSecret) {
+    console.error("[postback] AFFILIATE_POSTBACK_SECRET ist nicht gesetzt — Endpunkt geschlossen.");
+    return NextResponse.json({ error: "postback_not_configured" }, { status: 503 });
+  }
+
+  const providedSecret =
+    req.headers.get(POSTBACK_SECRET_HEADER)?.trim() || readParam(requestUrl, "pd24_secret");
+
+  if (!secretsMatch(providedSecret, expectedSecret)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
@@ -116,7 +146,8 @@ async function handlePostback(
 
   if (error) {
     console.error("[postback]", network, error);
-    return NextResponse.json({ error: "insert_failed", detail: error.message }, { status: 500 });
+    // Interne DB-Fehlermeldungen nicht nach außen geben.
+    return NextResponse.json({ error: "insert_failed" }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true, network, click_id: clickId, status });
@@ -124,11 +155,15 @@ async function handlePostback(
 
 // Netzwerke bevorzugen GET (Pixel-Style) oder POST (S2S) — beides erlaubt.
 export async function GET(req: Request, ctx: { params: Promise<{ network: string }> }) {
+  const limited = enforceRateLimit(req, "affiliate:postback", RATE_RULES.write);
+  if (limited) return limited;
   const { network } = await ctx.params;
   return handlePostback(req, network, {});
 }
 
 export async function POST(req: Request, ctx: { params: Promise<{ network: string }> }) {
+  const limited = enforceRateLimit(req, "affiliate:postback", RATE_RULES.write);
+  if (limited) return limited;
   const { network } = await ctx.params;
   let body: Record<string, unknown> = {};
   try {

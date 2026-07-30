@@ -719,7 +719,7 @@ export default function EventsPage() {
                 <button
                   type="button"
                   onClick={() => setStep((s) => (s - 1) as Step)}
-                  className="inline-flex min-h-11 items-center rounded-xl border border-[rgba(23,23,23,0.12)] bg-white px-5 text-sm font-medium text-[#171717] transition hover:border-[#171717] focus-visible:outline-none"
+                  className="inline-flex min-h-11 items-center rounded-xl border border-[rgba(23,23,23,0.12)] bg-white px-5 text-sm font-medium text-[#171717] transition hover:border-[#171717]"
                 >
                   Zurück
                 </button>
@@ -732,7 +732,7 @@ export default function EventsPage() {
                   type="button"
                   onClick={() => setStep((s) => (s + 1) as Step)}
                   disabled={!canAdvance()}
-                  className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-40 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717] focus-visible:ring-offset-2"
+                  className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-40 hover:opacity-95"
                 >
                   Weiter
                 </button>
@@ -740,7 +740,7 @@ export default function EventsPage() {
                 <button
                   type="button"
                   onClick={handleFinish}
-                  className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717] focus-visible:ring-offset-2"
+                  className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition hover:opacity-95"
                 >
                   Dienstleister anzeigen
                 </button>

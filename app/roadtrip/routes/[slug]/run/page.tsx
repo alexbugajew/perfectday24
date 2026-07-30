@@ -144,7 +144,7 @@ function runStepAction(stop: RunStop, roadtripSlug?: string) {
   }
   return {
     href: `/planner?citySlug=${stop.citySlug}&planDate=${stop.arrivalDate}&dayStartMin=${ROADTRIP_AFTERNOON_START_MIN}`,
-    label: stop.plannedStops?.length ? "Tagesplanung oeffnen" : "Tag planen",
+    label: stop.plannedStops?.length ? "Tagesplanung öffnen" : "Tag planen",
   };
 }
 
@@ -377,7 +377,7 @@ export default function RoadtripRouteRunPage() {
           onClick={resetRoadtripRun}
           className="w-full rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2.5 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)] sm:w-auto"
         >
-          Fortschritt zuruecksetzen
+          Fortschritt zurücksetzen
         </button>
       </div>
 
@@ -431,7 +431,7 @@ export default function RoadtripRouteRunPage() {
                 onClick={() => setCurrentStop(nextPendingStop.id)}
                 className="inline-flex min-h-11 items-center justify-center rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-amber-600"
               >
-                Jetzt oeffnen
+                Jetzt öffnen
               </button>
             ) : (
               <span className="rounded-full border border-amber-200 bg-white px-3 py-1 text-xs font-medium text-amber-800">
@@ -444,7 +444,7 @@ export default function RoadtripRouteRunPage() {
         <section className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 shadow-sm sm:rounded-3xl sm:p-5">
           <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-700">Roadtrip abgeschlossen</div>
           <div className="mt-1 text-base font-semibold text-emerald-950">Alle Stopps sind erledigt oder bewusst uebersprungen.</div>
-          <div className="mt-1 text-sm text-emerald-800">Du kannst den Fortschritt zuruecksetzen oder den Roadtrip als Vorlage erneut starten.</div>
+          <div className="mt-1 text-sm text-emerald-800">Du kannst den Fortschritt zurücksetzen oder den Roadtrip als Vorlage erneut starten.</div>
         </section>
       )}
 
@@ -619,7 +619,7 @@ export default function RoadtripRouteRunPage() {
                 onClick={() => markStop(currentStop.id, "pending")}
                 className="inline-flex min-h-11 items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"
               >
-                Wieder oeffnen
+                Wieder öffnen
               </button>
             )}
           </div>
@@ -810,7 +810,7 @@ export default function RoadtripRouteRunPage() {
                   onClick={() => markStop(currentStop.id, "pending")}
                   className="min-h-11 rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm font-medium text-[var(--text-strong)]"
                 >
-                  Wieder oeffnen
+                  Wieder öffnen
                 </button>
               )}
             </div>

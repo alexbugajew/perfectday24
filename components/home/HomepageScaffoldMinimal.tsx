@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Cormorant_Garamond } from "next/font/google";
 import type { ReactNode } from "react";
 import { PD24Button } from "@/components/ui/pd24";
+import ConsentSettingsLink from "@/components/consent/ConsentSettingsLink";
 import HeroIntentBar from "@/components/home/HeroIntentBar";
 import HeroLiveDemo from "@/components/home/HeroLiveDemo";
 import EditorialRoutesShowcase from "@/components/home/EditorialRoutesShowcase";
@@ -698,6 +699,7 @@ export default function HomepageScaffoldMinimal() {
               <Link href="/saved">Meine Pläne</Link>
               <Link href="/impressum">Impressum</Link>
               <Link href="/datenschutz">Datenschutz</Link>
+              <ConsentSettingsLink className="text-left" />
               <Link href="/partner">Fuer Anbieter</Link>
               <Link href="/agb">AGB</Link>
             </div>

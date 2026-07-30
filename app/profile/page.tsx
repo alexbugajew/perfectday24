@@ -307,7 +307,10 @@ function ProfileRouteListItem({
 function ProfilePageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnUrl = searchParams.get("return") ?? null;
+  // Nur seitenrelative Pfade zulassen — sonst wäre ?return= ein Open Redirect,
+  // über den ein Nutzer direkt nach dem Login auf einer fremden Seite landet.
+  const rawReturn = searchParams.get("return");
+  const returnUrl = rawReturn ? safeInternalPath(rawReturn, "/profile") : null;
 
   const [mounted, setMounted] = useState(false);
   const [authReady, setAuthReady] = useState(false);
@@ -1259,7 +1262,7 @@ function ProfilePageInner() {
                     Registrieren
                   </button>
                   <button type="submit" disabled={authLoading} className="inline-flex h-11 items-center justify-center rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50">
-                    Einloggen
+                    Anmelden
                   </button>
                 </div>
               </form>

@@ -58,51 +58,76 @@ async function resolveSlotId(slotKey?: SponsoredSlotKey | null) {
   return typeof data?.id === "string" ? data.id : null;
 }
 
+/**
+ * Erzeugt einen Creator-Reward für einen Route-Copy.
+ *
+ * Gehärtet gegen Reward-Farming:
+ *   - `creatorProfileId` wird **aus der Route** aufgelöst, nicht aus dem Request
+ *     übernommen. Sonst kann sich jeder Rewards auf das eigene Profil buchen.
+ *   - Dedup läuft über (route_id, kopierender Nutzer). Vorher war `source_id`
+ *     aus `metadata.sourceRouteSlug` frei wählbar, wodurch sich beliebig viele
+ *     Rewards für dieselbe Route erzeugen ließen.
+ *   - Rewards zählen nur für eingeloggte Nutzer, weil `anonymousId` clientseitig
+ *     frei erfindbar ist.
+ *   - Selbstkopien erzeugen keinen Reward.
+ */
 async function maybeCreateCreatorReward(input: MonetizationTrackInput) {
   if (input.eventType !== "route_copy") return;
-  if (!input.creatorProfileId) return;
+  if (!input.routeId) return;
+
+  // Nur identifizierte Nutzer — userId stammt aus der Session, nicht aus dem Body.
+  const actorUserId = input.userId ?? null;
+  if (!actorUserId) return;
 
   const supabase = getSupabaseAdmin();
-  const sourceId =
-    typeof input.metadata?.sourceRouteSlug === "string"
-      ? input.metadata.sourceRouteSlug
-      : input.routeId ?? null;
 
-  let existingQuery = supabase
+  const { data: route, error: routeError } = await supabase
+    .from("user_routes")
+    .select("id, creator_profile_id, user_id")
+    .eq("id", input.routeId)
+    .maybeSingle();
+
+  if (routeError) {
+    console.error("Creator reward route lookup failed:", routeError);
+    return;
+  }
+
+  const creatorProfileId = route?.creator_profile_id as string | null | undefined;
+  if (!route || !creatorProfileId) return;
+
+  // Wer seine eigene Route kopiert, bekommt keinen Reward.
+  if (route.user_id && route.user_id === actorUserId) return;
+
+  const { data: existing, error: existingError } = await supabase
     .from("creator_reward_events")
     .select("id")
-    .eq("creator_profile_id", input.creatorProfileId)
-    .eq("source_type", "route_copy");
-
-  existingQuery = input.routeId
-    ? existingQuery.eq("route_id", input.routeId)
-    : existingQuery.is("route_id", null);
-  existingQuery = sourceId
-    ? existingQuery.eq("source_id", sourceId)
-    : existingQuery.is("source_id", null);
-
-  const { data: existing, error: existingError } = await existingQuery.limit(1);
+    .eq("creator_profile_id", creatorProfileId)
+    .eq("source_type", "route_copy")
+    .eq("route_id", input.routeId)
+    .eq("source_id", actorUserId)
+    .limit(1);
 
   if (existingError) {
     console.error("Creator reward duplicate check failed:", existingError);
+    return;
   }
 
   if (Array.isArray(existing) && existing.length > 0) return;
 
   const { error } = await supabase.from("creator_reward_events").insert({
-    creator_profile_id: input.creatorProfileId,
-    route_id: input.routeId ?? null,
+    creator_profile_id: creatorProfileId,
+    route_id: input.routeId,
     partner_profile_id: input.partnerProfileId ?? null,
     campaign_id: input.campaignId ?? null,
     city_slug: input.citySlug ?? null,
     reward_type: "distribution_credit",
     source_type: "route_copy",
-    source_id: sourceId,
+    // Ein Reward pro Route und kopierendem Nutzer.
+    source_id: actorUserId,
     reward_value: 1,
     reward_unit: "credit",
     status: "pending",
     metadata: {
-      ...(input.metadata ?? {}),
       sourceSurface: input.surface ?? null,
       rewardRail: "creator_distribution_tools",
     },

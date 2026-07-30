@@ -340,8 +340,9 @@ export default function PlannerStopListSection({
                         {phaseLabel}
                       </span>
                     ) : null}
-                    {/* Mobile-Reorder-Buttons oben rechts */}
-                    <div className="absolute right-2 top-2 flex items-center gap-1 sm:hidden">
+                    {/* Reorder-Buttons oben rechts — auch am Desktop sichtbar,
+                        damit die Reihenfolge ohne Maus-Drag (Tastatur/Screenreader) änderbar ist */}
+                    <div className="absolute right-2 top-2 flex items-center gap-1">
                       <button
                         type="button"
                         onClick={() => onMovePlannedStop(i, Math.max(0, i - 1))}

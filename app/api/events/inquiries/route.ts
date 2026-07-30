@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { randomBytes } from "crypto";
+import { escapeHtml, escapeHtmlMultiline } from "@/lib/security/html";
+import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
+
+/** Obergrenze für Empfänger pro Anfrage — begrenzt Mail-Missbrauch. */
+const MAX_PROVIDERS_PER_INQUIRY = 12;
+/** Freitext des Kunden, der in die Vendor-Mail übernommen wird. */
+const MAX_CUSTOMER_MESSAGE_LENGTH = 2000;
 
 const OCCASION_LABELS: Record<string, string> = {
   geburtstag:       "Geburtstag",
@@ -28,7 +35,18 @@ const NEED_LABEL: Record<string, string> = {
   transport:  "Transport",
 };
 
+/**
+ * Was der Client schicken darf. `email` und `name` werden bewusst **nicht**
+ * übernommen — beide werden serverseitig aus `service_providers` geladen,
+ * sonst wäre die Route ein offener Mail-Relay.
+ */
 type ProviderEntry = {
+  id: string;
+  needSlug: string;
+};
+
+/** Serverseitig aus der DB aufgelöster Anbieter. */
+type ResolvedProvider = {
   id: string;
   needSlug: string;
   email: string | null;
@@ -61,8 +79,8 @@ async function sendVendorEmail(opts: {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return; // email is optional — DB records are the source of truth
 
-  const { to, vendorName, needLabel, quoteToken, eventData } = opts;
-  const quoteUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://perfectday24.de"}/vendor/quote/${quoteToken}`;
+  const { to, needLabel, quoteToken, eventData } = opts;
+  const quoteUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://perfectday24.de"}/vendor/quote/${encodeURIComponent(quoteToken)}`;
   const occasionLabel = OCCASION_LABELS[eventData.occasion] ?? eventData.occasion;
 
   const dateFormatted = eventData.date
@@ -70,6 +88,18 @@ async function sendVendorEmail(opts: {
         day: "2-digit", month: "long", year: "numeric",
       })
     : "Datum offen";
+
+  // Alles, was aus Nutzereingaben stammt, wird escaped. Zahlen und die
+  // Label-Maps sind unkritisch, werden aber der Einheitlichkeit wegen
+  // gleich behandelt.
+  const safeOccasion = escapeHtml(occasionLabel);
+  const safeNeedLabel = escapeHtml(needLabel);
+  const safeDate = escapeHtml(dateFormatted);
+  const safePlanTitle = escapeHtml(eventData.planTitle || occasionLabel);
+  const safeCity = escapeHtml(eventData.cityName || eventData.city);
+  const safeMessage = eventData.customerMessage
+    ? escapeHtmlMultiline(eventData.customerMessage, MAX_CUSTOMER_MESSAGE_LENGTH)
+    : "";
 
   const html = `
 <!DOCTYPE html>
@@ -82,29 +112,29 @@ async function sendVendorEmail(opts: {
       PerfectDay24 · Neue Preisanfrage
     </div>
     <h1 style="margin:0 0 8px;font-size:22px;font-weight:700;color:#171717">
-      Preisanfrage: ${needLabel}
+      Preisanfrage: ${safeNeedLabel}
     </h1>
     <p style="color:#665d55;margin:0 0 24px;font-size:14px">
-      Jemand plant einen <strong>${occasionLabel}</strong> und ist an Ihrem Angebot interessiert.
+      Jemand plant einen <strong>${safeOccasion}</strong> und ist an Ihrem Angebot interessiert.
     </p>
 
     <div style="background:#f0ede7;border-radius:12px;padding:16px 20px;margin-bottom:24px">
       <table style="width:100%;border-collapse:collapse;font-size:14px">
         <tr>
           <td style="color:#8b7767;padding:4px 0;width:40%">Event</td>
-          <td style="color:#171717;font-weight:600">${eventData.planTitle || occasionLabel}</td>
+          <td style="color:#171717;font-weight:600">${safePlanTitle}</td>
         </tr>
         <tr>
           <td style="color:#8b7767;padding:4px 0">Anlass</td>
-          <td style="color:#171717">${occasionLabel}</td>
+          <td style="color:#171717">${safeOccasion}</td>
         </tr>
         <tr>
           <td style="color:#8b7767;padding:4px 0">Datum</td>
-          <td style="color:#171717">${dateFormatted}</td>
+          <td style="color:#171717">${safeDate}</td>
         </tr>
         <tr>
           <td style="color:#8b7767;padding:4px 0">Ort</td>
-          <td style="color:#171717">${eventData.cityName || eventData.city}</td>
+          <td style="color:#171717">${safeCity}</td>
         </tr>
         ${eventData.guests > 0 ? `
         <tr>
@@ -116,10 +146,10 @@ async function sendVendorEmail(opts: {
           <td style="color:#8b7767;padding:4px 0">Budget gesamt</td>
           <td style="color:#171717">ca. ${eventData.budget.toLocaleString("de-DE")} €</td>
         </tr>` : ""}
-        ${eventData.customerMessage ? `
+        ${safeMessage ? `
         <tr>
           <td style="color:#8b7767;padding:4px 0;vertical-align:top">Nachricht</td>
-          <td style="color:#171717">${eventData.customerMessage}</td>
+          <td style="color:#171717">${safeMessage}</td>
         </tr>` : ""}
       </table>
     </div>
@@ -153,13 +183,17 @@ async function sendVendorEmail(opts: {
       from: "PerfectDay24 <anfragen@perfectday24.de>",
       reply_to: `anfrage+${quoteToken}@perfectday24.de`,
       to: [to],
-      subject: `Preisanfrage für ${needLabel} — ${OCCASION_LABELS[eventData.occasion] ?? eventData.occasion} am ${dateFormatted}`,
+      subject: `Preisanfrage für ${needLabel} — ${occasionLabel} am ${dateFormatted}`,
       html,
     }),
   });
 }
 
 export async function POST(req: NextRequest) {
+  // Diese Route löst Mails aus — entsprechend strenges Limit.
+  const limited = enforceRateLimit(req, "events:inquiries", RATE_RULES.mail);
+  if (limited) return limited;
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
   const serviceKey  = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
@@ -189,6 +223,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "missing_fields" }, { status: 400 });
   }
 
+  if (providers.length > MAX_PROVIDERS_PER_INQUIRY) {
+    return NextResponse.json(
+      { error: "too_many_providers", max: MAX_PROVIDERS_PER_INQUIRY },
+      { status: 400 }
+    );
+  }
+
+  // needSlug muss ein bekannter Bedarf sein — sonst landen Fantasiewerte in
+  // vendor_quotes.need_slug.
+  const invalidNeed = providers.find((p) => !p?.id || !NEED_LABEL[p?.needSlug]);
+  if (invalidNeed) {
+    return NextResponse.json({ error: "invalid_provider_entry" }, { status: 400 });
+  }
+
   const admin = createClient(supabaseUrl, serviceKey);
 
   // Verify the plan belongs to this user
@@ -203,6 +251,45 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "plan_not_found" }, { status: 404 });
   }
 
+  // Anbieter serverseitig auflösen: E-Mail und Name kommen ausschließlich aus
+  // der DB, niemals aus dem Request. Unbekannte IDs werden abgelehnt, damit
+  // keine Quote-Zeilen mit erfundenen provider_id entstehen.
+  const requestedIds = [...new Set(providers.map((p) => p.id))];
+  const { data: dbProviders, error: providerErr } = await admin
+    .from("service_providers")
+    .select("id, name, contact_email, status")
+    .in("id", requestedIds)
+    // Der Service-Role-Client umgeht RLS, deshalb hier explizit dieselbe
+    // Bedingung wie in der Policy "service_providers_select_active".
+    .eq("status", "active");
+
+  if (providerErr) {
+    console.error("provider lookup failed:", providerErr.message);
+    return NextResponse.json({ error: "provider_lookup_failed" }, { status: 500 });
+  }
+
+  const providerById = new Map(
+    (dbProviders ?? []).map((p) => [p.id as string, p])
+  );
+
+  const unknownIds = requestedIds.filter((id) => !providerById.has(id));
+  if (unknownIds.length > 0) {
+    return NextResponse.json(
+      { error: "unknown_providers", count: unknownIds.length },
+      { status: 400 }
+    );
+  }
+
+  const resolvedProviders: ResolvedProvider[] = providers.map((p) => {
+    const db = providerById.get(p.id)!;
+    return {
+      id: p.id,
+      needSlug: p.needSlug,
+      email: (db.contact_email as string | null) ?? null,
+      name: (db.name as string) ?? "",
+    };
+  });
+
   // Create inquiry
   const { data: inquiry, error: inquiryErr } = await admin
     .from("event_inquiries")
@@ -215,7 +302,8 @@ export async function POST(req: NextRequest) {
       event_date:       eventData.date || null,
       guest_count:      eventData.guests || null,
       budget_cents:     eventData.budget ? eventData.budget * 100 : null,
-      customer_message: eventData.customerMessage || null,
+      customer_message:
+        eventData.customerMessage?.slice(0, MAX_CUSTOMER_MESSAGE_LENGTH) || null,
       sent_at:          new Date().toISOString(),
     })
     .select("id")
@@ -227,7 +315,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Create vendor_quotes + send emails
-  const quoteRows = providers.map((p) => ({
+  const quoteRows = resolvedProviders.map((p) => ({
     inquiry_id:  inquiry.id,
     provider_id: p.id,
     need_slug:   p.needSlug,
@@ -247,7 +335,7 @@ export async function POST(req: NextRequest) {
 
   // Send emails (fire-and-forget, don't block response)
   const emailPromises = (quotes ?? []).map(async (quote) => {
-    const provider = providers.find((p) => p.id === quote.provider_id);
+    const provider = resolvedProviders.find((p) => p.id === quote.provider_id);
     if (!provider?.email) return;
     try {
       await sendVendorEmail({

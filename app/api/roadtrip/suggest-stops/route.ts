@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import type { SuggestedStop, RoutePreference } from "@/lib/roadtrip/suggest-types";
+import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -33,6 +34,9 @@ const PREFERENCE_DESCRIPTIONS: Record<RoutePreference, string> = {
 };
 
 export async function POST(req: NextRequest) {
+  const limited = enforceRateLimit(req, "ai:suggest-stops", RATE_RULES.ai);
+  if (limited) return limited;
+
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     console.error("suggest-stops: OPENAI_API_KEY not configured");

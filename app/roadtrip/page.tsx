@@ -223,6 +223,14 @@ function RoadtripPageContent() {
   const [saving, setSaving] = useState(false);
   const [savedRouteSlug, setSavedRouteSlug] = useState<string | null>(null);
 
+  // Feedback-Toast (In-App statt natives alert())
+  const [toast, setToast] = useState<{ message: string; kind: "success" | "error" } | null>(null);
+
+  function showToast(message: string, kind: "success" | "error" = "success") {
+    setToast({ message, kind });
+    setTimeout(() => setToast(null), 3200);
+  }
+
   useEffect(() => setMounted(true), []);
 
   // Lightweight auth check for attribution
@@ -574,7 +582,8 @@ function RoadtripPageContent() {
       });
 
       if (error || !route) {
-        alert(`Fehler beim Speichern: ${error ?? "Unbekannter Fehler"}`);
+        console.error("Roadtrip speichern fehlgeschlagen:", error);
+        showToast("Route konnte nicht gespeichert werden. Bitte versuch es gleich noch einmal.", "error");
         return;
       }
 
@@ -678,7 +687,8 @@ function RoadtripPageContent() {
       });
 
       if (error || !route) {
-        alert(`Fehler: ${error ?? "Unbekannter Fehler"}`);
+        console.error("Roadtrip starten fehlgeschlagen:", error);
+        showToast("Roadtrip konnte nicht gestartet werden. Bitte versuch es gleich noch einmal.", "error");
         return;
       }
 
@@ -1858,7 +1868,7 @@ function RoadtripPageContent() {
           className="fixed inset-0 z-[2000] flex items-end justify-center bg-black/40 backdrop-blur-sm sm:items-center"
           onClick={(e) => { if (e.target === e.currentTarget) setShowSaveModal(false); }}
         >
-          <div className="w-full max-w-lg overflow-hidden rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl">
+          <div className="flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl">
             {/* Modal header */}
             <div className="flex items-center justify-between border-b border-[var(--line-subtle)] px-5 py-4">
               <h2 className="font-semibold text-[var(--text-strong)]">Route speichern & teilen</h2>
@@ -1873,7 +1883,7 @@ function RoadtripPageContent() {
               </button>
             </div>
 
-            <div className="space-y-4 px-5 py-4">
+            <div className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
               {savedRouteSlug ? (
                 // ── Success state ────────────────────────────────────────────
                 <div className="space-y-4 text-center">
@@ -2029,6 +2039,23 @@ function RoadtripPageContent() {
           </div>
         </div>
       )}
+
+      {/* ── Feedback-Toast (dauerhaft gemountet, Inhalt wechselt) ────────── */}
+      <div
+        role="status"
+        aria-live="polite"
+        className="pointer-events-none fixed bottom-4 left-1/2 z-[2100] -translate-x-1/2"
+      >
+        {toast ? (
+          <div
+            className={`rounded-xl px-4 py-2 text-sm text-white shadow-lg ${
+              toast.kind === "error" ? "bg-red-600" : "bg-[var(--text-strong)]"
+            }`}
+          >
+            {toast.message}
+          </div>
+        ) : null}
+      </div>
     </main>
   );
 }

@@ -15,12 +15,12 @@ type Props = {
 const BENEFITS: { emoji: string; title: string; body: string }[] = [
   {
     emoji: "✨",
-    title: "Unlimited AI-Pläne",
-    body: "Kein monatliches Limit mehr. Plan spontan, so oft du willst.",
+    title: "Unbegrenzte KI-Pläne",
+    body: "Kein monatliches Limit mehr. Plane spontan, so oft du willst.",
   },
   {
     emoji: "💾",
-    title: "Unlimited Speichern",
+    title: "Unbegrenzt speichern",
     body: "Behalte jeden Plan im Zugriff, nicht nur die letzten 10.",
   },
   {
@@ -31,7 +31,7 @@ const BENEFITS: { emoji: string; title: string; body: string }[] = [
   {
     emoji: "⚡",
     title: "Priorisierte Verarbeitung",
-    body: "AI-Pläne werden schneller berechnet, auch bei Peak-Nutzung.",
+    body: "AI-Pläne werden schneller berechnet, auch zu Stoßzeiten.",
   },
 ];
 
@@ -48,16 +48,19 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
       const res = await fetch("/api/stripe/user-checkout", { method: "POST" });
       if (!res.ok) {
         const text = await res.text().catch(() => "");
-        throw new Error(`Checkout fehlgeschlagen (${res.status}) ${text.slice(0, 120)}`);
+        console.error(`Checkout fehlgeschlagen (${res.status})`, text);
+        throw new Error("Der Bezahlvorgang konnte nicht gestartet werden. Bitte versuch es erneut.");
       }
       const json = (await res.json()) as { url?: string; error?: string };
       if (json.url) {
         window.location.href = json.url;
         return;
       }
-      throw new Error(json.error ?? "Kein Checkout-URL zurück");
+      if (json.error) console.error("Checkout ohne URL:", json.error);
+      throw new Error("Der Bezahlvorgang konnte nicht gestartet werden. Bitte versuch es erneut.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unbekannter Fehler");
+      console.error("Checkout-Fehler:", err);
+      setError("Der Bezahlvorgang konnte nicht gestartet werden. Bitte versuch es erneut.");
       setLoading(false);
     }
   }

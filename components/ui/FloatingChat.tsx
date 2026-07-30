@@ -55,11 +55,19 @@ export default function FloatingChat() {
   // Nicht auf der Chat-Seite selbst anzeigen, und nur für eingeloggte Nutzer
   if (!userId || pathname === "/chat") return null;
 
+  // Seiten mit eigener fixer Bottom-Bar (Planner-CTA, Run-Aktionsleisten):
+  // FAB höher setzen, damit er die Leiste nicht überdeckt.
+  const hasOwnBottomBar =
+    pathname === "/planner" ||
+    pathname === "/run" ||
+    ((pathname.startsWith("/routes/") || pathname.startsWith("/roadtrip/routes/")) &&
+      pathname.endsWith("/run"));
+
   return (
     <button
       onClick={() => router.push("/chat")}
       aria-label="Chat öffnen"
-      className="fixed bottom-24 right-4 z-[1200] flex h-13 w-13 items-center justify-center rounded-full bg-[var(--text-strong)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.28)] transition hover:scale-105 hover:shadow-[0_12px_32px_rgba(0,0,0,0.36)] active:scale-95 sm:bottom-6 sm:right-6 sm:h-14 sm:w-14"
+      className={`fixed ${hasOwnBottomBar ? "bottom-40" : "bottom-24"} right-4 z-[1200] flex h-13 w-13 items-center justify-center rounded-full bg-[var(--text-strong)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.28)] transition hover:scale-105 hover:shadow-[0_12px_32px_rgba(0,0,0,0.36)] active:scale-95 sm:bottom-6 sm:right-6 sm:h-14 sm:w-14`}
     >
       {/* Chat-Bubble Icon */}
       <svg

@@ -1,6 +1,7 @@
 // app/api/parse-intent/route.ts
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -137,10 +138,14 @@ Beispiel: {"city":"München","occasion":"date","experienceMode":null,"datePrefer
 // Route handler
 // ---------------------------------------------------------------------------
 export async function POST(req: Request) {
+  const limited = enforceRateLimit(req, "ai:parse-intent", RATE_RULES.aiLight);
+  if (limited) return limited;
+
   try {
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
     const body = await req.json().catch(() => ({}));
-    const text = typeof body?.text === "string" ? body.text.trim() : "";
+    // Länge begrenzen, damit der Prompt nicht beliebig groß wird.
+    const text = typeof body?.text === "string" ? body.text.trim().slice(0, 500) : "";
 
     if (!text || text.length > 500) {
       return NextResponse.json(

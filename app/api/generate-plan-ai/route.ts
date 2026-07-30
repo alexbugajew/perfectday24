@@ -14,6 +14,8 @@ import { AI_PLANNER_TOOLS, callTool, type ToolName, type AiCandidate } from "@/l
 import { createClient } from "@supabase/supabase-js";
 import { getUserPremiumStatus, FREE_AI_PLANS_PER_MONTH } from "@/lib/premium/limits";
 import { isOpenAt } from "@/lib/planner/opening-hours";
+import { getRequestUserId } from "@/lib/security/session";
+import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -161,6 +163,11 @@ async function resolveStopsFromDb(stops: AiStopPlan[]): Promise<ResolvedStop[]> 
 }
 
 export async function POST(req: Request) {
+  // Harte Obergrenze pro IP — greift auch für anonyme Aufrufe, die vom
+  // Premium-Gate bewusst nicht erfasst werden (Marketing/Demo).
+  const limited = enforceRateLimit(req, "ai:generate-plan", RATE_RULES.ai);
+  if (limited) return limited;
+
   try {
     if (!process.env.OPENAI_API_KEY) {
       return NextResponse.json({ error: "OPENAI_API_KEY missing" }, { status: 500 });
@@ -190,31 +197,29 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "prompt too long" }, { status: 400 });
     }
 
-    // Premium-Gate: eingeloggte User gegen Free-Limit prüfen.
-    // Ohne Auth kein Gate → Marketing/Demo funktioniert weiter.
-    const authHeader = req.headers.get("authorization") ?? "";
-    const accessToken = authHeader.replace(/^Bearer\s+/i, "").trim();
-    if (accessToken) {
+    // Premium-Gate. Wichtig: Die Nutzer-ID wird nicht nur aus dem
+    // Authorization-Header gelesen, sondern notfalls aus der Cookie-Session.
+    // Vorher hieß "kein Header" = "kein Gate", wodurch sich das Free-Limit
+    // durch schlichtes Weglassen des Tokens umgehen ließ.
+    const userId = await getRequestUserId(req);
+
+    if (userId) {
       const sbAuth = createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.SUPABASE_SERVICE_ROLE_KEY!,
         { auth: { persistSession: false } }
       );
-      const { data: userRes } = await sbAuth.auth.getUser(accessToken);
-      const userId = userRes?.user?.id ?? null;
-      if (userId) {
-        const status = await getUserPremiumStatus(sbAuth, userId);
-        if (status.limitReached) {
-          return NextResponse.json(
-            {
-              error: "free_limit_reached",
-              limit: FREE_AI_PLANS_PER_MONTH,
-              used: status.aiPlansUsedThisMonth,
-              upgradeUrl: "/api/stripe/user-checkout",
-            },
-            { status: 402 }
-          );
-        }
+      const status = await getUserPremiumStatus(sbAuth, userId);
+      if (status.limitReached) {
+        return NextResponse.json(
+          {
+            error: "free_limit_reached",
+            limit: FREE_AI_PLANS_PER_MONTH,
+            used: status.aiPlansUsedThisMonth,
+            upgradeUrl: "/api/stripe/user-checkout",
+          },
+          { status: 402 }
+        );
       }
     }
 

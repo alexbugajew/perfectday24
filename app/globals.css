@@ -11,7 +11,7 @@
   --text-muted: #586373;
   --text-soft: #7c8797;
   --text-muted-warm: #665d55;
-  --text-soft-warm: #8b7767;
+  --text-soft-warm: #7a6857;
 
   --brand-accent: #5a7688;
   --brand-accent-soft: #d8e1e7;
@@ -33,7 +33,7 @@
   --shadow-soft: 0 18px 44px rgba(15, 23, 42, 0.06);
   --shadow-large: 0 24px 70px rgba(15, 23, 42, 0.08);
   --shadow-hover: 0 18px 46px rgba(15, 23, 42, 0.1);
-  --focus-ring: 0 0 0 3px rgba(216, 225, 231, 0.95);
+  --focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px #31271b;
 
   --space-1: 4px;
   --space-2: 8px;

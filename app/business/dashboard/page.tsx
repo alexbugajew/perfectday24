@@ -331,7 +331,7 @@ export default function BusinessDashboardPage() {
       <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
         <p className="font-medium text-[var(--text-strong)]">Bitte zuerst anmelden.</p>
         <Link href="/profile" className="mt-4 inline-flex rounded-2xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90">
-          Zum Login →
+          Anmelden →
         </Link>
       </div>
     );

@@ -70,24 +70,32 @@ export type SponsoredSlotType =
   | "city_spotlight"
   | "creator_distribution";
 
-export type AttributionEventType =
-  | "impression"
-  | "click"
-  | "redirect"
-  | "lead"
-  | "conversion"
-  | "plan_intent"
-  | "plan_save"
-  | "share_activation"
-  | "group_confirmation"
-  | "route_copy"
-  | "route_view"
-  | "route_publish"
-  | "creator_follow"
-  | "ai_plan_open"
-  | "ai_plan_generated"
-  | "ai_plan_applied"
-  | "ai_plan_exited";
+/**
+ * Laufzeit-Liste der erlaubten Event-Typen. Wird von den öffentlichen
+ * Tracking-Endpunkten zur Validierung genutzt, damit keine beliebigen Werte in
+ * `attribution_events.event_type` landen.
+ */
+export const ATTRIBUTION_EVENT_TYPES = [
+  "impression",
+  "click",
+  "redirect",
+  "lead",
+  "conversion",
+  "plan_intent",
+  "plan_save",
+  "share_activation",
+  "group_confirmation",
+  "route_copy",
+  "route_view",
+  "route_publish",
+  "creator_follow",
+  "ai_plan_open",
+  "ai_plan_generated",
+  "ai_plan_applied",
+  "ai_plan_exited",
+] as const;
+
+export type AttributionEventType = (typeof ATTRIBUTION_EVENT_TYPES)[number];
 
 export type CreatorRewardType =
   | "distribution_credit"

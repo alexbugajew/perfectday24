@@ -156,7 +156,7 @@ export default async function CityExplorePage({
 
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
-        <Link href="/explore" className="hover:text-[var(--text-strong)]">Explore</Link>
+        <Link href="/explore" className="hover:text-[var(--text-strong)]">Entdecken</Link>
         <span>/</span>
         <span className="text-[var(--text-strong)]">{cityConfig.label}</span>
       </div>

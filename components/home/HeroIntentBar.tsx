@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 // ---------------------------------------------------------------------------
@@ -158,6 +158,14 @@ export default function HeroIntentBar() {
   const [phase, setPhase] = useState<Phase>({ kind: "idle" });
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const focusTargetRef = useRef<HTMLElement | null>(null);
+
+  // Beim Phasenwechsel wird das fokussierte Input unmounted; Fokus gezielt
+  // auf die neue Überschrift bzw. Meldung setzen statt auf <body> fallen lassen.
+  useEffect(() => {
+    if (phase.kind === "idle" || phase.kind === "parsing") return;
+    focusTargetRef.current?.focus();
+  }, [phase.kind]);
 
   async function parseAndRoute(inputText: string) {
     setPhase({ kind: "parsing" });
@@ -219,6 +227,9 @@ export default function HeroIntentBar() {
     setTimeout(() => inputRef.current?.focus(), 60);
   }
 
+  // Inhalt pro Phase; wird unten in einem dauerhaft gemounteten
+  // aria-live-Container gerendert (Container bleibt, nur Inhalt wechselt).
+  function renderPhase() {
   // ── Parsing ──────────────────────────────────────────────────────────────
   if (phase.kind === "parsing") {
     return (
@@ -233,7 +244,11 @@ export default function HeroIntentBar() {
   if (phase.kind === "city_missing") {
     return (
       <div className="mt-7 space-y-4">
-        <div className="text-sm font-semibold text-[var(--text-strong)]">
+        <div
+          ref={(el) => { focusTargetRef.current = el; }}
+          tabIndex={-1}
+          className="text-sm font-semibold text-[var(--text-strong)] outline-none"
+        >
           {phase.intent.occasion ? (
             <>
               {occasionEmoji(phase.intent.occasion)} {occasionLabel(phase.intent.occasion)} — in
@@ -278,7 +293,11 @@ export default function HeroIntentBar() {
               <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-warm)]">
                 Dein Plan
               </div>
-              <div className="mt-1.5 text-lg font-semibold tracking-tight text-[var(--text-strong)]">
+              <div
+                ref={(el) => { focusTargetRef.current = el; }}
+                tabIndex={-1}
+                className="mt-1.5 text-lg font-semibold tracking-tight text-[var(--text-strong)] outline-none"
+              >
                 {occasionEmoji(intent.occasion)} {occasionLabel(intent.occasion)}
                 {" · "}
                 {cityDisplayName(intent)}
@@ -322,7 +341,11 @@ export default function HeroIntentBar() {
   if (phase.kind === "error") {
     return (
       <div className="mt-7 space-y-3">
-        <div className="rounded-2xl border border-[rgba(196,137,79,0.3)] bg-[rgba(196,137,79,0.08)] px-4 py-3 text-sm text-[var(--brand-warm)]">
+        <div
+          ref={(el) => { focusTargetRef.current = el; }}
+          tabIndex={-1}
+          className="rounded-2xl border border-[rgba(196,137,79,0.3)] bg-[rgba(196,137,79,0.08)] px-4 py-3 text-sm text-[var(--brand-warm)] outline-none"
+        >
           {phase.message}
         </div>
         <button
@@ -344,6 +367,7 @@ export default function HeroIntentBar() {
         <input
           ref={inputRef}
           type="text"
+          aria-label="Beschreibe deinen Tag"
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
@@ -381,4 +405,8 @@ export default function HeroIntentBar() {
       </div>
     </div>
   );
+  }
+
+  // Dauerhaft gemounteter Live-Container: Phasenwechsel werden announced.
+  return <div aria-live="polite">{renderPhase()}</div>;
 }

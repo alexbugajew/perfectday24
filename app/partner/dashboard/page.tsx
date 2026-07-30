@@ -470,6 +470,7 @@ export default function PartnerDashboard() {
   const [loading, setLoading] = useState(true);
   const [needsAuth, setNeedsAuth] = useState(false);
   const [noAccess, setNoAccess] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   const [stats, setStats] = useState<Stats>({ impressions: 0, clicks: 0, bookings: 0 });
   const [providers, setProviders] = useState<ServiceProvider[]>([]);
@@ -486,6 +487,7 @@ export default function PartnerDashboard() {
 
   // Booking status update
   const [bookingUpdating, setBookingUpdating] = useState<string | null>(null);
+  const [bookingError, setBookingError] = useState<{ id: string; message: string } | null>(null);
 
   // Upgrade
   const [upgrading, setUpgrading] = useState(false);
@@ -539,6 +541,7 @@ export default function PartnerDashboard() {
     setLoading(true);
     setNeedsAuth(false);
     setNoAccess(false);
+    setLoadError(false);
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -569,7 +572,11 @@ export default function PartnerDashboard() {
         .limit(1)
         .maybeSingle();
 
-      if (membershipErr || !membership || !membership.partner_profiles) {
+      if (membershipErr) {
+        setLoadError(true);
+        return;
+      }
+      if (!membership || !membership.partner_profiles) {
         setNoAccess(true);
         return;
       }
@@ -687,7 +694,7 @@ export default function PartnerDashboard() {
         bookings:    bookingCount30d,
       });
     } catch {
-      setNoAccess(true);
+      setLoadError(true);
     } finally {
       setLoading(false);
     }
@@ -722,12 +729,15 @@ export default function PartnerDashboard() {
 
   async function handleBookingStatus(bookingId: string, newStatus: "confirmed" | "declined") {
     setBookingUpdating(bookingId);
+    setBookingError(null);
     const { error } = await supabase
       .from("event_bookings")
       .update({ status: newStatus })
       .eq("id", bookingId);
 
-    if (!error) {
+    if (error) {
+      setBookingError({ id: bookingId, message: "Status konnte nicht gespeichert werden — bitte erneut versuchen." });
+    } else {
       setBookings((prev) =>
         prev.map((b) => b.id === bookingId ? { ...b, status: newStatus } : b)
       );
@@ -1185,6 +1195,26 @@ export default function PartnerDashboard() {
     );
   }
 
+  if (loadError) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
+        <p className="text-lg font-semibold text-[var(--text-strong)]">Dashboard konnte nicht geladen werden</p>
+        <p className="mt-2 text-sm text-[var(--text-muted)]">
+          Beim Laden deiner Partner-Daten ist ein Fehler aufgetreten. Bitte versuche es erneut.
+        </p>
+        <div className="mt-6 flex justify-center">
+          <button
+            type="button"
+            onClick={() => void load()}
+            className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+          >
+            Erneut laden
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (noAccess || !profile) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
@@ -1414,7 +1444,7 @@ export default function PartnerDashboard() {
       </div>
 
       <div className="space-y-6">
-        <div className="sticky top-0 z-30 -mx-4 flex flex-wrap gap-2 bg-[var(--bg-canvas-warm)]/90 px-4 py-3 backdrop-blur">
+        <div className="sticky top-14 z-30 -mx-4 flex flex-wrap gap-2 bg-[var(--bg-canvas-warm)]/90 px-4 py-3 backdrop-blur sm:top-[72px]">
           {[
             ["overview", "Überblick"],
             ["asset-studio", "Angebote anlegen"],
@@ -2034,6 +2064,7 @@ export default function PartnerDashboard() {
                   booking={booking}
                   isAdmin={isAdmin}
                   updating={bookingUpdating === booking.id}
+                  error={bookingError?.id === booking.id ? bookingError.message : null}
                   onConfirm={() => void handleBookingStatus(booking.id, "confirmed")}
                   onDecline={() => void handleBookingStatus(booking.id, "declined")}
                 />
@@ -2511,11 +2542,12 @@ export default function PartnerDashboard() {
 // ─── Helper components ────────────────────────────────────────────────────────
 
 function BookingRow({
-  booking, isAdmin, updating, onConfirm, onDecline,
+  booking, isAdmin, updating, error, onConfirm, onDecline,
 }: {
   booking: BookingRequest;
   isAdmin: boolean;
   updating: boolean;
+  error?: string | null;
   onConfirm: () => void;
   onDecline: () => void;
 }) {
@@ -2570,6 +2602,9 @@ function BookingRow({
           </div>
         )}
       </div>
+      {error && (
+        <p className="mt-2 text-xs font-medium text-red-600" role="alert">{error}</p>
+      )}
     </div>
   );
 }

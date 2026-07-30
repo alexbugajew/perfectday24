@@ -174,7 +174,9 @@ export default function EventPlanDetailPage() {
   const [rsvps, setRsvps] = useState<RsvpRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const [shareLoading, setShareLoading] = useState(false);
+  const [shareError, setShareError] = useState<string | null>(null);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [shareCopied, setShareCopied] = useState(false);
   const [expandedBookings, setExpandedBookings] = useState<Record<string, boolean>>({});
@@ -189,6 +191,9 @@ export default function EventPlanDetailPage() {
   const [eventMediaVersion, setEventMediaVersion] = useState(0);
 
   const loadPlan = useCallback(async () => {
+    setLoading(true);
+    setLoadError(false);
+    setNotFound(false);
     const { data: sessionData } = await supabase.auth.getSession();
     const userId = sessionData.session?.user?.id ?? null;
 
@@ -214,7 +219,13 @@ export default function EventPlanDetailPage() {
       .single();
 
     if (error || !data) {
-      setNotFound(true);
+      // PGRST116 = keine Zeile gefunden; alles andere ist ein Lade-/Netzwerkfehler
+      if (!error || error.code === "PGRST116") {
+        setNotFound(true);
+      } else {
+        console.error("Event plan load error:", error);
+        setLoadError(true);
+      }
       setLoading(false);
       return;
     }
@@ -249,6 +260,7 @@ export default function EventPlanDetailPage() {
   async function handleShare() {
     if (!plan) return;
     setShareLoading(true);
+    setShareError(null);
 
     // Save host name / invite note if changed
     const updates: Record<string, string> = {};
@@ -257,7 +269,13 @@ export default function EventPlanDetailPage() {
 
     if (plan.share_token) {
       if (Object.keys(updates).length) {
-        await supabase.from("event_plans").update(updates).eq("id", plan.id);
+        const { error: updateError } = await supabase.from("event_plans").update(updates).eq("id", plan.id);
+        if (updateError) {
+          console.error("Share config update error:", updateError);
+          setShareError("Änderungen konnten nicht gespeichert werden. Bitte versuche es erneut.");
+          setShareLoading(false);
+          return;
+        }
       }
       const url = `${window.location.origin}/events/agenda/${plan.share_token}`;
       setShareUrl(url);
@@ -274,7 +292,12 @@ export default function EventPlanDetailPage() {
       .update({ share_token: token, ...updates })
       .eq("id", plan.id);
 
-    if (error) { setShareLoading(false); return; }
+    if (error) {
+      console.error("Share token create error:", error);
+      setShareError("Link konnte nicht erstellt werden. Bitte versuche es erneut.");
+      setShareLoading(false);
+      return;
+    }
 
     const url = `${window.location.origin}/events/agenda/${token}`;
     setShareUrl(url);
@@ -451,6 +474,22 @@ export default function EventPlanDetailPage() {
     );
   }
 
+  if (loadError) {
+    return (
+      <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
+        <p className="text-lg font-medium text-[var(--text-strong)]">Event konnte nicht geladen werden</p>
+        <p className="mt-1 text-sm text-[var(--text-muted)]">Bitte prüfe deine Internetverbindung und versuche es erneut.</p>
+        <button
+          type="button"
+          onClick={() => void loadPlan()}
+          className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+        >
+          Erneut versuchen
+        </button>
+      </div>
+    );
+  }
+
   if (notFound || !plan) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
@@ -567,6 +606,10 @@ export default function EventPlanDetailPage() {
                 Abbrechen
               </button>
             </div>
+
+            <p role="status" className="text-xs font-medium text-red-600">
+              {shareError ?? ""}
+            </p>
           </div>
         )}
 
@@ -738,8 +781,8 @@ export default function EventPlanDetailPage() {
             </h2>
             <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
               {allQuotes.length > 0
-                ? "Hier sehen Sie gesammelt, welche Anbieter bereits geantwortet haben, wie hoch die Preise sind und wen Sie direkt buchen können."
-                : "Sobald Angebote vorliegen oder Leistungen hinterlegt sind, sehen Sie hier den aktuellen Stand für Budget, Buchungen und offene Punkte."}
+                ? "Hier siehst du gesammelt, welche Anbieter bereits geantwortet haben, wie hoch die Preise sind und wen du direkt buchen kannst."
+                : "Sobald Angebote vorliegen oder Leistungen hinterlegt sind, siehst du hier den aktuellen Stand für Budget, Buchungen und offene Punkte."}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <button

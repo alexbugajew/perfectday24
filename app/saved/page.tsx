@@ -56,6 +56,9 @@ type SavedRouteItem = UserRouteRow & {
 
 type Segment = "all" | "tagesplanung" | "roadtrip" | "events";
 
+type ToastKind = "success" | "error" | "info";
+type ToastState = { message: string; kind: ToastKind } | null;
+
 type EventPlanRow = {
   id: string;
   title: string | null;
@@ -150,7 +153,7 @@ function planStatus(plan: SavedPlanRow) {
   if (plan.share_token) {
     return {
       label: "Geteilt",
-      tone: "bg-sky-100 text-sky-700",
+      tone: "pd24-status-info",
       helper: "Kann direkt wieder geöffnet oder weitergeteilt werden.",
     };
   }
@@ -158,14 +161,14 @@ function planStatus(plan: SavedPlanRow) {
   if (hasSlots) {
     return {
       label: "Abgeschlossen",
-      tone: "bg-emerald-100 text-emerald-700",
+      tone: "pd24-status-success",
       helper: "Ein vollständiger Vorschlag liegt bereits vor.",
     };
   }
 
   return {
     label: "In Bearbeitung",
-    tone: "bg-amber-100 text-amber-700",
+    tone: "pd24-status-warning",
     helper: "Rahmen gesetzt, noch nicht final abgeschlossen.",
   };
 }
@@ -274,28 +277,36 @@ function EmptyState({
   description,
   primaryHref,
   primaryLabel,
+  onPrimaryClick,
   secondaryHref,
   secondaryLabel,
 }: {
   title: string;
   description: string;
-  primaryHref: string;
+  primaryHref?: string;
   primaryLabel: string;
+  onPrimaryClick?: () => void;
   secondaryHref?: string;
   secondaryLabel?: string;
 }) {
+  const primaryClass =
+    "inline-flex min-h-11 items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-95";
+
   return (
     <div className="rounded-[28px] border border-dashed border-[var(--line-subtle)] bg-white px-6 py-8 text-center">
       <div className="mx-auto max-w-xl">
         <h3 className="text-lg font-semibold text-[var(--text-strong)]">{title}</h3>
         <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{description}</p>
         <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link
-            href={primaryHref}
-            className="inline-flex min-h-11 items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-95"
-          >
-            {primaryLabel}
-          </Link>
+          {onPrimaryClick ? (
+            <button type="button" onClick={onPrimaryClick} className={primaryClass}>
+              {primaryLabel}
+            </button>
+          ) : primaryHref ? (
+            <Link href={primaryHref} className={primaryClass}>
+              {primaryLabel}
+            </Link>
+          ) : null}
           {secondaryHref && secondaryLabel ? (
             <Link
               href={secondaryHref}
@@ -569,7 +580,7 @@ function DraftCard({ plan, onDelete }: { plan: SavedPlanRow; onDelete: (id: stri
           </h3>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <span className={statusPillClass("bg-amber-100 text-amber-700")}>In Bearbeitung</span>
+          <span className={statusPillClass("pd24-status-warning")}>In Bearbeitung</span>
           {!confirming && (
             <button
               type="button"
@@ -623,10 +634,10 @@ function DraftCard({ plan, onDelete }: { plan: SavedPlanRow; onDelete: (id: stri
 
 function roadtripStatusBadge(status: string) {
   if (status === "active")
-    return { label: "Aktiv", tone: "bg-emerald-100 text-emerald-700", dot: true };
+    return { label: "Aktiv", tone: "pd24-status-success", dot: true };
   if (status === "completed")
-    return { label: "Abgeschlossen", tone: "bg-sky-100 text-sky-700", dot: false };
-  return { label: "Entwurf", tone: "bg-amber-100 text-amber-700", dot: false };
+    return { label: "Abgeschlossen", tone: "pd24-status-info", dot: false };
+  return { label: "Entwurf", tone: "pd24-status-warning", dot: false };
 }
 
 function RoadtripCard({ route, onDelete }: { route: RoadtripRoute; onDelete: (id: string) => Promise<void> }) {
@@ -670,7 +681,7 @@ function RoadtripCard({ route, onDelete }: { route: RoadtripRoute; onDelete: (id
             className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${badge.tone}`}
           >
             {badge.dot && (
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--state-success)]" />
             )}
             {badge.label}
           </span>
@@ -745,9 +756,9 @@ function eventOccasionLabel(slug: string | null) {
 function EventPlanCard({ plan }: { plan: EventPlanRow }) {
   const href = `/events?planId=${plan.id}`;
   const statusTone =
-    plan.status === "complete" ? "bg-emerald-100 text-emerald-700"
-    : plan.status === "active" ? "bg-sky-100 text-sky-700"
-    : "bg-amber-100 text-amber-700";
+    plan.status === "complete" ? "pd24-status-success"
+    : plan.status === "active" ? "pd24-status-info"
+    : "pd24-status-warning";
   const statusLabel =
     plan.status === "complete" ? "Abgeschlossen"
     : plan.status === "active" ? "In Planung"
@@ -814,6 +825,12 @@ export default function SavedPage() {
   const [segment, setSegment] = useState<Segment>("all");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [toast, setToast] = useState<ToastState>(null);
+
+  function showToast(message: string, kind: ToastKind = "info") {
+    setToast({ message, kind });
+    setTimeout(() => setToast(null), 2600);
+  }
 
   useEffect(() => setMounted(true), []);
 
@@ -920,8 +937,13 @@ export default function SavedPage() {
 
   async function deletePlan(id: string) {
     const { error } = await supabase.from("plans").delete().eq("id", id);
-    if (error) { console.error("Delete plan error:", error); return; }
+    if (error) {
+      console.error("Delete plan error:", error);
+      showToast("Der Plan konnte nicht gelöscht werden — bitte versuche es erneut.", "error");
+      return;
+    }
     setPlans((prev) => prev.filter((p) => p.id !== id));
+    showToast("Plan gelöscht.", "success");
   }
 
   async function removeBookmark(routeId: string) {
@@ -931,14 +953,24 @@ export default function SavedPage() {
       .delete()
       .eq("route_id", routeId)
       .eq("user_id", userId);
-    if (error) { console.error("Remove bookmark error:", error); return; }
+    if (error) {
+      console.error("Remove bookmark error:", error);
+      showToast("Die Route konnte nicht entfernt werden — bitte versuche es erneut.", "error");
+      return;
+    }
     setSavedRoutes((prev) => prev.filter((r) => r.id !== routeId));
+    showToast("Route entfernt.", "success");
   }
 
   async function deleteRoadtrip(id: string) {
     const { error } = await deleteRoadtripRoute(id);
-    if (error) { console.error("Delete roadtrip error:", error); return; }
+    if (error) {
+      console.error("Delete roadtrip error:", error);
+      showToast("Der Roadtrip konnte nicht gelöscht werden — bitte versuche es erneut.", "error");
+      return;
+    }
     setRoadtripRoutes((prev) => prev.filter((r) => r.id !== id));
+    showToast("Roadtrip gelöscht.", "success");
   }
 
   const quickItems = useMemo<QuickItem[]>(() => {
@@ -1017,8 +1049,8 @@ export default function SavedPage() {
         <EmptyState
           title="Gespeicherte Inhalte konnten gerade nicht geladen werden."
           description="Bitte versuche es erneut. Wenn das Problem bleibt, prüfe zuerst deine Anmeldung und lade die Seite neu."
-          primaryHref="/saved"
-          primaryLabel="Seite neu laden"
+          primaryLabel="Erneut versuchen"
+          onPrimaryClick={() => void loadSavedContent()}
           secondaryHref="/planner"
           secondaryLabel="Zum Planner"
         />
@@ -1290,6 +1322,16 @@ export default function SavedPage() {
             </div>
           )}
         </section>
+      ) : null}
+
+      {toast ? (
+        <div
+          className={`fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-xl px-4 py-2 text-sm shadow-lg ${
+            toast.kind === "error" ? "bg-red-600 text-white" : "bg-[var(--text-strong)] text-white"
+          }`}
+        >
+          {toast.message}
+        </div>
       ) : null}
     </div>
   );

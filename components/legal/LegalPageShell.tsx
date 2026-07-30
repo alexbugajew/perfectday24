@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ConsentSettingsLink from "@/components/consent/ConsentSettingsLink";
 
 type LegalPageShellProps = {
   title: string;
@@ -51,6 +52,7 @@ export default function LegalPageShell({
           >
             AGB
           </Link>
+          <ConsentSettingsLink className="rounded-full border border-[var(--line-subtle)] px-3 py-1 transition hover:border-[var(--brand-accent)] hover:text-[var(--text-strong)]" />
         </div>
 
         <div className="mt-6 inline-flex rounded-full border border-[rgba(202,138,4,0.18)] bg-[rgba(254,249,195,0.7)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#92400e]">

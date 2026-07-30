@@ -329,6 +329,17 @@ function summarizeErrorForUi(error: unknown) {
   return formatted.slice(0, 180);
 }
 
+function friendlyGuestAuthMessage(error: unknown) {
+  const msg = getErrorMessage(error).toLowerCase();
+  if (msg.includes("anonymous sign-ins are disabled"))
+    return "Der Gastzugang ist aktuell deaktiviert. Bitte melde dich mit deinem Konto an.";
+  if (msg.includes("failed to fetch") || msg.includes("network"))
+    return "Keine Verbindung zum Server. Bitte prüfe deine Internetverbindung und versuche es erneut.";
+  if (msg.includes("rate limit") || msg.includes("too many requests"))
+    return "Zu viele Versuche. Bitte warte einen Moment und versuche es dann erneut.";
+  return "Der Gastzugang konnte nicht gestartet werden. Bitte versuche es erneut.";
+}
+
 async function ensureCreatorProfileId(userId: string) {
   const { data: existing, error: existingError } = await supabase
     .from("creator_profiles")
@@ -522,7 +533,7 @@ function RoutesPageContent() {
       const { data, error } = await supabase.auth.signInAnonymously();
       if (error) {
         console.error("Anonymous auth error:", error);
-        showToast(`Gastzugang fehlgeschlagen: ${error.message}`, "error");
+        showToast(friendlyGuestAuthMessage(error), "error");
         return;
       }
 
@@ -1748,7 +1759,7 @@ async function handleDeleteRoute(routeId: string) {
                   ) : null}
                 </div>
               ) : null}
-            <div className="sticky top-4 max-h-[calc(100vh-2rem)] space-y-5 overflow-y-auto rounded-[28px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm">
+            <div className="sticky top-20 max-h-[calc(100vh-6rem)] space-y-5 overflow-y-auto rounded-[28px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm">
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <h2 className="text-xl font-semibold">
@@ -2191,7 +2202,7 @@ async function handleDeleteRoute(routeId: string) {
           </section>
 
           <aside className="space-y-4">
-            <div className="sticky top-4 max-h-[calc(100vh-2rem)] space-y-4 overflow-y-auto rounded-[28px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm">
+            <div className="sticky top-20 max-h-[calc(100vh-6rem)] space-y-4 overflow-y-auto rounded-[28px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm">
               <div>
                 <h2 className="text-xl font-semibold">Live Preview</h2>
                 <p className="text-sm text-[var(--text-muted)]">Karte, Stop-Editor und die spätere öffentliche Kartenansicht in einer ruhigeren Spalte.</p>

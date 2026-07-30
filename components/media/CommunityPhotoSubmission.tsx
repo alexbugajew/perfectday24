@@ -605,7 +605,7 @@ export default function CommunityPhotoSubmission({
                 type="button"
                 onClick={() => setIsDialogOpen(false)}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-xl leading-none text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
-                aria-label="Upload-Fenster schliessen"
+                aria-label="Upload-Fenster schließen"
               >
                 x
               </button>
@@ -664,7 +664,7 @@ export default function CommunityPhotoSubmission({
                   </div>
                   <label className="flex cursor-pointer flex-col rounded-[24px] border-2 border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-5 py-6 transition hover:border-[rgba(23,23,23,0.18)] hover:bg-white">
                     <span className="text-sm font-semibold text-[var(--text-strong)]">
-                      {submitting ? "Bilder werden hochgeladen..." : "Fotos auswaehlen"}
+                      {submitting ? "Bilder werden hochgeladen..." : "Fotos auswählen"}
                     </span>
                     <span className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
                       JPG, PNG oder WEBP bis 10 MB pro Datei. Mehrere Bilder koennen in einem Schritt hochgeladen werden.
@@ -707,9 +707,9 @@ export default function CommunityPhotoSubmission({
                   Unscharfe, irrelevante oder doppelte Bilder werden nicht freigeschaltet.
                 </div>
                 <div className="mt-4 text-xs text-[var(--text-muted)]">
-                  Nicht eingeloggt?{" "}
+                  Noch nicht angemeldet?{" "}
                   <Link href="/profile" className="font-medium text-[var(--text-strong)] underline underline-offset-2">
-                    Zum Login
+                    Jetzt anmelden
                   </Link>
                 </div>
               </div>
@@ -741,9 +741,9 @@ export default function CommunityPhotoSubmission({
                 type="button"
                 onClick={closePreview}
                 className="inline-flex h-11 items-center justify-center rounded-full border border-white/16 bg-white/8 px-4 text-sm font-semibold text-white transition hover:bg-white/14"
-                aria-label="Vorschau schliessen"
+                aria-label="Vorschau schließen"
               >
-                Schliessen
+                Schließen
               </button>
             </div>
 
@@ -756,13 +756,13 @@ export default function CommunityPhotoSubmission({
                     className="absolute left-6 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/16 bg-black/28 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-black/46"
                     aria-label="Vorheriges Bild"
                   >
-                    Zurueck
+                    Zurück
                   </button>
                   <button
                     type="button"
                     onClick={showNextPreview}
                     className="absolute right-6 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/16 bg-black/28 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-black/46"
-                    aria-label="Naechstes Bild"
+                    aria-label="Nächstes Bild"
                   >
                     Weiter
                   </button>

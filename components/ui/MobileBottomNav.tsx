@@ -91,6 +91,7 @@ export default function MobileBottomNav() {
   const hideNav =
     HIDDEN_ON.has(pathname) ||
     (pathname.startsWith("/routes/") && pathname.endsWith("/run")) ||
+    (pathname.startsWith("/roadtrip/routes/") && pathname.endsWith("/run")) ||
     pathname.startsWith("/events/plan/");
 
   if (hideNav) return null;
@@ -109,7 +110,7 @@ export default function MobileBottomNav() {
       className="fixed bottom-0 left-0 right-0 z-[1300] sm:hidden"
     >
       {/* Safe area fill for iOS home indicator */}
-      <div className="border-t border-[var(--line-subtle)] bg-[rgba(255,253,248,0.96)] backdrop-blur-xl pb-safe">
+      <div className="border-t border-[var(--line-subtle)] bg-[rgba(255,253,248,0.96)] backdrop-blur-xl pb-[env(safe-area-inset-bottom)]">
         <div className="grid grid-cols-4">
           {NAV_ITEMS.map((item) => {
             const active = isActive(item.href);
@@ -117,6 +118,7 @@ export default function MobileBottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={active ? "page" : undefined}
                 className={`flex flex-col items-center gap-1 py-3 transition-colors ${
                   active ? "text-[var(--text-strong)]" : "text-[var(--text-soft-warm)]"
                 }`}

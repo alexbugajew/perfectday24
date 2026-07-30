@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import AiPlanModal from "./AiPlanModal";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -102,6 +103,8 @@ function PlannerPageContent() {
 
   const [cities, setCities] = useState<CityRow[]>([]);
   const [citiesLoading, setCitiesLoading] = useState(true);
+  const [citiesLoadError, setCitiesLoadError] = useState(false);
+  const [citiesReloadKey, setCitiesReloadKey] = useState(0);
   const [selectedCountryCode, setSelectedCountryCode] = useState<string>("all");
   const [selectedCitySlug, setSelectedCitySlug] = useState<string | null>(null);
 
@@ -166,7 +169,7 @@ function PlannerPageContent() {
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);
-    setTimeout(() => setToast(null), 1800);
+    setTimeout(() => setToast(null), 5000);
   }, []);
 
   const {
@@ -445,6 +448,7 @@ function PlannerPageContent() {
 
     (async () => {
       setCitiesLoading(true);
+      setCitiesLoadError(false);
       try {
         const { data, error } = await supabase
           .from("cities")
@@ -456,6 +460,7 @@ function PlannerPageContent() {
         if (error) {
           console.error("Cities load error:", error);
           setCities([]);
+          setCitiesLoadError(true);
           return;
         }
         setCities(
@@ -463,11 +468,15 @@ function PlannerPageContent() {
             isPlannerSupportedCitySlug(city.slug)
           )
         );
+      } catch (error) {
+        console.error("Cities load error:", error);
+        setCities([]);
+        setCitiesLoadError(true);
       } finally {
         setCitiesLoading(false);
       }
     })();
-  }, [mounted]);
+  }, [mounted, citiesReloadKey]);
 
   const availableCountryCodes = useMemo(
     () =>
@@ -777,6 +786,8 @@ function PlannerPageContent() {
     plannerLoading,
     plannerError,
     setPlannerError,
+    plannerErrorKind,
+    retryPlannerGeneration,
     plannerData,
     setPlannerData,
     aiPlanActive,
@@ -1618,13 +1629,14 @@ function PlannerPageContent() {
     },
     {
       label: "Sichern",
-      value: userId ? "aktiv" : "Login",
+      value: userId ? "aktiv" : "Anmeldung fehlt",
       state: userId && plannedStops.length > 0 ? "done" : "idle",
     },
   ];
 
   return (
-    <main className="pd24-page-wide space-y-4">
+    // pb-40: Platz für den sticky "Route starten"-CTA über der Bottom-Nav (nur mobil)
+    <main className={`pd24-page-wide space-y-4 ${plannedStops.length > 0 ? "pb-40 sm:pb-0" : ""}`}>
       <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
         <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
           <div className="flex flex-col gap-5">
@@ -1750,6 +1762,18 @@ function PlannerPageContent() {
                 showSelectedChip={false}
               />
             </div>
+            {citiesLoadError ? (
+              <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[var(--state-warning)]">
+                <span>Städte konnten nicht geladen werden.</span>
+                <button
+                  type="button"
+                  onClick={() => setCitiesReloadKey((key) => key + 1)}
+                  className="font-semibold underline underline-offset-2 transition hover:text-[var(--text-strong)]"
+                >
+                  Erneut versuchen
+                </button>
+              </div>
+            ) : null}
           </div>
 
           <div
@@ -1902,7 +1926,7 @@ function PlannerPageContent() {
             </div>
             {aiPlanActive ? (
               <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
-                ✨ AI-Vorschlag · {plannedStops.length} {plannedStops.length === 1 ? "Stop" : "Stops"}
+                ✨ KI-Vorschlag · {plannedStops.length} {plannedStops.length === 1 ? "Stop" : "Stops"}
               </div>
             ) : activeVariant ? (
               <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
@@ -1918,7 +1942,7 @@ function PlannerPageContent() {
             <div className="flex items-start justify-between gap-3 rounded-xl border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(90deg,rgba(255,249,241,0.85),rgba(255,253,248,0.85))] px-3 py-2">
               <div className="min-w-0 flex-1">
                 <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-warm)]">
-                  AI-Modus aktiv
+                  KI-Modus aktiv
                 </div>
                 {aiPlanPrompt ? (
                   <div className="mt-0.5 truncate text-xs text-[var(--text-muted)]" title={aiPlanPrompt}>
@@ -1971,6 +1995,13 @@ function PlannerPageContent() {
                 </svg>
                 Link an Gruppe
               </button>
+            ) : authReady && !userId ? (
+              <Link
+                href="/profile"
+                className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98]"
+              >
+                Anmelden zum Speichern
+              </Link>
             ) : (
               <button
                 type="button"
@@ -1978,7 +2009,7 @@ function PlannerPageContent() {
                 disabled={!authReady || !userId || saving || plannedStops.length === 0}
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98] disabled:opacity-60"
               >
-                {!authReady ? "Auth..." : !userId ? "Login nötig" : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
+                {!authReady ? "Einen Moment ..." : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
               </button>
             )}
           </div>
@@ -2002,7 +2033,7 @@ function PlannerPageContent() {
               className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[rgba(196,137,79,0.45)] bg-[linear-gradient(90deg,rgba(255,249,241,0.95),rgba(255,253,248,0.95))] px-4 py-3 text-sm font-semibold text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,1)] active:scale-[0.98] lg:w-auto lg:min-w-[190px]"
             >
               <span aria-hidden>✨</span>
-              <span>Mit AI planen</span>
+              <span>Mit KI planen</span>
               <span className="rounded-full bg-[var(--brand-warm)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">Neu</span>
             </button>
           ) : null}
@@ -2265,6 +2296,8 @@ function PlannerPageContent() {
         routeProfile={routeProfile}
         plannerLoading={plannerLoading}
         plannerError={plannerError}
+        plannerErrorKind={plannerErrorKind}
+        onRetryGeneration={retryPlannerGeneration}
         resultsCount={results.length}
         plannedStops={plannedStops}
         occasion={occasion}
@@ -2352,11 +2385,28 @@ function PlannerPageContent() {
         </div>
       ) : null}
 
-      {toast ? (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-[var(--text-strong)] text-white text-sm px-4 py-2 rounded-lg shadow-lg z-50">
-          {toast}
-        </div>
-      ) : null}
+      {/* Toast: dauerhaft gerenderte Live-Region — nur der Inhalt wechselt,
+          damit Screenreader die Meldung zuverlässig ansagen. */}
+      <div
+        role="status"
+        aria-live="polite"
+        className={`fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-[var(--text-strong)] px-4 py-2 text-sm text-white shadow-lg transition-opacity duration-200 ${
+          toast ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      >
+        {toast}
+      </div>
+
+      {/* Visually-hidden Statuszeile für Plan-Generierung und Fehler */}
+      <div role="status" aria-live="polite" className="sr-only">
+        {plannerLoading
+          ? "Dein Plan wird zusammengestellt."
+          : plannerError
+            ? plannerError
+            : plannedStops.length > 0
+              ? `Plan bereit: ${plannedStops.length} ${plannedStops.length === 1 ? "Stop" : "Stops"}.`
+              : ""}
+      </div>
     </main>
   );
 }

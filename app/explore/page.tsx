@@ -703,11 +703,9 @@ function RouteCard({
 function CreatorCard({
   creator,
   cityMap,
-  rankingScore,
 }: {
   creator: CreatorProfileRow | null | undefined;
   cityMap: Map<string, CityLookupRow>;
-  rankingScore?: number | null;
 }) {
   if (!creator) return null;
 
@@ -740,10 +738,10 @@ function CreatorCard({
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="truncate font-semibold text-[var(--text-strong)]">{displayName}</h3>
             {creator.is_verified ? (
-              <span className="rounded-full bg-[var(--text-strong)] px-2 py-1 text-[11px] text-white">Verified</span>
+              <span className="rounded-full bg-[var(--text-strong)] px-2 py-1 text-[11px] text-white">Verifiziert</span>
             ) : null}
             {creator.is_featured ? (
-              <span className="rounded-full border border-[var(--line-subtle)] px-2 py-1 text-[11px] text-[var(--text-muted)]">Featured</span>
+              <span className="rounded-full border border-[var(--line-subtle)] px-2 py-1 text-[11px] text-[var(--text-muted)]">Empfohlen</span>
             ) : null}
           </div>
 
@@ -770,13 +768,12 @@ function CreatorCard({
         </div>
         <div className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
           <div className="font-medium text-[var(--text-strong)]">{compactNumber(creator.total_bookmarks_received)}</div>
-          <div>Bookmarks</div>
+          <div>Gespeichert</div>
         </div>
       </div>
 
       <div className="mt-3 flex flex-wrap gap-4 text-xs text-[var(--text-soft)]">
         <span>{homeCityLabel}</span>
-        <span>Score: {rankingScore ?? 0}</span>
       </div>
     </div>
   );
@@ -1897,7 +1894,6 @@ function ExplorePageContent() {
                         key={creator.id}
                         creator={creator}
                         cityMap={cityMap}
-                        rankingScore={creatorRankingMap[creator.id] ?? 0}
                       />
                     ))}
                   </div>

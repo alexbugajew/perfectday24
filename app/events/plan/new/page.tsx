@@ -432,6 +432,7 @@ function PlanNewInner() {
   const totalActionCount = selectionCount + quoteCount;
   const overBudget       = budget > 0 && totalEur > budget;
   const cityDisplay      = cityName || CITY_LABELS[citySlug] || citySlug;
+  const hasWizardContext = Boolean(occasion && citySlug && needs.length > 0);
 
   const saveLabel = (() => {
     if (saving) return "Wird gespeichert …";
@@ -457,7 +458,9 @@ function PlanNewInner() {
             Event-Planer
           </div>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#171717]">
-            Dienstleister für deinen {OCCASION_LABELS[occasion] ?? occasion}
+            {occasion
+              ? `Dienstleister für deinen ${OCCASION_LABELS[occasion] ?? occasion}`
+              : "Dienstleister für dein Event"}
           </h1>
           <div className="mt-3 flex flex-wrap gap-2">
             {cityDisplay && <Chip>{cityDisplay}</Chip>}
@@ -478,23 +481,37 @@ function PlanNewInner() {
       <div className="mx-auto max-w-3xl px-4 pb-40 pt-8 sm:px-6 sm:pb-44">
 
         {/* Event-Name */}
-        <div className="mb-8">
-          <label className="mb-1.5 block text-sm font-medium text-[#171717]">
-            Event-Name <span className="text-[#b76a43]">*</span>
-          </label>
-          <input
-            type="text"
-            value={eventTitle}
-            onChange={(e) => setEventTitle(e.target.value)}
-            placeholder="z.B. Weihnachtsfeier 2026, Teambuilding Marketing"
-            className="w-full rounded-2xl border border-[rgba(23,23,23,0.12)] bg-white px-4 py-3 text-sm text-[#171717] placeholder-[#8b7767] outline-none focus:border-[#171717] focus:ring-2 focus:ring-[rgba(23,23,23,0.08)]"
-          />
-        </div>
+        {hasWizardContext && (
+          <div className="mb-8">
+            <label className="mb-1.5 block text-sm font-medium text-[#171717]">
+              Event-Name <span className="text-[#b76a43]">*</span>
+            </label>
+            <input
+              type="text"
+              value={eventTitle}
+              onChange={(e) => setEventTitle(e.target.value)}
+              placeholder="z.B. Weihnachtsfeier 2026, Teambuilding Marketing"
+              className="w-full rounded-2xl border border-[rgba(23,23,23,0.12)] bg-white px-4 py-3 text-sm text-[#171717] placeholder-[#8b7767] outline-none focus:border-[#171717] focus:ring-2 focus:ring-[rgba(23,23,23,0.08)]"
+            />
+          </div>
+        )}
 
-        {needs.length === 0 ? (
-          <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-8 text-center text-[#665d55]">
-            Kein Bedarf ausgewählt.{" "}
-            <Link href="/events" className="underline">Zurück zum Wizard</Link>
+        {!hasWizardContext ? (
+          <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-8 text-center sm:p-10">
+            <div className="text-3xl">🗓️</div>
+            <h2 className="mt-3 text-lg font-semibold text-[#171717]">
+              Hier fehlen noch deine Eventdetails
+            </h2>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#665d55]">
+              Wähle im Event-Planer zuerst Anlass, Stadt und die Leistungen, die du brauchst.
+              Danach zeigen wir dir hier passende Anbieter mit Preisen und Paketen.
+            </p>
+            <Link
+              href="/events"
+              className="mt-6 inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition hover:opacity-95"
+            >
+              Zum Event-Planer
+            </Link>
           </div>
         ) : (
           <div className="space-y-10">
@@ -636,7 +653,7 @@ function PlanNewInner() {
                   {quoteCount} Preisanfrage{quoteCount > 1 ? "n" : ""} vorgemerkt
                 </p>
                 <p className="mt-0.5 text-xs text-amber-800">
-                  Die Anbieter erhalten Ihre Eventdetails und melden sich mit einem Angebot. Danach behalten Sie alles im Bereich Anfragen und Angebote im Blick.
+                  Die Anbieter erhalten deine Eventdetails und melden sich mit einem Angebot. Danach behältst du alles im Bereich Anfragen und Angebote im Blick.
                 </p>
                 {!showMessageBox ? (
                   <button
@@ -678,7 +695,7 @@ function PlanNewInner() {
       )}
 
       {/* ── Sticky bottom bar ───────────────────────────────────────────── */}
-      {!loading && (
+      {!loading && hasWizardContext && (
         <div
         className="fixed bottom-0 left-0 right-0 z-[1200] border-t border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.96)] px-4 pt-4 backdrop-blur-xl sm:px-6"
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom, 0px))" }}

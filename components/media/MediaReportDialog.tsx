@@ -144,7 +144,7 @@ export default function MediaReportDialog({
             type="button"
             onClick={onClose}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-xl leading-none text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
-            aria-label="Meldedialog schliessen"
+            aria-label="Meldedialog schließen"
           >
             x
           </button>
@@ -187,7 +187,7 @@ export default function MediaReportDialog({
         {needsLogin ? (
           <div className="mt-4 text-sm text-[var(--text-muted)]">
             <Link href="/profile" className="font-medium text-[var(--text-strong)] underline underline-offset-2">
-              Zum Login
+              Jetzt anmelden
             </Link>
           </div>
         ) : null}

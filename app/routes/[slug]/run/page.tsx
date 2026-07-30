@@ -139,6 +139,9 @@ function RouteRunPageContent() {
   const [stops, setStops] = useState<RouteStopRow[]>([]);
   const [progress, setProgress] = useState<RouteRunProgress | null>(null);
   const [notFound, setNotFound] = useState(false);
+  const [loadError, setLoadError] = useState(false);
+  const [stopsError, setStopsError] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -164,10 +167,19 @@ function RouteRunPageContent() {
     void (async () => {
       setLoading(true);
       setNotFound(false);
+      setLoadError(false);
+      setStopsError(false);
       try {
         const { data, error } = await supabase.from("user_routes").select("*").eq("slug", slug).maybeSingle();
         if (!active) return;
-        if (error || !data) {
+        if (error) {
+          console.error("Route load error:", error);
+          setRoute(null);
+          setStops([]);
+          setLoadError(true);
+          return;
+        }
+        if (!data) {
           setRoute(null);
           setStops([]);
           setNotFound(true);
@@ -190,7 +202,9 @@ function RouteRunPageContent() {
 
         if (!active) return;
         if (stopError) {
+          console.error("Route stops load error:", stopError);
           setStops([]);
+          setStopsError(true);
           return;
         }
         setStops((stopRows ?? []) as RouteStopRow[]);
@@ -201,7 +215,7 @@ function RouteRunPageContent() {
     return () => {
       active = false;
     };
-  }, [authReady, slug, userId]);
+  }, [authReady, slug, userId, reloadKey]);
 
   useEffect(() => {
     if (!route) return;
@@ -320,6 +334,31 @@ function RouteRunPageContent() {
     );
   }
 
+  if (loadError && !route) {
+    return (
+      <main className="mx-auto w-full max-w-7xl space-y-4 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <Link href="/saved" className="text-sm text-[var(--text-muted)] underline">
+          Meine Pläne
+        </Link>
+        <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-5 shadow-sm sm:p-6">
+          <p className="text-[var(--text-strong)]">
+            Die Route konnte gerade nicht geladen werden.
+          </p>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">
+            Bitte prüfe deine Internetverbindung und versuche es erneut.
+          </p>
+          <button
+            type="button"
+            onClick={() => setReloadKey((k) => k + 1)}
+            className="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl bg-[var(--text-strong)] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-95"
+          >
+            Erneut versuchen
+          </button>
+        </div>
+      </main>
+    );
+  }
+
   if (!route || notFound) {
     return (
       <main className="mx-auto w-full max-w-7xl space-y-4 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
@@ -327,7 +366,7 @@ function RouteRunPageContent() {
           Meine Pläne
         </Link>
         <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-5 shadow-sm sm:p-6">
-          Diese Route konnte nicht geladen werden.
+          Diese Route wurde nicht gefunden. Vielleicht wurde sie gelöscht oder der Link ist nicht mehr gültig.
         </div>
       </main>
     );
@@ -530,6 +569,21 @@ function RouteRunPageContent() {
                   ) : null}
                 </div>
               </div>
+
+              {stopsError ? (
+                <div className="rounded-2xl border p-4 pd24-status-error sm:rounded-3xl">
+                  <p className="text-sm font-medium">
+                    Die Stops dieser Route konnten nicht geladen werden.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setReloadKey((k) => k + 1)}
+                    className="mt-3 inline-flex min-h-10 items-center justify-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-95"
+                  >
+                    Erneut laden
+                  </button>
+                </div>
+              ) : null}
 
               {stops.map((stop) => {
                 const state = progress?.stopStates[stop.id] ?? "pending";

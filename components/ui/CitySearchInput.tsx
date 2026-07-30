@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -44,6 +44,10 @@ export function CitySearchInput(props: CitySearchInputProps) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const baseId = useId();
+  const listboxId = `${baseId}-listbox`;
+  const optionId = (index: number) => `${baseId}-option-${index}`;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -166,6 +170,14 @@ export function CitySearchInput(props: CitySearchInputProps) {
         <input
           ref={inputRef}
           type="text"
+          role="combobox"
+          aria-label={placeholder}
+          aria-autocomplete="list"
+          aria-expanded={open && filtered.length > 0}
+          aria-controls={listboxId}
+          aria-activedescendant={
+            open && filtered[activeIndex] ? optionId(activeIndex) : undefined
+          }
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -193,7 +205,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
               setQuery("");
               inputRef.current?.focus();
             }}
-            className="shrink-0 text-lg leading-none text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
+            className="-my-3 -mr-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg leading-none text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
             aria-label="Auswahl entfernen"
           >
             ×
@@ -205,6 +217,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
       {open && filtered.length > 0 && (
         <div
           ref={listRef}
+          id={listboxId}
           role="listbox"
           className="absolute left-0 right-0 top-full z-50 mt-1 max-h-56 overflow-y-auto rounded-2xl border border-[var(--line-subtle)] bg-white py-1.5 shadow-[0_8px_24px_rgba(15,23,42,0.10)]"
         >
@@ -213,6 +226,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
             return (
               <button
                 key={city.slug}
+                id={optionId(i)}
                 type="button"
                 role="option"
                 aria-selected={isSelected}
@@ -252,7 +266,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
               <button
                 type="button"
                 onClick={() => deselect(city.slug)}
-                className="ml-0.5 text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
+                className="-my-2 -mr-2 ml-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm leading-none text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
                 aria-label={`${city.name} entfernen`}
               >
                 ×
@@ -271,7 +285,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
             <button
               type="button"
               onClick={() => props.onChange("")}
-              className="ml-0.5 text-white/60 transition hover:text-white"
+              className="-my-2 -mr-2 ml-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm leading-none text-white/60 transition hover:text-white"
               aria-label={`${singleSelected.name} entfernen`}
             >
               ×

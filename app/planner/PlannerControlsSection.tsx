@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { CitySearchInput } from "@/components/ui/CitySearchInput";
 import InternalMonetizationSlot from "@/components/monetization/InternalMonetizationSlot";
@@ -302,13 +303,73 @@ export default function PlannerControlsSection({
     {}
   );
 
+  // Vorlieben-Modal: Escape schließt (sofern erlaubt), Tab bleibt im Dialog,
+  // Fokus wird beim Öffnen gesetzt und beim Schließen zurückgegeben.
+  const prefsDialogRef = useRef<HTMLDivElement>(null);
+  const prefsRestoreFocusRef = useRef<HTMLElement | null>(null);
+  const prefsCanClose = !profileRequired || interests.length > 0;
+
+  useEffect(() => {
+    if (showPrefsModal) {
+      prefsRestoreFocusRef.current =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      setTimeout(() => prefsDialogRef.current?.focus(), 60);
+    } else {
+      prefsRestoreFocusRef.current?.focus();
+      prefsRestoreFocusRef.current = null;
+    }
+  }, [showPrefsModal]);
+
+  useEffect(() => {
+    if (!showPrefsModal) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        if (prefsCanClose) setShowPrefsModal(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const container = prefsDialogRef.current;
+      if (!container) return;
+      const focusables = container.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey) {
+        if (active === first || !container.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !container.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showPrefsModal, prefsCanClose, setShowPrefsModal]);
+
   return (
     <>
       {showPrefsModal ? (
         /* Overlay — z-index über der Bottom Nav (z-[1300]) */
-        <div className="fixed inset-0 z-[1500] flex items-end bg-black/40 sm:items-center sm:p-4">
+        <div
+          className="fixed inset-0 z-[1500] flex items-end bg-black/40 sm:items-center sm:p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="prefs-modal-title"
+        >
           {/* Bottom Sheet auf Mobile, zentrierter Modal auf Desktop */}
-          <div className="flex w-full flex-col rounded-t-2xl bg-white shadow-xl sm:mx-auto sm:max-w-xl sm:rounded-2xl">
+          <div
+            ref={prefsDialogRef}
+            tabIndex={-1}
+            className="flex w-full flex-col rounded-t-2xl bg-white shadow-xl outline-none sm:mx-auto sm:max-w-xl sm:rounded-2xl"
+          >
 
             {/* Drag Handle (Mobile) */}
             <div className="flex justify-center pt-3 sm:hidden">
@@ -318,7 +379,7 @@ export default function PlannerControlsSection({
             {/* Header */}
             <div className="flex items-start justify-between gap-3 px-5 pb-2 pt-4">
               <div>
-                <div className="text-lg font-semibold text-[var(--text-strong)]">Deine Vorlieben</div>
+                <div id="prefs-modal-title" className="text-lg font-semibold text-[var(--text-strong)]">Deine Vorlieben</div>
                 <div className="mt-0.5 text-sm text-[var(--text-muted)]">
                   Wähle bis zu 12 Interessen. Werden beim Planen automatisch verwendet.
                 </div>
@@ -356,6 +417,7 @@ export default function PlannerControlsSection({
                         <button
                           key={tag}
                           onClick={() => toggleInterest(tag)}
+                          aria-pressed={selected}
                           className={`rounded-full border px-3 py-1.5 text-sm transition ${
                             selected
                               ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
@@ -568,6 +630,7 @@ export default function PlannerControlsSection({
                         key={option.value}
                         type="button"
                         onClick={() => setExperienceMode(option.value)}
+                        aria-pressed={experienceMode === option.value}
                         className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
                           experienceMode === option.value
                             ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
@@ -596,6 +659,7 @@ export default function PlannerControlsSection({
                           key={option.value}
                           type="button"
                           onClick={() => setFamilyAgeBand(option.value)}
+                          aria-pressed={familyAgeBand === option.value}
                           className={`rounded-2xl border px-4 py-3 text-left transition ${
                             familyAgeBand === option.value
                               ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
@@ -639,15 +703,21 @@ export default function PlannerControlsSection({
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => setFullDayActsAfterBreakfast((value) => clamp(value - 1, 1, 2))}
+                            aria-label="Weniger Aktivitäten zwischen Frühstück und Mittag"
                             className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-sm text-[var(--text-strong)] transition hover:bg-white"
                           >
                             -
                           </button>
-                          <div className="min-w-[28px] text-center font-semibold text-[var(--text-strong)]">
+                          <div
+                            aria-live="polite"
+                            aria-label={`Aktivitäten zwischen Frühstück und Mittag: ${fullDayActsAfterBreakfast}`}
+                            className="min-w-[28px] text-center font-semibold text-[var(--text-strong)]"
+                          >
                             {fullDayActsAfterBreakfast}
                           </div>
                           <button
                             onClick={() => setFullDayActsAfterBreakfast((value) => clamp(value + 1, 1, 2))}
+                            aria-label="Mehr Aktivitäten zwischen Frühstück und Mittag"
                             className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-sm text-[var(--text-strong)] transition hover:bg-white"
                           >
                             +
@@ -660,15 +730,21 @@ export default function PlannerControlsSection({
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => setFullDayActsAfterLunch((value) => clamp(value - 1, 1, 2))}
+                            aria-label="Weniger Aktivitäten zwischen Mittag und Abend"
                             className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-sm text-[var(--text-strong)] transition hover:bg-white"
                           >
                             -
                           </button>
-                          <div className="min-w-[28px] text-center font-semibold text-[var(--text-strong)]">
+                          <div
+                            aria-live="polite"
+                            aria-label={`Aktivitäten zwischen Mittag und Abend: ${fullDayActsAfterLunch}`}
+                            className="min-w-[28px] text-center font-semibold text-[var(--text-strong)]"
+                          >
                             {fullDayActsAfterLunch}
                           </div>
                           <button
                             onClick={() => setFullDayActsAfterLunch((value) => clamp(value + 1, 1, 2))}
+                            aria-label="Mehr Aktivitäten zwischen Mittag und Abend"
                             className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-sm text-[var(--text-strong)] transition hover:bg-white"
                           >
                             +

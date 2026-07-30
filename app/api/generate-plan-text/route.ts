@@ -1,6 +1,7 @@
 // app/api/generate-plan-text/route.ts
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -41,6 +42,9 @@ function safeStr(v: unknown, fallback = "—") {
 }
 
 export async function POST(req: Request) {
+  const limited = enforceRateLimit(req, "ai:plan-text", RATE_RULES.aiLight);
+  if (limited) return limited;
+
   try {
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
     const body = await req.json();
