@@ -264,7 +264,7 @@ export default function HeroIntentBar() {
               key={slug}
               type="button"
               onClick={() => handleCitySelect(slug)}
-              className="rounded-2xl border border-[rgba(23,23,23,0.14)] bg-white/80 px-3 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[rgba(196,137,79,0.4)] hover:bg-[rgba(196,137,79,0.06)] active:scale-[0.98]"
+              className="rounded-2xl border border-[var(--line-strong)] bg-white/80 px-3 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[rgba(196,137,79,0.4)] hover:bg-[rgba(196,137,79,0.06)] active:scale-[0.98]"
             >
               {CITY_DISPLAY[slug]}
             </button>
@@ -287,10 +287,10 @@ export default function HeroIntentBar() {
     return (
       <div className="mt-7 space-y-4">
         {/* Summary card */}
-        <div className="rounded-[20px] border border-[rgba(196,137,79,0.28)] bg-[rgba(196,137,79,0.07)] px-5 py-4">
+        <div className="rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.28)] bg-[rgba(196,137,79,0.07)] px-5 py-4">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-warm)]">
+              <div className="pd24-kicker-warm">
                 Dein Plan
               </div>
               <div
@@ -321,14 +321,14 @@ export default function HeroIntentBar() {
           <button
             type="button"
             onClick={() => router.push(buildPlannerUrl(intent))}
-            className="rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 active:scale-[0.98]"
+            className="pd24-btn pd24-btn-primary active:scale-[0.98]"
           >
             Plan erstellen →
           </button>
           <button
             type="button"
             onClick={() => router.push(buildExploreUrl(intent))}
-            className="rounded-2xl border border-[rgba(23,23,23,0.14)] bg-white/80 px-5 py-3 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(23,23,23,0.25)] hover:bg-white active:scale-[0.98]"
+            className="pd24-btn pd24-btn-secondary active:scale-[0.98]"
           >
             Routen ansehen →
           </button>
@@ -380,7 +380,7 @@ export default function HeroIntentBar() {
           type="button"
           onClick={handleSubmit}
           disabled={text.trim().length === 0}
-          className="m-1.5 flex shrink-0 items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-90 active:scale-[0.97] disabled:opacity-40"
+          className="pd24-btn pd24-btn-sm pd24-btn-primary m-1.5 shrink-0 active:scale-[0.97]"
         >
           Autopilot starten
           <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
@@ -391,13 +391,13 @@ export default function HeroIntentBar() {
 
       {/* Scenario tiles */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">Oder Vorlage:</span>
+        <span className="pd24-meta">Oder Vorlage:</span>
         {SCENARIOS.map((scenario) => (
           <button
             key={scenario.key}
             type="button"
             onClick={() => handleScenarioTile(scenario)}
-            className="rounded-full border border-[rgba(23,23,23,0.12)] bg-white/80 px-3.5 py-1.5 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.35)] hover:bg-[rgba(196,137,79,0.06)] hover:text-[var(--text-strong)] active:scale-[0.97]"
+            className="rounded-full border border-[var(--line-strong)] bg-white/80 px-3.5 py-1.5 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.35)] hover:bg-[rgba(196,137,79,0.06)] hover:text-[var(--text-strong)] active:scale-[0.97]"
           >
             {scenario.emoji} {scenario.label}
           </button>

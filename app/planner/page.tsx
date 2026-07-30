@@ -1687,7 +1687,7 @@ function PlannerPageContent() {
                     >
                       {index + 1}
                     </span>
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                    <span className="pd24-meta">
                       {step.label}
                     </span>
                   </div>
@@ -1745,7 +1745,7 @@ function PlannerPageContent() {
       <section className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3 shadow-[var(--shadow-soft)]">
         <div className="flex flex-col gap-2 lg:flex-row lg:overflow-visible">
           <div className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[150px] lg:flex-1">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Stadt
             </div>
             <div className="mt-1">
@@ -1780,7 +1780,7 @@ function PlannerPageContent() {
             ref={startPointFieldRef}
             className="relative min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[240px] lg:flex-[1.5]"
           >
-            <label htmlFor="planner-quick-start" className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <label htmlFor="planner-quick-start" className="pd24-meta">
               Startpunkt
             </label>
             <input
@@ -1830,7 +1830,7 @@ function PlannerPageContent() {
                 {startPointSearchLoading ? (
                   <div className="px-3 py-2 text-sm text-[var(--text-muted)]">Suche Startpunkte...</div>
                 ) : startPointSearchError ? (
-                  <div className="px-3 py-2 text-sm text-red-600">{startPointSearchError}</div>
+                  <div className="px-3 py-2 text-sm text-[var(--state-error)]">{startPointSearchError}</div>
                 ) : (
                   startPointSuggestions.map((suggestion) => (
                     <button
@@ -1870,7 +1870,7 @@ function PlannerPageContent() {
           </div>
 
           <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[125px] lg:flex-[0.8]">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Anlass
             </div>
             <select
@@ -1887,7 +1887,7 @@ function PlannerPageContent() {
           </label>
 
           <label className="min-w-0 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-3 py-2.5 lg:min-w-[145px] lg:flex-[0.85]">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Datum
             </div>
             <input
@@ -1921,7 +1921,7 @@ function PlannerPageContent() {
 
         <div className="mt-3 flex flex-col gap-3 border-t border-[rgba(68,57,46,0.08)] pt-3 lg:flex-row lg:flex-wrap lg:items-center">
           <div className="min-w-0 lg:flex-1">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Dein Plan
             </div>
             {aiPlanActive ? (
@@ -1941,7 +1941,7 @@ function PlannerPageContent() {
           {aiPlanActive ? (
             <div className="flex items-start justify-between gap-3 rounded-xl border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(90deg,rgba(255,249,241,0.85),rgba(255,253,248,0.85))] px-3 py-2">
               <div className="min-w-0 flex-1">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-warm)]">
+                <div className="pd24-kicker-warm">
                   KI-Modus aktiv
                 </div>
                 {aiPlanPrompt ? (
@@ -1968,7 +1968,7 @@ function PlannerPageContent() {
             type="button"
             onClick={() => void startPlannerRouteRun()}
             disabled={plannedStops.length === 0}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60 lg:w-auto lg:min-w-[220px]"
+            className="pd24-btn pd24-btn-primary w-full active:scale-[0.98] lg:w-auto lg:min-w-[220px]"
           >
             Route starten
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
@@ -1987,7 +1987,7 @@ function PlannerPageContent() {
                   else showToast("Speichere den Plan zuerst, um ihn zu teilen.");
                 }}
                 disabled={plannedStops.length === 0}
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98] disabled:opacity-60"
+                className="pd24-btn pd24-btn-secondary flex-1 active:scale-[0.98]"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                   <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
@@ -1998,7 +1998,7 @@ function PlannerPageContent() {
             ) : authReady && !userId ? (
               <Link
                 href="/profile"
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98]"
+                className="pd24-btn pd24-btn-secondary flex-1 active:scale-[0.98]"
               >
                 Anmelden zum Speichern
               </Link>
@@ -2007,7 +2007,7 @@ function PlannerPageContent() {
                 type="button"
                 onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
                 disabled={!authReady || !userId || saving || plannedStops.length === 0}
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98] disabled:opacity-60"
+                className="pd24-btn pd24-btn-secondary flex-1 active:scale-[0.98]"
               >
                 {!authReady ? "Einen Moment ..." : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
               </button>
@@ -2032,7 +2032,6 @@ function PlannerPageContent() {
               onClick={() => setShowAiModal(true)}
               className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[rgba(196,137,79,0.45)] bg-[linear-gradient(90deg,rgba(255,249,241,0.95),rgba(255,253,248,0.95))] px-4 py-3 text-sm font-semibold text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,1)] active:scale-[0.98] lg:w-auto lg:min-w-[190px]"
             >
-              <span aria-hidden>✨</span>
               <span>Mit KI planen</span>
               <span className="rounded-full bg-[var(--brand-warm)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">Neu</span>
             </button>
@@ -2374,7 +2373,7 @@ function PlannerPageContent() {
             <button
               type="button"
               onClick={() => void startPlannerRouteRun()}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--text-strong)] px-5 py-3 text-sm font-semibold text-white transition active:scale-[0.98]"
+              className="pd24-btn pd24-btn-primary w-full active:scale-[0.98]"
             >
               Route starten
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
@@ -2416,7 +2415,7 @@ export default function Home() {
     <Suspense
       fallback={
         <main className="space-y-6">
-          <section className="rounded-[32px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-6 py-7 shadow-[var(--shadow-large)] sm:px-8">
+          <section className="rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-6 py-7 shadow-[var(--shadow-large)] sm:px-8">
             <div className="text-sm text-[var(--text-muted)]">Planner wird geladen...</div>
           </section>
         </main>

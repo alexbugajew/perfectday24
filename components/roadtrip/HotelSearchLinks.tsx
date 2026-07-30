@@ -189,7 +189,7 @@ export default function HotelSearchLinks({
   });
 
   return (
-    <div className="rounded-xl border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)]">
+    <div className="rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)]">
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
@@ -212,7 +212,7 @@ export default function HotelSearchLinks({
         </div>
 
         <div className="flex items-center gap-1.5">
-          <span className="rounded-full bg-[rgba(183,106,67,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[#b76a43]">
+          <span className="rounded-full bg-[rgba(183,106,67,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[var(--brand-warm-deep)]">
             Affiliate
           </span>
           <svg
@@ -233,7 +233,7 @@ export default function HotelSearchLinks({
           <div className="mb-3 rounded-xl border border-[rgba(183,106,67,0.18)] bg-white p-3 shadow-[0_2px_10px_rgba(15,23,42,0.04)]">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
-                <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#b76a43]">
+                <div className="pd24-kicker-warm">
                   PD24 Stay Pick
                 </div>
                 <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
@@ -243,7 +243,7 @@ export default function HotelSearchLinks({
                   {stayPick.area}
                 </div>
               </div>
-              <span className="rounded-full bg-[rgba(183,106,67,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[#b76a43]">
+              <span className="rounded-full bg-[rgba(183,106,67,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[var(--brand-warm-deep)]">
                 {stayPick.badge}
               </span>
             </div>
@@ -253,14 +253,14 @@ export default function HotelSearchLinks({
             </p>
 
             <div className="mt-2 flex flex-wrap items-center gap-2">
-              <span className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-2 py-0.5 text-[10px] font-semibold text-[var(--text-muted)]">
+              <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2 py-0.5 text-[10px] font-semibold text-[var(--text-muted)]">
                 {stayPick.fitLabel}
               </span>
               <a
                 href={recommendationHref}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                className="pd24-btn pd24-btn-sm pd24-btn-primary active:scale-[0.97]"
               >
                 Empfehlung auf Booking.com oeffnen
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
@@ -295,7 +295,7 @@ export default function HotelSearchLinks({
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="group flex flex-col items-center gap-2 rounded-xl border border-[rgba(23,23,23,0.08)] bg-white px-3 py-3 text-center transition hover:border-[rgba(23,23,23,0.2)] hover:shadow-sm active:scale-[0.97]"
+                  className="group flex flex-col items-center gap-2 rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-3 text-center transition hover:border-[rgba(23,23,23,0.2)] hover:shadow-sm active:scale-[0.97]"
                 >
                   {provider.logo}
                   <span className="text-[11px] font-semibold text-[var(--text-strong)]">

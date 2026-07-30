@@ -133,11 +133,11 @@ export default function PartnerOnboardingWizard({
   if (dismissed) return null;
 
   return (
-    <div className="mb-8 overflow-hidden rounded-[32px] border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(160deg,rgba(255,249,241,0.94),rgba(255,253,248,0.86))] shadow-[var(--shadow-soft)]">
+    <div className="mb-8 overflow-hidden rounded-[var(--radius-hero)] border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(160deg,rgba(255,249,241,0.94),rgba(255,253,248,0.86))] shadow-[var(--shadow-soft)]">
       {/* Header + Progress */}
       <div className="flex flex-col gap-4 border-b border-[rgba(196,137,79,0.18)] px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-warm)]">
+          <div className="pd24-kicker-warm">
             Onboarding · {doneCount} / {steps.length} erledigt
           </div>
           <h2 className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-2xl">
@@ -183,7 +183,7 @@ export default function PartnerOnboardingWizard({
           return (
             <div
               key={step.key}
-              className={`flex flex-col overflow-hidden rounded-[24px] border p-4 transition ${
+              className={`flex flex-col overflow-hidden rounded-[var(--radius-card)] border p-4 transition ${
                 step.isDone
                   ? "border-[rgba(24,140,80,0.28)] bg-white/78"
                   : isActive
@@ -221,11 +221,11 @@ export default function PartnerOnboardingWizard({
                   type="button"
                   onClick={onSubmitForReview}
                   disabled={!reviewReady || isSubmitting}
-                  className={`mt-3 inline-flex items-center justify-center rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                  className={`pd24-btn pd24-btn-sm mt-3 ${
                     reviewReady
-                      ? "bg-[var(--text-strong)] text-white hover:opacity-90"
+                      ? "pd24-btn-primary"
                       : "bg-[rgba(23,23,23,0.06)] text-[var(--text-muted-warm)]"
-                  } disabled:opacity-60`}
+                  }`}
                   title={!reviewReady ? "Erst die vorherigen Schritte abschliessen." : undefined}
                 >
                   {isSubmitting ? "Wird gesendet…" : step.primaryCta}
@@ -257,7 +257,7 @@ export default function PartnerOnboardingWizard({
             type="button"
             onClick={onSubmitForReview}
             disabled={!reviewReady || isSubmitting}
-            className="inline-flex items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
+            className="pd24-btn pd24-btn-primary"
           >
             {isSubmitting ? "Wird gesendet…" : "Zur Freigabe einreichen"}
           </button>

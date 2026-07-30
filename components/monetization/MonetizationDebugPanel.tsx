@@ -164,7 +164,7 @@ export default function MonetizationDebugPanel({
           Debugdaten werden geladen…
         </div>
       ) : error ? (
-        <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-900">
+        <div className="mt-4 rounded-2xl pd24-status-error px-4 py-3">
           {error}
         </div>
       ) : payload ? (

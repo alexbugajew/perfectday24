@@ -53,7 +53,7 @@ export default function PlannerMapPanel({
       <div className="border-b border-[var(--line-subtle)] px-3 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Karte
             </div>
             <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
@@ -107,7 +107,7 @@ export default function PlannerMapPanel({
             onClick={() => {
               if (googleRouteUrl) window.open(googleRouteUrl, "_blank", "noreferrer");
             }}
-            className="min-h-9 rounded-md bg-[var(--text-strong)] px-3 text-xs font-medium text-white disabled:opacity-50"
+            className="pd24-btn pd24-btn-sm pd24-btn-primary"
           >
             Route
           </button>

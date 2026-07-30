@@ -121,10 +121,10 @@ function progressWidth(step: Step) {
 function StepHeader({ step, label }: { step: Step; label: string }) {
   return (
     <div className="mb-6">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+      <div className="pd24-kicker-warm">
         Schritt {step} von 3
       </div>
-      <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#171717]">{label}</h2>
+      <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">{label}</h2>
     </div>
   );
 }
@@ -167,8 +167,8 @@ function NeedToggle({
       className={cx(
         "flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition",
         selected
-          ? "border-[#171717] bg-[#171717] text-white"
-          : "border-[rgba(23,23,23,0.12)] bg-white text-[#171717] hover:border-[#171717]",
+          ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
+          : "border-[var(--line-strong)] bg-white text-[var(--text-strong)] hover:border-[var(--text-strong)]",
         required && "cursor-default opacity-80"
       )}
     >
@@ -186,7 +186,7 @@ function NeedToggle({
         <span
           className={cx(
             "rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
-            selected ? "bg-white/20 text-white" : "bg-[rgba(23,23,23,0.08)] text-[#665d55]"
+            selected ? "bg-white/20 text-white" : "bg-[rgba(23,23,23,0.08)] text-[var(--text-muted-warm)]"
           )}
         >
           Pflicht
@@ -245,10 +245,10 @@ function SavedPlanCard({
   return (
     <div
       className={cx(
-        "flex flex-col gap-2 rounded-[20px] border bg-white p-4 shadow-sm transition",
+        "flex flex-col gap-2 rounded-[var(--radius-card-sm)] border p-4 shadow-sm transition",
         confirming
-          ? "border-red-200 bg-red-50/40"
-          : "border-[rgba(23,23,23,0.08)] hover:border-[rgba(23,23,23,0.2)] hover:shadow-md"
+          ? "border-[rgba(161,75,69,0.24)] bg-[rgba(161,75,69,0.04)]"
+          : "border-[var(--line-subtle)] bg-white hover:border-[rgba(23,23,23,0.2)] hover:shadow-md"
       )}
     >
       {/* Main clickable area */}
@@ -257,10 +257,10 @@ function SavedPlanCard({
           href={`/events/plan/${plan.id}`}
           className="group min-w-0 flex-1"
         >
-          <p className="truncate font-semibold text-[#171717] text-sm leading-snug group-hover:underline underline-offset-2">
+          <p className="truncate font-semibold text-[var(--text-strong)] text-sm leading-snug group-hover:underline underline-offset-2">
             {plan.title ?? occasionLabel}
           </p>
-          <p className="mt-0.5 text-xs text-[#8b7767]">
+          <p className="mt-0.5 text-xs text-[var(--text-soft-warm)]">
             {occasionLabel}
             {dateFormatted && ` · ${dateFormatted}`}
           </p>
@@ -272,7 +272,7 @@ function SavedPlanCard({
             type="button"
             aria-label="Plan löschen"
             onClick={() => setConfirming(true)}
-            className="shrink-0 rounded-full p-1.5 text-[#8b7767] transition hover:bg-red-50 hover:text-red-500"
+            className="shrink-0 rounded-full p-1.5 text-[var(--text-soft-warm)] transition hover:bg-[rgba(161,75,69,0.08)] hover:text-[var(--state-error)]"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth={1.75} strokeLinecap="round"
@@ -289,28 +289,28 @@ function SavedPlanCard({
 
       <div className="flex flex-wrap gap-1.5">
         {plan.guest_count && (
-          <span className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[#f7f4ee] px-2 py-0.5 text-[10px] text-[#665d55]">
+          <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-2 py-0.5 text-[10px] text-[var(--text-muted-warm)]">
             {plan.guest_count} Gäste
           </span>
         )}
         {plan.received_quotes > 0 && (
-          <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
+          <span className="pd24-status-success rounded-full px-2 py-0.5 text-[10px] font-medium">
             {plan.received_quotes} Angebot{plan.received_quotes > 1 ? "e" : ""} eingegangen
           </span>
         )}
         {plan.pending_quotes > 0 && (
-          <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-700">
+          <span className="pd24-status-warning rounded-full px-2 py-0.5 text-[10px] font-medium">
             {plan.pending_quotes} Anfrage{plan.pending_quotes > 1 ? "n" : ""} ausstehend
           </span>
         )}
       </div>
 
-      <p className="text-[10px] text-[#8b7767]">Erstellt {createdFormatted}</p>
+      <p className="text-[10px] text-[var(--text-soft-warm)]">Erstellt {createdFormatted}</p>
 
       {(plan.pending_quotes > 0 || plan.received_quotes > 0) && (
         <a
           href={`/events/plan/${plan.id}?tab=offers`}
-          className="inline-flex min-h-9 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 px-3 text-xs font-medium text-emerald-800 transition hover:bg-emerald-100"
+          className="pd24-status-success inline-flex min-h-9 items-center justify-center rounded-full px-3 text-xs font-medium transition hover:opacity-90"
         >
           Anfragen & Angebote prüfen
         </a>
@@ -318,8 +318,8 @@ function SavedPlanCard({
 
       {/* Inline confirmation */}
       {confirming && (
-        <div className="mt-1 flex items-center justify-between gap-3 rounded-[14px] border border-red-200 bg-white px-3 py-2.5">
-          <p className="text-xs text-red-700 font-medium">
+        <div className="mt-1 flex items-center justify-between gap-3 rounded-[var(--radius-control)] border border-[rgba(161,75,69,0.24)] bg-white px-3 py-2.5">
+          <p className="text-xs text-[var(--state-error)] font-medium">
             Plan wirklich löschen?
           </p>
           <div className="flex shrink-0 gap-2">
@@ -327,7 +327,7 @@ function SavedPlanCard({
               type="button"
               onClick={() => setConfirming(false)}
               disabled={deleting}
-              className="rounded-lg border border-[rgba(23,23,23,0.12)] bg-white px-3 py-1 text-xs font-medium text-[#665d55] transition hover:border-[rgba(23,23,23,0.25)] disabled:opacity-50"
+              className="rounded-lg border border-[var(--line-strong)] bg-white px-3 py-1 text-xs font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(23,23,23,0.25)] disabled:opacity-50"
             >
               Abbrechen
             </button>
@@ -335,7 +335,7 @@ function SavedPlanCard({
               type="button"
               onClick={handleDelete}
               disabled={deleting}
-              className="rounded-lg bg-red-500 px-3 py-1 text-xs font-medium text-white transition hover:bg-red-600 disabled:opacity-50"
+              className="rounded-lg bg-[var(--state-error)] px-3 py-1 text-xs font-medium text-white transition hover:opacity-90 disabled:opacity-50"
             >
               {deleting ? "…" : "Löschen"}
             </button>
@@ -472,14 +472,14 @@ export default function EventsPage() {
     form.occasionSlug !== "" ? NEEDS_BY_OCCASION[form.occasionSlug] : [];
 
   return (
-    <div className="min-h-screen bg-[#f7f4ee] pb-20 pt-8">
+    <div className="min-h-screen bg-[var(--bg-canvas-warm)] pb-20 pt-8">
       <div className="pd24-page-narrow">
 
         {/* Back-Link + Dashboard-Link */}
         <div className="mb-6 flex items-center justify-between gap-3">
           <a
             href="/explore"
-            className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(23,23,23,0.1)] bg-white px-3 py-1.5 text-xs font-medium text-[#665d55] transition hover:text-[#171717]"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted-warm)] transition hover:text-[var(--text-strong)]"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
               <path d="M19 12H5M12 5l-7 7 7 7" />
@@ -488,7 +488,7 @@ export default function EventsPage() {
           </a>
           <a
             href="/events/dashboard"
-            className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(23,23,23,0.1)] bg-white px-3 py-1.5 text-xs font-medium text-[#665d55] transition hover:text-[#171717]"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted-warm)] transition hover:text-[var(--text-strong)]"
           >
             Meine Events →
           </a>
@@ -496,25 +496,25 @@ export default function EventsPage() {
 
         {/* Page header */}
         <div className="mb-10">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+          <div className="pd24-kicker-warm">
             Event-Planer
           </div>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[#171717]">
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[var(--text-strong)]">
             Plane einen größeren Anlass.
           </h1>
-          <p className="mt-3 text-base leading-7 text-[#665d55]">
+          <p className="mt-3 text-base leading-7 text-[var(--text-muted-warm)]">
             Für Gäste, Teams und besondere Anlässe.
           </p>
 
         </div>
 
         {/* Wizard card */}
-        <div className="overflow-hidden rounded-[32px] border border-[rgba(23,23,23,0.08)] bg-[#fffdf8] shadow-[0_24px_64px_rgba(49,39,27,0.12)]">
+        <div className="overflow-hidden rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-[var(--bg-surface-warm)] shadow-[0_24px_64px_rgba(49,39,27,0.12)]">
 
           {/* Progress bar */}
           <div className="h-1 w-full bg-[rgba(23,23,23,0.06)]">
             <div
-              className="h-1 rounded-full bg-[#171717] transition-all duration-300"
+              className="h-1 rounded-full bg-[var(--text-strong)] transition-all duration-300"
               style={{ width: progressWidth(step) }}
             />
           </div>
@@ -536,7 +536,7 @@ export default function EventsPage() {
                         className={cx(
                           "group relative overflow-hidden rounded-2xl text-left transition focus-visible:outline-none active:scale-[0.97]",
                           selected
-                            ? "ring-2 ring-[#b76a43] ring-offset-2 shadow-lg"
+                            ? "ring-2 ring-[var(--brand-warm-deep)] ring-offset-2 shadow-lg"
                             : "shadow-sm hover:shadow-md"
                         )}
                         style={{ height: 160 }}
@@ -554,7 +554,7 @@ export default function EventsPage() {
 
                         {/* Ausgewählt-Badge */}
                         {selected && (
-                          <div className="absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#b76a43] shadow">
+                          <div className="absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--brand-warm-deep)] shadow">
                             <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
                               <path d="M20 6L9 17l-5-5" />
                             </svg>
@@ -588,7 +588,7 @@ export default function EventsPage() {
 
                   {/* Stadt */}
                   <div>
-                    <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#8b7767]">
+                    <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]">
                       Stadt *
                     </label>
                     <CitySearchInput
@@ -604,7 +604,7 @@ export default function EventsPage() {
                     <div>
                       <label
                         htmlFor="event-date"
-                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#8b7767]"
+                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]"
                       >
                         Datum (optional)
                       </label>
@@ -613,14 +613,14 @@ export default function EventsPage() {
                         type="date"
                         value={form.date}
                         onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))}
-                        className="w-full rounded-2xl border border-[rgba(23,23,23,0.12)] bg-white px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none"
+                        className="w-full rounded-2xl border border-[var(--line-strong)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] focus:border-[var(--text-strong)] focus:outline-none"
                       />
                     </div>
 
                     <div>
                       <label
                         htmlFor="event-guests"
-                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#8b7767]"
+                        className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]"
                       >
                         Gäste *
                       </label>
@@ -631,7 +631,7 @@ export default function EventsPage() {
                         placeholder="z.B. 50"
                         value={form.guests}
                         onChange={(e) => setForm((f) => ({ ...f, guests: e.target.value }))}
-                        className="w-full rounded-2xl border border-[rgba(23,23,23,0.12)] bg-white px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none"
+                        className="w-full rounded-2xl border border-[var(--line-strong)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] focus:border-[var(--text-strong)] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -640,7 +640,7 @@ export default function EventsPage() {
                   <div>
                     <label
                       htmlFor="event-budget"
-                      className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#8b7767]"
+                      className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]"
                     >
                       Budget in € (optional)
                     </label>
@@ -652,7 +652,7 @@ export default function EventsPage() {
                       placeholder="z.B. 5000"
                       value={form.budgetCents}
                       onChange={(e) => setForm((f) => ({ ...f, budgetCents: e.target.value }))}
-                      className="w-full rounded-2xl border border-[rgba(23,23,23,0.12)] bg-white px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none"
+                      className="w-full rounded-2xl border border-[var(--line-strong)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] focus:border-[var(--text-strong)] focus:outline-none"
                     />
                   </div>
                 </div>
@@ -663,7 +663,7 @@ export default function EventsPage() {
             {step === 3 && (
               <div>
                 <StepHeader step={3} label="Was braucht dein Event?" />
-                <p className="mb-5 text-sm leading-6 text-[#665d55]">
+                <p className="mb-5 text-sm leading-6 text-[var(--text-muted-warm)]">
                   Pflichtpositionen sind bereits aktiv. Wähle zusätzlich, was du brauchst.
                 </p>
                 <div className="space-y-2">
@@ -680,24 +680,24 @@ export default function EventsPage() {
                 </div>
 
                 {/* Summary strip */}
-                <div className="mt-6 rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-[rgba(249,243,235,0.7)] px-5 py-4">
-                  <div className="text-[11px] font-semibold uppercase tracking-wide text-[#8b7767]">
+                <div className="mt-6 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(249,243,235,0.7)] px-5 py-4">
+                  <div className="text-[11px] font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]">
                     Dein Event auf einen Blick
                   </div>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    <span className="rounded-full border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1 text-xs text-[#665d55]">
+                    <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted-warm)]">
                       {OCCASIONS.find((o) => o.slug === form.occasionSlug)?.label}
                     </span>
-                    <span className="rounded-full border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1 text-xs text-[#665d55]">
+                    <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted-warm)]">
                       {cityOptions.find((c) => c.slug === form.city)?.name ?? form.city}
                     </span>
                     {form.guests && (
-                      <span className="rounded-full border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1 text-xs text-[#665d55]">
+                      <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted-warm)]">
                         {form.guests} Gäste
                       </span>
                     )}
                     {form.date && (
-                      <span className="rounded-full border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1 text-xs text-[#665d55]">
+                      <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted-warm)]">
                         {new Date(form.date).toLocaleDateString("de-DE", {
                           day: "2-digit",
                           month: "2-digit",
@@ -705,7 +705,7 @@ export default function EventsPage() {
                         })}
                       </span>
                     )}
-                    <span className="rounded-full border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1 text-xs text-[#665d55]">
+                    <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted-warm)]">
                       {form.selectedNeeds.length} Leistungen
                     </span>
                   </div>
@@ -719,7 +719,7 @@ export default function EventsPage() {
                 <button
                   type="button"
                   onClick={() => setStep((s) => (s - 1) as Step)}
-                  className="inline-flex min-h-11 items-center rounded-xl border border-[rgba(23,23,23,0.12)] bg-white px-5 text-sm font-medium text-[#171717] transition hover:border-[#171717]"
+                  className="pd24-btn pd24-btn-secondary"
                 >
                   Zurück
                 </button>
@@ -732,7 +732,7 @@ export default function EventsPage() {
                   type="button"
                   onClick={() => setStep((s) => (s + 1) as Step)}
                   disabled={!canAdvance()}
-                  className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-40 hover:opacity-95"
+                  className="pd24-btn pd24-btn-primary"
                 >
                   Weiter
                 </button>
@@ -740,7 +740,7 @@ export default function EventsPage() {
                 <button
                   type="button"
                   onClick={handleFinish}
-                  className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition hover:opacity-95"
+                  className="pd24-btn pd24-btn-primary"
                 >
                   Dienstleister anzeigen
                 </button>
@@ -750,7 +750,7 @@ export default function EventsPage() {
         </div>
 
         {/* Footer hint */}
-        <p className="mt-6 text-center text-xs text-[#8b7767]">
+        <p className="mt-6 text-center text-xs text-[var(--text-soft-warm)]">
           Kein Account nötig für die Planung. Speichern und Teilen erfordert eine kostenlose Anmeldung.
         </p>
 
@@ -758,11 +758,11 @@ export default function EventsPage() {
         {(plansLoading || savedPlans.length > 0) && (
           <div className="mt-10">
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="text-lg font-semibold text-[#171717]">Meine gespeicherten Pläne</h2>
+              <h2 className="text-lg font-semibold text-[var(--text-strong)]">Meine gespeicherten Pläne</h2>
               {savedPlans.length > 0 && (
                 <a
                   href="/events/dashboard"
-                  className="text-xs font-medium text-[#8b7767] underline-offset-2 hover:underline"
+                  className="text-xs font-medium text-[var(--text-soft-warm)] underline-offset-2 hover:underline"
                 >
                   Alle ansehen →
                 </a>
@@ -774,7 +774,7 @@ export default function EventsPage() {
                 {[1, 2].map((i) => (
                   <div
                     key={i}
-                    className="animate-pulse rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-white p-4"
+                    className="animate-pulse rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white p-4"
                   >
                     <div className="h-4 w-1/2 rounded-full bg-[rgba(23,23,23,0.07)]" />
                     <div className="mt-2 h-3 w-1/3 rounded-full bg-[rgba(23,23,23,0.05)]" />

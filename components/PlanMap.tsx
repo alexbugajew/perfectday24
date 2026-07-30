@@ -420,7 +420,7 @@ export default function PlanMap({
       </div>
 
       {err ? (
-        <div className="mt-2 text-xs text-red-600">
+        <div className="mt-2 text-xs text-[var(--state-error)]">
           {err} (Fallback bleibt: du kannst trotzdem Route öffnen nutzen)
         </div>
       ) : null}

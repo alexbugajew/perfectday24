@@ -6,6 +6,7 @@
   --bg-panel: #e5eaee;
   --bg-panel-strong: #ffffff;
   --bg-canvas-warm: #f7f4ee;
+  --bg-surface-warm: #fffdf8; /* Kanon: warmes Flächen-Weiß der Events-Strecke */
 
   --text-strong: #111827;
   --text-muted: #586373;
@@ -21,6 +22,12 @@
   --brand-warm: #c4894f;
   --brand-warm-soft: #f0e0cc;
   --brand-warm-cloud: #faf3eb;
+  /* Kanon 30.07.2026: bisher hartkodierte Zweitakzente als offizielle Tokens.
+     --brand-warm-deep = das Kupfer der Roadtrip/Events-CTAs (vorher 59x #b76a43),
+     --brand-creative = der Violett-Akzent (vorher #7c6fa0). Flächen/Kicker nutzen
+     --brand-warm, kräftige CTAs/Hover --brand-warm-deep. */
+  --brand-warm-deep: #b76a43;
+  --brand-creative: #7c6fa0;
 
   --state-success: #4f6b5b;
   --state-warning: #9a6b2f;
@@ -48,6 +55,7 @@
   --radius-card: 24px;
   --radius-card-sm: 20px;
   --radius-control: 16px;
+  --radius-hero: 32px; /* Kanon: für großzügige Hero-/Feature-Flächen (ersetzt arbitrary 32-36px) */
 
   /* Backward-compatible aliases for existing screens */
   --background: var(--bg-canvas);
@@ -311,6 +319,62 @@ textarea:disabled {
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--brand-warm);
+}
+
+/* ── Button-Kanon (30.07.2026) ─────────────────────────────────────────────
+   Spiegelt PD24Button (components/ui/pd24.tsx) als CSS-Klassen, damit die
+   App-Surfaces ohne Komponenten-Umbau migrieren können. Formstufen:
+   Standard = radius-control (16px), Chips/Pills = rounded-full.
+   Fokus-Zustand kommt aus der globalen focus-visible-Regel (--focus-ring). */
+.pd24-btn {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-control);
+  padding-inline: 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: opacity 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.pd24-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.pd24-btn-sm {
+  min-height: 2.5rem;
+  padding-inline: 0.875rem;
+  font-size: 0.8125rem;
+}
+.pd24-btn-primary {
+  background: var(--text-strong);
+  color: #ffffff;
+}
+.pd24-btn-primary:hover:not(:disabled) {
+  opacity: 0.95;
+}
+.pd24-btn-secondary {
+  border: 1px solid var(--line-subtle);
+  background: var(--bg-surface);
+  color: var(--text-strong);
+}
+.pd24-btn-secondary:hover:not(:disabled) {
+  border-color: var(--line-strong);
+  background: #ffffff;
+}
+.pd24-btn-ghost {
+  color: var(--text-strong);
+}
+.pd24-btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.7);
+}
+.pd24-btn-warm {
+  background: var(--brand-warm-deep);
+  color: #ffffff;
+}
+.pd24-btn-warm:hover:not(:disabled) {
+  opacity: 0.95;
 }
 
 .pd24-status-info {

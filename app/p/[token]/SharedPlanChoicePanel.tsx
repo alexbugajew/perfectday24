@@ -140,11 +140,11 @@ export default function SharedPlanChoicePanel({
 
   const toneClasses =
     reactionMoment.tone === "emerald"
-      ? "border-emerald-300 text-emerald-900"
+      ? "border-[var(--state-success)]/30 text-[var(--state-success)]"
       : reactionMoment.tone === "amber"
-        ? "border-amber-300 text-amber-900"
+        ? "border-[var(--state-warning)]/30 text-[var(--state-warning)]"
         : reactionMoment.tone === "sky"
-          ? "border-sky-300 text-sky-900"
+          ? "border-[var(--state-info)]/30 text-[var(--state-info)]"
           : "border-slate-300 text-slate-700";
 
   return (

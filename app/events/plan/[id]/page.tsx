@@ -607,7 +607,7 @@ export default function EventPlanDetailPage() {
               </button>
             </div>
 
-            <p role="status" className="text-xs font-medium text-red-600">
+            <p role="status" className="text-xs font-medium text-[var(--state-error)]">
               {shareError ?? ""}
             </p>
           </div>
@@ -631,13 +631,13 @@ export default function EventPlanDetailPage() {
 
       {/* Return CTA */}
       {returnUrl && (
-        <div className="mb-6 flex items-center justify-between gap-4 rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4">
-          <p className="text-sm text-blue-900">
+        <div className="pd24-status-info mb-6 flex items-center justify-between gap-4 rounded-2xl px-5 py-4">
+          <p className="text-sm">
             Event angelegt. Jetzt Teilnehmer einladen und RSVPs verfolgen.
           </p>
           <Link
             href={`${returnUrl}?event=${plan.id}`}
-            className="shrink-0 rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+            className="shrink-0 rounded-xl bg-[var(--state-info)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
           >
             Weiter zur Teilnehmerverwaltung →
           </Link>
@@ -645,21 +645,21 @@ export default function EventPlanDetailPage() {
       )}
 
       {(createdFromFlow || inquiryFailed) && (
-        <div className={`mb-6 rounded-2xl px-5 py-4 ${inquiryFailed ? "border border-amber-200 bg-amber-50" : "border border-emerald-200 bg-emerald-50"}`}>
+        <div className={`mb-6 rounded-2xl px-5 py-4 ${inquiryFailed ? "pd24-status-warning" : "pd24-status-success"}`}>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               {inquiryFailed ? (
                 <>
-                  <p className="text-sm font-semibold text-amber-900">
+                  <p className="text-sm font-semibold">
                     Dein Event wurde gespeichert, aber Preisanfragen konnten nicht vollständig versendet werden.
                   </p>
-                  <p className="mt-1 text-sm text-amber-800">
+                  <p className="mt-1 text-sm">
                     Bitte Anbieter erneut anfragen. Erst erfolgreiche Anfragen erscheinen im Bereich Anfragen & Angebote.
                   </p>
                 </>
               ) : (
                 <>
-                  <p className="text-sm font-semibold text-emerald-900">
+                  <p className="text-sm font-semibold">
                     {createdInquiryCount > 0 && createdBookingCount > 0
                       ? "Anfragen und Leistungen wurden gespeichert."
                       : createdInquiryCount > 0
@@ -672,7 +672,7 @@ export default function EventPlanDetailPage() {
                             : "Leistungen wurden gespeichert."
                           : "Dein Event wurde gespeichert."}
                   </p>
-                  <p className="mt-1 text-sm text-emerald-800">
+                  <p className="mt-1 text-sm">
                     {createdInquiryCount > 0
                       ? createdInquiryCount === 1
                         ? "1 Anfrage wurde versendet. Angebote laufen jetzt im Bereich Anfragen & Angebote ein."
@@ -686,7 +686,7 @@ export default function EventPlanDetailPage() {
             <button
               type="button"
               onClick={() => setActiveTab(createdInquiryCount > 0 ? "offers" : "overview")}
-              className={`inline-flex min-h-10 items-center justify-center rounded-full px-4 text-sm font-medium text-white transition ${inquiryFailed ? "bg-amber-700 hover:bg-amber-800" : "bg-emerald-700 hover:bg-emerald-800"}`}
+              className={`inline-flex min-h-10 items-center justify-center rounded-full px-4 text-sm font-medium text-white transition hover:opacity-90 ${inquiryFailed ? "bg-[var(--state-warning)]" : "bg-[var(--state-success)]"}`}
             >
               {createdInquiryCount > 0 && !inquiryFailed ? "Zu Anfragen & Angeboten" : "Zur Übersicht"}
             </button>
@@ -702,7 +702,7 @@ export default function EventPlanDetailPage() {
         </div>
         <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
           <p className="text-xs text-[var(--text-muted)]">Gesamtkosten</p>
-          <p className={`mt-1 text-2xl font-semibold ${overBudget ? "text-red-600" : "text-[var(--text-strong)]"}`}>
+          <p className={`mt-1 text-2xl font-semibold ${overBudget ? "text-[var(--state-error)]" : "text-[var(--text-strong)]"}`}>
             {runningTotal.toLocaleString("de-DE")} €
           </p>
         </div>
@@ -713,7 +713,7 @@ export default function EventPlanDetailPage() {
               {budget.toLocaleString("de-DE")} €
             </p>
             {overBudget && (
-              <p className="mt-0.5 text-xs font-medium text-red-600">
+              <p className="mt-0.5 text-xs font-medium text-[var(--state-error)]">
                 +{(runningTotal - budget).toLocaleString("de-DE")} € über Budget
               </p>
             )}
@@ -808,13 +808,13 @@ export default function EventPlanDetailPage() {
                 <p className="text-xs text-[var(--text-muted)]">Angefragt</p>
                 <p className="mt-1 text-2xl font-semibold text-[var(--text-strong)]">{allQuotes.length}</p>
               </div>
-              <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-                <p className="text-xs text-emerald-700">Angebote erhalten</p>
-                <p className="mt-1 text-2xl font-semibold text-emerald-800">{respondedQuotes.length}</p>
+              <div className="pd24-status-success rounded-xl p-4">
+                <p className="text-xs">Angebote erhalten</p>
+                <p className="mt-1 text-2xl font-semibold">{respondedQuotes.length}</p>
               </div>
-              <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-                <p className="text-xs text-amber-700">Ausstehend</p>
-                <p className="mt-1 text-2xl font-semibold text-amber-800">{pendingQuotes.length}</p>
+              <div className="pd24-status-warning rounded-xl p-4">
+                <p className="text-xs">Ausstehend</p>
+                <p className="mt-1 text-2xl font-semibold">{pendingQuotes.length}</p>
               </div>
               <div className="rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                 <p className="text-xs text-[var(--text-muted)]">Leistungen gebucht</p>
@@ -948,13 +948,13 @@ export default function EventPlanDetailPage() {
                 <p className="text-xs text-[var(--text-muted)]">Anfragen gesendet</p>
                 <p className="mt-1 text-2xl font-semibold text-[var(--text-strong)]">{allQuotes.length}</p>
               </div>
-              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 shadow-sm">
-                <p className="text-xs text-emerald-700">Angebote erhalten</p>
-                <p className="mt-1 text-2xl font-semibold text-emerald-800">{respondedQuotes.length}</p>
+              <div className="pd24-status-success rounded-2xl p-4 shadow-sm">
+                <p className="text-xs">Angebote erhalten</p>
+                <p className="mt-1 text-2xl font-semibold">{respondedQuotes.length}</p>
               </div>
-              <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 shadow-sm">
-                <p className="text-xs text-amber-700">Ausstehende Antworten</p>
-                <p className="mt-1 text-2xl font-semibold text-amber-800">{pendingQuotes.length}</p>
+              <div className="pd24-status-warning rounded-2xl p-4 shadow-sm">
+                <p className="text-xs">Ausstehende Antworten</p>
+                <p className="mt-1 text-2xl font-semibold">{pendingQuotes.length}</p>
               </div>
               <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
                 <p className="text-xs text-[var(--text-muted)]">Bereits gebucht</p>
@@ -985,7 +985,7 @@ export default function EventPlanDetailPage() {
               </div>
 
               {bookingError && (
-                <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                <div className="pd24-status-error mb-4 rounded-xl px-4 py-3 text-sm">
                   {bookingError}
                 </div>
               )}
@@ -1011,20 +1011,20 @@ export default function EventPlanDetailPage() {
 
                   return (
                     <div key={needSlug} className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white shadow-sm overflow-hidden">
-                      <div className={`flex items-center justify-between gap-3 border-b border-[var(--line-subtle)] px-5 py-3 ${isBooked ? "bg-emerald-50" : "bg-[var(--bg-surface)]"}`}>
+                      <div className={`flex items-center justify-between gap-3 border-b border-[var(--line-subtle)] px-5 py-3 ${isBooked ? "bg-[rgba(79,107,91,0.08)]" : "bg-[var(--bg-surface)]"}`}>
                         <div className="flex items-center gap-2">
                           <span className="font-semibold text-[var(--text-strong)]">{needLabel}</span>
                           <span className="rounded-full border border-[var(--line-subtle)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]">
                             {quotes.length} Anfrage{quotes.length > 1 ? "n" : ""}
                           </span>
                           {receivedCount > 0 && (
-                            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
+                            <span className="pd24-status-success rounded-full px-2 py-0.5 text-[10px] font-medium">
                               {receivedCount} Angebot{receivedCount > 1 ? "e" : ""}
                             </span>
                           )}
                         </div>
                         {isBooked ? (
-                          <span className="rounded-full border border-emerald-300 bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                          <span className="pd24-status-success rounded-full px-3 py-1 text-xs font-semibold">
                             Gebucht: {(bookedBy?.service_providers as { name?: string } | null)?.name ?? "-"}
                           </span>
                         ) : receivedCount > 0 && minPrice !== Infinity ? (
@@ -1046,27 +1046,27 @@ export default function EventPlanDetailPage() {
                           const isLoading = bookingLoading === q.id;
 
                           return (
-                            <div key={q.id} className={`flex items-start gap-4 px-5 py-4 ${isAccepted ? "bg-emerald-50/50" : ""}`}>
+                            <div key={q.id} className={`flex items-start gap-4 px-5 py-4 ${isAccepted ? "bg-[rgba(79,107,91,0.05)]" : ""}`}>
                               <div className="min-w-0 flex-1">
                                 <div className="flex flex-wrap items-center gap-1.5">
                                   <span className="font-medium text-[var(--text-strong)]">{provider?.name ?? "-"}</span>
                                   {isBestPrice && (
-                                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                                    <span className="pd24-status-success rounded-full px-2 py-0.5 text-[10px] font-semibold">
                                       Günstigstes Angebot
                                     </span>
                                   )}
                                   {isAccepted && (
-                                    <span className="rounded-full border border-emerald-300 bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                                    <span className="pd24-status-success rounded-full px-2 py-0.5 text-[10px] font-semibold">
                                       Gebucht
                                     </span>
                                   )}
                                   {isResponded && !isAccepted && (
-                                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] text-emerald-600">
+                                    <span className="pd24-status-success rounded-full px-2 py-0.5 text-[10px]">
                                       Angebot eingegangen
                                     </span>
                                   )}
                                   {!isResponded && !isExpired && (
-                                    <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] text-amber-600">
+                                    <span className="pd24-status-warning rounded-full px-2 py-0.5 text-[10px]">
                                       Ausstehend
                                     </span>
                                   )}
@@ -1088,12 +1088,12 @@ export default function EventPlanDetailPage() {
                                       </span>
                                     </span>
                                     {isAvailable && !isAccepted && (
-                                      <span className="text-xs font-medium text-emerald-600">Verfügbar · buchbar</span>
+                                      <span className="text-xs font-medium text-[var(--state-success)]">Verfügbar · buchbar</span>
                                     )}
                                     {isAvailable && isAccepted && (
-                                      <span className="text-xs font-medium text-emerald-700">Verfügbar · gebucht</span>
+                                      <span className="text-xs font-medium text-[var(--state-success)]">Verfügbar · gebucht</span>
                                     )}
-                                    {isUnavailable && <span className="text-xs text-red-500">Nicht verfügbar</span>}
+                                    {isUnavailable && <span className="text-xs text-[var(--state-error)]">Nicht verfügbar</span>}
                                   </div>
                                 )}
                                 {isResponded && q.price_cents == null && (
@@ -1115,7 +1115,7 @@ export default function EventPlanDetailPage() {
                                   type="button"
                                   onClick={() => setQuoteToConfirm(q)}
                                   disabled={isLoading}
-                                  className="shrink-0 rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                                  className="pd24-btn pd24-btn-sm pd24-btn-primary shrink-0"
                                 >
                                   {isLoading ? "Wird gebucht ..." : "Buchen"}
                                 </button>
@@ -1138,7 +1138,7 @@ export default function EventPlanDetailPage() {
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-base font-semibold text-[var(--text-strong)]">Rückmeldungen</h2>
             <div className="flex gap-3 text-xs text-[var(--text-muted)]">
-              <span className="text-emerald-700 font-medium">
+              <span className="text-[var(--state-success)] font-medium">
                 {rsvps.filter((r) => r.response === "accepted").length} Zusagen
               </span>
               <span>
@@ -1162,7 +1162,7 @@ export default function EventPlanDetailPage() {
                       className={[
                         "rounded-full px-2 py-0.5 text-[10px] font-semibold",
                         r.response === "accepted"
-                          ? "bg-emerald-50 text-emerald-700"
+                          ? "bg-[rgba(79,107,91,0.08)] text-[var(--state-success)]"
                           : "bg-[var(--bg-surface)] text-[var(--text-muted)]",
                       ].join(" ")}
                     >

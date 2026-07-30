@@ -215,8 +215,8 @@ export default function InvitationPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f7f4ee]">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#b76a43] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-canvas-warm)]">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--brand-warm-deep)] border-t-transparent" />
       </div>
     );
   }
@@ -225,11 +225,11 @@ export default function InvitationPage() {
 
   if (notFound || !plan) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[#f7f4ee] px-4 text-center">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[var(--bg-canvas-warm)] px-4 text-center">
         <div className="text-4xl">🔗</div>
-        <p className="text-lg font-semibold text-[#171717]">Einladung nicht gefunden</p>
-        <p className="text-sm text-[#8b7767]">Dieser Link ist abgelaufen oder existiert nicht.</p>
-        <Link href="/" className="mt-2 text-sm text-[#b76a43] underline underline-offset-2">
+        <p className="text-lg font-semibold text-[var(--text-strong)]">Einladung nicht gefunden</p>
+        <p className="text-sm text-[var(--text-soft-warm)]">Dieser Link ist abgelaufen oder existiert nicht.</p>
+        <Link href="/" className="mt-2 text-sm text-[var(--brand-warm-deep)] underline underline-offset-2">
           Zur Startseite
         </Link>
       </div>
@@ -249,25 +249,25 @@ export default function InvitationPage() {
 
   if (rsvpState === "success_accepted" || rsvpState === "success_declined") {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-[#f7f4ee] px-4 text-center">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-[var(--bg-canvas-warm)] px-4 text-center">
         <div className="text-6xl">
           {rsvpState === "success_accepted" ? "🎉" : "💌"}
         </div>
         <div>
-          <h2 className="text-2xl font-semibold text-[#171717]">
+          <h2 className="text-2xl font-semibold text-[var(--text-strong)]">
             {rsvpState === "success_accepted"
               ? "Wir freuen uns auf dich!"
               : "Danke für deine Rückmeldung."}
           </h2>
-          <p className="mt-2 text-sm text-[#665d55]">
+          <p className="mt-2 text-sm text-[var(--text-muted-warm)]">
             {rsvpState === "success_accepted"
               ? `${guestName}, wir haben deine Zusage gespeichert. Bis bald!`
               : `${guestName}, schade dass du nicht dabei sein kannst. Wir haben deine Absage notiert.`}
           </p>
         </div>
-        <p className="text-xs text-[#8b7767]">
+        <p className="text-xs text-[var(--text-soft-warm)]">
           Organisiert mit{" "}
-          <Link href="/" className="text-[#b76a43]">PerfectDay24</Link>
+          <Link href="/" className="text-[var(--brand-warm-deep)]">PerfectDay24</Link>
         </p>
       </div>
     );
@@ -276,25 +276,25 @@ export default function InvitationPage() {
   // ─── Main render ──────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen bg-[#f7f4ee]">
+    <div className="min-h-screen bg-[var(--bg-canvas-warm)]">
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <div
         className="relative overflow-hidden px-4 py-16 sm:py-24"
         style={{
-          background: "linear-gradient(150deg, #fffdf8 0%, #f0e8dc 50%, #e8ddd0 100%)",
+          background: "linear-gradient(150deg, var(--bg-surface-warm) 0%, #f0e8dc 50%, #e8ddd0 100%)",
         }}
       >
         {/* Decorative circle */}
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, #b76a43 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, var(--brand-warm-deep) 0%, transparent 70%)" }}
         />
         <div
           aria-hidden
           className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full opacity-15"
-          style={{ background: "radial-gradient(circle, #b76a43 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, var(--brand-warm-deep) 0%, transparent 70%)" }}
         />
 
         <div className="relative mx-auto max-w-lg text-center">
@@ -302,11 +302,11 @@ export default function InvitationPage() {
             {occasionEmoji}
           </div>
 
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em] text-[#b76a43]">
+          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--brand-warm-deep)]">
             Einladung · {occasionLabel}
           </div>
 
-          <h1 className="text-3xl font-semibold tracking-tight text-[#171717] sm:text-4xl">
+          <h1 className="text-3xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-4xl">
             {plan.title || occasionLabel}
           </h1>
 
@@ -332,10 +332,10 @@ export default function InvitationPage() {
       <div className="mx-auto max-w-lg px-4 py-10 sm:px-6">
 
         {/* Invitation text */}
-        <div className="mb-10 rounded-[24px] border border-[rgba(183,106,67,0.15)] bg-white p-6 shadow-sm">
+        <div className="mb-10 rounded-[var(--radius-card)] border border-[rgba(183,106,67,0.15)] bg-white p-6 shadow-sm">
           <div className="mb-3 flex items-center gap-2">
             <div className="h-px flex-1 bg-[rgba(183,106,67,0.15)]" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b76a43]">
+            <span className="pd24-kicker-warm">
               Einladung
             </span>
             <div className="h-px flex-1 bg-[rgba(183,106,67,0.15)]" />
@@ -344,7 +344,7 @@ export default function InvitationPage() {
             {inviteText}
           </p>
           {plan.notes && (
-            <p className="mt-4 border-t border-[rgba(23,23,23,0.06)] pt-4 text-sm leading-6 text-[#665d55]">
+            <p className="mt-4 border-t border-[rgba(23,23,23,0.06)] pt-4 text-sm leading-6 text-[var(--text-muted-warm)]">
               {plan.notes}
             </p>
           )}
@@ -353,7 +353,7 @@ export default function InvitationPage() {
         {/* What to expect */}
         {bookedNeeds.length > 0 && (
           <div className="mb-10">
-            <h2 className="mb-4 text-center text-sm font-semibold uppercase tracking-[0.2em] text-[#8b7767]">
+            <h2 className="mb-4 text-center text-sm font-semibold uppercase tracking-[0.2em] text-[var(--text-soft-warm)]">
               Was euch erwartet
             </h2>
             <div className="space-y-2">
@@ -364,22 +364,22 @@ export default function InvitationPage() {
                 return (
                   <div
                     key={need}
-                    className="flex items-center gap-3 rounded-[16px] border border-[rgba(23,23,23,0.07)] bg-white px-4 py-3 shadow-sm"
+                    className="flex items-center gap-3 rounded-[var(--radius-control)] border border-[rgba(23,23,23,0.07)] bg-white px-4 py-3 shadow-sm"
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#f7f4ee] text-sm">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--bg-canvas-warm)] text-sm">
                       {needEmoji(need)}
                     </span>
                     <div className="min-w-0">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-[#8b7767]">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]">
                         {NEED_LABEL[need] ?? need}
                       </p>
                       {provider ? (
-                        <p className="text-sm font-medium text-[#171717]">
+                        <p className="text-sm font-medium text-[var(--text-strong)]">
                           {provider.name}{" "}
-                          <span className="font-normal text-[#8b7767]">— {desc}</span>
+                          <span className="font-normal text-[var(--text-soft-warm)]">— {desc}</span>
                         </p>
                       ) : (
-                        <p className="text-sm text-[#8b7767]">In Planung</p>
+                        <p className="text-sm text-[var(--text-soft-warm)]">In Planung</p>
                       )}
                     </div>
                   </div>
@@ -390,42 +390,42 @@ export default function InvitationPage() {
         )}
 
         {/* ── RSVP ─────────────────────────────────────────────────────── */}
-        <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-6 shadow-sm">
+        <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-6 shadow-sm">
           <div className="mb-5 flex items-center gap-2">
             <div className="h-px flex-1 bg-[rgba(23,23,23,0.06)]" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#171717]">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-strong)]">
               Rückmeldung
             </span>
             <div className="h-px flex-1 bg-[rgba(23,23,23,0.06)]" />
           </div>
 
           {rsvpState === "error_duplicate" && (
-            <div className="mb-4 rounded-[12px] bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-800">
+            <div className="pd24-status-warning mb-4 rounded-[12px] px-4 py-3 text-sm">
               Für diesen Namen liegt bereits eine Rückmeldung vor.
             </div>
           )}
           {rsvpState === "error" && (
-            <div className="mb-4 rounded-[12px] bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800">
+            <div className="pd24-status-error mb-4 rounded-[12px] px-4 py-3 text-sm">
               Etwas ist schiefgelaufen. Bitte versuche es erneut.
             </div>
           )}
 
           <div className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-[#171717]">
-                Dein Name <span className="text-[#b76a43]">*</span>
+              <label className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
+                Dein Name <span className="text-[var(--brand-warm-deep)]">*</span>
               </label>
               <input
                 type="text"
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
                 placeholder="Vorname Nachname"
-                className="w-full rounded-xl border border-[rgba(23,23,23,0.12)] bg-[#fafaf8] px-4 py-3 text-sm text-[#171717] placeholder-[#8b7767] outline-none focus:border-[#171717]"
+                className="w-full rounded-xl border border-[var(--line-strong)] bg-[#fafaf8] px-4 py-3 text-sm text-[var(--text-strong)] placeholder-[var(--text-soft-warm)] outline-none focus:border-[var(--text-strong)]"
               />
             </div>
 
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-[#171717]">
+              <label className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
                 Nachricht (optional)
               </label>
               <textarea
@@ -433,7 +433,7 @@ export default function InvitationPage() {
                 onChange={(e) => setMessage(e.target.value)}
                 rows={2}
                 placeholder="Ich freue mich sehr! / Leider verhindert, weil …"
-                className="w-full resize-none rounded-xl border border-[rgba(23,23,23,0.12)] bg-[#fafaf8] px-4 py-3 text-sm text-[#171717] placeholder-[#8b7767] outline-none focus:border-[#171717]"
+                className="w-full resize-none rounded-xl border border-[var(--line-strong)] bg-[#fafaf8] px-4 py-3 text-sm text-[var(--text-strong)] placeholder-[var(--text-soft-warm)] outline-none focus:border-[var(--text-strong)]"
               />
             </div>
 
@@ -442,7 +442,7 @@ export default function InvitationPage() {
                 type="button"
                 disabled={!guestName.trim() || rsvpState === "submitting"}
                 onClick={() => void handleRsvp("accepted")}
-                className="flex flex-col items-center gap-1 rounded-xl border-2 border-emerald-400 bg-emerald-50 py-3.5 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex flex-col items-center gap-1 rounded-xl border-2 border-[var(--state-success)] bg-[rgba(79,107,91,0.08)] py-3.5 text-sm font-semibold text-[var(--state-success)] transition hover:bg-[rgba(79,107,91,0.14)] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <span className="text-xl">🎉</span>
                 <span>Ich bin dabei!</span>
@@ -452,7 +452,7 @@ export default function InvitationPage() {
                 type="button"
                 disabled={!guestName.trim() || rsvpState === "submitting"}
                 onClick={() => void handleRsvp("declined")}
-                className="flex flex-col items-center gap-1 rounded-xl border-2 border-[rgba(23,23,23,0.12)] bg-[#fafaf8] py-3.5 text-sm font-medium text-[#665d55] transition hover:border-[rgba(23,23,23,0.25)] disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex flex-col items-center gap-1 rounded-xl border-2 border-[var(--line-strong)] bg-[#fafaf8] py-3.5 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(23,23,23,0.25)] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <span className="text-xl">😔</span>
                 <span>Leider nicht</span>
@@ -460,22 +460,22 @@ export default function InvitationPage() {
             </div>
 
             {rsvpState === "submitting" && (
-              <p className="text-center text-xs text-[#8b7767]">Wird gespeichert …</p>
+              <p className="text-center text-xs text-[var(--text-soft-warm)]">Wird gespeichert …</p>
             )}
           </div>
         </div>
 
         {/* Footer */}
         <div className="mt-10 text-center">
-          <p className="text-xs text-[#8b7767]">
+          <p className="text-xs text-[var(--text-soft-warm)]">
             Organisiert mit{" "}
-            <Link href="/" className="text-[#b76a43] hover:underline">
+            <Link href="/" className="text-[var(--brand-warm-deep)] hover:underline">
               PerfectDay24
             </Link>
           </p>
           <Link
             href="/events"
-            className="mt-2 inline-flex items-center gap-1 text-xs text-[#8b7767] hover:text-[#171717]"
+            className="mt-2 inline-flex items-center gap-1 text-xs text-[var(--text-soft-warm)] hover:text-[var(--text-strong)]"
           >
             Eigenen Event planen →
           </Link>

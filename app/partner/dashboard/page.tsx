@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { PhotoUpload } from "@/components/ui/PhotoUpload";
 import EntityMediaGallery from "@/components/media/EntityMediaGallery";
 import PartnerOnboardingWizard from "@/components/partner/PartnerOnboardingWizard";
+import { safeExternalUrl } from "@/lib/security/safe-url";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -175,18 +176,18 @@ const TIER_META: Record<string, { label: string; badge: string; next?: { tier: s
 
 const BILLING_META: Record<string, { label: string; badge: string }> = {
   inactive:   { label: "Kostenlos",      badge: "bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--line-subtle)]" },
-  manual:     { label: "Manuell",        badge: "bg-blue-50 text-blue-800 border-blue-200" },
-  trial:      { label: "Testphase",      badge: "bg-amber-50 text-amber-800 border-amber-200" },
-  active:     { label: "Aktiv",          badge: "bg-emerald-50 text-emerald-800 border-emerald-200" },
-  past_due:   { label: "Zahlung offen",  badge: "bg-red-50 text-red-800 border-red-200" },
-  cancelled:  { label: "Gekündigt",      badge: "bg-red-50 text-red-800 border-red-200" },
+  manual:     { label: "Manuell",        badge: "pd24-status-info" },
+  trial:      { label: "Testphase",      badge: "pd24-status-warning" },
+  active:     { label: "Aktiv",          badge: "pd24-status-success" },
+  past_due:   { label: "Zahlung offen",  badge: "pd24-status-error" },
+  cancelled:  { label: "Gekündigt",      badge: "pd24-status-error" },
 };
 
 const BOOKING_STATUS: Record<string, { label: string; badge: string }> = {
-  interested: { label: "Neu",          badge: "bg-blue-50 text-blue-800 border-blue-200" },
-  pending:    { label: "Ausstehend",   badge: "bg-amber-50 text-amber-800 border-amber-200" },
-  confirmed:  { label: "Bestätigt",   badge: "bg-emerald-50 text-emerald-800 border-emerald-200" },
-  declined:   { label: "Abgelehnt",   badge: "bg-red-50 text-red-800 border-red-200" },
+  interested: { label: "Neu",          badge: "pd24-status-info" },
+  pending:    { label: "Ausstehend",   badge: "pd24-status-warning" },
+  confirmed:  { label: "Bestätigt",   badge: "pd24-status-success" },
+  declined:   { label: "Abgelehnt",   badge: "pd24-status-error" },
   cancelled:  { label: "Storniert",   badge: "bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--line-subtle)]" },
 };
 
@@ -377,7 +378,7 @@ function Section({ id, title, subtitle, action, children }: {
 
 function StatTile({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
-    <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm">
+    <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5 shadow-sm">
       <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">{label}</div>
       <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{value}</div>
       {sub && <div className="mt-1 text-xs text-[var(--text-muted)]">{sub}</div>}
@@ -388,9 +389,9 @@ function StatTile({ label, value, sub }: { label: string; value: string | number
 function AssetStatusPill({ label, tone }: { label: string; tone: "draft" | "ready" | "active" }) {
   const toneClass =
     tone === "active"
-      ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+      ? "pd24-status-success"
       : tone === "ready"
-        ? "border-blue-200 bg-blue-50 text-blue-800"
+        ? "pd24-status-info"
         : "border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)]";
 
   return (
@@ -424,7 +425,7 @@ function AssetBuilderCard({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-[24px] border p-5 text-left transition ${
+      className={`rounded-[var(--radius-card)] border p-5 text-left transition ${
         active
           ? "border-[var(--text-strong)] bg-white shadow-sm"
           : "border-[var(--line-subtle)] bg-[var(--bg-surface)] hover:border-[var(--text-strong)]"
@@ -710,8 +711,9 @@ export default function PartnerDashboard() {
       .from("partner_profiles")
       .update({
         display_name:  editForm.display_name.trim() || profile.display_name,
-        website_url:   editForm.website_url.trim() || null,
-        booking_url:   editForm.booking_url.trim() || null,
+        // Nur http(s) speichern — diese Felder werden als href gerendert.
+        website_url:   safeExternalUrl(editForm.website_url),
+        booking_url:   safeExternalUrl(editForm.booking_url),
         contact_email: editForm.contact_email.trim() || null,
         contact_phone: editForm.contact_phone.trim() || null,
         notes:         editForm.notes.trim() || null,
@@ -1163,7 +1165,7 @@ export default function PartnerDashboard() {
         <div className="mb-8 h-40 animate-pulse rounded-[28px] bg-[var(--bg-surface)]" />
         <div className="grid gap-4 sm:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-24 animate-pulse rounded-[24px] bg-[var(--bg-surface)]" />
+            <div key={i} className="h-24 animate-pulse rounded-[var(--radius-card)] bg-[var(--bg-surface)]" />
           ))}
         </div>
       </div>
@@ -1180,13 +1182,13 @@ export default function PartnerDashboard() {
         <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href="/profile?return=/partner/dashboard"
-            className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+            className="pd24-btn pd24-btn-primary"
           >
             Zum Login
           </a>
           <a
             href="/partner/onboarding"
-            className="inline-flex items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            className="pd24-btn pd24-btn-secondary"
           >
             Partner-Portal anlegen
           </a>
@@ -1206,7 +1208,7 @@ export default function PartnerDashboard() {
           <button
             type="button"
             onClick={() => void load()}
-            className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+            className="pd24-btn pd24-btn-primary"
           >
             Erneut laden
           </button>
@@ -1225,13 +1227,13 @@ export default function PartnerDashboard() {
         <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href="/partner/onboarding"
-            className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+            className="pd24-btn pd24-btn-primary"
           >
             Jetzt Partner werden →
           </a>
           <a
             href="/profile"
-            className="inline-flex items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            className="pd24-btn pd24-btn-secondary"
           >
             Profil prüfen
           </a>
@@ -1339,7 +1341,7 @@ export default function PartnerDashboard() {
       />
 
       {/* ── A) Status Header ─────────────────────────────────────────────────── */}
-      <div className="mb-8 rounded-[36px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-7 shadow-[var(--shadow-soft)]">
+      <div className="mb-8 rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-7 shadow-[var(--shadow-soft)]">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0">
             <div className="pd24-kicker mb-1">Partner Studio</div>
@@ -1372,7 +1374,7 @@ export default function PartnerDashboard() {
               <button
                 onClick={() => void handleUpgrade()}
                 disabled={upgrading}
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                className="pd24-btn pd24-btn-primary"
               >
                 {upgrading ? "Weiterleitung …" : `${tierMeta.next.label}`}
                 {!upgrading && (
@@ -1382,33 +1384,33 @@ export default function PartnerDashboard() {
                 )}
               </button>
               {upgradeError && (
-                <p className="text-xs text-red-600">{upgradeError}</p>
+                <p className="text-xs text-[var(--state-error)]">{upgradeError}</p>
               )}
             </div>
           )}
         </div>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4">
             <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Veröffentlicht</div>
             <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">
               {(publishedProviders.length + activeAffiliateLinks.filter((link) => link.review_status === "published").length + campaigns.filter((campaign) => campaign.review_status === "published").length + (profile.review_status === "published" ? 1 : 0)).toLocaleString("de-DE")}
             </div>
             <p className="mt-1 text-xs text-[var(--text-muted)]">Profil, Angebote, Links und Kampagnen mit Freigabe.</p>
           </div>
-          <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4">
             <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Profil-Readiness</div>
             <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">
               {Math.min(100, Math.round((profileCompleteness / 6) * 100))}%
             </div>
             <p className="mt-1 text-xs text-[var(--text-muted)]">Kontakt, CTA, Copy und Medien für bessere Conversion.</p>
           </div>
-          <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4">
             <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">In Prüfung</div>
             <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{pendingReviewItems}</div>
             <p className="mt-1 text-xs text-[var(--text-muted)]">Eingereichte Assets und Profilbausteine in der Prüfung.</p>
           </div>
-          <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4">
             <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Änderungen offen</div>
             <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{changeRequestItems}</div>
             <p className="mt-1 text-xs text-[var(--text-muted)]">Assets mit Rückfragen oder nötigen Nachschärfungen.</p>
@@ -1418,25 +1420,25 @@ export default function PartnerDashboard() {
         <div className="mt-4 flex flex-wrap gap-3">
           <a
             href="#assets"
-            className="inline-flex items-center rounded-2xl bg-[var(--text-strong)] px-5 py-3 text-sm font-medium text-white transition hover:opacity-90"
+            className="pd24-btn pd24-btn-primary"
           >
             Einträge & Pakete
           </a>
           <a
             href="#inquiries"
-            className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            className="pd24-btn pd24-btn-secondary"
           >
             Buchungsanfragen
           </a>
           <a
             href="#review"
-            className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            className="pd24-btn pd24-btn-secondary"
           >
             Prüfung & Freigabe
           </a>
           <a
             href="#profile"
-            className="inline-flex items-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            className="pd24-btn pd24-btn-secondary"
           >
             Profil-Einstellungen
           </a>
@@ -1471,7 +1473,7 @@ export default function PartnerDashboard() {
           subtitle="Die nächsten Schritte für mehr Sichtbarkeit, mehr Leads und saubere Buchungswege."
         >
           <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
               <div className="flex items-center justify-between gap-3">
                 <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Setup-Fortschritt</div>
                 <span className="text-xs font-semibold text-[var(--text-muted)]">
@@ -1487,8 +1489,8 @@ export default function PartnerDashboard() {
               <div className="mt-4 space-y-2.5">
                 {setupTasks.length > 0 ? (
                   setupTasks.map((task) => (
-                    <div key={task} className="flex items-start gap-3 rounded-2xl border border-amber-100 bg-amber-50 px-4 py-3">
-                      <span className="mt-0.5 shrink-0 text-amber-500">
+                    <div key={task} className="pd24-status-warning flex items-start gap-3 rounded-2xl px-4 py-3">
+                      <span className="mt-0.5 shrink-0 text-[var(--state-warning)]">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                           <path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
                         </svg>
@@ -1497,19 +1499,19 @@ export default function PartnerDashboard() {
                     </div>
                   ))
                 ) : (
-                  <div className="flex items-center gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-4">
-                    <span className="shrink-0 text-emerald-500">
+                  <div className="pd24-status-success flex items-center gap-3 rounded-2xl px-4 py-4">
+                    <span className="shrink-0 text-[var(--state-success)]">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
                       </svg>
                     </span>
-                    <p className="text-sm text-emerald-800">Dein Partnerprofil ist vollständig aufgestellt.</p>
+                    <p className="text-sm">Dein Partnerprofil ist vollständig aufgestellt.</p>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
               <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Wo du aktuell ausgespielt wirst</div>
               <div className="mt-4 flex flex-wrap gap-2">
                 {distributionChannels.length > 0 ? (
@@ -1594,7 +1596,7 @@ export default function PartnerDashboard() {
               />
             </div>
 
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
               {selectedAssetBuilder === "location" ? (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between gap-3">
@@ -1622,10 +1624,10 @@ export default function PartnerDashboard() {
                     </select>
                     <input type="text" value={newProvider.description} onChange={(e) => setNewProvider((prev) => ({ ...prev, description: e.target.value }))} placeholder="Kurzbeschreibung für den Eintrag" className={inputCls} />
                   </div>
-                  {addProviderError ? <p className="text-xs text-red-600">{addProviderError}</p> : null}
-                  <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                  {addProviderError ? <p className="text-xs text-[var(--state-error)]">{addProviderError}</p> : null}
+                  <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                     <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Vorschau</div>
-                    <div className="mt-3 rounded-[20px] border border-[var(--line-subtle)] bg-white p-4">
+                    <div className="mt-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white p-4">
                       <div className="flex items-center justify-between gap-3">
                         <div>
                           <div className="font-semibold text-[var(--text-strong)]">{newProvider.name || profile.display_name}</div>
@@ -1636,7 +1638,7 @@ export default function PartnerDashboard() {
                       <p className="mt-3 text-sm text-[var(--text-muted)]">{newProvider.description || "Erscheint als buchbarer Partner-Baustein in passenden Event- und Planner-Kontexten."}</p>
                     </div>
                   </div>
-                  <button onClick={() => void handleAddProvider()} disabled={addingProvider || !locationReady} className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                  <button onClick={() => void handleAddProvider()} disabled={addingProvider || !locationReady} className="pd24-btn pd24-btn-primary pd24-btn-sm">
                     {addingProvider ? "Wird angelegt..." : "Standort anlegen"}
                   </button>
                 </div>
@@ -1669,10 +1671,10 @@ export default function PartnerDashboard() {
                     <input type="text" value={newCampaign.cta_label} onChange={(e) => setNewCampaign((prev) => ({ ...prev, cta_label: e.target.value }))} placeholder="CTA Label" className={inputCls} />
                     <input type="url" value={newCampaign.cta_url} onChange={(e) => setNewCampaign((prev) => ({ ...prev, cta_url: e.target.value }))} placeholder="https://ticket-link.de" className={inputCls} />
                   </div>
-                  {addCampaignError ? <p className="text-xs text-red-600">{addCampaignError}</p> : null}
-                  <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                  {addCampaignError ? <p className="text-xs text-[var(--state-error)]">{addCampaignError}</p> : null}
+                  <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                     <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Vorschau</div>
-                    <div className="mt-3 rounded-[20px] border border-[var(--line-subtle)] bg-white p-4">
+                    <div className="mt-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white p-4">
                       <div className="flex items-center justify-between gap-3">
                         <div>
                           <div className="font-semibold text-[var(--text-strong)]">{newCampaign.name || "Event-Kampagne"}</div>
@@ -1683,7 +1685,7 @@ export default function PartnerDashboard() {
                       <p className="mt-3 text-sm text-[var(--text-muted)]">CTA: {newCampaign.cta_label || "Tickets ansehen"} {newCampaign.cta_url ? `- ${newCampaign.cta_url}` : ""}</p>
                     </div>
                   </div>
-                  <button onClick={() => void handleAddCampaign()} disabled={addingCampaign || !eventReady} className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                  <button onClick={() => void handleAddCampaign()} disabled={addingCampaign || !eventReady} className="pd24-btn pd24-btn-primary pd24-btn-sm">
                     {addingCampaign ? "Wird angelegt..." : "Event anlegen"}
                   </button>
                 </div>
@@ -1712,10 +1714,10 @@ export default function PartnerDashboard() {
                     <input type="text" value={newCampaign.cta_label} onChange={(e) => setNewCampaign((prev) => ({ ...prev, cta_label: e.target.value }))} placeholder="CTA Label" className={inputCls} />
                     <input type="url" value={newCampaign.cta_url} onChange={(e) => setNewCampaign((prev) => ({ ...prev, cta_url: e.target.value }))} placeholder="https://route-ziel.de" className={inputCls} />
                   </div>
-                  {addCampaignError ? <p className="text-xs text-red-600">{addCampaignError}</p> : null}
-                  <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                  {addCampaignError ? <p className="text-xs text-[var(--state-error)]">{addCampaignError}</p> : null}
+                  <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                     <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Vorschau</div>
-                    <div className="mt-3 rounded-[20px] border border-[var(--line-subtle)] bg-white p-4">
+                    <div className="mt-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white p-4">
                       <div className="flex items-center justify-between gap-3">
                         <div>
                           <div className="font-semibold text-[var(--text-strong)]">{newCampaign.name || "Route-Asset"}</div>
@@ -1726,7 +1728,7 @@ export default function PartnerDashboard() {
                       <p className="mt-3 text-sm text-[var(--text-muted)]">CTA: {newCampaign.cta_label || "Route öffnen"} - ideal für Explore- oder Roadtrip-Distribution.</p>
                     </div>
                   </div>
-                  <button onClick={() => void handleAddCampaign()} disabled={addingCampaign || !routeReady} className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                  <button onClick={() => void handleAddCampaign()} disabled={addingCampaign || !routeReady} className="pd24-btn pd24-btn-primary pd24-btn-sm">
                     {addingCampaign ? "Wird angelegt..." : "Route anlegen"}
                   </button>
                 </div>
@@ -1764,10 +1766,10 @@ export default function PartnerDashboard() {
                     </select>
                     <input type="text" value={newAffiliate.target_id} onChange={(e) => setNewAffiliate((prev) => ({ ...prev, target_id: e.target.value }))} placeholder="Target-ID optional" className={inputCls} />
                   </div>
-                  {addAffiliateError ? <p className="text-xs text-red-600">{addAffiliateError}</p> : null}
-                  <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                  {addAffiliateError ? <p className="text-xs text-[var(--state-error)]">{addAffiliateError}</p> : null}
+                  <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                     <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Vorschau</div>
-                    <div className="mt-3 rounded-[20px] border border-[var(--line-subtle)] bg-white p-4">
+                    <div className="mt-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white p-4">
                       <div className="flex items-center justify-between gap-3">
                         <div>
                           <div className="font-semibold text-[var(--text-strong)]">{newAffiliate.provider_name || "Affiliate-Angebot"}</div>
@@ -1778,7 +1780,7 @@ export default function PartnerDashboard() {
                       <p className="mt-3 truncate text-sm text-[var(--text-muted)]">{newAffiliate.destination_url || "Ziel-URL folgt"}</p>
                     </div>
                   </div>
-                  <button onClick={() => void handleAddAffiliateLink()} disabled={addingAffiliate || !affiliateReady} className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                  <button onClick={() => void handleAddAffiliateLink()} disabled={addingAffiliate || !affiliateReady} className="pd24-btn pd24-btn-primary pd24-btn-sm">
                     {addingAffiliate ? "Wird angelegt..." : "Affiliate-Angebot anlegen"}
                   </button>
                 </div>
@@ -1811,7 +1813,7 @@ export default function PartnerDashboard() {
             />
           </div>
           <div className="mt-5 grid gap-4 lg:grid-cols-3">
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
               <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Kampagnen</div>
               <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{activeCampaigns.length}</div>
               <p className="mt-1 text-sm text-[var(--text-muted)]">
@@ -1820,7 +1822,7 @@ export default function PartnerDashboard() {
                   : "Noch keine Partner-Kampagnen hinterlegt."}
               </p>
             </div>
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
               <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Affiliate-Links</div>
               <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{activeAffiliateLinks.length}</div>
               <p className="mt-1 text-sm text-[var(--text-muted)]">
@@ -1829,7 +1831,7 @@ export default function PartnerDashboard() {
                   : "Noch keine Affiliate- oder externen Tracking-Links angelegt."}
               </p>
             </div>
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
               <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Angebotsstruktur</div>
               <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{totalPackages}</div>
               <p className="mt-1 text-sm text-[var(--text-muted)]">
@@ -1872,7 +1874,7 @@ export default function PartnerDashboard() {
             </button>
           </div>
           <div className="grid gap-4 lg:grid-cols-2">
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
               <div className="mb-4 flex items-start justify-between gap-3">
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Partner-Kampagnen</div>
@@ -1902,7 +1904,7 @@ export default function PartnerDashboard() {
                         <div className="mt-2 text-xs text-[var(--text-muted)]">CTA: {campaign.cta_label}</div>
                       ) : null}
                       {campaign.review_notes ? (
-                        <div className="mt-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+                        <div className="mt-2 pd24-status-warning rounded-xl px-3 py-2 text-xs">
                           {campaign.review_notes}
                         </div>
                       ) : null}
@@ -1912,7 +1914,7 @@ export default function PartnerDashboard() {
                             <button
                               onClick={() => void handleReviewAction("campaign", campaign.id, "submit")}
                               disabled={reviewUpdatingKey === `campaign:${campaign.id}:submit`}
-                              className="inline-flex items-center rounded-xl border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-800 transition hover:bg-blue-100 disabled:opacity-50"
+                              className="inline-flex items-center rounded-xl pd24-status-info px-3 py-1.5 text-xs font-medium transition hover:opacity-90 disabled:opacity-50"
                             >
                               {reviewUpdatingKey === `campaign:${campaign.id}:submit` ? "..." : "Zur Freigabe senden"}
                             </button>
@@ -1936,7 +1938,7 @@ export default function PartnerDashboard() {
                           <button
                             onClick={() => void handleDeleteCampaign(campaign.id)}
                             disabled={deletingCampaign === campaign.id}
-                            className="inline-flex items-center rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50"
+                            className="inline-flex items-center rounded-xl pd24-status-error px-3 py-1.5 text-xs font-medium transition hover:opacity-90 disabled:opacity-50"
                           >
                             {deletingCampaign === campaign.id ? "..." : "Löschen"}
                           </button>
@@ -1952,7 +1954,7 @@ export default function PartnerDashboard() {
               )}
             </div>
 
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
               <div className="mb-4 flex items-start justify-between gap-3">
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Affiliate- und externe Links</div>
@@ -1976,7 +1978,7 @@ export default function PartnerDashboard() {
                         </div>
                         <div className="flex shrink-0 items-center gap-2">
                           {(affiliateClickCounts[link.id] ?? 0) > 0 && (
-                            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-800">
+                            <span className="pd24-status-success inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium">
                               {affiliateClickCounts[link.id]} Klick{affiliateClickCounts[link.id] !== 1 ? "s" : ""}
                             </span>
                           )}
@@ -1987,7 +1989,7 @@ export default function PartnerDashboard() {
                       </div>
                       <div className="mt-2 truncate text-xs text-[var(--text-muted)]">{link.destination_url}</div>
                       {link.review_notes ? (
-                        <div className="mt-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+                        <div className="mt-2 pd24-status-warning rounded-xl px-3 py-2 text-xs">
                           {link.review_notes}
                         </div>
                       ) : null}
@@ -1997,7 +1999,7 @@ export default function PartnerDashboard() {
                             <button
                               onClick={() => void handleReviewAction("affiliate", link.id, "submit")}
                               disabled={reviewUpdatingKey === `affiliate:${link.id}:submit`}
-                              className="inline-flex items-center rounded-xl border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-800 transition hover:bg-blue-100 disabled:opacity-50"
+                              className="inline-flex items-center rounded-xl pd24-status-info px-3 py-1.5 text-xs font-medium transition hover:opacity-90 disabled:opacity-50"
                             >
                               {reviewUpdatingKey === `affiliate:${link.id}:submit` ? "..." : "Zur Freigabe senden"}
                             </button>
@@ -2021,7 +2023,7 @@ export default function PartnerDashboard() {
                           <button
                             onClick={() => void handleDeleteAffiliate(link.id)}
                             disabled={deletingAffiliate === link.id}
-                            className="inline-flex items-center rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50"
+                            className="inline-flex items-center rounded-xl pd24-status-error px-3 py-1.5 text-xs font-medium transition hover:opacity-90 disabled:opacity-50"
                           >
                             {deletingAffiliate === link.id ? "..." : "Löschen"}
                           </button>
@@ -2045,7 +2047,7 @@ export default function PartnerDashboard() {
           subtitle={`${openBookings.length} offen`}
         >
           {bookings.length === 0 ? (
-            <div className="rounded-[24px] border border-dashed border-[var(--line-subtle)] px-6 py-10 text-center">
+            <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--line-subtle)] px-6 py-10 text-center">
               <p className="text-sm text-[var(--text-muted)]">
                 Noch keine Buchungsanfragen.
               </p>
@@ -2111,7 +2113,7 @@ export default function PartnerDashboard() {
           {providers.length > 0 && (
             <div className="mb-4 space-y-4">
               {providers.map((provider) => (
-                <div key={provider.id} className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+                <div key={provider.id} className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
                   {/* Provider header */}
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
@@ -2129,7 +2131,7 @@ export default function PartnerDashboard() {
                         <p className="mt-0.5 text-xs text-[var(--text-muted)]">{provider.description}</p>
                       )}
                       {provider.review_notes ? (
-                        <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+                        <div className="mt-3 pd24-status-warning rounded-xl px-3 py-2 text-xs">
                           {provider.review_notes}
                         </div>
                       ) : null}
@@ -2139,7 +2141,7 @@ export default function PartnerDashboard() {
                             <button
                               onClick={() => void handleReviewAction("provider", provider.id, "submit")}
                               disabled={reviewUpdatingKey === `provider:${provider.id}:submit`}
-                              className="rounded-xl border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-800 transition hover:bg-blue-100 disabled:opacity-50"
+                              className="rounded-xl pd24-status-info px-3 py-1.5 text-xs font-medium transition hover:opacity-90 disabled:opacity-50"
                             >
                               {reviewUpdatingKey === `provider:${provider.id}:submit` ? "..." : "Zur Freigabe senden"}
                             </button>
@@ -2160,7 +2162,7 @@ export default function PartnerDashboard() {
                       <button
                         onClick={() => void handleDeleteProvider(provider.id)}
                         disabled={deletingProvider === provider.id}
-                        className="shrink-0 rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50"
+                        className="shrink-0 rounded-xl pd24-status-error px-3 py-1.5 text-xs font-medium transition hover:opacity-90 disabled:opacity-50"
                       >
                         {deletingProvider === provider.id ? "…" : "Löschen"}
                       </button>
@@ -2175,7 +2177,7 @@ export default function PartnerDashboard() {
                     {provider.provider_packages.length > 0 && (
                       <div className="mb-3 grid gap-2 sm:grid-cols-2">
                         {provider.provider_packages.map((pkg) => (
-                          <div key={pkg.id} className="flex items-center justify-between gap-3 rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
+                          <div key={pkg.id} className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
                             <div className="min-w-0">
                               <p className="text-sm font-medium text-[var(--text-strong)]">{pkg.name}</p>
                               <p className="text-xs text-[var(--text-muted)]">
@@ -2190,7 +2192,7 @@ export default function PartnerDashboard() {
                                 <button
                                   onClick={() => void handleDeletePackage(provider.id, pkg.id)}
                                   disabled={deletingPkg === pkg.id}
-                                  className="rounded-lg px-1.5 py-0.5 text-xs text-red-500 hover:bg-red-50 disabled:opacity-50"
+                                  className="rounded-lg px-1.5 py-0.5 text-xs text-[var(--state-error)] hover:bg-[rgba(161,75,69,0.08)] disabled:opacity-50"
                                   title="Paket löschen"
                                 >
                                   {deletingPkg === pkg.id ? "…" : "×"}
@@ -2204,7 +2206,7 @@ export default function PartnerDashboard() {
 
                     {/* Add package form or button */}
                     {isAdmin && addPkgFor === provider.id ? (
-                      <div className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+                      <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                         <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Neues Paket</p>
                         <div className="space-y-3">
                           <input
@@ -2262,18 +2264,18 @@ export default function PartnerDashboard() {
                               className={inputCls}
                             />
                           </div>
-                          {addPkgError && <p className="text-xs text-red-600">{addPkgError}</p>}
+                          {addPkgError && <p className="text-xs text-[var(--state-error)]">{addPkgError}</p>}
                           <div className="flex gap-2">
                             <button
                               onClick={() => void handleAddPackage(provider.id)}
                               disabled={addingPkg || !newPkg.name.trim() || !newPkg.price}
-                              className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-xs font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                              className="pd24-btn pd24-btn-primary pd24-btn-sm"
                             >
                               {addingPkg ? "Speichern …" : "Paket speichern"}
                             </button>
                             <button
                               onClick={() => { setAddPkgFor(null); setAddPkgError(null); }}
-                              className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+                              className="pd24-btn pd24-btn-secondary pd24-btn-sm"
                             >
                               Abbrechen
                             </button>
@@ -2296,7 +2298,7 @@ export default function PartnerDashboard() {
 
           {/* Add provider form */}
           {isAdmin && showAddProvider ? (
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
               <p className="mb-4 text-sm font-semibold text-[var(--text-strong)]">Neues Angebot eintragen</p>
               <div className="space-y-3">
                 <input
@@ -2335,18 +2337,18 @@ export default function PartnerDashboard() {
                   onChange={(e) => setNewProvider((f) => ({ ...f, description: e.target.value }))}
                   className={inputCls}
                 />
-                {addProviderError && <p className="text-xs text-red-600">{addProviderError}</p>}
+                {addProviderError && <p className="text-xs text-[var(--state-error)]">{addProviderError}</p>}
                 <div className="flex gap-2">
                   <button
                     onClick={() => void handleAddProvider()}
                     disabled={addingProvider || !newProvider.name.trim() || !newProvider.service_type || !newProvider.city_slug}
-                    className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                    className="pd24-btn pd24-btn-primary"
                   >
                     {addingProvider ? "Wird angelegt …" : "Angebot anlegen"}
                   </button>
                   <button
                     onClick={() => { setShowAddProvider(false); setAddProviderError(null); }}
-                    className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-5 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+                    className="pd24-btn pd24-btn-secondary"
                   >
                     Abbrechen
                   </button>
@@ -2371,7 +2373,7 @@ export default function PartnerDashboard() {
             </button>
           ) : (
             providers.length === 0 && (
-              <div className="rounded-[24px] border border-dashed border-[var(--line-subtle)] px-6 py-10 text-center">
+              <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--line-subtle)] px-6 py-10 text-center">
                 <p className="text-sm text-[var(--text-muted)]">Noch keine Angebote eingetragen.</p>
               </div>
             )
@@ -2385,7 +2387,7 @@ export default function PartnerDashboard() {
           subtitle="Reiche Profil und Einträge zur internen Qualitätsprüfung ein und verfolge den Veröffentlichungsstatus."
         >
           <div className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Profil-Freigabe</div>
@@ -2403,7 +2405,7 @@ export default function PartnerDashboard() {
                 />
               </div>
               {profile.review_notes ? (
-                <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                <div className="pd24-status-warning mt-4 rounded-2xl px-4 py-3 text-sm">
                   {profile.review_notes}
                 </div>
               ) : null}
@@ -2411,7 +2413,7 @@ export default function PartnerDashboard() {
                 <button
                   onClick={() => void handleReviewAction("profile", null, "submit")}
                   disabled={!isAdmin || !profileReadyForReview || reviewUpdatingKey === "profile:self:submit"}
-                  className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                  className="pd24-btn pd24-btn-primary pd24-btn-sm"
                 >
                   {reviewUpdatingKey === "profile:self:submit" ? "Wird eingereicht..." : "Profil zur Freigabe senden"}
                 </button>
@@ -2419,7 +2421,7 @@ export default function PartnerDashboard() {
                   <button
                     onClick={() => void handleReviewAction("profile", null, "withdraw")}
                     disabled={!isAdmin || reviewUpdatingKey === "profile:self:withdraw"}
-                    className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] disabled:opacity-50"
+                    className="pd24-btn pd24-btn-secondary pd24-btn-sm"
                   >
                     {reviewUpdatingKey === "profile:self:withdraw" ? "..." : "Einreichung zurückziehen"}
                   </button>
@@ -2428,19 +2430,19 @@ export default function PartnerDashboard() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
                 <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Asset-Queue</div>
                 <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{pendingReviewItems}</div>
                 <p className="mt-1 text-sm text-[var(--text-muted)]">Zur Zeit in Prüfung oder bereits eingereicht.</p>
               </div>
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
                 <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Veröffentlicht</div>
                 <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">
                   {publishedProviders.length + campaigns.filter((campaign) => campaign.review_status === "published").length + affiliateLinks.filter((link) => link.review_status === "published").length}
                 </div>
                 <p className="mt-1 text-sm text-[var(--text-muted)]">Assets mit erfolgter Freigabe und Publish-Status.</p>
               </div>
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+              <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
                 <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Rückfragen</div>
                 <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{changeRequestItems}</div>
                 <p className="mt-1 text-sm text-[var(--text-muted)]">Nacharbeiten, die vor dem Publish erledigt werden sollten.</p>
@@ -2495,18 +2497,18 @@ export default function PartnerDashboard() {
                   className="w-full resize-none rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] focus:border-[var(--text-strong)] focus:outline-none"
                 />
               </div>
-              {saveError && <p className="text-sm text-red-600">{saveError}</p>}
+              {saveError && <p className="text-sm text-[var(--state-error)]">{saveError}</p>}
               <div className="flex gap-3">
                 <button
                   onClick={() => void handleSaveProfile()}
                   disabled={saving}
-                  className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                  className="pd24-btn pd24-btn-primary"
                 >
                   {saving ? "Speichern …" : "Speichern"}
                 </button>
                 <button
                   onClick={() => { setEditMode(false); setSaveError(null); }}
-                  className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] bg-white px-5 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+                  className="pd24-btn pd24-btn-secondary"
                 >
                   Abbrechen
                 </button>
@@ -2525,7 +2527,7 @@ export default function PartnerDashboard() {
               {isAdmin && (
                 <button
                   onClick={() => setEditMode(true)}
-                  className="mt-2 inline-flex items-center rounded-xl border border-[var(--line-subtle)] bg-white px-5 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+                  className="mt-2 pd24-btn pd24-btn-secondary"
                 >
                   Bearbeiten
                 </button>
@@ -2555,7 +2557,7 @@ function BookingRow({
   const isOpen = booking.status === "interested" || booking.status === "pending";
 
   return (
-    <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+    <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
@@ -2588,14 +2590,14 @@ function BookingRow({
             <button
               onClick={onConfirm}
               disabled={updating}
-              className="inline-flex items-center rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-800 transition hover:bg-emerald-100 disabled:opacity-50"
+              className="inline-flex items-center rounded-xl pd24-status-success px-3 py-1.5 text-xs font-medium transition hover:opacity-90 disabled:opacity-50"
             >
               {updating ? "…" : "Bestätigen"}
             </button>
             <button
               onClick={onDecline}
               disabled={updating}
-              className="inline-flex items-center rounded-xl border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50"
+              className="inline-flex items-center rounded-xl pd24-status-error px-3 py-1.5 text-xs font-medium transition hover:opacity-90 disabled:opacity-50"
             >
               {updating ? "…" : "Ablehnen"}
             </button>
@@ -2603,7 +2605,7 @@ function BookingRow({
         )}
       </div>
       {error && (
-        <p className="mt-2 text-xs font-medium text-red-600" role="alert">{error}</p>
+        <p className="mt-2 text-xs font-medium text-[var(--state-error)]" role="alert">{error}</p>
       )}
     </div>
   );
@@ -2719,11 +2721,11 @@ function TypeSpecificSection({
                 type="button"
                 onClick={saveMedia}
                 disabled={mediaSaving}
-                className="rounded-full bg-[var(--text-strong)] px-5 py-2 text-sm font-medium text-white transition hover:opacity-80 disabled:opacity-50"
+                className="pd24-btn pd24-btn-primary pd24-btn-sm"
               >
                 {mediaSaving ? "Speichern …" : "Fotos speichern"}
               </button>
-              {mediaSaveError && <p className="text-xs text-red-600">{mediaSaveError}</p>}
+              {mediaSaveError && <p className="text-xs text-[var(--state-error)]">{mediaSaveError}</p>}
             </div>
           )}
           {mediaSaved && (
@@ -2731,13 +2733,13 @@ function TypeSpecificSection({
           )}
 
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
-            <div className="rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+            <div className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
               Erstes Foto = Titelbild für Profil und bevorzugtes Fallback-Cover.
             </div>
-            <div className="rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+            <div className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
               Weitere Bilder stärken Galerie, Event-Anbieter-Karten und redaktionelle Empfehlungen.
             </div>
-            <div className="rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+            <div className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
               Später können freigegebene Community- und Creator-Bilder zusätzlich als Featured-Medien genutzt werden.
             </div>
           </div>
@@ -2762,7 +2764,7 @@ function TypeSpecificSection({
               {Object.entries(profile.type_data ?? {})
                 .filter(([, v]) => v)
                 .map(([k, v]) => (
-                  <div key={k} className="rounded-[18px] border border-[var(--line-subtle)] bg-white px-4 py-3">
+                  <div key={k} className="rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-white px-4 py-3">
                     <p className="text-[11px] text-[var(--text-muted)]">{TYPE_DATA_LABELS[k] ?? k}</p>
                     <p className="mt-0.5 font-semibold text-[var(--text-strong)]">{v}</p>
                   </div>

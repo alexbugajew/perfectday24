@@ -146,14 +146,14 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
           <Link href="/" className="text-sm font-semibold text-[var(--text-strong)]">PerfectDay24</Link>
         </nav>
         <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Link ungültig</div>
+          <div className="pd24-meta">Link ungültig</div>
           <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Dieser Link funktioniert nicht.</h2>
           <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
             Bitte frag die Person, die den Plan geteilt hat, nach dem richtigen Link.
           </p>
           <Link
             href="/planner"
-            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+            className="mt-4 pd24-btn pd24-btn-sm pd24-btn-primary"
           >
             Eigenen Plan erstellen
           </Link>
@@ -192,14 +192,14 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
           <Link href="/" className="text-sm font-semibold text-[var(--text-strong)]">PerfectDay24</Link>
         </nav>
         <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Plan nicht gefunden</div>
+          <div className="pd24-meta">Plan nicht gefunden</div>
           <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Dieser Link ist nicht mehr aktiv.</h2>
           <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
             Der Plan wurde möglicherweise gelöscht oder der Link ist abgelaufen. Frag die Person, die ihn geteilt hat, nach einem neuen Link.
           </p>
           <Link
             href="/planner"
-            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+            className="mt-4 pd24-btn pd24-btn-sm pd24-btn-primary"
           >
             Eigenen Plan erstellen
           </Link>
@@ -280,7 +280,7 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
       <div className="mb-5 rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Geteilter Plan
             </div>
             <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
@@ -305,15 +305,15 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
                     shareMoment.tone === "emerald"
                       ? "border-[var(--state-success)]/30 text-[var(--state-success)]"
                       : shareMoment.tone === "amber"
-                        ? "border-amber-300 text-amber-800"
-                        : "border-sky-300 text-sky-800"
+                        ? "border-[var(--state-warning)]/30 text-[var(--state-warning)]"
+                        : "border-[var(--state-info)]/30 text-[var(--state-info)]"
                   }`}
                 >
                   {shareMoment.label}
                 </span>
               ) : null}
               {plan.filters?.finalGroupPlan ? (
-                <span className="rounded-full border border-sky-300 bg-white px-2 py-1 text-[11px] font-medium text-sky-800">
+                <span className="rounded-full border border-[var(--state-info)]/30 bg-white px-2 py-1 text-[11px] font-medium text-[var(--state-info)]">
                   {plan.filters?.finalGroupStatusLabel || plan.filters?.finalGroupPlanLabel || "Finaler Gruppenplan"}
                 </span>
               ) : null}
@@ -383,7 +383,7 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
 
       {/* ── Stops ── */}
       <div className="mb-6">
-        <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+        <div className="mb-3 pd24-meta">
           Stops im Plan
         </div>
         {slots.length === 0 ? (
@@ -411,7 +411,7 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#171717] text-[11px] font-semibold text-white">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[var(--text-strong)] text-[11px] font-semibold text-white">
                           {idx + 1}
                         </span>
                         <span className="text-base font-semibold text-[var(--text-strong)]">

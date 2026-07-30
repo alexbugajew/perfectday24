@@ -63,8 +63,8 @@ const OCCASION_LABEL: Record<string, string> = {
 
 const RSVP_BADGE: Record<string, string> = {
   pending:   "bg-[var(--bg-surface)] text-[var(--text-muted)] border border-[var(--line-subtle)]",
-  confirmed: "bg-emerald-100 text-emerald-800",
-  declined:  "bg-red-100 text-red-700",
+  confirmed: "pd24-status-success",
+  declined:  "pd24-status-error",
 };
 
 const RSVP_LABEL: Record<string, string> = {
@@ -330,7 +330,7 @@ export default function BusinessDashboardPage() {
     return (
       <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
         <p className="font-medium text-[var(--text-strong)]">Bitte zuerst anmelden.</p>
-        <Link href="/profile" className="mt-4 inline-flex rounded-2xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90">
+        <Link href="/profile" className="pd24-btn pd24-btn-primary mt-4">
           Anmelden →
         </Link>
       </div>
@@ -344,7 +344,7 @@ export default function BusinessDashboardPage() {
         <p className="mt-2 text-sm text-[var(--text-muted)]">Richte ein Corporate-Profil ein um das Dashboard zu nutzen.</p>
         <Link
           href="/partner/onboarding?type=corporate"
-          className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+          className="pd24-btn pd24-btn-primary mt-6"
         >
           Business-Profil anlegen →
         </Link>
@@ -358,7 +358,7 @@ export default function BusinessDashboardPage() {
       {/* ── Header ──────────────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--text-muted)]">Business-Dashboard</div>
+          <div className="pd24-meta">Business-Dashboard</div>
           <h1 className="mt-1 text-2xl font-bold text-[var(--text-strong)]">{partnerProfile.display_name}</h1>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -369,13 +369,13 @@ export default function BusinessDashboardPage() {
               }
               window.location.href = "/events";
             }}
-            className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
+            className="pd24-btn pd24-btn-primary"
           >
             + Neues Event planen
           </button>
           <Link
             href="/profile"
-            className="inline-flex items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+            className="pd24-btn pd24-btn-secondary"
           >
             ← Profil
           </Link>
@@ -420,7 +420,7 @@ export default function BusinessDashboardPage() {
           {events.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] px-6 py-12 text-center">
               <p className="text-sm text-[var(--text-muted)]">Noch keine Business-Events angelegt.</p>
-              <Link href="/events" className="mt-3 inline-flex rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90">
+              <Link href="/events" className="pd24-btn pd24-btn-primary pd24-btn-sm mt-3">
                 Erstes Event planen →
               </Link>
             </div>
@@ -445,7 +445,7 @@ export default function BusinessDashboardPage() {
                             {OCCASION_LABEL[event.occasion_slug] ?? event.occasion_slug}
                           </span>
                           <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium ${
-                            event.status === "confirmed" ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"
+                            event.status === "confirmed" ? "pd24-status-success" : "pd24-status-warning"
                           }`}>
                             {event.status === "confirmed" ? "Bestätigt" : event.status === "planning" ? "In Planung" : event.status}
                           </span>
@@ -463,9 +463,9 @@ export default function BusinessDashboardPage() {
                         {/* RSVP summary (only after participants loaded) */}
                         {pts.length > 0 && (
                           <div className="mt-2 flex gap-2">
-                            <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] text-emerald-800">{pConfirmed} Zugesagt</span>
+                            <span className="pd24-status-success rounded-full px-2 py-0.5 text-[11px]">{pConfirmed} Zugesagt</span>
                             <span className="rounded-full bg-[var(--bg-surface)] px-2 py-0.5 text-[11px] text-[var(--text-muted)]">{pPending} Ausstehend</span>
-                            {pDeclined > 0 && <span className="rounded-full bg-red-100 px-2 py-0.5 text-[11px] text-red-700">{pDeclined} Abgesagt</span>}
+                            {pDeclined > 0 && <span className="pd24-status-error rounded-full px-2 py-0.5 text-[11px]">{pDeclined} Abgesagt</span>}
                           </div>
                         )}
                       </div>
@@ -575,7 +575,7 @@ export default function BusinessDashboardPage() {
                         <button
                           onClick={() => void addParticipant(event.id)}
                           disabled={addParticipantBusy[event.id]}
-                          className="rounded-xl bg-[var(--text-strong)] px-4 py-2 text-xs font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                          className="pd24-btn pd24-btn-primary pd24-btn-sm"
                         >
                           {addParticipantBusy[event.id] ? "Wird hinzugefügt…" : "+ Hinzufügen"}
                         </button>
@@ -624,7 +624,7 @@ export default function BusinessDashboardPage() {
                         <button
                           onClick={() => void removeMember(m.id)}
                           disabled={deletingMemberId === m.id}
-                          className="rounded-lg border border-[var(--line-subtle)] px-2.5 py-1 text-xs text-red-600 transition hover:border-red-200 hover:bg-red-50 disabled:opacity-50"
+                          className="rounded-lg border border-[var(--line-subtle)] px-2.5 py-1 text-xs text-[var(--state-error)] transition hover:border-[var(--line-strong)] disabled:opacity-50"
                         >
                           {deletingMemberId === m.id ? "…" : "Entfernen"}
                         </button>
@@ -660,11 +660,11 @@ export default function BusinessDashboardPage() {
                 className="rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-3 py-2.5 text-sm"
               />
             </div>
-            {addMemberError && <p className="text-xs text-red-600">{addMemberError}</p>}
+            {addMemberError && <p className="text-xs text-[var(--state-error)]">{addMemberError}</p>}
             <button
               onClick={() => void addMember()}
               disabled={addMemberBusy || !addMemberForm.name.trim()}
-              className="rounded-xl bg-[var(--text-strong)] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+              className="pd24-btn pd24-btn-primary"
             >
               {addMemberBusy ? "Wird gespeichert…" : "+ Mitglied hinzufügen"}
             </button>

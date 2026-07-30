@@ -60,10 +60,10 @@ function cityLabel(slug: string | null) {
 }
 
 function statusBadge(status: string) {
-  if (status === "active")    return { label: "Aktiv",         cls: "bg-emerald-100 text-emerald-700" };
-  if (status === "completed") return { label: "Abgeschlossen", cls: "bg-sky-100 text-sky-700" };
-  if (status === "cancelled") return { label: "Abgesagt",      cls: "bg-red-100 text-red-600" };
-  return { label: "Entwurf", cls: "bg-amber-100 text-amber-700" };
+  if (status === "active")    return { label: "Aktiv",         cls: "pd24-status-success" };
+  if (status === "completed") return { label: "Abgeschlossen", cls: "pd24-status-info" };
+  if (status === "cancelled") return { label: "Abgesagt",      cls: "pd24-status-error" };
+  return { label: "Entwurf", cls: "pd24-status-warning" };
 }
 
 // ─── Skeleton ─────────────────────────────────────────────────────────────────
@@ -122,14 +122,14 @@ function EventCard({
 
   return (
     <div className={`rounded-[var(--radius-card)] border bg-[var(--bg-panel-strong)] p-5 shadow-sm transition hover:shadow-md ${
-      confirming ? "border-red-200" : "border-[var(--line-subtle)]"
+      confirming ? "border-[rgba(161,75,69,0.24)]" : "border-[var(--line-subtle)]"
     }`}>
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
           <span className="shrink-0 text-2xl leading-none">{info.emoji}</span>
           <div className="min-w-0">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               {info.label}
             </div>
             <h3 className="mt-0.5 line-clamp-1 text-base font-semibold text-[var(--text-strong)]">
@@ -146,7 +146,7 @@ function EventCard({
               type="button"
               aria-label="Event löschen"
               onClick={() => setConfirming(true)}
-              className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-red-50 hover:text-red-500"
+              className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-[rgba(161,75,69,0.08)] hover:text-[var(--state-error)]"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                 <polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" /><path d="M10 11v6M14 11v6" /><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
@@ -184,14 +184,14 @@ function EventCard({
       {(plan.pending_quotes > 0 || plan.received_quotes > 0) && (
         <div className="mt-3 flex flex-wrap gap-2">
           {plan.received_quotes > 0 && (
-            <div className="flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            <div className="pd24-status-success flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--state-success)]" />
               {plan.received_quotes} Angebot{plan.received_quotes > 1 ? "e" : ""} erhalten
             </div>
           )}
           {plan.pending_quotes > 0 && (
-            <div className="flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
+            <div className="pd24-status-warning flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--state-warning)]" />
               {plan.pending_quotes} ausstehend
             </div>
           )}
@@ -200,10 +200,10 @@ function EventCard({
 
       {/* Actions / Confirm delete */}
       {confirming ? (
-        <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-red-200 bg-red-50/60 px-4 py-3">
+        <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-[rgba(161,75,69,0.24)] bg-[rgba(161,75,69,0.05)] px-4 py-3">
           <div className="min-w-0">
-            <p className="text-xs font-medium text-red-700">Event dauerhaft löschen?</p>
-            <p role="status" className="text-xs text-red-600">
+            <p className="text-xs font-medium text-[var(--state-error)]">Event dauerhaft löschen?</p>
+            <p role="status" className="text-xs text-[var(--state-error)]">
               {deleteError ? "Event konnte nicht gelöscht werden. Bitte versuche es erneut." : ""}
             </p>
           </div>
@@ -213,7 +213,7 @@ function EventCard({
               Abbrechen
             </button>
             <button type="button" onClick={handleDelete} disabled={deleting}
-              className="rounded-xl bg-red-500 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-red-600 disabled:opacity-50">
+              className="rounded-xl bg-[var(--state-error)] px-3 py-1.5 text-xs font-medium text-white transition hover:opacity-90 disabled:opacity-50">
               {deleting ? "…" : "Ja, löschen"}
             </button>
           </div>
@@ -229,7 +229,7 @@ function EventCard({
           {(plan.pending_quotes > 0 || plan.received_quotes > 0) && (
             <Link
               href={`/events/plan/${plan.id}?tab=offers`}
-              className="inline-flex min-h-9 items-center rounded-full border border-emerald-200 bg-emerald-50 px-4 text-sm font-medium text-emerald-800 transition hover:bg-emerald-100"
+              className="pd24-status-success inline-flex min-h-9 items-center rounded-full px-4 text-sm font-medium transition hover:opacity-90"
             >
               Angebote prüfen
             </Link>
@@ -355,7 +355,7 @@ function EventsDashboardContent() {
             Melde dich an, um deine Event-Planungen zu sehen und zu verwalten.
           </p>
           <Link href="/profile?return=/events/dashboard"
-            className="mt-5 inline-flex min-h-10 items-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-90">
+            className="pd24-btn pd24-btn-primary mt-5">
             Zum Login
           </Link>
         </div>
@@ -397,11 +397,11 @@ function EventsDashboardContent() {
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
             <Link href="/events"
-              className="inline-flex min-h-11 items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-95">
+              className="pd24-btn pd24-btn-primary">
               Neues Event planen
             </Link>
             <Link href="/saved"
-              className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-[var(--line-subtle)] px-5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]">
+              className="pd24-btn pd24-btn-secondary">
               Alle Pläne
             </Link>
           </div>
@@ -457,7 +457,7 @@ function EventsDashboardContent() {
           {Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)}
         </div>
       ) : hasError ? (
-        <div className="rounded-[var(--radius-shell)] border border-red-200 bg-red-50/60 px-6 py-12 text-center">
+        <div className="pd24-status-error rounded-[var(--radius-shell)] px-6 py-12 text-center">
           <div className="text-3xl">⚠️</div>
           <h2 className="mt-3 text-lg font-semibold text-[var(--text-strong)]">Events konnten nicht geladen werden</h2>
           <p className="mt-2 text-sm text-[var(--text-muted)]">
@@ -466,7 +466,7 @@ function EventsDashboardContent() {
           <button
             type="button"
             onClick={() => void loadPlans()}
-            className="mt-5 inline-flex min-h-10 items-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-90"
+            className="pd24-btn pd24-btn-primary mt-5"
           >
             Erneut laden
           </button>
@@ -479,7 +479,7 @@ function EventsDashboardContent() {
             Plane deinen ersten Geburtstag, JGA, Teamtag oder eine Firmenfeier.
           </p>
           <Link href="/events"
-            className="mt-5 inline-flex min-h-10 items-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-90">
+            className="pd24-btn pd24-btn-primary mt-5">
             Event anlegen →
           </Link>
         </div>

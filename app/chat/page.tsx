@@ -875,13 +875,13 @@ function ChatPageContent() {
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <a
               href="/planner"
-              className="inline-flex min-h-10 items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-90"
+              className="pd24-btn pd24-btn-sm pd24-btn-primary"
             >
               Zum Planner
             </a>
             <a
               href="/saved"
-              className="inline-flex min-h-10 items-center justify-center rounded-2xl border border-[var(--line-subtle)] px-5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+              className="pd24-btn pd24-btn-sm pd24-btn-secondary"
             >
               Meine Pläne
             </a>
@@ -901,10 +901,10 @@ function ChatPageContent() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Link href="/profile" className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-white">
+          <Link href="/profile" className="pd24-btn pd24-btn-sm pd24-btn-secondary">
             Zum Profil
           </Link>
-          <Link href="/invite" className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm hover:bg-white">
+          <Link href="/invite" className="pd24-btn pd24-btn-sm pd24-btn-secondary">
             Gruppe
           </Link>
           {totalGroupUnreadCount > 0 ? (
@@ -928,7 +928,7 @@ function ChatPageContent() {
               <button
                 type="button"
                 onClick={() => setShowNewMessagePicker((v) => !v)}
-                className="w-full rounded-2xl bg-[#171717] px-4 py-3 text-sm font-medium text-white transition hover:opacity-90"
+                className="w-full pd24-btn pd24-btn-primary"
               >
                 + Neue Nachricht
               </button>
@@ -959,7 +959,7 @@ function ChatPageContent() {
                             {f.avatar_url ? (
                               <img src={f.avatar_url} alt={name} className="h-8 w-8 rounded-full object-cover" />
                             ) : (
-                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#171717] text-xs font-semibold text-white">
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--text-strong)] text-xs font-semibold text-white">
                                 {name.slice(0, 1).toUpperCase()}
                               </div>
                             )}
@@ -1041,7 +1041,7 @@ function ChatPageContent() {
                             className="h-10 w-10 shrink-0 rounded-full object-cover"
                           />
                         ) : (
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#171717] text-sm font-semibold text-white">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--text-strong)] text-sm font-semibold text-white">
                             {name.slice(0, 1).toUpperCase()}
                           </div>
                         )}
@@ -1086,7 +1086,7 @@ function ChatPageContent() {
                           return peer?.avatar_url ? (
                             <img src={peer.avatar_url} alt={peerName} className="h-10 w-10 shrink-0 rounded-full object-cover" />
                           ) : (
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#171717] text-sm font-semibold text-white">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--text-strong)] text-sm font-semibold text-white">
                               {peerName.slice(0, 1).toUpperCase()}
                             </div>
                           );
@@ -1118,7 +1118,7 @@ function ChatPageContent() {
                   return activePeer.avatar_url ? (
                     <img src={activePeer.avatar_url} alt={peerName} className="h-10 w-10 shrink-0 rounded-full object-cover" />
                   ) : (
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#171717] text-sm font-semibold text-white">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--text-strong)] text-sm font-semibold text-white">
                       {peerName.slice(0, 1).toUpperCase()}
                     </div>
                   );
@@ -1149,7 +1149,7 @@ function ChatPageContent() {
               </div>
               {/* Right: Profil-Link */}
               {activePeer?.username && activeMode !== "group" ? (
-                <Link href={`/u/${activePeer.username}`} className="shrink-0 rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-sm hover:bg-white">
+                <Link href={`/u/${activePeer.username}`} className="shrink-0 pd24-btn pd24-btn-sm pd24-btn-secondary">
                   Profil ansehen
                 </Link>
               ) : null}
@@ -1210,7 +1210,7 @@ function ChatPageContent() {
                           senderProfile?.avatar_url ? (
                             <img src={senderProfile.avatar_url} alt={senderName} className="mb-1 h-7 w-7 shrink-0 rounded-full object-cover" />
                           ) : (
-                            <div className="mb-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#171717] text-[11px] font-semibold text-white">
+                            <div className="mb-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--text-strong)] text-[11px] font-semibold text-white">
                               {senderName.slice(0, 1).toUpperCase()}
                             </div>
                           )
@@ -1336,7 +1336,7 @@ function ChatPageContent() {
                 type="button"
                 onClick={() => void sendMessage()}
                 disabled={(!activeConversationId && !activeGroupChatId) || sending || draft.trim().length === 0}
-                className="self-end rounded-xl bg-[var(--text-strong)] px-4 py-3 text-sm text-white transition hover:opacity-95 disabled:opacity-50"
+                className="self-end pd24-btn pd24-btn-primary"
               >
                 {sending ? "Senden..." : "Senden"}
               </button>

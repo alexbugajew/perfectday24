@@ -82,8 +82,8 @@ function statusLabel(status: RouteRunStopState) {
 }
 
 function statusTone(status: RouteRunStopState) {
-  if (status === "done") return "border-emerald-200 bg-emerald-50 text-emerald-900";
-  if (status === "skipped") return "border-rose-200 bg-rose-50 text-rose-900";
+  if (status === "done") return "pd24-status-success";
+  if (status === "skipped") return "pd24-status-error";
   return "border-[var(--line-subtle)] bg-white text-[var(--text-muted)]";
 }
 
@@ -350,7 +350,7 @@ function RouteRunPageContent() {
           <button
             type="button"
             onClick={() => setReloadKey((k) => k + 1)}
-            className="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl bg-[var(--text-strong)] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-95"
+            className="pd24-btn pd24-btn-primary mt-4"
           >
             Erneut versuchen
           </button>
@@ -431,7 +431,7 @@ function RouteRunPageContent() {
         <section className="w-full rounded-2xl border border-[var(--line-subtle)] bg-white p-4 shadow-sm sm:rounded-3xl sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Aktueller Schritt
               </div>
               <h2 className="mt-1 break-words text-xl font-semibold leading-tight text-[var(--text-strong)]">
@@ -462,7 +462,7 @@ function RouteRunPageContent() {
                 href={currentStopNavigationUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-[var(--text-strong)] px-4 py-2.5 text-sm font-medium text-white sm:w-auto"
+                className="pd24-btn pd24-btn-primary w-full sm:w-auto"
               >
                 Navigieren
               </Link>
@@ -472,14 +472,14 @@ function RouteRunPageContent() {
                 <button
                   type="button"
                   onClick={() => markStop(currentStop.id, "done")}
-                  className="min-h-11 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-sm font-medium text-emerald-950 transition hover:bg-emerald-100"
+                  className="pd24-btn pd24-status-success font-medium"
                 >
                   Erledigt
                 </button>
                 <button
                   type="button"
                   onClick={() => markStop(currentStop.id, "skipped")}
-                  className="min-h-11 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-medium text-rose-950 transition hover:bg-rose-100"
+                  className="pd24-btn pd24-status-error font-medium"
                 >
                   Skippen
                 </button>
@@ -488,7 +488,7 @@ function RouteRunPageContent() {
               <button
                 type="button"
                 onClick={() => markStop(currentStop.id, "pending")}
-                className="inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] sm:w-auto"
+                className="pd24-btn pd24-btn-secondary w-full sm:w-auto"
               >
                 Wieder öffnen
               </button>
@@ -513,13 +513,13 @@ function RouteRunPageContent() {
             </div>
 
             <div className="grid grid-cols-3 gap-2 lg:auto-rows-fr lg:grid-cols-1 lg:gap-3">
-              <div className="min-h-20 rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3 sm:rounded-3xl">
-                <div className="text-[10px] uppercase tracking-wide text-emerald-800">Erledigt</div>
-                <div className="mt-2 text-2xl font-semibold text-emerald-950">{completedCount}</div>
+              <div className="pd24-status-success min-h-20 rounded-2xl px-3 py-3 sm:rounded-3xl">
+                <div className="text-[10px] uppercase tracking-wide">Erledigt</div>
+                <div className="mt-2 text-2xl font-semibold">{completedCount}</div>
               </div>
-              <div className="min-h-20 rounded-2xl border border-rose-200 bg-rose-50 px-3 py-3 sm:rounded-3xl">
-                <div className="text-[10px] uppercase tracking-wide text-rose-800">Skippen</div>
-                <div className="mt-2 text-2xl font-semibold text-rose-950">{skippedCount}</div>
+              <div className="pd24-status-error min-h-20 rounded-2xl px-3 py-3 sm:rounded-3xl">
+                <div className="text-[10px] uppercase tracking-wide">Skippen</div>
+                <div className="mt-2 text-2xl font-semibold">{skippedCount}</div>
               </div>
               <div className="min-h-20 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3 sm:rounded-3xl">
                 <div className="text-[10px] uppercase tracking-wide text-[var(--text-muted)]">Open</div>
@@ -578,7 +578,7 @@ function RouteRunPageContent() {
                   <button
                     type="button"
                     onClick={() => setReloadKey((k) => k + 1)}
-                    className="mt-3 inline-flex min-h-10 items-center justify-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-95"
+                    className="pd24-btn pd24-btn-sm pd24-btn-primary mt-3"
                   >
                     Erneut laden
                   </button>
@@ -591,24 +591,24 @@ function RouteRunPageContent() {
                 const cardTone =
                   state === "done"
                     ? active
-                      ? "border-emerald-300 bg-emerald-50 shadow-sm"
-                      : "border-emerald-200 bg-emerald-50/70"
+                      ? "border-[var(--state-success)]/40 bg-[var(--state-success)]/10 shadow-sm"
+                      : "border-[var(--state-success)]/25 bg-[var(--state-success)]/5"
                     : state === "skipped"
                       ? active
-                        ? "border-rose-300 bg-rose-50 shadow-sm"
-                        : "border-rose-200 bg-rose-50/70"
+                        ? "border-[var(--state-error)]/40 bg-[var(--state-error)]/10 shadow-sm"
+                        : "border-[var(--state-error)]/25 bg-[var(--state-error)]/5"
                       : active
                         ? "border-[rgba(15,23,42,0.28)] bg-white shadow-sm ring-1 ring-[rgba(15,23,42,0.06)]"
                         : "border-[var(--line-subtle)] bg-white";
                 const buttonTone =
                   state === "done"
                     ? active
-                      ? "bg-emerald-50"
-                      : "hover:bg-emerald-50"
+                      ? "bg-[var(--state-success)]/10"
+                      : "hover:bg-[var(--state-success)]/10"
                     : state === "skipped"
                       ? active
-                        ? "bg-rose-50"
-                        : "hover:bg-rose-50"
+                        ? "bg-[var(--state-error)]/10"
+                        : "hover:bg-[var(--state-error)]/10"
                       : active
                         ? "bg-[var(--bg-panel)]"
                         : "hover:bg-[var(--bg-surface)]";
@@ -673,7 +673,7 @@ function RouteRunPageContent() {
                   href={currentStopNavigationUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[var(--text-strong)] px-3 text-sm font-medium text-white"
+                  className="pd24-btn pd24-btn-primary"
                 >
                   Navi
                 </Link>
@@ -683,14 +683,14 @@ function RouteRunPageContent() {
                   <button
                     type="button"
                     onClick={() => markStop(currentStop.id, "done")}
-                    className="min-h-11 rounded-xl border border-emerald-200 bg-emerald-50 px-3 text-sm font-medium text-emerald-950"
+                    className="pd24-btn pd24-status-success font-medium"
                   >
                     Erledigt
                   </button>
                   <button
                     type="button"
                     onClick={() => markStop(currentStop.id, "skipped")}
-                    className="min-h-11 rounded-xl border border-rose-200 bg-rose-50 px-3 text-sm font-medium text-rose-950"
+                    className="pd24-btn pd24-status-error font-medium"
                   >
                     Skippen
                   </button>
@@ -699,7 +699,7 @@ function RouteRunPageContent() {
                 <button
                   type="button"
                   onClick={() => markStop(currentStop.id, "pending")}
-                  className="min-h-11 rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm font-medium text-[var(--text-strong)]"
+                  className="pd24-btn pd24-btn-secondary"
                 >
                   Wieder
                 </button>

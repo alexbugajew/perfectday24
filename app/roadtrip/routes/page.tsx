@@ -88,7 +88,7 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
       {/* Content */}
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div>
-          <h3 className="font-semibold text-[var(--text-strong)] leading-snug group-hover:text-[#b76a43] transition-colors">
+          <h3 className="font-semibold text-[var(--text-strong)] leading-snug group-hover:text-[var(--brand-warm-deep)] transition-colors">
             {route.title}
           </h3>
           <p className="mt-1 min-h-[2rem] text-[11px] leading-4 text-[var(--text-muted)] line-clamp-2">
@@ -106,7 +106,7 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
             {tagDefs.map((tag) => (
               <span
                 key={tag.value}
-                className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]"
+                className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]"
               >
                 {tag.emoji} {tag.label}
               </span>
@@ -198,15 +198,15 @@ export default function RoadtripRoutesPage() {
           <div className="pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-full bg-[rgba(183,106,67,0.12)] blur-2xl" />
           <div className="relative flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#b76a43] text-xl text-white shadow-sm">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--brand-warm-deep)] text-xl text-white shadow-sm">
                 🚀
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold uppercase tracking-[0.14em] text-[#b76a43]">
+                  <span className="pd24-kicker-warm">
                     Aktiver Roadtrip
                   </span>
-                  <span className="animate-pulse h-2 w-2 rounded-full bg-[#b76a43]" />
+                  <span className="animate-pulse h-2 w-2 rounded-full bg-[var(--brand-warm-deep)]" />
                 </div>
                 <p className="mt-0.5 font-semibold text-[var(--text-strong)]">
                   {activeRoadtrip.title}
@@ -219,7 +219,7 @@ export default function RoadtripRoutesPage() {
             </div>
             <Link
               href={`/roadtrip?fromRouteSlug=${activeRoadtrip.slug}`}
-              className="inline-flex items-center gap-2 rounded-2xl bg-[#b76a43] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#9d5a38] active:scale-[0.97]"
+              className="pd24-btn pd24-btn-warm active:scale-[0.97]"
             >
               Fortsetzen →
             </Link>
@@ -250,7 +250,7 @@ export default function RoadtripRoutesPage() {
                 href="/roadtrip/discover"
                 className="inline-flex items-center gap-2 rounded-full border border-amber-400 bg-amber-50 px-4 py-2.5 text-sm font-semibold text-amber-800 transition hover:bg-amber-100"
               >
-                🗺️ Route entdecken
+                Route entdecken
               </Link>
               <Link
                 href="/roadtrip"
@@ -341,7 +341,7 @@ export default function RoadtripRoutesPage() {
             ))}
           </div>
         ) : (
-          <div className="rounded-xl border border-dashed border-[rgba(23,23,23,0.15)] bg-[var(--bg-surface)] px-6 py-10 text-center">
+          <div className="rounded-xl border border-dashed border-[var(--line-strong)] bg-[var(--bg-surface)] px-6 py-10 text-center">
             <div className="text-3xl mb-2">🗺️</div>
             <div className="font-semibold text-[var(--text-strong)]">
               {searchText || tagFilter !== "all"

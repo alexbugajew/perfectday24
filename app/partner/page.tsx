@@ -160,7 +160,7 @@ const statusFlow = [
 export default function PartnerLandingPage() {
   return (
     <main className="pd24-page-standard space-y-6 pb-20 pt-6">
-      <section className="overflow-hidden rounded-[32px] border border-[var(--line-subtle)] bg-[linear-gradient(135deg,var(--bg-canvas-warm),#eef4f7)] px-6 py-8 shadow-[var(--shadow-large)] sm:px-8 sm:py-10">
+      <section className="overflow-hidden rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-[linear-gradient(135deg,var(--bg-canvas-warm),#eef4f7)] px-6 py-8 shadow-[var(--shadow-large)] sm:px-8 sm:py-10">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-center">
           <div>
             <div className="pd24-kicker-warm">Partner werden</div>
@@ -257,7 +257,7 @@ export default function PartnerLandingPage() {
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {partnerTypes.map((item) => (
-          <article key={item.title} className="flex flex-col overflow-hidden rounded-[26px] border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-large)]">
+          <article key={item.title} className="flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-large)]">
             <div className="relative h-40 w-full overflow-hidden">
               <Image
                 src={item.image}
@@ -267,7 +267,7 @@ export default function PartnerLandingPage() {
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
-              <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-[14px] border border-white/30 bg-white/90 text-xl backdrop-blur">
+              <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-[var(--radius-control)] border border-white/30 bg-white/90 text-xl backdrop-blur">
                 {item.emoji}
               </div>
             </div>
@@ -288,7 +288,7 @@ export default function PartnerLandingPage() {
           </p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {productSurfaces.map((surface) => (
-              <div key={surface} className="rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+              <div key={surface} className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
                 {surface}
               </div>
             ))}
@@ -299,7 +299,7 @@ export default function PartnerLandingPage() {
           <div className="pd24-kicker-warm">Mehr Wirkung</div>
           <div className="mt-3 space-y-4">
             {benefits.map((benefit) => (
-              <div key={benefit.title} className="rounded-[20px] border border-[var(--line-subtle)] bg-white px-4 py-4">
+              <div key={benefit.title} className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white px-4 py-4">
                 <div className="text-lg font-semibold text-[var(--text-strong)]">{benefit.title}</div>
                 <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{benefit.copy}</p>
               </div>
@@ -319,7 +319,7 @@ export default function PartnerLandingPage() {
           </p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {partnerPortalModules.map((item) => (
-              <div key={item.title} className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+              <div key={item.title} className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                 <div className="text-base font-semibold text-[var(--text-strong)]">{item.title}</div>
                 <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{item.copy}</p>
               </div>
@@ -331,7 +331,7 @@ export default function PartnerLandingPage() {
           <div className="pd24-kicker-warm">Statuslogik</div>
           <div className="mt-4 space-y-3">
             {statusFlow.map((item, index) => (
-              <div key={item.label} className="flex items-start gap-3 rounded-[20px] border border-[rgba(196,137,79,0.18)] bg-white px-4 py-4">
+              <div key={item.label} className="flex items-start gap-3 rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.18)] bg-white px-4 py-4">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--text-strong)] text-xs font-semibold text-white">
                   {index + 1}
                 </div>
@@ -342,7 +342,7 @@ export default function PartnerLandingPage() {
               </div>
             ))}
           </div>
-          <div className="mt-5 rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 text-sm leading-6 text-[var(--text-muted)]">
+          <div className="mt-5 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 text-sm leading-6 text-[var(--text-muted)]">
             So bleibt Qualität kontrolliert, während Partner Inhalte, Preise und Kampagnen trotzdem schnell selbst aktualisieren können.
           </div>
         </div>
@@ -350,7 +350,7 @@ export default function PartnerLandingPage() {
 
       <PartnerRoiCalculator />
 
-      <section id="pakete" className="rounded-[32px] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)]">
+      <section id="pakete" className="rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="pd24-kicker-warm">Pakete</div>
@@ -365,7 +365,7 @@ export default function PartnerLandingPage() {
           {packageCards.map((card) => (
             <article
               key={card.name}
-              className={`rounded-[26px] border p-5 shadow-sm ${
+              className={`rounded-[var(--radius-card)] border p-5 shadow-sm ${
                 card.featured
                   ? "border-[rgba(196,137,79,0.32)] bg-[rgba(255,249,241,0.88)]"
                   : "border-[var(--line-subtle)] bg-[var(--bg-surface)]"
@@ -400,7 +400,7 @@ export default function PartnerLandingPage() {
           <div className="pd24-kicker-warm">So funktioniert es</div>
           <div className="mt-4 space-y-3">
             {workflowSteps.map((step, index) => (
-              <div key={step} className="flex items-start gap-4 rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4">
+              <div key={step} className="flex items-start gap-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--text-strong)] text-sm font-semibold text-white">
                   {index + 1}
                 </div>
@@ -410,7 +410,7 @@ export default function PartnerLandingPage() {
           </div>
         </div>
 
-        <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,#fffdf8,#f6f1ea)] p-6 shadow-[var(--shadow-soft)]">
+        <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,var(--bg-surface-warm),#f6f1ea)] p-6 shadow-[var(--shadow-soft)]">
           <div className="pd24-kicker-warm">Medien & Vertrauen</div>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">Starke Bilder verkaufen besser als reine Einträge</h2>
           <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
@@ -422,7 +422,7 @@ export default function PartnerLandingPage() {
               "Verifizierte Profile mit klarer Sichtbarkeitslogik",
               "Kontrollierte Cover-Auswahl statt zufälliger Bilder",
             ].map((item) => (
-              <div key={item} className="rounded-[20px] border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+              <div key={item} className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
                 {item}
               </div>
             ))}
@@ -446,7 +446,7 @@ export default function PartnerLandingPage() {
       </section>
 
       {/* T7 — Proof & Zahlen */}
-      <section className="rounded-[32px] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
+      <section className="rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
         <div className="pd24-kicker-warm">Zahlen & Reichweite</div>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
           Was du konkret bekommst
@@ -458,7 +458,7 @@ export default function PartnerLandingPage() {
             { value: "100%", unit: "Kontext-Targeting", copy: "Nutzer kommen mit konkretem Anlass, Datum und Budgetrahmen — keine Streuverluste." },
             { value: "0 EUR", unit: "zum Start", copy: "Kostenlos einsteigen, Profil anlegen und erste Anfragen empfangen." },
           ].map((item) => (
-            <div key={item.unit} className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+            <div key={item.unit} className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
               <div className="text-3xl font-semibold text-[var(--text-strong)]">{item.value}</div>
               <div className="text-sm font-semibold text-[var(--brand-warm)]">{item.unit}</div>
               <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{item.copy}</p>
@@ -478,7 +478,7 @@ export default function PartnerLandingPage() {
               { q: "Wie seriös ist die Plattform?", a: "Alle Partner durchlaufen einen Freigabeprozess. Dein Profil wird nur verifiziert und sichtbar geschaltet, wenn Qualitätsstandards erfüllt sind." },
               { q: "Wann lohnt sich ein bezahltes Paket?", a: "Sobald du Featured-Platzierungen, Analytics oder Prioritäts-Matching nutzen möchtest. Free ist dauerhaft kostenlos und kann jederzeit upgraden." },
             ].map((item) => (
-              <div key={item.q} className="rounded-[20px] border border-[var(--line-subtle)] bg-white px-4 py-4">
+              <div key={item.q} className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white px-4 py-4">
                 <div className="text-sm font-semibold text-[var(--text-strong)]">{item.q}</div>
                 <p className="mt-1.5 text-sm leading-6 text-[var(--text-muted)]">{item.a}</p>
               </div>
@@ -495,7 +495,7 @@ export default function PartnerLandingPage() {
             </p>
             <div className="mt-4 grid gap-2 sm:grid-cols-2">
               {["Explore-Karte mit Cover und CTA", "Stop-Empfehlung in Routen", "Angebotsblock im Event-Flow", "Hotelbuchung in Roadtrip-Etappen"].map((item) => (
-                <div key={item} className="rounded-[16px] border border-[rgba(196,137,79,0.2)] bg-white px-3 py-2.5 text-xs leading-5 text-[var(--text-muted)]">
+                <div key={item} className="rounded-[var(--radius-control)] border border-[rgba(196,137,79,0.2)] bg-white px-3 py-2.5 text-xs leading-5 text-[var(--text-muted)]">
                   ✓ {item}
                 </div>
               ))}
@@ -538,7 +538,7 @@ export default function PartnerLandingPage() {
             { value: "3 Kernflächen", copy: "Explore, Route/Roadtrip und Event-Buchungsflow." },
             { value: "0 EUR Start", copy: "Mit Free beginnen und später auf Basic oder Pro erweitern." },
           ].map((item) => (
-            <div key={item.value} className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+            <div key={item.value} className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
               <div className="text-2xl font-semibold tracking-tight text-[var(--text-strong)]">{item.value}</div>
               <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{item.copy}</p>
             </div>
@@ -546,7 +546,7 @@ export default function PartnerLandingPage() {
         </div>
       </section>
 
-      <section className="rounded-[32px] bg-[var(--text-strong)] px-6 py-10 text-[#fffdf8] shadow-[var(--shadow-large)] sm:px-8">
+      <section className="rounded-[var(--radius-hero)] bg-[var(--text-strong)] px-6 py-10 text-[var(--bg-surface-warm)] shadow-[var(--shadow-large)] sm:px-8">
         <div className="max-w-3xl">
           <div className="pd24-kicker-warm text-white/60">Jetzt starten</div>
           <h2 className="mt-3 text-[2.4rem] font-semibold leading-[0.96] tracking-tight sm:text-5xl">
@@ -570,10 +570,10 @@ export default function PartnerLandingPage() {
       </section>
 
       <div className="sticky bottom-24 z-20 sm:hidden">
-        <div className="rounded-[22px] border border-[rgba(196,137,79,0.28)] bg-white/96 p-3 shadow-[0_16px_40px_rgba(15,23,42,0.16)] backdrop-blur">
+        <div className="rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.28)] bg-white/96 p-3 shadow-[0_16px_40px_rgba(15,23,42,0.16)] backdrop-blur">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Partner-Portal</div>
+              <div className="pd24-meta">Partner-Portal</div>
               <div className="truncate text-sm font-semibold text-[var(--text-strong)]">Profil anlegen und direkt sichtbar werden</div>
             </div>
             <PartnerMarketingCta

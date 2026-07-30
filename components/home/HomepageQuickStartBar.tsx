@@ -230,21 +230,21 @@ export default function HomepageQuickStartBar() {
     modeOptions.find((option) => option.value === resolvedSelectedMode)?.label ?? "Klassisch";
 
   const selectClassName =
-    "mt-3 w-full rounded-[18px] border border-[rgba(23,23,23,0.1)] bg-white px-4 py-3 text-sm text-[#171717] outline-none transition focus:border-[rgba(23,23,23,0.22)] focus:ring-2 focus:ring-[rgba(183,106,67,0.14)]";
+    "mt-3 w-full rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[rgba(23,23,23,0.22)] focus:ring-2 focus:ring-[rgba(183,106,67,0.14)]";
   const inputClassName =
-    "mt-3 w-full rounded-[18px] border border-[rgba(23,23,23,0.1)] bg-white px-4 py-3 text-sm text-[#171717] outline-none transition placeholder:text-[#8b7767] focus:border-[rgba(23,23,23,0.22)] focus:ring-2 focus:ring-[rgba(183,106,67,0.14)]";
+    "mt-3 w-full rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] outline-none transition placeholder:text-[var(--text-soft-warm)] focus:border-[rgba(23,23,23,0.22)] focus:ring-2 focus:ring-[rgba(183,106,67,0.14)]";
 
   return (
-    <section className="rounded-[30px] border border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.86)] px-5 py-5 shadow-[0_18px_44px_rgba(49,39,27,0.08)] sm:px-7 sm:py-6">
+    <section className="rounded-[30px] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.86)] px-5 py-5 shadow-[0_18px_44px_rgba(49,39,27,0.08)] sm:px-7 sm:py-6">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-2xl">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8b7767]">
+          <div className="pd24-meta">
             Schnell starten
           </div>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#171717]">
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
             Starte mit 4 Angaben in deinen ersten Plan.
           </h2>
-          <p className="mt-3 text-base leading-7 text-[#665d55]">
+          <p className="mt-3 text-base leading-7 text-[var(--text-muted-warm)]">
             Waehle Stadt, Anlass, Fokus und Datum. Der Planner uebernimmt den Rahmen direkt und
             erzeugt daraus den ersten belastbaren Vorschlag.
           </p>
@@ -265,11 +265,11 @@ export default function HomepageQuickStartBar() {
       </div>
 
       <div className="mt-5 grid gap-3 lg:grid-cols-4">
-        <div className="rounded-[22px] border border-[rgba(23,23,23,0.08)] bg-white/88 px-4 py-4">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8b7767]">
+        <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/88 px-4 py-4">
+          <div className="pd24-meta">
             Stadt
           </div>
-          <div className="mt-2 text-lg font-medium text-[#171717]">{selectedCityLabel}</div>
+          <div className="mt-2 text-lg font-medium text-[var(--text-strong)]">{selectedCityLabel}</div>
           <input
             aria-label="Stadt suchen"
             value={cityQuery}
@@ -311,21 +311,21 @@ export default function HomepageQuickStartBar() {
               </option>
             ))}
           </select>
-          <div className="mt-2 text-xs text-[#8b7767]">
+          <div className="mt-2 text-xs text-[var(--text-soft-warm)]">
             {filteredCityOptions.length} von {cityOptions.length} Staedten sichtbar
           </div>
           {!selectedCitySupportsEventModes ? (
-            <div className="mt-2 text-xs text-[#8b7767]">
+            <div className="mt-2 text-xs text-[var(--text-soft-warm)]">
               Fuer diese Stadt ist Event- und Marktplanung noch nicht voll aktiviert.
             </div>
           ) : null}
         </div>
 
-        <div className="rounded-[22px] border border-[rgba(23,23,23,0.08)] bg-white/88 px-4 py-4">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8b7767]">
+        <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/88 px-4 py-4">
+          <div className="pd24-meta">
             Anlass
           </div>
-          <div className="mt-2 text-lg font-medium text-[#171717]">
+          <div className="mt-2 text-lg font-medium text-[var(--text-strong)]">
             {occasionLabel(selectedOccasion)}
           </div>
           <select
@@ -342,11 +342,11 @@ export default function HomepageQuickStartBar() {
           </select>
         </div>
 
-        <div className="rounded-[22px] border border-[rgba(23,23,23,0.08)] bg-white/88 px-4 py-4">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8b7767]">
+        <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/88 px-4 py-4">
+          <div className="pd24-meta">
             Fokus
           </div>
-          <div className="mt-2 text-lg font-medium text-[#171717]">{selectedModeLabel}</div>
+          <div className="mt-2 text-lg font-medium text-[var(--text-strong)]">{selectedModeLabel}</div>
           <select
             aria-label="Fokus auswählen"
             value={resolvedSelectedMode}
@@ -361,11 +361,11 @@ export default function HomepageQuickStartBar() {
           </select>
         </div>
 
-        <div className="rounded-[22px] border border-[rgba(23,23,23,0.08)] bg-white/88 px-4 py-4">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8b7767]">
+        <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/88 px-4 py-4">
+          <div className="pd24-meta">
             Datum
           </div>
-          <div className="mt-2 text-lg font-medium text-[#171717]">{selectedDateLabel}</div>
+          <div className="mt-2 text-lg font-medium text-[var(--text-strong)]">{selectedDateLabel}</div>
           <input
             aria-label="Datum auswählen"
             type="date"

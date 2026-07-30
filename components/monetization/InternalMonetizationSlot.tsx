@@ -226,7 +226,7 @@ export default function InternalMonetizationSlot({
           {loading ? (
             <div className="mt-3 text-xs text-amber-900/80">Live-Slotdaten werden geladen...</div>
           ) : loadError ? (
-            <div className="mt-3 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-900">
+            <div className="mt-3 rounded-xl pd24-status-error px-3 py-2 text-xs">
               {loadError}
             </div>
           ) : activeAssignments.length > 0 ? (

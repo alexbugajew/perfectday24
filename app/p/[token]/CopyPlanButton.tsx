@@ -147,10 +147,10 @@ export default function CopyPlanButton({
       <button
         onClick={copyPlan}
         disabled={copying}
-        className="px-3 py-2 rounded bg-black text-white text-sm disabled:opacity-60"
+        className="pd24-btn pd24-btn-sm pd24-btn-primary"
         title="Erstellt eine Kopie dieses Plans in deinem Account (anon)."
       >
-        {copying ? "Kopiere…" : "➕ Plan übernehmen"}
+        {copying ? "Kopiere…" : "Plan übernehmen"}
       </button>
 
       {msg ? <div className="text-[11px] text-gray-500 max-w-[240px] text-right">{msg}</div> : null}

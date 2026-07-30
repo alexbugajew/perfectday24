@@ -395,7 +395,7 @@ function StopCardV2({
         <div className={`flex min-w-0 flex-col p-4 ${selected ? "bg-emerald-50/45" : active ? "bg-amber-50/60" : "bg-white"}`}>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Waypoint {number}
               </div>
               <div className="mt-1 text-base font-semibold leading-tight text-[var(--text-strong)]">
@@ -412,7 +412,7 @@ function StopCardV2({
           </p>
 
           <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="rounded-full border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
+            <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] font-medium text-[var(--text-muted)]">
               {durationLabel(stop.duration_min)}
             </span>
             <span className="rounded-full border border-[rgba(183,106,67,0.18)] bg-[rgba(183,106,67,0.08)] px-2.5 py-1 text-[11px] font-medium text-[#8a5436]">
@@ -744,7 +744,7 @@ export default function RoadtripDiscoverPage() {
                     KI analysiert Route…
                   </>
                 ) : (
-                  <>✨ Stopps vorschlagen</>
+                  <>Stopps vorschlagen</>
                 )}
               </button>
             </div>
@@ -754,7 +754,7 @@ export default function RoadtripDiscoverPage() {
 
       {/* ── Fehler ────────────────────────────────────────────────────────── */}
       {error && (
-        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div className="rounded-xl pd24-status-error px-4 py-3 text-sm">
           {error}
         </div>
       )}
@@ -766,7 +766,7 @@ export default function RoadtripDiscoverPage() {
           <div className="rounded-2xl border border-[var(--line-subtle)] bg-white/92 p-3 shadow-[var(--shadow-soft)] backdrop-blur">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="min-w-0">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-accent)]">
+                <div className="pd24-kicker">
                   Route Workspace
                 </div>
                 <div className="mt-1 truncate text-lg font-semibold text-[var(--text-strong)]">
@@ -784,8 +784,8 @@ export default function RoadtripDiscoverPage() {
                   { label: "Alle Stopps", value: resultDurationLabel },
                   { label: "Umweg", value: strongestDetourLabel(selectedStops) },
                 ].map((stat) => (
-                  <div key={stat.label} className="rounded-xl border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-3 py-2">
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  <div key={stat.label} className="rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+                    <div className="pd24-meta">
                       {stat.label}
                     </div>
                     <div className="mt-1 truncate text-sm font-semibold text-[var(--text-strong)]">
@@ -855,7 +855,7 @@ export default function RoadtripDiscoverPage() {
             {/* Stop-Karten */}
             <div className="order-2 space-y-3">
               <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-sm">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                <div className="pd24-meta">
                   Waypoints
                 </div>
                 <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
@@ -918,7 +918,7 @@ export default function RoadtripDiscoverPage() {
                       setSelectedIds(new Set(result.map((s) => s.id)));
                     }
                   }}
-                  className="rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+                  className="pd24-btn pd24-btn-secondary pd24-btn-sm"
                 >
                   {selectedCount === result.length ? "Alle abwählen" : "Alle auswählen"}
                 </button>
@@ -933,7 +933,7 @@ export default function RoadtripDiscoverPage() {
                       : "cursor-not-allowed bg-[rgba(23,23,23,0.08)] text-[var(--text-muted)]"
                   }`}
                 >
-                  🚀 Roadtrip planen
+                  Roadtrip planen
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
@@ -1026,7 +1026,7 @@ export default function RoadtripDiscoverPage() {
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
                       <span className="rounded-full bg-amber-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg">
-                        Route starten ✨
+                        Route starten
                       </span>
                     </div>
                   </button>
@@ -1057,7 +1057,7 @@ export default function RoadtripDiscoverPage() {
                     </div>
                   </div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                    <span className="rounded-full bg-amber-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg">Route starten ✨</span>
+                    <span className="rounded-full bg-amber-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg">Route starten</span>
                   </div>
                 </button>
               ))}

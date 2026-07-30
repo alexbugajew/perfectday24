@@ -179,7 +179,7 @@ export default function PlannerStopListSection({
   return (
     <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)] sm:p-5">
       <header className="mb-5 border-b border-[rgba(68,57,46,0.08)] pb-4">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+        <div className="pd24-meta">
           Euer Plan
         </div>
         <h3 className="mt-1 text-base font-semibold tracking-tight text-[var(--text-strong)] sm:text-xl">
@@ -388,7 +388,7 @@ export default function PlannerStopListSection({
                     {qualitySignals.length > 0 || stop.timingWarnings?.length ? (
                       <div className="mt-2 flex flex-wrap gap-1.5">
                         {stop.timingWarnings?.length ? (
-                          <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-0.5 text-[10px] font-medium text-rose-700">
+                          <span className="pd24-status-error rounded-full px-2 py-0.5 text-[10px] font-medium">
                             ⚠ Timing prüfen
                           </span>
                         ) : null}
@@ -513,13 +513,13 @@ export default function PlannerStopListSection({
                               </div>
                             )}
                             {Array.isArray(stop.timingWarnings) && stop.timingWarnings.length ? (
-                              <div className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2">
-                                <div className="text-[10px] font-semibold uppercase tracking-wide text-rose-700">
+                              <div className="pd24-status-error rounded-lg px-3 py-2">
+                                <div className="text-[10px] font-semibold uppercase tracking-wide">
                                   Timing-Hinweise
                                 </div>
                                 <ul className="mt-1 space-y-1">
                                   {stop.timingWarnings.map((warning) => (
-                                    <li key={warning} className="text-xs text-rose-800">
+                                    <li key={warning} className="text-xs">
                                       {warning}
                                     </li>
                                   ))}

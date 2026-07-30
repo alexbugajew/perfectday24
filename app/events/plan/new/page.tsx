@@ -446,18 +446,18 @@ function PlanNewInner() {
   // ─── Render ───────────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen bg-[#f7f4ee] pb-36">
+    <div className="min-h-screen bg-[var(--bg-canvas-warm)] pb-36">
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
-      <div className="border-b border-[rgba(23,23,23,0.08)] bg-[#fffdf8] px-4 py-6 sm:px-6">
+      <div className="border-b border-[var(--line-subtle)] bg-[var(--bg-surface-warm)] px-4 py-6 sm:px-6">
         <div className="mx-auto max-w-3xl">
-          <Link href="/events" className="mb-4 inline-flex text-sm text-[#8b7767] hover:text-[#171717]">
+          <Link href="/events" className="mb-4 inline-flex text-sm text-[var(--text-soft-warm)] hover:text-[var(--text-strong)]">
             ← Zurück
           </Link>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+          <div className="pd24-kicker-warm">
             Event-Planer
           </div>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#171717]">
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
             {occasion
               ? `Dienstleister für deinen ${OCCASION_LABELS[occasion] ?? occasion}`
               : "Dienstleister für dein Event"}
@@ -483,32 +483,32 @@ function PlanNewInner() {
         {/* Event-Name */}
         {hasWizardContext && (
           <div className="mb-8">
-            <label className="mb-1.5 block text-sm font-medium text-[#171717]">
-              Event-Name <span className="text-[#b76a43]">*</span>
+            <label className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
+              Event-Name <span className="text-[var(--brand-warm-deep)]">*</span>
             </label>
             <input
               type="text"
               value={eventTitle}
               onChange={(e) => setEventTitle(e.target.value)}
               placeholder="z.B. Weihnachtsfeier 2026, Teambuilding Marketing"
-              className="w-full rounded-2xl border border-[rgba(23,23,23,0.12)] bg-white px-4 py-3 text-sm text-[#171717] placeholder-[#8b7767] outline-none focus:border-[#171717] focus:ring-2 focus:ring-[rgba(23,23,23,0.08)]"
+              className="w-full rounded-2xl border border-[var(--line-strong)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] placeholder-[var(--text-soft-warm)] outline-none focus:border-[var(--text-strong)] focus:ring-2 focus:ring-[rgba(23,23,23,0.08)]"
             />
           </div>
         )}
 
         {!hasWizardContext ? (
-          <div className="rounded-[24px] border border-[rgba(23,23,23,0.08)] bg-white p-8 text-center sm:p-10">
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-8 text-center sm:p-10">
             <div className="text-3xl">🗓️</div>
-            <h2 className="mt-3 text-lg font-semibold text-[#171717]">
+            <h2 className="mt-3 text-lg font-semibold text-[var(--text-strong)]">
               Hier fehlen noch deine Eventdetails
             </h2>
-            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#665d55]">
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[var(--text-muted-warm)]">
               Wähle im Event-Planer zuerst Anlass, Stadt und die Leistungen, die du brauchst.
               Danach zeigen wir dir hier passende Anbieter mit Preisen und Paketen.
             </p>
             <Link
               href="/events"
-              className="mt-6 inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition hover:opacity-95"
+              className="pd24-btn pd24-btn-primary mt-6"
             >
               Zum Event-Planer
             </Link>
@@ -531,22 +531,22 @@ function PlanNewInner() {
                       <span className="text-xl leading-none">
                         {NEED_ICON[needSlug] ?? "✨"}
                       </span>
-                      <h2 className="text-lg font-semibold text-[#171717]">
+                      <h2 className="text-lg font-semibold text-[var(--text-strong)]">
                         {NEED_LABEL[needSlug] ?? needSlug}
                       </h2>
                       {selection && (
-                        <span className="rounded-full border border-emerald-300 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-800">
+                        <span className="pd24-status-success rounded-full px-2.5 py-0.5 text-[11px] font-medium">
                           ausgewählt
                         </span>
                       )}
                       {quoteVendor && !selection && (
-                        <span className="rounded-full border border-amber-300 bg-amber-50 px-2.5 py-0.5 text-[11px] font-medium text-amber-800">
+                        <span className="pd24-status-warning rounded-full px-2.5 py-0.5 text-[11px] font-medium">
                           Anfrage vorgemerkt
                         </span>
                       )}
                     </div>
                     {budget > 0 && needs.length > 0 && (
-                      <span className="text-xs text-[#8b7767]">
+                      <span className="text-xs text-[var(--text-soft-warm)]">
                         ca. {Math.round(budget / needs.length).toLocaleString("de-DE")} € Budget
                       </span>
                     )}
@@ -556,19 +556,19 @@ function PlanNewInner() {
                   {loading ? (
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                       {[1, 2, 3].map((i) => (
-                        <div key={i} className="h-52 animate-pulse rounded-[20px] bg-[rgba(23,23,23,0.06)]" />
+                        <div key={i} className="h-52 animate-pulse rounded-[var(--radius-card-sm)] bg-[rgba(23,23,23,0.06)]" />
                       ))}
                     </div>
                   ) : vendors.length === 0 ? (
 
                     /* Empty state */
-                    <div className="rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-white px-5 py-6 text-center">
-                      <p className="text-sm text-[#8b7767]">
+                    <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white px-5 py-6 text-center">
+                      <p className="text-sm text-[var(--text-soft-warm)]">
                         Noch kein Partner in {cityDisplay || "deiner Stadt"} für diese Kategorie registriert.
                       </p>
                       <a
                         href={`mailto:partner@perfectday24.com?subject=Anbieter-Empfehlung: ${NEED_LABEL[needSlug] ?? needSlug} in ${cityDisplay}&body=Ich suche einen Anbieter für ${NEED_LABEL[needSlug] ?? needSlug} in ${cityDisplay}.`}
-                        className="mt-3 inline-flex items-center gap-1 text-xs text-[#b76a43] underline-offset-2 hover:underline"
+                        className="mt-3 inline-flex items-center gap-1 text-xs text-[var(--brand-warm-deep)] underline-offset-2 hover:underline"
                       >
                         Anbieter empfehlen →
                       </a>
@@ -596,7 +596,7 @@ function PlanNewInner() {
                             type="button"
                             onClick={() => setNeedPage(needSlug, page - 1)}
                             disabled={page === 0}
-                            className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition hover:bg-[#f5f2ec] disabled:cursor-not-allowed disabled:opacity-40"
+                            className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                           >
                             ← Zurück
                           </button>
@@ -611,7 +611,7 @@ function PlanNewInner() {
                                 className={cx(
                                   "h-2 rounded-full transition-all",
                                   idx === page
-                                    ? "w-5 bg-[#171717]"
+                                    ? "w-5 bg-[var(--text-strong)]"
                                     : "w-2 bg-[rgba(23,23,23,0.20)] hover:bg-[rgba(23,23,23,0.40)]"
                                 )}
                                 aria-label={`Seite ${idx + 1}`}
@@ -623,7 +623,7 @@ function PlanNewInner() {
                             type="button"
                             onClick={() => setNeedPage(needSlug, page + 1)}
                             disabled={page >= totalPages - 1}
-                            className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1.5 text-xs font-medium text-[#171717] transition hover:bg-[#f5f2ec] disabled:cursor-not-allowed disabled:opacity-40"
+                            className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                           >
                             Weiter →
                           </button>
@@ -631,7 +631,7 @@ function PlanNewInner() {
                       )}
 
                       {/* Result count */}
-                      <p className="text-[11px] text-[#8b7767]">
+                      <p className="text-[11px] text-[var(--text-soft-warm)]">
                         {allVendors.length} {allVendors.length === 1 ? "Anbieter" : "Anbieter"} gefunden
                         {totalPages > 1 ? ` · Seite ${page + 1} von ${totalPages}` : ""}
                       </p>
@@ -645,21 +645,21 @@ function PlanNewInner() {
 
         {/* ── Optional customer message (shows when there are quote requests) ── */}
         {quoteCount > 0 && (
-          <div className="mt-10 rounded-[20px] border border-amber-200 bg-amber-50 p-5">
+          <div className="pd24-status-warning mt-10 rounded-[var(--radius-card-sm)] p-5">
             <div className="flex items-start gap-3">
               <span className="text-xl">💬</span>
               <div className="flex-1">
-                <p className="text-sm font-semibold text-amber-900">
+                <p className="text-sm font-semibold">
                   {quoteCount} Preisanfrage{quoteCount > 1 ? "n" : ""} vorgemerkt
                 </p>
-                <p className="mt-0.5 text-xs text-amber-800">
+                <p className="mt-0.5 text-xs">
                   Die Anbieter erhalten deine Eventdetails und melden sich mit einem Angebot. Danach behältst du alles im Bereich Anfragen und Angebote im Blick.
                 </p>
                 {!showMessageBox ? (
                   <button
                     type="button"
                     onClick={() => setShowMessageBox(true)}
-                    className="mt-2 text-xs text-amber-700 underline underline-offset-2"
+                    className="mt-2 text-xs underline underline-offset-2"
                   >
                     + Persönliche Nachricht hinzufügen
                   </button>
@@ -669,7 +669,7 @@ function PlanNewInner() {
                     onChange={(e) => setCustomerMessage(e.target.value)}
                     rows={3}
                     placeholder="z.B. besondere Anforderungen, Stil-Wünsche, Fragen …"
-                    className="mt-2 w-full rounded-xl border border-amber-300 bg-white px-3 py-2 text-sm text-[#171717] outline-none focus:border-[#b76a43] resize-none"
+                    className="mt-2 w-full rounded-xl border border-[rgba(154,107,47,0.35)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--brand-warm-deep)] resize-none"
                   />
                 )}
               </div>
@@ -697,12 +697,12 @@ function PlanNewInner() {
       {/* ── Sticky bottom bar ───────────────────────────────────────────── */}
       {!loading && hasWizardContext && (
         <div
-        className="fixed bottom-0 left-0 right-0 z-[1200] border-t border-[rgba(23,23,23,0.08)] bg-[rgba(255,253,248,0.96)] px-4 pt-4 backdrop-blur-xl sm:px-6"
+        className="fixed bottom-0 left-0 right-0 z-[1200] border-t border-[var(--line-subtle)] bg-[rgba(255,253,248,0.96)] px-4 pt-4 backdrop-blur-xl sm:px-6"
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom, 0px))" }}
       >
           <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-wide text-[#8b7767]">
+              <div className="text-[11px] font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]">
                 {selectionCount > 0 && `${selectionCount} ausgewählt`}
                 {selectionCount > 0 && quoteCount > 0 && " · "}
                 {quoteCount > 0 && `${quoteCount} Anfrage${quoteCount > 1 ? "n" : ""}`}
@@ -711,20 +711,20 @@ function PlanNewInner() {
               <div className="mt-1 flex items-baseline gap-2">
                 {selectionCount > 0 ? (
                   <>
-                    <span className="text-2xl font-semibold text-[#171717]">
+                    <span className="text-2xl font-semibold text-[var(--text-strong)]">
                       {totalEur.toLocaleString("de-DE")} €
                     </span>
-                    <span className="text-xs text-[#8b7767]">Gesamt</span>
+                    <span className="text-xs text-[var(--text-soft-warm)]">Gesamt</span>
                     {overBudget && (
-                      <span className="rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[10px] font-medium text-amber-800">
+                      <span className="pd24-status-warning rounded-full px-2 py-0.5 text-[10px] font-medium">
                         über Budget
                       </span>
                     )}
                   </>
                 ) : quoteCount > 0 ? (
-                  <span className="text-sm text-[#665d55]">Preise werden angefragt</span>
+                  <span className="text-sm text-[var(--text-muted-warm)]">Preise werden angefragt</span>
                 ) : (
-                  <span className="text-sm text-[#8b7767]">Noch keine Auswahl</span>
+                  <span className="text-sm text-[var(--text-soft-warm)]">Noch keine Auswahl</span>
                 )}
               </div>
             </div>
@@ -732,7 +732,7 @@ function PlanNewInner() {
               type="button"
               onClick={handleSave}
               disabled={saving || totalActionCount === 0}
-              className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-6 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-40 hover:opacity-95"
+              className="pd24-btn pd24-btn-primary"
             >
               {saveLabel}
             </button>
@@ -767,12 +767,12 @@ function VendorCard({
       type="button"
       onClick={onOpen}
       className={cx(
-        "flex w-full flex-col overflow-hidden rounded-[20px] border bg-white text-left transition active:scale-[0.98]",
+        "flex w-full flex-col overflow-hidden rounded-[var(--radius-card-sm)] border bg-white text-left transition active:scale-[0.98]",
         isHighlighted
           ? isQuoteRequested && !isSelected
-            ? "border-amber-400 shadow-[0_4px_16px_rgba(183,106,67,0.12)]"
-            : "border-[#171717] shadow-[0_4px_16px_rgba(23,23,23,0.10)]"
-          : "border-[rgba(23,23,23,0.08)] hover:border-[rgba(23,23,23,0.18)] hover:shadow-[0_2px_8px_rgba(23,23,23,0.06)]"
+            ? "border-[var(--state-warning)] shadow-[0_4px_16px_rgba(183,106,67,0.12)]"
+            : "border-[var(--text-strong)] shadow-[0_4px_16px_rgba(23,23,23,0.10)]"
+          : "border-[var(--line-subtle)] hover:border-[rgba(23,23,23,0.18)] hover:shadow-[0_2px_8px_rgba(23,23,23,0.06)]"
       )}
     >
       {/* Hero image */}
@@ -811,7 +811,7 @@ function VendorCard({
         )}
         {/* Verified checkmark */}
         {vendor.is_verified && (
-          <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#171717] text-[9px] font-bold text-white">
+          <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--text-strong)] text-[9px] font-bold text-white">
             ✓
           </span>
         )}
@@ -821,7 +821,7 @@ function VendorCard({
             "absolute inset-x-0 bottom-0 px-3 py-1.5 text-[11px] font-semibold",
             isSelected
               ? "bg-[#171717]/80 text-white"
-              : "bg-amber-400/90 text-amber-900"
+              : "bg-[rgba(154,107,47,0.92)] text-white"
           )}>
             {isSelected ? "Ausgewählt ✓" : "Anfrage vorgemerkt ✓"}
           </div>
@@ -831,13 +831,13 @@ function VendorCard({
       {/* Info body */}
       <div className="flex flex-1 flex-col p-3.5">
         {/* Name */}
-        <p className="line-clamp-1 text-sm font-semibold leading-snug text-[#171717]">
+        <p className="line-clamp-1 text-sm font-semibold leading-snug text-[var(--text-strong)]">
           {vendor.name}
         </p>
 
         {/* Slogan / description */}
         {vendor.description && (
-          <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#665d55]">
+          <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[var(--text-muted-warm)]">
             {vendor.description}
           </p>
         )}
@@ -846,8 +846,8 @@ function VendorCard({
         {bullets.length > 0 && (
           <ul className="mt-2 space-y-0.5">
             {bullets.map((b) => (
-              <li key={b} className="flex items-start gap-1.5 text-[11px] text-[#665d55]">
-                <span className="mt-px shrink-0 text-emerald-600">✓</span>
+              <li key={b} className="flex items-start gap-1.5 text-[11px] text-[var(--text-muted-warm)]">
+                <span className="mt-px shrink-0 text-[var(--state-success)]">✓</span>
                 <span className="line-clamp-1">{b}</span>
               </li>
             ))}
@@ -856,12 +856,12 @@ function VendorCard({
 
         {/* Price row */}
         <div className="mt-auto flex items-center justify-between pt-3">
-          <p className="text-xs font-medium text-[#8b7767]">
+          <p className="text-xs font-medium text-[var(--text-soft-warm)]">
             {hasPackages && vendor.minPrice > 0
               ? `ab ${vendor.minPrice.toLocaleString("de-DE")} €`
               : "Preis auf Anfrage"}
           </p>
-          <span className="text-xs font-medium text-[#b76a43]">
+          <span className="text-xs font-medium text-[var(--brand-warm-deep)]">
             Details →
           </span>
         </div>
@@ -977,13 +977,13 @@ function VendorModal({
           {/* Header */}
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h2 className="text-lg font-bold leading-tight text-[#171717]">{vendor.name}</h2>
+              <h2 className="text-lg font-bold leading-tight text-[var(--text-strong)]">{vendor.name}</h2>
               {vendor.is_verified && (
-                <p className="mt-0.5 text-xs font-medium text-emerald-600">Verifizierter Anbieter ✓</p>
+                <p className="mt-0.5 text-xs font-medium text-[var(--state-success)]">Verifizierter Anbieter ✓</p>
               )}
             </div>
             {vendor.minPrice > 0 && (
-              <p className="shrink-0 text-sm font-semibold text-[#171717]">
+              <p className="shrink-0 text-sm font-semibold text-[var(--text-strong)]">
                 ab {vendor.minPrice.toLocaleString("de-DE")} €
               </p>
             )}
@@ -991,13 +991,13 @@ function VendorModal({
 
           {/* Description */}
           {vendor.description && (
-            <p className="mt-3 text-sm leading-relaxed text-[#665d55]">{vendor.description}</p>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted-warm)]">{vendor.description}</p>
           )}
 
           {/* Packages or quote-request */}
           {hasPackages ? (
             <div className="mt-5">
-              <p className="mb-2.5 text-xs font-semibold uppercase tracking-wide text-[#8b7767]">Pakete</p>
+              <p className="mb-2.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]">Pakete</p>
               <div className="space-y-2.5">
                 {vendor.packages.map((pkg) => {
                   const isSelected = selectedPkgId === pkg.id;
@@ -1014,27 +1014,27 @@ function VendorModal({
                       type="button"
                       onClick={() => onSelectPackage(needSlug, vendor, pkg)}
                       className={cx(
-                        "w-full rounded-[18px] border p-4 text-left transition",
+                        "w-full rounded-[var(--radius-control)] border p-4 text-left transition",
                         isSelected
-                          ? "border-[#171717] bg-[#171717]"
-                          : "border-[rgba(23,23,23,0.10)] bg-[#fafaf8] hover:border-[rgba(23,23,23,0.22)]"
+                          ? "border-[var(--text-strong)] bg-[var(--text-strong)]"
+                          : "border-[var(--line-subtle)] bg-[#fafaf8] hover:border-[rgba(23,23,23,0.22)]"
                       )}
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
-                          <p className={cx("font-semibold text-sm", isSelected ? "text-white" : "text-[#171717]")}>
+                          <p className={cx("font-semibold text-sm", isSelected ? "text-white" : "text-[var(--text-strong)]")}>
                             {pkg.name}
                           </p>
                           {pkg.description && (
-                            <p className={cx("mt-0.5 text-xs leading-relaxed", isSelected ? "text-white/70" : "text-[#8b7767]")}>
+                            <p className={cx("mt-0.5 text-xs leading-relaxed", isSelected ? "text-white/70" : "text-[var(--text-soft-warm)]")}>
                               {pkg.description}
                             </p>
                           )}
                           {pkg.includes && pkg.includes.length > 0 && (
                             <ul className="mt-2 space-y-0.5">
                               {pkg.includes.map((inc) => (
-                                <li key={inc} className={cx("flex items-start gap-1.5 text-[11px]", isSelected ? "text-white/70" : "text-[#665d55]")}>
-                                  <span className={cx("mt-px shrink-0", isSelected ? "text-white/60" : "text-emerald-600")}>✓</span>
+                                <li key={inc} className={cx("flex items-start gap-1.5 text-[11px]", isSelected ? "text-white/70" : "text-[var(--text-muted-warm)]")}>
+                                  <span className={cx("mt-px shrink-0", isSelected ? "text-white/60" : "text-[var(--state-success)]")}>✓</span>
                                   <span>{inc}</span>
                                 </li>
                               ))}
@@ -1042,7 +1042,7 @@ function VendorModal({
                           )}
                         </div>
                         <div className="shrink-0 text-right">
-                          <p className={cx("text-sm font-bold", isSelected ? "text-white" : "text-[#171717]")}>
+                          <p className={cx("text-sm font-bold", isSelected ? "text-white" : "text-[var(--text-strong)]")}>
                             {priceLabel}
                           </p>
                           {isSelected && (
@@ -1064,10 +1064,10 @@ function VendorModal({
                 type="button"
                 onClick={() => onQuoteRequest(needSlug, vendor)}
                 className={cx(
-                  "w-full rounded-[18px] border px-4 py-3.5 text-sm font-semibold transition",
+                  "w-full rounded-[var(--radius-control)] border px-4 py-3.5 text-sm font-semibold transition",
                   isQuoteRequested
-                    ? "border-amber-400 bg-amber-50 text-amber-800"
-                    : "border-[rgba(183,106,67,0.4)] bg-white text-[#b76a43] hover:border-[#b76a43] hover:bg-[rgba(183,106,67,0.05)]"
+                    ? "border-[var(--state-warning)] bg-[rgba(154,107,47,0.08)] text-[var(--state-warning)]"
+                    : "border-[rgba(183,106,67,0.4)] bg-white text-[var(--brand-warm-deep)] hover:border-[var(--brand-warm-deep)] hover:bg-[rgba(183,106,67,0.05)]"
                 )}
               >
                 {isQuoteRequested ? "Anfrage vorgemerkt ✓" : "Preise anfragen"}
@@ -1084,7 +1084,7 @@ function VendorModal({
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-full border border-[rgba(23,23,23,0.10)] bg-white px-3 py-1 text-xs text-[#665d55]">
+    <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted-warm)]">
       {children}
     </span>
   );

@@ -9,7 +9,7 @@ export default function CityExploreLoading() {
       </div>
 
       {/* Hero skeleton */}
-      <div className="overflow-hidden rounded-[32px] border border-[var(--line-subtle)]">
+      <div className="overflow-hidden rounded-[var(--radius-hero)] border border-[var(--line-subtle)]">
         <div className="h-52 w-full animate-pulse bg-[var(--bg-panel)] sm:h-72" />
         <div className="space-y-2 bg-[var(--bg-surface)] p-6">
           <div className="h-3 w-16 animate-pulse rounded-full bg-[var(--bg-panel)]" />

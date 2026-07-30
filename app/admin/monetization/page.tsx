@@ -67,10 +67,10 @@ function getMediaReportPriority(reason: string, siblingOpenCount: number) {
 
 function mediaReportPriorityClasses(priority: "kritisch" | "hoch" | "normal") {
   if (priority === "kritisch") {
-    return "border-red-200 bg-red-50 text-red-800";
+    return "pd24-status-error";
   }
   if (priority === "hoch") {
-    return "border-amber-200 bg-amber-50 text-amber-900";
+    return "pd24-status-warning";
   }
   return "border-black/10 bg-white text-[var(--text-muted)]";
 }
@@ -131,7 +131,7 @@ function AdminAccessState({ reason }: { reason: Exclude<MonetizationAdminAccessS
 
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-3xl items-center px-4 py-16 sm:px-6 lg:px-8">
-      <section className="w-full rounded-[32px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-8 text-center shadow-[var(--shadow-soft)] sm:p-10">
+      <section className="w-full rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-8 text-center shadow-[var(--shadow-soft)] sm:p-10">
         <div className="pd24-kicker mb-3">{isLoginRequired ? "Admin Login" : "403"}</div>
         <h1 className="text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
           {isLoginRequired ? "Bitte mit internem Admin-Konto anmelden" : "Kein Zugriff auf diesen Bereich"}
@@ -147,13 +147,13 @@ function AdminAccessState({ reason }: { reason: Exclude<MonetizationAdminAccessS
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/profile"
-            className="inline-flex items-center justify-center rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+            className="pd24-btn pd24-btn-primary"
           >
             Zum Login / Profil
           </Link>
           <Link
             href="/explore"
-            className="inline-flex items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-6 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            className="pd24-btn pd24-btn-secondary"
           >
             Zurueck zu Explore
           </Link>
@@ -512,7 +512,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mb-8 rounded-[36px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-8 shadow-[var(--shadow-soft)]">
+      <div className="mb-8 rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-8 shadow-[var(--shadow-soft)]">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="max-w-3xl">
             <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
@@ -552,7 +552,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
             { label: "aktive Affiliate-Links", value: compactNumber(activeAffiliates) },
             { label: "aktive Produkte", value: compactNumber(activeProducts) },
           ].map((item) => (
-            <div key={item.label} className="rounded-[24px] border border-black/5 bg-white/80 p-4">
+            <div key={item.label} className="rounded-[var(--radius-card)] border border-black/5 bg-white/80 p-4">
               <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{item.label}</div>
               <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{item.value}</div>
             </div>
@@ -563,7 +563,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
       <div className="space-y-8">
         <Section title="Overview" subtitle="Die wichtigsten Signale und der aktuelle Testzustand.">
           <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="text-sm font-medium text-[var(--text-strong)]">Häufigste Monetization-Signale</div>
               <div className="mt-4 flex flex-wrap gap-2">
                 {attributionSummary.length > 0 ? (
@@ -581,7 +581,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="text-sm font-medium text-[var(--text-strong)]">Aktive Test-Rails</div>
               <div className="mt-4 space-y-2 text-sm text-[var(--text-muted)]">
                 <div>Slots aktiv: {activeSlots}</div>
@@ -604,7 +604,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               { label: "Kampagnen in Queue", value: queuedCampaigns.length },
               { label: "Affiliate-Links in Queue", value: queuedAffiliateLinks.length },
             ].map((item) => (
-              <div key={item.label} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
+              <div key={item.label} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
                 <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{item.label}</div>
                 <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{compactNumber(item.value)}</div>
               </div>
@@ -612,7 +612,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           </div>
 
           {totalQueuedReviews === 0 ? (
-            <div className="mb-1 rounded-[24px] border border-dashed border-black/10 bg-white p-5">
+            <div className="mb-1 rounded-[var(--radius-card)] border border-dashed border-black/10 bg-white p-5">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="max-w-2xl">
                   <div className="text-sm font-medium text-[var(--text-strong)]">Aktuell keine offenen Einreichungen</div>
@@ -641,11 +641,11 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           ) : null}
 
           <div className={`${totalQueuedReviews === 0 ? "hidden" : "grid gap-6 xl:grid-cols-2"}`}>
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="text-sm font-medium text-[var(--text-strong)]">Profile</div>
               <div className="mt-4 space-y-3">
                 {queuedPartners.length > 0 ? queuedPartners.slice(0, 8).map((partner) => (
-                  <div key={partner.id} className="rounded-[20px] border border-black/5 bg-white p-4">
+                  <div key={partner.id} className="rounded-[var(--radius-card-sm)] border border-black/5 bg-white p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="font-medium text-[var(--text-strong)]">{partner.display_name}</div>
@@ -664,20 +664,20 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                     </div>
                   </div>
                 )) : (
-                  <div className="rounded-[20px] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
+                  <div className="rounded-[var(--radius-card-sm)] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
                     Keine Profil-Einreichungen in der Queue.
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="text-sm font-medium text-[var(--text-strong)]">Standorte</div>
               <div className="mt-4 space-y-3">
                 {queuedProviders.length > 0 ? queuedProviders.slice(0, 8).map((provider) => {
                   const partner = provider.partner_profile_id ? partnerById.get(provider.partner_profile_id) ?? null : null;
                   return (
-                    <div key={provider.id} className="rounded-[20px] border border-black/5 bg-white p-4">
+                    <div key={provider.id} className="rounded-[var(--radius-card-sm)] border border-black/5 bg-white p-4">
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <div className="font-medium text-[var(--text-strong)]">{provider.name}</div>
@@ -695,20 +695,20 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                     </div>
                   );
                 }) : (
-                  <div className="rounded-[20px] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
+                  <div className="rounded-[var(--radius-card-sm)] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
                     Keine Standort-Einreichungen in der Queue.
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="text-sm font-medium text-[var(--text-strong)]">Kampagnen</div>
               <div className="mt-4 space-y-3">
                 {queuedCampaigns.length > 0 ? queuedCampaigns.slice(0, 8).map((campaign) => {
                   const partner = partnerById.get(campaign.partner_profile_id) ?? null;
                   return (
-                    <div key={campaign.id} className="rounded-[20px] border border-black/5 bg-white p-4">
+                    <div key={campaign.id} className="rounded-[var(--radius-card-sm)] border border-black/5 bg-white p-4">
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <div className="font-medium text-[var(--text-strong)]">{campaign.name}</div>
@@ -727,20 +727,20 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                     </div>
                   );
                 }) : (
-                  <div className="rounded-[20px] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
+                  <div className="rounded-[var(--radius-card-sm)] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
                     Keine Kampagnen-Einreichungen in der Queue.
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="text-sm font-medium text-[var(--text-strong)]">Affiliate-Links</div>
               <div className="mt-4 space-y-3">
                 {queuedAffiliateLinks.length > 0 ? queuedAffiliateLinks.slice(0, 8).map((link) => {
                   const partner = link.partner_profile_id ? partnerById.get(link.partner_profile_id) ?? null : null;
                   return (
-                    <div key={link.id} className="rounded-[20px] border border-black/5 bg-white p-4">
+                    <div key={link.id} className="rounded-[var(--radius-card-sm)] border border-black/5 bg-white p-4">
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <div className="font-medium text-[var(--text-strong)]">{link.provider_name}</div>
@@ -759,7 +759,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                     </div>
                   );
                 }) : (
-                  <div className="rounded-[20px] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
+                  <div className="rounded-[var(--radius-card-sm)] border border-dashed border-black/10 bg-white p-4 text-sm text-[var(--text-muted)]">
                     Keine Affiliate-Einreichungen in der Queue.
                   </div>
                 )}
@@ -779,7 +779,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               { label: "featured", value: featuredMediaAssets },
               { label: "abgelehnt", value: rejectedMediaAssets },
             ].map((item) => (
-              <div key={item.label} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
+              <div key={item.label} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
                 <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{item.label}</div>
                 <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{compactNumber(item.value)}</div>
               </div>
@@ -795,10 +795,10 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 const openReportCount = reportHistory.filter((report) => ["open", "reviewing"].includes(report.status)).length;
                 const hasSafetyHold = asset.moderation_status === "submitted" && reportHistory.length > 0;
                 return (
-                  <div key={asset.id} className="rounded-[24px] border border-black/5 bg-white p-4">
+                  <div key={asset.id} className="rounded-[var(--radius-card)] border border-black/5 bg-white p-4">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                       <div className="flex min-w-0 gap-4">
-                        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[18px] border border-black/5 bg-[var(--bg-panel)]">
+                        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[var(--radius-control)] border border-black/5 bg-[var(--bg-panel)]">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={asset.public_url} alt={asset.caption ?? "Medienvorschau"} className="h-full w-full object-cover" />
                         </div>
@@ -814,7 +814,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                               {asset.source_type}
                             </span>
                             {hasSafetyHold ? (
-                              <span className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-[11px] font-medium text-red-800">
+                              <span className="pd24-status-error rounded-full px-3 py-1 text-[11px] font-medium">
                                 Safety Hold
                               </span>
                             ) : null}
@@ -838,7 +838,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                             </div>
                           ) : null}
                           {reportHistory.length > 0 ? (
-                            <div className="mt-3 rounded-[18px] border border-amber-200 bg-amber-50 px-3 py-3">
+                            <div className="pd24-status-warning mt-3 rounded-[var(--radius-control)] px-3 py-3">
                               <div className="flex flex-wrap items-center gap-2">
                                 <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-950">
                                   Meldehistorie
@@ -854,7 +854,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                               </div>
                               <div className="mt-2 space-y-2">
                                 {reportHistory.slice(0, 3).map((report) => (
-                                  <div key={report.id} className="rounded-[14px] border border-amber-200 bg-white px-3 py-2 text-xs text-amber-950">
+                                  <div key={report.id} className="rounded-[var(--radius-control)] border border-amber-200 bg-white px-3 py-2 text-xs text-amber-950">
                                     <div className="flex flex-wrap items-center gap-2">
                                       <span className="font-medium">{formatMediaReportReason(report.reason)}</span>
                                       <span className="text-amber-800">· {report.status}</span>
@@ -879,7 +879,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 );
               })
             ) : (
-              <div className="rounded-[24px] border border-dashed border-black/10 bg-white p-5 text-sm text-[var(--text-muted)]">
+              <div className="rounded-[var(--radius-card)] border border-dashed border-black/10 bg-white p-5 text-sm text-[var(--text-muted)]">
                 Aktuell keine offenen Foto-Einreichungen in der Moderation.
               </div>
             )}
@@ -890,7 +890,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           title="Foto Meldungen"
           subtitle="Copyright-, Missbrauchs- und Qualitaetsmeldungen direkt pruefen und abschliessen."
         >
-          <div className="mb-6 rounded-[24px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950">
+          <div className="pd24-status-warning mb-6 rounded-[var(--radius-card)] px-4 py-3 text-sm leading-6">
             Wenn du eine Meldung als <span className="font-semibold">Geloest</span> markierst, wird das betroffene Bild aus
             Sicherheitsgruenden automatisch auf <span className="font-semibold">rejected + private</span> gesetzt. Bei
             bestaetigtem Copyright-Verstoss wird zusaetzlich der Rechte-Status auf <span className="font-semibold">rejected</span> gesetzt.
@@ -903,7 +903,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               { label: "geloest", value: resolvedMediaReports.length },
               { label: "abgewiesen", value: dismissedMediaReports.length },
             ].map((item) => (
-              <div key={item.label} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
+              <div key={item.label} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
                 <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{item.label}</div>
                 <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{compactNumber(item.value)}</div>
               </div>
@@ -955,10 +955,10 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 const priority = getMediaReportPriority(report.reason, openSiblingCount);
                 const hasSafetyHold = asset?.moderation_status === "submitted" && asset?.rights_status !== "rejected";
                 return (
-                  <div key={report.id} className="rounded-[24px] border border-black/5 bg-white p-4">
+                  <div key={report.id} className="rounded-[var(--radius-card)] border border-black/5 bg-white p-4">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                       <div className="flex min-w-0 gap-4">
-                        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[18px] border border-black/5 bg-[var(--bg-panel)]">
+                        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[var(--radius-control)] border border-black/5 bg-[var(--bg-panel)]">
                           {asset?.public_url ? (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img src={asset.public_url} alt={asset.caption ?? "Gemeldetes Bild"} className="h-full w-full object-cover" />
@@ -979,7 +979,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                               {priority}
                             </span>
                             {hasSafetyHold ? (
-                              <span className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-[11px] font-medium text-red-800">
+                              <span className="pd24-status-error rounded-full px-3 py-1 text-[11px] font-medium">
                                 Auto Hold aktiv
                               </span>
                             ) : null}
@@ -989,7 +989,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                             {asset?.credit_name ? ` - Quelle ${asset.credit_name}` : ""}
                           </div>
                           {openSiblingCount > 1 ? (
-                            <div className="mt-2 text-xs font-medium text-amber-900">
+                            <div className="mt-2 text-xs font-medium text-[var(--state-warning)]">
                               {openSiblingCount} aktive Meldungen fuer dieses Bild.
                             </div>
                           ) : null}
@@ -1004,7 +1004,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                             </div>
                           ) : null}
                           {report.note ? (
-                            <div className="mt-2 rounded-[14px] border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-900">
+                            <div className="pd24-status-warning mt-2 rounded-[var(--radius-control)] px-3 py-2 text-xs leading-5">
                               {report.note}
                             </div>
                           ) : null}
@@ -1021,17 +1021,17 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                             </div>
                           ) : null}
                           {reportHistory.length > 1 ? (
-                            <div className="mt-3 rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3">
-                              <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                            <div className="mt-3 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3">
+                              <div className="pd24-meta">
                                 Historie fuer dieses Bild
                               </div>
                               <div className="mt-2 space-y-2">
                                 {reportHistory.slice(0, 4).map((historyEntry) => (
                                   <div
                                     key={historyEntry.id}
-                                    className={`rounded-[14px] border px-3 py-2 text-xs ${
+                                    className={`rounded-[var(--radius-control)] border px-3 py-2 text-xs ${
                                       historyEntry.id === report.id
-                                        ? "border-amber-200 bg-amber-50 text-amber-950"
+                                        ? "pd24-status-warning"
                                         : "border-black/5 bg-white text-[var(--text-muted)]"
                                     }`}
                                   >
@@ -1061,7 +1061,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 );
               })
             ) : (
-              <div className="rounded-[24px] border border-dashed border-black/10 bg-white p-5 text-sm text-[var(--text-muted)]">
+              <div className="rounded-[var(--radius-card)] border border-dashed border-black/10 bg-white p-5 text-sm text-[var(--text-muted)]">
                 Aktuell liegen keine Foto-Meldungen vor.
               </div>
             )}
@@ -1085,7 +1085,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 value: compactNumber(new Set(clicksByRail.map((entry) => entry.surface)).size),
               },
             ].map((item) => (
-              <div key={item.label} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-4">
+              <div key={item.label} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-4">
                 <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{item.label}</div>
                 <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{item.value}</div>
               </div>
@@ -1093,7 +1093,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           </div>
 
           <div className="mt-6 grid gap-6 xl:grid-cols-[0.9fr_0.9fr_1.2fr]">
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="text-sm font-medium text-[var(--text-strong)]">Klicks pro Rail</div>
               <div className="mt-4 space-y-3">
                 {clicksByRail.length > 0 ? (
@@ -1116,7 +1116,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="text-sm font-medium text-[var(--text-strong)]">Aktive Piloten pro Rail</div>
               <div className="mt-4 space-y-3">
                 {activePilotsByRail.length > 0 ? (
@@ -1139,7 +1139,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="flex items-center justify-between gap-3 flex-wrap">
                 <div className="text-sm font-medium text-[var(--text-strong)]">7-Tage-Trend</div>
                 <div className="flex gap-2 text-[11px]">
@@ -1187,7 +1187,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
             </div>
           </div>
 
-          <div className="mt-6 rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+          <div className="mt-6 rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
             <div className="text-sm font-medium text-[var(--text-strong)]">Letzte Conversion-Signale</div>
             <div className="mt-4 space-y-3">
               {recentConversionSignals.length > 0 ? (
@@ -1245,7 +1245,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               { label: "Klicks 7 Tage", value: compactNumber(creatorProfileClicks7d.length) },
               { label: "Creator mit Signalen", value: compactNumber(creatorProfileCreatorsTouched) },
             ].map((item) => (
-              <div key={item.label} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-4">
+              <div key={item.label} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-4">
                 <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">{item.label}</div>
                 <div className="mt-2 text-3xl font-semibold text-[var(--text-strong)]">{item.value}</div>
               </div>
@@ -1253,7 +1253,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           </div>
 
           <div className="mt-6 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="text-sm font-medium text-[var(--text-strong)]">Staerkste Creator-Profile</div>
               <div className="mt-4 space-y-3">
                 {creatorProfileTopCreators.length > 0 ? (
@@ -1283,7 +1283,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
               <div className="flex items-center justify-between gap-3 flex-wrap">
                 <div className="text-sm font-medium text-[var(--text-strong)]">Letzte Featured-Route-Klicks</div>
                 <Link
@@ -1394,13 +1394,13 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           subtitle="Hier koennt ihr die beiden echten Explore-Rails direkt an- und ausschalten."
         >
           {internalExplorePilots.length === 0 ? (
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
               Noch keine internen Explore-Piloten angelegt.
             </div>
           ) : (
             <div className="grid gap-4 xl:grid-cols-2">
               {internalExplorePilots.map(({ campaign, partner, product, assignment, slot, isLive }) => (
-                <div key={campaign.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                <div key={campaign.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div>
                       <div className="text-lg font-semibold text-[var(--text-strong)]">{campaign.name}</div>
@@ -1412,8 +1412,8 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                     <div
                       className={`rounded-full border px-3 py-1 text-xs ${
                         isLive
-                          ? "border-emerald-300 bg-emerald-50 text-emerald-950"
-                          : "border-amber-300 bg-amber-50 text-amber-950"
+                          ? "pd24-status-success"
+                          : "pd24-status-warning"
                       }`}
                     >
                       {isLive ? "Live intern aktiv" : "Intern pausiert"}
@@ -1481,13 +1481,13 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           subtitle="Hier steuert ihr die ersten Featured-Rails direkt im kaufnahen Planner-Kontext."
         >
           {internalPlannerPilots.length === 0 ? (
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
               Noch keine internen Planner-Piloten angelegt.
             </div>
           ) : (
             <div className="grid gap-4 xl:grid-cols-2">
               {internalPlannerPilots.map(({ campaign, partner, product, assignment, slot, isLive }) => (
-                <div key={campaign.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                <div key={campaign.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div>
                       <div className="text-lg font-semibold text-[var(--text-strong)]">{campaign.name}</div>
@@ -1499,8 +1499,8 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                     <div
                       className={`rounded-full border px-3 py-1 text-xs ${
                         isLive
-                          ? "border-emerald-300 bg-emerald-50 text-emerald-950"
-                          : "border-amber-300 bg-amber-50 text-amber-950"
+                          ? "pd24-status-success"
+                          : "pd24-status-warning"
                       }`}
                     >
                       {isLive ? "Live intern aktiv" : "Intern pausiert"}
@@ -1568,13 +1568,13 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           subtitle="Kontextnahe Partner-CTAs auf geteilten Plaenen, weiterhin nur intern sichtbar und steuerbar."
         >
           {internalSharePilots.length === 0 ? (
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
               Noch keine internen Share-Piloten angelegt.
             </div>
           ) : (
             <div className="grid gap-4 xl:grid-cols-2">
               {internalSharePilots.map(({ campaign, partner, product, assignment, slot, isLive }) => (
-                <div key={campaign.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                <div key={campaign.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div>
                       <div className="text-lg font-semibold text-[var(--text-strong)]">{campaign.name}</div>
@@ -1586,8 +1586,8 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                     <div
                       className={`rounded-full border px-3 py-1 text-xs ${
                         isLive
-                          ? "border-emerald-300 bg-emerald-50 text-emerald-950"
-                          : "border-amber-300 bg-amber-50 text-amber-950"
+                          ? "pd24-status-success"
+                          : "pd24-status-warning"
                       }`}
                     >
                       {isLive ? "Live intern aktiv" : "Intern pausiert"}
@@ -1655,13 +1655,13 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           subtitle="Distribution fuer Creator- oder Brand-Routen direkt auf der Detailseite, intern testbar und sauber getrennt vom organischen Inhalt."
         >
           {internalRoutePilots.length === 0 ? (
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
               Noch keine internen Route-Detail-Piloten angelegt.
             </div>
           ) : (
             <div className="grid gap-4 xl:grid-cols-2">
               {internalRoutePilots.map(({ campaign, partner, product, assignment, slot, isLive }) => (
-                <div key={campaign.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                <div key={campaign.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div>
                       <div className="text-lg font-semibold text-[var(--text-strong)]">{campaign.name}</div>
@@ -1673,8 +1673,8 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                     <div
                       className={`rounded-full border px-3 py-1 text-xs ${
                         isLive
-                          ? "border-emerald-300 bg-emerald-50 text-emerald-950"
-                          : "border-amber-300 bg-amber-50 text-amber-950"
+                          ? "pd24-status-success"
+                          : "pd24-status-warning"
                       }`}
                     >
                       {isLive ? "Live intern aktiv" : "Intern pausiert"}
@@ -1742,14 +1742,14 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           subtitle="Featured Routes auf Creator- und oeffentlichen Profilseiten, intern steuerbar und getrennt vom organischen Profil-Feed."
         >
           {internalCreatorProfilePilots.length === 0 ? (
-            <div className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
+            <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
               Noch keine internen Creator-Profil-Piloten angelegt.
             </div>
           ) : (
             <div className="grid gap-4 xl:grid-cols-2">
               {internalCreatorProfilePilots.map(
                 ({ campaign, partner, product, assignment, slot, targetCreator, isLive }) => (
-                  <div key={campaign.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                  <div key={campaign.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                     <div className="flex items-start justify-between gap-4 flex-wrap">
                       <div>
                         <div className="text-lg font-semibold text-[var(--text-strong)]">{campaign.name}</div>
@@ -1766,8 +1766,8 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                       <div
                         className={`rounded-full border px-3 py-1 text-xs ${
                           isLive
-                            ? "border-emerald-300 bg-emerald-50 text-emerald-950"
-                            : "border-amber-300 bg-amber-50 text-amber-950"
+                            ? "pd24-status-success"
+                            : "pd24-status-warning"
                         }`}
                       >
                         {isLive ? "Live intern aktiv" : "Intern pausiert"}
@@ -1836,7 +1836,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
             {snapshot.slots.map((slot) => {
               const assignments = snapshot.assignments.filter((assignment) => assignment.slot_id === slot.id);
               return (
-                <div key={slot.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                <div key={slot.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div>
                       <div className="text-lg font-semibold text-[var(--text-strong)]">{slot.slot_key}</div>
@@ -1880,7 +1880,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           <div className="grid gap-6 xl:grid-cols-2">
             <div className="space-y-4">
               {snapshot.partners.map((partner) => (
-                <div key={partner.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                <div key={partner.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div>
                       <div className="text-lg font-semibold text-[var(--text-strong)]">{partner.display_name}</div>
@@ -1920,7 +1920,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 const isPilotLive = campaign.status === "active" && assignment?.status === "active";
 
                 return (
-                  <div key={campaign.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                  <div key={campaign.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                     <div className="flex items-start justify-between gap-4 flex-wrap">
                       <div>
                         <div className="text-lg font-semibold text-[var(--text-strong)]">{campaign.name}</div>
@@ -1937,7 +1937,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                           </div>
                         ) : null}
                         {isInternalPilot ? (
-                          <div className="mt-3 inline-flex rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-[11px] font-medium text-amber-950">
+                          <div className="pd24-status-warning mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-medium">
                             {isPilotLive
                               ? isInternalPlannerPilot
                                 ? "Interner Planner-Pilot aktiv"
@@ -2022,7 +2022,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               const partner = link.partner_profile_id ? partnerById.get(link.partner_profile_id) ?? null : null;
               const product = link.product_id ? productById.get(link.product_id) ?? null : null;
               return (
-                <div key={link.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                <div key={link.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="min-w-0 max-w-3xl">
                       <div className="text-lg font-semibold text-[var(--text-strong)]">{link.provider_name}</div>
@@ -2065,7 +2065,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           <div className="grid gap-6 xl:grid-cols-2">
             <div className="space-y-4">
               {snapshot.products.map((product) => (
-                <div key={product.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                <div key={product.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div>
                       <div className="text-lg font-semibold text-[var(--text-strong)]">{product.display_name}</div>
@@ -2102,7 +2102,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
             <div className="space-y-4">
               {snapshot.entitlements.map((entitlement) => (
-                <div key={entitlement.entitlement_key} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+                <div key={entitlement.entitlement_key} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                   <div className="text-lg font-semibold text-[var(--text-strong)]">{entitlement.entitlement_key}</div>
                   <div className="mt-1 text-sm text-[var(--text-muted)]">
                     {entitlement.layer} · Default: {entitlement.default_state}
@@ -2125,7 +2125,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
         <Section title="Creator & Profilsignale" subtitle="Wer bereits Reichweite, Kopien und Reward-Vorbereitung erzeugt.">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {snapshot.creators.slice(0, 12).map((creator) => (
-              <div key={creator.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5">
+              <div key={creator.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
                 <div className="text-lg font-semibold text-[var(--text-strong)]">
                   {creator.display_name ?? creator.username ?? "Unbekanntes Profil"}
                 </div>
@@ -2158,7 +2158,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 const partner = event.partner_profile_id ? partnerById.get(event.partner_profile_id) ?? null : null;
                 const creator = event.creator_profile_id ? creatorById.get(event.creator_profile_id) ?? null : null;
                 return (
-                  <div key={event.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm">
+                  <div key={event.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm">
                     <div className="font-medium text-[var(--text-strong)]">
                       {event.event_type} · {event.surface ?? "—"}
                     </div>
@@ -2178,7 +2178,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
               {snapshot.rewards.slice(0, 20).map((reward) => {
                 const creator = creatorById.get(reward.creator_profile_id) ?? null;
                 return (
-                  <div key={reward.id} className="rounded-[24px] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm">
+                  <div key={reward.id} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm">
                     <div className="font-medium text-[var(--text-strong)]">
                       {reward.reward_type} · {reward.status}
                     </div>

@@ -191,7 +191,7 @@ function RoadtripPreviewCard({
   const visibleStops = stops.slice(0, 5);
 
   return (
-    <aside className="overflow-hidden rounded-[26px] border border-[rgba(15,23,42,0.08)] bg-white shadow-[0_16px_42px_rgba(15,23,42,0.08)] lg:sticky lg:top-24">
+    <aside className="overflow-hidden rounded-[var(--radius-card)] border border-[rgba(15,23,42,0.08)] bg-white shadow-[0_16px_42px_rgba(15,23,42,0.08)] lg:sticky lg:top-24">
       <div
         className="relative overflow-hidden border-b border-[rgba(255,255,255,0.12)] px-5 py-5 text-white"
         style={{ backgroundImage: coverArt.backgroundImage }}
@@ -225,12 +225,12 @@ function RoadtripPreviewCard({
 
       <div className="space-y-4 px-5 py-5">
         <div>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+          <div className="pd24-meta">
             Route auf einen Blick
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2">
             <div className="rounded-3xl bg-[var(--bg-surface)] px-4 py-3">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Städte
               </div>
               <div className="mt-2 text-[2rem] font-semibold leading-none text-[var(--text-strong)]">
@@ -238,7 +238,7 @@ function RoadtripPreviewCard({
               </div>
             </div>
             <div className="rounded-3xl bg-[var(--bg-surface)] px-4 py-3">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Nächte
               </div>
               <div className="mt-2 text-[2rem] font-semibold leading-none text-[var(--text-strong)]">
@@ -249,7 +249,7 @@ function RoadtripPreviewCard({
         </div>
 
         <div>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+          <div className="pd24-meta">
             Stop-Abfolge
           </div>
           <div className="mt-3 space-y-2.5">
@@ -265,12 +265,12 @@ function RoadtripPreviewCard({
                       <div className="mt-1 h-10 w-px bg-[rgba(23,23,23,0.12)]" />
                     ) : null}
                   </div>
-                  <div className="min-w-0 flex-1 rounded-[22px] border border-[rgba(23,23,23,0.06)] bg-[var(--bg-surface)] px-4 py-3">
+                  <div className="min-w-0 flex-1 rounded-[var(--radius-card-sm)] border border-[rgba(23,23,23,0.06)] bg-[var(--bg-surface)] px-4 py-3">
                     <div className="flex items-center justify-between gap-2">
                       <div className="truncate text-sm font-semibold text-[var(--text-strong)]">
                         {stop.cityLabel}
                       </div>
-                      <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                      <div className="pd24-meta">
                         {stop.nights} {stop.nights === 1 ? "Nacht" : "Nächte"}
                       </div>
                     </div>
@@ -284,7 +284,7 @@ function RoadtripPreviewCard({
           </div>
         </div>
 
-        <div className="rounded-[22px] border border-[rgba(23,23,23,0.06)] bg-white px-4 py-3.5 text-sm leading-6 text-[var(--text-muted)]">
+        <div className="rounded-[var(--radius-card-sm)] border border-[rgba(23,23,23,0.06)] bg-white px-4 py-3.5 text-sm leading-6 text-[var(--text-muted)]">
           {stops.length} Stopps mit {totalNights} Nächten zwischen {firstStop} und {lastStop}.{" "}
           {editorial.highlights[0] ?? editorial.intro}
         </div>
@@ -605,7 +605,7 @@ export default function RoadtripRouteDetailPage() {
                 )}
               </div>
 
-              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Fertig geplanter Roadtrip
               </div>
 
@@ -652,8 +652,8 @@ export default function RoadtripRouteDetailPage() {
                 </div>
               )}
 
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4">
+                <div className="pd24-meta">
                   Auf los statt neu planen
                 </div>
                 <div className="mt-2 text-base font-semibold text-[var(--text-strong)]">
@@ -688,13 +688,13 @@ export default function RoadtripRouteDetailPage() {
                 <button
                   type="button"
                   onClick={() => setShowDatePicker((v) => !v)}
-                  className="rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+                  className="pd24-btn pd24-btn-secondary pd24-btn-sm"
                 >
                   Start: {formatDateDE(startDate)}
                 </button>
                 <a
                   href="#roadtrip-preview"
-                  className="rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+                  className="pd24-btn pd24-btn-secondary pd24-btn-sm"
                 >
                   Stop-Abfolge pruefen
                 </a>
@@ -708,7 +708,7 @@ export default function RoadtripRouteDetailPage() {
                 <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3.5 py-3">
                   <label
                     htmlFor="roadtrip-start-date"
-                    className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]"
+                    className="pd24-meta"
                   >
                     Startdatum
                   </label>
@@ -725,7 +725,7 @@ export default function RoadtripRouteDetailPage() {
               <div className="overflow-hidden rounded-[28px] border border-[rgba(15,23,42,0.09)] bg-[var(--bg-surface)] shadow-[0_14px_36px_rgba(15,23,42,0.06)]">
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--line-subtle)] bg-white/72 px-5 py-4 backdrop-blur-sm">
                   <div>
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                    <div className="pd24-meta">
                       Roadtrip-Karte
                     </div>
                     <div className="mt-1 text-sm text-[var(--text-muted)]">
@@ -737,7 +737,7 @@ export default function RoadtripRouteDetailPage() {
                   </div>
                 </div>
                 <div className="p-3 sm:p-4">
-                  <div className="overflow-hidden rounded-[24px] border border-[rgba(15,23,42,0.08)] bg-white ring-1 ring-black/[0.03]">
+                  <div className="overflow-hidden rounded-[var(--radius-card)] border border-[rgba(15,23,42,0.08)] bg-white ring-1 ring-black/[0.03]">
                     <PlanMap stops={mapStops} profile="car" height={600} showHeader={false} />
                   </div>
                 </div>
@@ -762,7 +762,7 @@ export default function RoadtripRouteDetailPage() {
       {/* ── Route stops ────────────────────────────────────────────────────── */}
       <section className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-4 shadow-[0_2px_12px_rgba(15,23,42,0.06)]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+          <div className="pd24-meta">
             Warum diese Route funktioniert
           </div>
           <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
@@ -771,7 +771,7 @@ export default function RoadtripRouteDetailPage() {
         </div>
 
         <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 shadow-[0_2px_12px_rgba(15,23,42,0.04)]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+          <div className="pd24-meta">
             Besondere Momente auf der Route
           </div>
           <div className="mt-3 space-y-2.5">
@@ -864,15 +864,15 @@ export default function RoadtripRouteDetailPage() {
 
         {/* Aktiver Roadtrip-Tag Banner */}
         {tripActive && todayStopIdx >= 0 && (
-          <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-bold">
+          <div className="flex items-center gap-3 rounded-xl pd24-status-success px-4 py-3">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--state-success)] text-white text-xs font-bold">
               {todayStopIdx + 1}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-semibold text-emerald-800">
+              <div className="text-sm font-semibold">
                 Heute: {route.stops[todayStopIdx].cityLabel} — Tag {todayStopIdx + 1}
               </div>
-              <div className="text-xs text-emerald-600">
+              <div className="text-xs">
                 {route.stops[todayStopIdx].creatorRouteTitle
                   ? `Creator-Route: ${route.stops[todayStopIdx].creatorRouteTitle}`
                   : route.stops[todayStopIdx].plannedStops?.length
@@ -882,7 +882,7 @@ export default function RoadtripRouteDetailPage() {
             </div>
             <a
               href={`#stop-${todayStopIdx}`}
-              className="shrink-0 rounded-xl border border-emerald-300 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100"
+              className="shrink-0 rounded-xl border border-[rgba(79,107,91,0.35)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--state-success)] transition hover:bg-[rgba(79,107,91,0.08)]"
             >
               Zum Stop →
             </a>
@@ -911,7 +911,7 @@ export default function RoadtripRouteDetailPage() {
               id={`stop-${idx}`}
               className={`overflow-hidden rounded-xl border shadow-[0_2px_8px_rgba(15,23,42,0.04)] scroll-mt-20 ${
                 isToday
-                  ? "border-emerald-300 bg-white ring-2 ring-emerald-200/50"
+                  ? "border-[rgba(79,107,91,0.4)] bg-white ring-2 ring-[rgba(79,107,91,0.22)]"
                   : "border-[var(--line-subtle)] bg-white"
               }`}
             >
@@ -938,8 +938,8 @@ export default function RoadtripRouteDetailPage() {
                     </div>
                     <div className="flex items-center gap-1.5">
                       {isToday && (
-                        <span className="flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
-                          <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+                        <span className="flex items-center gap-1 rounded-full pd24-status-success px-2 py-0.5 text-[10px] font-semibold">
+                          <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--state-success)]" />
                           Heute
                         </span>
                       )}
@@ -955,7 +955,7 @@ export default function RoadtripRouteDetailPage() {
                       <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 shrink-0 text-amber-400">
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                       </svg>
-                      <span className="flex-1 text-xs font-semibold text-[#b76a43] truncate">
+                      <span className="flex-1 text-xs font-semibold text-[var(--brand-warm-deep)] truncate">
                         {stop.creatorRouteTitle}
                       </span>
                       {stop.creatorRouteSlug && (
@@ -963,7 +963,7 @@ export default function RoadtripRouteDetailPage() {
                           href={`/routes/${stop.creatorRouteSlug}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="shrink-0 text-[10px] text-[#b76a43] underline underline-offset-2 hover:text-[#9d5a38]"
+                          className="shrink-0 text-[10px] text-[var(--brand-warm-deep)] underline underline-offset-2 hover:text-[#9d5a38]"
                         >
                           Ansehen →
                         </a>
@@ -975,7 +975,7 @@ export default function RoadtripRouteDetailPage() {
                     <div className="mt-3 rounded-xl border border-[rgba(90,118,136,0.15)] bg-[rgba(90,118,136,0.05)] p-3">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div>
-                          <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                          <div className="pd24-meta">
                             Passende Creator-Routen
                           </div>
                           <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
@@ -985,7 +985,7 @@ export default function RoadtripRouteDetailPage() {
                         {suggestedPrimaryRoute?.slug && (
                           <a
                             href={`/routes/${suggestedPrimaryRoute.slug}/run`}
-                            className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                            className="pd24-btn pd24-btn-primary pd24-btn-sm active:scale-[0.97]"
                           >
                             Top-Route starten
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
@@ -1039,7 +1039,7 @@ export default function RoadtripRouteDetailPage() {
                                     {candidate.slug && (
                                       <a
                                         href={`/routes/${candidate.slug}/run`}
-                                        className="inline-flex items-center gap-1 rounded-lg bg-[var(--text-strong)] px-2.5 py-1.5 text-[11px] font-semibold text-white transition hover:bg-[#1f2937]"
+                                        className="pd24-btn pd24-btn-primary pd24-btn-sm"
                                       >
                                         Route starten
                                       </a>
@@ -1047,7 +1047,7 @@ export default function RoadtripRouteDetailPage() {
                                     {candidate.slug && (
                                       <a
                                         href={`/routes/${candidate.slug}`}
-                                        className="inline-flex items-center gap-1 rounded-lg border border-[var(--line-subtle)] px-2.5 py-1.5 text-[11px] font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+                                        className="pd24-btn pd24-btn-secondary pd24-btn-sm"
                                       >
                                         Ansehen
                                       </a>
@@ -1132,7 +1132,7 @@ export default function RoadtripRouteDetailPage() {
               <div
                 className={`flex items-center justify-between gap-2 border-t px-4 py-2.5 ${
                   isToday
-                    ? "border-emerald-100 bg-emerald-50/40"
+                    ? "border-[rgba(79,107,91,0.16)] bg-[rgba(79,107,91,0.05)]"
                     : "border-[rgba(23,23,23,0.05)] bg-[rgba(23,23,23,0.015)]"
                 }`}
               >
@@ -1143,7 +1143,7 @@ export default function RoadtripRouteDetailPage() {
                       href={stopMapHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.97]"
+                      className="pd24-btn pd24-btn-secondary pd24-btn-sm active:scale-[0.97]"
                     >
                       Karte öffnen
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
@@ -1165,7 +1165,7 @@ export default function RoadtripRouteDetailPage() {
                 {stop.creatorRouteSlug ? (
                   <a
                     href={`/routes/${stop.creatorRouteSlug}/run`}
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                    className="pd24-btn pd24-btn-primary pd24-btn-sm active:scale-[0.97]"
                   >
                     Route starten
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
@@ -1175,7 +1175,7 @@ export default function RoadtripRouteDetailPage() {
                 ) : suggestedPrimaryRoute?.slug ? (
                   <a
                     href={`/routes/${suggestedPrimaryRoute.slug}/run`}
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                    className="pd24-btn pd24-btn-primary pd24-btn-sm active:scale-[0.97]"
                   >
                     Top-Route starten
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
@@ -1187,7 +1187,7 @@ export default function RoadtripRouteDetailPage() {
                     href={stopMapHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.97]"
+                    className="pd24-btn pd24-btn-secondary pd24-btn-sm active:scale-[0.97]"
                   >
                     Karte öffnen
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
@@ -1197,9 +1197,9 @@ export default function RoadtripRouteDetailPage() {
                 ) : stop.plannedStops?.length ? (
                   <a
                     href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}&dayStartMin=${plannerDayStart}`}
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                    className="pd24-btn pd24-btn-primary pd24-btn-sm active:scale-[0.97]"
                   >
-                    📋 Im Planner öffnen
+                    Im Planner öffnen
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -1207,9 +1207,9 @@ export default function RoadtripRouteDetailPage() {
                 ) : (
                   <a
                     href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}&dayStartMin=${plannerDayStart}`}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.97]"
+                    className="pd24-btn pd24-btn-secondary pd24-btn-sm active:scale-[0.97]"
                   >
-                    📍 Tag planen
+                    Tag planen
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -1238,7 +1238,7 @@ export default function RoadtripRouteDetailPage() {
             <button
               type="button"
               onClick={() => setShowDatePicker((v) => !v)}
-              className="rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-sm text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+              className="pd24-btn pd24-btn-secondary pd24-btn-sm"
             >
               {showDatePicker ? "Datum ausblenden" : "Startdatum wählen"}
             </button>
@@ -1255,7 +1255,7 @@ export default function RoadtripRouteDetailPage() {
             <button
               type="button"
               onClick={useAsTemplate}
-              className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1f2937] active:scale-[0.97]"
+              className="pd24-btn pd24-btn-primary active:scale-[0.97]"
             >
               Route planen
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
@@ -1282,10 +1282,10 @@ export default function RoadtripRouteDetailPage() {
             <button
               type="button"
               onClick={copyShareLink}
-              className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-medium transition ${
+              className={`pd24-btn pd24-btn-sm ${
                 copied
-                  ? "bg-emerald-600 text-white"
-                  : "border border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"
+                  ? "bg-[var(--state-success)] text-white"
+                  : "pd24-btn-secondary"
               }`}
             >
               {copied ? (

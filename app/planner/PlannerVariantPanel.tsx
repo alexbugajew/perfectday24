@@ -363,7 +363,7 @@ export default function PlannerVariantPanel({
         <div className="mb-5 rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Variantenvergleich
               </div>
               <h3 className="mt-1 text-lg font-semibold tracking-tight text-[var(--text-strong)]">

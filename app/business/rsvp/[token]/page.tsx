@@ -94,7 +94,7 @@ export default function RsvpPage() {
         <p className="mt-2 text-sm text-[var(--text-muted)]">
           Dieser Link ist abgelaufen oder wurde bereits verwendet.
         </p>
-        <Link href="/" className="mt-6 inline-flex rounded-2xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90">
+        <Link href="/" className="pd24-btn pd24-btn-primary mt-6">
           Zur Startseite
         </Link>
       </div>
@@ -105,8 +105,8 @@ export default function RsvpPage() {
     const confirmed = done === "confirmed";
     return (
       <div className="mx-auto max-w-lg px-4 py-20 sm:px-6">
-        <div className={`rounded-3xl border p-8 text-center ${
-          confirmed ? "border-emerald-200 bg-emerald-50" : "border-red-200 bg-red-50"
+        <div className={`rounded-3xl p-8 text-center ${
+          confirmed ? "pd24-status-success" : "pd24-status-error"
         }`}>
           <div className="text-4xl">{confirmed ? "🎉" : "😔"}</div>
           <h1 className="mt-4 text-xl font-bold text-[var(--text-strong)]">
@@ -145,7 +145,7 @@ export default function RsvpPage() {
   return (
     <div className="mx-auto max-w-lg px-4 py-12 sm:px-6">
       {/* Header */}
-      <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--text-muted)]">
+      <div className="pd24-meta mb-2">
         Einladung
       </div>
       <h1 className="text-2xl font-bold text-[var(--text-strong)]">
@@ -177,14 +177,14 @@ export default function RsvpPage() {
         <button
           onClick={() => void submitRsvp("confirmed")}
           disabled={submitting}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-5 py-4 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-50"
+          className="flex items-center justify-center gap-2 rounded-2xl bg-[var(--state-success)] px-5 py-4 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
         >
           ✓ Ich bin dabei
         </button>
         <button
           onClick={() => void submitRsvp("declined")}
           disabled={submitting}
-          className="flex items-center justify-center gap-2 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm font-semibold text-red-700 transition hover:bg-red-100 disabled:opacity-50"
+          className="pd24-status-error flex items-center justify-center gap-2 rounded-2xl px-5 py-4 text-sm font-semibold transition hover:opacity-90 disabled:opacity-50"
         >
           ✗ Ich kann nicht
         </button>

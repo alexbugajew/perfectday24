@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 import { CitySearchInput } from "@/components/ui/CitySearchInput";
 import { PhotoUpload } from "@/components/ui/PhotoUpload";
+import { safeExternalUrl } from "@/lib/security/safe-url";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -285,8 +286,9 @@ export default function PartnerOnboarding() {
         partner_type: typeInfo?.partnerType ?? "other",
         partner_type_slug: step1.partner_type_slug,
         primary_city_slug: step2.primary_city_slug || null,
-        website_url: step2.website_url.trim() || null,
-        booking_url: step2.booking_url.trim() || null,
+        // Nur http(s) speichern — diese Felder werden als href gerendert.
+        website_url: safeExternalUrl(step2.website_url),
+        booking_url: safeExternalUrl(step2.booking_url),
         contact_email: step2.contact_email.trim() || null,
         contact_phone: step2.contact_phone.trim() || null,
         notes: step2.notes.trim() || null,
@@ -406,7 +408,7 @@ export default function PartnerOnboarding() {
                   key={pt.slug}
                   type="button"
                   onClick={() => setStep1({ partner_type_slug: pt.slug })}
-                  className={`flex flex-col items-start gap-2 rounded-[24px] border p-5 text-left transition ${
+                  className={`flex flex-col items-start gap-2 rounded-[var(--radius-card)] border p-5 text-left transition ${
                     step1.partner_type_slug === pt.slug
                       ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white shadow-sm"
                       : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:border-[var(--text-strong)] hover:bg-[var(--bg-surface)]"
@@ -630,7 +632,7 @@ export default function PartnerOnboarding() {
             subtitle="Starte kostenlos oder wähle direkt einen bezahlten Plan."
           >
             {/* Review summary */}
-            <div className="mb-6 rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-5">
+            <div className="mb-6 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-5">
               <div className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">
                 Deine Angaben im Überblick
               </div>
@@ -659,7 +661,7 @@ export default function PartnerOnboarding() {
                   key={opt.tier}
                   type="button"
                   onClick={() => setStep5({ tier: opt.tier })}
-                  className={`w-full rounded-[24px] border-2 p-5 text-left transition ${
+                  className={`w-full rounded-[var(--radius-card)] border-2 p-5 text-left transition ${
                     step5.tier === opt.tier
                       ? `${opt.badge} shadow-sm`
                       : "border-[var(--line-subtle)] bg-white hover:border-[var(--text-strong)]"
@@ -689,7 +691,7 @@ export default function PartnerOnboarding() {
             </div>
 
             {submitError && (
-              <p className="mt-4 rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">{submitError}</p>
+              <p className="pd24-status-error mt-4 rounded-2xl px-4 py-3 text-sm">{submitError}</p>
             )}
           </StepShell>
         )}
@@ -711,7 +713,7 @@ export default function PartnerOnboarding() {
                   <button
                     type="button"
                     onClick={() => setStep((s) => s - 1)}
-                    className="inline-flex w-full items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] sm:w-auto"
+                    className="pd24-btn pd24-btn-secondary w-full sm:w-auto"
                   >
                     ← Zurueck
                   </button>
@@ -722,7 +724,7 @@ export default function PartnerOnboarding() {
                     type="button"
                     disabled={!canNext}
                     onClick={() => setStep((s) => s + 1)}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-40 sm:w-auto"
+                    className="pd24-btn pd24-btn-primary w-full sm:w-auto"
                   >
                     Weiter →
                   </button>
@@ -731,7 +733,7 @@ export default function PartnerOnboarding() {
                     type="button"
                     disabled={submitting || !userId}
                     onClick={() => void handleSubmit()}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-50 sm:w-auto"
+                    className="pd24-btn pd24-btn-primary w-full sm:w-auto"
                   >
                     {submitting
                       ? "Wird angelegt ..."
@@ -766,7 +768,7 @@ function StepShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-[32px] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
+    <div className="rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold text-[var(--text-strong)]">{title}</h2>

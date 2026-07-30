@@ -9,6 +9,8 @@ import { supabase } from "@/lib/supabaseClient";
 import { deleteRoadtripRoute, fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
 import type { RoadtripRoute } from "@/lib/roadtrip/types";
 import PremiumStatusCard from "@/components/premium/PremiumStatusCard";
+import { safeInternalPath } from "@/lib/security/safe-url";
+import { clearLocalPersonalData, openConsentBanner } from "@/lib/consent";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -161,8 +163,8 @@ function formatRouteCityLabel(citySlug: string | null): string {
 }
 
 function routeTileTone(visibility: UserRouteRow["visibility"]): string {
-  if (visibility === "public") return "border-emerald-200 bg-emerald-50";
-  if (visibility === "unlisted") return "border-amber-200 bg-amber-50";
+  if (visibility === "public") return "pd24-status-success";
+  if (visibility === "unlisted") return "pd24-status-warning";
   return "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)]";
 }
 
@@ -179,8 +181,8 @@ type ProfileRouteListItemProps = {
 };
 
 const TILE_TONE: Record<UserRouteRow["visibility"], string> = {
-  public:   "border-emerald-200 bg-emerald-50 text-emerald-700",
-  unlisted: "border-amber-200 bg-amber-50 text-amber-700",
+  public:   "pd24-status-success",
+  unlisted: "pd24-status-warning",
   private:  "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] text-[var(--text-muted-warm)]",
 };
 
@@ -224,7 +226,7 @@ function ProfileRouteListItem({
     <div
       className={`rounded-[var(--radius-control)] border bg-[var(--bg-panel-strong)] p-3 transition ${
         confirming
-          ? "border-red-200 bg-red-50/30"
+          ? "border-[var(--state-error)]/25 bg-[rgba(161,75,69,0.04)]"
           : "border-[var(--line-subtle)] hover:border-[var(--line-strong)]"
       }`}
     >
@@ -250,7 +252,7 @@ function ProfileRouteListItem({
           {primaryHref && (
             <Link
               href={primaryHref}
-              className="inline-flex min-h-8 items-center rounded-lg bg-[var(--text-strong)] px-3 text-xs font-medium text-white transition hover:opacity-90"
+              className="pd24-btn pd24-btn-sm pd24-btn-primary"
             >
               {primaryLabel}
             </Link>
@@ -258,7 +260,7 @@ function ProfileRouteListItem({
           {secondaryHref && secondaryLabel && (
             <Link
               href={secondaryHref}
-              className="inline-flex min-h-8 items-center rounded-lg border border-[rgba(23,23,23,0.1)] px-3 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)]"
+              className="pd24-btn pd24-btn-sm pd24-btn-secondary"
             >
               {secondaryLabel}
             </Link>
@@ -267,7 +269,7 @@ function ProfileRouteListItem({
             type="button"
             aria-label={deleteLabel}
             onClick={() => setConfirming(true)}
-            className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-soft-warm)] transition hover:bg-red-50 hover:text-red-500"
+            className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-soft-warm)] transition hover:bg-[rgba(161,75,69,0.08)] hover:text-[var(--state-error)]"
           >
             <TrashIcon />
           </button>
@@ -276,8 +278,8 @@ function ProfileRouteListItem({
 
       {/* Inline confirmation */}
       {confirming && (
-        <div className="mt-2.5 flex items-center justify-between gap-3 rounded-[12px] border border-red-200 bg-white px-3 py-2">
-          <p className="text-xs font-medium text-red-700">{deleteLabel}?</p>
+        <div className="mt-2.5 flex items-center justify-between gap-3 rounded-[12px] border border-[var(--state-error)]/25 bg-white px-3 py-2">
+          <p className="text-xs font-medium text-[var(--state-error)]">{deleteLabel}?</p>
           <div className="flex shrink-0 gap-2">
             <button
               type="button"
@@ -291,7 +293,7 @@ function ProfileRouteListItem({
               type="button"
               onClick={handleDelete}
               disabled={deleting}
-              className="rounded-lg bg-red-500 px-3 py-1 text-xs font-medium text-white transition hover:bg-red-600 disabled:opacity-50"
+              className="rounded-lg bg-[var(--state-error)] px-3 py-1 text-xs font-medium text-white transition hover:opacity-90 disabled:opacity-50"
             >
               {deleting ? "…" : "Ja, löschen"}
             </button>
@@ -313,6 +315,7 @@ function ProfilePageInner() {
   const returnUrl = rawReturn ? safeInternalPath(rawReturn, "/profile") : null;
 
   const [mounted, setMounted] = useState(false);
+  const [localDataCleared, setLocalDataCleared] = useState(false);
   const [authReady, setAuthReady] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [isAnonymous, setIsAnonymous] = useState(false);
@@ -1167,7 +1170,7 @@ function ProfilePageInner() {
                   type="button"
                   onClick={() => void signOut()}
                   disabled={authLoading}
-                  className="shrink-0 inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-4 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
+                  className="pd24-btn pd24-btn-sm pd24-btn-secondary shrink-0"
                 >
                   Abmelden
                 </button>
@@ -1176,7 +1179,7 @@ function ProfilePageInner() {
           ) : authReady && userId && isAnonymous ? (
             /* ── GASTPROFIL ───────────────────────────────────────────────── */
             <>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-600">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--state-warning)]">
                 Gastprofil
               </div>
               <p className="mt-2 text-sm text-[var(--text-muted-warm)]">
@@ -1186,14 +1189,14 @@ function ProfilePageInner() {
                 <button
                   onClick={() => void startOAuth("google")}
                   disabled={authLoading}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
+                  className="pd24-btn pd24-btn-secondary"
                 >
                   <span className="text-base font-bold">G</span> Mit Google
                 </button>
                 <button
                   onClick={() => void startOAuth("azure")}
                   disabled={authLoading}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
+                  className="pd24-btn pd24-btn-secondary"
                 >
                   <span className="inline-grid h-4 w-4 grid-cols-2 gap-[2px]">
                     <span className="rounded-[1px] bg-[#f25022]" />
@@ -1211,7 +1214,7 @@ function ProfilePageInner() {
               <form className="grid gap-2" onSubmit={(e) => { e.preventDefault(); void signInWithEmail(); }}>
                 <input type="email" name="email" autoComplete="email" inputMode="email" value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]" />
                 <input type="password" name="password" autoComplete="new-password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort wählen" className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]" />
-                <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="inline-flex h-11 w-full items-center justify-center rounded-[var(--radius-control)] bg-[var(--text-strong)] text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="pd24-btn pd24-btn-primary w-full">
                   Kostenloses Konto erstellen
                 </button>
               </form>
@@ -1228,14 +1231,14 @@ function ProfilePageInner() {
                 <button
                   onClick={() => void startOAuth("google")}
                   disabled={authLoading}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
+                  className="pd24-btn pd24-btn-secondary"
                 >
                   <span className="text-base font-bold">G</span> Mit Google
                 </button>
                 <button
                   onClick={() => void startOAuth("azure")}
                   disabled={authLoading}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50"
+                  className="pd24-btn pd24-btn-secondary"
                 >
                   <span className="inline-grid h-4 w-4 grid-cols-2 gap-[2px]">
                     <span className="rounded-[1px] bg-[#f25022]" />
@@ -1258,10 +1261,10 @@ function ProfilePageInner() {
                 <input type="email" name="email" autoComplete="email" inputMode="email" value={authEmailInput} onChange={(e) => setAuthEmailInput(e.target.value)} placeholder="E-Mail" className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]" />
                 <input type="password" name="password" autoComplete="current-password" value={authPasswordInput} onChange={(e) => setAuthPasswordInput(e.target.value)} placeholder="Passwort" className="h-11 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]" />
                 <div className="grid grid-cols-2 gap-2">
-                  <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="inline-flex h-11 items-center justify-center rounded-xl bg-[#171717] text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50">
+                  <button type="button" onClick={() => void signUpWithEmail()} disabled={authLoading} className="pd24-btn pd24-btn-primary">
                     Registrieren
                   </button>
-                  <button type="submit" disabled={authLoading} className="inline-flex h-11 items-center justify-center rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)] disabled:opacity-50">
+                  <button type="submit" disabled={authLoading} className="pd24-btn pd24-btn-secondary">
                     Anmelden
                   </button>
                 </div>
@@ -1284,6 +1287,44 @@ function ProfilePageInner() {
         {authReady && userId && !isAnonymous ? (
           <PremiumStatusCard userId={userId} />
         ) : null}
+
+        {/* ── Lokale Daten ─────────────────────────────────────────────────── */}
+        <section className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+          <div className="pd24-kicker-warm">Datenschutz</div>
+          <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">
+            Lokal gespeicherte Daten
+          </h2>
+          <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+            Auf diesem Gerät speichert perfectday24 deinen letzten Startpunkt,
+            offene Gruppen-Einladungen und – nur mit deiner Einwilligung –
+            anonyme Tracking-Kennungen. Auf gemeinsam genutzten Geräten kannst du
+            das hier jederzeit entfernen.
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => {
+                clearLocalPersonalData();
+                setLocalDataCleared(true);
+              }}
+              className="rounded-full border border-[var(--line-subtle)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[rgba(23,23,23,0.04)]"
+            >
+              Lokale Daten löschen
+            </button>
+            <button
+              type="button"
+              onClick={() => openConsentBanner()}
+              className="text-sm text-[var(--text-muted-warm)] underline-offset-2 hover:underline"
+            >
+              Cookie-Einstellungen ändern
+            </button>
+            {localDataCleared ? (
+              <span className="text-sm text-[var(--text-muted-warm)]">
+                Lokale Daten wurden gelöscht.
+              </span>
+            ) : null}
+          </div>
+        </section>
 
         {/* ── Two-column layout: interests + public profile ───────────────── */}
         {authReady && userId && !isAnonymous && (
@@ -1375,7 +1416,7 @@ function ProfilePageInner() {
               />
               <button
                 onClick={addCustomInterest}
-                className="inline-flex min-h-11 items-center rounded-xl bg-[#171717] px-4 text-sm font-medium text-white transition hover:opacity-90"
+                className="inline-flex min-h-11 items-center rounded-xl bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90"
               >
                 Hinzufügen
               </button>
@@ -1406,7 +1447,7 @@ function ProfilePageInner() {
                 {username ? (
                   <Link
                     href={`/u/${username}`}
-                    className="inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-xs text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]"
+                    className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                   >
                     Ansehen
                   </Link>
@@ -1414,7 +1455,7 @@ function ProfilePageInner() {
                 <button
                   onClick={() => void saveCreatorProfile()}
                   disabled={savingProfile || !authReady || !userId}
-                  className="inline-flex min-h-9 items-center rounded-xl bg-[#171717] px-4 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                  className="pd24-btn pd24-btn-sm pd24-btn-primary"
                 >
                   {savingProfile ? "Speichert…" : "Speichern"}
                 </button>
@@ -1448,9 +1489,9 @@ function ProfilePageInner() {
                   {usernameChecking ? (
                     <span className="text-[var(--text-soft-warm)]">Prüft…</span>
                   ) : usernameError ? (
-                    <span className="text-red-600">{usernameError}</span>
+                    <span className="text-[var(--state-error)]">{usernameError}</span>
                   ) : username && usernameAvailable ? (
-                    <span className="text-emerald-700">Verfügbar</span>
+                    <span className="text-[var(--state-success)]">Verfügbar</span>
                   ) : (
                     <span className="text-[var(--text-soft-warm)]">a–z, 0–9, . _ -</span>
                   )}
@@ -1563,14 +1604,14 @@ function ProfilePageInner() {
                         type="button"
                         onClick={() => void uploadCroppedAvatar()}
                         disabled={avatarUploading}
-                        className="inline-flex min-h-9 items-center rounded-xl bg-[#171717] px-4 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                        className="pd24-btn pd24-btn-sm pd24-btn-primary"
                       >
                         Hochladen
                       </button>
                       <button
                         type="button"
                         onClick={() => handleAvatarFileSelection(null)}
-                        className="inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-4 text-sm text-[var(--text-muted-warm)] transition hover:bg-white"
+                        className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                       >
                         Verwerfen
                       </button>
@@ -1609,17 +1650,17 @@ function ProfilePageInner() {
                 </p>
               </div>
               {studioTab === "routes" && (
-                <Link href="/routes" className="inline-flex min-h-9 shrink-0 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]">
+                <Link href="/routes" className="pd24-btn pd24-btn-sm pd24-btn-secondary shrink-0">
                   Route erstellen
                 </Link>
               )}
               {studioTab === "roadtrips" && (
-                <Link href="/roadtrip" className="inline-flex min-h-9 shrink-0 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]">
+                <Link href="/roadtrip" className="pd24-btn pd24-btn-sm pd24-btn-secondary shrink-0">
                   Roadtrip planen
                 </Link>
               )}
               {studioTab === "events" && (
-                <Link href="/events" className="inline-flex min-h-9 shrink-0 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]">
+                <Link href="/events" className="pd24-btn pd24-btn-sm pd24-btn-secondary shrink-0">
                   Event anlegen
                 </Link>
               )}
@@ -1701,7 +1742,7 @@ function ProfilePageInner() {
                     <p className="text-sm text-[var(--text-soft-warm)]">
                       Noch keine eigenen Routen. Erstelle im Builder deinen ersten wiederverwendbaren Ablauf.
                     </p>
-                    <Link href="/routes" className="inline-flex min-h-9 items-center rounded-[var(--radius-control)] bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                    <Link href="/routes" className="pd24-btn pd24-btn-sm pd24-btn-primary">
                       Route erstellen →
                     </Link>
                   </div>
@@ -1728,24 +1769,24 @@ function ProfilePageInner() {
                               </p>
                             </div>
                             <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-                              rt.status === "active" ? "bg-emerald-100 text-emerald-700"
-                              : rt.status === "completed" ? "bg-sky-100 text-sky-700"
-                              : "bg-amber-100 text-amber-700"
+                              rt.status === "active" ? "pd24-status-success"
+                              : rt.status === "completed" ? "pd24-status-info"
+                              : "pd24-status-warning"
                             }`}>
                               {rt.status === "active" ? "Aktiv" : rt.status === "completed" ? "Abgeschlossen" : "Entwurf"}
                             </span>
                           </div>
                           <div className="mt-2.5 flex flex-wrap items-center gap-2 pl-0">
                             <Link href={`/roadtrip/routes/${rt.slug}`}
-                              className="inline-flex min-h-8 items-center rounded-lg bg-[var(--text-strong)] px-3 text-xs font-medium text-white transition hover:opacity-90">
+                              className="pd24-btn pd24-btn-sm pd24-btn-primary">
                               Öffnen
                             </Link>
                             <Link href={`/roadtrip?fromRouteSlug=${rt.slug}`}
-                              className="inline-flex min-h-8 items-center rounded-lg border border-[var(--line-subtle)] px-3 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)]">
+                              className="pd24-btn pd24-btn-sm pd24-btn-secondary">
                               Bearbeiten
                             </Link>
                             <button type="button" onClick={() => void deleteStudioRoadtrip(rt.id)}
-                              className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-soft-warm)] transition hover:bg-red-50 hover:text-red-500"
+                              className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-soft-warm)] transition hover:bg-[rgba(161,75,69,0.08)] hover:text-[var(--state-error)]"
                               aria-label="Roadtrip löschen">
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                                 <polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" /><path d="M10 11v6M14 11v6" /><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
@@ -1761,7 +1802,7 @@ function ProfilePageInner() {
                     <p className="text-sm text-[var(--text-soft-warm)]">
                       Noch keine Roadtrips. Plane deinen ersten Mehrstädte-Trip und teile ihn mit anderen.
                     </p>
-                    <Link href="/roadtrip" className="inline-flex min-h-9 items-center rounded-[var(--radius-control)] bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                    <Link href="/roadtrip" className="pd24-btn pd24-btn-sm pd24-btn-primary">
                       Roadtrip planen →
                     </Link>
                   </div>
@@ -1799,20 +1840,20 @@ function ProfilePageInner() {
                               </p>
                             </div>
                             <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-                              ev.status === "active" ? "bg-emerald-100 text-emerald-700"
-                              : ev.status === "completed" ? "bg-sky-100 text-sky-700"
-                              : "bg-amber-100 text-amber-700"
+                              ev.status === "active" ? "pd24-status-success"
+                              : ev.status === "completed" ? "pd24-status-info"
+                              : "pd24-status-warning"
                             }`}>
                               {ev.status === "active" ? "Aktiv" : ev.status === "completed" ? "Abgeschlossen" : "Entwurf"}
                             </span>
                           </div>
                           <div className="mt-2.5 flex flex-wrap items-center gap-2">
                             <Link href={`/events/plan/${ev.id}`}
-                              className="inline-flex min-h-8 items-center rounded-lg bg-[var(--text-strong)] px-3 text-xs font-medium text-white transition hover:opacity-90">
+                              className="pd24-btn pd24-btn-sm pd24-btn-primary">
                               Öffnen
                             </Link>
                             <button type="button" onClick={() => void deleteStudioEvent(ev.id)}
-                              className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-soft-warm)] transition hover:bg-red-50 hover:text-red-500"
+                              className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-soft-warm)] transition hover:bg-[rgba(161,75,69,0.08)] hover:text-[var(--state-error)]"
                               aria-label="Event löschen">
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                                 <polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" /><path d="M10 11v6M14 11v6" /><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
@@ -1828,7 +1869,7 @@ function ProfilePageInner() {
                     <p className="text-sm text-[var(--text-soft-warm)]">
                       Noch keine Events. Plane einen Geburtstag, JGA, Teamtag oder eine Firmenfeier.
                     </p>
-                    <Link href="/events" className="inline-flex min-h-9 items-center rounded-[var(--radius-control)] bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                    <Link href="/events" className="pd24-btn pd24-btn-sm pd24-btn-primary">
                       Event anlegen →
                     </Link>
                   </div>
@@ -1852,13 +1893,13 @@ function ProfilePageInner() {
               <div className="flex shrink-0 gap-2">
                 <Link
                   href="/saved"
-                  className="inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]"
+                  className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                 >
                   Meine Pläne
                 </Link>
                 <Link
                   href="/explore"
-                  className="inline-flex min-h-9 items-center rounded-xl border border-[var(--line-subtle)] px-3 text-sm text-[var(--text-muted-warm)] transition hover:bg-[var(--brand-warm-cloud)]"
+                  className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                 >
                   Explore
                 </Link>
@@ -2018,7 +2059,7 @@ function ProfilePageInner() {
               <div className="flex flex-col gap-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] p-5">
                 <div className="flex items-start justify-between gap-2">
                   <span className="text-2xl leading-none">🎨</span>
-                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700">
+                  <span className="pd24-status-success rounded-full px-2.5 py-0.5 text-[11px] font-medium">
                     Kostenlos
                   </span>
                 </div>
@@ -2031,7 +2072,7 @@ function ProfilePageInner() {
                 <div className="mt-auto">
                   <Link
                     href="/profile#profile-public"
-                    className="inline-flex w-full items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--brand-warm-cloud)]"
+                    className="pd24-btn pd24-btn-secondary w-full"
                   >
                     Creator-Profil einrichten
                   </Link>

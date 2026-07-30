@@ -132,7 +132,7 @@ export default function MediaReportDialog({
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Bild melden
             </div>
             <div className="mt-2 text-lg font-semibold text-[var(--text-strong)]">{assetLabel}</div>
@@ -182,8 +182,8 @@ export default function MediaReportDialog({
           </label>
         </div>
 
-        {error ? <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div> : null}
-        {success ? <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{success}</div> : null}
+        {error ? <div className="mt-4 rounded-2xl pd24-status-error px-4 py-3 text-sm">{error}</div> : null}
+        {success ? <div className="mt-4 rounded-2xl pd24-status-success px-4 py-3 text-sm">{success}</div> : null}
         {needsLogin ? (
           <div className="mt-4 text-sm text-[var(--text-muted)]">
             <Link href="/profile" className="font-medium text-[var(--text-strong)] underline underline-offset-2">
@@ -196,7 +196,7 @@ export default function MediaReportDialog({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex items-center rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)]"
+            className="pd24-btn pd24-btn-sm pd24-btn-secondary"
           >
             Abbrechen
           </button>
@@ -204,7 +204,7 @@ export default function MediaReportDialog({
             type="button"
             onClick={() => void handleSubmit()}
             disabled={submitting}
-            className="inline-flex items-center rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+            className="pd24-btn pd24-btn-sm pd24-btn-primary"
           >
             {submitting ? "Wird gesendet..." : "Meldung absenden"}
           </button>

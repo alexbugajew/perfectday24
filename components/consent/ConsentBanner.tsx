@@ -73,12 +73,12 @@ export default function ConsentBanner() {
       aria-label="Cookie- und Tracking-Einstellungen"
       aria-modal="false"
     >
-      <div className="mx-auto max-w-3xl overflow-hidden rounded-[20px] border border-[rgba(23,23,23,0.1)] bg-[#fffdf8] shadow-[0_8px_32px_rgba(23,23,23,0.14)] sm:max-w-none">
+      <div className="mx-auto max-w-3xl overflow-hidden rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface-warm)] shadow-[0_8px_32px_rgba(23,23,23,0.14)] sm:max-w-none">
         <div className="flex max-h-[40vh] flex-col gap-3 overflow-y-auto px-4 py-3.5 sm:max-h-none sm:overflow-visible">
 
           {/* Text — mobil gekürzt, Langfassung ab sm */}
-          <p className="text-[13px] leading-5 text-[#665d55]">
-            <span className="font-semibold text-[#171717]">Wir nutzen Tracking </span>
+          <p className="text-[13px] leading-5 text-[var(--text-muted-warm)]">
+            <span className="font-semibold text-[var(--text-strong)]">Wir nutzen Tracking </span>
             <span className="sm:hidden">
               für bessere Empfehlungen und faire Partner-Vergütung – anonymisiert,
               jederzeit änderbar.{" "}
@@ -91,7 +91,7 @@ export default function ConsentBanner() {
             </span>
             <Link
               href="/datenschutz"
-              className="font-medium text-[#171717] underline underline-offset-2 transition hover:text-[#b76a43]"
+              className="font-medium text-[var(--text-strong)] underline underline-offset-2 transition hover:text-[var(--brand-warm-deep)]"
             >
               <span className="sm:hidden">Mehr erfahren</span>
               <span className="hidden sm:inline">Datenschutzerklärung</span>
@@ -103,14 +103,14 @@ export default function ConsentBanner() {
             <button
               type="button"
               onClick={() => dismiss("declined")}
-              className="min-h-10 flex-1 rounded-xl border border-[rgba(23,23,23,0.15)] bg-transparent px-3 py-2 text-sm font-medium text-[#665d55] transition hover:border-[rgba(23,23,23,0.3)] hover:bg-[rgba(23,23,23,0.04)] active:scale-[0.97]"
+              className="pd24-btn pd24-btn-sm pd24-btn-secondary flex-1 active:scale-[0.97]"
             >
               Nur Notwendige
             </button>
             <button
               type="button"
               onClick={() => dismiss("accepted")}
-              className="min-h-10 flex-1 rounded-xl bg-[#171717] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+              className="pd24-btn pd24-btn-sm pd24-btn-primary flex-1 active:scale-[0.97]"
             >
               Akzeptieren
             </button>

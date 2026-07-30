@@ -126,7 +126,7 @@ export default function PremiumStatusCard({ userId }: { userId: string }) {
             <button
               type="button"
               onClick={() => setShowUpgrade(true)}
-              className="inline-flex items-center justify-center rounded-2xl bg-[var(--text-strong)] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
+              className="pd24-btn pd24-btn-sm pd24-btn-primary"
             >
               Premium starten
             </button>

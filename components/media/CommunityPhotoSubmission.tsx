@@ -60,19 +60,19 @@ const SUBMISSION_STATUS_META: Record<
   },
   submitted: {
     label: "In Pruefung",
-    className: "border-blue-200 bg-blue-50 text-blue-800",
+    className: "pd24-status-info",
   },
   approved: {
     label: "Freigegeben",
-    className: "border-emerald-200 bg-emerald-50 text-emerald-800",
+    className: "pd24-status-success",
   },
   rejected: {
     label: "Abgelehnt",
-    className: "border-red-200 bg-red-50 text-red-700",
+    className: "pd24-status-error",
   },
   featured: {
     label: "Featured",
-    className: "border-amber-200 bg-amber-50 text-amber-800",
+    className: "pd24-status-warning",
   },
 };
 
@@ -457,7 +457,7 @@ export default function CommunityPhotoSubmission({
       <section className="relative rounded-[28px] border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
         <div className="flex items-center justify-between gap-3 px-1 pb-3">
           <div className="min-w-0">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               {title}
             </div>
           </div>
@@ -468,7 +468,7 @@ export default function CommunityPhotoSubmission({
           </div>
         </div>
 
-        <div className="overflow-x-auto overflow-y-hidden rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-2 pr-20 pb-20">
+        <div className="overflow-x-auto overflow-y-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-2 pr-20 pb-20">
           <div className="grid auto-cols-[8.5rem] grid-flow-col grid-rows-2 gap-2 sm:auto-cols-[9.5rem] lg:auto-cols-[10.25rem]">
             {galleryItems.map((item, index) => (
               <button
@@ -477,9 +477,9 @@ export default function CommunityPhotoSubmission({
                 onClick={() => openPreview(index)}
                 disabled={!item.url}
                 className={[
-                  "group relative aspect-square overflow-hidden rounded-[18px] border border-[rgba(15,23,42,0.05)] bg-white text-left",
+                  "group relative aspect-square overflow-hidden rounded-[var(--radius-control)] border border-[rgba(15,23,42,0.05)] bg-white text-left",
                   item.url
-                    ? "cursor-pointer transition hover:border-[rgba(23,23,23,0.16)] hover:shadow-[0_10px_24px_rgba(15,23,42,0.08)]"
+                    ? "cursor-pointer transition hover:border-[var(--line-strong)] hover:shadow-[0_10px_24px_rgba(15,23,42,0.08)]"
                     : "cursor-default",
                 ].join(" ")}
                 aria-label={item.url ? `Bild ${index + 1} ansehen` : "Leerer Bildplatz"}
@@ -522,9 +522,9 @@ export default function CommunityPhotoSubmission({
           </button>
         </div>
 
-        <div className="mt-4 rounded-[22px] border border-[var(--line-subtle)] bg-white p-4">
+        <div className="mt-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white p-4">
           <div className="flex items-center justify-between gap-3">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Meine Uploads
             </div>
             <div className="text-xs text-[var(--text-muted)]">
@@ -539,9 +539,9 @@ export default function CommunityPhotoSubmission({
                 return (
                   <div
                     key={submission.id}
-                    className="flex items-start gap-3 rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3"
+                    className="flex items-start gap-3 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3"
                   >
-                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-[14px] bg-white">
+                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-[var(--radius-control)] bg-white">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={submission.url}
@@ -567,7 +567,7 @@ export default function CommunityPhotoSubmission({
                         {submission.creditName ? ` - ${submission.creditName}` : ""}
                       </div>
                       {submission.lastNote ? (
-                        <div className="mt-2 rounded-[14px] border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-900">
+                        <div className="mt-2 rounded-[var(--radius-control)] pd24-status-warning px-3 py-2 text-xs leading-5">
                           {submission.lastNote}
                         </div>
                       ) : null}
@@ -576,7 +576,7 @@ export default function CommunityPhotoSubmission({
                 );
               })
             ) : (
-              <div className="rounded-[18px] border border-dashed border-[var(--line-subtle)] px-4 py-4 text-sm text-[var(--text-muted)]">
+              <div className="rounded-[var(--radius-control)] border border-dashed border-[var(--line-subtle)] px-4 py-4 text-sm text-[var(--text-muted)]">
                 Eigene Einreichungen erscheinen hier mit Status, sobald du Bilder hochgeladen hast.
               </div>
             )}
@@ -584,8 +584,8 @@ export default function CommunityPhotoSubmission({
         </div>
       </section>
 
-      {success ? <div className="mt-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{success}</div> : null}
-      {error && !isDialogOpen ? <div className="mt-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div> : null}
+      {success ? <div className="mt-3 rounded-2xl pd24-status-success px-4 py-3 text-sm">{success}</div> : null}
+      {error && !isDialogOpen ? <div className="mt-3 rounded-2xl pd24-status-error px-4 py-3 text-sm">{error}</div> : null}
 
       {isDialogOpen ? (
         <div
@@ -598,7 +598,7 @@ export default function CommunityPhotoSubmission({
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">{title}</div>
+                <div className="pd24-meta">{title}</div>
                 <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{subtitle}</p>
               </div>
               <button
@@ -662,7 +662,7 @@ export default function CommunityPhotoSubmission({
                   <div className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
                     Bilddateien
                   </div>
-                  <label className="flex cursor-pointer flex-col rounded-[24px] border-2 border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-5 py-6 transition hover:border-[rgba(23,23,23,0.18)] hover:bg-white">
+                  <label className="flex cursor-pointer flex-col rounded-[var(--radius-card)] border-2 border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-5 py-6 transition hover:border-[rgba(23,23,23,0.18)] hover:bg-white">
                     <span className="text-sm font-semibold text-[var(--text-strong)]">
                       {submitting ? "Bilder werden hochgeladen..." : "Fotos auswählen"}
                     </span>
@@ -684,7 +684,7 @@ export default function CommunityPhotoSubmission({
                 </div>
               </div>
 
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+              <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                 <div className="text-sm font-semibold text-[var(--text-strong)]">Rechte und Freigabe</div>
                 <label className="mt-3 flex items-start gap-3 text-sm leading-6 text-[var(--text-muted)]">
                   <input
@@ -697,8 +697,8 @@ export default function CommunityPhotoSubmission({
                     Ich bestaetige, dass ich dieses Bild hochladen darf und dass keine Rechte Dritter verletzt werden.
                   </span>
                 </label>
-                <div className="mt-4 rounded-[18px] border border-[var(--line-subtle)] bg-white px-4 py-3">
-                  <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">Nach dem Upload</div>
+                <div className="mt-4 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-white px-4 py-3">
+                  <div className="pd24-meta">Nach dem Upload</div>
                   <div className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
                     Neue Bilder werden moderiert und erscheinen erst nach Freigabe in Route, Stop oder Event-Galerie.
                   </div>
@@ -715,8 +715,8 @@ export default function CommunityPhotoSubmission({
               </div>
             </div>
 
-            {error ? <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div> : null}
-            {success ? <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{success}</div> : null}
+            {error ? <div className="mt-4 rounded-2xl pd24-status-error px-4 py-3 text-sm">{error}</div> : null}
+            {success ? <div className="mt-4 rounded-2xl pd24-status-success px-4 py-3 text-sm">{success}</div> : null}
           </div>
         </div>
       ) : null}
@@ -773,7 +773,7 @@ export default function CommunityPhotoSubmission({
               <img
                 src={activePreviewItem.url}
                 alt={activePreviewItem.alt || `${title} Bild ${activePreviewIndex! + 1}`}
-                className="max-h-[72vh] w-full rounded-[22px] object-contain bg-[#0b1222]"
+                className="max-h-[72vh] w-full rounded-[var(--radius-card-sm)] object-contain bg-[#0b1222]"
               />
             </div>
 
@@ -797,7 +797,7 @@ export default function CommunityPhotoSubmission({
                         type="button"
                         onClick={() => openPreview(index)}
                         className={[
-                          "group relative h-20 w-24 shrink-0 overflow-hidden rounded-[18px] border transition",
+                          "group relative h-20 w-24 shrink-0 overflow-hidden rounded-[var(--radius-control)] border transition",
                           isActive
                             ? "border-white/60 ring-2 ring-white/26"
                             : "border-white/12 opacity-80 hover:border-white/28 hover:opacity-100",

@@ -65,7 +65,7 @@ export default async function EventCommissionsSection() {
 
   if (error) {
     return (
-      <div className="rounded-[24px] border border-red-200 bg-red-50 p-5 text-sm text-red-700">
+      <div className="rounded-[var(--radius-card)] pd24-status-error p-5 text-sm">
         Provisions-Query fehlgeschlagen: {error.message}
       </div>
     );
@@ -83,22 +83,22 @@ export default async function EventCommissionsSection() {
   return (
     <div className="space-y-4">
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <div className="rounded-[20px] border border-[rgba(196,137,79,0.24)] bg-[rgba(255,249,241,0.72)] p-4">
+        <div className="rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.24)] bg-[rgba(255,249,241,0.72)] p-4">
           <div className="text-xs font-semibold uppercase tracking-wide text-[#a45326]">Offen (earned)</div>
           <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{euros(totals.earned)}</div>
           <div className="mt-1 text-xs text-[var(--text-muted)]">Faellige Provisionen, noch nicht faktiert.</div>
         </div>
-        <div className="rounded-[20px] border border-[rgba(59,130,246,0.18)] bg-[rgba(219,234,254,0.36)] p-4">
+        <div className="rounded-[var(--radius-card-sm)] border border-[rgba(59,130,246,0.18)] bg-[rgba(219,234,254,0.36)] p-4">
           <div className="text-xs font-semibold uppercase tracking-wide text-[#1d4ed8]">Fakturiert</div>
           <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{euros(totals.invoiced)}</div>
           <div className="mt-1 text-xs text-[var(--text-muted)]">Rechnung raus, Zahlung offen.</div>
         </div>
-        <div className="rounded-[20px] border border-[rgba(24,140,80,0.22)] bg-[rgba(230,246,236,0.48)] p-4">
+        <div className="rounded-[var(--radius-card-sm)] border border-[rgba(24,140,80,0.22)] bg-[rgba(230,246,236,0.48)] p-4">
           <div className="text-xs font-semibold uppercase tracking-wide text-[#166534]">Bezahlt</div>
           <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{euros(totals.paid)}</div>
           <div className="mt-1 text-xs text-[var(--text-muted)]">Realized Revenue aus Event-Vermittlung.</div>
         </div>
-        <div className="rounded-[20px] border border-black/5 bg-white p-4">
+        <div className="rounded-[var(--radius-card-sm)] border border-black/5 bg-white p-4">
           <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">Datensaetze</div>
           <div className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">{totals.count}</div>
           <div className="mt-1 text-xs text-[var(--text-muted)]">Letzte 200 accepted-Quotes.</div>
@@ -106,11 +106,11 @@ export default async function EventCommissionsSection() {
       </div>
 
       {rows.length === 0 ? (
-        <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-8 text-center text-sm text-[var(--text-muted)]">
+        <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-8 text-center text-sm text-[var(--text-muted)]">
           Noch keine akzeptierten Angebote → keine Provisionen. Sobald ein Vendor-Quote auf status=accepted geht, entsteht hier automatisch ein Eintrag.
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-[24px] border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)]">
+        <div className="overflow-x-auto rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)]">
           <table className="w-full min-w-[720px] text-sm">
             <thead className="bg-[var(--bg-panel)]">
               <tr className="text-left text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">

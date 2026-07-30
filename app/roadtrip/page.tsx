@@ -760,7 +760,7 @@ function RoadtripPageContent() {
           {/* ── 3 Foto-Einstiegskarten ─────────────────────────────────────── */}
           <div className="mb-4 grid gap-3 lg:grid-cols-[1.15fr_0.85fr]">
             <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Auf dieser Seite
               </div>
               <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
@@ -774,7 +774,7 @@ function RoadtripPageContent() {
               href="/roadtrip/routes"
               className="group rounded-2xl border border-[rgba(183,106,67,0.24)] bg-[linear-gradient(135deg,rgba(183,106,67,0.08),rgba(90,118,136,0.06))] px-4 py-3 transition hover:border-[rgba(183,106,67,0.34)] hover:shadow-[0_10px_30px_rgba(15,23,42,0.08)]"
             >
-              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9d5a38]">
+              <div className="pd24-kicker-warm">
                 Fertige Roadtrips
               </div>
               <div className="mt-1 flex items-center justify-between gap-3">
@@ -803,7 +803,7 @@ function RoadtripPageContent() {
               onClick={() => setHeroMode("ki")}
               className={`group relative overflow-hidden rounded-2xl text-left transition active:scale-[0.98] ${
                 heroMode === "ki"
-                  ? "ring-2 ring-[#b76a43] ring-offset-2 shadow-lg"
+                  ? "ring-2 ring-[color:var(--brand-warm-deep)] ring-offset-2 shadow-lg"
                   : "shadow-sm hover:shadow-md"
               }`}
               style={{ height: 200 }}
@@ -817,7 +817,7 @@ function RoadtripPageContent() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               {heroMode === "ki" && (
-                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#b76a43] shadow">
+                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--brand-warm-deep)] shadow">
                   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
@@ -887,7 +887,7 @@ function RoadtripPageContent() {
               onClick={() => setHeroMode("creator")}
               className={`group relative overflow-hidden rounded-2xl text-left transition active:scale-[0.98] ${
                 heroMode === "creator"
-                  ? "ring-2 ring-[#7c6fa0] ring-offset-2 shadow-lg"
+                  ? "ring-2 ring-[color:var(--brand-creative)] ring-offset-2 shadow-lg"
                   : "shadow-sm hover:shadow-md"
               }`}
               style={{ height: 200 }}
@@ -901,7 +901,7 @@ function RoadtripPageContent() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               {heroMode === "creator" && (
-                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#7c6fa0] shadow">
+                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--brand-creative)] shadow">
                   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
@@ -933,7 +933,7 @@ function RoadtripPageContent() {
             <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-[rgba(183,106,67,0.1)] blur-3xl" />
             <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-32 rounded-full bg-[rgba(183,106,67,0.07)] blur-2xl" />
             <div className="relative">
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#b76a43] shadow-[0_4px_14px_rgba(183,106,67,0.35)]">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--brand-warm-deep)] shadow-[0_4px_14px_rgba(183,106,67,0.35)]">
                 <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-7 w-7">
                   <circle cx="12" cy="12" r="3" />
                   <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
@@ -946,7 +946,7 @@ function RoadtripPageContent() {
               </p>
               <a
                 href="/roadtrip/discover"
-                className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-[#b76a43] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#9d5a38] active:scale-[0.97]"
+                className="pd24-btn pd24-btn-warm mt-5 active:scale-[0.97]"
               >
                 KI-Route entdecken
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
@@ -976,7 +976,7 @@ function RoadtripPageContent() {
         <div className="grid gap-2 sm:grid-cols-3">
           {/* Trip name */}
           <label className="rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Tripname
             </div>
             <input
@@ -989,7 +989,7 @@ function RoadtripPageContent() {
 
           {/* Occasion */}
           <label className="rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Art der Reise
             </div>
             <select
@@ -1007,7 +1007,7 @@ function RoadtripPageContent() {
 
           {/* Budget */}
           <label className="rounded-xl border border-[rgba(17,24,39,0.06)] bg-[var(--bg-surface)] px-3 py-2.5">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Budget
             </div>
             <select
@@ -1062,7 +1062,7 @@ function RoadtripPageContent() {
               </svg>
               Vorlagen
               {creatorRoutes.length > 0 && (
-                <span className="rounded-full bg-[rgba(183,106,67,0.15)] px-1.5 py-0.5 text-[10px] text-[#b76a43]">
+                <span className="rounded-full bg-[rgba(183,106,67,0.15)] px-1.5 py-0.5 text-[10px] text-[var(--brand-warm-deep)]">
                   {creatorRoutes.length}
                 </span>
               )}
@@ -1090,7 +1090,7 @@ function RoadtripPageContent() {
                 ))}
               </div>
             ) : creatorRoutes.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-[rgba(23,23,23,0.12)] px-4 py-8 text-center text-sm text-[var(--text-muted)]">
+              <div className="rounded-xl border border-dashed border-[var(--line-strong)] px-4 py-8 text-center text-sm text-[var(--text-muted)]">
                 Noch keine öffentlichen Routen vorhanden.
               </div>
             ) : (
@@ -1107,7 +1107,7 @@ function RoadtripPageContent() {
                       <div className="relative h-24 bg-[linear-gradient(135deg,rgba(90,118,136,0.18),rgba(183,106,67,0.14))]">
                         <div className="absolute inset-0 flex items-center justify-center text-3xl opacity-25">🗺️</div>
                         {route.is_featured && (
-                          <div className="absolute right-2 top-2 rounded-full bg-[#b76a43] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+                          <div className="absolute right-2 top-2 rounded-full bg-[var(--brand-warm-deep)] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
                             Featured
                           </div>
                         )}
@@ -1118,7 +1118,7 @@ function RoadtripPageContent() {
 
                       {/* Content */}
                       <div className="flex flex-1 flex-col gap-1.5 p-3">
-                        <p className="text-xs font-semibold leading-snug text-[var(--text-strong)] line-clamp-1 group-hover:text-[#b76a43] transition-colors">
+                        <p className="text-xs font-semibold leading-snug text-[var(--text-strong)] line-clamp-1 group-hover:text-[var(--brand-warm-deep)] transition-colors">
                           {route.title}
                         </p>
                         <p className="text-[10px] leading-snug text-[var(--text-muted)] line-clamp-2">
@@ -1127,7 +1127,7 @@ function RoadtripPageContent() {
                         <button
                           type="button"
                           onClick={() => loadCreatorRoute(route)}
-                          className="mt-auto flex items-center justify-center gap-1.5 rounded-lg bg-[var(--text-strong)] px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.97]"
+                          className="pd24-btn pd24-btn-primary pd24-btn-sm mt-auto active:scale-[0.97]"
                         >
                           Vorlage nutzen
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3 w-3">
@@ -1236,7 +1236,7 @@ function RoadtripPageContent() {
 
                   {/* Hotel-Unterkunft suchen (Nominatim) */}
                   <div className="mt-2.5">
-                    <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                    <p className="mb-1 pd24-meta">
                       Unterkunft
                     </p>
                     <HotelAutocomplete
@@ -1350,16 +1350,16 @@ function RoadtripPageContent() {
           <div className="mt-4 flex flex-col gap-2">
             {/* Roadtrip gestartet — Erfolgs-Banner */}
             {startedRouteSlug && (
-              <div className="flex items-start gap-2.5 rounded-xl border border-[rgba(34,197,94,0.25)] bg-[rgba(34,197,94,0.07)] px-3 py-3">
+              <div className="flex items-start gap-2.5 rounded-xl pd24-status-success px-3 py-3">
                 <span className="text-lg">🚀</span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-emerald-800">Roadtrip gestartet!</p>
-                  <p className="mt-0.5 text-[11px] text-emerald-700">
+                  <p className="text-xs font-semibold">Roadtrip gestartet!</p>
+                  <p className="mt-0.5 text-[11px]">
                     Deine Route ist im Profil gespeichert — du kannst sie jederzeit fortsetzen.
                   </p>
                   <a
                     href="/roadtrip/routes"
-                    className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 underline underline-offset-2"
+                    className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-semibold underline underline-offset-2"
                   >
                     Zum Profil →
                   </a>
@@ -1367,7 +1367,7 @@ function RoadtripPageContent() {
                 <button
                   type="button"
                   onClick={() => setStartedRouteSlug(null)}
-                  className="shrink-0 text-emerald-600 hover:text-emerald-800 transition"
+                  className="shrink-0 transition hover:opacity-70"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
                     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
@@ -1381,7 +1381,7 @@ function RoadtripPageContent() {
               type="button"
               onClick={() => void startRoadtrip()}
               disabled={starting || generating}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#b76a43] px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#9d5a38] active:scale-[0.98] disabled:opacity-60"
+              className="pd24-btn pd24-btn-warm w-full active:scale-[0.98]"
             >
               {starting ? (
                 <>
@@ -1392,7 +1392,7 @@ function RoadtripPageContent() {
                 </>
               ) : (
                 <>
-                  🚀 Roadtrip starten
+                  Roadtrip starten
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
@@ -1405,7 +1405,7 @@ function RoadtripPageContent() {
               type="button"
               onClick={() => void generateRoadtrip()}
               disabled={generating || starting}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60"
+              className="pd24-btn pd24-btn-primary w-full active:scale-[0.98]"
             >
               {generating ? (
                 <>
@@ -1432,7 +1432,7 @@ function RoadtripPageContent() {
                 setSavedRouteSlug(null);
                 setShowSaveModal(true);
               }}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)] active:scale-[0.98]"
+              className="pd24-btn pd24-btn-secondary w-full active:scale-[0.98]"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-4 w-4">
                 <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
@@ -1447,7 +1447,7 @@ function RoadtripPageContent() {
 
       {/* ── Empty state ─────────────────────────────────────────────────── */}
       {stops.length === 0 && heroMode === "individual" && (
-        <section className="rounded-xl border border-dashed border-[rgba(23,23,23,0.15)] bg-[var(--bg-surface)] px-6 py-10 text-center">
+        <section className="rounded-xl border border-dashed border-[var(--line-strong)] bg-[var(--bg-surface)] px-6 py-10 text-center">
           <div className="mb-3 text-4xl">🗺️</div>
           <div className="font-semibold text-[var(--text-strong)]">Starte deinen Roadtrip</div>
           <p className="mx-auto mt-1.5 max-w-xs text-sm text-[var(--text-muted)]">
@@ -1518,7 +1518,7 @@ function RoadtripPageContent() {
                         {(stop?.nights ?? 1) === 1 ? "Nacht" : "Nächte"}
                       </span>
                       {stop?.hotelName && (
-                        <span className="flex items-center gap-1 text-[#b76a43]">
+                        <span className="flex items-center gap-1 text-[var(--brand-warm-deep)]">
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3 shrink-0">
                             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                             <polyline points="9 22 9 12 15 12 15 22" />
@@ -1527,7 +1527,7 @@ function RoadtripPageContent() {
                         </span>
                       )}
                       {selectedCreatorRoutes[plan.citySlug] && (
-                        <span className="flex items-center gap-1 text-[#b76a43]">
+                        <span className="flex items-center gap-1 text-[var(--brand-warm-deep)]">
                           <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3 shrink-0 text-amber-400">
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                           </svg>
@@ -1545,12 +1545,12 @@ function RoadtripPageContent() {
                       </svg>
                     )}
                     {plan.status === "done" && (
-                      <span className="rounded-full bg-[rgba(34,197,94,0.12)] px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                      <span className="rounded-full pd24-status-success px-2 py-0.5 text-[10px] font-semibold">
                         {plan.stops.length} Stops
                       </span>
                     )}
                     {plan.status === "error" && (
-                      <span className="rounded-full bg-[rgba(239,68,68,0.1)] px-2 py-0.5 text-[10px] font-semibold text-red-600">
+                      <span className="rounded-full pd24-status-error px-2 py-0.5 text-[10px] font-semibold">
                         Fehler
                       </span>
                     )}
@@ -1604,7 +1604,7 @@ function RoadtripPageContent() {
                           </svg>
                           Creator-Routen
                           {selectedCreatorRoutes[plan.citySlug] && (
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#b76a43]" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-warm-deep)]" />
                           )}
                         </button>
                       </div>
@@ -1623,7 +1623,7 @@ function RoadtripPageContent() {
                         )}
 
                         {plan.status === "error" && (
-                          <p className="text-sm text-red-600">{plan.error}</p>
+                          <p className="text-sm text-[var(--state-error)]">{plan.error}</p>
                         )}
 
                         {plan.status === "done" && (
@@ -1632,8 +1632,8 @@ function RoadtripPageContent() {
                               <p className="text-sm italic text-[var(--text-muted)]">{plan.variantLabel}</p>
                             )}
 
-                            <div className="rounded-xl border border-[rgba(23,23,23,0.08)] bg-[var(--bg-surface)] px-3 py-2">
-                              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                            <div className="rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
+                              <p className="pd24-meta">
                                 Anreise
                               </p>
                               <p className="mt-1 text-sm text-[var(--text-strong)]">
@@ -1700,7 +1700,7 @@ function RoadtripPageContent() {
                             <div className="pt-1">
                               <a
                                 href={`/planner?citySlug=${encodeURIComponent(plan.citySlug)}&occasion=${occasion}&budget=${budget}&planDate=${plan.date}&dayStartMin=${ROADTRIP_AFTERNOON_START_MIN}`}
-                                className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-white"
+                                className="pd24-btn pd24-btn-secondary pd24-btn-sm"
                               >
                                 In Tagesplanung öffnen
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3">
@@ -1719,16 +1719,16 @@ function RoadtripPageContent() {
                         {/* Aktuelle Auswahl-Banner */}
                         {selectedCreatorRoutes[plan.citySlug] && (
                           <div className="flex items-center gap-2 rounded-xl border border-[rgba(183,106,67,0.28)] bg-[rgba(183,106,67,0.07)] px-3 py-2">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-3.5 w-3.5 shrink-0 text-[#b76a43]">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="h-3.5 w-3.5 shrink-0 text-[var(--brand-warm-deep)]">
                               <polyline points="20 6 9 17 4 12" />
                             </svg>
-                            <p className="flex-1 text-xs font-semibold text-[#b76a43] truncate">
+                            <p className="flex-1 text-xs font-semibold text-[var(--brand-warm-deep)] truncate">
                               {selectedCreatorRoutes[plan.citySlug].title}
                             </p>
                             <button
                               type="button"
                               onClick={() => toggleCreatorRouteForCity(plan.citySlug, selectedCreatorRoutes[plan.citySlug])}
-                              className="text-[#b76a43] hover:text-red-500 transition"
+                              className="text-[var(--brand-warm-deep)] hover:text-[var(--state-error)] transition"
                               title="Auswahl aufheben"
                             >
                               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5">
@@ -1751,7 +1751,7 @@ function RoadtripPageContent() {
                         {/* Keine Routen */}
                         {!cityCreatorLoading[plan.citySlug] &&
                           (cityCreatorRoutes[plan.citySlug] ?? []).length === 0 && (
-                          <div className="rounded-xl border border-dashed border-[rgba(23,23,23,0.12)] px-4 py-6 text-center">
+                          <div className="rounded-xl border border-dashed border-[var(--line-strong)] px-4 py-6 text-center">
                             <div className="text-2xl mb-1.5">🗺️</div>
                             <p className="text-sm font-medium text-[var(--text-strong)]">
                               Noch keine Creator-Routen für {stop?.cityLabel ?? plan.citySlug}
@@ -1773,7 +1773,7 @@ function RoadtripPageContent() {
                                 className={`flex items-start gap-3 rounded-xl border p-3 transition ${
                                   isSelected
                                     ? "border-[rgba(183,106,67,0.4)] bg-[rgba(183,106,67,0.06)]"
-                                    : "border-[var(--line-subtle)] bg-white hover:border-[rgba(23,23,23,0.15)]"
+                                    : "border-[var(--line-subtle)] bg-white hover:border-[var(--line-strong)]"
                                 }`}
                               >
                                 {/* Cover-Thumbnail */}
@@ -1793,7 +1793,7 @@ function RoadtripPageContent() {
 
                                 {/* Info */}
                                 <div className="flex-1 min-w-0">
-                                  <p className={`text-sm font-semibold leading-snug ${isSelected ? "text-[#b76a43]" : "text-[var(--text-strong)]"}`}>
+                                  <p className={`text-sm font-semibold leading-snug ${isSelected ? "text-[var(--brand-warm-deep)]" : "text-[var(--text-strong)]"}`}>
                                     {cr.title}
                                   </p>
                                   {cr.description && (
@@ -1833,7 +1833,7 @@ function RoadtripPageContent() {
                                     onClick={() => toggleCreatorRouteForCity(plan.citySlug, cr)}
                                     className={`rounded-lg px-2.5 py-1.5 text-[11px] font-semibold transition ${
                                       isSelected
-                                        ? "bg-[#b76a43] text-white"
+                                        ? "bg-[var(--brand-warm-deep)] text-white"
                                         : "border border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-surface)]"
                                     }`}
                                   >
@@ -1904,7 +1904,7 @@ function RoadtripPageContent() {
                         const url = typeof window !== "undefined" ? `${window.location.origin}/roadtrip/routes/${savedRouteSlug}` : "";
                         await navigator.clipboard.writeText(url);
                       }}
-                      className="shrink-0 rounded-lg border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+                      className="pd24-btn pd24-btn-secondary pd24-btn-sm shrink-0"
                     >
                       Kopieren
                     </button>
@@ -1912,14 +1912,14 @@ function RoadtripPageContent() {
                   <div className="flex gap-2">
                     <a
                       href={`/roadtrip/routes/${savedRouteSlug}`}
-                      className="flex-1 rounded-2xl bg-[var(--text-strong)] px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+                      className="pd24-btn pd24-btn-primary flex-1"
                     >
                       Route ansehen →
                     </a>
                     <button
                       type="button"
                       onClick={() => setShowSaveModal(false)}
-                      className="rounded-2xl border border-[var(--line-subtle)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+                      className="pd24-btn pd24-btn-secondary"
                     >
                       Schließen
                     </button>
@@ -1930,7 +1930,7 @@ function RoadtripPageContent() {
                 <>
                   {/* Title */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] mb-1.5">
+                    <label className="block pd24-meta mb-1.5">
                       Route-Name
                     </label>
                     <input
@@ -1943,7 +1943,7 @@ function RoadtripPageContent() {
 
                   {/* Description */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] mb-1.5">
+                    <label className="block pd24-meta mb-1.5">
                       Beschreibung <span className="font-normal text-[var(--text-muted)]">(optional)</span>
                     </label>
                     <textarea
@@ -1957,7 +1957,7 @@ function RoadtripPageContent() {
 
                   {/* Tags */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] mb-1.5">
+                    <label className="block pd24-meta mb-1.5">
                       Tags
                     </label>
                     <div className="flex flex-wrap gap-1.5">
@@ -1975,7 +1975,7 @@ function RoadtripPageContent() {
                             className={`rounded-full border px-2.5 py-1 text-xs font-medium transition ${
                               active
                                 ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
-                                : "border-[rgba(23,23,23,0.1)] bg-[var(--bg-surface)] text-[var(--text-muted)] hover:border-[rgba(23,23,23,0.25)]"
+                                : "border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)] hover:border-[rgba(23,23,23,0.25)]"
                             }`}
                           >
                             {tag.emoji} {tag.label}
@@ -1987,7 +1987,7 @@ function RoadtripPageContent() {
 
                   {/* Visibility */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] mb-1.5">
+                    <label className="block pd24-meta mb-1.5">
                       Sichtbarkeit
                     </label>
                     <div className="grid grid-cols-3 gap-1.5">
@@ -2005,7 +2005,7 @@ function RoadtripPageContent() {
                           className={`flex flex-col items-start gap-0.5 rounded-xl border px-3 py-2.5 text-left transition ${
                             saveVisibility === opt.value
                               ? "border-[var(--text-strong)] bg-[rgba(23,23,23,0.04)]"
-                              : "border-[rgba(23,23,23,0.1)] bg-[var(--bg-surface)] hover:border-[rgba(23,23,23,0.2)]"
+                              : "border-[var(--line-subtle)] bg-[var(--bg-surface)] hover:border-[rgba(23,23,23,0.2)]"
                           }`}
                         >
                           <span className="text-xs font-semibold text-[var(--text-strong)]">{opt.label}</span>
@@ -2020,7 +2020,7 @@ function RoadtripPageContent() {
                     type="button"
                     onClick={() => void saveRoute()}
                     disabled={saving || stops.length === 0}
-                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--text-strong)] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98] disabled:opacity-60"
+                    className="pd24-btn pd24-btn-primary w-full active:scale-[0.98]"
                   >
                     {saving ? (
                       <>
@@ -2049,7 +2049,7 @@ function RoadtripPageContent() {
         {toast ? (
           <div
             className={`rounded-xl px-4 py-2 text-sm text-white shadow-lg ${
-              toast.kind === "error" ? "bg-red-600" : "bg-[var(--text-strong)]"
+              toast.kind === "error" ? "bg-[var(--state-error)]" : "bg-[var(--text-strong)]"
             }`}
           >
             {toast.message}
@@ -2092,7 +2092,7 @@ function P2PQuickStart({
   return (
     <div className="mt-3 grid gap-2 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3 sm:grid-cols-[1fr_1fr_120px_auto]">
       <label className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+        <div className="pd24-meta">
           Von
         </div>
         <select
@@ -2109,7 +2109,7 @@ function P2PQuickStart({
         </select>
       </label>
       <label className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+        <div className="pd24-meta">
           Nach
         </div>
         <select
@@ -2128,7 +2128,7 @@ function P2PQuickStart({
         </select>
       </label>
       <label className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+        <div className="pd24-meta">
           Tage
         </div>
         <input
@@ -2144,7 +2144,7 @@ function P2PQuickStart({
         type="button"
         onClick={handleStart}
         disabled={!canStart}
-        className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-95 active:scale-[0.98] disabled:opacity-40"
+        className="pd24-btn pd24-btn-primary active:scale-[0.98]"
       >
         Roadtrip bauen
         <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">

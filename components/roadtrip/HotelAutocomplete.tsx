@@ -145,7 +145,7 @@ export default function HotelAutocomplete({
         className={`flex items-center gap-2 rounded-lg border px-2.5 py-1.5 transition ${
           isSelected
             ? "border-[rgba(183,106,67,0.3)] bg-[rgba(183,106,67,0.06)]"
-            : "border-[rgba(17,24,39,0.08)] bg-white focus-within:border-[rgba(23,23,23,0.22)] focus-within:bg-white"
+            : "border-[var(--line-subtle)] bg-white focus-within:border-[rgba(23,23,23,0.22)] focus-within:bg-white"
         }`}
       >
         {/* Haus-Icon */}
@@ -154,7 +154,7 @@ export default function HotelAutocomplete({
           fill="none"
           stroke="currentColor"
           strokeWidth={1.75}
-          className={`h-3.5 w-3.5 shrink-0 ${isSelected ? "text-[#b76a43]" : "text-[var(--text-muted)]"}`}
+          className={`h-3.5 w-3.5 shrink-0 ${isSelected ? "text-[var(--brand-warm-deep)]" : "text-[var(--text-muted)]"}`}
         >
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
           <polyline points="9 22 9 12 15 12 15 22" />
@@ -189,7 +189,7 @@ export default function HotelAutocomplete({
           <button
             type="button"
             onClick={clear}
-            className="shrink-0 text-[var(--text-muted)] transition hover:text-red-500"
+            className="shrink-0 text-[var(--text-muted)] transition hover:text-[var(--state-error)]"
             title="Unterkunft entfernen"
           >
             <svg
@@ -208,7 +208,7 @@ export default function HotelAutocomplete({
 
       {/* ── Feedback-Zeile ────────────────────────────────────────────────── */}
       {isSelected && (
-        <p className="mt-1 flex items-center gap-1 text-[11px] font-medium text-[#b76a43]">
+        <p className="mt-1 flex items-center gap-1 text-[11px] font-medium text-[var(--brand-warm-deep)]">
           <svg
             viewBox="0 0 24 24"
             fill="none"

@@ -101,11 +101,11 @@ export default function EntityMediaGallery({
           className ?? "",
         ].join(" ")}
       >
-        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+        <div className="pd24-meta">
           {title}
         </div>
         {subtitle ? <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{subtitle}</p> : null}
-        <div className="mt-4 rounded-[22px] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-5 py-8 text-center">
+        <div className="mt-4 rounded-[var(--radius-card-sm)] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-5 py-8 text-center">
           <div className="text-sm font-semibold text-[var(--text-strong)]">{emptyTitle}</div>
           <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{emptyBody}</p>
         </div>
@@ -126,7 +126,7 @@ export default function EntityMediaGallery({
       >
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               {title}
             </div>
             {subtitle ? <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{subtitle}</p> : null}
@@ -138,7 +138,7 @@ export default function EntityMediaGallery({
           <button
             type="button"
             onClick={() => openLightbox(0)}
-            className="group relative overflow-hidden rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-left transition hover:border-[rgba(23,23,23,0.16)]"
+            className="group relative overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-left transition hover:border-[var(--line-strong)]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -171,7 +171,7 @@ export default function EntityMediaGallery({
                 key={item.id}
                 type="button"
                 onClick={() => openLightbox(index + 1)}
-                className="group overflow-hidden rounded-[22px] border border-[var(--line-subtle)] bg-white text-left transition hover:border-[rgba(23,23,23,0.16)]"
+                className="group overflow-hidden rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white text-left transition hover:border-[var(--line-strong)]"
               >
                 <div className="relative h-32 overflow-hidden bg-[var(--bg-surface)]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -200,7 +200,7 @@ export default function EntityMediaGallery({
               <button
                 type="button"
                 onClick={() => openLightbox(4)}
-                className="flex min-h-[158px] items-center justify-center rounded-[22px] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 text-center transition hover:border-[rgba(23,23,23,0.16)]"
+                className="flex min-h-[158px] items-center justify-center rounded-[var(--radius-card-sm)] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 text-center transition hover:border-[var(--line-strong)]"
               >
                 <div>
                   <div className="text-lg font-semibold text-[var(--text-strong)]">+{items.length - 4}</div>
@@ -211,7 +211,7 @@ export default function EntityMediaGallery({
           </div>
         </div>
 
-        <div className="mt-4 rounded-[20px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-xs leading-6 text-[var(--text-muted)]">
+        <div className="mt-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-xs leading-6 text-[var(--text-muted)]">
           {rightsHint}
         </div>
       </section>
@@ -268,7 +268,7 @@ export default function EntityMediaGallery({
               <img
                 src={activeItem.url}
                 alt={activeItem.alt || activeItem.caption || title}
-                className="max-h-[72vh] w-full rounded-[22px] object-contain bg-[#0b1222]"
+                className="max-h-[72vh] w-full rounded-[var(--radius-card-sm)] object-contain bg-[#0b1222]"
               />
             </div>
 
@@ -307,7 +307,7 @@ export default function EntityMediaGallery({
                         type="button"
                         onClick={() => openLightbox(index)}
                         className={[
-                          "group relative h-20 w-24 shrink-0 overflow-hidden rounded-[18px] border transition",
+                          "group relative h-20 w-24 shrink-0 overflow-hidden rounded-[var(--radius-control)] border transition",
                           isActive
                             ? "border-white/60 ring-2 ring-white/26"
                             : "border-white/12 opacity-80 hover:border-white/28 hover:opacity-100",

@@ -224,14 +224,14 @@ function DeleteConfirmRow({
   deleting: boolean;
 }) {
   return (
-    <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-red-200 bg-red-50/60 px-4 py-3">
-      <p className="text-xs font-medium text-red-700">{label}</p>
+    <div className="pd24-status-error mt-3 flex items-center justify-between gap-3 rounded-2xl px-4 py-3">
+      <p className="text-xs font-medium">{label}</p>
       <div className="flex shrink-0 gap-2">
         <button
           type="button"
           onClick={onCancel}
           disabled={deleting}
-          className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:border-[var(--line-strong)] disabled:opacity-50"
+          className="pd24-btn pd24-btn-sm pd24-btn-secondary"
         >
           Abbrechen
         </button>
@@ -239,7 +239,7 @@ function DeleteConfirmRow({
           type="button"
           onClick={onConfirm}
           disabled={deleting}
-          className="rounded-xl bg-red-500 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-red-600 disabled:opacity-50"
+          className="pd24-btn pd24-btn-sm bg-[var(--state-error)] text-white"
         >
           {deleting ? "…" : "Ja, löschen"}
         </button>
@@ -289,8 +289,7 @@ function EmptyState({
   secondaryHref?: string;
   secondaryLabel?: string;
 }) {
-  const primaryClass =
-    "inline-flex min-h-11 items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-95";
+  const primaryClass = "pd24-btn pd24-btn-primary";
 
   return (
     <div className="rounded-[28px] border border-dashed border-[var(--line-subtle)] bg-white px-6 py-8 text-center">
@@ -310,7 +309,7 @@ function EmptyState({
           {secondaryHref && secondaryLabel ? (
             <Link
               href={secondaryHref}
-              className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-[var(--line-subtle)] px-5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+              className="pd24-btn pd24-btn-secondary"
             >
               {secondaryLabel}
             </Link>
@@ -323,7 +322,7 @@ function EmptyState({
 
 function SkeletonCard() {
   return (
-    <div className="animate-pulse rounded-[24px] border border-[var(--line-subtle)] bg-white p-5">
+    <div className="animate-pulse rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5">
       <div className="h-3 w-24 rounded bg-[var(--bg-panel)]" />
       <div className="mt-4 h-5 w-2/3 rounded bg-[var(--bg-panel)]" />
       <div className="mt-3 h-3 w-1/2 rounded bg-[var(--bg-panel)]" />
@@ -339,10 +338,10 @@ function QuickCard({ item }: { item: QuickItem }) {
   return (
     <Link
       href={item.href}
-      className="flex min-h-[136px] min-w-[220px] flex-col justify-between rounded-[24px] border border-[var(--line-subtle)] bg-white p-4 shadow-sm transition hover:border-[var(--line-strong)] hover:shadow-md"
+      className="flex min-h-[136px] min-w-[220px] flex-col justify-between rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4 shadow-sm transition hover:border-[var(--line-strong)] hover:shadow-md"
     >
       <div>
-        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+        <div className="pd24-meta">
           {item.kind === "plan" ? "Zuletzt genutzter Plan" : "Zuletzt genutzte Route"}
         </div>
         <div className="mt-3 line-clamp-2 text-base font-semibold text-[var(--text-strong)]">
@@ -370,12 +369,12 @@ function PlanCard({ plan, onDelete }: { plan: SavedPlanRow; onDelete: (id: strin
 
   return (
     <div className={cx(
-      "rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md",
-      confirming ? "border-red-200" : "border-[var(--line-subtle)]"
+      "rounded-[var(--radius-card)] border bg-white p-5 shadow-sm transition hover:shadow-md",
+      confirming ? "border-[var(--state-error)]/30" : "border-[var(--line-subtle)]"
     )}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+          <div className="pd24-meta">
             {context.cityLabel}
           </div>
           <h3 className="mt-2 line-clamp-2 text-lg font-semibold text-[var(--text-strong)]">
@@ -393,7 +392,7 @@ function PlanCard({ plan, onDelete }: { plan: SavedPlanRow; onDelete: (id: strin
               type="button"
               aria-label="Plan löschen"
               onClick={() => setConfirming(true)}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-red-50 hover:text-red-500"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-[var(--state-error)]/10 hover:text-[var(--state-error)]"
             >
               <TrashIcon />
             </button>
@@ -457,12 +456,12 @@ function RouteCard({ route, onRemove }: { route: SavedRouteItem; onRemove: (id: 
 
   return (
     <div className={cx(
-      "rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md",
-      confirming ? "border-red-200" : "border-[var(--line-subtle)]"
+      "rounded-[var(--radius-card)] border bg-white p-5 shadow-sm transition hover:shadow-md",
+      confirming ? "border-[var(--state-error)]/30" : "border-[var(--line-subtle)]"
     )}>
       <div className="flex gap-4">
         {route.cover_image_url ? (
-          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[18px]">
+          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[var(--radius-control)]">
             <Image
               src={route.cover_image_url}
               alt=""
@@ -473,7 +472,7 @@ function RouteCard({ route, onRemove }: { route: SavedRouteItem; onRemove: (id: 
             />
           </div>
         ) : (
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[18px] bg-[var(--bg-surface)] text-[var(--text-muted)]">
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[var(--radius-control)] bg-[var(--bg-surface)] text-[var(--text-muted)]">
             <svg className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
               <path
                 fillRule="evenodd"
@@ -486,7 +485,7 @@ function RouteCard({ route, onRemove }: { route: SavedRouteItem; onRemove: (id: 
 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               {routeCityLabel(route.city_slug)}
             </div>
             {!confirming && (
@@ -494,7 +493,7 @@ function RouteCard({ route, onRemove }: { route: SavedRouteItem; onRemove: (id: 
                 type="button"
                 aria-label="Lesezeichen entfernen"
                 onClick={() => setConfirming(true)}
-                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-red-50 hover:text-red-500"
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-[var(--state-error)]/10 hover:text-[var(--state-error)]"
               >
                 <TrashIcon />
               </button>
@@ -567,12 +566,12 @@ function DraftCard({ plan, onDelete }: { plan: SavedPlanRow; onDelete: (id: stri
 
   return (
     <div className={cx(
-      "rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md",
-      confirming ? "border-red-200" : "border-[var(--line-subtle)]"
+      "rounded-[var(--radius-card)] border bg-white p-5 shadow-sm transition hover:shadow-md",
+      confirming ? "border-[var(--state-error)]/30" : "border-[var(--line-subtle)]"
     )}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+          <div className="pd24-meta">
             Entwurf · {context.cityLabel}
           </div>
           <h3 className="mt-2 line-clamp-2 text-lg font-semibold text-[var(--text-strong)]">
@@ -586,7 +585,7 @@ function DraftCard({ plan, onDelete }: { plan: SavedPlanRow; onDelete: (id: stri
               type="button"
               aria-label="Entwurf löschen"
               onClick={() => setConfirming(true)}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-red-50 hover:text-red-500"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-[var(--state-error)]/10 hover:text-[var(--state-error)]"
             >
               <TrashIcon />
             </button>
@@ -658,15 +657,15 @@ function RoadtripCard({ route, onDelete }: { route: RoadtripRoute; onDelete: (id
   return (
     <div
       className={cx(
-        "rounded-[24px] border bg-white p-5 shadow-sm transition hover:shadow-md",
-        confirming ? "border-red-200" : route.status === "active"
-          ? "border-emerald-300 ring-2 ring-emerald-200/50"
+        "rounded-[var(--radius-card)] border bg-white p-5 shadow-sm transition hover:shadow-md",
+        confirming ? "border-[var(--state-error)]/30" : route.status === "active"
+          ? "border-[var(--state-success)]/40 ring-2 ring-[var(--state-success)]/20"
           : "border-[var(--line-subtle)]"
       )}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+          <div className="flex items-center gap-1.5 pd24-meta">
             <span>🗺️ Roadtrip</span>
             <span>·</span>
             <span>{route.stops.length} Städte · {route.total_nights} Nächte</span>
@@ -690,7 +689,7 @@ function RoadtripCard({ route, onDelete }: { route: RoadtripRoute; onDelete: (id
               type="button"
               aria-label="Roadtrip löschen"
               onClick={() => setConfirming(true)}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-red-50 hover:text-red-500"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-soft)] transition hover:bg-[var(--state-error)]/10 hover:text-[var(--state-error)]"
             >
               <TrashIcon />
             </button>
@@ -765,10 +764,10 @@ function EventPlanCard({ plan }: { plan: EventPlanRow }) {
     : "Entwurf";
 
   return (
-    <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5 shadow-sm transition hover:shadow-md">
+    <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5 shadow-sm transition hover:shadow-md">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+          <div className="pd24-meta">
             {eventOccasionLabel(plan.occasion_slug)}
             {plan.city_slug ? ` · ${routeCityLabel(plan.city_slug)}` : ""}
           </div>
@@ -1075,13 +1074,13 @@ export default function SavedPage() {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href="/planner"
-              className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-95"
+              className="pd24-btn pd24-btn-primary"
             >
               Neuen Plan starten
             </Link>
             <Link
               href="/explore"
-              className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[var(--line-subtle)] px-5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+              className="pd24-btn pd24-btn-secondary"
             >
               Entdecken
             </Link>
@@ -1091,23 +1090,23 @@ export default function SavedPage() {
 
       {/* ── Aktiver Roadtrip Banner ──────────────────────────────────────── */}
       {!isLoading && activeRoadtrip && (
-        <section className="flex items-center gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white text-sm">
+        <section className="pd24-status-success flex items-center gap-4 rounded-2xl px-5 py-4">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--state-success)] text-white text-sm">
             🗺️
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--state-success)]" />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em]">
                 Aktiver Roadtrip
               </span>
             </div>
-            <div className="mt-0.5 font-semibold text-emerald-900 truncate">{activeRoadtrip.title}</div>
-            <div className="text-xs text-emerald-600 truncate">{stopSequenceLabel(activeRoadtrip.stops)}</div>
+            <div className="mt-0.5 font-semibold text-[var(--text-strong)] truncate">{activeRoadtrip.title}</div>
+            <div className="text-xs text-[var(--text-muted)] truncate">{stopSequenceLabel(activeRoadtrip.stops)}</div>
           </div>
           <Link
             href={`/roadtrip/routes/${activeRoadtrip.slug}`}
-            className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
+            className="pd24-btn pd24-btn-sm shrink-0 bg-[var(--state-success)] text-white"
           >
             Fortsetzen →
           </Link>
@@ -1327,7 +1326,7 @@ export default function SavedPage() {
       {toast ? (
         <div
           className={`fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-xl px-4 py-2 text-sm shadow-lg ${
-            toast.kind === "error" ? "bg-red-600 text-white" : "bg-[var(--text-strong)] text-white"
+            toast.kind === "error" ? "bg-[var(--state-error)] text-white" : "bg-[var(--text-strong)] text-white"
           }`}
         >
           {toast.message}

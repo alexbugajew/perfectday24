@@ -81,7 +81,7 @@ export default function MainNav() {
 
         {/* Hauptnavigation — Desktop */}
         <div
-          className={`pd24-scrollbar-none hidden min-w-0 w-full max-w-full gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-[var(--line-subtle)] bg-[rgba(255,255,255,0.92)] px-1.5 py-1.5 sm:mx-0 sm:flex sm:w-auto sm:flex-wrap sm:gap-2 sm:rounded-[24px] sm:px-2 sm:py-2 ${
+          className={`pd24-scrollbar-none hidden min-w-0 w-full max-w-full gap-1 overflow-x-auto overscroll-x-contain rounded-full border border-[var(--line-subtle)] bg-[rgba(255,255,255,0.92)] px-1.5 py-1.5 sm:mx-0 sm:flex sm:w-auto sm:flex-wrap sm:gap-2 sm:rounded-[var(--radius-card)] sm:px-2 sm:py-2 ${
             isRunExperience ? "shadow-sm" : "shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
           }`}
         >

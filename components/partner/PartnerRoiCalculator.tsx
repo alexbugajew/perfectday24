@@ -82,8 +82,8 @@ export default function PartnerRoiCalculator() {
         </div>
 
         {/* Ergebnis */}
-        <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">
+        <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
+          <div className="pd24-meta">
             Deine Rechnung
           </div>
           <div className="mt-1 flex items-baseline gap-2">
@@ -115,7 +115,7 @@ export default function PartnerRoiCalculator() {
         </div>
       </div>
 
-      <div className="mt-5 rounded-[20px] border border-[var(--line-subtle)] bg-white/72 px-4 py-3 text-xs leading-5 text-[var(--text-muted-warm)]">
+      <div className="mt-5 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/72 px-4 py-3 text-xs leading-5 text-[var(--text-muted-warm)]">
         Konservative Kalkulation. Reale Erfahrungswerte: Partner mit vollstaendigem Profil
         + gepflegten Bildern haben typischerweise 2-3× mehr Anfragen als die
         Ausgangsannahme dieses Rechners.

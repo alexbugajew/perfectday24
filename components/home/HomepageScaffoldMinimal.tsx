@@ -231,7 +231,7 @@ export default function HomepageScaffoldMinimal() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
               <div className="text-sm font-semibold tracking-tight text-[var(--text-strong)]">PerfectDay24</div>
-              <div className="text-xs uppercase tracking-[0.18em] text-[var(--text-muted-warm)]">
+              <div className="pd24-meta">
                 Refined City Planning
               </div>
             </div>
@@ -553,7 +553,7 @@ export default function HomepageScaffoldMinimal() {
                   ))}
                 </div>
                 <div className="mt-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,var(--brand-warm-cloud),var(--bg-canvas-warm))] px-4 py-4">
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">
+                  <div className="pd24-meta">
                     Statuslogik
                   </div>
                   <div className="mt-2 text-sm leading-6 text-[var(--text-muted-warm)]">
@@ -665,7 +665,7 @@ export default function HomepageScaffoldMinimal() {
             </div>
           </section>
 
-          <section className="rounded-[var(--radius-shell)] bg-[var(--text-strong)] px-6 py-10 text-[#fffdf8] shadow-[var(--shadow-large)] sm:px-8">
+          <section className="rounded-[var(--radius-shell)] bg-[var(--text-strong)] px-6 py-10 text-[var(--bg-surface-warm)] shadow-[var(--shadow-large)] sm:px-8">
             <div className="max-w-3xl">
               <div className="pd24-kicker-warm text-[rgba(255,253,248,0.64)]">Abschluss</div>
               <h2 className="mt-3 pd24-display text-[2.75rem] leading-[0.98] tracking-tight sm:text-6xl">

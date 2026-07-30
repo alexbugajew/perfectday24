@@ -82,16 +82,16 @@ export default function HomepageReturnPrompt() {
   if (!returnState || !summary) return null;
 
   return (
-    <div className="mt-4 flex flex-col gap-3 rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-white/78 p-3 shadow-[0_14px_34px_rgba(49,39,27,0.08)] sm:flex-row sm:items-center sm:justify-between">
+    <div className="mt-4 flex flex-col gap-3 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white/78 p-3 shadow-[0_14px_34px_rgba(49,39,27,0.08)] sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8b7767]">
+        <div className="pd24-meta">
           Weitermachen
         </div>
-        <div className="mt-1 text-sm font-medium text-[#171717]">{summary}</div>
+        <div className="mt-1 text-sm font-medium text-[var(--text-strong)]">{summary}</div>
       </div>
       <Link
         href="/planner"
-        className="inline-flex min-h-10 items-center justify-center rounded-full bg-[#171717] px-4 text-sm font-semibold text-white transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgba(23,23,23,0.18)]"
+        className="inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-semibold text-white transition hover:opacity-95"
       >
         Planner fortsetzen
       </Link>

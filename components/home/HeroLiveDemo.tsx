@@ -207,7 +207,7 @@ export default function HeroLiveDemo() {
           Was möchtest du planen?
         </div>
         <div className="flex items-stretch gap-2">
-          <div className="flex flex-1 items-center rounded-xl border border-[rgba(23,23,23,0.14)] bg-white px-3.5 py-2.5 text-sm text-[var(--text-strong)] shadow-inner">
+          <div className="flex flex-1 items-center rounded-xl border border-[var(--line-strong)] bg-white px-3.5 py-2.5 text-sm text-[var(--text-strong)] shadow-inner">
             <span className="min-h-5">{displayedText}</span>
             {showCursor ? (
               <span

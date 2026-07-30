@@ -1981,14 +1981,14 @@ function RouteDetailPageContent() {
           </Link>
         </div>
         <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Nicht gefunden</div>
+          <div className="pd24-meta">Nicht gefunden</div>
           <h1 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Route nicht gefunden</h1>
           <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
             Die Route existiert nicht oder ist aktuell nicht öffentlich verfügbar.
           </p>
           <Link
             href="/explore"
-            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+            className="pd24-btn pd24-btn-primary mt-4"
           >
             Routen entdecken
           </Link>
@@ -2117,8 +2117,8 @@ function RouteDetailPageContent() {
 
         <div className="grid gap-4 px-4 pt-4 lg:grid-cols-[minmax(0,1fr)_280px] md:px-8 md:pt-6">
           <div className="space-y-4">
-            <div className="rounded-[22px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4">
+              <div className="pd24-meta">
                 Direkt startklar
               </div>
               <div className="mt-2 text-base font-semibold text-[var(--text-strong)]">
@@ -2310,7 +2310,7 @@ function RouteDetailPageContent() {
             <button
               onClick={handoffRouteToPlanner}
               title={plannerTemplateQueued ? "Vorlage wird geladen" : "Als Vorlage in Planner übernehmen"}
-              className="flex min-h-10 items-center justify-center gap-1.5 rounded-2xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-xs font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-surface)]"
+              className="pd24-btn pd24-btn-sm pd24-btn-secondary"
             >
               <CopyRouteIcon />
               <span className="hidden sm:inline">Als Vorlage</span>
@@ -2328,7 +2328,7 @@ function RouteDetailPageContent() {
               aria-expanded={routeInfoOpen}
               aria-controls="route-personalization"
               onClick={() => setRouteInfoOpen((open) => !open)}
-              className="flex min-h-10 items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-xs font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-surface)]"
+              className="pd24-btn pd24-btn-sm pd24-btn-secondary"
             >
               Details
             </button>
@@ -2410,7 +2410,7 @@ function RouteDetailPageContent() {
       </section>
 
       {plannerTemplateQueued ? (
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+        <div className="pd24-status-success rounded-2xl px-4 py-3 text-sm">
           Diese Vorlage wird gerade in den Planner übernommen.
         </div>
       ) : null}
@@ -2872,7 +2872,7 @@ function RouteDetailPageContent() {
         </div>
         <textarea value={myReview} onChange={(e) => setMyReview(e.target.value)} placeholder="Optionales Review" className="min-h-[88px] w-full rounded-xl border p-3 text-sm" />
         <div className="mt-3">
-          <button onClick={() => saveRating()} disabled={savingRating || !userId} className="rounded-xl border px-4 py-2.5 text-sm">
+          <button onClick={() => saveRating()} disabled={savingRating || !userId} className="pd24-btn pd24-btn-secondary">
             {savingRating ? "Speichere..." : "Bewertung speichern"}
           </button>
         </div>

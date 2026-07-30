@@ -69,7 +69,7 @@ export default function PlannerEventCandidatesStrip({
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+          <div className="pd24-meta">
             Lokale Event-Kandidaten
           </div>
           <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">

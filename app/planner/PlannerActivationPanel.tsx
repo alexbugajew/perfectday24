@@ -90,7 +90,7 @@ function buildActivationState({
       badge: "Eingriff nötig",
       title: "Der letzte Lauf braucht eine Korrektur.",
       body: "Prüfe Startpunkt, Fokus oder Radius. Danach kann der Planner den Vorschlag neu berechnen.",
-      toneClass: "border-red-200 bg-red-50 text-red-700",
+      toneClass: "border-[var(--state-error)]/30 bg-[rgba(161,75,69,0.08)] text-[var(--state-error)]",
     };
   }
 
@@ -183,7 +183,7 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
             key={chip.label}
             className="flex min-w-0 items-center justify-between gap-3 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-white px-3 py-2"
           >
-            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+            <span className="pd24-meta shrink-0">
               {chip.label}
             </span>
             <span className="min-w-0 truncate text-sm font-semibold text-[var(--text-strong)]">
@@ -231,7 +231,7 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
         {plannedStopsCount > 0 ? (
         <a
           href="#planner-results"
-          className="mt-4 flex w-full items-center justify-center rounded-2xl bg-[#171717] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98]"
+          className="pd24-btn pd24-btn-primary mt-4 w-full active:scale-[0.98]"
         >
           Plan ansehen →
         </a>
@@ -240,7 +240,7 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
           type="button"
           onClick={onRerollPlan}
           disabled={plannerLoading}
-          className="mt-4 flex w-full items-center justify-center rounded-2xl border border-[var(--line-subtle)] bg-white px-5 py-3 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] disabled:opacity-60"
+          className="pd24-btn pd24-btn-secondary mt-4 w-full"
         >
           Neu generieren
         </button>

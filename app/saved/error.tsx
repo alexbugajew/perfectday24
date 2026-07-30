@@ -31,13 +31,13 @@ export default function SavedError({
           <button
             type="button"
             onClick={reset}
-            className="inline-flex min-h-10 items-center justify-center rounded-2xl bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-90"
+            className="pd24-btn pd24-btn-primary"
           >
             Erneut versuchen
           </button>
           <Link
             href="/planner"
-            className="inline-flex min-h-10 items-center justify-center rounded-2xl border border-[var(--line-subtle)] px-5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+            className="pd24-btn pd24-btn-secondary"
           >
             Planner öffnen
           </Link>

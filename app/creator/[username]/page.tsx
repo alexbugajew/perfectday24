@@ -28,6 +28,7 @@ import {
   scoreRouteAgainstInterests,
 } from "@/lib/routes/recommendation-reasons";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
+import { safeExternalUrl } from "@/lib/security/safe-url";
 
 type CreatorType = "user" | "creator" | "influencer" | "brand" | "editorial";
 type RouteVisibility = "private" | "unlisted" | "public";
@@ -335,7 +336,7 @@ function RouteCard({
           </div>
         </div>
 
-        <div className="rounded-[24px] border border-black/5 bg-gradient-to-br from-stone-50 to-white p-4">
+        <div className="rounded-[var(--radius-card)] border border-black/5 bg-gradient-to-br from-stone-50 to-white p-4">
           <div className="flex items-center justify-between gap-3">
             <div>
               <div className="text-[11px] uppercase tracking-wide text-gray-400">Kompaktansicht</div>
@@ -380,7 +381,7 @@ function RouteCard({
               Route öffnen
             </Link>
           ) : (
-            <div className="text-xs text-red-600">Route aktuell nicht aufrufbar.</div>
+            <div className="text-xs text-[var(--state-error)]">Route aktuell nicht aufrufbar.</div>
           )}
         </div>
       </div>
@@ -699,12 +700,20 @@ function CreatorPageContent() {
   );
   const creatorMonetizationCitySlug = creator?.home_city_slug ?? routes[0]?.city_slug ?? null;
 
+  // Profil-URLs sind nutzergepflegt und werden als href gerendert — ohne
+  // Protokollprüfung wäre `javascript:` hier Stored XSS. safeExternalUrl gibt
+  // nur http(s) zurück, alles andere fällt aus der Liste.
   const socialLinks = [
-    creator?.website_url ? { href: creator.website_url, label: "Website" } : null,
-    creator?.instagram_url ? { href: creator.instagram_url, label: "Instagram" } : null,
-    creator?.tiktok_url ? { href: creator.tiktok_url, label: "TikTok" } : null,
-    creator?.youtube_url ? { href: creator.youtube_url, label: "YouTube" } : null,
-  ].filter(Boolean) as Array<{ href: string; label: string }>;
+    { raw: creator?.website_url, label: "Website" },
+    { raw: creator?.instagram_url, label: "Instagram" },
+    { raw: creator?.tiktok_url, label: "TikTok" },
+    { raw: creator?.youtube_url, label: "YouTube" },
+  ]
+    .map(({ raw, label }) => {
+      const href = safeExternalUrl(raw);
+      return href ? { href, label } : null;
+    })
+    .filter(Boolean) as Array<{ href: string; label: string }>;
 
   if (loading) {
     return (
@@ -728,14 +737,14 @@ function CreatorPageContent() {
           </Link>
         </div>
         <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Nicht gefunden</div>
+          <div className="pd24-meta">Nicht gefunden</div>
           <h1 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Creator nicht gefunden</h1>
           <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
             Dieses Profil existiert nicht oder ist aktuell nicht öffentlich verfügbar.
           </p>
           <Link
             href="/explore"
-            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+            className="pd24-btn pd24-btn-primary mt-4"
           >
             Routen entdecken
           </Link>
@@ -783,7 +792,7 @@ function CreatorPageContent() {
         </Link>
       </div>
 
-      <section className="overflow-hidden rounded-[36px] border border-black/10 bg-white shadow-sm">
+      <section className="overflow-hidden rounded-[var(--radius-hero)] border border-black/10 bg-white shadow-sm">
         <div className="relative min-h-[280px] overflow-hidden bg-gradient-to-br from-stone-100 via-white to-neutral-200">
           {creator.cover_image_url ? (
             // eslint-disable-next-line @next/next/no-img-element

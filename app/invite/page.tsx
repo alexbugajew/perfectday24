@@ -128,7 +128,7 @@ export default function InvitePage() {
           </div>
           <Link
             href="/planner"
-            className="inline-flex h-11 items-center rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-white"
+            className="pd24-btn pd24-btn-secondary"
           >
             Zurück zum Planner
           </Link>
@@ -192,21 +192,21 @@ export default function InvitePage() {
                 <div className="mt-4 flex gap-2">
                   <button
                     onClick={() => void addToPlanner(profile)}
-                    className="inline-flex h-10 items-center rounded-2xl bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:bg-[#1f2937]"
+                    className="pd24-btn pd24-btn-sm pd24-btn-primary"
                   >
                     In Planner uebernehmen
                   </button>
                   {profile.username ? (
                     <Link
                       href={`/u/${profile.username}`}
-                      className="inline-flex h-10 items-center rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-white"
+                      className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                     >
                       Profil ansehen
                     </Link>
                   ) : null}
                   <Link
                     href="/planner"
-                    className="inline-flex h-10 items-center rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-white"
+                    className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                   >
                     Planner oeffnen
                   </Link>

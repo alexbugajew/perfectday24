@@ -69,8 +69,8 @@ function statusLabel(status: RoadtripRunStopState) {
 }
 
 function statusTone(status: RoadtripRunStopState) {
-  if (status === "done") return "border-emerald-200 bg-emerald-50 text-emerald-900";
-  if (status === "skipped") return "border-rose-200 bg-rose-50 text-rose-900";
+  if (status === "done") return "pd24-status-success";
+  if (status === "skipped") return "pd24-status-error";
   return "border-[var(--line-subtle)] bg-white text-[var(--text-muted)]";
 }
 
@@ -375,7 +375,7 @@ export default function RoadtripRouteRunPage() {
         <button
           type="button"
           onClick={resetRoadtripRun}
-          className="w-full rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2.5 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-panel)] sm:w-auto"
+          className="pd24-btn pd24-btn-secondary pd24-btn-sm w-full sm:w-auto"
         >
           Fortschritt zurücksetzen
         </button>
@@ -397,7 +397,7 @@ export default function RoadtripRouteRunPage() {
             {pendingCount} offen
           </span>
           {todayStop ? (
-            <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-800">
+            <span className="rounded-full pd24-status-warning px-2.5 py-1 text-[11px] font-medium">
               Heute: {todayStop.cityLabel}
             </span>
           ) : null}
@@ -405,22 +405,22 @@ export default function RoadtripRouteRunPage() {
       </section>
 
       {pendingCount > 0 ? (
-        <section className="rounded-2xl border border-amber-200 bg-amber-50/70 p-4 shadow-sm sm:rounded-3xl sm:p-5">
+        <section className="rounded-2xl pd24-status-warning p-4 shadow-sm sm:rounded-3xl sm:p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-700">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.16em]">
                 Naechster offener Stop
               </div>
-              <div className="mt-1 text-base font-semibold text-amber-950">
+              <div className="mt-1 text-base font-semibold">
                 {nextPendingStop ? nextPendingStop.cityLabel : "Offene Etappe fortsetzen"}
               </div>
-              <div className="mt-1 text-sm text-amber-800">
+              <div className="mt-1 text-sm">
                 {nextPendingStop
                   ? `Stop ${nextPendingStop.order} · ${formatDateDE(nextPendingStop.arrivalDate)} bis ${formatDateDE(nextPendingStop.departureDate)}`
                   : "Es wartet noch mindestens eine offene Etappe auf dich."}
               </div>
               {nextPendingStop && todayStop?.id === nextPendingStop.id ? (
-                <div className="mt-2 inline-flex rounded-full border border-amber-200 bg-white px-2.5 py-1 text-[11px] font-medium text-amber-800">
+                <div className="mt-2 inline-flex rounded-full border border-[rgba(154,107,47,0.3)] bg-white px-2.5 py-1 text-[11px] font-medium">
                   Heute dran
                 </div>
               ) : null}
@@ -434,17 +434,17 @@ export default function RoadtripRouteRunPage() {
                 Jetzt öffnen
               </button>
             ) : (
-              <span className="rounded-full border border-amber-200 bg-white px-3 py-1 text-xs font-medium text-amber-800">
+              <span className="rounded-full border border-[rgba(154,107,47,0.3)] bg-white px-3 py-1 text-xs font-medium">
                 Du bist bereits am richtigen Stop
               </span>
             )}
           </div>
         </section>
       ) : (
-        <section className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 shadow-sm sm:rounded-3xl sm:p-5">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-700">Roadtrip abgeschlossen</div>
-          <div className="mt-1 text-base font-semibold text-emerald-950">Alle Stopps sind erledigt oder bewusst uebersprungen.</div>
-          <div className="mt-1 text-sm text-emerald-800">Du kannst den Fortschritt zurücksetzen oder den Roadtrip als Vorlage erneut starten.</div>
+        <section className="rounded-2xl pd24-status-success p-4 shadow-sm sm:rounded-3xl sm:p-5">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.16em]">Roadtrip abgeschlossen</div>
+          <div className="mt-1 text-base font-semibold">Alle Stopps sind erledigt oder bewusst uebersprungen.</div>
+          <div className="mt-1 text-sm">Du kannst den Fortschritt zurücksetzen oder den Roadtrip als Vorlage erneut starten.</div>
         </section>
       )}
 
@@ -452,7 +452,7 @@ export default function RoadtripRouteRunPage() {
         <section ref={currentStopSectionRef} className="rounded-2xl border border-[var(--line-subtle)] bg-white p-4 shadow-sm sm:rounded-3xl sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Aktuelle Etappe
               </div>
               <h2 className="mt-1 break-words text-xl font-semibold text-[var(--text-strong)]">
@@ -467,7 +467,7 @@ export default function RoadtripRouteRunPage() {
                   {statusLabel(currentStopState)}
                 </span>
                 {isCurrentStopToday ? (
-                  <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-800">
+                  <span className="rounded-full pd24-status-warning px-2.5 py-1 text-[11px] font-medium">
                     Heute vor Ort
                   </span>
                 ) : null}
@@ -476,7 +476,7 @@ export default function RoadtripRouteRunPage() {
                 </span>
               </div>
               {currentStopState === "pending" && (
-                <div className="mt-2 text-xs font-medium text-amber-700">
+                <div className="mt-2 text-xs font-medium text-[var(--state-warning)]">
                   Diese Etappe ist jetzt aktiv. Navigation und Tagesplanung sind direkt darunter verfuegbar.
                 </div>
               )}
@@ -488,17 +488,17 @@ export default function RoadtripRouteRunPage() {
 
           <div className="mt-4 grid gap-2 sm:grid-cols-3">
             <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">Anreise</div>
+              <div className="pd24-meta">Anreise</div>
               <div className="mt-2 text-sm font-medium text-[var(--text-strong)]">Check-in ab 14:30</div>
               <div className="mt-1 text-xs text-[var(--text-muted)]">Vormittag fuer Checkout und Fahrt reserviert.</div>
             </div>
             <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">Tagesplanung</div>
+              <div className="pd24-meta">Tagesplanung</div>
               <div className="mt-2 text-sm font-medium text-[var(--text-strong)]">{runStepPlanPreview(currentStop)}</div>
               <div className="mt-1 text-xs text-[var(--text-muted)]">Passe die Etappe bei Bedarf direkt im passenden Modus an.</div>
             </div>
             <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">Abreise</div>
+              <div className="pd24-meta">Abreise</div>
               <div className="mt-2 text-sm font-medium text-[var(--text-strong)]">{formatDateDE(currentStop.departureDate)}</div>
               <div className="mt-1 text-xs text-[var(--text-muted)]">Naechster Ortswechsel und Hotel-Checkout bis 10:00.</div>
             </div>
@@ -506,7 +506,7 @@ export default function RoadtripRouteRunPage() {
 
           {currentStop.planSummary ? (
             <div className="mt-4 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">Tagesplan-Zusammenfassung</div>
+              <div className="pd24-meta">Tagesplan-Zusammenfassung</div>
               <p className="mt-2 text-sm leading-6 text-[var(--text-strong)]">{currentStop.planSummary}</p>
             </div>
           ) : null}
@@ -514,7 +514,7 @@ export default function RoadtripRouteRunPage() {
           {currentStop.plannedStops && currentStop.plannedStops.length > 0 ? (
             <div className="mt-4 rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
               <div className="flex items-center justify-between gap-2">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                <div className="pd24-meta">
                   Tagesstopps ({currentStop.plannedStops.filter((_, i) => checkedSubStops[`${currentStop.id}:${i}`]).length}/{currentStop.plannedStops.length})
                 </div>
                 <div className="h-1.5 w-24 overflow-hidden rounded-full bg-[var(--bg-panel)]">
@@ -535,17 +535,17 @@ export default function RoadtripRouteRunPage() {
                       onClick={() => toggleSubStop(key)}
                       className={`flex w-full items-start gap-3 rounded-xl border px-3 py-2.5 text-left transition ${
                         done
-                          ? "border-emerald-200 bg-emerald-50"
+                          ? "pd24-status-success"
                           : "border-[var(--line-subtle)] bg-[var(--bg-surface)] hover:bg-[var(--bg-panel)]"
                       }`}
                     >
                       <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[10px] ${
-                        done ? "border-emerald-400 bg-emerald-400 text-white" : "border-[var(--line-subtle)] bg-white"
+                        done ? "border-[var(--state-success)] bg-[var(--state-success)] text-white" : "border-[var(--line-subtle)] bg-white"
                       }`}>
                         {done ? "✓" : ""}
                       </span>
                       <div className="min-w-0">
-                        <div className={`text-sm font-medium leading-snug ${done ? "text-emerald-800 line-through" : "text-[var(--text-strong)]"}`}>
+                        <div className={`text-sm font-medium leading-snug ${done ? "line-through" : "text-[var(--text-strong)]"}`}>
                           {subStop.label}
                         </div>
                         {subStop.hint ? (
@@ -583,7 +583,7 @@ export default function RoadtripRouteRunPage() {
                 href={currentStopNavigationUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[var(--text-strong)] px-4 py-2.5 text-sm font-medium text-white"
+                className="pd24-btn pd24-btn-primary"
               >
                 Zum Standort navigieren
               </Link>
@@ -591,7 +591,7 @@ export default function RoadtripRouteRunPage() {
             {currentStopAction ? (
               <Link
                 href={currentStopAction.href}
-                className="inline-flex min-h-11 items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"
+                className="pd24-btn pd24-btn-secondary"
               >
                 {currentStopAction.label}
               </Link>
@@ -601,14 +601,14 @@ export default function RoadtripRouteRunPage() {
                 <button
                   type="button"
                   onClick={() => markStop(currentStop.id, "done")}
-                  className="min-h-11 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-sm font-medium text-emerald-950 hover:bg-emerald-100"
+                  className="min-h-11 rounded-xl pd24-status-success px-4 py-2.5 text-sm font-medium transition hover:opacity-90"
                 >
                   Erledigt
                 </button>
                 <button
                   type="button"
                   onClick={() => markStop(currentStop.id, "skipped")}
-                  className="min-h-11 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-medium text-rose-950 hover:bg-rose-100"
+                  className="min-h-11 rounded-xl pd24-status-error px-4 py-2.5 text-sm font-medium transition hover:opacity-90"
                 >
                   Skippen
                 </button>
@@ -617,7 +617,7 @@ export default function RoadtripRouteRunPage() {
               <button
                 type="button"
                 onClick={() => markStop(currentStop.id, "pending")}
-                className="inline-flex min-h-11 items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"
+                className="pd24-btn pd24-btn-secondary"
               >
                 Wieder öffnen
               </button>
@@ -639,13 +639,13 @@ export default function RoadtripRouteRunPage() {
           </div>
 
           <div className="grid grid-cols-3 gap-2 lg:auto-rows-fr lg:grid-cols-1 lg:gap-3">
-            <div className="min-h-20 rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3 sm:rounded-3xl">
-              <div className="text-[10px] uppercase tracking-wide text-emerald-800">Erledigt</div>
-              <div className="mt-2 text-2xl font-semibold text-emerald-950">{completedCount}</div>
+            <div className="min-h-20 rounded-2xl pd24-status-success px-3 py-3 sm:rounded-3xl">
+              <div className="text-[10px] uppercase tracking-wide">Erledigt</div>
+              <div className="mt-2 text-2xl font-semibold">{completedCount}</div>
             </div>
-            <div className="min-h-20 rounded-2xl border border-rose-200 bg-rose-50 px-3 py-3 sm:rounded-3xl">
-              <div className="text-[10px] uppercase tracking-wide text-rose-800">Skippen</div>
-              <div className="mt-2 text-2xl font-semibold text-rose-950">{skippedCount}</div>
+            <div className="min-h-20 rounded-2xl pd24-status-error px-3 py-3 sm:rounded-3xl">
+              <div className="text-[10px] uppercase tracking-wide">Skippen</div>
+              <div className="mt-2 text-2xl font-semibold">{skippedCount}</div>
             </div>
             <div className="min-h-20 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3 sm:rounded-3xl">
               <div className="text-[10px] uppercase tracking-wide text-[var(--text-muted)]">Offen</div>
@@ -673,12 +673,12 @@ export default function RoadtripRouteRunPage() {
               const cardTone =
                 state === "done"
                   ? active
-                    ? "border-emerald-300 bg-emerald-50 shadow-sm"
-                    : "border-emerald-200 bg-emerald-50/70"
+                    ? "pd24-status-success shadow-sm"
+                    : "pd24-status-success"
                     : state === "skipped"
                       ? active
-                        ? "border-rose-300 bg-rose-50 shadow-sm"
-                        : "border-rose-200 bg-rose-50/70"
+                        ? "pd24-status-error shadow-sm"
+                        : "pd24-status-error"
                       : active
                         ? "border-amber-300 bg-amber-50/40 shadow-sm ring-1 ring-amber-200/70"
                         : "border-[var(--line-subtle)] bg-white";
@@ -704,7 +704,7 @@ export default function RoadtripRouteRunPage() {
                     </div>
                     <div className="flex shrink-0 items-center gap-2">
                       {todayFlag ? (
-                        <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-800">
+                        <span className="rounded-full pd24-status-warning px-2.5 py-1 text-[11px] font-medium">
                           Heute
                         </span>
                       ) : null}
@@ -722,14 +722,14 @@ export default function RoadtripRouteRunPage() {
                           href={cityNavigationUrl(stop)!}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--line-subtle)] bg-white px-3.5 py-1.5 text-xs font-semibold text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"
+                          className="pd24-btn pd24-btn-secondary pd24-btn-sm"
                         >
                           Navigieren
                         </Link>
                       ) : null}
                       <Link
                         href={action.href}
-                        className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#1f2937]"
+                        className="pd24-btn pd24-btn-primary pd24-btn-sm"
                       >
                         {action.label}
                       </Link>
@@ -772,7 +772,7 @@ export default function RoadtripRouteRunPage() {
                   href={currentStopNavigationUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[var(--text-strong)] px-3 text-sm font-medium text-white"
+                  className="pd24-btn pd24-btn-primary"
                 >
                   Navigieren
                 </Link>
@@ -780,7 +780,7 @@ export default function RoadtripRouteRunPage() {
               {currentStopAction ? (
                 <Link
                   href={currentStopAction.href}
-                  className="inline-flex min-h-11 items-center justify-center rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm font-medium text-[var(--text-strong)]"
+                  className="pd24-btn pd24-btn-secondary"
                 >
                   {currentStopAction.label}
                 </Link>
@@ -792,14 +792,14 @@ export default function RoadtripRouteRunPage() {
                   <button
                     type="button"
                     onClick={() => markStop(currentStop.id, "done")}
-                    className="min-h-11 rounded-xl border border-emerald-200 bg-emerald-50 px-3 text-sm font-medium text-emerald-950"
+                    className="min-h-11 rounded-xl pd24-status-success px-3 text-sm font-medium"
                   >
                     Erledigt
                   </button>
                   <button
                     type="button"
                     onClick={() => markStop(currentStop.id, "skipped")}
-                    className="min-h-11 rounded-xl border border-rose-200 bg-rose-50 px-3 text-sm font-medium text-rose-950"
+                    className="min-h-11 rounded-xl pd24-status-error px-3 text-sm font-medium"
                   >
                     Skippen
                   </button>
@@ -808,7 +808,7 @@ export default function RoadtripRouteRunPage() {
                 <button
                   type="button"
                   onClick={() => markStop(currentStop.id, "pending")}
-                  className="min-h-11 rounded-xl border border-[var(--line-subtle)] bg-white px-3 text-sm font-medium text-[var(--text-strong)]"
+                  className="pd24-btn pd24-btn-secondary"
                 >
                   Wieder öffnen
                 </button>

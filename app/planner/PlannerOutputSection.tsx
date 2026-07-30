@@ -239,8 +239,8 @@ export default function PlannerOutputSection({
           ))}
         </div>
       ) : plannerError && plannerErrorKind === "fetch" ? (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-red-700">
+        <div className="pd24-status-error rounded-lg p-4">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em]">
             Planner braucht Eingriff
           </div>
           <h2 className="mt-2 text-xl font-semibold tracking-tight">
@@ -254,7 +254,7 @@ export default function PlannerOutputSection({
             <button
               type="button"
               onClick={onRetryGeneration}
-              className="mt-4 rounded-[var(--radius-control)] bg-[var(--text-strong)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98]"
+              className="pd24-btn pd24-btn-sm pd24-btn-primary mt-4 active:scale-[0.98]"
             >
               Erneut versuchen
             </button>
@@ -275,7 +275,7 @@ export default function PlannerOutputSection({
         </div>
       ) : resultsCount === 0 && plannedStops.length === 0 ? (
         <div className="rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">
+          <div className="pd24-meta">
             Noch kein Vorschlag
           </div>
           <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
@@ -424,16 +424,16 @@ export default function PlannerOutputSection({
                       </button>
 
                       <div className="flex flex-col items-end gap-2">
-                        <button onClick={() => onSharePlan(plan)} className="rounded bg-[var(--text-strong)] px-3 py-2 text-sm text-white">
+                        <button onClick={() => onSharePlan(plan)} className="pd24-btn pd24-btn-sm pd24-btn-primary">
                           Teilen
                         </button>
                         {plan.filters?.finalGroupPlan ? (
-                          <button onClick={() => void onSendFinalPlanToFriends(plan)} className="rounded border px-3 py-2 text-sm">
+                          <button onClick={() => void onSendFinalPlanToFriends(plan)} className="pd24-btn pd24-btn-sm pd24-btn-secondary">
                             An Freunde senden
                           </button>
                         ) : null}
                         {plan.filters?.finalGroupPlan ? (
-                          <button onClick={() => void onOpenPlanGroupChat(plan)} className="rounded border px-3 py-2 text-sm">
+                          <button onClick={() => void onOpenPlanGroupChat(plan)} className="pd24-btn pd24-btn-sm pd24-btn-secondary">
                             Gruppenchat
                           </button>
                         ) : null}
@@ -593,12 +593,12 @@ export default function PlannerOutputSection({
                               </div>
                             </div>
                             <div className="flex gap-2 flex-wrap">
-                              <button onClick={() => onContinueEditingSavedPlan(selectedPlan)} className="rounded border px-3 py-2 text-sm">
+                              <button onClick={() => onContinueEditingSavedPlan(selectedPlan)} className="pd24-btn pd24-btn-sm pd24-btn-secondary">
                                 Im Planner bearbeiten
                               </button>
                               <button
                                 onClick={() => void onResolveEditSuggestion(entry.id)}
-                                className="rounded bg-[var(--text-strong)] px-3 py-2 text-sm text-white"
+                                className="pd24-btn pd24-btn-sm pd24-btn-primary"
                               >
                                 Als aufgenommen markieren
                               </button>

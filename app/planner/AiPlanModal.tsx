@@ -218,7 +218,7 @@ export default function AiPlanModal({
         {/* Header */}
         <div className="flex items-start justify-between gap-3 border-b border-[var(--line-subtle)] px-5 pb-3 pt-4 sm:px-6">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-warm)]">
+            <div className="pd24-kicker-warm">
               Autopilot · AI
             </div>
             <h2
@@ -260,7 +260,7 @@ export default function AiPlanModal({
                 if (chips.length === 0) return null;
                 return (
                   <div className="mb-3 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2.5">
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                    <div className="pd24-meta">
                       Aus deinem Formular
                     </div>
                     <div className="mt-1.5 flex flex-wrap gap-1.5">
@@ -298,7 +298,7 @@ export default function AiPlanModal({
               </div>
 
               <div className="mt-3">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                <div className="pd24-meta">
                   Oder Beispiel wählen
                 </div>
                 <div className="mt-2 flex flex-wrap gap-2">
@@ -317,7 +317,7 @@ export default function AiPlanModal({
               </div>
 
               {error ? (
-                <div className="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700">
+                <div className="pd24-status-error mt-3 rounded-lg px-3 py-2 text-xs">
                   {error}
                 </div>
               ) : null}
@@ -325,7 +325,7 @@ export default function AiPlanModal({
           ) : (
             <div className="space-y-3">
               <div className="rounded-xl border border-[var(--line-subtle)] bg-[rgba(255,249,241,0.65)] px-4 py-3">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-warm)]">
+                <div className="pd24-kicker-warm">
                   Vorschlag
                 </div>
                 <p className="mt-1 text-sm leading-6 text-[var(--text-strong)]">{preview.summary}</p>
@@ -367,7 +367,7 @@ export default function AiPlanModal({
                 type="button"
                 onClick={onClose}
                 disabled={loading}
-                className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
+                className="pd24-btn pd24-btn-sm pd24-btn-secondary"
               >
                 Abbrechen
               </button>
@@ -375,7 +375,7 @@ export default function AiPlanModal({
                 type="button"
                 onClick={handleGenerate}
                 disabled={loading || prompt.trim().length < 5 || !citySlug}
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-95 active:scale-[0.98] disabled:opacity-50"
+                className="pd24-btn pd24-btn-sm pd24-btn-primary active:scale-[0.98]"
               >
                 {loading ? (
                   <>
@@ -384,7 +384,7 @@ export default function AiPlanModal({
                   </>
                 ) : (
                   <>
-                    Plan generieren ✨
+                    Plan generieren
                   </>
                 )}
               </button>
@@ -397,14 +397,14 @@ export default function AiPlanModal({
                   setPreview(null);
                   setError(null);
                 }}
-                className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
+                className="pd24-btn pd24-btn-sm pd24-btn-secondary"
               >
                 Anderen Wunsch
               </button>
               <button
                 type="button"
                 onClick={handleApply}
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-95 active:scale-[0.98]"
+                className="pd24-btn pd24-btn-sm pd24-btn-primary active:scale-[0.98]"
               >
                 In den Planner übernehmen →
               </button>

@@ -280,7 +280,7 @@ function PublicRouteCard({
           </div>
         </div>
 
-        <div className="rounded-[24px] border border-black/5 bg-gradient-to-br from-stone-50 to-white p-4">
+        <div className="rounded-[var(--radius-card)] border border-black/5 bg-gradient-to-br from-stone-50 to-white p-4">
           <div className="flex items-center justify-between gap-3">
             <div>
               <div className="text-[11px] uppercase tracking-wide text-gray-400">Kompaktansicht</div>
@@ -321,7 +321,7 @@ function PublicRouteCard({
               Route öffnen
             </Link>
           ) : (
-            <div className="text-xs text-red-600">Route aktuell nicht aufrufbar.</div>
+            <div className="text-xs text-[var(--state-error)]">Route aktuell nicht aufrufbar.</div>
           )}
         </div>
       </div>
@@ -647,14 +647,14 @@ function PublicUserProfilePageContent() {
     return (
       <main className="pd24-page-standard px-4 pb-16 pt-6">
         <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Nicht gefunden</div>
+          <div className="pd24-meta">Nicht gefunden</div>
           <h1 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Profil nicht gefunden</h1>
           <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
             Für diesen Username gibt es aktuell kein öffentliches Profil.
           </p>
           <Link
             href="/explore"
-            className="mt-4 inline-flex rounded-2xl bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+            className="pd24-btn pd24-btn-primary mt-4"
           >
             Routen entdecken
           </Link>
@@ -700,7 +700,7 @@ function PublicUserProfilePageContent() {
         </Link>
       </div>
 
-      <section className="overflow-hidden rounded-[36px] border border-black/10 bg-white shadow-sm">
+      <section className="overflow-hidden rounded-[var(--radius-hero)] border border-black/10 bg-white shadow-sm">
         <div className="relative min-h-[260px] overflow-hidden bg-gradient-to-br from-stone-100 via-white to-neutral-200">
           {profile.cover_image_url ? (
             // eslint-disable-next-line @next/next/no-img-element

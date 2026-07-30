@@ -105,7 +105,7 @@ export function PhotoUpload({ folder, value, onChange, maxPhotos = 5 }: PhotoUpl
           {value.map((url, i) => (
             <div
               key={url}
-              className="relative overflow-hidden rounded-[18px] border border-[var(--line-subtle)] bg-[var(--bg-surface)]"
+              className="relative overflow-hidden rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={url} alt={`Bild ${i + 1}`} className="h-20 w-28 object-cover" />
@@ -185,7 +185,7 @@ export function PhotoUpload({ folder, value, onChange, maxPhotos = 5 }: PhotoUpl
         </div>
       )}
       {uploadState.status === "error" && (
-        <p className="text-xs text-red-600">{uploadState.error}</p>
+        <p className="text-xs text-[var(--state-error)]">{uploadState.error}</p>
       )}
     </div>
   );

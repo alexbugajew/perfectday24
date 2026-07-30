@@ -75,7 +75,7 @@ export default function ExploreSurfaceSwitch({
               key={surface.key}
               href={surface.href}
               aria-current={isActive ? "page" : undefined}
-              className={`group rounded-[24px] border px-4 py-4 transition sm:px-5 ${
+              className={`group rounded-[var(--radius-card)] border px-4 py-4 transition sm:px-5 ${
                 isActive
                   ? "border-[var(--text-strong)] bg-white shadow-[0_14px_40px_rgba(15,23,42,0.08)]"
                   : surface.key === "roadtrip"
@@ -140,10 +140,10 @@ export default function ExploreSurfaceSwitch({
         })}
       </div>
 
-      <div className="mt-4 rounded-[24px] border border-[var(--line-subtle)] bg-white/80 p-4 shadow-[0_8px_24px_rgba(15,23,42,0.04)]">
+      <div className="mt-4 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white/80 p-4 shadow-[0_8px_24px_rgba(15,23,42,0.04)]">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Jetzt aktiv
             </div>
             <div className="mt-1 text-base font-semibold text-[var(--text-strong)]">{activeTitle}</div>
@@ -152,7 +152,7 @@ export default function ExploreSurfaceSwitch({
           <div className="flex flex-wrap gap-2">
             <Link
               href={primaryCtaHref}
-              className="inline-flex min-h-10 items-center rounded-xl bg-[#171717] px-4 text-sm font-medium text-white transition hover:opacity-90"
+              className="pd24-btn pd24-btn-sm pd24-btn-primary"
             >
               {primaryCtaLabel}
             </Link>

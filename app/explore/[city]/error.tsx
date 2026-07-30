@@ -26,13 +26,13 @@ export default function CityExploreError({
       <div className="mt-6 flex gap-3">
         <button
           onClick={reset}
-          className="inline-flex rounded-full bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
+          className="pd24-btn pd24-btn-sm pd24-btn-primary"
         >
           Erneut versuchen
         </button>
         <Link
           href="/explore"
-          className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-5 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+          className="pd24-btn pd24-btn-sm pd24-btn-secondary"
         >
           Alle Städte
         </Link>

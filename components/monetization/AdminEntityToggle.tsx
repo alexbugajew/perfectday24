@@ -45,9 +45,9 @@ export default function AdminEntityToggle({
 
   const toneClass =
     tone === "active"
-      ? "border-emerald-300 bg-emerald-50 text-emerald-950"
+      ? "pd24-status-success"
       : tone === "warning"
-        ? "border-amber-300 bg-amber-50 text-amber-950"
+        ? "pd24-status-warning"
         : "border-slate-300 bg-white text-slate-900";
 
   return (

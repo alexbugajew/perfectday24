@@ -126,8 +126,8 @@ export default function VendorQuotePage() {
   // ── Loading ──────────────────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f7f4ee]">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#171717] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-canvas-warm)]">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--text-strong)] border-t-transparent" />
       </div>
     );
   }
@@ -135,14 +135,14 @@ export default function VendorQuotePage() {
   // ── Not found / expired ───────────────────────────────────────────────────────
   if (notFound || !quote) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f7f4ee] px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-canvas-warm)] px-4">
         <div className="max-w-sm text-center">
           <div className="mb-4 text-4xl">🔗</div>
-          <h1 className="mb-2 text-xl font-semibold text-[#171717]">Link nicht gefunden</h1>
-          <p className="text-sm text-[#8b7767]">
+          <h1 className="mb-2 text-xl font-semibold text-[var(--text-strong)]">Link nicht gefunden</h1>
+          <p className="text-sm text-[var(--text-soft-warm)]">
             Der Link ist möglicherweise abgelaufen oder ungültig.
             Bitte kontaktieren Sie uns unter{" "}
-            <a href="mailto:partner@perfectday24.de" className="text-[#b76a43] underline">
+            <a href="mailto:partner@perfectday24.de" className="text-[var(--brand-warm-deep)] underline">
               partner@perfectday24.de
             </a>
           </p>
@@ -168,24 +168,24 @@ export default function VendorQuotePage() {
   // ── Success ───────────────────────────────────────────────────────────────────
   if (submitState === "success") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f7f4ee] px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-canvas-warm)] px-4">
         <div className="max-w-sm text-center">
           <div className="mb-4 text-5xl">✅</div>
-          <h1 className="mb-2 text-xl font-semibold text-[#171717]">Angebot gesendet!</h1>
-          <p className="text-sm text-[#665d55]">
+          <h1 className="mb-2 text-xl font-semibold text-[var(--text-strong)]">Angebot gesendet!</h1>
+          <p className="text-sm text-[var(--text-muted-warm)]">
             Der Interessent wird umgehend benachrichtigt. Bei Rückfragen:{" "}
-            <a href="mailto:partner@perfectday24.de" className="text-[#b76a43] underline">
+            <a href="mailto:partner@perfectday24.de" className="text-[var(--brand-warm-deep)] underline">
               partner@perfectday24.de
             </a>
           </p>
-          <div className="mt-6 rounded-[16px] border border-[rgba(23,23,23,0.08)] bg-white p-4 text-left">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#8b7767]">Ihr Angebot</p>
-            <p className="mt-1 text-lg font-semibold text-[#171717]">
+          <div className="mt-6 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-white p-4 text-left">
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]">Ihr Angebot</p>
+            <p className="mt-1 text-lg font-semibold text-[var(--text-strong)]">
               {priceEur ? `${parseFloat(priceEur.replace(",", ".")).toLocaleString("de-DE")} €` : "Auf Anfrage"}
               {priceUnit === "per_person" && " / Person"}
               {priceUnit === "per_hour" && " / Stunde"}
             </p>
-            <p className="mt-0.5 text-sm text-[#665d55]">
+            <p className="mt-0.5 text-sm text-[var(--text-muted-warm)]">
               {available ? "Verfügbar ✓" : "Leider nicht verfügbar"}
             </p>
           </div>
@@ -196,17 +196,17 @@ export default function VendorQuotePage() {
 
   // ── Main form ─────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#f7f4ee] pb-16">
+    <div className="min-h-screen bg-[var(--bg-canvas-warm)] pb-16">
       {/* Header */}
-      <div className="border-b border-[rgba(23,23,23,0.08)] bg-[#fffdf8] px-4 py-6 sm:px-6">
+      <div className="border-b border-[var(--line-subtle)] bg-[var(--bg-surface-warm)] px-4 py-6 sm:px-6">
         <div className="mx-auto max-w-lg">
-          <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b76a43]">
+          <div className="pd24-kicker-warm mb-1">
             PerfectDay24 · Preisanfrage
           </div>
-          <h1 className="text-2xl font-semibold text-[#171717]">
+          <h1 className="text-2xl font-semibold text-[var(--text-strong)]">
             Angebot für {needLabel}
           </h1>
-          <p className="mt-1 text-sm text-[#665d55]">
+          <p className="mt-1 text-sm text-[var(--text-muted-warm)]">
             Angefordert für: <strong>{quote.provider_name}</strong>
           </p>
         </div>
@@ -215,58 +215,58 @@ export default function VendorQuotePage() {
       <div className="mx-auto max-w-lg px-4 py-8 sm:px-6">
 
         {/* Event summary card */}
-        <div className="mb-8 rounded-[20px] border border-[rgba(23,23,23,0.08)] bg-white p-5">
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-[#8b7767]">
+        <div className="mb-8 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white p-5">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]">
             Eventdetails
           </p>
           <dl className="space-y-2 text-sm">
             {occasionLabel && (
               <div className="flex justify-between">
-                <dt className="text-[#8b7767]">Anlass</dt>
-                <dd className="font-medium text-[#171717]">{occasionLabel}</dd>
+                <dt className="text-[var(--text-soft-warm)]">Anlass</dt>
+                <dd className="font-medium text-[var(--text-strong)]">{occasionLabel}</dd>
               </div>
             )}
             {dateFormatted && (
               <div className="flex justify-between">
-                <dt className="text-[#8b7767]">Datum</dt>
-                <dd className="font-medium text-[#171717]">{dateFormatted}</dd>
+                <dt className="text-[var(--text-soft-warm)]">Datum</dt>
+                <dd className="font-medium text-[var(--text-strong)]">{dateFormatted}</dd>
               </div>
             )}
             {quote.city_slug && (
               <div className="flex justify-between">
-                <dt className="text-[#8b7767]">Ort</dt>
-                <dd className="font-medium text-[#171717]">{quote.city_slug.split("-")[0]}</dd>
+                <dt className="text-[var(--text-soft-warm)]">Ort</dt>
+                <dd className="font-medium text-[var(--text-strong)]">{quote.city_slug.split("-")[0]}</dd>
               </div>
             )}
             {quote.guest_count && (
               <div className="flex justify-between">
-                <dt className="text-[#8b7767]">Gäste</dt>
-                <dd className="font-medium text-[#171717]">{quote.guest_count} Personen</dd>
+                <dt className="text-[var(--text-soft-warm)]">Gäste</dt>
+                <dd className="font-medium text-[var(--text-strong)]">{quote.guest_count} Personen</dd>
               </div>
             )}
             {quote.budget_cents && (
               <div className="flex justify-between">
-                <dt className="text-[#8b7767]">Budget gesamt</dt>
-                <dd className="font-medium text-[#171717]">
+                <dt className="text-[var(--text-soft-warm)]">Budget gesamt</dt>
+                <dd className="font-medium text-[var(--text-strong)]">
                   ca. {(quote.budget_cents / 100).toLocaleString("de-DE")} €
                 </dd>
               </div>
             )}
           </dl>
           {quote.customer_message && (
-            <div className="mt-4 rounded-[12px] bg-[#f7f4ee] p-3">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8b7767]">
+            <div className="mt-4 rounded-[12px] bg-[var(--bg-canvas-warm)] p-3">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]">
                 Nachricht des Interessenten
               </p>
-              <p className="mt-1 text-sm text-[#171717]">{quote.customer_message}</p>
+              <p className="mt-1 text-sm text-[var(--text-strong)]">{quote.customer_message}</p>
             </div>
           )}
         </div>
 
         {alreadySubmitted ? (
-          <div className="rounded-[20px] border border-emerald-200 bg-emerald-50 p-6 text-center">
-            <p className="font-semibold text-emerald-800">Angebot bereits abgegeben ✓</p>
-            <p className="mt-1 text-sm text-emerald-700">
+          <div className="pd24-status-success rounded-[var(--radius-card-sm)] p-6 text-center">
+            <p className="font-semibold">Angebot bereits abgegeben ✓</p>
+            <p className="mt-1 text-sm">
               Sie haben dieses Angebot bereits eingereicht. Bei Rückfragen:{" "}
               <a href="mailto:partner@perfectday24.de" className="underline">
                 partner@perfectday24.de
@@ -278,9 +278,9 @@ export default function VendorQuotePage() {
 
             {/* Availability */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#171717]">
+              <label className="mb-2 block text-sm font-medium text-[var(--text-strong)]">
                 Sind Sie zum genannten Termin verfügbar?{" "}
-                <span className="text-[#b76a43]">*</span>
+                <span className="text-[var(--brand-warm-deep)]">*</span>
               </label>
               <div className="flex gap-3">
                 {[
@@ -295,9 +295,9 @@ export default function VendorQuotePage() {
                       "flex-1 rounded-xl border py-3 text-sm font-medium transition",
                       available === value
                         ? value
-                          ? "border-emerald-500 bg-emerald-50 text-emerald-800"
-                          : "border-red-400 bg-red-50 text-red-700"
-                        : "border-[rgba(23,23,23,0.12)] bg-white text-[#665d55] hover:border-[#171717]",
+                          ? "border-[var(--state-success)] bg-[rgba(79,107,91,0.08)] text-[var(--state-success)]"
+                          : "border-[var(--state-error)] bg-[rgba(161,75,69,0.08)] text-[var(--state-error)]"
+                        : "border-[var(--line-strong)] bg-white text-[var(--text-muted-warm)] hover:border-[var(--text-strong)]",
                     ].join(" ")}
                   >
                     {label}
@@ -308,7 +308,7 @@ export default function VendorQuotePage() {
 
             {/* Price */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#171717]">
+              <label className="mb-2 block text-sm font-medium text-[var(--text-strong)]">
                 Ihr Preis (optional — lassen Sie es frei für &quot;Auf Anfrage&quot;)
               </label>
               <div className="flex gap-2">
@@ -319,14 +319,14 @@ export default function VendorQuotePage() {
                     value={priceEur}
                     onChange={(e) => setPriceEur(e.target.value)}
                     placeholder="z.B. 1200"
-                    className="w-full rounded-xl border border-[rgba(23,23,23,0.12)] bg-white px-4 py-3 pr-8 text-sm text-[#171717] outline-none focus:border-[#171717]"
+                    className="w-full rounded-xl border border-[var(--line-strong)] bg-white px-4 py-3 pr-8 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--text-strong)]"
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#8b7767]">€</span>
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[var(--text-soft-warm)]">€</span>
                 </div>
                 <select
                   value={priceUnit}
                   onChange={(e) => setPriceUnit(e.target.value)}
-                  className="rounded-xl border border-[rgba(23,23,23,0.12)] bg-white px-3 py-3 text-sm text-[#171717] outline-none focus:border-[#171717]"
+                  className="rounded-xl border border-[var(--line-strong)] bg-white px-3 py-3 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--text-strong)]"
                 >
                   <option value="total">Gesamt</option>
                   <option value="per_person">Pro Person</option>
@@ -338,7 +338,7 @@ export default function VendorQuotePage() {
 
             {/* Message */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#171717]">
+              <label className="mb-2 block text-sm font-medium text-[var(--text-strong)]">
                 Nachricht an den Interessenten (optional)
               </label>
               <textarea
@@ -346,12 +346,12 @@ export default function VendorQuotePage() {
                 onChange={(e) => setMessage(e.target.value)}
                 rows={4}
                 placeholder="Was ist im Preis enthalten? Gibt es Besonderheiten zu beachten?"
-                className="w-full rounded-xl border border-[rgba(23,23,23,0.12)] bg-white px-4 py-3 text-sm text-[#171717] outline-none focus:border-[#171717] resize-none"
+                className="w-full rounded-xl border border-[var(--line-strong)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--text-strong)] resize-none"
               />
             </div>
 
             {submitState === "error" && (
-              <p className="text-sm text-red-600">
+              <p className="text-sm text-[var(--state-error)]">
                 Fehler beim Speichern. Bitte versuchen Sie es erneut oder schreiben Sie uns:{" "}
                 <a href="mailto:partner@perfectday24.de" className="underline">
                   partner@perfectday24.de
@@ -362,12 +362,12 @@ export default function VendorQuotePage() {
             <button
               type="submit"
               disabled={available === null || submitState === "submitting"}
-              className="w-full rounded-xl bg-[#171717] py-3.5 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-40 hover:opacity-90"
+              className="pd24-btn pd24-btn-primary w-full"
             >
               {submitState === "submitting" ? "Wird gesendet …" : "Angebot abgeben"}
             </button>
 
-            <p className="text-center text-xs text-[#8b7767]">
+            <p className="text-center text-xs text-[var(--text-soft-warm)]">
               Kein Konto erforderlich. Ihr Angebot wird direkt an den Interessenten weitergeleitet.
             </p>
           </form>

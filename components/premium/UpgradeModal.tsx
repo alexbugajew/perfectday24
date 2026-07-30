@@ -74,7 +74,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
 
         <div className="flex items-start justify-between gap-3 border-b border-[var(--line-subtle)] px-5 pb-3 pt-4 sm:px-6">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--brand-warm)]">
+            <div className="pd24-kicker-warm">
               PerfectDay24 Premium
             </div>
             <h2 className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
@@ -121,7 +121,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
           </div>
 
           {error ? (
-            <div className="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700">
+            <div className="mt-3 rounded-lg pd24-status-error px-3 py-2 text-xs">
               {error}
             </div>
           ) : null}

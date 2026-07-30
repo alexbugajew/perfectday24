@@ -124,7 +124,7 @@ export function AccountTypeModal({ userId, onDone }: Props) {
         </div>
 
         {error && (
-          <p className="mt-4 text-center text-sm text-red-600">{error}</p>
+          <p className="mt-4 text-center text-sm text-[var(--state-error)]">{error}</p>
         )}
       </div>
     </div>

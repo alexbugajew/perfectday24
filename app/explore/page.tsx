@@ -681,7 +681,7 @@ function RouteCard({
           {href ? (
             <Link
               href={href}
-              className="shrink-0 rounded-full border border-[var(--text-strong)] bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
+              className="shrink-0 pd24-btn pd24-btn-sm pd24-btn-primary"
             >
               Route öffnen
             </Link>
@@ -694,7 +694,7 @@ function RouteCard({
   );
 
   return (
-    <div className="group overflow-hidden rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-large)]">
+    <div className="group overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-large)]">
       {content}
     </div>
   );
@@ -779,11 +779,11 @@ function CreatorCard({
   );
 
   if (!href) {
-    return <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] opacity-70 shadow-[var(--shadow-soft)]">{content}</div>;
+    return <div className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] opacity-70 shadow-[var(--shadow-soft)]">{content}</div>;
   }
 
   return (
-    <Link href={href} className="block rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-large)]">
+    <Link href={href} className="block rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-large)]">
       {content}
     </Link>
   );
@@ -1175,7 +1175,7 @@ function ExplorePageContent() {
         <div className="p-4 sm:p-5 lg:p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-3xl">
-              <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 pd24-meta">
                 Entdecken
               </div>
               <h1 className="mt-4 text-2xl font-bold tracking-tight text-[var(--text-strong)] sm:text-3xl">
@@ -1188,13 +1188,13 @@ function ExplorePageContent() {
             <div className="flex flex-wrap items-center gap-2">
               <Link
                 href="/planner"
-                className="inline-flex min-h-10 items-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90"
+                className="pd24-btn pd24-btn-sm pd24-btn-primary"
               >
                 Tag planen
               </Link>
               <Link
                 href="/saved"
-                className="inline-flex min-h-10 items-center rounded-full border border-[var(--line-subtle)] bg-white px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+                className="pd24-btn pd24-btn-sm pd24-btn-secondary"
               >
                 Meine Pläne
               </Link>
@@ -1213,7 +1213,7 @@ function ExplorePageContent() {
                 <>
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <div className={surface.key === "roadtrip" ? "pd24-kicker-warm" : "text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]"}>
+                      <div className={surface.key === "roadtrip" ? "pd24-kicker-warm" : "pd24-meta"}>
                         {surface.eyebrow}
                       </div>
                       <div className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
@@ -1254,7 +1254,7 @@ function ExplorePageContent() {
                   <a
                     key={surface.key}
                     href={surface.href}
-                    className={`rounded-[28px] border px-5 py-5 transition ${cardClassName}`}
+                    className={`rounded-[var(--radius-shell)] border px-5 py-5 transition ${cardClassName}`}
                   >
                     {content}
                   </a>
@@ -1265,7 +1265,7 @@ function ExplorePageContent() {
                 <Link
                   key={surface.key}
                   href={surface.href}
-                  className={`rounded-[28px] border px-5 py-5 transition ${cardClassName}`}
+                  className={`rounded-[var(--radius-shell)] border px-5 py-5 transition ${cardClassName}`}
                 >
                   {content}
                 </Link>
@@ -1273,10 +1273,10 @@ function ExplorePageContent() {
             })}
           </div>
 
-          <div className="mt-4 rounded-[24px] border border-[var(--line-subtle)] bg-white px-4 py-4">
+          <div className="mt-4 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white px-4 py-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                <div className="pd24-meta">
                   Jetzt aktiv
                 </div>
                 <div className="mt-1 text-lg font-semibold tracking-tight text-[var(--text-strong)]">
@@ -1287,7 +1287,7 @@ function ExplorePageContent() {
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <a href="#explore-all-routes" className="inline-flex min-h-10 items-center rounded-xl bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                <a href="#explore-all-routes" className="pd24-btn pd24-btn-sm pd24-btn-primary">
                   Tagesrouten ansehen
                 </a>
                 <Link href="/roadtrip/routes" className="inline-flex min-h-10 items-center rounded-xl border border-[rgba(196,137,79,0.3)] bg-white px-4 text-sm font-medium text-[var(--brand-warm)] transition hover:bg-[rgba(196,137,79,0.06)]">
@@ -1309,7 +1309,7 @@ function ExplorePageContent() {
             </div>
             <Link
               href="/planner"
-              className="inline-flex min-h-9 items-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90"
+              className="pd24-btn pd24-btn-sm pd24-btn-primary"
             >
               Tag planen →
             </Link>
@@ -1463,10 +1463,10 @@ function ExplorePageContent() {
       </div>
 
       {/* Events-Einstieg — größere Anlässe */}
-      <div className="hidden mb-4 rounded-[28px] border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
+      <div className="hidden mb-4 rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
         <div className="flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+            <div className="pd24-meta">
               Entdecken-Modus
             </div>
             <div className="mt-1 text-base font-semibold text-[var(--text-strong)]">
@@ -1484,7 +1484,7 @@ function ExplorePageContent() {
           >
             <div className="flex items-center justify-between gap-3">
               <div>
-                <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                <div className="pd24-meta">
                   Aktuell hier
                 </div>
                 <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
@@ -1529,12 +1529,12 @@ function ExplorePageContent() {
 
       <div className="hidden mb-3 items-center justify-between gap-4 rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-3 shadow-[0_1px_4px_rgba(15,23,42,0.05)]">
         <div className="min-w-0">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Größeres Event geplant?</div>
+          <div className="pd24-meta">Größeres Event geplant?</div>
           <div className="mt-0.5 text-sm font-medium text-[var(--text-strong)]">Hochzeiten, Geburtstage & Firmenfeiern — mit Dienstleister-Suche</div>
         </div>
         <Link
           href="/events"
-          className="shrink-0 rounded-full bg-[var(--text-strong)] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1f2937] active:scale-[0.98]"
+          className="shrink-0 pd24-btn pd24-btn-sm pd24-btn-primary"
         >
           Event planen →
         </Link>
@@ -1597,7 +1597,7 @@ function ExplorePageContent() {
               <div className="mb-4 h-6 w-48 animate-pulse rounded-xl bg-[var(--bg-panel)]" />
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {[0, 1, 2].map((i) => (
-                  <div key={i} className="overflow-hidden rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
+                  <div key={i} className="overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)]">
                     <div className="aspect-[3/2] w-full animate-pulse bg-[var(--bg-panel)]" />
                     <div className="space-y-3 p-4">
                       <div className="h-5 w-3/4 animate-pulse rounded-lg bg-[var(--bg-panel)]" />
@@ -1616,7 +1616,7 @@ function ExplorePageContent() {
           ))}
         </div>
         ) : errorText ? (
-        <div className="rounded-[28px] border border-[rgba(161,75,69,0.18)] bg-[rgba(161,75,69,0.08)] p-6 text-[var(--state-error)] shadow-[var(--shadow-soft)]">{errorText}</div>
+        <div className="rounded-[var(--radius-shell)] border border-[rgba(161,75,69,0.18)] bg-[rgba(161,75,69,0.08)] p-6 text-[var(--state-error)] shadow-[var(--shadow-soft)]">{errorText}</div>
       ) : (
         <div className="space-y-12">
           {visibleEditorialRoutes.length > 0 ? (
@@ -1641,7 +1641,7 @@ function ExplorePageContent() {
           ) : null}
 
           {myInterests.length === 0 ? (
-            <section className="overflow-hidden rounded-[28px] border border-[var(--line-subtle)] bg-[linear-gradient(135deg,var(--bg-canvas-warm),var(--brand-warm-cloud))] p-6 shadow-[var(--shadow-soft)]">
+            <section className="overflow-hidden rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(135deg,var(--bg-canvas-warm),var(--brand-warm-cloud))] p-6 shadow-[var(--shadow-soft)]">
               <div className="max-w-xl">
                 <div className="pd24-kicker-warm">Persönlich für dich</div>
                 <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
@@ -1671,7 +1671,7 @@ function ExplorePageContent() {
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <Link
                   href="/profile#profile-interests"
-                  className="inline-flex min-h-10 items-center rounded-full bg-[var(--text-strong)] px-5 text-sm font-medium text-white transition hover:opacity-90"
+                  className="pd24-btn pd24-btn-sm pd24-btn-primary"
                 >
                   Interessen hinterlegen
                 </Link>
@@ -1687,7 +1687,7 @@ function ExplorePageContent() {
                 actionLabel="Interessen anpassen"
               />
               {personalizedRoutes.length === 0 ? (
-                <div className="rounded-[28px] border border-black/10 bg-white p-4 text-sm text-[var(--text-muted)] shadow-sm">
+                <div className="rounded-[var(--radius-shell)] border border-black/10 bg-white p-4 text-sm text-[var(--text-muted)] shadow-sm">
                   Noch keine personalisierten Vorschläge verfügbar.
                 </div>
               ) : (
@@ -1707,7 +1707,7 @@ function ExplorePageContent() {
             </section>
           )}
 
-          <section className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 shadow-[var(--shadow-soft)]">
+          <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 shadow-[var(--shadow-soft)]">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div className="max-w-2xl">
                 <div className="pd24-kicker-warm">Schneller finden</div>
@@ -1717,7 +1717,7 @@ function ExplorePageContent() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
-                <a href="#explore-all-routes" className="inline-flex min-h-10 items-center rounded-xl bg-[#171717] px-4 text-sm font-medium text-white transition hover:opacity-90">
+                <a href="#explore-all-routes" className="pd24-btn pd24-btn-sm pd24-btn-primary">
                   Alle Routen ansehen
                 </a>
                 <Link
@@ -1736,7 +1736,7 @@ function ExplorePageContent() {
               subtitle={`${filteredRoutes.length} Route${filteredRoutes.length !== 1 ? "n" : ""} passend zu deiner Auswahl.`}
             />
             {filteredRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen für diese Filter gefunden.</div>
+              <div className="rounded-[var(--radius-shell)] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine Routen für diese Filter gefunden.</div>
             ) : (
               <>
                 <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -1754,7 +1754,7 @@ function ExplorePageContent() {
                     <button
                       type="button"
                       onClick={() => setAllRoutesDisplayCount((prev) => prev + 24)}
-                      className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-black/10 bg-white px-6 text-sm font-medium text-[var(--text-strong)] shadow-sm transition hover:border-black/20 hover:shadow-md active:scale-[0.98]"
+                      className="pd24-btn pd24-btn-secondary"
                     >
                       Mehr laden
                       <span className="rounded-full bg-[rgba(23,23,23,0.07)] px-2 py-0.5 text-xs text-[var(--text-muted)]">
@@ -1778,7 +1778,7 @@ function ExplorePageContent() {
               actionLabel="Alle ansehen"
             />
             {trendingRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine aktuell beliebten Routen gefunden.</div>
+              <div className="rounded-[var(--radius-shell)] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine aktuell beliebten Routen gefunden.</div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {trendingRoutes.map((route) => (
@@ -1801,7 +1801,7 @@ function ExplorePageContent() {
               actionLabel="Alle ansehen"
             />
             {topRatedRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine bestbewerteten Routen gefunden.</div>
+              <div className="rounded-[var(--radius-shell)] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine bestbewerteten Routen gefunden.</div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {topRatedRoutes.map((route) => (
@@ -1824,7 +1824,7 @@ function ExplorePageContent() {
               actionLabel="Alle ansehen"
             />
             {featuredRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine ausgewählten Routen gefunden.</div>
+              <div className="rounded-[var(--radius-shell)] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine ausgewählten Routen gefunden.</div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {featuredRoutes.map((route) => (
@@ -1847,7 +1847,7 @@ function ExplorePageContent() {
               actionLabel="Alle ansehen"
             />
             {newestRoutes.length === 0 ? (
-              <div className="rounded-[28px] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine neuen Routen gefunden.</div>
+              <div className="rounded-[var(--radius-shell)] border border-black/10 bg-white p-6 text-gray-600 shadow-sm">Keine neuen Routen gefunden.</div>
             ) : (
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {newestRoutes.map((route) => (
@@ -1867,7 +1867,7 @@ function ExplorePageContent() {
 
       {!loading && (
         <section className="mt-10 border-t border-[var(--line-subtle)] pt-8">
-          <details className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 shadow-[var(--shadow-soft)]">
+          <details className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 shadow-[var(--shadow-soft)]">
             <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
               <div>
                 <div className="pd24-kicker-warm">Sekundär</div>
@@ -1921,7 +1921,7 @@ export default function ExplorePage() {
     <Suspense
       fallback={
         <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
-          <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 text-[var(--text-muted)] shadow-[var(--shadow-soft)]">
+          <div className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 text-[var(--text-muted)] shadow-[var(--shadow-soft)]">
             Explore wird geladen...
           </div>
         </main>

@@ -1548,13 +1548,13 @@ async function handleDeleteRoute(routeId: string) {
                         <>
                           <button
                             onClick={() => hydrateEditorFromRoute(route)}
-                            className="rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-sm text-[var(--text-strong)] transition hover:bg-white"
+                            className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                           >
                             Bearbeiten
                           </button>
                           <button
                             onClick={() => void handleDeleteRoute(route.id)}
-                            className="rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-sm text-[var(--text-strong)] transition hover:bg-white"
+                            className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                           >
                             Löschen
                           </button>
@@ -1564,7 +1564,7 @@ async function handleDeleteRoute(routeId: string) {
                       {route.slug ? (
                         <Link
                           href={`/routes/${route.slug}`}
-                          className="rounded-xl bg-[var(--text-strong)] px-3 py-2 text-sm text-white transition hover:opacity-95"
+                          className="pd24-btn pd24-btn-sm pd24-btn-primary"
                         >
                           Öffnen
                         </Link>
@@ -1580,7 +1580,7 @@ async function handleDeleteRoute(routeId: string) {
                         <button
                           onClick={() => void continueAsGuest()}
                           disabled={authLoading}
-                          className="rounded-xl border border-[var(--line-subtle)] px-4 py-2 text-sm text-[var(--text-strong)] transition hover:bg-white disabled:opacity-60"
+                          className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                         >
                           {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
                         </button>
@@ -1604,7 +1604,7 @@ async function handleDeleteRoute(routeId: string) {
       {tab === "builder" && (
         <>
           <div className="grid gap-3 lg:grid-cols-4">
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
               <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Bearbeitungsstand</div>
               <div className="mt-1 text-lg font-semibold text-[var(--text-strong)]">
                 {selectedRouteId ? "Route in Bearbeitung" : "Neuer Entwurf"}
@@ -1613,7 +1613,7 @@ async function handleDeleteRoute(routeId: string) {
                 {plannerImportLabel ? `Basierend auf ${plannerImportLabel}` : "Direkt im Builder gestartet"}
               </div>
             </div>
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
               <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Stadt & Start</div>
               <div className="mt-1 text-lg font-semibold text-[var(--text-strong)]">
                 {selectedCityName !== "-" ? selectedCityName : "Noch offen"}
@@ -1622,7 +1622,7 @@ async function handleDeleteRoute(routeId: string) {
                 {startLabel.trim() ? startLabel.trim() : "Noch kein Startpunkt gesetzt"}
               </div>
             </div>
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
               <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Route Flow</div>
               <div className="mt-1 text-lg font-semibold text-[var(--text-strong)]">
                 {draftStops.length} Stop{draftStops.length === 1 ? "" : "s"}
@@ -1631,7 +1631,7 @@ async function handleDeleteRoute(routeId: string) {
                 {builderMapStops.length} Marker in der Karten-Vorschau
               </div>
             </div>
-            <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
+            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
               <div className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Freigabe</div>
               <div className="mt-1 text-lg font-semibold text-[var(--text-strong)]">
                 {publishReadyCount}/{publishChecks.length} Checks
@@ -1645,7 +1645,7 @@ async function handleDeleteRoute(routeId: string) {
           <div className="grid items-start gap-6 xl:grid-cols-[330px_minmax(0,1fr)_350px]">
           <aside className="space-y-4">
               {plannerImportLabel ? (
-                <div className="rounded-[24px] border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)] p-4 text-sm text-[var(--text-strong)] shadow-sm">
+                <div className="rounded-[var(--radius-card)] border border-[var(--brand-accent)]/25 bg-[var(--brand-accent-soft)] p-4 text-sm text-[var(--text-strong)] shadow-sm">
                 <div className="font-medium">
                   {plannerImportKind === "personalized_route" ? "Personalisierte Variante übernommen" : "Aus Planner übernommen"}
                 </div>
@@ -1769,12 +1769,12 @@ async function handleDeleteRoute(routeId: string) {
                     Links definierst du die Route ruhig in Blöcken statt in einem langen Formular.
                   </div>
                 </div>
-                <button onClick={resetEditor} className="px-3 py-2 rounded-xl border border-[var(--line-subtle)] text-sm hover:bg-white">
+                <button onClick={resetEditor} className="pd24-btn pd24-btn-sm pd24-btn-secondary">
                   Neu
                 </button>
               </div>
 
-              <div className="space-y-3 rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+              <div className="space-y-3 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                 <div>
                   <div className="font-medium text-[var(--text-strong)]">Grunddaten</div>
                   <div className="mt-1 text-xs text-[var(--text-muted)]">
@@ -1801,7 +1801,7 @@ async function handleDeleteRoute(routeId: string) {
                     type="button"
                     onClick={() => void generateRouteDescription()}
                     disabled={routeDescriptionLoading || (!title.trim() && draftStops.length === 0)}
-                    className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                   >
                     {routeDescriptionLoading ? "KI generiert..." : "KI-Text erzeugen"}
                   </button>
@@ -1825,7 +1825,7 @@ async function handleDeleteRoute(routeId: string) {
                 </select>
               </div>
 
-              <div className="grid gap-3 rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+              <div className="grid gap-3 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                 <div>
                   <div className="mb-2 text-sm font-medium">Sichtbarkeit & Sharing</div>
                   <div className="grid gap-2">
@@ -1861,7 +1861,7 @@ async function handleDeleteRoute(routeId: string) {
                     type="button"
                     onClick={() => setVisibility("unlisted")}
                     disabled={!canShareRoute}
-                    className="rounded-xl border border-[var(--line-subtle)] px-3 py-3 text-sm text-[var(--text-strong)] transition hover:bg-white disabled:opacity-60"
+                    className="pd24-btn pd24-btn-secondary"
                   >
                     Link teilen
                   </button>
@@ -1869,7 +1869,7 @@ async function handleDeleteRoute(routeId: string) {
                     type="button"
                     onClick={() => setVisibility("public")}
                     disabled={!canShareRoute}
-                    className="rounded-xl border border-[var(--line-subtle)] px-3 py-3 text-sm text-[var(--text-strong)] transition hover:bg-white disabled:opacity-60"
+                    className="pd24-btn pd24-btn-secondary"
                   >
                     Öffentlich machen
                   </button>
@@ -1885,7 +1885,7 @@ async function handleDeleteRoute(routeId: string) {
                 </select>
               </div>
 
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4 space-y-3">
+              <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4 space-y-3">
                 <div>
                   <div className="font-medium">Route-Metadaten</div>
                   <div className="mt-1 text-xs text-[var(--text-muted)]">
@@ -1950,7 +1950,7 @@ async function handleDeleteRoute(routeId: string) {
                     <button
                       type="button"
                       onClick={() => setCoverImageUrl("")}
-                      className="rounded-lg border px-3 py-2 text-xs hover:bg-white"
+                      className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                     >
                       Cover entfernen
                     </button>
@@ -1971,7 +1971,7 @@ async function handleDeleteRoute(routeId: string) {
                   <button
                     type="button"
                     onClick={() => setCoverImageUrl("")}
-                    className="rounded-lg border px-3 py-2 text-sm hover:bg-white"
+                    className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                   >
                     Kein Cover
                   </button>
@@ -1981,7 +1981,7 @@ async function handleDeleteRoute(routeId: string) {
                       if (firstStopPhotoUrl) setCoverImageUrl(firstStopPhotoUrl);
                     }}
                     disabled={!firstStopPhotoUrl}
-                    className="rounded-lg border px-3 py-2 text-sm hover:bg-white disabled:opacity-60"
+                    className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                   >
                     Erstes Stop-Foto übernehmen
                   </button>
@@ -1989,7 +1989,7 @@ async function handleDeleteRoute(routeId: string) {
                     <button
                       type="button"
                       onClick={() => setCoverImageUrl(activeStop.photo_url.trim())}
-                      className="rounded-lg border px-3 py-2 text-sm hover:bg-white"
+                      className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                     >
                       Aktiven Stop als Cover
                     </button>
@@ -2014,7 +2014,7 @@ async function handleDeleteRoute(routeId: string) {
                 </div>
               </div>
 
-              <div className="space-y-3 rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+              <div className="space-y-3 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                 <div className="font-medium">Startpunkt</div>
                 <select value={startType} onChange={(e) => setStartType(e.target.value as StartType)} className="w-full rounded-xl border border-[var(--line-subtle)] bg-white p-3">
                   <option value="address">Straße / Adresse</option>
@@ -2034,7 +2034,7 @@ async function handleDeleteRoute(routeId: string) {
                 <button
                   onClick={() => void handleCreateOrUpdateRoute()}
                   disabled={savingRoute || !userId}
-                  className="flex-1 px-4 py-3 rounded-xl bg-[var(--text-strong)] text-white text-sm disabled:opacity-60"
+                  className="pd24-btn pd24-btn-primary flex-1"
                 >
                   {savingRoute
                     ? "Route speichern..."
@@ -2047,13 +2047,13 @@ async function handleDeleteRoute(routeId: string) {
                 <button
                   onClick={() => void saveStops()}
                   disabled={!userId || !selectedRouteId || savingStops}
-                  className="flex-1 px-4 py-3 rounded-xl border text-sm disabled:opacity-60"
+                  className="pd24-btn pd24-btn-secondary flex-1"
                 >
                   {savingStops ? "Stops speichern..." : "Stops speichern"}
                 </button>
               </div>
 
-              <div className="rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
+              <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4">
                 <div className="flex items-center justify-between gap-3">
                   <div className="font-medium">Veröffentlichungs-Check</div>
                   <div className="text-xs text-[var(--text-muted)]">{publishReadyCount}/{publishChecks.length}</div>
@@ -2083,7 +2083,7 @@ async function handleDeleteRoute(routeId: string) {
                   <button
                     onClick={() => void continueAsGuest()}
                     disabled={authLoading}
-                    className="px-4 py-2 rounded-xl border text-sm disabled:opacity-60"
+                    className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                   >
                     {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
                   </button>
@@ -2099,7 +2099,7 @@ async function handleDeleteRoute(routeId: string) {
                   <div className="text-lg font-semibold text-[var(--text-strong)]">Stop-Suche</div>
                   <p className="mt-1 text-sm text-[var(--text-muted)]">Suche bestehende Locations oder ergänze freie Platzhalter für den Flow.</p>
                 </div>
-                <button onClick={addManualStop} className="px-3 py-2 rounded-xl border text-sm">
+                <button onClick={addManualStop} className="pd24-btn pd24-btn-sm pd24-btn-secondary">
                   + Freier Stop
                 </button>
               </div>
@@ -2111,7 +2111,7 @@ async function handleDeleteRoute(routeId: string) {
                   placeholder="Locations suchen (z.B. Sushi, Museum, Bar, Bahnhof)"
                   className="border p-3 rounded-xl flex-1 min-w-[260px]"
                 />
-                <button onClick={() => void searchLocations()} disabled={searchingLocations} className="px-4 py-3 rounded-xl border text-sm">
+                <button onClick={() => void searchLocations()} disabled={searchingLocations} className="pd24-btn pd24-btn-secondary">
                   {searchingLocations ? "Suche..." : "Suchen"}
                 </button>
               </div>
@@ -2128,7 +2128,7 @@ async function handleDeleteRoute(routeId: string) {
                             {[loc.type, loc.category, loc.meal].filter(Boolean).join(" | ")}
                         </div>
                       </div>
-                      <button onClick={() => addLocationStop(loc)} className="px-3 py-2 rounded-xl bg-[var(--text-strong)] text-white text-sm">
+                      <button onClick={() => addLocationStop(loc)} className="pd24-btn pd24-btn-sm pd24-btn-primary">
                         In Route übernehmen
                       </button>
                     </div>
@@ -2190,7 +2190,7 @@ async function handleDeleteRoute(routeId: string) {
                           <div className="grid w-full grid-cols-3 gap-2 sm:w-auto sm:flex sm:shrink-0 sm:flex-wrap sm:justify-end">
                             <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "up"); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]">Hoch</button>
                             <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "down"); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]">Runter</button>
-                            <button type="button" onClick={(e) => { e.stopPropagation(); removeDraftStop(stop.localId); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-50">Entfernen</button>
+                            <button type="button" onClick={(e) => { e.stopPropagation(); removeDraftStop(stop.localId); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-[var(--state-error)] transition hover:bg-[var(--state-error)]/10">Entfernen</button>
                           </div>
                         </div>
                       </div>
@@ -2208,7 +2208,7 @@ async function handleDeleteRoute(routeId: string) {
                 <p className="text-sm text-[var(--text-muted)]">Karte, Stop-Editor und die spätere öffentliche Kartenansicht in einer ruhigeren Spalte.</p>
               </div>
 
-              <div className="overflow-hidden rounded-[24px] border border-[var(--line-subtle)]">
+              <div className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)]">
                 <PlanMap stops={builderMapStops} profile="foot" height={260} />
               </div>
 
@@ -2373,7 +2373,7 @@ async function handleDeleteRoute(routeId: string) {
                               <button
                                 type="button"
                                 onClick={() => applySwapCandidate(activeStop.localId, candidate)}
-                                className="mt-3 rounded-xl bg-[var(--text-strong)] px-3 py-2 text-xs text-white transition hover:opacity-95"
+                                className="pd24-btn pd24-btn-sm pd24-btn-primary mt-3"
                               >
                                 Diesen Stop übernehmen
                               </button>
@@ -2393,7 +2393,7 @@ async function handleDeleteRoute(routeId: string) {
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <div className="font-medium">Öffentliche Vorschau</div>
-                <div className="rounded-[24px] border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-4">
+                <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-4">
                   {coverPreviewUrl ? (
                     <div className="mb-3 overflow-hidden rounded-xl border bg-white">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -2418,7 +2418,7 @@ async function handleDeleteRoute(routeId: string) {
       )}
 
       {toast ? (
-        <div className={`fixed bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl shadow-lg text-sm z-50 ${toast.kind === "success" ? "bg-[var(--text-strong)] text-white" : toast.kind === "error" ? "bg-red-600 text-white" : "bg-[var(--text-strong)] text-white"}`}>
+        <div className={`fixed bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl shadow-lg text-sm z-50 ${toast.kind === "success" ? "bg-[var(--text-strong)] text-white" : toast.kind === "error" ? "bg-[var(--state-error)] text-white" : "bg-[var(--text-strong)] text-white"}`}>
           {toast.message}
         </div>
       ) : null}

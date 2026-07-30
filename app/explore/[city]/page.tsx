@@ -162,7 +162,7 @@ export default async function CityExplorePage({
       </div>
 
       {/* Hero */}
-      <section className="overflow-hidden rounded-[32px] border border-[var(--line-subtle)] shadow-[var(--shadow-large)]">
+      <section className="overflow-hidden rounded-[var(--radius-hero)] border border-[var(--line-subtle)] shadow-[var(--shadow-large)]">
         <div className="relative">
           {heroImage ? (
             <div className="relative h-56 w-full sm:h-80">
@@ -222,13 +222,13 @@ export default async function CityExplorePage({
         <div className="flex flex-wrap items-center gap-3 border-t border-[var(--line-subtle)] bg-[var(--bg-surface)] px-6 py-4">
           <Link
             href={`/planner?citySlug=${city}`}
-            className="inline-flex items-center rounded-full bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
+            className="pd24-btn pd24-btn-sm pd24-btn-primary"
           >
             Tag in {cityConfig.label} planen
           </Link>
           <Link
             href={`/explore?citySlug=${city}`}
-            className="inline-flex items-center rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+            className="pd24-btn pd24-btn-sm pd24-btn-secondary"
           >
             Alle Filter anzeigen
           </Link>
@@ -319,7 +319,7 @@ export default async function CityExplorePage({
             <div className="mt-6 text-center">
               <Link
                 href={`/explore?citySlug=${city}`}
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--line-subtle)] bg-white px-5 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+                className="pd24-btn pd24-btn-sm pd24-btn-secondary"
               >
                 Alle {routes.length} Routen anzeigen
               </Link>
@@ -327,12 +327,12 @@ export default async function CityExplorePage({
           )}
         </section>
       ) : (
-        <section className="rounded-[28px] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] p-10 text-center">
+        <section className="rounded-[var(--radius-shell)] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] p-10 text-center">
           <div className="text-lg font-semibold text-[var(--text-strong)]">Noch keine Routen in {cityConfig.label}</div>
           <p className="mt-2 text-sm text-[var(--text-muted)]">Sei der Erste und erstelle eine Route für diese Stadt.</p>
           <Link
             href={`/planner?citySlug=${city}`}
-            className="mt-5 inline-flex rounded-full bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
+            className="mt-5 pd24-btn pd24-btn-sm pd24-btn-primary"
           >
             Tag planen
           </Link>
@@ -385,7 +385,7 @@ export default async function CityExplorePage({
       )}
 
       {/* CTA */}
-      <section className="rounded-[32px] bg-[var(--text-strong)] px-6 py-10 text-white shadow-[var(--shadow-large)] sm:px-8">
+      <section className="rounded-[var(--radius-hero)] bg-[var(--text-strong)] px-6 py-10 text-white shadow-[var(--shadow-large)] sm:px-8">
         <div className="pd24-kicker-warm" style={{ color: "rgba(255,249,241,0.6)" }}>Deinen perfekten Tag planen</div>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
           Was machst du heute in {cityConfig.label}?

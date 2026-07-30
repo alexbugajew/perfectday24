@@ -462,7 +462,7 @@ export default function PlannerControlsSection({
                     }
                   }}
                   disabled={profileRequired && interests.length === 0}
-                  className="rounded-xl bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+                  className="pd24-btn pd24-btn-primary"
                 >
                   Fertig
                 </button>
@@ -482,7 +482,7 @@ export default function PlannerControlsSection({
         <div className="space-y-3">
           <div className="grid gap-2">
             <label className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Land
               </div>
               <select
@@ -506,7 +506,7 @@ export default function PlannerControlsSection({
             </label>
 
             <div>
-              <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <div className="mb-1 pd24-meta">
                 Stadt
               </div>
               <CitySearchInput
@@ -522,7 +522,7 @@ export default function PlannerControlsSection({
             </div>
 
             <div className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              <div className="pd24-meta">
                 Anlass
               </div>
               <div className="mt-2 flex flex-wrap gap-1.5">
@@ -551,7 +551,7 @@ export default function PlannerControlsSection({
 
             {occasion === "family" ? (
               <div className="rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                <div className="pd24-meta">
                   Kinder-Alter
                 </div>
                 <div className="mt-2 flex flex-wrap gap-1.5">
@@ -580,7 +580,7 @@ export default function PlannerControlsSection({
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                  <div className="pd24-meta">
                     Weitere Optionen
                   </div>
                   <div className="mt-1 truncate text-sm font-semibold tracking-tight text-[var(--text-strong)]">
@@ -599,7 +599,7 @@ export default function PlannerControlsSection({
             <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4 shadow-[var(--shadow-soft)] sm:p-5">
               <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                  <div className="pd24-meta">
                     Planungsdetails
                   </div>
                   <div className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
@@ -613,7 +613,7 @@ export default function PlannerControlsSection({
 
               <div className="grid gap-2">
                 <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Budget</div>
+                  <div className="pd24-meta">Budget</div>
                   <select value={budget} onChange={(e) => setBudget(e.target.value)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
                     <option value="low">Günstig</option>
                     <option value="medium">Mittel</option>
@@ -623,7 +623,7 @@ export default function PlannerControlsSection({
                 </label>
 
                 <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Fokus</div>
+                  <div className="pd24-meta">Fokus</div>
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {experienceOptions.map((option) => (
                       <button
@@ -650,7 +650,7 @@ export default function PlannerControlsSection({
 
                 {occasion === "family" ? (
                   <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                    <div className="pd24-meta">
                       Familien-Variante
                     </div>
                     <div className="mt-2 grid gap-2 sm:grid-cols-2">
@@ -680,12 +680,12 @@ export default function PlannerControlsSection({
                 ) : null}
 
                 <label className="hidden">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Datum</div>
+                  <div className="pd24-meta">Datum</div>
                   <input type="date" value={planDate} onChange={(e) => setPlanDate(e.target.value)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none" />
                 </label>
 
                 <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Tagesfenster</div>
+                  <div className="pd24-meta">Tagesfenster</div>
                   <select value={planMode} onChange={(e) => setPlanMode(e.target.value as PlanMode)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
                     <option value="morning">Vormittag</option>
                     <option value="midday">Mittag</option>
@@ -695,7 +695,7 @@ export default function PlannerControlsSection({
                 </label>
 
                 <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Stops</div>
+                  <div className="pd24-meta">Stops</div>
                   {planMode === "fullday" ? (
                     <div className="mt-3 space-y-3">
                       <div className="flex items-center justify-between gap-3">
@@ -766,7 +766,7 @@ export default function PlannerControlsSection({
                 </div>
 
                 <label className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Sortierung</div>
+                  <div className="pd24-meta">Sortierung</div>
                   <select value={sortMode} onChange={(e) => setSortMode(e.target.value as "match" | "distance")} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
                     <option value="match">Best Match</option>
                     <option value="distance">Distanz</option>
@@ -774,7 +774,7 @@ export default function PlannerControlsSection({
                 </label>
 
                 <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Mobilität</div>
+                  <div className="pd24-meta">Mobilität</div>
                   <div className="mt-2 grid grid-cols-3 gap-1.5" role="radiogroup" aria-label="Mobilität">
                     {[
                       { value: "foot", label: "Fuß", icon: "🚶" },
@@ -892,7 +892,7 @@ export default function PlannerControlsSection({
                     {startPointSearchLoading ? (
                       <div className="px-3 py-2 text-sm text-[var(--text-muted)]">Suche Startpunkte...</div>
                     ) : startPointSearchError ? (
-                      <div className="px-3 py-2 text-sm text-red-600">{startPointSearchError}</div>
+                      <div className="px-3 py-2 text-sm text-[var(--state-error)]">{startPointSearchError}</div>
                     ) : (
                       startPointSuggestions.map((suggestion) => (
                         <button
@@ -978,7 +978,7 @@ export default function PlannerControlsSection({
             </div>
           </div>
 
-          <div className="flex items-center gap-4 flex-wrap rounded-[22px] border border-[rgba(68,57,46,0.08)] bg-white/70 px-4 py-3">
+          <div className="flex items-center gap-4 flex-wrap rounded-[var(--radius-card-sm)] border border-[rgba(68,57,46,0.08)] bg-white/70 px-4 py-3">
             <label htmlFor="planner-radius-km" className="font-medium text-[var(--text-strong)]">Umkreis: {radiusKm} km</label>
             <input
               id="planner-radius-km"
@@ -1311,16 +1311,16 @@ export default function PlannerControlsSection({
           ) : null}
 
           {timingWarnings.length > 0 ? (
-            <div className="space-y-2 rounded-lg border border-rose-200 bg-rose-50 p-3">
+            <div className="pd24-status-error space-y-2 rounded-lg p-3">
               <div className="flex items-center justify-between gap-3 flex-wrap">
-                <div className="text-sm font-semibold text-rose-900">Timing-Warnungen</div>
-                <div className="rounded-full border border-rose-200 bg-white px-2 py-1 text-xs text-rose-800">
+                <div className="text-sm font-semibold">Timing-Warnungen</div>
+                <div className="rounded-full border border-[var(--state-error)]/25 bg-white px-2 py-1 text-xs">
                   {timingWarnings.length} Hinweise
                 </div>
               </div>
               <div className="space-y-1">
                 {timingWarnings.slice(0, 4).map((entry, index) => (
-                  <div key={`${entry.stopLabel}-${index}`} className="text-xs text-rose-800">
+                  <div key={`${entry.stopLabel}-${index}`} className="text-xs">
                     <span className="font-semibold">{entry.stopLabel}:</span> {entry.warning}
                   </div>
                 ))}
@@ -1492,27 +1492,27 @@ export default function PlannerControlsSection({
                   <button
                     onClick={addGroupMemberFromProfile}
                     disabled={memberProfileLoading || memberProfileQuery.trim().length === 0}
-                    className="rounded border px-4 py-2 text-sm disabled:opacity-50"
+                    className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                   >
                     {memberProfileLoading ? "Profil wird geladen..." : "+ Profil hinzufügen"}
                   </button>
 
                   <button
                     onClick={addManualGroupMember}
-                    className="rounded bg-[var(--text-strong)] px-4 py-2 text-sm text-white"
+                    className="pd24-btn pd24-btn-sm pd24-btn-primary"
                   >
                     + Teilnehmer hinzufügen
                   </button>
 
                   {groupMembers.length > 0 ? (
-                    <button onClick={clearGroup} className="rounded border px-4 py-2 text-sm">
+                    <button onClick={clearGroup} className="pd24-btn pd24-btn-sm pd24-btn-secondary">
                       Gruppe leeren
                     </button>
                   ) : null}
                 </div>
 
                 {memberProfileError ? (
-                  <div className="text-xs text-red-600">{memberProfileError}</div>
+                  <div className="text-xs text-[var(--state-error)]">{memberProfileError}</div>
                 ) : null}
 
                 {groupMembers.length > 0 ? (

@@ -54,7 +54,7 @@ export default async function AffiliateConversionsSection() {
 
   if (error) {
     return (
-      <div className="rounded-[24px] border border-red-200 bg-red-50 p-5 text-sm text-red-700">
+      <div className="rounded-[var(--radius-card)] pd24-status-error p-5 text-sm">
         Affiliate-Conversion-Query fehlgeschlagen: {error.message}
       </div>
     );
@@ -81,7 +81,7 @@ export default async function AffiliateConversionsSection() {
       {networkEntries.length > 0 ? (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {networkEntries.map(([network, stats]) => (
-            <div key={network} className="rounded-[20px] border border-black/5 bg-[var(--bg-panel)] p-4">
+            <div key={network} className="rounded-[var(--radius-card-sm)] border border-black/5 bg-[var(--bg-panel)] p-4">
               <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
                 {NETWORK_LABEL[network] ?? network}
               </div>
@@ -97,7 +97,7 @@ export default async function AffiliateConversionsSection() {
       ) : null}
 
       {rows.length === 0 ? (
-        <div className="rounded-[24px] border border-[var(--line-subtle)] bg-white p-8 text-sm text-[var(--text-muted)]">
+        <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-8 text-sm text-[var(--text-muted)]">
           <div className="mb-2 font-medium text-[var(--text-strong)]">Noch keine Conversions.</div>
           <div>
             Sobald Netzwerke Postbacks auf <code>/api/affiliate/postback/&lt;network&gt;</code> senden,
@@ -118,7 +118,7 @@ export default async function AffiliateConversionsSection() {
           </ul>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-[24px] border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)]">
+        <div className="overflow-x-auto rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)]">
           <table className="w-full min-w-[720px] text-sm">
             <thead className="bg-[var(--bg-panel)]">
               <tr className="text-left text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
