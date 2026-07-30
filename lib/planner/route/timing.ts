@@ -404,8 +404,25 @@ export function applyStopSchedule(params: {
     cursor = endAt;
   }
 
+  // Späte-Food-Kappung: Restaurant-/Café-Stops, deren realer Start nach 22:00
+  // liegt, werden vom Planende gekappt — dann hat praktisch jedes Lokal zu
+  // (Praxisfall Dresden: Dinner um 00:30 als letzter Stop eines Ganztagsplans).
+  // Nur trailing kappen, damit keine Zeitlücken in der Kette entstehen.
+  const FOOD_LATEST_START_MIN = 22 * 60;
+  let capped = cloned;
+  while (capped.length > 1) {
+    const last = capped[capped.length - 1];
+    if (!last.scheduledStartAt || last.timingLock === "event" || !last.item) break;
+    const category = classify(last.item);
+    if (category !== "restaurant" && category !== "cafe") break;
+    const startDate = new Date(last.scheduledStartAt);
+    const startMin = startDate.getHours() * 60 + startDate.getMinutes();
+    if (startMin <= FOOD_LATEST_START_MIN && startMin >= earliestStartMin) break;
+    capped = capped.slice(0, -1);
+  }
+
   return annotateTimingWarnings({
-    stops: cloned,
+    stops: capped,
     context,
     planStart: flooredPlanStart,
   });

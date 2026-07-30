@@ -130,7 +130,9 @@ function PlannerPageContent() {
   const [planDate, setPlanDate] = useState(todayDateInputValue);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [eventPlanningMode, setEventPlanningMode] = useState<EventPlanningMode>("auto");
-  const [planMode, setPlanMode] = useState<PlanMode>("fullday");
+  // Initial passend zum Default-Anlass "date": Abend-Modus (18 Uhr, 3 Stops).
+  // Vorher hart "fullday" — dadurch bekamen Dates einen Ganztagsplan ab vormittags.
+  const [planMode, setPlanMode] = useState<PlanMode>(() => defaultPlanModeForOccasion("date"));
   const [dayStartMin, setDayStartMin] = useState<number | null>(null);
   const [stopsCount, setStopsCount] = useState(3);
 
@@ -842,6 +844,26 @@ function PlannerPageContent() {
     activePlanGroupChatId,
     onPostGroupMessage: postPlanGroupChatSystemMessage,
   });
+
+  // Mobile-UX: Nach abgeschlossener Generierung direkt zum Plan scrollen —
+  // auf 375px liegen Setup-Blöcke davor und das Ergebnis ist sonst erst
+  // nach viel Scrollen sichtbar.
+  const planOutputRef = useRef<HTMLDivElement | null>(null);
+  const prevPlannerLoadingRef = useRef(false);
+  useEffect(() => {
+    const wasLoading = prevPlannerLoadingRef.current;
+    prevPlannerLoadingRef.current = plannerLoading;
+    if (
+      wasLoading &&
+      !plannerLoading &&
+      plannedStops.length > 0 &&
+      typeof window !== "undefined" &&
+      window.innerWidth < 640
+    ) {
+      planOutputRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [plannerLoading, plannedStops.length]);
+
   const {
     plans,
     planChoiceReactions,
@@ -2291,6 +2313,7 @@ function PlannerPageContent() {
           groupPlanningSignals={groupPlanningSignals}
           groupPlanSummary={groupPlanSummary}
         />
+      <div ref={planOutputRef} className="scroll-mt-20">
       <PlannerOutputSection
         routeProfile={routeProfile}
         plannerLoading={plannerLoading}
@@ -2323,6 +2346,7 @@ function PlannerPageContent() {
         planChoiceReactions={planChoiceReactions}
         planEditSuggestions={planEditSuggestions}
       />
+      </div>
         </section>
       </div>
 
