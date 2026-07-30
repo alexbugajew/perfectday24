@@ -19,6 +19,18 @@ export function safeExternalUrl(value: unknown): string | null {
   }
 }
 
+/**
+ * Wie safeExternalUrl, ergänzt aber ein fehlendes Schema ("www.lokal.de" →
+ * "https://www.lokal.de"). OSM-Website-Tags kommen häufig ohne Schema.
+ */
+export function normalizeExternalUrl(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.startsWith("/")) return null;
+  const candidate = /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(trimmed) ? trimmed : `https://${trimmed}`;
+  return safeExternalUrl(candidate);
+}
+
 /** True, wenn der Wert eine gültige http(s)-URL ist. Für Schreibpfade/Formulare. */
 export function isSafeExternalUrl(value: unknown): boolean {
   return safeExternalUrl(value) !== null;
@@ -70,7 +82,28 @@ const BUILTIN_REDIRECT_HOSTS = [
   "eventim.de",
   "opentable.de",
   "thefork.de",
+  // Hotel-Suchanbieter (HotelSearchLinks auf Roadtrip-Seiten)
+  "hrs.de",
+  "hotels.com",
+  "hostelworld.com",
 ];
+
+/**
+ * Env-freie Host-Prüfung für Client-Bundles: entscheidet nur über die
+ * Builtin-Liste, damit Server- und Client-Render identisch urteilen
+ * (AFFILIATE_REDIRECT_ALLOWED_HOSTS existiert im Browser nicht — ein per Env
+ * freigeschalteter Host verlinkt dann direkt statt über die Redirect-Route,
+ * was funktional gleichwertig ist).
+ */
+export function isBuiltinRedirectHost(value: unknown): boolean {
+  const safe = safeExternalUrl(value);
+  if (!safe) return false;
+  const host = new URL(safe).hostname.toLowerCase();
+  return (
+    BUILTIN_REDIRECT_HOSTS.includes(host) ||
+    BUILTIN_REDIRECT_HOSTS.some((entry) => host.endsWith(`.${entry}`))
+  );
+}
 
 function allowedRedirectHosts(): Set<string> {
   const extra = (process.env.AFFILIATE_REDIRECT_ALLOWED_HOSTS ?? "")
