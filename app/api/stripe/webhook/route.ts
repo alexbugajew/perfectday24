@@ -19,6 +19,39 @@ function isUserPremiumSub(subscription: Stripe.Subscription): boolean {
   return subscription.metadata?.plan_key === "user_premium";
 }
 
+/**
+ * Prüft, dass `metadata.user_id` wirklich zum Stripe-Customer des Abos gehört.
+ *
+ * Die Metadata wird zwar nur serverseitig gesetzt, aber wer sie auf anderem Weg
+ * beeinflussen kann (zweite Integration, Dashboard-Zugriff), könnte sonst
+ * `is_premium` auf ein fremdes Konto schreiben. Deshalb hier der Gegencheck über
+ * `profiles.stripe_customer_id`.
+ */
+async function userIdMatchesCustomer(
+  supabase: ReturnType<typeof getSupabaseAdmin>,
+  userId: string,
+  customerId: string | null
+): Promise<boolean> {
+  if (!customerId) return true; // ohne Customer nichts zu vergleichen
+
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("user_id, stripe_customer_id")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("webhook: customer/user check failed", error);
+    return false;
+  }
+
+  const storedCustomer = (data?.stripe_customer_id as string | null) ?? null;
+  // Erstabschluss: noch kein Customer gespeichert — dann ist die Zuordnung neu
+  // und wird durch diesen Webhook erst hergestellt.
+  if (!storedCustomer) return true;
+  return storedCustomer === customerId;
+}
+
 async function updateUserPremiumFromSubscription(
   subscription: Stripe.Subscription,
   supabase: ReturnType<typeof getSupabaseAdmin>
@@ -26,6 +59,19 @@ async function updateUserPremiumFromSubscription(
   const userId = subscription.metadata?.user_id ?? null;
   if (!userId) {
     console.warn("webhook: user_premium sub missing user_id", subscription.id);
+    return;
+  }
+
+  const customerId =
+    typeof subscription.customer === "string"
+      ? subscription.customer
+      : subscription.customer?.id ?? null;
+
+  if (!(await userIdMatchesCustomer(supabase, userId, customerId))) {
+    console.error(
+      "webhook: user_id passt nicht zum Stripe-Customer — Update verworfen",
+      subscription.id
+    );
     return;
   }
 
@@ -151,6 +197,20 @@ async function handleSubscriptionDeleted(
       console.warn("webhook: user_premium sub.deleted missing user_id", subscription.id);
       return;
     }
+
+    const customerId =
+      typeof subscription.customer === "string"
+        ? subscription.customer
+        : subscription.customer?.id ?? null;
+
+    if (!(await userIdMatchesCustomer(supabase, userId, customerId))) {
+      console.error(
+        "webhook: user_id passt nicht zum Stripe-Customer — Delete verworfen",
+        subscription.id
+      );
+      return;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error } = await (supabase as any)
       .from("profiles")

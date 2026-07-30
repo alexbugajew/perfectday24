@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { canonicalCitySlug } from "@/lib/cities/canonical";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
+import { escapeLikePattern } from "@/lib/security/db";
+import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
+
+/** Suchbegriffe länger als das sind für Ortsnamen sinnlos und nur Last. */
+const MAX_QUERY_LENGTH = 64;
 
 type SearchSuggestion = {
   label: string;
@@ -595,9 +600,15 @@ function rolloutCityRows(citySlug: string | null, query: string): CitySearchRow[
 }
 
 export async function GET(req: Request) {
+  const limited = enforceRateLimit(req, "geocode:search", RATE_RULES.search);
+  if (limited) return limited;
+
   try {
     const url = new URL(req.url);
-    const q = normalize(url.searchParams.get("q"));
+    const q = normalize(url.searchParams.get("q")).slice(0, MAX_QUERY_LENGTH);
+    // Für ilike separat entschärft: `%`/`_` sind Wildcards, `q=%` würde sonst
+    // einen Full-Table-Scan über locations auslösen.
+    const qLike = escapeLikePattern(q);
     const citySlug = canonicalCitySlug(normalize(url.searchParams.get("citySlug")) || null);
     const requestedType = normalize(url.searchParams.get("type")) || "address";
     const limit = Math.min(12, Math.max(5, Number(url.searchParams.get("limit") ?? "8") || 8));
@@ -631,7 +642,7 @@ export async function GET(req: Request) {
         )
         .not("lat", "is", null)
         .not("lng", "is", null)
-        .ilike("name", `%${q}%`)
+        .ilike("name", `%${qLike}%`)
         .limit(20);
 
       if (citySlug) {
@@ -662,7 +673,7 @@ export async function GET(req: Request) {
             .select("slug,name,center_lat,center_lng,country_code")
             .not("center_lat", "is", null)
             .not("center_lng", "is", null)
-            .ilike("name", `%${q}%`)
+            .ilike("name", `%${qLike}%`)
             .eq("is_active", true)
             .limit(5);
 
@@ -760,11 +771,9 @@ export async function GET(req: Request) {
     return NextResponse.json({ suggestions: merged });
   } catch (error) {
     console.error("Geocode search failed:", error);
+    // Interne Fehlermeldungen bleiben serverseitig.
     return NextResponse.json(
-      {
-        error: error instanceof Error ? error.message : "Geocode search failed",
-        suggestions: [],
-      },
+      { error: "geocode_search_failed", suggestions: [] },
       { status: 500 }
     );
   }

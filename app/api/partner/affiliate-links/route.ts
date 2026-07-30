@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPartnerAuthContext } from "@/lib/partner/api-auth";
+import { safeExternalUrl } from "@/lib/security/safe-url";
 
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get("authorization") ?? "";
   const accessToken = authHeader.replace("Bearer ", "").trim();
   if (!accessToken) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
 
-  const { admin, partnerProfileId, error } = await getPartnerAuthContext(accessToken);
+  const { admin, partnerProfileId, error } = await getPartnerAuthContext(accessToken, { requireWrite: true });
   if (error === "invalid_token") return NextResponse.json({ error }, { status: 401 });
+  if (error === "insufficient_role") {
+    return NextResponse.json({ error: "insufficient_role" }, { status: 403 });
+  }
   if (error === "no_partner_profile" || !partnerProfileId) {
     return NextResponse.json({ error: "no_partner_profile" }, { status: 403 });
   }
@@ -26,12 +30,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "missing_fields" }, { status: 400 });
   }
 
+  // Nur http(s) speichern — `javascript:`/`data:`-URLs würden beim Rendern als
+  // href zu Stored XSS führen.
+  const destinationUrl = safeExternalUrl(body.destination_url);
+  if (!destinationUrl) {
+    return NextResponse.json({ error: "invalid_destination_url" }, { status: 400 });
+  }
+
   const { data, error: insertErr } = await admin
     .from("affiliate_links")
     .insert({
       partner_profile_id: partnerProfileId,
       provider_name: body.provider_name.trim(),
-      destination_url: body.destination_url.trim(),
+      destination_url: destinationUrl,
       commission_model: body.commission_model.trim(),
       link_scope: body.link_scope.trim(),
       route_id: body.route_id ?? null,

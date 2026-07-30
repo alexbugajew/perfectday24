@@ -16,6 +16,19 @@ const CONSENT_VERSION = 1;
 // decline/withdrawal every matching key is purged (Art. 7 Abs. 3 DSGVO).
 const TRACKING_STORAGE_PREFIX = "pd24_monetization";
 
+/**
+ * Lokal gespeicherte personenbezogene Daten, die **nicht** einwilligungspflichtig
+ * sind, weil sie für die vom Nutzer gewünschte Funktion gebraucht werden
+ * (Startpunkt für die Routenplanung, Gruppen-Einladungen). Sie brauchen aber
+ * eine Löschmöglichkeit — auf gemeinsam genutzten Geräten bleiben sonst
+ * Aufenthaltsort und Namen Dritter unbegrenzt lesbar.
+ */
+const PERSONAL_DATA_KEYS = [
+  "pd24_start_point",
+  "pd24_group_invites",
+  "pd24_group_import",
+];
+
 /** Browser event that asks the ConsentBanner to show itself again. */
 export const CONSENT_OPEN_EVENT = "pd24:consent-open";
 /** Browser event fired after the user saved a (new) decision. */
@@ -123,4 +136,25 @@ export function openConsentBanner(): void {
   try {
     window.dispatchEvent(new CustomEvent(CONSENT_OPEN_EVENT));
   } catch {}
+}
+
+/**
+ * Löscht alle lokal gespeicherten personenbezogenen Daten: Tracking-IDs,
+ * Startpunkt und Gruppen-Einladungen. Die Consent-Entscheidung selbst bleibt
+ * erhalten, damit der Banner nicht erneut erscheint.
+ *
+ * Gedacht für eine „Lokale Daten löschen"-Aktion im Profil — relevant auf
+ * gemeinsam genutzten Geräten.
+ */
+export function clearLocalPersonalData(): void {
+  if (typeof window === "undefined") return;
+  purgeTrackingStorage();
+  for (const key of PERSONAL_DATA_KEYS) {
+    try {
+      window.localStorage.removeItem(key);
+    } catch {}
+    try {
+      window.sessionStorage.removeItem(key);
+    } catch {}
+  }
 }

@@ -18,7 +18,23 @@ type MediaAssetRow = {
   public_url: string | null;
   caption: string | null;
   credit_name: string | null;
+  moderation_status?: string | null;
+  visibility?: string | null;
 };
+
+/** Nur freigegebene, oeffentliche Assets dürfen in Galerien erscheinen. */
+const PUBLISHABLE_MODERATION_STATES = new Set(["approved", "featured"]);
+
+function isPublishableAsset(asset: MediaAssetRow | null | undefined): boolean {
+  if (!asset) return false;
+  // Ältere Aufrufe ohne diese Felder werden nicht blockiert — dort greift
+  // weiterhin allein die RLS-Policy.
+  if (asset.moderation_status === undefined && asset.visibility === undefined) return true;
+  return (
+    PUBLISHABLE_MODERATION_STATES.has(asset.moderation_status ?? "") &&
+    asset.visibility === "public"
+  );
+}
 
 function toGalleryItem(
   asset: MediaAssetRow | null | undefined,
@@ -33,6 +49,8 @@ function toGalleryItem(
 ): MediaGalleryItem | null {
   const url = renderableImageUrl(asset?.public_url ?? null);
   if (!asset?.id || !url) return null;
+  // Defense in depth: zusätzlich zur RLS-Policy auch hier filtern.
+  if (!isPublishableAsset(asset)) return null;
   return {
     id: asset.id || input.fallbackId,
     url,
@@ -49,7 +67,7 @@ function toGalleryItem(
 export async function loadRouteMediaBundle(routeId: string, stopFallbacks: Array<{ id: string; title: string | null; photoUrl: string | null }> = []) {
   const routeMediaPromise = supabase
     .from("route_media")
-    .select("id,role,sort_order,is_primary,media_assets(id,public_url,caption,credit_name)")
+    .select("id,role,sort_order,is_primary,media_assets(id,public_url,caption,credit_name,moderation_status,visibility)")
     .eq("route_id", routeId)
     .order("is_primary", { ascending: false })
     .order("sort_order", { ascending: true });
@@ -58,7 +76,7 @@ export async function loadRouteMediaBundle(routeId: string, stopFallbacks: Array
     stopIds.length > 0
       ? supabase
           .from("route_stop_media")
-          .select("id,role,sort_order,is_primary,route_stop_id,user_route_stops(stop_order,title),media_assets(id,public_url,caption,credit_name)")
+          .select("id,role,sort_order,is_primary,route_stop_id,user_route_stops(stop_order,title),media_assets(id,public_url,caption,credit_name,moderation_status,visibility)")
           .in("route_stop_id", stopIds)
           .order("is_primary", { ascending: false })
           .order("sort_order", { ascending: true })
@@ -132,7 +150,7 @@ export async function loadRouteMediaBundle(routeId: string, stopFallbacks: Array
 export async function loadRoadtripMediaBundle(roadtripRouteId: string) {
   const { data, error } = await supabase
     .from("roadtrip_media")
-    .select("id,role,sort_order,is_primary,media_assets(id,public_url,caption,credit_name)")
+    .select("id,role,sort_order,is_primary,media_assets(id,public_url,caption,credit_name,moderation_status,visibility)")
     .eq("roadtrip_route_id", roadtripRouteId)
     .order("is_primary", { ascending: false })
     .order("sort_order", { ascending: true });
@@ -156,7 +174,7 @@ export async function loadRoadtripMediaBundle(roadtripRouteId: string) {
 export async function loadEventPlanMediaBundle(eventPlanId: string, fallbackProviders: Array<{ id: string; name: string; coverImageUrl?: string | null }> = []) {
   const { data, error } = await supabase
     .from("event_plan_media")
-    .select("id,role,sort_order,is_primary,media_assets(id,public_url,caption,credit_name)")
+    .select("id,role,sort_order,is_primary,media_assets(id,public_url,caption,credit_name,moderation_status,visibility)")
     .eq("event_plan_id", eventPlanId)
     .order("is_primary", { ascending: false })
     .order("sort_order", { ascending: true });
