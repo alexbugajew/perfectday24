@@ -413,6 +413,14 @@ export function isStrongDateCandidate(loc: LocationRow) {
   if (
     text.includes("kinder") ||
     text.includes("kids") ||
+    // Familien-Attraktionen, die als normales museum/attraction getaggt sind
+    // und deshalb durchs Subtype-Raster fielen (Praxisfall Dresden:
+    // Parkeisenbahn + Verkehrsmuseum landeten im Date-Plan).
+    text.includes("parkeisenbahn") ||
+    text.includes("verkehrsmuseum") ||
+    text.includes("spielzeugmuseum") ||
+    text.includes("puppentheater") ||
+    text.includes("modellbahn") ||
     hasSubtype(
       loc,
       "playground",
@@ -421,7 +429,12 @@ export function isStrongDateCandidate(loc: LocationRow) {
       "zoo",
       "wildpark",
       "aquarium",
-      "farm_experience"
+      "farm_experience",
+      "miniature_railway",
+      "park_railway",
+      "transport_museum",
+      "toy_museum",
+      "puppet_theatre"
     )
   ) {
     return false;
@@ -456,7 +469,7 @@ export function dateRetrievalBoost(loc: LocationRow) {
   if (hasSubtype(loc, "promenade", "viewpoint", "rooftop", "romantic_spot", "botanical_garden")) score += 16;
   if (hasSubtype(loc, "bowling", "minigolf", "climbing", "lasertag", "escape_room")) score += 12;
   if (hasSubtype(loc, "cinema", "cocktail_workshop", "workshop_pottery", "workshop_painting")) score += 10;
-  if (hasSubtype(loc, "playground", "children_museum", "science_center", "zoo", "wildpark", "aquarium", "farm_experience")) score -= 40;
+  if (hasSubtype(loc, "playground", "children_museum", "science_center", "zoo", "wildpark", "aquarium", "farm_experience", "miniature_railway", "park_railway", "transport_museum", "toy_museum", "puppet_theatre")) score -= 40;
 
   score += signals.lowPressure * 4;
   score += signals.conversation * 5;
