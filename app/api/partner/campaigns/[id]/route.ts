@@ -11,8 +11,11 @@ export async function PATCH(
   const accessToken = authHeader.replace("Bearer ", "").trim();
   if (!accessToken) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
 
-  const { admin, partnerProfileId, error } = await getPartnerAuthContext(accessToken);
+  const { admin, partnerProfileId, error } = await getPartnerAuthContext(accessToken, { requireWrite: true });
   if (error === "invalid_token") return NextResponse.json({ error }, { status: 401 });
+  if (error === "insufficient_role") {
+    return NextResponse.json({ error: "insufficient_role" }, { status: 403 });
+  }
   if (error === "no_partner_profile" || !partnerProfileId) {
     return NextResponse.json({ error: "no_partner_profile" }, { status: 403 });
   }
@@ -60,8 +63,11 @@ export async function DELETE(
   const accessToken = authHeader.replace("Bearer ", "").trim();
   if (!accessToken) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
 
-  const { admin, partnerProfileId, error } = await getPartnerAuthContext(accessToken);
+  const { admin, partnerProfileId, error } = await getPartnerAuthContext(accessToken, { requireWrite: true });
   if (error === "invalid_token") return NextResponse.json({ error }, { status: 401 });
+  if (error === "insufficient_role") {
+    return NextResponse.json({ error: "insufficient_role" }, { status: 403 });
+  }
   if (error === "no_partner_profile" || !partnerProfileId) {
     return NextResponse.json({ error: "no_partner_profile" }, { status: 403 });
   }

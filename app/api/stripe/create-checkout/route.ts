@@ -133,15 +133,17 @@ export async function POST(req: Request) {
       billing_address_collection: "required" as const,
     };
 
-    console.log("create-checkout params:", JSON.stringify(checkoutParams, null, 2));
+    // Kein Voll-Payload im Log — der enthielt User-ID und E-Mail.
+    console.log("create-checkout:", { planKey, mode: checkoutParams.mode });
 
     let session;
     try {
       session = await stripe.checkout.sessions.create(checkoutParams);
     } catch (err) {
-      console.error("Stripe Error:", JSON.stringify(err, null, 2));
+      console.error("Stripe Error:", err instanceof Error ? err.message : err);
+      // Interne Fehlerdetails bleiben serverseitig.
       return NextResponse.json(
-        { error: "Checkout konnte nicht erstellt werden", detail: String(err) },
+        { error: "Checkout konnte nicht erstellt werden" },
         { status: 500 }
       );
     }

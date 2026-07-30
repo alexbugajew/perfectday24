@@ -50,13 +50,18 @@
     "routes:images:backfill-stop-context": "node .codex-scripts-dist/scripts/backfill-stop-photos-from-route-context.js",
     "routes:images:report-gaps": "node .codex-scripts-dist/scripts/report-route-image-gaps.js"
   },
+  "//overrides": "Hebt transitive Versionen innerhalb von next an: postcss <=8.5.17 (XSS/Path-Traversal beim Source-Map-Laden) und sharp <0.35 (libvips-CVEs). npm wuerde stattdessen einen Downgrade auf next@9 vorschlagen — das ist keine Option. Bei einem next-Major pruefen, ob die Overrides noch gebraucht werden.",
+  "overrides": {
+    "postcss": "^8.5.25",
+    "sharp": "^0.35.3"
+  },
   "dependencies": {
     "@stripe/stripe-js": "^9.5.0",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.96.0",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
-    "next": "16.1.6",
+    "next": "16.2.12",
     "openai": "^6.22.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -70,7 +75,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "16.2.12",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPartnerAuthContext } from "@/lib/partner/api-auth";
+import { safeExternalUrl } from "@/lib/security/safe-url";
 
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get("authorization") ?? "";
   const accessToken = authHeader.replace("Bearer ", "").trim();
   if (!accessToken) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
 
-  const { admin, partnerProfileId, error } = await getPartnerAuthContext(accessToken);
+  const { admin, partnerProfileId, error } = await getPartnerAuthContext(accessToken, { requireWrite: true });
   if (error === "invalid_token") return NextResponse.json({ error }, { status: 401 });
+  if (error === "insufficient_role") {
+    return NextResponse.json({ error: "insufficient_role" }, { status: 403 });
+  }
   if (error === "no_partner_profile" || !partnerProfileId) {
     return NextResponse.json({ error: "no_partner_profile" }, { status: 403 });
   }
@@ -42,7 +46,8 @@ export async function POST(req: NextRequest) {
       starts_at: body.starts_at || null,
       ends_at: body.ends_at || null,
       cta_label: body.cta_label?.trim() || null,
-      cta_url: body.cta_url?.trim() || null,
+      // Nur http(s) — siehe affiliate-links: verhindert javascript:-hrefs.
+      cta_url: body.cta_url ? safeExternalUrl(body.cta_url) : null,
       target_route_id: body.target_route_id || null,
       target_location_id: body.target_location_id || null,
       target_event_id: body.target_event_id || null,

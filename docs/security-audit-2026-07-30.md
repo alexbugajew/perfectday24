@@ -9,6 +9,31 @@ Stand der geprüften Version: Next.js 16.1.6, Branch `main`, Commit `c8cb69a`.
 
 ---
 
+## Status: behoben am 30.07.2026
+
+Alle 19 Funde wurden umgesetzt. Verifiziert per Typecheck, Production-Build,
+ESLint, 25 Unit-Checks der neuen Security-Helper und Laufzeittests gegen den
+Dev-Server (Header, Rate-Limits, Redirect-Allowlist, Fail-closed-Postback,
+Input-Caps, Consent-Flow). `npm audit --omit=dev`: **0 Vulnerabilities**.
+
+Zwei Punkte brauchen noch eine manuelle Handlung:
+
+1. **Migration ausrollen.** `supabase/migrations/20260730120000_security_hardening_rls.sql`
+   ist geschrieben, aber wegen der bekannten Schema-Drift **nicht automatisch
+   angewendet**. Vorher den Live-Zustand prüfen (Queries stehen in der Datei).
+2. **`AFFILIATE_POSTBACK_SECRET` setzen.** Der Endpunkt ist jetzt fail-closed und
+   antwortet ohne gesetztes Secret mit 503 — in allen Umgebungen setzen, in denen
+   Postbacks ankommen sollen.
+
+Offen als bewusste Entscheidung: Das Rate-Limit zählt im Prozessspeicher, ist auf
+Vercel also pro Instanz. Gegen Floods aus einer Quelle wirkt es, für harte
+globale Limits wäre Upstash/Redis der nächste Schritt (siehe Fund 4).
+
+Verbleibende `npm audit`-Meldungen betreffen ausschließlich die ESLint-Toolchain
+(`brace-expansion`/`minimatch`-DoS) — Lint-Zeit, nicht im ausgelieferten Bundle.
+
+---
+
 ## Kurzfassung
 
 Der klassische XSS-Vektor existiert praktisch nicht (kein `dangerouslySetInnerHTML`, `innerHTML`,

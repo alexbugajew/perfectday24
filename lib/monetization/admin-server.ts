@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import { createClient, type User } from "@supabase/supabase-js";
-import { isInternalMonetizationAvailable } from "./debug";
 
 export type AdminPartnerProfileRow = {
   id: string;
@@ -300,14 +299,11 @@ export async function getMonetizationAdminAccessState(): Promise<MonetizationAdm
   const hasAllowlist = hasConfiguredAdminAllowlist(allowlist);
 
   if (!hasAllowlist) {
-    if (process.env.NODE_ENV !== "production" && isInternalMonetizationAvailable()) {
-      const user = await getServerAuthUser();
-      if (!user) {
-        return { allowed: false, reason: "unauthenticated", user: null };
-      }
-      return { allowed: true, reason: null, user };
-    }
-
+    // Kein Auto-Admin-Fallback mehr: Früher galt außerhalb der Produktion
+    // jeder eingeloggte Nutzer als Monetization-Admin, sobald keine Allowlist
+    // konfiguriert war. In Staging- oder Self-hosted-Builds reichte damit eine
+    // normale Registrierung für Vollzugriff auf Partner- und Attributionsdaten.
+    // Ohne PD24_INTERNAL_ADMIN_EMAILS/_USER_IDS ist der Bereich jetzt zu.
     return { allowed: false, reason: "misconfigured", user: null };
   }
 
