@@ -479,7 +479,7 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
       <div className="rounded-xl border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.9)] p-5">
         <div className="text-sm font-semibold text-[var(--text-strong)]">Plan übernehmen und anpassen</div>
         <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
-          Klick auf „Plan übernehmen" lädt diesen Plan in deinen Planner — von dort kannst du Stops
+          Klick auf „Plan übernehmen“ lädt diesen Plan in deinen Planner — von dort kannst du Stops
           tauschen, das Timing anpassen und den Plan erneut teilen.
         </p>
         <CopyPlanButton

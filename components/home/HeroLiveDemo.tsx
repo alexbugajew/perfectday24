@@ -198,7 +198,7 @@ export default function HeroLiveDemo() {
         <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-[var(--text-soft-warm)]">
           perfectday24.de / planner
         </div>
-        <div className="text-[10px] font-semibold text-[var(--brand-warm)]">Live-Demo</div>
+        <div className="text-[10px] font-semibold text-[var(--brand-warm-ink)]">Live-Demo</div>
       </div>
 
       {/* Prompt-Input mit tippendem Cursor */}
@@ -255,14 +255,14 @@ export default function HeroLiveDemo() {
           }}
         >
           <div className="min-w-0">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-warm)]">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--brand-warm-ink)]">
               {scenario.cityLabel}
             </div>
             <div className="mt-0.5 truncate text-base font-semibold tracking-tight text-[var(--text-strong)]">
               {scenario.planTitle}
             </div>
           </div>
-          <span className="shrink-0 rounded-full border border-[rgba(196,137,79,0.32)] bg-[rgba(255,249,241,0.85)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--brand-warm)]">
+          <span className="shrink-0 rounded-full border border-[rgba(196,137,79,0.32)] bg-[rgba(255,249,241,0.85)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--brand-warm-ink)]">
             {scenario.peakTag}
           </span>
         </div>
@@ -283,9 +283,9 @@ export default function HeroLiveDemo() {
                 transitionDelay: visible ? "0ms" : "0ms",
               }}
             >
-              <div className="text-[11px] font-semibold text-[var(--brand-warm)]">{stop.time}</div>
+              <div className="text-[11px] font-semibold text-[var(--brand-warm-ink)]">{stop.time}</div>
               <div className="min-w-0">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-soft-warm)]">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-soft-warm)]">
                   {stop.label}
                 </div>
                 <div className="mt-0.5 truncate text-sm font-medium text-[var(--text-strong)]">

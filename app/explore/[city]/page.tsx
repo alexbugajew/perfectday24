@@ -208,7 +208,7 @@ export default async function CityExplorePage({
                   <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${
                     heroImage
                       ? "bg-white/20 text-white backdrop-blur"
-                      : "bg-[rgba(196,137,79,0.14)] text-[var(--brand-warm)]"
+                      : "bg-[rgba(196,137,79,0.14)] text-[var(--brand-warm-ink)]"
                   }`}>
                     <span className={`h-1.5 w-1.5 animate-pulse rounded-full ${heroImage ? "bg-white/90" : "bg-[var(--brand-warm)]"}`} />
                     {upcomingEvents} Events · 30 Tage

@@ -67,7 +67,7 @@ export default function PlannerMapPanel({
           <button
             type="button"
             onClick={() => setMapExpanded((current) => !current)}
-            className="shrink-0 rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1.5 text-xs font-medium text-[var(--text-strong)] hover:border-[var(--line-strong)]"
+            className="inline-flex min-h-9 shrink-0 items-center rounded-md border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 text-xs font-medium text-[var(--text-strong)] hover:border-[var(--line-strong)]"
           >
             {mapExpanded ? "Kleiner" : "Größer"}
           </button>
@@ -89,7 +89,7 @@ export default function PlannerMapPanel({
                   role="radio"
                   aria-checked={active}
                   onClick={() => onRouteProfileChange(option.value)}
-                  className={`min-h-8 rounded px-2 text-xs font-medium transition ${
+                  className={`min-h-9 rounded px-2 text-xs font-medium transition ${
                     active
                       ? "bg-white text-[var(--text-strong)] shadow-sm"
                       : "text-[var(--text-muted)] hover:text-[var(--text-strong)]"

@@ -3,6 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import PartnerMarketingCta from "@/components/partner/PartnerMarketingCta";
 import PartnerRoiCalculator from "@/components/partner/PartnerRoiCalculator";
+import { getReachStats } from "@/lib/reach-stats";
+
+// Täglich neu bauen: die Städte-Zahl kommt aus lib/reach-stats.
+export const revalidate = 86400;
 
 const partnerOg = "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&h=630&fit=crop&auto=format&q=80";
 
@@ -154,10 +158,11 @@ const statusFlow = [
   { label: "Draft", copy: "Inhalt vorbereitet, noch nicht live." },
   { label: "In Review", copy: "Qualität, Rechte und Darstellung werden geprüft." },
   { label: "Published", copy: "Im Produkt sichtbar und klickbar." },
-  { label: "Featured", copy: "Zusaetzliche Distribution in kuratierten Flächen." },
+  { label: "Featured", copy: "Zusätzliche Distribution in kuratierten Flächen." },
 ];
 
-export default function PartnerLandingPage() {
+export default async function PartnerLandingPage() {
+  const reach = await getReachStats();
   return (
     <main className="pd24-page-standard space-y-6 pb-20 pt-6">
       <section className="overflow-hidden rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-[linear-gradient(135deg,var(--bg-canvas-warm),#eef4f7)] px-6 py-8 shadow-[var(--shadow-large)] sm:px-8 sm:py-10">
@@ -356,7 +361,7 @@ export default function PartnerLandingPage() {
             <div className="pd24-kicker-warm">Pakete</div>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)]">Wähle das Modell, das zu deiner Reichweite passt</h2>
           </div>
-          <Link href="/partner/onboarding" className="text-sm font-medium text-[var(--text-strong)] underline underline-offset-4">
+          <Link href="/partner/onboarding" className="inline-flex min-h-11 items-center self-start text-sm font-medium text-[var(--text-strong)] underline underline-offset-4">
             Direkt ins Onboarding
           </Link>
         </div>
@@ -453,14 +458,14 @@ export default function PartnerLandingPage() {
         </h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {[
-            { value: "551", unit: "Städte", copy: "Deutsche Groß- und Mittelstädte abgedeckt — dein Angebot erscheint stadtspezifisch." },
+            { value: String(reach.visibleCities), unit: "Städte", copy: "Deutsche Groß- und Mittelstädte abgedeckt — dein Angebot erscheint stadtspezifisch." },
             { value: "5+", unit: "Planungsmodi", copy: "Tagesplanung, Roadtrip, Events, Explore und Routen — dein Profil ist in allen sichtbar." },
             { value: "100%", unit: "Kontext-Targeting", copy: "Nutzer kommen mit konkretem Anlass, Datum und Budgetrahmen — keine Streuverluste." },
             { value: "0 EUR", unit: "zum Start", copy: "Kostenlos einsteigen, Profil anlegen und erste Anfragen empfangen." },
           ].map((item) => (
             <div key={item.unit} className="rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
               <div className="text-3xl font-semibold text-[var(--text-strong)]">{item.value}</div>
-              <div className="text-sm font-semibold text-[var(--brand-warm)]">{item.unit}</div>
+              <div className="text-sm font-semibold text-[var(--brand-warm-ink)]">{item.unit}</div>
               <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{item.copy}</p>
             </div>
           ))}
@@ -534,7 +539,7 @@ export default function PartnerLandingPage() {
         <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {[
             { value: "1 Portal", copy: "Profil, Medien, Pakete und Kampagnen ohne Tool-Wechsel." },
-            { value: "551 Städte", copy: "Ausspielung passend zu Stadt, Anlass und Planungsoberfläche." },
+            { value: `${reach.visibleCities} Städte`, copy: "Ausspielung passend zu Stadt, Anlass und Planungsoberfläche." },
             { value: "3 Kernflächen", copy: "Explore, Route/Roadtrip und Event-Buchungsflow." },
             { value: "0 EUR Start", copy: "Mit Free beginnen und später auf Basic oder Pro erweitern." },
           ].map((item) => (

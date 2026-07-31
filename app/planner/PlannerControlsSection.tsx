@@ -493,7 +493,7 @@ export default function PlannerControlsSection({
                   resetStartPointForSelectedCity();
                   resetPlan();
                 }}
-                className="mt-1 w-full bg-transparent text-sm font-medium text-[var(--text-strong)] outline-none"
+                className="mt-1 min-h-9 w-full bg-transparent text-sm font-medium text-[var(--text-strong)] outline-none"
                 disabled={citiesLoading}
               >
                 <option value="all">Alle Länder</option>
@@ -537,7 +537,7 @@ export default function PlannerControlsSection({
                     key={opt.value}
                     type="button"
                     onClick={() => setOccasion(opt.value)}
-                    className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                    className={`inline-flex min-h-9 items-center rounded-full border px-3.5 text-xs font-medium transition ${
                       occasion === opt.value
                         ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
                         : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-panel)]"

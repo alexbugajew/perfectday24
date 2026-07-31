@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type Suggestion = {
@@ -19,12 +20,12 @@ const SUGGESTIONS: Suggestion[] = [
 
 export default function AiExploreTeaser() {
   const [hovered, setHovered] = useState<string | null>(null);
+  const router = useRouter();
 
   function handlePick(text: string) {
     // Route to homepage hero — that's where HeroIntentBar lives.
     // Eventually: dedicated /explore?q=... endpoint with full LLM-Explore.
-    const url = `/?intent=${encodeURIComponent(text)}#hero-proof`;
-    window.location.href = url;
+    router.push(`/?intent=${encodeURIComponent(text)}#hero-proof`);
   }
 
   return (
@@ -73,7 +74,7 @@ export default function AiExploreTeaser() {
                 </span>
                 <span className="mt-0.5 block text-xs text-[var(--text-muted-warm)]">{s.hint}</span>
               </span>
-              <span className="mt-1 text-xs text-[var(--brand-warm)] opacity-0 transition group-hover:opacity-100">
+              <span className="mt-1 text-xs text-[var(--brand-warm-ink)] opacity-0 transition group-hover:opacity-100">
                 →
               </span>
             </button>

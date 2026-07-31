@@ -6,6 +6,23 @@ import { useState, useRef, useEffect, useId } from "react";
 
 type City = { slug: string; name: string };
 
+// Umlaut-tolerante Suche: „Gießen" findet „Giessen" und umgekehrt,
+// „Munchen" findet „München". Beide Seiten werden auf dieselbe Form gebracht.
+function normalizeCitySearchText(value: string) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replaceAll("ä", "a")
+    .replaceAll("ö", "o")
+    .replaceAll("ü", "u")
+    .replaceAll("ß", "ss")
+    .replaceAll("ae", "a")
+    .replaceAll("oe", "o")
+    .replaceAll("ue", "u")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "");
+}
+
 type SharedProps = {
   cities: City[];
   placeholder?: string;
@@ -61,7 +78,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
     query.trim().length === 0
       ? []
       : cities.filter((c) =>
-          c.name.toLowerCase().includes(query.toLowerCase().trim())
+          normalizeCitySearchText(c.name).includes(normalizeCitySearchText(query))
         );
 
   // Close on click outside
@@ -189,7 +206,7 @@ export function CitySearchInput(props: CitySearchInputProps) {
           }}
           onKeyDown={handleKeyDown}
           placeholder={inputPlaceholder}
-          className={`min-w-0 flex-1 bg-transparent text-sm text-[var(--text-strong)] focus:outline-none ${
+          className={`min-h-9 min-w-0 flex-1 bg-transparent text-sm text-[var(--text-strong)] focus:outline-none ${
             bare && singleSelected
               ? "font-semibold placeholder:text-[var(--text-strong)]"
               : "placeholder:text-[var(--text-muted)]"

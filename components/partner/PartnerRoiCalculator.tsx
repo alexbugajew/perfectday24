@@ -145,7 +145,7 @@ function SliderRow({
     <div>
       <div className="flex items-baseline justify-between">
         <div className="text-sm font-medium text-[var(--text-strong)]">{label}</div>
-        <div className="text-lg font-semibold text-[var(--brand-warm)]">
+        <div className="text-lg font-semibold text-[var(--brand-warm-ink)]">
           {value.toLocaleString("de-DE")}
           {unit}
         </div>

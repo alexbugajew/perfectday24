@@ -264,7 +264,7 @@ export default function HeroIntentBar() {
               key={slug}
               type="button"
               onClick={() => handleCitySelect(slug)}
-              className="rounded-2xl border border-[var(--line-strong)] bg-white/80 px-3 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[rgba(196,137,79,0.4)] hover:bg-[rgba(196,137,79,0.06)] active:scale-[0.98]"
+              className="min-h-11 rounded-2xl border border-[var(--line-strong)] bg-white/80 px-3 py-2.5 text-sm font-medium text-[var(--text-strong)] transition hover:border-[rgba(196,137,79,0.4)] hover:bg-[rgba(196,137,79,0.06)] active:scale-[0.98]"
             >
               {CITY_DISPLAY[slug]}
             </button>
@@ -273,7 +273,7 @@ export default function HeroIntentBar() {
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs text-[var(--text-soft-warm)] underline-offset-2 hover:underline"
+          className="inline-flex min-h-11 items-center text-xs text-[var(--text-soft-warm)] underline-offset-2 hover:underline"
         >
           ← Neu eingeben
         </button>
@@ -344,14 +344,14 @@ export default function HeroIntentBar() {
         <div
           ref={(el) => { focusTargetRef.current = el; }}
           tabIndex={-1}
-          className="rounded-2xl border border-[rgba(196,137,79,0.3)] bg-[rgba(196,137,79,0.08)] px-4 py-3 text-sm text-[var(--brand-warm)] outline-none"
+          className="rounded-2xl border border-[rgba(196,137,79,0.3)] bg-[rgba(196,137,79,0.08)] px-4 py-3 text-sm text-[var(--brand-warm-ink)] outline-none"
         >
           {phase.message}
         </div>
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs text-[var(--text-soft-warm)] underline-offset-2 hover:underline"
+          className="inline-flex min-h-11 items-center text-xs text-[var(--text-soft-warm)] underline-offset-2 hover:underline"
         >
           ← Zurück
         </button>
@@ -397,7 +397,7 @@ export default function HeroIntentBar() {
             key={scenario.key}
             type="button"
             onClick={() => handleScenarioTile(scenario)}
-            className="rounded-full border border-[var(--line-strong)] bg-white/80 px-3.5 py-1.5 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.35)] hover:bg-[rgba(196,137,79,0.06)] hover:text-[var(--text-strong)] active:scale-[0.97]"
+            className="inline-flex min-h-11 items-center rounded-full border border-[var(--line-strong)] bg-white/80 px-4 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.35)] hover:bg-[rgba(196,137,79,0.06)] hover:text-[var(--text-strong)] active:scale-[0.97]"
           >
             {scenario.emoji} {scenario.label}
           </button>

@@ -245,7 +245,7 @@ export default function HomepageQuickStartBar() {
             Starte mit 4 Angaben in deinen ersten Plan.
           </h2>
           <p className="mt-3 text-base leading-7 text-[var(--text-muted-warm)]">
-            Waehle Stadt, Anlass, Fokus und Datum. Der Planner uebernimmt den Rahmen direkt und
+            Wähle Stadt, Anlass, Fokus und Datum. Der Planner übernimmt den Rahmen direkt und
             erzeugt daraus den ersten belastbaren Vorschlag.
           </p>
         </div>
@@ -312,11 +312,11 @@ export default function HomepageQuickStartBar() {
             ))}
           </select>
           <div className="mt-2 text-xs text-[var(--text-soft-warm)]">
-            {filteredCityOptions.length} von {cityOptions.length} Staedten sichtbar
+            {filteredCityOptions.length} von {cityOptions.length} Städten sichtbar
           </div>
           {!selectedCitySupportsEventModes ? (
             <div className="mt-2 text-xs text-[var(--text-soft-warm)]">
-              Fuer diese Stadt ist Event- und Marktplanung noch nicht voll aktiviert.
+              Für diese Stadt ist Event- und Marktplanung noch nicht voll aktiviert.
             </div>
           ) : null}
         </div>

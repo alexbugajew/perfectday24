@@ -2321,7 +2321,7 @@ function RouteDetailPageContent() {
               className="flex min-h-10 items-center justify-center gap-1.5 rounded-2xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-950 shadow-sm transition hover:bg-amber-100"
             >
               <SliderRouteIcon />
-              <span className="hidden sm:inline">Fuer mich</span>
+              <span className="hidden sm:inline">Für mich</span>
             </button>
             <button
               type="button"

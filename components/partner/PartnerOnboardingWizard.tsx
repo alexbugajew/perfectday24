@@ -55,6 +55,9 @@ export default function PartnerOnboardingWizard({
     try {
       if (typeof window === "undefined") return;
       const flag = window.localStorage.getItem("pd24-partner-wizard-dismissed");
+      // Einmalige Client-Init aus localStorage — während des Renders nicht
+      // lesbar (SSR), deshalb ist der sync setState hier beabsichtigt.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (flag === "1") setDismissed(true);
     } catch {
       // localStorage nicht verfügbar (Private-Mode etc.) → einfach nichts machen.
@@ -208,7 +211,7 @@ export default function PartnerOnboardingWizard({
                     Fertig
                   </span>
                 ) : isActive ? (
-                  <span className="rounded-full bg-[rgba(196,137,79,0.14)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--brand-warm)]">
+                  <span className="rounded-full bg-[rgba(196,137,79,0.14)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--brand-warm-ink)]">
                     Jetzt
                   </span>
                 ) : null}

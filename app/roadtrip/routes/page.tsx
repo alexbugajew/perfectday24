@@ -264,7 +264,7 @@ export default function RoadtripRoutesPage() {
           <ExploreSurfaceSwitch
             activeKey="roadtrip"
             activeTitle="Roadtrips: fertige Mehrtagesrouten mit Stops, Hotels und direktem Start"
-            activeDescription="Hier findest du mehrtägige Vorlagen für komplette Reisen. Wenn du lieber einen einzelnen Tag in einer Stadt planst, springe in die Tagesplanung. Fuer Gruppenanlaesse mit Angeboten und Buchung bleibst du im Event-Bereich."
+            activeDescription="Hier findest du mehrtägige Vorlagen für komplette Reisen. Wenn du lieber einen einzelnen Tag in einer Stadt planst, springe in die Tagesplanung. Für Gruppenanlässe mit Angeboten und Buchung bleibst du im Event-Bereich."
             primaryCtaHref="/roadtrip/discover"
             primaryCtaLabel="Route entdecken"
             secondaryCtaHref="/roadtrip"

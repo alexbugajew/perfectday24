@@ -204,7 +204,7 @@ export default function HotelSearchLinks({
             Hotels in {cityLabel}
           </div>
           <div className="text-xs text-[var(--text-muted)]">
-            {nights} {nights === 1 ? "Nacht" : "Naechte"} / {adults} Person{adults !== 1 ? "en" : ""}
+            {nights} {nights === 1 ? "Nacht" : "Nächte"} / {adults} Person{adults !== 1 ? "en" : ""}
           </div>
           <div className="mt-1 text-[11px] text-[var(--text-muted)]">
             Empfohlen: {stayPick.style} in {stayPick.area}

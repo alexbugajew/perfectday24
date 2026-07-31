@@ -14,7 +14,11 @@
   --text-muted-warm: #665d55;
   --text-soft-warm: #7a6857;
 
-  --brand-accent: #5a7688;
+  /* Kanon 31.07.2026: von #5a7688 auf #4d6678 abgedunkelt. Als Textfarbe auf
+     --brand-accent-soft erreichte der alte Wert nur ~3,6:1 (WCAG AA: 4,5:1);
+     der neue Wert liegt auf allen hellen Flächen über 4,5:1. Flächen/Soft-
+     Töne bleiben unverändert. */
+  --brand-accent: #4d6678;
   --brand-accent-soft: #d8e1e7;
   --brand-accent-alt: #7c90a0;
   --brand-accent-cloud: #e7eef3;
@@ -28,6 +32,13 @@
      --brand-warm, kräftige CTAs/Hover --brand-warm-deep. */
   --brand-warm-deep: #b76a43;
   --brand-creative: #7c6fa0;
+  /* Kanon 31.07.2026: Text-sichere Ink-Varianten der Akzente. --brand-warm
+     (#c4894f) erreicht als Textfarbe nur ~2,7–2,9:1 Kontrast auf den hellen
+     Flächen und fällt damit unter WCAG AA (4,5:1). Für TEXT (Kicker, Labels,
+     Stat-Beschriftungen) daher --brand-warm-ink / --brand-accent-ink nutzen;
+     --brand-warm bleibt für Flächen, Border, Progress und Deko-Akzente. */
+  --brand-warm-ink: #8a5f2b;
+  --brand-accent-ink: #4d6678;
 
   --state-success: #4f6b5b;
   --state-warning: #9a6b2f;
@@ -298,7 +309,7 @@ textarea:disabled {
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--brand-accent);
+  color: var(--brand-accent-ink);
 }
 
 .pd24-meta {
@@ -318,7 +329,7 @@ textarea:disabled {
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--brand-warm);
+  color: var(--brand-warm-ink);
 }
 
 /* ── Button-Kanon (30.07.2026) ─────────────────────────────────────────────

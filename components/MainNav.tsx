@@ -73,7 +73,7 @@ export default function MainNav() {
             <span className="block truncate font-semibold tracking-tight text-[var(--text-strong)]">
               PerfectDay24
             </span>
-            <span className="block truncate text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] sm:text-[11px] sm:tracking-[0.24em]">
+            <span className="block truncate text-[11px] uppercase tracking-[0.2em] text-[var(--text-muted)] sm:tracking-[0.24em]">
               Refined City Planning
             </span>
           </span>
@@ -117,7 +117,7 @@ export default function MainNav() {
             className={`inline-flex min-h-10 items-center justify-center rounded-full px-4 text-sm font-medium transition ${
               isPartnerSurface
                 ? "border border-[rgba(196,137,79,0.3)] bg-[rgba(255,249,241,0.92)] text-[var(--text-strong)] hover:bg-white"
-                : "border border-[rgba(196,137,79,0.24)] bg-[rgba(255,249,241,0.84)] text-[var(--brand-warm)] hover:border-[rgba(196,137,79,0.38)] hover:bg-white"
+                : "border border-[rgba(196,137,79,0.24)] bg-[rgba(255,249,241,0.84)] text-[var(--brand-warm-ink)] hover:border-[rgba(196,137,79,0.38)] hover:bg-white"
             }`}
           >
             {isPartnerSurface ? "Partner-Dashboard" : "Partner werden"}
@@ -152,7 +152,7 @@ export default function MainNav() {
             <Link
               href={isPartnerSurface ? "/partner/dashboard" : "/partner"}
               onClick={() => setMobileOpen(false)}
-              className="rounded-2xl border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-3 text-sm font-medium text-[var(--brand-warm)] transition hover:bg-white"
+              className="rounded-2xl border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-3 text-sm font-medium text-[var(--brand-warm-ink)] transition hover:bg-white"
             >
               {isPartnerSurface ? "Partner-Dashboard" : "Partner werden"}
             </Link>

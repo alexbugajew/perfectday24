@@ -1,10 +1,11 @@
 ﻿"use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
-import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
+import { EVENT_SUPPORTED_CITY_OPTIONS } from "@/lib/cities/planner-support";
 import { CitySearchInput } from "@/components/ui/CitySearchInput";
 
 // ─── Static data (mirrors the DB seed) ────────────────────────────────────────
@@ -91,7 +92,7 @@ const NEEDS_BY_OCCASION: Record<OccasionSlug, { slug: string; label: string; req
   ],
 };
 
-// Loaded from DB — see cityOptions state in EventWizard
+// Städte kommen statisch aus der Rollout-Config (EVENT_SUPPORTED_CITY_OPTIONS).
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -351,7 +352,10 @@ function SavedPlanCard({
 export default function EventsPage() {
   const router = useRouter();
   const [step, setStep] = useState<Step>(1);
-  const [cityOptions, setCityOptions] = useState<{ slug: string; name: string }[]>([]);
+  // Alle Rollout-Städte (704) — Dienstleister sind überall importiert, das
+  // Planner-Sichtbarkeits-Gate gilt hier bewusst nicht (Marburg & Co. haben
+  // Vendors, auch wenn der Tagesplaner dort noch versteckt ist).
+  const cityOptions = EVENT_SUPPORTED_CITY_OPTIONS;
   const [savedPlans, setSavedPlans] = useState<SavedPlan[]>([]);
   const [plansLoading, setPlansLoading] = useState(true);
   const [form, setForm] = useState<FormState>({
@@ -362,19 +366,6 @@ export default function EventsPage() {
     budgetCents: "",
     selectedNeeds: [],
   });
-
-  useEffect(() => {
-    supabase
-      .from("cities")
-      .select("slug, name")
-      .eq("is_active", true)
-      .order("population", { ascending: false })
-      .limit(200)
-      .then(({ data }) => {
-        const rows = (data ?? []) as { slug: string; name: string }[];
-        setCityOptions(rows.filter((c) => isPlannerSupportedCitySlug(c.slug)));
-      });
-  }, []);
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
@@ -477,21 +468,21 @@ export default function EventsPage() {
 
         {/* Back-Link + Dashboard-Link */}
         <div className="mb-6 flex items-center justify-between gap-3">
-          <a
+          <Link
             href="/explore"
-            className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted-warm)] transition hover:text-[var(--text-strong)]"
+            className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-3.5 text-xs font-medium text-[var(--text-muted-warm)] transition hover:text-[var(--text-strong)]"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
               <path d="M19 12H5M12 5l-7 7 7 7" />
             </svg>
             Entdecken
-          </a>
-          <a
+          </Link>
+          <Link
             href="/events/dashboard"
-            className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted-warm)] transition hover:text-[var(--text-strong)]"
+            className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-3.5 text-xs font-medium text-[var(--text-muted-warm)] transition hover:text-[var(--text-strong)]"
           >
             Meine Events →
-          </a>
+          </Link>
         </div>
 
         {/* Page header */}

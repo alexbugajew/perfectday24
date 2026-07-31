@@ -1020,7 +1020,7 @@ export default function RoadtripDiscoverPage() {
                       )}
                       <div className="mt-1.5 flex flex-wrap gap-1">
                         <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white backdrop-blur-sm">
-                          {route.stops.length} Staedte / {route.total_nights} Naechte
+                          {route.stops.length} Städte / {route.total_nights} Nächte
                         </span>
                       </div>
                     </div>

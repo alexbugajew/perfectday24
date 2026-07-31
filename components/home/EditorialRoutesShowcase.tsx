@@ -130,7 +130,7 @@ export default function EditorialRoutesShowcase() {
                   ? ` · ★ ${route.avg_rating.toFixed(1)}`
                   : ""}
               </span>
-              <span className="text-[var(--brand-warm)] transition group-hover:translate-x-0.5">
+              <span className="text-[var(--brand-warm-ink)] transition group-hover:translate-x-0.5">
                 Ansehen →
               </span>
             </div>

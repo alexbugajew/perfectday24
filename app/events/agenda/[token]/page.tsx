@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import {
+  OCCASION_EMOJI,
+  OCCASION_LABEL,
+  getInviteTheme,
+} from "@/lib/events/occasion-theme";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -31,6 +36,8 @@ type SharedPlan = {
   share_token: string;
   host_display_name: string | null;
   invite_note: string | null;
+  // Erst nach der Migration 20260731120000 Teil der RPC-Antwort — optional.
+  cover_image_url?: string | null;
   created_at: string;
 };
 
@@ -38,27 +45,9 @@ type RsvpState = "idle" | "submitting" | "success_accepted" | "success_declined"
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const OCCASION_LABEL: Record<string, string> = {
-  geburtstag:       "Geburtstag",
-  hochzeit:         "Hochzeit",
-  teambuilding:     "Teambuilding",
-  firmenfeier:      "Firmenfeier",
-  kindergeburtstag: "Kindergeburtstag",
-  konferenz:        "Konferenz",
-  jubilaeum:        "Jubiläum",
-  staedtereise:     "Städtereise",
-};
-
-const OCCASION_EMOJI: Record<string, string> = {
-  geburtstag:       "🎂",
-  hochzeit:         "💍",
-  teambuilding:     "🤝",
-  firmenfeier:      "🥂",
-  kindergeburtstag: "🎈",
-  konferenz:        "🎤",
-  jubilaeum:        "✨",
-  staedtereise:     "✈️",
-};
+// Labels, Emojis und Farbwelten kommen aus lib/events/occasion-theme —
+// geteilt mit den OG-Preview-Bildern (opengraph-image.tsx), damit Link-
+// Vorschau und Einladungskarte identisch aussehen.
 
 const NEED_LABEL: Record<string, string> = {
   location:   "Location",
@@ -132,6 +121,47 @@ function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("de-DE", {
     weekday: "long", day: "numeric", month: "long", year: "numeric",
   });
+}
+
+// Ganztägiger Kalendereintrag als .ics-Download — rein clientseitig, damit
+// Gäste den Termin mit einem Tap in Apple/Google/Outlook übernehmen können.
+function downloadIcs(plan: SharedPlan, occasionLabel: string, cityName: string) {
+  if (!plan.event_date) return;
+  const esc = (s: string) =>
+    s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  const startDate = plan.event_date.slice(0, 10);
+  const start = startDate.replace(/-/g, "");
+  const endD = new Date(`${startDate}T12:00:00`);
+  endD.setDate(endD.getDate() + 1);
+  const end = `${endD.getFullYear()}${String(endD.getMonth() + 1).padStart(2, "0")}${String(endD.getDate()).padStart(2, "0")}`;
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+  const summary = plan.title || occasionLabel;
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//PerfectDay24//Einladung//DE",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `UID:${plan.share_token}@perfectday24.de`,
+    `DTSTAMP:${stamp}`,
+    `DTSTART;VALUE=DATE:${start}`,
+    `DTEND;VALUE=DATE:${end}`,
+    `SUMMARY:${esc(summary)}`,
+    cityName ? `LOCATION:${esc(cityName)}` : null,
+    `DESCRIPTION:${esc(`Einladung: ${window.location.href}`)}`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].filter(Boolean) as string[];
+  const blob = new Blob([lines.join("\r\n")], { type: "text/calendar;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `einladung-${start}.ics`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -238,6 +268,7 @@ export default function InvitationPage() {
 
   const occasionLabel = OCCASION_LABEL[plan.occasion_slug] ?? plan.occasion_slug;
   const occasionEmoji = OCCASION_EMOJI[plan.occasion_slug] ?? "✨";
+  const theme         = getInviteTheme(plan.occasion_slug);
   const inviteText    = plan.invite_note ?? buildInviteText(plan, cityName);
   const displayCity   = cityName || plan.city_slug;
 
@@ -267,7 +298,7 @@ export default function InvitationPage() {
         </div>
         <p className="text-xs text-[var(--text-soft-warm)]">
           Organisiert mit{" "}
-          <Link href="/" className="text-[var(--brand-warm-deep)]">PerfectDay24</Link>
+          <Link href="/" style={{ color: theme.accent }}>PerfectDay24</Link>
         </p>
       </div>
     );
@@ -282,27 +313,30 @@ export default function InvitationPage() {
       <div
         className="relative overflow-hidden px-4 py-16 sm:py-24"
         style={{
-          background: "linear-gradient(150deg, var(--bg-surface-warm) 0%, #f0e8dc 50%, #e8ddd0 100%)",
+          background: `linear-gradient(150deg, ${theme.heroFrom} 0%, ${theme.heroMid} 50%, ${theme.heroTo} 100%)`,
         }}
       >
         {/* Decorative circle */}
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, var(--brand-warm-deep) 0%, transparent 70%)" }}
+          style={{ background: `radial-gradient(circle, ${theme.accent} 0%, transparent 70%)` }}
         />
         <div
           aria-hidden
           className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full opacity-15"
-          style={{ background: "radial-gradient(circle, var(--brand-warm-deep) 0%, transparent 70%)" }}
+          style={{ background: `radial-gradient(circle, ${theme.accent} 0%, transparent 70%)` }}
         />
 
         <div className="relative mx-auto max-w-lg text-center">
-          <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-[0_8px_32px_rgba(183,106,67,0.18)] text-4xl">
+          <div
+            className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-white text-4xl"
+            style={{ boxShadow: `0 8px 32px ${theme.glow}` }}
+          >
             {occasionEmoji}
           </div>
 
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--brand-warm-deep)]">
+          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em]" style={{ color: theme.accent }}>
             Einladung · {occasionLabel}
           </div>
 
@@ -313,16 +347,16 @@ export default function InvitationPage() {
           {/* Key facts strip */}
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             {plan.event_date && (
-              <FactChip icon="📅" label={formatDate(plan.event_date)} />
+              <FactChip icon="📅" label={formatDate(plan.event_date)} borderColor={theme.soft} />
             )}
             {displayCity && (
-              <FactChip icon="📍" label={displayCity} />
+              <FactChip icon="📍" label={displayCity} borderColor={theme.soft} />
             )}
             {plan.host_display_name && (
-              <FactChip icon="👤" label={`Eingeladen von ${plan.host_display_name}`} />
+              <FactChip icon="👤" label={`Eingeladen von ${plan.host_display_name}`} borderColor={theme.soft} />
             )}
             {plan.guest_count && (
-              <FactChip icon="👥" label={`${plan.guest_count} Gäste erwartet`} />
+              <FactChip icon="👥" label={`${plan.guest_count} Gäste erwartet`} borderColor={theme.soft} />
             )}
           </div>
         </div>
@@ -331,14 +365,32 @@ export default function InvitationPage() {
       {/* ── Body ──────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-lg px-4 py-10 sm:px-6">
 
+        {/* Cover image — vom Gastgeber hochgeladen, gerahmt wie ein Foto in
+            einer Einladungskarte. -mt zieht es leicht in den Hero hinein. */}
+        {plan.cover_image_url && (
+          <div className="-mt-16 mb-10">
+            <div
+              className="overflow-hidden rounded-[var(--radius-card)] border-4 border-white bg-white shadow-[0_18px_44px_rgba(15,23,42,0.14)]"
+              style={{ outline: `1px solid ${theme.soft}` }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element -- Host-Upload aus Supabase-Storage, Host unbekannt für next/image-remotePatterns */}
+              <img
+                src={plan.cover_image_url}
+                alt={plan.title || occasionLabel}
+                className="aspect-[3/2] w-full object-cover"
+              />
+            </div>
+          </div>
+        )}
+
         {/* Invitation text */}
-        <div className="mb-10 rounded-[var(--radius-card)] border border-[rgba(183,106,67,0.15)] bg-white p-6 shadow-sm">
+        <div className="mb-10 rounded-[var(--radius-card)] border bg-white p-6 shadow-sm" style={{ borderColor: theme.soft }}>
           <div className="mb-3 flex items-center gap-2">
-            <div className="h-px flex-1 bg-[rgba(183,106,67,0.15)]" />
-            <span className="pd24-kicker-warm">
+            <div className="h-px flex-1" style={{ background: theme.soft }} />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.24em]" style={{ color: theme.accent }}>
               Einladung
             </span>
-            <div className="h-px flex-1 bg-[rgba(183,106,67,0.15)]" />
+            <div className="h-px flex-1" style={{ background: theme.soft }} />
           </div>
           <p className="leading-7 text-[#3d3530]" style={{ fontFamily: "Georgia, serif", fontSize: "15px" }}>
             {inviteText}
@@ -347,6 +399,19 @@ export default function InvitationPage() {
             <p className="mt-4 border-t border-[rgba(23,23,23,0.06)] pt-4 text-sm leading-6 text-[var(--text-muted-warm)]">
               {plan.notes}
             </p>
+          )}
+
+          {plan.event_date && (
+            <div className="mt-5 flex justify-center">
+              <button
+                type="button"
+                onClick={() => downloadIcs(plan, occasionLabel, cityName)}
+                className="inline-flex min-h-10 items-center gap-1.5 rounded-full border bg-white px-4 text-xs font-semibold transition hover:bg-[var(--bg-surface)]"
+                style={{ borderColor: theme.soft, color: theme.accent }}
+              >
+                📅 Termin in den Kalender
+              </button>
+            </div>
           )}
         </div>
 
@@ -413,7 +478,7 @@ export default function InvitationPage() {
           <div className="space-y-4">
             <div>
               <label className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
-                Dein Name <span className="text-[var(--brand-warm-deep)]">*</span>
+                Dein Name <span style={{ color: theme.accent }}>*</span>
               </label>
               <input
                 type="text"
@@ -469,13 +534,13 @@ export default function InvitationPage() {
         <div className="mt-10 text-center">
           <p className="text-xs text-[var(--text-soft-warm)]">
             Organisiert mit{" "}
-            <Link href="/" className="text-[var(--brand-warm-deep)] hover:underline">
+            <Link href="/" className="inline-flex min-h-10 items-center hover:underline" style={{ color: theme.accent }}>
               PerfectDay24
             </Link>
           </p>
           <Link
             href="/events"
-            className="mt-2 inline-flex items-center gap-1 text-xs text-[var(--text-soft-warm)] hover:text-[var(--text-strong)]"
+            className="inline-flex min-h-10 items-center gap-1 text-xs text-[var(--text-soft-warm)] hover:text-[var(--text-strong)]"
           >
             Eigenen Event planen →
           </Link>
@@ -487,9 +552,12 @@ export default function InvitationPage() {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function FactChip({ icon, label }: { icon: string; label: string }) {
+function FactChip({ icon, label, borderColor }: { icon: string; label: string; borderColor: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(183,106,67,0.2)] bg-white px-3 py-1 text-xs font-medium text-[#3d3530] shadow-sm">
+    <span
+      className="inline-flex items-center gap-1.5 rounded-full border bg-white px-3 py-1 text-xs font-medium text-[#3d3530] shadow-sm"
+      style={{ borderColor }}
+    >
       <span>{icon}</span>
       <span>{label}</span>
     </span>

@@ -25,14 +25,13 @@ export default function PremiumStatusCard({ userId }: { userId: string }) {
     let cancelled = false;
     async function load() {
       setLoading(true);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const [{ data: p }, { count }] = await Promise.all([
-        (supabase as any)
+        supabase
           .from("profiles")
           .select("is_premium,premium_until,stripe_subscription_id")
           .eq("user_id", userId)
           .maybeSingle(),
-        (supabase as any)
+        supabase
           .from("attribution_events")
           .select("*", { count: "exact", head: true })
           .eq("event_type", "ai_plan_applied")
@@ -90,7 +89,7 @@ export default function PremiumStatusCard({ userId }: { userId: string }) {
           <div className="min-w-0 flex-1">
             <div
               className={`text-[10px] font-semibold uppercase tracking-[0.22em] ${
-                isPremium ? "text-[#188c50]" : "text-[var(--brand-warm)]"
+                isPremium ? "text-[#188c50]" : "text-[var(--brand-warm-ink)]"
               }`}
             >
               {isPremium ? "PerfectDay24 Premium" : "Dein Plan"}

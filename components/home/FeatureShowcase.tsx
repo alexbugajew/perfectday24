@@ -98,7 +98,7 @@ export default function FeatureShowcase() {
               key={f.key}
               type="button"
               onClick={() => setActive(f.key)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+              className={`inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium transition ${
                 isActive
                   ? "bg-[var(--text-strong)] text-white shadow-sm"
                   : "border border-[var(--line-subtle)] bg-white/82 text-[var(--text-muted-warm)] hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"

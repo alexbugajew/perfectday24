@@ -347,7 +347,7 @@ export default function PlannerStopListSection({
                         type="button"
                         onClick={() => onMovePlannedStop(i, Math.max(0, i - 1))}
                         disabled={i === 0}
-                        className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/40 bg-white/85 text-xs text-[var(--text-strong)] backdrop-blur-sm disabled:opacity-40"
+                        className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/85 text-xs text-[var(--text-strong)] backdrop-blur-sm disabled:opacity-40"
                         aria-label="Stop nach oben"
                       >
                         ↑
@@ -356,7 +356,7 @@ export default function PlannerStopListSection({
                         type="button"
                         onClick={() => onMovePlannedStop(i, Math.min(plannedStops.length - 1, i + 1))}
                         disabled={i === plannedStops.length - 1}
-                        className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/40 bg-white/85 text-xs text-[var(--text-strong)] backdrop-blur-sm disabled:opacity-40"
+                        className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/85 text-xs text-[var(--text-strong)] backdrop-blur-sm disabled:opacity-40"
                         aria-label="Stop nach unten"
                       >
                         ↓
@@ -481,7 +481,7 @@ export default function PlannerStopListSection({
                                   surface="planner_stop"
                                   label={stop.item!.name}
                                   source={affiliateMatch ? "planner_stop_affiliate_cta" : "planner_stop_primary_cta"}
-                                  className="rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)] hover:bg-[var(--brand-accent-cloud)]"
+                                  className="inline-flex min-h-9 items-center rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-3 text-xs text-[var(--text-muted)] hover:bg-[var(--brand-accent-cloud)]"
                                 >
                                   {affiliateMatch ? `${affiliateMatch.providerName} öffnen` : "Reservieren"}
                                 </MonetizedExternalLink>
@@ -569,7 +569,7 @@ export default function PlannerStopListSection({
                         <button
                           onClick={() => onBumpStop(i)}
                           aria-label={`Alternative für ${stop.item?.name ?? stop.label} suchen`}
-                          className="shrink-0 rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-panel)]"
+                          className="inline-flex min-h-9 shrink-0 items-center rounded-md border border-[rgba(68,57,46,0.12)] bg-white px-3 text-xs font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-panel)]"
                         >
                           Alternative
                         </button>

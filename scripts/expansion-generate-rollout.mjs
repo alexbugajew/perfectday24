@@ -14,9 +14,12 @@ const entry = (c) => {
   const ov = overrides[c.slug] ?? {};
   const tier = ov.readinessTier ?? "prepared";
   const vis = ov.plannerVisibility ?? "hidden";
+  // wikiName ist der echte Stadtname mit Umlauten/ß ("Gießen") — c.label kam
+  // teils transliteriert aus der Kanonisierung ("Giessen", 95 Fälle).
+  const label = c._meta?.wikiName ?? c.label;
   return `  {
     slug: ${JSON.stringify(c.slug)},
-    label: ${JSON.stringify(c.label)},
+    label: ${JSON.stringify(label)},
     countryCode: "DE",
     lat: ${c.lat},
     lng: ${c.lng},

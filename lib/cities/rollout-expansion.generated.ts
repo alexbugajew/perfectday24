@@ -24,7 +24,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Kaiserslautern (Rheinland-Pfalz), 100.247 Einw.
   {
     slug: "guetersloh",
-    label: "Guetersloh",
+    label: "Gütersloh",
     countryCode: "DE",
     lat: 51.916662,
     lng: 8.404328,
@@ -119,7 +119,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Cottbus (Brandenburg), 95.140 Einw.
   {
     slug: "dueren",
-    label: "Dueren",
+    label: "Düren",
     countryCode: "DE",
     lat: 50.803168,
     lng: 6.482081,
@@ -143,7 +143,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Ludwigsburg (Baden-Württemberg), 92.858 Einw.
   {
     slug: "tuebingen",
-    label: "Tuebingen",
+    label: "Tübingen",
     countryCode: "DE",
     lat: 48.520326,
     lng: 9.053596,
@@ -203,7 +203,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Ratingen (Nordrhein-Westfalen), 88.914 Einw.
   {
     slug: "giessen",
-    label: "Giessen",
+    label: "Gießen",
     countryCode: "DE",
     lat: 50.586207,
     lng: 8.674231,
@@ -262,7 +262,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Zwickau (Sachsen), 86.405 Einw.
   {
     slug: "luenen",
-    label: "Luenen",
+    label: "Lünen",
     countryCode: "DE",
     lat: 51.614248,
     lng: 7.522809,
@@ -322,7 +322,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Delmenhorst (Niedersachsen), 81.274 Einw.
   {
     slug: "neumuenster",
-    label: "Neumuenster",
+    label: "Neumünster",
     countryCode: "DE",
     lat: 54.075744,
     lng: 9.981538,
@@ -406,7 +406,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Wilhelmshaven (Niedersachsen), 75.324 Einw.
   {
     slug: "dessau-rosslau",
-    label: "Dessau-Rosslau",
+    label: "Dessau-Roßlau",
     countryCode: "DE",
     lat: 51.846592,
     lng: 12.231224,
@@ -429,7 +429,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Dorsten (Nordrhein-Westfalen), 74.783 Einw.
   {
     slug: "lueneburg",
-    label: "Lueneburg",
+    label: "Lüneburg",
     countryCode: "DE",
     lat: 53.248706,
     lng: 10.407855,
@@ -483,8 +483,8 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
     lng: 8.77047,
     radiusM: 9000,
     stage: "wave5",
-    readinessTier: "prepared",
-    plannerVisibility: "hidden",
+    readinessTier: "planner_ready",
+    plannerVisibility: "visible",
     aliasSlugs: ["marburg-hessen"],
   }, // Marburg (Hessen), 73.571 Einw.
   {
@@ -549,7 +549,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Landshut (Bayern), 71.922 Einw.
   {
     slug: "luedenscheid",
-    label: "Luedenscheid",
+    label: "Lüdenscheid",
     countryCode: "DE",
     lat: 51.218137,
     lng: 7.639698,
@@ -573,7 +573,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Lippstadt (Nordrhein-Westfalen), 68.383 Einw.
   {
     slug: "kempten-allgaeu",
-    label: "Kempten (Allgaeu)",
+    label: "Kempten (Allgäu)",
     countryCode: "DE",
     lat: 47.726706,
     lng: 10.316884,
@@ -656,7 +656,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Kerpen (Nordrhein-Westfalen), 66.377 Einw.
   {
     slug: "ruesselsheim-am-main",
-    label: "Ruesselsheim am Main",
+    label: "Rüsselsheim am Main",
     countryCode: "DE",
     lat: 49.99485,
     lng: 8.411719,
@@ -728,7 +728,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Plauen (Sachsen), 64.893 Einw.
   {
     slug: "schwaebisch-gmuend",
-    label: "Schwaebisch Gmuend",
+    label: "Schwäbisch Gmünd",
     countryCode: "DE",
     lat: 48.799904,
     lng: 9.797758,
@@ -798,7 +798,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Bergheim (Nordrhein-Westfalen), 61.976 Einw.
   {
     slug: "huerth",
-    label: "Huerth",
+    label: "Hürth",
     countryCode: "DE",
     lat: 50.880738,
     lng: 6.876568,
@@ -894,7 +894,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Neubrandenburg (Mecklenburg-Vorpommern), 59.494 Einw.
   {
     slug: "goeppingen",
-    label: "Goeppingen",
+    label: "Göppingen",
     countryCode: "DE",
     lat: 48.703138,
     lng: 9.654112,
@@ -990,7 +990,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Meerbusch (Nordrhein-Westfalen), 56.947 Einw.
   {
     slug: "bad-homburg-vor-der-hoehe",
-    label: "Bad Homburg vor der Hoehe",
+    label: "Bad Homburg vor der Höhe",
     countryCode: "DE",
     lat: 50.22838,
     lng: 8.613013,
@@ -1085,7 +1085,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Stralsund (Mecklenburg-Vorpommern), 55.481 Einw.
   {
     slug: "goerlitz",
-    label: "Goerlitz",
+    label: "Görlitz",
     countryCode: "DE",
     lat: 51.156319,
     lng: 14.991018,
@@ -1202,7 +1202,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Hattingen (Nordrhein-Westfalen), 52.969 Einw.
   {
     slug: "neustadt-an-der-weinstrasse",
-    label: "Neustadt an der Weinstrasse",
+    label: "Neustadt an der Weinstraße",
     countryCode: "DE",
     lat: 49.353606,
     lng: 8.136025,
@@ -1214,7 +1214,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Neustadt an der Weinstraße (Rheinland-Pfalz), 52.882 Einw.
   {
     slug: "wolfenbuettel",
-    label: "Wolfenbuettel",
+    label: "Wolfenbüttel",
     countryCode: "DE",
     lat: 52.162528,
     lng: 10.534822,
@@ -1262,7 +1262,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Frechen (Nordrhein-Westfalen), 51.927 Einw.
   {
     slug: "ibbenbueren",
-    label: "Ibbenbueren",
+    label: "Ibbenbüren",
     countryCode: "DE",
     lat: 52.277477,
     lng: 7.715142,
@@ -1274,7 +1274,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Ibbenbüren (Nordrhein-Westfalen), 51.596 Einw.
   {
     slug: "boeblingen",
-    label: "Boeblingen",
+    label: "Böblingen",
     countryCode: "DE",
     lat: 48.684969,
     lng: 9.011344,
@@ -1298,7 +1298,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Elmshorn (Schleswig-Holstein), 51.375 Einw.
   {
     slug: "loerrach",
-    label: "Loerrach",
+    label: "Lörrach",
     countryCode: "DE",
     lat: 47.61209,
     lng: 7.660722,
@@ -1598,7 +1598,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Hennef (Sieg) (Nordrhein-Westfalen), 48.112 Einw.
   {
     slug: "rheda-wiedenbrueck",
-    label: "Rheda-Wiedenbrueck",
+    label: "Rheda-Wiedenbrück",
     countryCode: "DE",
     lat: 51.84282,
     lng: 8.298562,
@@ -1634,7 +1634,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Bruchsal (Baden-Württemberg), 47.784 Einw.
   {
     slug: "duelmen",
-    label: "Duelmen",
+    label: "Dülmen",
     countryCode: "DE",
     lat: 51.828368,
     lng: 7.279141,
@@ -1800,7 +1800,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Filderstadt (Baden-Württemberg), 46.243 Einw.
   {
     slug: "buende",
-    label: "Buende",
+    label: "Bünde",
     countryCode: "DE",
     lat: 52.200473,
     lng: 8.582894,
@@ -1860,7 +1860,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Rottenburg am Neckar (Baden-Württemberg), 45.677 Einw.
   {
     slug: "bruehl",
-    label: "Bruehl",
+    label: "Brühl",
     countryCode: "DE",
     lat: 50.829131,
     lng: 6.903706,
@@ -1931,7 +1931,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Bernau bei Berlin (Brandenburg), 44.706 Einw.
   {
     slug: "neustadt-am-ruebenberge",
-    label: "Neustadt am Ruebenberge",
+    label: "Neustadt am Rübenberge",
     countryCode: "DE",
     lat: 52.504577,
     lng: 9.461692,
@@ -2098,7 +2098,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Amberg (Bayern), 42.631 Einw.
   {
     slug: "schwaebisch-hall",
-    label: "Schwaebisch Hall",
+    label: "Schwäbisch Hall",
     countryCode: "DE",
     lat: 49.112431,
     lng: 9.737125,
@@ -2288,7 +2288,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Germering (Bayern), 41.155 Einw.
   {
     slug: "hueckelhoven",
-    label: "Hueckelhoven",
+    label: "Hückelhoven",
     countryCode: "DE",
     lat: 51.055237,
     lng: 6.224732,
@@ -2347,7 +2347,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Bensheim (Hessen), 40.848 Einw.
   {
     slug: "nuertingen",
-    label: "Nuertingen",
+    label: "Nürtingen",
     countryCode: "DE",
     lat: 48.626585,
     lng: 9.336546,
@@ -2370,7 +2370,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Nordhausen (Thüringen), 40.767 Einw.
   {
     slug: "loehne",
-    label: "Loehne",
+    label: "Löhne",
     countryCode: "DE",
     lat: 52.199035,
     lng: 8.714159,
@@ -2406,7 +2406,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Schwabach (Bayern), 40.702 Einw.
   {
     slug: "voelklingen",
-    label: "Voelklingen",
+    label: "Völklingen",
     countryCode: "DE",
     lat: 49.252287,
     lng: 6.859519,
@@ -2429,7 +2429,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Ansbach (Bayern), 40.554 Einw.
   {
     slug: "koenigswinter",
-    label: "Koenigswinter",
+    label: "Königswinter",
     countryCode: "DE",
     lat: 50.673972,
     lng: 7.193099,
@@ -2441,7 +2441,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Königswinter (Nordrhein-Westfalen), 40.458 Einw.
   {
     slug: "wuerselen",
-    label: "Wuerselen",
+    label: "Würselen",
     countryCode: "DE",
     lat: 50.817868,
     lng: 6.134111,
@@ -2512,7 +2512,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Mettmann (Nordrhein-Westfalen), 39.595 Einw.
   {
     slug: "koenigs-wusterhausen",
-    label: "Koenigs Wusterhausen",
+    label: "Königs Wusterhausen",
     countryCode: "DE",
     lat: 52.299451,
     lng: 13.624439,
@@ -2751,7 +2751,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Saarlouis (Saarland), 37.675 Einw.
   {
     slug: "fuerstenfeldbruck",
-    label: "Fuerstenfeldbruck",
+    label: "Fürstenfeldbruck",
     countryCode: "DE",
     lat: 48.179471,
     lng: 11.25472,
@@ -2774,7 +2774,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Erding (Bayern), 37.341 Einw.
   {
     slug: "weissenfels",
-    label: "Weissenfels",
+    label: "Weißenfels",
     countryCode: "DE",
     lat: 51.199979,
     lng: 11.966786,
@@ -2905,7 +2905,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Porta Westfalica (Nordrhein-Westfalen), 36.502 Einw.
   {
     slug: "muehlhausen-thueringen",
-    label: "Muehlhausen/Thueringen",
+    label: "Mühlhausen/Thüringen",
     countryCode: "DE",
     lat: 51.209426,
     lng: 10.458904,
@@ -3036,7 +3036,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Deggendorf (Bayern), 35.166 Einw.
   {
     slug: "juelich",
-    label: "Juelich",
+    label: "Jülich",
     countryCode: "DE",
     lat: 50.922093,
     lng: 6.361102,
@@ -3166,7 +3166,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Rheinfelden (Baden) (Baden-Württemberg), 34.674 Einw.
   {
     slug: "biberach-an-der-riss",
-    label: "Biberach an der Riss",
+    label: "Biberach an der Riß",
     countryCode: "DE",
     lat: 48.098441,
     lng: 9.789994,
@@ -3366,7 +3366,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Forchheim (Bayern), 33.359 Einw.
   {
     slug: "zweibruecken",
-    label: "Zweibruecken",
+    label: "Zweibrücken",
     countryCode: "DE",
     lat: 49.248655,
     lng: 7.364198,
@@ -3473,7 +3473,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Weil am Rhein (Baden-Württemberg), 32.236 Einw.
   {
     slug: "delbrueck",
-    label: "Delbrueck",
+    label: "Delbrück",
     countryCode: "DE",
     lat: 51.764918,
     lng: 8.559495,
@@ -3485,7 +3485,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Delbrück (Nordrhein-Westfalen), 32.140 Einw.
   {
     slug: "fuerstenwalde-spree",
-    label: "Fuerstenwalde/Spree",
+    label: "Fürstenwalde/Spree",
     countryCode: "DE",
     lat: 52.358021,
     lng: 14.064985,
@@ -3578,7 +3578,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Oer-Erkenschwick (Nordrhein-Westfalen), 31.499 Einw.
   {
     slug: "moerfelden-walldorf",
-    label: "Moerfelden-Walldorf",
+    label: "Mörfelden-Walldorf",
     countryCode: "DE",
     lat: 49.992384,
     lng: 8.562247,
@@ -3624,7 +3624,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Altenburg (Thüringen), 31.093 Einw.
   {
     slug: "georgsmarienhuette",
-    label: "Georgsmarienhuette",
+    label: "Georgsmarienhütte",
     countryCode: "DE",
     lat: 52.2,
     lng: 8.05,
@@ -3778,7 +3778,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Bretten (Baden-Württemberg), 30.274 Einw.
   {
     slug: "schoenebeck",
-    label: "Schoenebeck",
+    label: "Schönebeck",
     countryCode: "DE",
     lat: 52.0206,
     lng: 11.738328,
@@ -4051,7 +4051,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Griesheim (Hessen), 29.385 Einw.
   {
     slug: "toenisvorst",
-    label: "Toenisvorst",
+    label: "Tönisvorst",
     countryCode: "DE",
     lat: 51.3167,
     lng: 6.45,
@@ -4110,7 +4110,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Landsberg am Lech (Bayern), 29.230 Einw.
   {
     slug: "muehlheim-am-main",
-    label: "Muehlheim am Main",
+    label: "Mühlheim am Main",
     countryCode: "DE",
     lat: 50.108058,
     lng: 8.846714,
@@ -4170,7 +4170,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Baesweiler (Nordrhein-Westfalen), 29.038 Einw.
   {
     slug: "roedermark",
-    label: "Roedermark",
+    label: "Rödermark",
     countryCode: "DE",
     lat: 49.979891,
     lng: 8.808827,
@@ -4182,7 +4182,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Rödermark (Hessen), 28.869 Einw.
   {
     slug: "meissen",
-    label: "Meissen",
+    label: "Meißen",
     countryCode: "DE",
     lat: 51.163087,
     lng: 13.470494,
@@ -4193,7 +4193,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Meißen (Sachsen), 28.863 Einw.
   {
     slug: "guestrow",
-    label: "Guestrow",
+    label: "Güstrow",
     countryCode: "DE",
     lat: 53.793587,
     lng: 12.176491,
@@ -4240,7 +4240,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Vaihingen an der Enz (Baden-Württemberg), 28.798 Einw.
   {
     slug: "roesrath",
-    label: "Roesrath",
+    label: "Rösrath",
     countryCode: "DE",
     lat: 50.896376,
     lng: 7.182545,
@@ -4264,7 +4264,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Arnstadt (Thüringen), 28.615 Einw.
   {
     slug: "buehl",
-    label: "Buehl",
+    label: "Bühl",
     countryCode: "DE",
     lat: 48.694507,
     lng: 8.134423,
@@ -4288,7 +4288,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Geilenkirchen (Nordrhein-Westfalen), 28.605 Einw.
   {
     slug: "wangen-im-allgaeu",
-    label: "Wangen im Allgaeu",
+    label: "Wangen im Allgäu",
     countryCode: "DE",
     lat: 47.688349,
     lng: 9.81117,
@@ -4346,7 +4346,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Leichlingen (Rheinland) (Nordrhein-Westfalen), 28.205 Einw.
   {
     slug: "unterschleissheim",
-    label: "Unterschleissheim",
+    label: "Unterschleißheim",
     countryCode: "DE",
     lat: 48.277003,
     lng: 11.553546,
@@ -4405,7 +4405,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Kelkheim (Taunus) (Hessen), 28.041 Einw.
   {
     slug: "heppenheim-bergstrasse",
-    label: "Heppenheim (Bergstrasse)",
+    label: "Heppenheim (Bergstraße)",
     countryCode: "DE",
     lat: 49.64999,
     lng: 8.66768,
@@ -4441,7 +4441,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Zeitz (Sachsen-Anhalt), 27.934 Einw.
   {
     slug: "hoexter",
-    label: "Hoexter",
+    label: "Höxter",
     countryCode: "DE",
     lat: 51.79389,
     lng: 9.348855,
@@ -4476,7 +4476,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Bramsche (Niedersachsen), 27.864 Einw.
   {
     slug: "koenigsbrunn",
-    label: "Koenigsbrunn",
+    label: "Königsbrunn",
     countryCode: "DE",
     lat: 48.267955,
     lng: 10.888382,
@@ -4725,7 +4725,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Hohen Neuendorf (Brandenburg), 26.819 Einw.
   {
     slug: "luebbecke",
-    label: "Luebbecke",
+    label: "Lübbecke",
     countryCode: "DE",
     lat: 52.302721,
     lng: 8.618305,
@@ -4737,7 +4737,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Lübbecke (Nordrhein-Westfalen), 26.807 Einw.
   {
     slug: "muehlacker",
-    label: "Muehlacker",
+    label: "Mühlacker",
     countryCode: "DE",
     lat: 48.94667,
     lng: 8.841332,
@@ -4832,7 +4832,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Neckarsulm (Baden-Württemberg), 26.431 Einw.
   {
     slug: "schloss-holte-stukenbrock",
-    label: "Schloss Holte-Stukenbrock",
+    label: "Schloß Holte-Stukenbrock",
     countryCode: "DE",
     lat: 51.901711,
     lng: 8.635344,
@@ -5000,7 +5000,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Lindau (Bodensee) (Bayern), 25.702 Einw.
   {
     slug: "oehringen",
-    label: "Oehringen",
+    label: "Öhringen",
     countryCode: "DE",
     lat: 49.200503,
     lng: 9.50244,
@@ -5106,7 +5106,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Bingen am Rhein (Rheinland-Pfalz), 25.424 Einw.
   {
     slug: "gross-gerau",
-    label: "Gross-Gerau",
+    label: "Groß-Gerau",
     countryCode: "DE",
     lat: 49.919259,
     lng: 8.485312,
@@ -5285,7 +5285,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Helmstedt (Niedersachsen), 25.048 Einw.
   {
     slug: "luedinghausen",
-    label: "Luedinghausen",
+    label: "Lüdinghausen",
     countryCode: "DE",
     lat: 51.771776,
     lng: 7.444639,
@@ -5462,7 +5462,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Rudolstadt (Thüringen), 24.852 Einw.
   {
     slug: "eisenhuettenstadt",
-    label: "Eisenhuettenstadt",
+    label: "Eisenhüttenstadt",
     countryCode: "DE",
     lat: 52.144886,
     lng: 14.629441,
@@ -5580,7 +5580,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Herzogenaurach (Bayern), 24.312 Einw.
   {
     slug: "leutkirch-im-allgaeu",
-    label: "Leutkirch im Allgaeu",
+    label: "Leutkirch im Allgäu",
     countryCode: "DE",
     lat: 47.810032,
     lng: 10.035667,
@@ -5616,7 +5616,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Haren (Ems) (Niedersachsen), 24.175 Einw.
   {
     slug: "uebach-palenberg",
-    label: "Uebach-Palenberg",
+    label: "Übach-Palenberg",
     countryCode: "DE",
     lat: 50.92138,
     lng: 6.11287,
@@ -5627,7 +5627,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Übach-Palenberg (Nordrhein-Westfalen), 24.144 Einw.
   {
     slug: "sprockhoevel",
-    label: "Sprockhoevel",
+    label: "Sprockhövel",
     countryCode: "DE",
     lat: 51.366657,
     lng: 7.248591,
@@ -5697,7 +5697,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Westerstede (Niedersachsen), 23.956 Einw.
   {
     slug: "doebeln",
-    label: "Doebeln",
+    label: "Döbeln",
     countryCode: "DE",
     lat: 51.1167,
     lng: 13.1167,
@@ -5708,7 +5708,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Döbeln (Sachsen), 23.907 Einw.
   {
     slug: "juechen",
-    label: "Juechen",
+    label: "Jüchen",
     countryCode: "DE",
     lat: 51.101714,
     lng: 6.503689,
@@ -5731,7 +5731,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Nagold (Baden-Württemberg), 23.864 Einw.
   {
     slug: "koethen-anhalt",
-    label: "Koethen (Anhalt)",
+    label: "Köthen (Anhalt)",
     countryCode: "DE",
     lat: 51.751033,
     lng: 11.973698,
@@ -5872,7 +5872,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Attendorn (Nordrhein-Westfalen), 23.376 Einw.
   {
     slug: "hann-muenden",
-    label: "Hann. Muenden",
+    label: "Hann. Münden",
     countryCode: "DE",
     lat: 51.45704,
     lng: 9.667122,
@@ -5907,7 +5907,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Riedstadt (Hessen), 23.274 Einw.
   {
     slug: "rotenburg-wuemme",
-    label: "Rotenburg (Wuemme)",
+    label: "Rotenburg (Wümme)",
     countryCode: "DE",
     lat: 53.110891,
     lng: 9.404929,
@@ -6014,7 +6014,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Kitzingen (Bayern), 23.028 Einw.
   {
     slug: "neusaess",
-    label: "Neusaess",
+    label: "Neusäß",
     countryCode: "DE",
     lat: 48.392872,
     lng: 10.835454,
@@ -6071,7 +6071,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Salzwedel (Sachsen-Anhalt), 22.924 Einw.
   {
     slug: "stassfurt",
-    label: "Stassfurt",
+    label: "Staßfurt",
     countryCode: "DE",
     lat: 51.851452,
     lng: 11.592946,
@@ -6177,7 +6177,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Apolda (Thüringen), 22.787 Einw.
   {
     slug: "ueberlingen",
-    label: "Ueberlingen",
+    label: "Überlingen",
     countryCode: "DE",
     lat: 47.766446,
     lng: 9.160511,
@@ -6259,7 +6259,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Quickborn (Schleswig-Holstein), 22.662 Einw.
   {
     slug: "muehldorf-am-inn",
-    label: "Muehldorf am Inn",
+    label: "Mühldorf am Inn",
     countryCode: "DE",
     lat: 48.240501,
     lng: 12.525099,
@@ -6354,7 +6354,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Eschborn (Hessen), 22.478 Einw.
   {
     slug: "waghaeusel",
-    label: "Waghaeusel",
+    label: "Waghäusel",
     countryCode: "DE",
     lat: 49.248572,
     lng: 8.516277,
@@ -6412,7 +6412,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Heide (Schleswig-Holstein), 22.125 Einw.
   {
     slug: "buedingen",
-    label: "Buedingen",
+    label: "Büdingen",
     countryCode: "DE",
     lat: 50.297235,
     lng: 9.099083,
@@ -6435,7 +6435,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Aichach (Bayern), 22.011 Einw.
   {
     slug: "zuelpich",
-    label: "Zuelpich",
+    label: "Zülpich",
     countryCode: "DE",
     lat: 50.692246,
     lng: 6.647269,
@@ -6483,7 +6483,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Bad Krozingen (Baden-Württemberg), 21.755 Einw.
   {
     slug: "moessingen",
-    label: "Moessingen",
+    label: "Mössingen",
     countryCode: "DE",
     lat: 48.406912,
     lng: 9.060291,
@@ -6542,7 +6542,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Hockenheim (Baden-Württemberg), 21.623 Einw.
   {
     slug: "eckernfoerde",
-    label: "Eckernfoerde",
+    label: "Eckernförde",
     countryCode: "DE",
     lat: 54.471646,
     lng: 9.837495,
@@ -6612,7 +6612,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Waldkirch (Baden-Württemberg), 21.510 Einw.
   {
     slug: "wipperfuerth",
-    label: "Wipperfuerth",
+    label: "Wipperfürth",
     countryCode: "DE",
     lat: 51.115518,
     lng: 7.387907,
@@ -6765,7 +6765,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Stadtallendorf (Hessen), 21.291 Einw.
   {
     slug: "guenzburg",
-    label: "Guenzburg",
+    label: "Günzburg",
     countryCode: "DE",
     lat: 48.468978,
     lng: 10.274528,
@@ -6800,7 +6800,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Rheinstetten (Baden-Württemberg), 21.267 Einw.
   {
     slug: "floersheim-am-main",
-    label: "Floersheim am Main",
+    label: "Flörsheim am Main",
     countryCode: "DE",
     lat: 50.0296,
     lng: 8.4265,
@@ -6823,7 +6823,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Seligenstadt (Hessen), 21.225 Einw.
   {
     slug: "gross-umstadt",
-    label: "Gross-Umstadt",
+    label: "Groß-Umstadt",
     countryCode: "DE",
     lat: 49.86477,
     lng: 8.95669,
@@ -6928,7 +6928,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Traunstein (Bayern), 20.977 Einw.
   {
     slug: "bueren",
-    label: "Bueren",
+    label: "Büren",
     countryCode: "DE",
     lat: 51.552533,
     lng: 8.559192,
@@ -7023,7 +7023,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Zerbst/Anhalt (Sachsen-Anhalt), 20.779 Einw.
   {
     slug: "wuelfrath",
-    label: "Wuelfrath",
+    label: "Wülfrath",
     countryCode: "DE",
     lat: 51.281857,
     lng: 7.032806,
@@ -7095,7 +7095,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Lichtenfels (Bayern), 20.452 Einw.
   {
     slug: "noerdlingen",
-    label: "Noerdlingen",
+    label: "Nördlingen",
     countryCode: "DE",
     lat: 48.851658,
     lng: 10.488587,
@@ -7107,7 +7107,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Nördlingen (Bayern), 20.442 Einw.
   {
     slug: "hassloch",
-    label: "Hassloch",
+    label: "Haßloch",
     countryCode: "DE",
     lat: 49.362976,
     lng: 8.256576,
@@ -7142,7 +7142,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Ochtrup (Nordrhein-Westfalen), 20.358 Einw.
   {
     slug: "bruchkoebel",
-    label: "Bruchkoebel",
+    label: "Bruchköbel",
     countryCode: "DE",
     lat: 50.1845,
     lng: 8.9369,
@@ -7165,7 +7165,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Schopfheim (Baden-Württemberg), 20.332 Einw.
   {
     slug: "froendenberg-ruhr",
-    label: "Froendenberg/Ruhr",
+    label: "Fröndenberg/Ruhr",
     countryCode: "DE",
     lat: 51.473925,
     lng: 7.765505,
@@ -7234,7 +7234,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Wachtberg (Nordrhein-Westfalen), 20.230 Einw.
   {
     slug: "waren-mueritz",
-    label: "Waren (Mueritz)",
+    label: "Waren (Müritz)",
     countryCode: "DE",
     lat: 53.515625,
     lng: 12.685061,
@@ -7352,7 +7352,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Uetze (Niedersachsen), 20.107 Einw.
   {
     slug: "hoerstel",
-    label: "Hoerstel",
+    label: "Hörstel",
     countryCode: "DE",
     lat: 52.297366,
     lng: 7.586246,
@@ -7364,7 +7364,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Hörstel (Nordrhein-Westfalen), 20.101 Einw.
   {
     slug: "muellheim-im-markgraeflerland",
-    label: "Muellheim im Markgraeflerland",
+    label: "Müllheim im Markgräflerland",
     countryCode: "DE",
     lat: 47.809961,
     lng: 7.625728,
@@ -7388,7 +7388,7 @@ export const PLANNER_EXPANSION_ROLLOUT: PlannerRolloutCity[] = [
   }, // Pfullingen (Baden-Württemberg), 20.032 Einw.
   {
     slug: "donauwoerth",
-    label: "Donauwoerth",
+    label: "Donauwörth",
     countryCode: "DE",
     lat: 48.718036,
     lng: 10.78073,

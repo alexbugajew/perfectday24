@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
@@ -9,6 +9,7 @@ import CommunityPhotoSubmission from "@/components/media/CommunityPhotoSubmissio
 import { loadEventPlanMediaBundle, type MediaGalleryItem } from "@/lib/media/gallery";
 import { loadResolvedServiceProviderCoverMap } from "@/lib/media/resolved-covers";
 import PlanExpensesPanel from "@/components/events/PlanExpensesPanel";
+import { PhotoUpload } from "@/components/ui/PhotoUpload";
 
 // ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ Types ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢â‚¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬
 
@@ -112,6 +113,17 @@ const OCCASION_LABEL: Record<string, string> = {
   staedtereise: "Städtereise",
 };
 
+const OCCASION_EMOJI: Record<string, string> = {
+  geburtstag: "🎂",
+  hochzeit: "💍",
+  teambuilding: "🤝",
+  firmenfeier: "🥂",
+  kindergeburtstag: "🎈",
+  konferenz: "🎤",
+  jubilaeum: "✨",
+  staedtereise: "✈️",
+};
+
 const CITY_LABEL: Record<string, string> = {
   "berlin-berlin": "Berlin",
   hamburg: "Hamburg",
@@ -185,6 +197,12 @@ export default function EventPlanDetailPage() {
   const [showShareConfig, setShowShareConfig] = useState(false);
   const [hostName, setHostName] = useState("");
   const [inviteNote, setInviteNote] = useState("");
+  const [coverUrls, setCoverUrls] = useState<string[]>([]);
+  const [coverSupported, setCoverSupported] = useState(false);
+  const [aiTextLoading, setAiTextLoading] = useState(false);
+  const [aiImageLoading, setAiImageLoading] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+  const [msgCopied, setMsgCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<EventDetailTab>("overview");
   const [quoteToConfirm, setQuoteToConfirm] = useState<VendorQuote | null>(null);
   const [eventMediaItems, setEventMediaItems] = useState<MediaGalleryItem[]>([]);
@@ -257,15 +275,37 @@ export default function EventPlanDetailPage() {
 
   useEffect(() => { void loadPlan(); }, [loadPlan]);
 
+  // Titelbild-Spalte existiert erst nach Migration 20260731120000. Eigene
+  // Probe-Query statt die Haupt-Query zu riskieren: schlägt sie fehl, wird
+  // der Upload im Share-Dialog einfach ausgeblendet.
+  useEffect(() => {
+    if (!id) return;
+    let active = true;
+    void supabase
+      .from("event_plans")
+      .select("cover_image_url")
+      .eq("id", id)
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (!active) return;
+        if (error) { setCoverSupported(false); return; }
+        setCoverSupported(true);
+        const url = (data as { cover_image_url?: string | null } | null)?.cover_image_url ?? null;
+        setCoverUrls(url ? [url] : []);
+      });
+    return () => { active = false; };
+  }, [id]);
+
   async function handleShare() {
     if (!plan) return;
     setShareLoading(true);
     setShareError(null);
 
-    // Save host name / invite note if changed
-    const updates: Record<string, string> = {};
+    // Save host name / invite note / cover if changed
+    const updates: Record<string, string | null> = {};
     if (hostName.trim()) updates.host_display_name = hostName.trim();
     if (inviteNote.trim()) updates.invite_note = inviteNote.trim();
+    if (coverSupported) updates.cover_image_url = coverUrls[0] ?? null;
 
     if (plan.share_token) {
       if (Object.keys(updates).length) {
@@ -307,6 +347,68 @@ export default function EventPlanDetailPage() {
     setPlan((prev) => prev ? { ...prev, share_token: token } : prev);
     setShareLoading(false);
   }
+
+  // KI-Generierung von Einladungstext bzw. Titelbild — Route prüft Ownership
+  // und Rate-Limit serverseitig.
+  async function generateInvite(mode: "text" | "image") {
+    if (!plan) return;
+    setAiError(null);
+    const setBusy = mode === "text" ? setAiTextLoading : setAiImageLoading;
+    setBusy(true);
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData.session?.access_token;
+      const res = await fetch("/api/events/generate-invite", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          mode,
+          planId: plan.id,
+          occasion: OCCASION_LABEL[plan.occasion_slug] ?? plan.occasion_slug,
+          city: CITY_LABEL[plan.city_slug] ?? plan.city_slug,
+          eventDate: plan.event_date,
+          hostName: hostName.trim() || plan.host_display_name,
+          title: plan.title,
+          guests: plan.guest_count,
+        }),
+      });
+      const data = (await res.json().catch(() => null)) as
+        | { text?: string; imageUrl?: string; error?: string }
+        | null;
+      if (!res.ok) throw new Error(data?.error ?? "Generierung fehlgeschlagen.");
+      if (mode === "text" && data?.text) setInviteNote(data.text);
+      if (mode === "image" && data?.imageUrl) setCoverUrls([data.imageUrl]);
+    } catch (e) {
+      setAiError(e instanceof Error ? e.message : "Generierung fehlgeschlagen.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // Versandfertige Standard-Nachricht aus den Eventdaten — erscheint, sobald
+  // der Einladungslink existiert (Copy + WhatsApp).
+  const inviteMessage = useMemo(() => {
+    if (!plan || !shareUrl) return "";
+    const emoji = OCCASION_EMOJI[plan.occasion_slug] ?? "🎊";
+    const label = OCCASION_LABEL[plan.occasion_slug] ?? "Event";
+    const when = plan.event_date ? formatDate(plan.event_date) : null;
+    const where = CITY_LABEL[plan.city_slug] ?? plan.city_slug;
+    const host = hostName.trim() || plan.host_display_name;
+    const factsLine = [when ? `📅 ${when}` : null, where ? `📍 ${where}` : null]
+      .filter(Boolean)
+      .join(" · ");
+    return [
+      `${emoji} Einladung: ${plan.title || label}`,
+      factsLine || null,
+      host ? `${host} lädt dich herzlich ein.` : "Du bist herzlich eingeladen!",
+      `Alle Infos & deine Zusage: ${shareUrl}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+  }, [plan, shareUrl, hostName]);
 
   function toggleBooking(bookingId: string) {
     setExpandedBookings((prev) => ({ ...prev, [bookingId]: !prev[bookingId] }));
@@ -589,7 +691,55 @@ export default function EventPlanDetailPage() {
                 placeholder={plan?.invite_note ?? "Kommt gerne in festlicher Kleidung ..."}
                 className="w-full resize-none rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-2.5 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--text-strong)]"
               />
+              <button
+                type="button"
+                onClick={() => void generateInvite("text")}
+                disabled={aiTextLoading}
+                className="mt-2 inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.85)] px-3.5 text-xs font-medium text-[var(--brand-warm-ink)] transition hover:bg-white disabled:opacity-60"
+              >
+                {aiTextLoading ? (
+                  <>
+                    <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-[var(--brand-warm-ink)] border-t-transparent" aria-hidden />
+                    Text wird geschrieben …
+                  </>
+                ) : (
+                  <>✨ Einladungstext mit KI schreiben</>
+                )}
+              </button>
             </div>
+
+            {coverSupported && plan && (
+              <div>
+                <label className="mb-1 block text-xs font-medium text-[var(--text-muted)]">
+                  Titelbild der Einladung (optional) — erscheint groß auf der Einladungskarte
+                </label>
+                <PhotoUpload
+                  folder={`event-covers/${plan.id}`}
+                  value={coverUrls}
+                  onChange={setCoverUrls}
+                  maxPhotos={1}
+                />
+                <button
+                  type="button"
+                  onClick={() => void generateInvite("image")}
+                  disabled={aiImageLoading}
+                  className="mt-2 inline-flex min-h-9 items-center gap-1.5 rounded-full border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.85)] px-3.5 text-xs font-medium text-[var(--brand-warm-ink)] transition hover:bg-white disabled:opacity-60"
+                >
+                  {aiImageLoading ? (
+                    <>
+                      <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-[var(--brand-warm-ink)] border-t-transparent" aria-hidden />
+                      Bild wird erstellt … (ca. 20 Sek.)
+                    </>
+                  ) : (
+                    <>✨ Titelbild mit KI erstellen</>
+                  )}
+                </button>
+              </div>
+            )}
+
+            {aiError && (
+              <p className="pd24-status-error rounded-[12px] px-4 py-2.5 text-xs">{aiError}</p>
+            )}
 
             <div className="flex flex-wrap gap-3">
               <button
@@ -605,7 +755,23 @@ export default function EventPlanDetailPage() {
               >
                 Abbrechen
               </button>
+              {plan?.share_token && (
+                <a
+                  href={`/events/agenda/${plan.share_token}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-10 items-center gap-1 rounded-full border border-[var(--line-subtle)] bg-white px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+                >
+                  Vorschau öffnen ↗
+                </a>
+              )}
             </div>
+            {!plan?.share_token && (
+              <p className="text-xs text-[var(--text-muted)]">
+                Nach dem Erstellen des Links kannst du die Einladung als Vorschau öffnen — genau so,
+                wie deine Gäste sie sehen.
+              </p>
+            )}
 
             <p role="status" className="text-xs font-medium text-[var(--state-error)]">
               {shareError ?? ""}
@@ -616,6 +782,14 @@ export default function EventPlanDetailPage() {
         {shareUrl && !showShareConfig && (
           <div className="mt-4 flex items-center gap-3 rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
             <span className="min-w-0 flex-1 truncate font-mono text-xs text-[var(--text-muted)]">{shareUrl}</span>
+            <a
+              href={shareUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="shrink-0 rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
+            >
+              Vorschau ↗
+            </a>
             <button
               onClick={async () => {
                 await navigator.clipboard.writeText(shareUrl).catch(() => {});
@@ -625,6 +799,38 @@ export default function EventPlanDetailPage() {
             >
               {shareCopied ? "Kopiert" : "Kopieren"}
             </button>
+          </div>
+        )}
+
+        {/* Versandfertige Standard-Nachricht — aus den Eventdaten gebaut */}
+        {shareUrl && !showShareConfig && inviteMessage && (
+          <div className="mt-3 rounded-2xl border border-[var(--line-subtle)] bg-white p-4">
+            <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+              Nachricht an die Gäste
+            </div>
+            <p className="whitespace-pre-line text-sm leading-6 text-[var(--text-strong)]">
+              {inviteMessage}
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={async () => {
+                  await navigator.clipboard.writeText(inviteMessage).catch(() => {});
+                  setMsgCopied(true);
+                }}
+                className="inline-flex min-h-9 items-center rounded-full border border-[var(--line-subtle)] bg-white px-3.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--text-strong)] hover:text-white"
+              >
+                {msgCopied ? "Nachricht kopiert ✓" : "Nachricht kopieren"}
+              </button>
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(inviteMessage)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-9 items-center gap-1 rounded-full border border-[rgba(79,107,91,0.3)] bg-[rgba(79,107,91,0.08)] px-3.5 text-xs font-medium text-[var(--state-success)] transition hover:bg-[rgba(79,107,91,0.14)]"
+              >
+                Per WhatsApp senden ↗
+              </a>
+            </div>
           </div>
         )}
       </div>
@@ -1133,6 +1339,16 @@ export default function EventPlanDetailPage() {
         );
       })()}
 
+      {activeTab === "agenda" && rsvps.length === 0 && (
+        <div className="mt-8">
+          <h2 className="mb-3 text-base font-semibold text-[var(--text-strong)]">Rückmeldungen</h2>
+          <div className="rounded-2xl border border-dashed border-[var(--line-strong)] bg-[var(--bg-surface)] px-4 py-5 text-sm text-[var(--text-muted)]">
+            Noch keine Rückmeldungen. Teile den Einladungslink mit deinen Gästen — Zu- und
+            Absagen erscheinen dann hier.
+          </div>
+        </div>
+      )}
+
       {activeTab === "agenda" && rsvps.length > 0 && (
         <div className="mt-8">
           <div className="mb-3 flex items-center justify-between">
@@ -1144,6 +1360,11 @@ export default function EventPlanDetailPage() {
               <span>
                 {rsvps.filter((r) => r.response === "declined").length} Absagen
               </span>
+              {plan?.guest_count ? (
+                <span>
+                  {Math.max(0, plan.guest_count - rsvps.filter((r) => r.response === "accepted").length)} ausstehend
+                </span>
+              ) : null}
             </div>
           </div>
           <div className="space-y-2">
@@ -1170,7 +1391,7 @@ export default function EventPlanDetailPage() {
                     </span>
                   </div>
                   {r.message && (
-                    <p className="mt-0.5 text-xs text-[var(--text-muted)]">"{r.message}"</p>
+                    <p className="mt-0.5 text-xs text-[var(--text-muted)]">„{r.message}“</p>
                   )}
                 </div>
                 <p className="shrink-0 text-[10px] text-[var(--text-muted)]">

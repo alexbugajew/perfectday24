@@ -89,7 +89,7 @@ export default function PlannerModeSwitcher() {
             role="tab"
             aria-selected={active}
             className={[
-              "inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-sm font-medium transition-all",
+              "inline-flex min-h-10 items-center gap-1.5 rounded-xl px-3 text-sm font-medium transition-all",
               active
                 ? "bg-[var(--text-strong)] text-white shadow-sm"
                 : "text-[var(--text-muted)] hover:bg-white hover:text-[var(--text-strong)]",

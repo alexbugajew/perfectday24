@@ -2087,7 +2087,7 @@ function PlannerPageContent() {
             <button
               type="button"
               onClick={() => setShowAiModal(true)}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[rgba(196,137,79,0.45)] bg-[linear-gradient(90deg,rgba(255,249,241,0.95),rgba(255,253,248,0.95))] px-4 py-3 text-sm font-semibold text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,1)] active:scale-[0.98] lg:w-auto lg:min-w-[190px]"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[rgba(196,137,79,0.45)] bg-[linear-gradient(90deg,rgba(255,249,241,0.95),rgba(255,253,248,0.95))] px-4 py-3 text-sm font-semibold text-[var(--brand-warm-ink)] transition hover:bg-[rgba(255,249,241,1)] active:scale-[0.98] lg:w-auto lg:min-w-[190px]"
             >
               <span>Mit KI planen</span>
               <span className="rounded-full bg-[var(--brand-warm)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">Neu</span>
@@ -2117,7 +2117,7 @@ function PlannerPageContent() {
               type="button"
               onClick={optimizeStopOrder}
               disabled={plannedStops.length < 3}
-              className="rounded-md border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.55)] px-3 py-1.5 text-xs font-medium text-[var(--brand-warm)] transition hover:bg-[rgba(255,249,241,0.85)] disabled:opacity-60"
+              className="rounded-md border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.55)] px-3 py-1.5 text-xs font-medium text-[var(--brand-warm-ink)] transition hover:bg-[rgba(255,249,241,0.85)] disabled:opacity-60"
             >
               Reihenfolge optimieren
             </button>

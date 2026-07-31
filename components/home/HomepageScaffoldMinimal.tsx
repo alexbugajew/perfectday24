@@ -9,6 +9,7 @@ import HeroLiveDemo from "@/components/home/HeroLiveDemo";
 import EditorialRoutesShowcase from "@/components/home/EditorialRoutesShowcase";
 import FeatureShowcase from "@/components/home/FeatureShowcase";
 import AiExploreTeaser from "@/components/home/AiExploreTeaser";
+import { formatReachCount, getReachStats } from "@/lib/reach-stats";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -43,13 +44,6 @@ const proofCards = [
   },
 ];
 
-const trustTiles = [
-  "Echte Events statt generischer Vorschläge",
-  "Ein Ablauf statt 7 offener Tabs",
-  "Sinnvolle Wege statt Zufallsreihenfolge",
-  "Direkt mit anderen teilbar",
-];
-
 const compareWithout = [
   "Viele Tabs und Trefferlisten",
   "Keine klare Reihenfolge",
@@ -69,24 +63,89 @@ const howItWorksSteps = [
     number: "01",
     title: "Beschreiben",
     body: "Schreib in einem Satz, was du vorhast und in welcher Stadt du planst.",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=300&fit=crop&auto=format&q=80",
-    imageAlt: "Person tippt am Laptop, plant einen Tag",
+    visual: "prompt",
   },
   {
     number: "02",
     title: "Plan bekommen",
     body: "PerfectDay24 baut daraus einen Ablauf mit Events, Wegen und plausiblen Zeitfenstern.",
-    image: "https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=600&h=300&fit=crop&auto=format&q=80",
-    imageAlt: "Stadtkarte mit eingezeichneter Route",
+    visual: "plan",
   },
   {
     number: "03",
     title: "Teilen und losgehen",
     body: "Schick den Plan per Link, passe ihn gemeinsam an und starte direkt los.",
-    image: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=600&h=300&fit=crop&auto=format&q=80",
-    imageAlt: "Freunde gemeinsam unterwegs in der Stadt",
+    visual: "share",
   },
-];
+] as const;
+
+// Produktnahe Mini-Mockups statt generischer Stock-Fotos: zeigen den echten
+// Flow (Prompt → Ablauf → Teilen) in der Bildsprache der Hero-Live-Demo und
+// laden ohne externe Requests.
+function HowItWorksVisual({ visual }: { visual: "prompt" | "plan" | "share" }) {
+  if (visual === "prompt") {
+    return (
+      <div className="flex h-full flex-col justify-center gap-2 px-5" aria-hidden>
+        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-soft-warm)]">
+          Was möchtest du planen?
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="flex min-h-9 flex-1 items-center truncate rounded-xl border border-[var(--line-strong)] bg-white px-3 text-[13px] text-[var(--text-strong)] shadow-inner">
+            Date-Abend in München mit Live-Konzert
+          </div>
+          <span className="inline-flex h-9 shrink-0 items-center rounded-xl bg-[var(--text-strong)] px-3 text-[11px] font-semibold text-white">
+            ✨ Autopilot
+          </span>
+        </div>
+      </div>
+    );
+  }
+  if (visual === "plan") {
+    return (
+      <div className="flex h-full flex-col justify-center gap-1.5 px-5" aria-hidden>
+        {[
+          { time: "19:10", label: "Dinner · Katz Orange" },
+          { time: "20:30", label: "Hauptmoment · Konzerthaus" },
+          { time: "22:40", label: "Ausklang · Bar nahe Venue" },
+        ].map((row, i) => (
+          <div
+            key={row.time}
+            className="flex items-center gap-2.5 rounded-xl border border-[var(--line-subtle)] bg-white/85 px-3 py-1.5"
+          >
+            <span className="text-[11px] font-semibold text-[var(--brand-warm-ink)]">{row.time}</span>
+            <span className="truncate text-[12px] font-medium text-[var(--text-strong)]">{row.label}</span>
+            <span className="ml-auto flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-[var(--text-strong)] text-[10px] font-semibold text-white">
+              {i + 1}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div className="flex h-full flex-col justify-center gap-2.5 px-5" aria-hidden>
+      <div className="flex min-h-9 items-center justify-between gap-2 rounded-xl border border-[var(--line-strong)] bg-white px-3">
+        <span className="truncate text-[12px] font-medium text-[var(--text-muted-warm)]">
+          perfectday24.de/p/date-muc
+        </span>
+        <span className="shrink-0 text-[11px] font-semibold text-[var(--brand-warm-ink)]">Link kopiert ✓</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <div className="flex -space-x-2">
+          {["A", "L", "+1"].map((initial) => (
+            <span
+              key={initial}
+              className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[var(--bg-surface-warm)] bg-[var(--brand-warm-cloud)] text-[10px] font-semibold text-[var(--brand-warm-ink)]"
+            >
+              {initial}
+            </span>
+          ))}
+        </div>
+        <span className="text-[12px] text-[var(--text-muted-warm)]">planen mit — alle sehen denselben Stand</span>
+      </div>
+    </div>
+  );
+}
 
 const useCases = [
   {
@@ -126,11 +185,11 @@ const useCases = [
 const partnerHighlights = [
   "Standort, Angebot oder Event-Baustein anlegen",
   "Anfragen, Sichtbarkeit und Affiliate-Links an einem Ort steuern",
-  "In Explore, Planner und Event-Flows praesent werden",
+  "In Explore, Planner und Event-Flows präsent werden",
 ];
 
-const partnerProofStats = [
-  { value: "33", label: "Staedte", note: "stadtspezifische Sichtbarkeit" },
+// value für "Städte" kommt dynamisch aus lib/reach-stats (s. Komponente).
+const partnerProofStatsStatic = [
   { value: "3", label: "Kernausspielungen", note: "Explore, Routen und Events" },
   { value: "1", label: "Self-Service-Portal", note: "Profil, Medien, Pakete und Links" },
 ];
@@ -138,7 +197,7 @@ const partnerProofStats = [
 const partnerPortalModules = [
   {
     title: "Profil & Standorte",
-    body: "Location, Kategorien, Oeffnungszeiten und passende Buchungslinks selbst pflegen.",
+    body: "Location, Kategorien, Öffnungszeiten und passende Buchungslinks selbst pflegen.",
   },
   {
     title: "Medien & Cover",
@@ -223,7 +282,39 @@ function ListBlock({
   );
 }
 
-export default function HomepageScaffoldMinimal() {
+export default async function HomepageScaffoldMinimal() {
+  const reach = await getReachStats();
+  const partnerProofStats = [
+    { value: String(reach.visibleCities), label: "Städte", note: "stadtspezifische Sichtbarkeit" },
+    ...partnerProofStatsStatic,
+  ];
+  const reachStats = [
+    {
+      value: String(reach.visibleCities),
+      label: "Deutsche Städte",
+      note: "Groß- & Mittelstädte bundesweit",
+      href: "/explore",
+    },
+    {
+      value: formatReachCount(reach.plannableLocations, 1000),
+      label: "Planbare Locations",
+      note: "kuratiert + gefiltert",
+      href: "/explore",
+    },
+    {
+      value: formatReachCount(reach.locationsWithOpeningHours, 500),
+      label: "mit Öffnungszeiten",
+      note: "Stand heute, wächst täglich",
+      href: "/planner",
+    },
+    {
+      value: formatReachCount(reach.activeEventProviders, 100),
+      label: "Event-Anbieter",
+      note: "von Florist bis Location",
+      href: "/events",
+    },
+  ];
+
   return (
     <div className={`${display.variable} min-h-screen bg-[var(--bg-canvas-warm)] text-[var(--text-strong)]`}>
       <div className="pd24-page-standard pb-20 pt-6">
@@ -239,25 +330,25 @@ export default function HomepageScaffoldMinimal() {
             <div className="flex flex-wrap items-center gap-2">
               <Link
                 href="/planner"
-                className="inline-flex items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
               >
                 Planen
               </Link>
               <Link
                 href="/explore"
-                className="inline-flex items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
               >
                 Entdecken
               </Link>
               <Link
                 href="/events"
-                className="inline-flex items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
               >
                 Events
               </Link>
               <Link
                 href="/partner"
-                className="inline-flex items-center justify-center rounded-full border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] hover:bg-white"
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] hover:bg-white"
               >
                 Partner werden
               </Link>
@@ -326,21 +417,16 @@ export default function HomepageScaffoldMinimal() {
 
           <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-white/82 px-5 py-6 shadow-[var(--shadow-soft)] sm:px-8 sm:py-7">
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                { value: "551", label: "Deutsche Städte", note: "Groß- & Mittelstädte bundesweit", href: "/explore" },
-                { value: "226.000+", label: "Planbare Locations", note: "kuratiert + gefiltert", href: "/explore" },
-                { value: "38.500+", label: "mit Öffnungszeiten", note: "Stand heute, wächst täglich", href: "/planner" },
-                { value: "14.700+", label: "Event-Anbieter", note: "von Florist bis Location", href: "/events" },
-              ].map((stat) => (
+              {reachStats.map((stat) => (
                 <Link
                   key={stat.label}
                   href={stat.href}
                   className="group block border-l border-[var(--line-subtle)] pl-4 transition first:border-l-0 first:pl-0 hover:opacity-90 sm:border-l sm:first:border-l-0"
                 >
-                  <div className="pd24-display text-3xl tracking-tight text-[var(--text-strong)] transition group-hover:text-[var(--brand-warm)] sm:text-4xl">
+                  <div className="pd24-display text-3xl tracking-tight text-[var(--text-strong)] transition group-hover:text-[var(--brand-warm-ink)] sm:text-4xl">
                     {stat.value}
                   </div>
-                  <div className="mt-1 text-sm font-semibold text-[var(--brand-warm)]">{stat.label}</div>
+                  <div className="mt-1 text-sm font-semibold text-[var(--brand-warm-ink)]">{stat.label}</div>
                   <div className="mt-0.5 flex items-center gap-1 text-xs text-[var(--text-muted-warm)]">
                     {stat.note}
                     <span className="translate-x-0 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100">→</span>
@@ -370,27 +456,13 @@ export default function HomepageScaffoldMinimal() {
               ))}
             </div>
 
-            <div className="flex justify-center">
-              <PD24Button href="/planner">Diesen Stil planen</PD24Button>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <ListBlock title="Ohne PerfectDay24" items={compareWithout} tone="soft" />
+              <ListBlock title="Mit PerfectDay24" items={compareWith} tone="strong" />
             </div>
-          </section>
 
-          <section className="space-y-8">
-            <SectionIntro
-              eyebrow="Warum das besser ist"
-              title="Warum Nutzer nicht mehr manuell zusammensetzen wollen"
-              body="Listen zeigen Möglichkeiten. PerfectDay24 baut daraus einen Plan, der in sich stimmig ist und direkt funktioniert."
-            />
-
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {trustTiles.map((tile) => (
-                <div
-                  key={tile}
-                  className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] px-5 py-5 text-sm leading-7 text-[var(--text-muted-warm)] shadow-[var(--shadow-soft)]"
-                >
-                  {tile}
-                </div>
-              ))}
+            <div className="flex justify-center">
+              <PD24Button href="/planner">Plan statt Trefferliste ausprobieren</PD24Button>
             </div>
           </section>
 
@@ -460,7 +532,7 @@ export default function HomepageScaffoldMinimal() {
                     Ein Event veranstalten
                   </h3>
                   <p className="mt-3 flex-1 text-base leading-7 text-[var(--text-muted-warm)]">
-                    Für Geburtstag, JGA, Teamday oder Dinner. Stelle Anbieter zusammen, frage Preise an und verschicke digitale Einladungen - alles an einem Ort.
+                    Für Geburtstag, JGA, Teamday oder Dinner. Stelle Anbieter zusammen, frage Preise an und verschicke digitale Einladungen — alles an einem Ort.
                   </p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {["Geburtstag", "JGA", "Teamday", "Dinner"].map((tag) => (
@@ -492,7 +564,7 @@ export default function HomepageScaffoldMinimal() {
               </div>
               <Link
                 href="/explore"
-                className="hidden text-sm font-medium text-[var(--text-strong)] underline-offset-2 hover:underline sm:inline"
+                className="hidden min-h-11 items-center text-sm font-medium text-[var(--text-strong)] underline-offset-2 hover:underline sm:inline-flex"
               >
                 Alle entdecken →
               </Link>
@@ -503,7 +575,7 @@ export default function HomepageScaffoldMinimal() {
           <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(248,250,252,0.96),rgba(238,244,248,0.92))] p-6 shadow-[var(--shadow-soft)] sm:p-8">
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
               <div className="max-w-3xl">
-                <div className="pd24-kicker-warm text-[var(--text-soft-warm)]">Fuer Anbieter</div>
+                <div className="pd24-kicker-warm text-[var(--text-soft-warm)]">Für Anbieter</div>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-4xl">
                   Eigene Location, Route oder Event-Bausteine direkt in PerfectDay24 vermarkten
                 </h2>
@@ -529,7 +601,7 @@ export default function HomepageScaffoldMinimal() {
                       className="rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.18)] bg-[rgba(255,249,241,0.9)] px-4 py-4"
                     >
                       <div className="text-2xl font-semibold tracking-tight text-[var(--text-strong)]">{item.value}</div>
-                      <div className="mt-1 text-sm font-medium text-[var(--brand-warm)]">{item.label}</div>
+                      <div className="mt-1 text-sm font-medium text-[var(--brand-warm-ink)]">{item.label}</div>
                       <div className="mt-2 text-xs leading-5 text-[var(--text-muted-warm)]">{item.note}</div>
                     </div>
                   ))}
@@ -557,7 +629,7 @@ export default function HomepageScaffoldMinimal() {
                     Statuslogik
                   </div>
                   <div className="mt-2 text-sm leading-6 text-[var(--text-muted-warm)]">
-                    Draft - In Review - Published - Featured. So bleibt Partner-Content steuerbar und trotzdem qualitativ konsistent.
+                    Draft → In Review → Published → Featured. So bleibt Partner-Content steuerbar und trotzdem qualitativ konsistent.
                   </div>
                 </div>
                 <div className="mt-5 flex flex-wrap gap-3">
@@ -568,27 +640,10 @@ export default function HomepageScaffoldMinimal() {
                     href="/partner/dashboard"
                     className="inline-flex min-h-12 items-center text-sm font-medium text-[var(--text-strong)] underline-offset-2 transition hover:underline"
                   >
-                    Partner-Portal ansehen -&gt;
+                    Partner-Portal ansehen →
                   </Link>
                 </div>
               </div>
-            </div>
-          </section>
-
-          <section className="space-y-8">
-            <SectionIntro
-              eyebrow="Differenzierung"
-              title="Warum PerfectDay24 besser ist als nur suchen"
-              body="Listen zeigen Möglichkeiten. PerfectDay24 baut daraus einen Ablauf, den du direkt nutzen, teilen und weiterentwickeln kannst."
-            />
-
-            <div className="grid gap-5 sm:grid-cols-2">
-              <ListBlock title="Ohne PerfectDay24" items={compareWithout} tone="soft" />
-              <ListBlock title="Mit PerfectDay24" items={compareWith} tone="strong" />
-            </div>
-
-            <div className="flex justify-center">
-              <PD24Button href="/planner">Plan statt Trefferliste ausprobieren</PD24Button>
             </div>
           </section>
 
@@ -605,16 +660,9 @@ export default function HomepageScaffoldMinimal() {
                   key={step.number}
                   className="relative flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[rgba(255,253,248,0.82)] shadow-[var(--shadow-soft)]"
                 >
-                  <div className="relative h-32 w-full overflow-hidden">
-                    <Image
-                      src={step.image}
-                      alt={step.imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(255,253,248,0.9)]" />
-                    <div className="absolute right-3 top-3 pd24-display text-5xl leading-none text-white drop-shadow-md">
+                  <div className="relative h-36 w-full overflow-hidden border-b border-[var(--line-subtle)] bg-[linear-gradient(160deg,var(--brand-warm-cloud),var(--bg-canvas-warm))]">
+                    <HowItWorksVisual visual={step.visual} />
+                    <div className="absolute right-3 top-2 pd24-display text-4xl leading-none text-[rgba(196,137,79,0.35)]">
                       {step.number}
                     </div>
                   </div>
@@ -655,7 +703,7 @@ export default function HomepageScaffoldMinimal() {
                     <p className="mt-3 flex-1 text-sm leading-7 text-[var(--text-muted-warm)]">{card.body}</p>
                     <Link
                       href={card.href}
-                      className="mt-5 text-sm font-medium text-[var(--text-strong)] underline-offset-2 transition hover:underline"
+                      className="mt-4 inline-flex min-h-11 items-center self-start text-sm font-medium text-[var(--text-strong)] underline-offset-2 transition hover:underline"
                     >
                       {card.cta} →
                     </Link>
@@ -667,7 +715,9 @@ export default function HomepageScaffoldMinimal() {
 
           <section className="rounded-[var(--radius-shell)] bg-[var(--text-strong)] px-6 py-10 text-[var(--bg-surface-warm)] shadow-[var(--shadow-large)] sm:px-8">
             <div className="max-w-3xl">
-              <div className="pd24-kicker-warm text-[rgba(255,253,248,0.64)]">Abschluss</div>
+              {/* Bewusst ohne .pd24-kicker-warm: die un-gelayerte Klasse gewinnt
+                  gegen Tailwind-Utilities, auf dunklem Grund braucht es helle Schrift. */}
+              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[rgba(255,253,248,0.72)]">Abschluss</div>
               <h2 className="mt-3 pd24-display text-[2.75rem] leading-[0.98] tracking-tight sm:text-6xl">
                 Schreib deinen Plan in einem Satz. Den Rest baut PerfectDay24.
               </h2>
@@ -692,16 +742,16 @@ export default function HomepageScaffoldMinimal() {
                 Einen guten Tag planen - für dich, zu zweit oder mit der Gruppe.
               </div>
             </div>
-            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-[var(--text-muted-warm)]">
-              <Link href="/planner">Planen</Link>
-              <Link href="/explore">Entdecken</Link>
-              <Link href="/events">Events</Link>
-              <Link href="/saved">Meine Pläne</Link>
-              <Link href="/impressum">Impressum</Link>
-              <Link href="/datenschutz">Datenschutz</Link>
-              <ConsentSettingsLink className="text-left" />
-              <Link href="/partner">Fuer Anbieter</Link>
-              <Link href="/agb">AGB</Link>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-[var(--text-muted-warm)]">
+              <Link href="/planner" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">Planen</Link>
+              <Link href="/explore" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">Entdecken</Link>
+              <Link href="/events" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">Events</Link>
+              <Link href="/saved" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">Meine Pläne</Link>
+              <Link href="/impressum" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">Impressum</Link>
+              <Link href="/datenschutz" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">Datenschutz</Link>
+              <ConsentSettingsLink className="inline-flex min-h-10 items-center text-left hover:text-[var(--text-strong)]" />
+              <Link href="/partner" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">Für Anbieter</Link>
+              <Link href="/agb" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">AGB</Link>
             </div>
           </div>
         </footer>

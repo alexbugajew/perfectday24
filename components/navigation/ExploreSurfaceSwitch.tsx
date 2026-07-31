@@ -90,7 +90,7 @@ export default function ExploreSurfaceSwitch({
                       isActive
                         ? "text-[var(--text-muted)]"
                         : surface.key === "roadtrip"
-                          ? "text-[var(--brand-warm)]"
+                          ? "text-[var(--brand-warm-ink)]"
                           : "text-[var(--text-muted)]"
                     }`}
                   >
@@ -103,7 +103,7 @@ export default function ExploreSurfaceSwitch({
                     isActive
                       ? "bg-[var(--text-strong)] text-white"
                       : surface.key === "roadtrip"
-                        ? "border border-[rgba(196,137,79,0.32)] bg-white text-[var(--brand-warm)]"
+                        ? "border border-[rgba(196,137,79,0.32)] bg-white text-[var(--brand-warm-ink)]"
                         : "border border-[var(--line-subtle)] bg-white text-[var(--text-muted)]"
                   }`}
                 >
@@ -119,7 +119,7 @@ export default function ExploreSurfaceSwitch({
                     isActive
                       ? "text-[var(--text-strong)]"
                       : surface.key === "roadtrip"
-                        ? "text-[var(--brand-warm)]"
+                        ? "text-[var(--brand-warm-ink)]"
                         : "text-[var(--text-strong)]"
                   }`}
                 >
@@ -159,7 +159,7 @@ export default function ExploreSurfaceSwitch({
             {secondaryCtaHref && secondaryCtaLabel ? (
               <Link
                 href={secondaryCtaHref}
-                className="inline-flex min-h-10 items-center rounded-xl border border-[rgba(196,137,79,0.28)] bg-white px-4 text-sm font-medium text-[var(--brand-warm)] transition hover:bg-[rgba(196,137,79,0.08)]"
+                className="inline-flex min-h-10 items-center rounded-xl border border-[rgba(196,137,79,0.28)] bg-white px-4 text-sm font-medium text-[var(--brand-warm-ink)] transition hover:bg-[rgba(196,137,79,0.08)]"
               >
                 {secondaryCtaLabel}
               </Link>

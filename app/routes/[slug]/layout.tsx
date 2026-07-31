@@ -60,10 +60,17 @@ export async function generateMetadata({
 
     if (!data) return { title: "Tagesroute | PerfectDay24" };
 
-    const citySuffix =
-      typeof data.city_slug === "string" && data.city_slug.trim().length > 0
-        ? ` in ${data.city_slug.split("-")[0]}`
-        : "";
+    // Echten Städtenamen auflösen ("München" statt Slug "muenchen").
+    let cityName = "";
+    if (typeof data.city_slug === "string" && data.city_slug.trim().length > 0) {
+      const { data: city } = await supabase
+        .from("cities")
+        .select("name")
+        .eq("slug", data.city_slug)
+        .maybeSingle();
+      cityName = city?.name ?? "";
+    }
+    const citySuffix = cityName ? ` in ${cityName}` : "";
     const title = `${data.title ?? "Tagesroute"} | PerfectDay24`;
     const description =
       data.description?.slice(0, 160) ??

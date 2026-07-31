@@ -94,9 +94,12 @@ export function PD24Button({
     );
   }
 
-  const { variant: _variant, ...buttonProps } = props as ButtonAsButtonProps & {
+  // variant ist bereits in `classes` verarbeitet und darf nicht als
+  // DOM-Attribut auf dem <button> landen.
+  const buttonProps = { ...props } as ButtonAsButtonProps & {
     variant?: keyof typeof buttonVariants;
   };
+  delete buttonProps.variant;
 
   return (
     <button {...buttonProps} className={classes}>
@@ -184,7 +187,7 @@ export function PD24StatusBadge({
           : tone === "error"
             ? "pd24-status-error"
             : tone === "warm"
-              ? "border border-[rgba(196,137,79,0.28)] bg-[rgba(196,137,79,0.09)] text-[var(--brand-warm)]"
+              ? "border border-[rgba(196,137,79,0.28)] bg-[rgba(196,137,79,0.09)] text-[var(--brand-warm-ink)]"
               : "border border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)]";
 
   return (

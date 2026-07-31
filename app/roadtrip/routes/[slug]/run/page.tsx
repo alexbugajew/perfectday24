@@ -127,7 +127,7 @@ function buildInitialProgress(route: RoadtripRoute, stops: RunStop[], startDate:
 }
 
 function runStepSummary(stop: RunStop) {
-  const parts = [`${stop.nights} ${stop.nights === 1 ? "Nacht" : "Naechte"}`];
+  const parts = [`${stop.nights} ${stop.nights === 1 ? "Nacht" : "Nächte"}`];
   if (stop.creatorRouteTitle) parts.push("Creator-Route verfuegbar");
   else if (stop.plannedStops?.length) parts.push(`${stop.plannedStops.length} Tagesstopps`);
   else parts.push("Noch kein Tagesplan");
@@ -198,7 +198,10 @@ export default function RoadtripRouteRunPage() {
 
   useEffect(() => {
     if (!route) return;
+    // Progress-Reset beim Wechsel von Route/Datum: liest gespeicherten
+    // Fortschritt aus localStorage (SSR-unsicher) — bewusst sync im Effect.
     const next = buildInitialProgress(route, stops, startDate);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setProgress(next);
     writeRoadtripRunProgress(next);
   }, [route, startDate, stops]);
@@ -285,6 +288,8 @@ export default function RoadtripRouteRunPage() {
     if (!subStopKey) return;
     try {
       const raw = localStorage.getItem(subStopKey);
+      // Einmalige Client-Init aus localStorage — sync setState beabsichtigt.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (raw) setCheckedSubStops(JSON.parse(raw) as Record<string, boolean>);
     } catch { /* ignore */ }
   }, [subStopKey]);
@@ -388,7 +393,7 @@ export default function RoadtripRouteRunPage() {
         </h1>
         <div className="mt-3 flex flex-wrap gap-2">
           <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
-            {stops.length} Staedte
+            {stops.length} Städte
           </span>
           <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
             {progressPercent}% geschafft
@@ -409,7 +414,7 @@ export default function RoadtripRouteRunPage() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
               <div className="text-[11px] font-semibold uppercase tracking-[0.16em]">
-                Naechster offener Stop
+                Nächster offener Stop
               </div>
               <div className="mt-1 text-base font-semibold">
                 {nextPendingStop ? nextPendingStop.cityLabel : "Offene Etappe fortsetzen"}
@@ -500,7 +505,7 @@ export default function RoadtripRouteRunPage() {
             <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3">
               <div className="pd24-meta">Abreise</div>
               <div className="mt-2 text-sm font-medium text-[var(--text-strong)]">{formatDateDE(currentStop.departureDate)}</div>
-              <div className="mt-1 text-xs text-[var(--text-muted)]">Naechster Ortswechsel und Hotel-Checkout bis 10:00.</div>
+              <div className="mt-1 text-xs text-[var(--text-muted)]">Nächster Ortswechsel und Hotel-Checkout bis 10:00.</div>
             </div>
           </div>
 

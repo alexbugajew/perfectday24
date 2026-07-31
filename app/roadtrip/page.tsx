@@ -274,7 +274,6 @@ function RoadtripPageContent() {
       setBudget(route.budget);
       setTemplateBanner({ title: route.title, slug: route.slug });
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   // Pre-populate planner from "Route entdecken" (?fromDiscover=1 + sessionStorage)
@@ -319,7 +318,6 @@ function RoadtripPageContent() {
     } catch {
       // ignore parse errors
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   // Creator-Routen beim ersten Öffnen des Karussells laden
@@ -718,7 +716,7 @@ function RoadtripPageContent() {
               <span className="mt-px text-base leading-none">🗺️</span>
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-semibold text-[var(--text-strong)]">
-                  Vorlage geladen: <span className="font-bold">„{templateBanner.title}"</span>
+                  Vorlage geladen: <span className="font-bold">„{templateBanner.title}“</span>
                 </p>
                 <p className="mt-0.5 text-[11px] leading-snug text-[var(--text-muted)]">
                   Städte, Reihenfolge und Nächte wurden übernommen — passe alles nach deinen Wünschen an.
@@ -744,7 +742,7 @@ function RoadtripPageContent() {
             </span>
           </div>
           <h1 className="text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
-            Von wo nach wo soll's gehen?
+            Von wo nach wo soll’s gehen?
           </h1>
           <p className="mt-1.5 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
             Trag zwei Städte ein, wähle die Tage — wir bauen die Etappen, Hotels und Tagespläne dazu.
@@ -767,7 +765,7 @@ function RoadtripPageContent() {
                 Eigenen Roadtrip bauen oder Vorlage direkt in den Builder laden
               </div>
               <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
-                `/roadtrip` ist dein Planer. Hier stellst du Staedte, Naechte und Tagesplaene zusammen.
+                `/roadtrip` ist dein Planer. Hier stellst du Städte, Nächte und Tagespläne zusammen.
               </p>
             </div>
             <Link
@@ -1357,12 +1355,12 @@ function RoadtripPageContent() {
                   <p className="mt-0.5 text-[11px]">
                     Deine Route ist im Profil gespeichert — du kannst sie jederzeit fortsetzen.
                   </p>
-                  <a
+                  <Link
                     href="/roadtrip/routes"
                     className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-semibold underline underline-offset-2"
                   >
                     Zum Profil →
-                  </a>
+                  </Link>
                 </div>
                 <button
                   type="button"

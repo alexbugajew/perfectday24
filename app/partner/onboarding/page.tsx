@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
-import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
+import { EVENT_SUPPORTED_CITY_OPTIONS } from "@/lib/cities/planner-support";
 import { CitySearchInput } from "@/components/ui/CitySearchInput";
 import { PhotoUpload } from "@/components/ui/PhotoUpload";
 import { safeExternalUrl } from "@/lib/security/safe-url";
@@ -212,7 +212,9 @@ export default function PartnerOnboarding() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const [cityOptions, setCityOptions] = useState<CityOption[]>([]);
+  // Alle Rollout-Städte (704) — Partner sollen sich auch in Städten anmelden
+  // können, deren Tagesplaner noch hinter dem Sichtbarkeits-Gate steht.
+  const cityOptions = EVENT_SUPPORTED_CITY_OPTIONS;
 
   const [step1, setStep1] = useState<Step1Data>({ partner_type_slug: "gastronomy" });
   const [step2, setStep2] = useState<Step2Data>({
@@ -228,7 +230,10 @@ export default function PartnerOnboarding() {
     // Pre-select corporate type when coming from ?type=corporate
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
+      // Einmalige Client-Init aus der URL — bewusst im Effect statt im
+      // useState-Initializer, sonst droht ein Hydration-Mismatch zum SSR-HTML.
       if (params.get("type") === "corporate") {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setStep1({ partner_type_slug: "corporate" });
         setStep(2);
       }
@@ -248,26 +253,6 @@ export default function PartnerOnboarding() {
       setUserId(data.session.user.id);
     });
   }, [router]);
-
-  useEffect(() => {
-    supabase
-      .from("cities")
-      .select("slug, name")
-      .eq("is_active", true)
-      .order("population", { ascending: false })
-      .limit(200)
-      .then(({ data }) => {
-        const rows = (data ?? []) as { slug: string; name: string }[];
-        setCityOptions(rows.filter((c) => isPlannerSupportedCitySlug(c.slug)));
-      });
-  }, []);
-
-  // Auto-slug from display_name
-  useEffect(() => {
-    if (step2.display_name && (!step2.slug || step2.slug === slugify(step2.display_name.slice(0, -1)))) {
-      setStep2((prev) => ({ ...prev, slug: slugify(prev.display_name) }));
-    }
-  }, [step2.display_name]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function handleSubmit() {
     if (!userId) return;
@@ -348,7 +333,7 @@ export default function PartnerOnboarding() {
   const typeConfig = PARTNER_TYPES.find((t) => t.slug === step1.partner_type_slug)
     ?? { label: step1.partner_type_slug, icon: "🏢", desc: "", partnerType: "other", slug: step1.partner_type_slug };
   const currentStepHint = STEP_HINTS[step - 1] ?? STEP_HINTS[0];
-  const nextActionLabel = step < TOTAL_STEPS ? "Naechsten Schritt vorbereiten" : "Partner-Portal final anlegen";
+  const nextActionLabel = step < TOTAL_STEPS ? "Nächsten Schritt vorbereiten" : "Partner-Portal final anlegen";
 
   return (
     <div className="min-h-screen bg-[var(--bg-app)]">
@@ -382,7 +367,7 @@ export default function PartnerOnboarding() {
                     i + 1 === step
                       ? "text-[var(--text-strong)]"
                       : i + 1 < step
-                      ? "text-[var(--brand-warm)]"
+                      ? "text-[var(--brand-warm-ink)]"
                       : "text-[var(--text-soft)]"
                   }`}
                 >
@@ -436,7 +421,18 @@ export default function PartnerOnboarding() {
                 <input
                   type="text"
                   value={step2.display_name}
-                  onChange={(e) => setStep2((p) => ({ ...p, display_name: e.target.value }))}
+                  onChange={(e) =>
+                    setStep2((p) => {
+                      // Slug automatisch mitführen, solange er noch nicht
+                      // manuell angepasst wurde (vorher ein useEffect).
+                      const slugUntouched = !p.slug || p.slug === slugify(p.display_name);
+                      return {
+                        ...p,
+                        display_name: e.target.value,
+                        slug: slugUntouched ? slugify(e.target.value) : p.slug,
+                      };
+                    })
+                  }
                   placeholder={`z.B. ${typeConfig.label} Musterstadt`}
                   className={inputCls}
                 />
