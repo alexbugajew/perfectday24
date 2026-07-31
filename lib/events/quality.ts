@@ -125,15 +125,30 @@ function compatibleCategory(a: PlannerEventRow, b: PlannerEventRow) {
   return false;
 }
 
-function localDateKey(event: PlannerEventRow) {
-  const timezone = event.timezone || "UTC";
-  try {
-    return new Intl.DateTimeFormat("en-CA", {
+// Intl.DateTimeFormat-Konstruktion ist teuer (~1ms) — bei der paarweisen
+// Dedupe-Prüfung über tausende Events (Karlsruhe: 4.400+) führte die
+// Konstruktion pro Aufruf zu Millionen Allokationen und einem OOM-Kill
+// im CI-Runner. Ein Formatter pro Zeitzone reicht.
+const dateFormatterCache = new Map<string, Intl.DateTimeFormat>();
+
+function dateFormatterFor(timezone: string) {
+  let formatter = dateFormatterCache.get(timezone);
+  if (!formatter) {
+    formatter = new Intl.DateTimeFormat("en-CA", {
       timeZone: timezone,
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
-    }).format(new Date(event.start_at));
+    });
+    dateFormatterCache.set(timezone, formatter);
+  }
+  return formatter;
+}
+
+function localDateKey(event: PlannerEventRow) {
+  const timezone = event.timezone || "UTC";
+  try {
+    return dateFormatterFor(timezone).format(new Date(event.start_at));
   } catch {
     return event.start_at.slice(0, 10);
   }
@@ -224,36 +239,62 @@ function totalQualityScore(event: PlannerEventRow) {
   return score;
 }
 
-function arePotentialDuplicateEvents(a: PlannerEventRow, b: PlannerEventRow) {
-  if (!a.id || !b.id || a.id === b.id) return false;
-  if (!a.city_slug || !b.city_slug || a.city_slug !== b.city_slug) return false;
-  if (localDateKey(a) !== localDateKey(b)) return false;
-  if (!compatibleCategory(a, b)) return false;
+// Pro Event einmalig abgeleitete Vergleichswerte — die paarweise Dedupe-
+// Prüfung darf keine Normalisierung/Tokenisierung mehr pro Vergleich rechnen.
+type DerivedEvent = {
+  event: PlannerEventRow;
+  dateKey: string;
+  urlNorm: string;
+  titleTokens: string[];
+  venueNorm: string;
+  venueTokens: string[];
+  startMinute: number | null;
+};
 
-  const urlA = normalizeUrl(a.source_url);
-  const urlB = normalizeUrl(b.source_url);
-  if (urlA && urlB && urlA === urlB) return true;
+function deriveEvent(event: PlannerEventRow): DerivedEvent {
+  const venueNorm = normalizeText(event.venue_name);
+  return {
+    event,
+    dateKey: localDateKey(event),
+    urlNorm: normalizeUrl(event.source_url),
+    titleTokens: titleTokens(event.title),
+    venueNorm,
+    venueTokens: titleTokens(venueNorm),
+    startMinute: minutesFromIso(event.start_at),
+  };
+}
 
-  const titleA = titleTokens(a.title);
-  const titleB = titleTokens(b.title);
-  const titleScore = tokenSimilarity(titleA, titleB);
+function derivedTimeDistanceMinutes(a: DerivedEvent, b: DerivedEvent) {
+  if (a.startMinute == null || b.startMinute == null) return Number.POSITIVE_INFINITY;
+  return Math.abs(a.startMinute - b.startMinute);
+}
+
+function arePotentialDuplicateEvents(a: DerivedEvent, b: DerivedEvent) {
+  if (!a.event.id || !b.event.id || a.event.id === b.event.id) return false;
+  if (!a.event.city_slug || !b.event.city_slug || a.event.city_slug !== b.event.city_slug) return false;
+  if (a.dateKey !== b.dateKey) return false;
+  if (!compatibleCategory(a.event, b.event)) return false;
+
+  if (a.urlNorm && b.urlNorm && a.urlNorm === b.urlNorm) return true;
+
+  const titleScore = tokenSimilarity(a.titleTokens, b.titleTokens);
   if (titleScore < 0.5) return false;
 
-  const venueA = normalizeText(a.venue_name);
-  const venueB = normalizeText(b.venue_name);
-  const venueScore = tokenSimilarity(titleTokens(venueA), titleTokens(venueB));
+  const venueScore = tokenSimilarity(a.venueTokens, b.venueTokens);
   const closeVenue =
-    (venueA.length > 0 && venueB.length > 0 && (venueA.includes(venueB) || venueB.includes(venueA))) ||
+    (a.venueNorm.length > 0 &&
+      b.venueNorm.length > 0 &&
+      (a.venueNorm.includes(b.venueNorm) || b.venueNorm.includes(a.venueNorm))) ||
     venueScore >= 0.6;
 
   const closeCoordinates =
-    typeof a.lat === "number" &&
-    typeof a.lng === "number" &&
-    typeof b.lat === "number" &&
-    typeof b.lng === "number" &&
-    haversineKm(a.lat, a.lng, b.lat, b.lng) <= 0.4;
+    typeof a.event.lat === "number" &&
+    typeof a.event.lng === "number" &&
+    typeof b.event.lat === "number" &&
+    typeof b.event.lng === "number" &&
+    haversineKm(a.event.lat, a.event.lng, b.event.lat, b.event.lng) <= 0.4;
 
-  const closeTime = timeDistanceMinutes(a, b) <= 150;
+  const closeTime = derivedTimeDistanceMinutes(a, b) <= 150;
 
   if (titleScore >= 0.82 && closeTime) return true;
   if (titleScore >= 0.6 && closeVenue) return true;
@@ -263,29 +304,43 @@ function arePotentialDuplicateEvents(a: PlannerEventRow, b: PlannerEventRow) {
 }
 
 function clusterDuplicateEvents(events: PlannerEventRow[]) {
+  // Duplikate teilen zwingend den lokalen Kalendertag (dateKey-Gate in
+  // arePotentialDuplicateEvents). Erst nach Tag bucketen und nur innerhalb
+  // der Buckets paarweise vergleichen — statt O(n²) über den Gesamtbestand
+  // (Karlsruhe: 4.400+ Events) nur noch kleine Tages-Quadrate.
+  const byDay = new Map<string, DerivedEvent[]>();
+  for (const event of events) {
+    const derived = deriveEvent(event);
+    const bucket = byDay.get(derived.dateKey);
+    if (bucket) bucket.push(derived);
+    else byDay.set(derived.dateKey, [derived]);
+  }
+
   const clusters: PlannerEventRow[][] = [];
   const visited = new Set<string>();
 
-  for (const event of events) {
-    if (!event.id || visited.has(event.id)) continue;
+  for (const bucket of byDay.values()) {
+    for (const derived of bucket) {
+      if (!derived.event.id || visited.has(derived.event.id)) continue;
 
-    const cluster: PlannerEventRow[] = [];
-    const queue = [event];
-    visited.add(event.id);
+      const cluster: DerivedEvent[] = [];
+      const queue = [derived];
+      visited.add(derived.event.id);
 
-    while (queue.length > 0) {
-      const current = queue.shift()!;
-      cluster.push(current);
+      while (queue.length > 0) {
+        const current = queue.shift()!;
+        cluster.push(current);
 
-      for (const candidate of events) {
-        if (!candidate.id || visited.has(candidate.id)) continue;
-        if (!arePotentialDuplicateEvents(current, candidate)) continue;
-        visited.add(candidate.id);
-        queue.push(candidate);
+        for (const candidate of bucket) {
+          if (!candidate.event.id || visited.has(candidate.event.id)) continue;
+          if (!arePotentialDuplicateEvents(current, candidate)) continue;
+          visited.add(candidate.event.id);
+          queue.push(candidate);
+        }
       }
-    }
 
-    clusters.push(cluster);
+      clusters.push(cluster.map((entry) => entry.event));
+    }
   }
 
   return clusters;
@@ -361,43 +416,53 @@ export async function reconcilePlannerEventQualityForCity(
   const futureCutoff = new Date();
   futureCutoff.setUTCDate(futureCutoff.getUTCDate() + 45);
 
-  const { data, error } = await supabase
-    .from("planner_events")
-    .select(
-      [
-        "id",
-        "source",
-        "source_url",
-        "ticket_url",
-        "title",
-        "category",
-        "status",
-        "venue_name",
-        "venue_address",
-        "city_slug",
-        "lat",
-        "lng",
-        "timezone",
-        "start_at",
-        "end_at",
-        "doors_at",
-        "family_friendly",
-        "local_rank",
-        "importance_score",
-        "popularity_score",
-        "subtypes",
-      ].join(",")
-    )
-    .eq("city_slug", citySlug)
-    .in("status", ["scheduled", "draft"])
-    .gte("start_at", cutoff.toISOString())
-    .lte("start_at", futureCutoff.toISOString());
+  const selectColumns = [
+    "id",
+    "source",
+    "source_url",
+    "ticket_url",
+    "title",
+    "category",
+    "status",
+    "venue_name",
+    "venue_address",
+    "city_slug",
+    "lat",
+    "lng",
+    "timezone",
+    "start_at",
+    "end_at",
+    "doors_at",
+    "family_friendly",
+    "local_rank",
+    "importance_score",
+    "popularity_score",
+    "subtypes",
+  ].join(",");
 
-  if (error) {
-    throw new Error(`Event-Qualität für ${citySlug} konnte nicht geladen werden: ${error.message}`);
+  // Seitenweise laden: PostgREST kappt bei 1000 Zeilen — Städte mit großen
+  // Quellen (Karlsruhe 4.400+ Events) wären sonst nur teilweise reconciled.
+  const pageSize = 1000;
+  const rows: PlannerEventRow[] = [];
+  for (let from = 0; ; from += pageSize) {
+    const { data, error } = await supabase
+      .from("planner_events")
+      .select(selectColumns)
+      .eq("city_slug", citySlug)
+      .in("status", ["scheduled", "draft"])
+      .gte("start_at", cutoff.toISOString())
+      .lte("start_at", futureCutoff.toISOString())
+      .order("id", { ascending: true })
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      throw new Error(`Event-Qualität für ${citySlug} konnte nicht geladen werden: ${error.message}`);
+    }
+
+    const page = (data ?? []) as PlannerEventRow[];
+    rows.push(...page);
+    if (page.length < pageSize) break;
   }
-
-  const rows = (data ?? []) as PlannerEventRow[];
   const updates = buildPlannerEventQualityUpdates(rows);
   const currentById = new Map(rows.map((row) => [row.id, row]));
 
