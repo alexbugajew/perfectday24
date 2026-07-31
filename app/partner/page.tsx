@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "Werde Partner auf PerfectDay24 und erscheine dort, wo Nutzer aktiv planen: Tagesrouten, Roadtrips, Events und Explore. Kostenlos starten, sofort sichtbar.",
   openGraph: {
     title: "Partner werden | PerfectDay24",
-    description: "Zeige dein Angebot Nutzern, die gerade aktiv einen perfekten Tag, Roadtrip oder Event planen. Alle 33 deutschen Großstädte abgedeckt.",
+    description: "Zeige dein Angebot Nutzern, die gerade aktiv einen perfekten Tag, Roadtrip oder Event planen. Über 550 deutsche Groß- und Mittelstädte abgedeckt.",
     type: "website",
     locale: "de_DE",
     images: [{ url: partnerOg, width: 1200, height: 630, alt: "Restaurant-Atmosphaere — PerfectDay24 Partner" }],
@@ -453,7 +453,7 @@ export default function PartnerLandingPage() {
         </h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {[
-            { value: "33", unit: "Städte", copy: "Alle deutschen Großstädte abgedeckt — dein Angebot erscheint stadtspezifisch." },
+            { value: "551", unit: "Städte", copy: "Deutsche Groß- und Mittelstädte abgedeckt — dein Angebot erscheint stadtspezifisch." },
             { value: "5+", unit: "Planungsmodi", copy: "Tagesplanung, Roadtrip, Events, Explore und Routen — dein Profil ist in allen sichtbar." },
             { value: "100%", unit: "Kontext-Targeting", copy: "Nutzer kommen mit konkretem Anlass, Datum und Budgetrahmen — keine Streuverluste." },
             { value: "0 EUR", unit: "zum Start", copy: "Kostenlos einsteigen, Profil anlegen und erste Anfragen empfangen." },
@@ -473,7 +473,7 @@ export default function PartnerLandingPage() {
           <div id="faq" className="pd24-kicker-warm">Häufige Fragen</div>
           <div className="mt-4 space-y-3">
             {[
-              { q: "Wie groß ist die Reichweite?", a: "PerfectDay24 deckt alle 33 deutschen Großstädte ab. Dein Profil erscheint kontextuell — dort, wo Nutzer aktiv nach Empfehlungen für deinen Standort suchen." },
+              { q: "Wie groß ist die Reichweite?", a: "PerfectDay24 deckt über 550 deutsche Groß- und Mittelstädte ab. Dein Profil erscheint kontextuell — dort, wo Nutzer aktiv nach Empfehlungen für deinen Standort suchen." },
               { q: "Wie viel Aufwand ist das?", a: "Profil anlegen dauert unter 15 Minuten. Danach läuft die Sichtbarkeit automatisch — du erhältst Anfragen, ohne aktiv Kampagnen schalten zu müssen." },
               { q: "Wie seriös ist die Plattform?", a: "Alle Partner durchlaufen einen Freigabeprozess. Dein Profil wird nur verifiziert und sichtbar geschaltet, wenn Qualitätsstandards erfüllt sind." },
               { q: "Wann lohnt sich ein bezahltes Paket?", a: "Sobald du Featured-Platzierungen, Analytics oder Prioritäts-Matching nutzen möchtest. Free ist dauerhaft kostenlos und kann jederzeit upgraden." },
@@ -534,7 +534,7 @@ export default function PartnerLandingPage() {
         <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {[
             { value: "1 Portal", copy: "Profil, Medien, Pakete und Kampagnen ohne Tool-Wechsel." },
-            { value: "33 Städte", copy: "Ausspielung passend zu Stadt, Anlass und Planungsoberfläche." },
+            { value: "551 Städte", copy: "Ausspielung passend zu Stadt, Anlass und Planungsoberfläche." },
             { value: "3 Kernflächen", copy: "Explore, Route/Roadtrip und Event-Buchungsflow." },
             { value: "0 EUR Start", copy: "Mit Free beginnen und später auf Basic oder Pro erweitern." },
           ].map((item) => (

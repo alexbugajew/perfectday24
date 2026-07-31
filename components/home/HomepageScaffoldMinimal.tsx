@@ -327,10 +327,10 @@ export default function HomepageScaffoldMinimal() {
           <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-white/82 px-5 py-6 shadow-[var(--shadow-soft)] sm:px-8 sm:py-7">
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { value: "78", label: "Deutsche Großstädte", note: "Berlin bis Moers", href: "/explore" },
-                { value: "68.975", label: "Plannable Locations", note: "kuratiert + gefiltert", href: "/explore" },
-                { value: "36.000+", label: "mit Öffnungszeiten", note: "Stand heute, wächst täglich", href: "/planner" },
-                { value: "6.500+", label: "Event-Anbieter", note: "von Florist bis Location", href: "/events" },
+                { value: "551", label: "Deutsche Städte", note: "Groß- & Mittelstädte bundesweit", href: "/explore" },
+                { value: "226.000+", label: "Planbare Locations", note: "kuratiert + gefiltert", href: "/explore" },
+                { value: "38.500+", label: "mit Öffnungszeiten", note: "Stand heute, wächst täglich", href: "/planner" },
+                { value: "14.700+", label: "Event-Anbieter", note: "von Florist bis Location", href: "/events" },
               ].map((stat) => (
                 <Link
                   key={stat.label}

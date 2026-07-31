@@ -64,10 +64,6 @@ type SupabaseLike = {
   from: (table: string) => {
     select: (columns: string) => any;
     update: (values: Record<string, unknown>) => any;
-    upsert: (
-      values: Record<string, unknown>[],
-      options: { onConflict: string; ignoreDuplicates: boolean }
-    ) => any;
   };
 };
 
@@ -414,19 +410,29 @@ export async function reconcilePlannerEventQualityForCity(
   });
 
   if (dirty.length > 0) {
-    // Single batch upsert instead of N individual updates — avoids many round-trips
-    // that could hit connection limits or per-request timeouts under CI conditions.
-    const { error: updateError } = await supabase
-      .from("planner_events")
-      .upsert(
-        dirty.map((u) => ({ id: u.id, status: u.status, subtypes: u.subtypes })),
-        { onConflict: "id", ignoreDuplicates: false }
+    // Kein Batch-Upsert: PostgREST-Upsert ist INSERT..ON CONFLICT und baut erst
+    // die Insert-Zeile — Teilzeilen ohne source/external_id (NOT NULL, kein
+    // Default) scheitern damit selbst dann, wenn die Zeile existiert und nur
+    // geupdatet würde. Stattdessen Einzel-Updates in parallelen Wellen, um die
+    // Round-Trips unter CI-Bedingungen trotzdem klein zu halten.
+    const CHUNK_SIZE = 10;
+    for (let offset = 0; offset < dirty.length; offset += CHUNK_SIZE) {
+      const chunk = dirty.slice(offset, offset + CHUNK_SIZE);
+      const results = await Promise.all(
+        chunk.map((update) =>
+          supabase
+            .from("planner_events")
+            .update({ status: update.status, subtypes: update.subtypes })
+            .eq("id", update.id)
+        )
       );
-
-    if (updateError) {
-      throw new Error(
-        `Event-Qualität für ${citySlug} konnte nicht gespeichert werden: ${updateError.message}`
-      );
+      for (const result of results) {
+        if (result?.error) {
+          throw new Error(
+            `Event-Qualität für ${citySlug} konnte nicht gespeichert werden: ${result.error.message}`
+          );
+        }
+      }
     }
   }
 

@@ -1623,7 +1623,7 @@ function ExplorePageContent() {
             <section>
               <SectionHeader
                 title="Redaktionelle Routen"
-                subtitle="Kuratierte Tagesrouten vom PD24-Redaktionsteam – für alle 33 deutschen Großstädte."
+                subtitle="Kuratierte Tagesrouten vom PD24-Redaktionsteam – für die größten deutschen Städte."
                 actionHref="/creator/pd24-redaktion"
                 actionLabel="Alle ansehen"
               />
