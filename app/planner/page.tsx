@@ -645,7 +645,16 @@ function PlannerPageContent() {
         userId,
         citySlug: effectiveCitySlug,
         surface: "planner",
-        metadata: { stopCount: aiStops.length, promptLength: prompt.length },
+        // locationIds + occasion sind die Lernbasis für den Qualitäts-Loop:
+        // welche Orte die KI für welchen Anlass kombiniert hat.
+        metadata: {
+          stopCount: aiStops.length,
+          promptLength: prompt.length,
+          occasion,
+          locationIds: aiStops
+            .map((stop) => stop.item?.id)
+            .filter((id): id is string => Boolean(id)),
+        },
       });
     }
     // slotTemplate muss mind. so lang sein wie aiStops, damit occasionFlow nicht crasht.
@@ -911,6 +920,8 @@ function PlannerPageContent() {
     sortMode,
     activeLevel,
     aiText,
+    aiPlanActive,
+    aiPlanPrompt,
     experienceMode,
     routeProfile,
     plannedStops,

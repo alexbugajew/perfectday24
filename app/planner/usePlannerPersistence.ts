@@ -97,6 +97,8 @@ type UsePlannerPersistenceParams = {
   sortMode: "match" | "distance";
   activeLevel: string;
   aiText: string | null;
+  aiPlanActive: boolean;
+  aiPlanPrompt: string | null;
   experienceMode: ExperienceMode;
   routeProfile: RouteProfile;
   plannedStops: PlannedStop[];
@@ -142,6 +144,8 @@ export function usePlannerPersistence({
   sortMode,
   activeLevel,
   aiText,
+  aiPlanActive,
+  aiPlanPrompt,
   experienceMode,
   routeProfile,
   plannedStops,
@@ -498,6 +502,10 @@ export function usePlannerPersistence({
                 ? selectedPlan.title || selectedPlan.filters?.finalVariantLabel || null
                 : null,
             editSaveMode: editingPlanId ? saveMode : null,
+            // Provenienz für den Qualitäts-Loop: KI-Pläne müssen von
+            // Standard-Plänen unterscheidbar sein (Aggregation lernt daraus).
+            planSource: aiPlanActive ? "ai_plan" : "planner",
+            aiPlanPrompt: aiPlanActive ? aiPlanPrompt : null,
           },
           radius_km: radiusKm,
           effective_radius_km: effectiveRadiusKm ?? null,
@@ -561,6 +569,10 @@ export function usePlannerPersistence({
               experienceMode,
               routeProfile,
               pinnedVariantId: pinnedVariant?.variantId ?? null,
+              planSource: aiPlanActive ? "ai_plan" : "planner",
+              locationIds: plannedStops
+                .map((stop) => stop.item?.id)
+                .filter((id): id is string => Boolean(id)),
             },
           });
         }
@@ -610,6 +622,8 @@ export function usePlannerPersistence({
       sortMode,
       activeLevel,
       aiText,
+      aiPlanActive,
+      aiPlanPrompt,
       ensurePlanGroupChat,
       onSetActivePlanGroupChatId,
       loadPlans,
