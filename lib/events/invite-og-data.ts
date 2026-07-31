@@ -2,6 +2,11 @@
 // Event-Einladung. Bewusst über REST-fetch statt supabase-js, damit sie in
 // jeder Runtime (nodejs/edge) der OG-Image-Route laufen.
 
+// Next erweitert RequestInit um `next.revalidate`; die Datei wird aber auch vom
+// Scripts-Build (tsconfig.scripts.json, plain DOM-Types) mitkompiliert — dort
+// existiert die Property nicht. In Nicht-Next-Runtimes ignoriert fetch sie einfach.
+type NextFetchInit = RequestInit & { next?: { revalidate?: number } };
+
 export type InvitePlanRow = {
   title: string | null;
   occasion_slug: string;
@@ -26,7 +31,7 @@ export async function fetchInvitePlan(token: string): Promise<InvitePlanRow | nu
       body: JSON.stringify({ p_token: token }),
       // Einladungsdaten ändern sich selten — 5 Min Cache reicht für Crawler.
       next: { revalidate: 300 },
-    });
+    } satisfies NextFetchInit as RequestInit);
     if (!res.ok) return null;
     const rows = (await res.json()) as InvitePlanRow[] | InvitePlanRow | null;
     return Array.isArray(rows) ? (rows[0] ?? null) : rows;
@@ -46,7 +51,7 @@ export async function fetchCityName(citySlug: string | null): Promise<string> {
       {
         headers: { apikey: key, Authorization: `Bearer ${key}` },
         next: { revalidate: 3600 },
-      }
+      } satisfies NextFetchInit as RequestInit
     );
     if (!res.ok) return "";
     const rows = (await res.json()) as Array<{ name: string }>;

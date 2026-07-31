@@ -86,7 +86,7 @@ const PLANNER_CURATED_ROLLOUT: PlannerRolloutCity[] = [
   },
   {
     slug: "muenchen",
-    label: "Muenchen",
+    label: "München",
     countryCode: "DE",
     lat: 48.137154,
     lng: 11.576124,
@@ -98,7 +98,7 @@ const PLANNER_CURATED_ROLLOUT: PlannerRolloutCity[] = [
   },
   {
     slug: "koeln",
-    label: "Koeln",
+    label: "Köln",
     countryCode: "DE",
     lat: 50.9422,
     lng: 6.9578,
@@ -134,7 +134,7 @@ const PLANNER_CURATED_ROLLOUT: PlannerRolloutCity[] = [
   },
   {
     slug: "duesseldorf",
-    label: "Duesseldorf",
+    label: "Düsseldorf",
     countryCode: "DE",
     lat: 51.2311,
     lng: 6.7724,
@@ -182,7 +182,7 @@ const PLANNER_CURATED_ROLLOUT: PlannerRolloutCity[] = [
   },
   {
     slug: "nuernberg",
-    label: "Nuernberg",
+    label: "Nürnberg",
     countryCode: "DE",
     lat: 49.4539,
     lng: 11.0775,
@@ -242,7 +242,7 @@ const PLANNER_CURATED_ROLLOUT: PlannerRolloutCity[] = [
   },
   {
     slug: "muenster",
-    label: "Muenster",
+    label: "Münster",
     countryCode: "DE",
     lat: 51.9624,
     lng: 7.6257,
@@ -398,7 +398,7 @@ const PLANNER_CURATED_ROLLOUT: PlannerRolloutCity[] = [
   },
   {
     slug: "moenchengladbach",
-    label: "Moenchengladbach",
+    label: "Mönchengladbach",
     countryCode: "DE",
     lat: 51.1805,
     lng: 6.4428,
@@ -437,7 +437,7 @@ const PLANNER_CURATED_ROLLOUT: PlannerRolloutCity[] = [
   },
   {
     slug: "luebeck",
-    label: "Luebeck",
+    label: "Lübeck",
     countryCode: "DE",
     lat: 53.8655,
     lng: 10.6866,

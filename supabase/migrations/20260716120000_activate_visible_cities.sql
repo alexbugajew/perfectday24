@@ -242,6 +242,8 @@ where slug in (
   'gladbeck-nordrhein-westfalen',
   'wilhelmshaven',
   'wilhelmshaven-niedersachsen',
+  'marburg',
+  'marburg-hessen',
   'aschaffenburg',
   'aschaffenburg-freistaat-bayern',
   'bocholt',
