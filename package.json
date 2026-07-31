@@ -38,6 +38,7 @@
     "events:coverage": "node .codex-scripts-dist/scripts/report-event-coverage.js",
     "events:refresh:ticketmaster": "npm run events:build && npm run events:ingest:ticketmaster:rollout33 && npm run events:coverage",
     "events:refresh:official": "npm run events:build && npm run events:ingest:official -- --provider=all --delay-ms=1500 --continue-on-error=true && npm run events:coverage",
+    "usage:aggregate": "npm run events:build && node .codex-scripts-dist/scripts/aggregate-usage-scores.js",
     "report:weekly": "npx tsx scripts/send-weekly-report.ts",
     "report:weekly:dry": "npx tsx scripts/send-weekly-report.ts --dry-run",
     "routes:ingest:editorial": "node .codex-scripts-dist/scripts/ingest-editorial-routes.js",

@@ -215,6 +215,15 @@ function popularityBoost(candidate: CandidateLocation) {
     : 0;
 }
 
+// Nutzungssignal aus dem KI-Qualitäts-Loop (nächtlich aggregiert, bereits
+// log-gedämpft und gecappt auf 40) — halbes Gewicht, damit echtes
+// Nutzerverhalten die Datenqualitäts-Signale ergänzt, nie dominiert.
+function usageBoost(candidate: CandidateLocation) {
+  return typeof candidate.usage_score === "number" && Number.isFinite(candidate.usage_score)
+    ? Math.round(candidate.usage_score * 0.5)
+    : 0;
+}
+
 function importanceBoost(candidate: CandidateLocation) {
   return typeof candidate.importance_score === "number" &&
     Number.isFinite(candidate.importance_score)
@@ -394,6 +403,7 @@ function buildCandidateScore(
     qualityBoost(candidate) +
     popularityBoost(candidate) +
     importanceBoost(candidate) +
+    usageBoost(candidate) +
     manualBoostScore(candidate) +
     ratingScore(candidate) +
     popularityScore(candidate) +

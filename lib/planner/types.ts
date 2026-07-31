@@ -175,6 +175,7 @@ export type LocationRow = {
   quality_score?: number | null;
   importance_score?: number | null;
   popularity_score?: number | null;
+  usage_score?: number | null;
   manual_boost?: number | null;
   data_confidence?: number | null;
   enrichment_version?: number | null;

@@ -43,6 +43,7 @@
     "scripts/planner-top13-event-check.ts",
     "scripts/backfill-duration-defaults.ts",
     "scripts/dedup-plannable-locations.ts",
+    "scripts/aggregate-usage-scores.ts",
     "lib/cities/**/*.ts",
     "lib/events/**/*.ts",
     "lib/planner/**/*.ts"

@@ -158,79 +158,94 @@ function getSupabaseAdmin() {
   });
 }
 
+const LOCATION_BASE_COLUMNS = [
+  "id",
+  "name",
+  "type",
+  "budget",
+  "occasion",
+  "daytime",
+  "category",
+  "meal",
+  "manual_category",
+  "manual_meal",
+  "lat",
+  "lng",
+  "reservation_url",
+  "duration_min",
+  "tags",
+  "subtypes",
+  "audiences",
+  "occasions",
+  "city_slug",
+  "source_primary",
+  "source_refs",
+  "is_plannable",
+  "family_friendly",
+  "quality_score",
+  "importance_score",
+  "popularity_score",
+  "manual_boost",
+  "data_confidence",
+  "enrichment_version",
+  "last_enriched_at",
+  "quality_notes",
+  "opening_hours_raw",
+  "energy_level",
+  "indoor_outdoor",
+  "rating",
+  "rating_count",
+  "breakfast_fit",
+  "lunch_fit",
+  "dinner_fit",
+  "nightlife_fit",
+  "evening_only",
+  "daytime_fit",
+];
+
 async function loadLocations(
   supabase: ReturnType<typeof getSupabaseAdmin>,
   body: PlannerRequestBody
 ) {
   const queryLimit = body.citySlug ? 12000 : 5000;
 
-  let query = supabase
-    .from("locations")
-    .select(`
-      id,
-      name,
-      type,
-      budget,
-      occasion,
-      daytime,
-      category,
-      meal,
-      manual_category,
-      manual_meal,
-      lat,
-      lng,
-      reservation_url,
-      duration_min,
-      tags,
-      subtypes,
-      audiences,
-      occasions,
-      city_slug,
-      source_primary,
-      source_refs,
-      is_plannable,
-      family_friendly,
-      quality_score,
-      importance_score,
-      popularity_score,
-      manual_boost,
-      data_confidence,
-      enrichment_version,
-      last_enriched_at,
-      quality_notes,
-      opening_hours_raw,
-      energy_level,
-      indoor_outdoor,
-      rating,
-      rating_count,
-      breakfast_fit,
-      lunch_fit,
-      dinner_fit,
-      nightlife_fit,
-      evening_only,
-      daytime_fit
-    `)
-    .order("manual_boost", { ascending: false, nullsFirst: false })
-    .order("quality_score", { ascending: false, nullsFirst: false })
-    .order("importance_score", { ascending: false, nullsFirst: false })
-    .order("popularity_score", { ascending: false, nullsFirst: false })
-    .order("rating", { ascending: false, nullsFirst: false })
-    .order("rating_count", { ascending: false, nullsFirst: false })
-    .limit(queryLimit);
+  const runQuery = async (includeUsageScore: boolean) => {
+    const columns = includeUsageScore
+      ? [...LOCATION_BASE_COLUMNS, "usage_score"]
+      : LOCATION_BASE_COLUMNS;
 
-  if (body.citySlug) {
-    query = query.eq("city_slug", body.citySlug);
+    let query = supabase
+      .from("locations")
+      .select(columns.join(","))
+      .order("manual_boost", { ascending: false, nullsFirst: false })
+      .order("quality_score", { ascending: false, nullsFirst: false })
+      .order("importance_score", { ascending: false, nullsFirst: false })
+      .order("popularity_score", { ascending: false, nullsFirst: false })
+      .order("rating", { ascending: false, nullsFirst: false })
+      .order("rating_count", { ascending: false, nullsFirst: false })
+      .limit(queryLimit);
+
+    if (body.citySlug) {
+      query = query.eq("city_slug", body.citySlug);
+    }
+
+    query = query.eq("is_plannable", true);
+
+    return query;
+  };
+
+  // Drift-Guard: usage_score kommt aus Migration 20260731120000 — solange sie
+  // in der Live-DB fehlt, läuft der Planner ohne das Nutzungssignal weiter.
+  let { data, error } = await runQuery(true);
+  if (error && String(error.message ?? "").includes("usage_score")) {
+    ({ data, error } = await runQuery(false));
   }
-
-  query = query.eq("is_plannable", true);
-
-  const { data, error } = await query;
 
   if (error) {
     throw new Error(`Locations konnten nicht geladen werden: ${error.message}`);
   }
 
-  return (data ?? []) as LocationRow[];
+  return (data ?? []) as unknown as LocationRow[];
 }
 
 function nextIsoDate(dateValue: string) {
