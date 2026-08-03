@@ -19,6 +19,12 @@ const PUBLIC_PATH_PREFIXES = [
   "/sitemap.xml",
   "/preview-login",
   "/api/preview-login",
+  // Token-basierte Teil-Links (03.08.2026): Gäste-Einladungen und geteilte
+  // Pläne sind privat-by-Token (Security-Definer-RPCs, noindex) und müssen
+  // auch bei aktivem Preview-Lock für Gäste und OG-Crawler (WhatsApp/Mail)
+  // erreichbar sein — inkl. ihrer opengraph-image-Unterpfade.
+  "/events/agenda",
+  "/p",
 ];
 
 /**
