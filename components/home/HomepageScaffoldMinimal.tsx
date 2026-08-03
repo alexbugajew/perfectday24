@@ -527,7 +527,9 @@ export default async function HomepageScaffoldMinimal() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[rgba(45,90,61,0.32)] via-transparent to-transparent" />
                 </div>
                 <div className="flex flex-1 flex-col p-7">
-                  <div className="pd24-kicker-warm text-[#2d5a3d]">Event Flow</div>
+                  {/* Explizite Utilities statt .pd24-kicker-warm: die un-gelayerte
+                      Klasse würde das gewollte Grün der Event-Karte überschreiben. */}
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#2d5a3d]">Event Flow</div>
                   <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
                     Ein Event veranstalten
                   </h3>
@@ -575,7 +577,7 @@ export default async function HomepageScaffoldMinimal() {
           <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(248,250,252,0.96),rgba(238,244,248,0.92))] p-6 shadow-[var(--shadow-soft)] sm:p-8">
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
               <div className="max-w-3xl">
-                <div className="pd24-kicker-warm text-[var(--text-soft-warm)]">Für Anbieter</div>
+                <div className="pd24-kicker-warm">Für Anbieter</div>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-4xl">
                   Eigene Location, Route oder Event-Bausteine direkt in PerfectDay24 vermarkten
                 </h2>

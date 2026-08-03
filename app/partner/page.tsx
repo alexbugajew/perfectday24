@@ -553,7 +553,9 @@ export default async function PartnerLandingPage() {
 
       <section className="rounded-[var(--radius-hero)] bg-[var(--text-strong)] px-6 py-10 text-[var(--bg-surface-warm)] shadow-[var(--shadow-large)] sm:px-8">
         <div className="max-w-3xl">
-          <div className="pd24-kicker-warm text-white/60">Jetzt starten</div>
+          {/* Bewusst ohne .pd24-kicker-warm: die un-gelayerte Klasse gewinnt
+              gegen Tailwind-Utilities, auf dunklem Grund braucht es helle Schrift. */}
+          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[rgba(255,253,248,0.72)]">Jetzt starten</div>
           <h2 className="mt-3 text-[2.4rem] font-semibold leading-[0.96] tracking-tight sm:text-5xl">
             Werde dort sichtbar, wo perfekte Tage geplant werden
           </h2>
