@@ -1,0 +1,2080 @@
+{
+  "version": 1,
+  "createdAt": "2026-08-03",
+  "status": "ready",
+  "importNotes": {
+    "rightsNote": "Venue-Empfehlungen aus Stadtmagazinen/Portalen recherchiert; Texte eigenformuliert, Quellen als sourceUrls dokumentiert. Keine Bilder uebernommen."
+  },
+  "routes": [
+    {
+      "citySlug": "dortmund",
+      "slug": "dortmund-date-kreuzviertel-u",
+      "title": "Date-Abend: Wein, Steak & Lichtkunst am Dortmunder U",
+      "description": "Romantischer Abend zwischen Kreuzviertel und Unionviertel: erst Aperitif in der Weinbar, dann Steak-Dinner im Gewölbekeller unterm Dortmunder U. Zum Abschluss Lichtkunst am U-Turm und Drinks in einer der stilvollsten Bars der Stadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "kreuzviertel",
+        "unionviertel",
+        "weinbar",
+        "abendessen"
+      ],
+      "sourceUrls": [
+        "https://cabernet-und-co.com/",
+        "https://the-beef-by-emil.de/",
+        "https://dortmunder-u.de/oeffnungszeiten/",
+        "https://coolibri.de/magazin/kneipentour-dortmund/",
+        "https://www.yelp.com/biz/marlene-bar-dortmund-3"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Cabernet & Co.",
+          "type": "bar",
+          "address": "Essener Straße 13, 44139 Dortmund",
+          "durationMin": 60,
+          "note": "Aperitif zwischen Weinregalen: Die Kreuzviertel-Weinhandlung schenkt ab dem Nachmittag monatlich wechselnde offene Weine an der hauseigenen Weinbar aus.",
+          "sourceUrls": [
+            "https://cabernet-und-co.com/",
+            "https://www.golocal.de/dortmund/wein/cabernet-co-weinhandel-3GGDH/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "THE BEEF by EMIL",
+          "type": "restaurant",
+          "address": "Emil-Moog-Platz 1, 44137 Dortmund",
+          "durationMin": 105,
+          "note": "Premium-Steaks vom 800-Grad-Grill und Signature-Cocktails im historischen Gewölbekeller unter dem Dortmunder U – Reservierung empfohlen.",
+          "sourceUrls": [
+            "https://the-beef-by-emil.de/",
+            "https://www.opentable.com/r/the-beef-by-emil-dortmund"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Dortmunder U",
+          "type": "landmark",
+          "address": "Leonie-Reygers-Terrasse, 44137 Dortmund",
+          "durationMin": 45,
+          "note": "Abendspaziergang ums beleuchtete Wahrzeichen: Nach Einbruch der Dunkelheit flimmern die Fliegenden Bilder über die Dachkrone des ehemaligen Brauereiturms.",
+          "sourceUrls": [
+            "https://dortmunder-u.de/oeffnungszeiten/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Marlene Bar",
+          "type": "bar",
+          "address": "Humboldtstraße 1-3, 44137 Dortmund",
+          "durationMin": 90,
+          "note": "Stilvoller Absacker unter der Discokugel: hochwertige Drinks von Gin Tonic bis Moscow Mule, Einlass ab dem späteren Abend.",
+          "sourceUrls": [
+            "https://www.yelp.com/biz/marlene-bar-dortmund-3",
+            "https://coolibri.de/magazin/kneipentour-dortmund/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "dortmund",
+      "slug": "dortmund-kneipen-kreuzviertel",
+      "title": "Kneipentour Kreuzviertel: Von Bergmann bis Miner's",
+      "description": "Klassischer Crawl durchs Dortmunder Kreuzviertel: Start mit Traditions-Craftbier am Bergmann Kiosk, dann die Kreuzstraßen-Meile mit Ruhrpott-Kneipe, Longdrink-Bar und Musikkneipe. Finale mit Whiskey und Guinness im Miner's Irish Pub.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "kreuzviertel",
+        "bier",
+        "kneipenkultur",
+        "late-night"
+      ],
+      "sourceUrls": [
+        "https://www.die-bergmann-brauerei.de/ausschank/kiosk/",
+        "https://www.golocal.de/dortmund-kreuzviertel/pubs/",
+        "https://www.mein-ruhrgebiet.blog/7-tipps-fuer-einen-tag-im-kreuzviertel-dortmund/",
+        "https://www.wirindortmund.de/citywest/ein-irisches-fleckchen-im-kreuzviertel-neues-leben-im-ehemaligen-church-pub-130321"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bergmann Kiosk",
+          "type": "bar",
+          "address": "Hoher Wall 36, 44137 Dortmund",
+          "durationMin": 60,
+          "note": "Kult-Institution am Wall: selbstgebrautes Bergmann-Bier der Dortmunder Traditionsmarke als perfekter Warm-up vor dem Sprung ins Kreuzviertel.",
+          "sourceUrls": [
+            "https://www.die-bergmann-brauerei.de/ausschank/kiosk/",
+            "https://www.mein-ruhrgebiet.blog/budenhopping-in-dortmund/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Kumpel Erich",
+          "type": "bar",
+          "address": "Kreuzstraße 87, 44139 Dortmund",
+          "durationMin": 60,
+          "note": "Ruhrpott-Kneipe wie aus dem Bilderbuch – ehrliches Pils, Zechen-Charme und vor BVB-Heimspielen ein beliebter Treffpunkt.",
+          "sourceUrls": [
+            "https://www.golocal.de/dortmund-kreuzviertel/pubs/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Viertelliebe",
+          "type": "bar",
+          "address": "Kreuzstraße 69, 44139 Dortmund",
+          "durationMin": 60,
+          "note": "Moderne Nachbarschaftsbar mit guten Longdrinks und entspannter Atmosphäre mitten auf der Kreuzstraßen-Meile.",
+          "sourceUrls": [
+            "https://www.golocal.de/dortmund-kreuzviertel/pubs/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "B-trieb Musikkneipe",
+          "type": "bar",
+          "address": "Kreuzstraße 103, 44139 Dortmund",
+          "durationMin": 60,
+          "note": "Urige Musikkneipe mit Konzert-Postern und guter Plattenauswahl – hier wird das Bier zur Playlist getrunken.",
+          "sourceUrls": [
+            "https://www.golocal.de/dortmund-kreuzviertel/pubs/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Uncle Tom's",
+          "type": "bar",
+          "address": "Arneckestraße 76, 44139 Dortmund",
+          "durationMin": 60,
+          "note": "Eckkneipe mit amerikanischem Flair und ordentlichen Cocktails – der Stimmungs-Boost für die zweite Nachthälfte.",
+          "sourceUrls": [
+            "https://www.mein-ruhrgebiet.blog/7-tipps-fuer-einen-tag-im-kreuzviertel-dortmund/",
+            "https://www.golocal.de/dortmund-kreuzviertel/pubs/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Miner's Irish Pub",
+          "type": "bar",
+          "address": "Neuer Graben 74, 44139 Dortmund",
+          "durationMin": 75,
+          "note": "Late-Night-Finale im Irish Pub an der Ecke Arneckestraße: Guinness, Kilkenny und feine Whiskey-Auswahl, freitags und samstags bis 3 Uhr.",
+          "sourceUrls": [
+            "https://miners-irish-pub.eatbu.com/?lang=en",
+            "https://www.wirindortmund.de/citywest/ein-irisches-fleckchen-im-kreuzviertel-neues-leben-im-ehemaligen-church-pub-130321"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "dortmund",
+      "slug": "dortmund-food-markt-kreuzviertel",
+      "title": "Food-Tour: Hansamarkt, Kreuzviertel & Currywurst-Kult",
+      "description": "Kulinarischer Tagestrip durch Dortmund: morgens über den Wochenmarkt am Hansaplatz, dann Specialty Coffee und vegane Törtchen im Kreuzviertel. Nachmittags Currywurst beim Dortmunder Original und Pfefferpotthast in der Hausbrauerei.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "kreuzviertel",
+        "markt",
+        "ruhrgebiets-klassiker",
+        "kaffee"
+      ],
+      "sourceUrls": [
+        "https://www.dortmund.de/themen/einkaufen-und-city/wochenmaerkte/",
+        "https://www.neuesschwarz.de/",
+        "https://www.kieztoertchen.de/",
+        "https://www.wurstwilli.com/",
+        "https://www.hoevels-hausbrauerei.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Dortmunder Wochenmarkt am Hansaplatz",
+          "type": "market",
+          "address": "Hansaplatz, 44137 Dortmund",
+          "durationMin": 75,
+          "note": "Frühstücks-Bummel über den größten Wochenmarkt der City (Di, Do, Sa bis 14 Uhr) mit regionalem Obst, Käse und frischer Bratwurst vom Stand.",
+          "sourceUrls": [
+            "https://www.dortmund.de/themen/einkaufen-und-city/wochenmaerkte/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Neues Schwarz Kaffeerösterei",
+          "type": "cafe",
+          "address": "Saarlandstraße 33, 44139 Dortmund",
+          "durationMin": 45,
+          "note": "Inhabergeführte Specialty-Rösterei mit Espresso- und Brew-Bar – hier gibt es einen der besten Filterkaffees des Ruhrgebiets.",
+          "sourceUrls": [
+            "https://www.neuesschwarz.de/",
+            "https://kaffee.org/neues-schwarz-kaffeeroesterei.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Kieztörtchen",
+          "type": "cafe",
+          "address": "Essener Straße 12, 44139 Dortmund",
+          "durationMin": 60,
+          "note": "Vegetarisch-veganer Pflichtstopp im Kreuzviertel: hausgemachte vegane Torten, Frühstück und glutenfreie Alternativen auf der hübschen Terrasse.",
+          "sourceUrls": [
+            "https://www.kieztoertchen.de/",
+            "https://www.happycow.net/reviews/kieztoertchen-dortmund-273776"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Hitzefrei Eiskreationen",
+          "type": "cafe",
+          "address": "Neuer Graben 67, 44139 Dortmund",
+          "durationMin": 45,
+          "note": "Eismanufaktur mit fantasievollen Sorten wie Tonkabohne oder Milchreis-Zimt, alles aus natürlichen Zutaten ohne künstliche Aromen.",
+          "sourceUrls": [
+            "https://www.mein-ruhrgebiet.blog/7-tipps-fuer-einen-tag-im-kreuzviertel-dortmund/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Wurst Willi",
+          "type": "restaurant",
+          "address": "Petrikirchhof, 44137 Dortmund",
+          "durationMin": 45,
+          "note": "Ruhrgebiets-Klassiker an der Petrikirche am Westenhellweg: Die Currywurst des Dortmunder Originals gilt vielen als beste der Stadt.",
+          "sourceUrls": [
+            "https://www.wurstwilli.com/",
+            "https://www.yelp.com/biz/wurst-willi-dortmund"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Hövels Hausbrauerei",
+          "type": "restaurant",
+          "address": "Hoher Wall 5-7, 44137 Dortmund",
+          "durationMin": 90,
+          "note": "Westfälisches Finale in der Traditions-Hausbrauerei: Pfefferpotthast und deftige Küche zum süffigen Hövels Original aus dem eigenen Sudhaus.",
+          "sourceUrls": [
+            "https://www.hoevels-hausbrauerei.de/",
+            "https://www.hoevels-original.de/brauerei/hausbrauerei/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "essen",
+      "slug": "essen-date-rue-baldeneysee",
+      "title": "Date-Abend auf der Rü: Wein, Nelson Müller & Seeblick",
+      "description": "Romantischer Abend zwischen Rüttenscheid und Baldeneysee: erst Naturwein zum Aperitif, dann Bistro-Küche bei Nelson Müller, Sonnenuntergang am See und Cocktails zum Finale. Alle Stops liegen nah beieinander oder sind in wenigen Minuten mit Bahn oder Taxi erreichbar.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "ruettenscheid",
+        "baldeneysee",
+        "weinbar",
+        "romantisch"
+      ],
+      "sourceUrls": [
+        "https://www.mein-ruhrgebiet.blog/essen-ruettenscheid-guide/",
+        "https://www.nelson-mueller.de/pages/mullers-auf-der-ru",
+        "https://seaside-beach.de/kontakt/",
+        "https://www.menehune-cocktailbar.de/",
+        "https://lemonswan.de/ratgeber/single-staedte/date-in-essen"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "château pling – casual Weinbar",
+          "type": "bar",
+          "address": "Annastraße 43, 45130 Essen",
+          "durationMin": 60,
+          "note": "2025 eröffnete Nachbarschafts-Weinbar mit ehrlichen, naturnah ausgebauten Weinen – perfekt für den Aperitif ab 17:30 Uhr (Do/Fr ab 17 Uhr geöffnet).",
+          "sourceUrls": [
+            "https://www.ruettenscheid.de/branchenbuch/eintrag/chateau-pling-weinbar",
+            "https://www.mein-ruhrgebiet.blog/essen-ruettenscheid-guide/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "MÜLLERS auf der RÜ by Nelson Müller",
+          "type": "restaurant",
+          "address": "Rüttenscheider Straße 62, 45130 Essen",
+          "durationMin": 105,
+          "note": "Im Michelin-Guide gelistete Brasserie von TV-Koch Nelson Müller mit offener Küche – von veredelter Currywurst bis Steinbutt, entspannt statt steif.",
+          "sourceUrls": [
+            "https://www.nelson-mueller.de/pages/mullers-auf-der-ru",
+            "https://guide.michelin.com/de/de/nordrhein-westfalen/essen/restaurant/mullers-auf-der-ru"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Seaside Beach Baldeney",
+          "type": "viewpoint",
+          "address": "Freiherr-vom-Stein-Straße 384, 45133 Essen",
+          "durationMin": 60,
+          "note": "Beachclub direkt am Baldeneysee: Füße in den Sand, Drink in die Hand und die Abendstimmung über dem Wasser genießen – im Sommer der romantischste Spot Essens.",
+          "sourceUrls": [
+            "https://seaside-beach.de/kontakt/",
+            "https://www.baldeneysee.ruhr/seaside-beach_baldeney/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Menehune Cocktailbar",
+          "type": "bar",
+          "address": "Wehmenkamp 3, 45131 Essen",
+          "durationMin": 75,
+          "note": "Seit über 25 Jahren eine Rüttenscheider Institution – Südsee-Charme und handwerklich gemixte Cocktails aus frischen Zutaten als Absacker.",
+          "sourceUrls": [
+            "https://www.menehune-cocktailbar.de/",
+            "https://www.werkenntdenbesten.de/cocktail/essen"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "essen",
+      "slug": "essen-kneipen-rue",
+      "title": "Kneipentour über die Rü: Von der Ampütte ins Irish Pub",
+      "description": "Authentischer Crawl durch Rüttenscheid, Essens Kneipenmeile Nummer eins: deftige Grundlage im Gasthaus, Pils in der Traditionskneipe von 1901, Guinness im Irish Pub und Cocktails zum Abschluss. Alle Stationen liegen fußläufig an oder nahe der Rüttenscheider Straße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "ruettenscheid",
+        "kneipen",
+        "irish-pub",
+        "bier"
+      ],
+      "sourceUrls": [
+        "https://coolibri.de/magazin/bars-kneipen-essen/",
+        "https://www.mein-ruhrgebiet.blog/essen-ruettenscheid-guide/",
+        "https://fritzpatricks.com/",
+        "https://www.gasthaus-zum-brenner.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Gasthaus Zum Brenner",
+          "type": "restaurant",
+          "address": "Hedwigstraße 37, 45130 Essen",
+          "durationMin": 75,
+          "note": "Familiengeführtes Gasthaus im Herzen von Rüttenscheid mit deftiger deutscher Küche und Biergarten – die perfekte Grundlage für den Abend ab 19 Uhr.",
+          "sourceUrls": [
+            "https://www.gasthaus-zum-brenner.de/",
+            "https://www.ruettenscheid.de/branchenbuch/eintrag/gasthaus-zum-brenner"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Ampütte",
+          "type": "bar",
+          "address": "Rüttenscheider Straße 42, 45130 Essen",
+          "durationMin": 60,
+          "note": "Seit 1901 eine der ältesten Kneipen der Stadt – geschwungener Tresen, gemütliche Ecken und frisch gezapftes Pils wie früher.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/bars-kneipen-essen/",
+            "https://wanderlog.com/list/geoCategory/1837487/best-pubs-in-essen"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Zweibar",
+          "type": "bar",
+          "address": "Rüttenscheider Straße 63, 45130 Essen",
+          "durationMin": 60,
+          "note": "Kult-Hybrid aus Kaffeehaus und Bar mitten auf der Rü – tagsüber Cappuccino, abends Longdrinks und gutes Publikum zum Weiterziehen.",
+          "sourceUrls": [
+            "https://www.opentable.de/cuisine/best-cocktail-bar-restaurants-north-rhine-westphalia-ruttenscheid",
+            "https://www.mein-ruhrgebiet.blog/essen-ruettenscheid-guide/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Fritzpatrick's Irish Pub",
+          "type": "bar",
+          "address": "Girardetstraße 2, 45131 Essen",
+          "durationMin": 75,
+          "note": "Seit 1996 Essens großer Irish Pub mit 400 Plätzen, Guinness vom Fass, Pub-Quiz, Karaoke und Livemusik im Girardethaus.",
+          "sourceUrls": [
+            "https://fritzpatricks.com/",
+            "https://www.yelp.com/biz/fritzpatricks-irish-pub-essen"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Hudson's Metropolitan Bar",
+          "type": "bar",
+          "address": "Girardetstraße 2, 45131 Essen",
+          "durationMin": 75,
+          "note": "Direkt neben dem Fritzpatrick's im selben Haus: Cocktailbar und Club für den tanzbaren Abschluss der Tour bis tief in die Nacht.",
+          "sourceUrls": [
+            "https://fritzpatricks.com/",
+            "https://coolibri.de/magazin/bars-kneipen-essen/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "essen",
+      "slug": "essen-food-rue-zollverein",
+      "title": "Food-Tour durch Essen: Rü, Markt & Zollverein",
+      "description": "Kulinarische Tagestour von Rüttenscheid bis zum UNESCO-Welterbe: Frühstück im Hinterhof-Café, Bummel über den größten Wochenmarkt der Region, Specialty Coffee, New-York-Bagels, Kult-Currywurst und Kuchen in der Kohlenwäsche. Am besten mittwochs oder samstags starten, wenn der Rüttenscheider Markt stattfindet.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "ruettenscheid",
+        "wochenmarkt",
+        "currywurst",
+        "zollverein"
+      ],
+      "sourceUrls": [
+        "https://www.mein-ruhrgebiet.blog/essen-ruettenscheid-guide/",
+        "https://coolibri.de/magazin/fruehstuecken-essen/",
+        "https://www.wochenmarktfinder.de/markt/ruettenscheider-markt/",
+        "https://www.boeckels-beste.de/fuer-gaeste/locations/essen/",
+        "https://www.zollverein.de/besuch-planen/essentrinken/cafe-kohlenwaesche/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Emilia Rue",
+          "type": "cafe",
+          "address": "Rüttenscheider Straße 239, 45131 Essen",
+          "durationMin": 75,
+          "note": "Versteckte Perle mit grünen Innenhof-Terrassen – hier startet die Tour um 10 Uhr mit Frühstück zwischen Blumen und viel Ruhe abseits des Rü-Trubels.",
+          "sourceUrls": [
+            "https://www.emilia-rue.de/",
+            "https://www.mein-ruhrgebiet.blog/essen-ruettenscheid-guide/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Rüttenscheider Wochenmarkt",
+          "type": "market",
+          "address": "Rüttenscheider Platz 8, 45130 Essen",
+          "durationMin": 60,
+          "note": "Mit rund 90 Händlern der größte und attraktivste Wochenmarkt der Region (Mi 8–13, Sa 8–14 Uhr) – ideal zum Probieren von Käse, Obst und regionalen Spezialitäten.",
+          "sourceUrls": [
+            "https://www.wochenmarktfinder.de/markt/ruettenscheider-markt/",
+            "https://www.offguide.de/post/einkaufen-unter-freiem-himmel-wochenmarkte-in-essen"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Sum's Coffee & Bagel",
+          "type": "cafe",
+          "address": "Rüttenscheider Straße 128, 45131 Essen",
+          "durationMin": 45,
+          "note": "Bagels wie aus New York City mit vielen vegetarischen Varianten – vom Klassiker mit Frischkäse über Veggie bis Camembert, der perfekte fleischfreie Mittagsstop.",
+          "sourceUrls": [
+            "https://sums-coffee.de/essen/",
+            "https://www.mein-ruhrgebiet.blog/essen-ruettenscheid-guide/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Bohnenkartell Rösterei & Café",
+          "type": "cafe",
+          "address": "Witteringstraße 41a, 45130 Essen",
+          "durationMin": 45,
+          "note": "Essener Specialty-Coffee-Rösterei zweier Lokalmatadore – die hauseigene Röstung gibt es vom Cappuccino bis zum Flat White, dazu Bohnen für zuhause.",
+          "sourceUrls": [
+            "https://bohnenkartell.de/",
+            "https://www.offguide.de/post/kaffeerostereien-in-essen"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Böckels Beste",
+          "type": "restaurant",
+          "address": "Porschekanzel 2-4, 45127 Essen",
+          "durationMin": 45,
+          "note": "Kult-Imbiss mitten im Pott zwischen Innenstadt und Hauptbahnhof: prämierte Bratwurst mit hausgemachter Currysauce in sechs Schärfestufen – der Ruhrgebiets-Klassiker schlechthin.",
+          "sourceUrls": [
+            "https://www.boeckels-beste.de/fuer-gaeste/locations/essen/",
+            "https://coolibri.de/magazin/aufgetischt-7-imbissbuden-im-ruhrgebiet-die-kultstatus-geniessen/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Café Kohlenwäsche auf Zeche Zollverein",
+          "type": "cafe",
+          "address": "Gelsenkirchener Straße 181, 45309 Essen",
+          "durationMin": 90,
+          "note": "Kaffee und Kuchen auf der 24-Meter-Ebene der Kohlenwäsche (täglich 10–18 Uhr) mit Blick über das UNESCO-Welterbe – zum Abschluss lohnt ein Spaziergang über das Zechengelände.",
+          "sourceUrls": [
+            "https://www.zollverein.de/besuch-planen/essentrinken/cafe-kohlenwaesche/",
+            "https://www.hoga-presse.de/gastronomie-auf-zollverein-gaumenfreuden-in-besonderer-atmosphaere/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "mannheim",
+      "slug": "mannheim-date-wasserturm",
+      "title": "Sterne über den Quadraten: Date-Abend am Wasserturm",
+      "description": "Ein romantischer Abend zwischen Kunsthalle, Sterneküche und Jazz: Aperitif am Friedrichsplatz, Fine Dining über den Dächern der Quadrate und ein nächtlicher Moment am beleuchteten Wasserturm. Zum Abschluss wartet Live-Piano im Jazzkeller des Rosengartens.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "oststadt",
+        "quadrate",
+        "fine-dining",
+        "jazz"
+      ],
+      "sourceUrls": [
+        "https://people-mannheim.de/",
+        "https://guide.michelin.com/us/en/baden-wurttemberg/mannheim/restaurant/opus-v",
+        "https://www.ellalouis.de/",
+        "https://www.visit-mannheim.de/en/Media/restaurants-in-mannheim/gourmet-restaurant-mannheim-opus-v",
+        "https://www.mannheim24.de/mannheim/beste-restaurants-fuer-ein-erstes-date-in-mannheim-94414937.html"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "PEOPLE Restaurant & Bar an der Kunsthalle",
+          "type": "bar",
+          "address": "Friedrichsplatz 4, 68165 Mannheim",
+          "durationMin": 60,
+          "note": "Aperitif mit mediterranem Flair direkt an der Kunsthalle – von der Terrasse fällt der erste Blick schon auf den Wasserturm.",
+          "sourceUrls": [
+            "https://people-mannheim.de/",
+            "https://www.opentable.com/r/people-mannheim"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant OPUS V",
+          "type": "restaurant",
+          "address": "O5 9-12, 68161 Mannheim",
+          "durationMin": 120,
+          "note": "Zwei-Sterne-Menü im obersten Stock von engelhorn Mode im Quadrat – moderne, kreative Küche mit Blick über die Stadt.",
+          "sourceUrls": [
+            "https://guide.michelin.com/us/en/baden-wurttemberg/mannheim/restaurant/opus-v",
+            "https://www.visit-mannheim.de/en/Media/restaurants-in-mannheim/gourmet-restaurant-mannheim-opus-v"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wasserturm am Friedrichsplatz",
+          "type": "landmark",
+          "address": "Friedrichsplatz, 68165 Mannheim",
+          "durationMin": 45,
+          "note": "Abendspaziergang durch die größte Jugendstilanlage Deutschlands – nachts sind Turm und Wasserspiele stimmungsvoll beleuchtet.",
+          "sourceUrls": [
+            "https://www.visit-mannheim.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Ella & Louis Jazzclub",
+          "type": "bar",
+          "address": "Rosengartenplatz 2, 68161 Mannheim",
+          "durationMin": 90,
+          "note": "Nightcap im Jazzkeller des Rosengartens: montags, donnerstags, freitags und samstags Live-Jazz am Steinway-Flügel.",
+          "sourceUrls": [
+            "https://www.ellalouis.de/",
+            "https://www.rosengarten-mannheim.de/veranstaltungsort/ella-louis"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "mannheim",
+      "slug": "mannheim-kneipen-jungbusch",
+      "title": "Jungbusch-Crawl: Von Craft Beer bis Kult-Kneipe",
+      "description": "Der klassische Abend im Mannheimer Szeneviertel: einmal die Jungbuschstraße rauf und runter, von der Craft-Beer-Bar über die Seemannskneipe von 1954 bis zur preisgekrönten Cocktailbar. Zum Finale geht es in die rockigste Institution des Viertels.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "jungbusch",
+        "craft-beer",
+        "cocktails",
+        "kult-kneipen"
+      ],
+      "sourceUrls": [
+        "https://stadtleben.de/mannheim/guide/bars/",
+        "https://www.taproomjungbusch.de/",
+        "https://blau-jungbusch.rocks/",
+        "http://www.hagestolzbar.de/",
+        "https://www.mannheim24.de/mannheim/onkel-otto-bar-jungbusch-lieblingsorte-lokal-wo-geschichte-studenten-ausgehtipp-94409054.html"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Taproom Jungbusch",
+          "type": "bar",
+          "address": "Beilstraße 4, 68159 Mannheim",
+          "durationMin": 60,
+          "note": "Warm-up mit zwölf wechselnden Craft-Bieren vom Fass – die entspannteste Bierauswahl des Viertels.",
+          "sourceUrls": [
+            "https://www.taproomjungbusch.de/",
+            "https://www.yelp.com/biz/taproom-jungbusch-mannheim"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Onkel Otto Bar",
+          "type": "bar",
+          "address": "Jungbuschstraße 8, 68159 Mannheim",
+          "durationMin": 60,
+          "note": "Seemannskneipe mit Hafen-Flair, die seit 1954 im Jungbusch ausschenkt – klein, urig und voller Geschichte.",
+          "sourceUrls": [
+            "https://www.mannheim24.de/mannheim/onkel-otto-bar-jungbusch-lieblingsorte-lokal-wo-geschichte-studenten-ausgehtipp-94409054.html",
+            "https://www.yelp.com/biz/onkel-otto-bar-mannheim"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Blau",
+          "type": "bar",
+          "address": "Jungbuschstraße 14, 68159 Mannheim",
+          "durationMin": 75,
+          "note": "Die Kultkneipe des Jungbusch: am Wochenende legen DJs Indie, Soul und Punk auf, gelegentlich gibt es Konzerte.",
+          "sourceUrls": [
+            "https://blau-jungbusch.rocks/",
+            "https://stadtleben.de/mannheim/guide/bars/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Hagestolz",
+          "type": "bar",
+          "address": "Jungbuschstraße 26, 68159 Mannheim",
+          "durationMin": 75,
+          "note": "Preisgekrönte, ständig wechselnde Cocktails zwischen rohen Wänden, Vintage-Möbeln und warmem Licht.",
+          "sourceUrls": [
+            "http://www.hagestolzbar.de/",
+            "https://stadtleben.de/mannheim/guide/bars/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Nelson",
+          "type": "bar",
+          "address": "Jungbuschstraße 30, 68159 Mannheim",
+          "durationMin": 60,
+          "note": "Maritime Bar mit Hafenatmosphäre und studentenfreundlichen Preisen – seit 2005 fester Anker der Straße.",
+          "sourceUrls": [
+            "https://stadtleben.de/mannheim/guide/bars/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Contra'N",
+          "type": "bar",
+          "address": "Werftstraße 23, 68159 Mannheim",
+          "durationMin": 75,
+          "note": "Rockiger Absacker seit 1989: alternative Jukebox-Kneipe ein paar Schritte abseits der Jungbuschstraße.",
+          "sourceUrls": [
+            "https://stadtleben.de/mannheim/guide/bars/",
+            "http://underpop.de/2014/05/11/kneipenfuhrer-jungbusch-kneipen-bars-clubs-in-der-ubersicht/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "mannheim",
+      "slug": "mannheim-food-quadrate-jungbusch",
+      "title": "Schmeck die Quadrate: Vom Marktplatz in den Jungbusch",
+      "description": "Kulinarische Tagestour durch das multikulturelle Mannheim: Wochenmarkt und türkische Grillkunst am Marktplatz, Spezialitätenkaffee und das Original-Spaghettieis in den Quadraten. Zum Abschluss geht es über den Hafen in den Jungbusch zu modernen Mezze.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "quadrate",
+        "jungbusch",
+        "multikulturell",
+        "markt"
+      ],
+      "sourceUrls": [
+        "https://www.eat-the-world.com/kulinarische-stadtfuehrung/mannheim/jungbusch-quadrate/",
+        "https://www.eisfontanella.de/",
+        "https://yuemmis.de/",
+        "https://www.komma-mannheim.de/leben-in-mannheim/mannheimer-street-food/",
+        "https://www.helder-leeuwen.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wochenmarkt am Marktplatz",
+          "type": "market",
+          "address": "Marktplatz G1, 68159 Mannheim",
+          "durationMin": 60,
+          "note": "Dienstags, donnerstags und samstags stapeln sich hier Obst, Gemüse und internationale Spezialitäten rund um den barocken Marktplatzbrunnen.",
+          "sourceUrls": [
+            "https://www.komma-mannheim.de/leben-in-mannheim/mannheimer-street-food/",
+            "https://www.eat-the-world.com/stadtfuehrung/mannheim/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Urfa Sofrası Ocakbaşı",
+          "type": "restaurant",
+          "address": "H2 5, 68159 Mannheim",
+          "durationMin": 75,
+          "note": "Familiengeführtes türkisches Grillrestaurant direkt hinter dem Marktplatz – frisch vom Holzkohlegrill wie in Urfa.",
+          "sourceUrls": [
+            "https://wanderlog.com/list/geoCategory/1287273/best-turkish-foods-and-restaurants-in-mannheim"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Helder & Leeuwen Kaffeerösterei",
+          "type": "cafe",
+          "address": "Q5 6-8, 68161 Mannheim",
+          "durationMin": 45,
+          "note": "Espresso-Pause bei einer der besten Röstereien Deutschlands, die seit 2007 die Mannheimer Kaffeetradition wiederbelebt.",
+          "sourceUrls": [
+            "https://www.helder-leeuwen.de/",
+            "https://kaffee.org/helder-leeuwen-kaffeeroesterei.html"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Eiscafé Intermezzo di Dario Fontanella",
+          "type": "cafe",
+          "address": "Q6 Q7, Münzplatz, 68161 Mannheim",
+          "durationMin": 45,
+          "note": "Pflichtstopp beim Erfinder: Dario Fontanellas Familie serviert hier das 1969 in Mannheim erfundene Original-Spaghettieis.",
+          "sourceUrls": [
+            "https://www.eisfontanella.de/cafeintermezzo",
+            "https://www.q6q7.de/essen-trinken/eis-fontanella-eismanufaktur-mannheim"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Hafenpromenade am Verbindungskanal",
+          "type": "activity",
+          "address": "Hafenstraße, 68159 Mannheim",
+          "durationMin": 45,
+          "note": "Verdauungsspaziergang am Wasser durch das Kreativviertel Jungbusch, vorbei an Popakademie und Streetart.",
+          "sourceUrls": [
+            "https://www.eat-the-world.com/kulinarische-stadtfuehrung/mannheim/jungbusch-quadrate/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Yümmis – Brutalist Köfte & Contemporary Mezze",
+          "type": "restaurant",
+          "address": "Beilstraße 18, 68159 Mannheim",
+          "durationMin": 90,
+          "note": "Modernes türkisches Finale im Jungbusch mit vielen vegetarischen Mezze wie Hummus, Baba Ghanoush und Falafel – ab 17 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://yuemmis.de/",
+            "https://www.ilma.de/essen-und-trinken/yuemmis-tuerkische-kueche-auf-eine-moderne-art-und-weise/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "wiesbaden",
+      "slug": "wiesbaden-date-kurpark",
+      "title": "Riesling, Genussküche & Kurpark: Date-Abend in Wiesbaden",
+      "description": "Ein romantischer Abend zwischen Mauergasse und Kurpark: erst Rheingau-Riesling zum Aperitif, dann mediterranes Menü am Marktplatz. Zum Ausklang ein Spaziergang am beleuchteten Kurhaus und Cocktails in der Taunusstraße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "innenstadt",
+        "kurpark",
+        "wine",
+        "cocktails"
+      ],
+      "sourceUrls": [
+        "https://www.balthasar-ress.de/weinbar-wiesbaden",
+        "https://guide.michelin.com/en/hessen/wiesbaden/restaurant/martino-kitchen",
+        "https://wiesbaden-reporter.de/freizeit/entdecke-die-romantischen-orte-wiesbaden-ein-reisefuehrer-fuer-verliebte/",
+        "https://manoamano-bar.de/kontakt-2",
+        "https://stadtleben.de/wiesbaden/guide/bars/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Balthasar Ress Weinbar & Vinothek",
+          "type": "bar",
+          "address": "Mauergasse 10, 65183 Wiesbaden",
+          "durationMin": 60,
+          "note": "Aperitif mit Bio-Riesling des Rheingauer Traditionsweinguts in der ersten Weinbar der Mauergasse.",
+          "sourceUrls": [
+            "https://www.balthasar-ress.de/weinbar-wiesbaden",
+            "https://www.tripadvisor.com/Restaurant_Review-g187346-d8555020-Reviews-Balthasar_Ress_Weinbar_Vinothek-Wiesbaden_Hesse.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "martino.kitchen",
+          "type": "restaurant",
+          "address": "Marktplatz 13, 65183 Wiesbaden",
+          "durationMin": 120,
+          "note": "Michelin-Guide-gelistete mediterrane Küche von Martino Stirn mit offener Küche und abendlichem Überraschungsmenü direkt am Marktplatz.",
+          "sourceUrls": [
+            "https://guide.michelin.com/en/hessen/wiesbaden/restaurant/martino-kitchen",
+            "https://www.thefork.de/restaurant/martino-kitchen-r820983"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Kurpark Wiesbaden",
+          "type": "landmark",
+          "address": "Kurhausplatz 1, 65189 Wiesbaden",
+          "durationMin": 45,
+          "note": "Verdauungsspaziergang zu zweit um den Kurpark-Weiher mit Blick auf die abends beleuchtete Kurhaus-Fassade.",
+          "sourceUrls": [
+            "https://wiesbaden-reporter.de/freizeit/entdecke-die-romantischen-orte-wiesbaden-ein-reisefuehrer-fuer-verliebte/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Manoamano",
+          "type": "bar",
+          "address": "Taunusstraße 31, 65183 Wiesbaden",
+          "durationMin": 90,
+          "note": "Ausgezeichnete Cocktailbar mit Signature-Drinks wie dem rauchenden Downtown Smokey — der stilvolle Schlusspunkt des Abends.",
+          "sourceUrls": [
+            "https://manoamano-bar.de/kontakt-2",
+            "https://www.yummywiesbaden.de/blog/manoamano-bar"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "wiesbaden",
+      "slug": "wiesbaden-kneipen-westend",
+      "title": "Vom Sedanplatz zum Schlachthof: Kneipentour Wiesbaden",
+      "description": "Authentischer Crawl vom quirligen Westend über die Altstadt bis zum Kulturzentrum Schlachthof. Apfelwein aus dem Bembel, Gin & Tonic im Kiez-Biergarten, Hinterhof-Drinks und Industrie-Charme zum Finale.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "westend",
+        "altstadt",
+        "apfelwein",
+        "biergarten"
+      ],
+      "sourceUrls": [
+        "https://www.schoppenhof-wiesbaden.de/",
+        "https://heaven-bar.com/",
+        "https://lenz-genuine-drinks.de/",
+        "https://co-wiesbaden.de/",
+        "https://stadtleben.de/wiesbaden/guide/bars/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Schoppenhof",
+          "type": "bar",
+          "address": "Sedanplatz 9, 65183 Wiesbaden",
+          "durationMin": 75,
+          "note": "Start mit Bembel, Handkäs und Grüner Soße in der urigen Apfelweinwirtschaft im holzvertäfelten Altbau am Sedanplatz.",
+          "sourceUrls": [
+            "https://www.schoppenhof-wiesbaden.de/",
+            "https://sensor-wiesbaden.de/bembel-frei-martin-hoenes-eroeffnet-am-28-januar-seinen-schoppenhof-am-sedanplatz-grosse-eroeffnungsparty/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Heaven",
+          "type": "bar",
+          "address": "Sedanplatz 5, 65183 Wiesbaden",
+          "durationMin": 60,
+          "note": "Kiez-Treffpunkt mit großem Gin-&-Tonic-Angebot, Kicker und Biergarten mitten auf dem Sedanplatz.",
+          "sourceUrls": [
+            "https://heaven-bar.com/",
+            "https://stadtleben.de/wiesbaden/branchen/location/heaven-bar/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Lenz – Genuine Drinks",
+          "type": "bar",
+          "address": "Wagemannstraße 17, 65183 Wiesbaden",
+          "durationMin": 75,
+          "note": "Klassische Barkultur im Gewölbe einer ehemaligen Weinwirtschaft im Altstadt-Schiffchen — erstklassige Drinks von Sascha Lenz.",
+          "sourceUrls": [
+            "https://lenz-genuine-drinks.de/",
+            "https://www.mixology.eu/bars/konzeptbar/lenz-genuine-drinks"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "c/o*",
+          "type": "bar",
+          "address": "Moritzstraße 52, 65185 Wiesbaden",
+          "durationMin": 60,
+          "note": "Versteckte Hinterhof-Oase mit efeubewachsenen Backsteinmauern, Kastanie und handwerklichen Drinks.",
+          "sourceUrls": [
+            "https://co-wiesbaden.de/",
+            "https://www.tripadvisor.com/Restaurant_Review-g187346-d11923172-Reviews-C_o-Wiesbaden_Hesse.html"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "60/40",
+          "type": "bar",
+          "address": "Murnaustraße 1, 65189 Wiesbaden",
+          "durationMin": 90,
+          "note": "Finale im Industrie-Biergarten am Kulturzentrum Schlachthof, der am Wochenende bis spät geöffnet hat.",
+          "sourceUrls": [
+            "https://sensor-wiesbaden.de/der-grose-test-biergarten-in-wiesbaden/",
+            "https://stadtleben.de/wiesbaden/guide/bars/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "wiesbaden",
+      "slug": "wiesbaden-wein-markttag",
+      "title": "Markttag & Rheingau-Wein: Food-Tour durch Wiesbaden",
+      "description": "Kulinarischer Samstag von den Marktständen am Dern'schen Gelände über veganes Latin-Food und Wiener Kaffeehauskultur bis zur Rheingauer Vinothek. Zum Abschluss Riesling mit französischem Flair im Rheingauviertel.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "wine",
+        "innenstadt",
+        "markt",
+        "rheingau"
+      ],
+      "sourceUrls": [
+        "https://www.wiesbaden.de/wiesbadener-wochenmarkt",
+        "https://www.wiesbaden.de/freizeit/feste/weinkalender",
+        "https://weingut-laquai.de/vinothek-laquai/",
+        "https://maldaner1859.de/kaffeehaus/",
+        "https://www.der-weinlaender.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wochenmarkt Dern'sches Gelände",
+          "type": "market",
+          "address": "Dern'sches Gelände, 65183 Wiesbaden",
+          "durationMin": 75,
+          "note": "Samstags von 7 bis 14 Uhr: regionales Obst und Gemüse, Käse, Backwaren und der Schlemmerplatz mit Pinsa, Kibbeling und Kaffeeröstern.",
+          "sourceUrls": [
+            "https://www.wiesbaden.de/wiesbadener-wochenmarkt",
+            "https://tourismus.wiesbaden.de/en/erleben/kulinarik/wochenmaerkte"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Weinprobierstand der Wiesbadener Weingüter",
+          "type": "market",
+          "address": "Dern'sches Gelände, 65183 Wiesbaden",
+          "durationMin": 45,
+          "note": "Von Ende März bis November schenken samstags wechselnde Wiesbadener Weingüter direkt am Wochenmarkt ihre Weine aus.",
+          "sourceUrls": [
+            "https://www.wiesbaden.de/freizeit/feste/weinkalender",
+            "https://www.rheinburgenweg.com/a-weinprobierstand-wiesbaden-dernsches-gelaende"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Alebrijes | Latin Plant-Based Food",
+          "type": "restaurant",
+          "address": "Wilhelmstraße 36-38, 65183 Wiesbaden",
+          "durationMin": 75,
+          "note": "Mittagspause in Wiesbadens erstem komplett veganem Café-Restaurant mit traditionellen lateinamerikanischen Gerichten — samstags ab 11 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://www.alebrijesws.de/%C3%BCber-unser",
+            "https://www.happycow.net/reviews/alebrijes-wiesbaden-317125"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Café Maldaner",
+          "type": "cafe",
+          "address": "Marktstraße 34, 65183 Wiesbaden",
+          "durationMin": 60,
+          "note": "Kaffee und Torte im ersten original Wiener Kaffeehaus Deutschlands, das seit 1859 zur Wiesbadener Institution gehört.",
+          "sourceUrls": [
+            "https://maldaner1859.de/kaffeehaus/",
+            "https://www.wiesbaden.de/en/stadtlexikon/stadtlexikon-a-z/caf-maldaner"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Vinothek Laquai",
+          "type": "bar",
+          "address": "Mauergasse 11, 65183 Wiesbaden",
+          "durationMin": 90,
+          "note": "Ausgezeichnete Rheingau-Vinothek des Lorcher Weinguts Laquai — samstags bis 21 Uhr geöffnet, ideal für eine ausgiebige Probe.",
+          "sourceUrls": [
+            "https://weingut-laquai.de/vinothek-laquai/",
+            "https://www.rheinsteig.de/a-vinothek-weingut-laquai-wiesbaden"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Der Weinländer",
+          "type": "bar",
+          "address": "Rüdesheimer Straße 21, 65197 Wiesbaden",
+          "durationMin": 90,
+          "note": "Abschluss ab dem frühen Abend in der intimen Weinbar mit französischem Flair, offenen Weinen, Flammkuchen und Sommergarten im Rheingauviertel.",
+          "sourceUrls": [
+            "https://www.der-weinlaender.de/",
+            "https://sensor-wiesbaden.de/restaurant-des-monats-der-weinlander-rudesheimer-strase-21/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "duisburg",
+      "slug": "duisburg-date-innenhafen-lichter",
+      "title": "Date-Abend: Innenhafen-Dinner & Lichtermeer im Landschaftspark",
+      "description": "Romantischer Abend am Wasser: Aperitif und Fine Dining am Duisburger Innenhafen, danach das illuminierte Hüttenwerk im Landschaftspark Duisburg-Nord als Gänsehaut-Moment. Zum Abschluss Cocktails in entspannter Lounge-Atmosphäre in Neudorf.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "innenhafen",
+        "landschaftspark-nord",
+        "romantisch",
+        "industriekultur"
+      ],
+      "sourceUrls": [
+        "https://kueppersmuehle-restaurant.de/",
+        "https://faktorei.de/",
+        "https://www.landschaftspark.de/presse/pressemitteilungen/beliebte-lichtinstallation-wird-wieder-eingeschaltet/",
+        "https://guide.michelin.com/us/en/nordrhein-westfalen/duisburg/restaurant/kuppersmuhle-restaurant",
+        "https://www.innenhafen-portal.de/gastronomie/kueppersmuehle/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "faktorei21",
+          "type": "bar",
+          "address": "Philosophenweg 21, 47051 Duisburg",
+          "durationMin": 60,
+          "note": "Aperitif auf der Terrasse direkt am Wasser — seit 2025 unter Küchenchef Christian Krüger das kreative Entree in den Abend.",
+          "sourceUrls": [
+            "https://faktorei.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Küppersmühle Restaurant",
+          "type": "restaurant",
+          "address": "Philosophenweg 49, 47051 Duisburg",
+          "durationMin": 90,
+          "note": "Michelin-gelistetes Restaurant im historischen Mühlengebäude am Innenhafen — moderne Küche mit Terrasse direkt am Wasser, Dinner ab 17:30 Uhr.",
+          "sourceUrls": [
+            "https://kueppersmuehle-restaurant.de/",
+            "https://guide.michelin.com/us/en/nordrhein-westfalen/duisburg/restaurant/kuppersmuhle-restaurant"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Landschaftspark Duisburg-Nord (Lichtinstallation)",
+          "type": "viewpoint",
+          "address": "Emscherstraße 71, 47137 Duisburg",
+          "durationMin": 75,
+          "note": "Freitags bis sonntags taucht die Lichtinstallation von Jonathan Park das alte Hüttenwerk ab Einbruch der Dunkelheit in Farben — Eintritt frei, bis 1 Uhr nachts.",
+          "sourceUrls": [
+            "https://www.landschaftspark.de/presse/pressemitteilungen/beliebte-lichtinstallation-wird-wieder-eingeschaltet/",
+            "https://www.duisburg.de/tourismus/stadt_erleben/industriekultur/landschaftspark-duisburg-nord"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "OchO Café Bar & Restaurant",
+          "type": "bar",
+          "address": "Neudorfer Straße 36-40, 47057 Duisburg",
+          "durationMin": 60,
+          "note": "Absacker bei kreativen Cocktails in der gemütlichen Café-Bar in Neudorf, freitags und samstags bis 2 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://stadtleben.de/duisburg/branchen/essen-und-trinken/cocktail-bars/",
+            "https://diginights.com/en/location/ocho-duisburg"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "duisburg",
+      "slug": "duisburg-kneipen-dellviertel",
+      "title": "Kneipentour: Vom Dellplatz bis zur längsten Theke Neudorfs",
+      "description": "Authentischer Crawl durchs Dellviertel und weiter nach Neudorf: hausgebrautes Bier, Traditionsgaststätte, Kulturkneipe und am Ende 300 Biersorten. Duisburger Kneipenkultur ohne Schnickschnack.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "dellviertel",
+        "neudorf",
+        "bier",
+        "kultkneipen"
+      ],
+      "sourceUrls": [
+        "https://www.webster-brauhaus.de/",
+        "https://www.platzhirsch-duisburg.org/locations/grammatikoff",
+        "https://finkenkrug.de/",
+        "https://steinbruch-duisburg.de/",
+        "https://de.localwiki.org/du/Dellplatz"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Webster Brauhaus",
+          "type": "bar",
+          "address": "Dellplatz 14, 47051 Duisburg",
+          "durationMin": 75,
+          "note": "Seit 1992 die Hausbrauerei am Dellplatz — zum Start hausgebraute Bierspezialitäten und deftige regionale Küche als Grundlage.",
+          "sourceUrls": [
+            "https://www.webster-brauhaus.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Goldener Hahn",
+          "type": "bar",
+          "address": "Hohe Straße 26a, 47051 Duisburg",
+          "durationMin": 60,
+          "note": "Traditionsgaststätte im Dellviertel mit Stammtisch-Atmosphäre, frisch Gezapftem und deftigen Kleinigkeiten.",
+          "sourceUrls": [
+            "https://www.golocal.de/duisburg/restaurants-gaststaetten/goldener-hahn-YUO0j/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Grammatikoff",
+          "type": "bar",
+          "address": "Dellplatz 16a, 47051 Duisburg",
+          "durationMin": 60,
+          "note": "Kulturkneipe, Bar und Biergarten in einem — je nach Abend mit Konzerten, Partys oder einfach gutem Tresen-Talk am Dellplatz.",
+          "sourceUrls": [
+            "https://www.platzhirsch-duisburg.org/locations/grammatikoff",
+            "https://www.tripadvisor.com/Restaurant_Review-g187374-d3568302-Reviews-Grammatikoff-Duisburg_North_Rhine_Westphalia.html"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Finkenkrug",
+          "type": "bar",
+          "address": "Finkenstraße 8, 47057 Duisburg",
+          "durationMin": 75,
+          "note": "Die legendäre Kneipe im Uni-Viertel mit rund 300 Biersorten — eine der größten Bierauswahlen Deutschlands.",
+          "sourceUrls": [
+            "https://finkenkrug.de/",
+            "https://akduell.org/live-musik-bier-connaissance-und-spielspass-die-coolsten-bars-und-kneipen-in-duisburg-und-essen/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Steinbruch",
+          "type": "bar",
+          "address": "Lotharstraße 318-320, 47057 Duisburg",
+          "durationMin": 90,
+          "note": "Kult-Kneipe mit Biergarten und Live-Musik in Neudorf — freitags und samstags bis 1 Uhr geöffnet, perfekt für den langen Abschluss.",
+          "sourceUrls": [
+            "https://steinbruch-duisburg.de/",
+            "https://www.duisburglive.de/veranstalter-1/steinbruch-duisburg/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "duisburg",
+      "slug": "duisburg-food-innenhafen-hochfeld",
+      "title": "Food-Tour: Röstkaffee, Markt, Innenhafen & Hochfelder Küche",
+      "description": "Kulinarische Tagestour durch Duisburg: italienischer Röstkaffee in der Innenstadt, regionaler Bauernmarkt, Mittagessen am Innenhafen und multikulturelle Küche auf der Wanheimer Straße in Hochfeld. Zum Abschluss hausgemachter Kuchen im Dellviertel.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "innenhafen",
+        "hochfeld",
+        "dellviertel",
+        "multikulti"
+      ],
+      "sourceUrls": [
+        "https://duisburg-travel-stories.de/unsere-top-5-cafes-in-duisburg/",
+        "https://www.duisburglive.de/wochenmaerkte-in-duisburg/",
+        "https://www.wirtshaus-duisburg.de/",
+        "https://www.happycow.net/reviews/cigkftem-duisburg-54852",
+        "https://www.werkenntdenbesten.de/tuerkisches-restaurant/duisburg"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Passione Espresso",
+          "type": "cafe",
+          "address": "Claubergstraße 1, 47051 Duisburg",
+          "durationMin": 60,
+          "note": "Italienische Espressobar mit eigener Rösterei — zum Start Flat White, Focaccia und süßes Gebäck.",
+          "sourceUrls": [
+            "https://www.passioneespresso.de/Espresso-Bar-Duisburg/",
+            "https://duisburg-travel-stories.de/unsere-top-5-cafes-in-duisburg/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Bauernmarkt Duisburger Innenstadt",
+          "type": "market",
+          "address": "Königstraße, 47051 Duisburg",
+          "durationMin": 45,
+          "note": "Feste Institution in der Fußgängerzone: dienstags, donnerstags und samstags regionale und saisonale Produkte zum Probieren.",
+          "sourceUrls": [
+            "https://www.duisburglive.de/wochenmaerkte-in-duisburg/",
+            "https://www.hofladen-bauernladen.info/adressen/duisburg-bauernmarkt__26122.php"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Grafschafter Wirtshaus",
+          "type": "restaurant",
+          "address": "Philosophenweg 33, 47051 Duisburg",
+          "durationMin": 75,
+          "note": "Mittagessen direkt am Wasser des Innenhafens — regionale Wirtshausküche mit großer Terrasse.",
+          "sourceUrls": [
+            "https://www.wirtshaus-duisburg.de/",
+            "https://www.innenhafen-portal.de/gastronomie/grafschafter-wirtshaus/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Cigköftem Hochfeld",
+          "type": "restaurant",
+          "address": "Wanheimer Straße 68, 47053 Duisburg",
+          "durationMin": 45,
+          "note": "Vegetarisch-veganer Zwischenstopp: türkische Çiğ Köfte aus Bulgur, Tomate und Gewürzen als Wrap oder Dürüm.",
+          "sourceUrls": [
+            "https://www.happycow.net/reviews/cigkftem-duisburg-54852",
+            "https://neotaste.com/de/restaurants/duisburg/cigkoeftem-hochfeld"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Bal Köfte",
+          "type": "restaurant",
+          "address": "Wanheimer Straße 121, 47053 Duisburg",
+          "durationMin": 60,
+          "note": "Hochfelder Institution mit 15 Jahren Tradition — hausgemachte Köfte vom Grill mitten im multikulturellen Herzen der Wanheimer Straße.",
+          "sourceUrls": [
+            "https://www.werkenntdenbesten.de/tuerkisches-restaurant/duisburg"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Pollok neues Glück Café & Brasserie",
+          "type": "cafe",
+          "address": "Wallstraße 3, 47051 Duisburg",
+          "durationMin": 60,
+          "note": "Süßer Abschluss im Vintage-Café im Dellviertel: hausgemachte Kuchen, Zimtschnecken und Kaffee einer Rösterei aus Neuss.",
+          "sourceUrls": [
+            "https://duisburg-travel-stories.de/unsere-top-5-cafes-in-duisburg/",
+            "https://neotaste.com/de/restaurants/duisburg/pollok-cafe-brasserie"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bochum",
+      "slug": "bochum-date-westpark-lichter",
+      "title": "Date-Abend in Bochum: Wein, Loft-Dinner & Westpark-Lichter",
+      "description": "Ein romantischer Abend zwischen Innenstadt und Westpark: offener Wein zum Aperitif, Dinner im Loft-Restaurant und ein Nachtspaziergang zur illuminierten Jahrhunderthalle. Zum Abschluss geht es in die charmant-abgerockten Bars des Kreativviertels rund um Rott- und Alte Hattinger Straße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "innenstadt",
+        "westpark",
+        "romantisch",
+        "bars"
+      ],
+      "sourceUrls": [
+        "https://www.bochum-tourismus.de/was-ist-los/news/10-date-ideen-in-bochum.html",
+        "https://lekork.de/lekork-weinbar/",
+        "https://www.livingroom-bochum.de/start",
+        "https://www.jahrhunderthalle-bochum.de/besuchen/veranstaltungen",
+        "https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/bars-und-kneipen.html"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Le Kork Weinbar",
+          "type": "bar",
+          "address": "Konrad-Adenauer-Platz 3, 44787 Bochum",
+          "durationMin": 60,
+          "note": "Deutschlands erste Wein-Erlebnis-Gastronomie: 84 internationale Weine offen aus dem Dispenser – perfekt, um sich beim Aperitif durchzuprobieren.",
+          "sourceUrls": [
+            "https://lekork.de/lekork-weinbar/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Livingroom",
+          "type": "restaurant",
+          "address": "Luisenstraße 9-13, 44787 Bochum",
+          "durationMin": 105,
+          "note": "Extravagantes 450-qm-Loft mit Bar, Lounge und Casual Fine Dining – eine der stimmungsvollsten Dinner-Adressen der Innenstadt.",
+          "sourceUrls": [
+            "https://www.livingroom-bochum.de/start",
+            "https://www.speisekarte.de/bochum/restaurant/livingroom"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Jahrhunderthalle Bochum / Westpark",
+          "type": "landmark",
+          "address": "An der Jahrhunderthalle 1, 44793 Bochum",
+          "durationMin": 60,
+          "note": "Abendspaziergang durch den Westpark zur nachts beleuchteten Industriekathedrale – der stimmungsvollste Foto- und Kuss-Moment der Stadt.",
+          "sourceUrls": [
+            "https://www.jahrhunderthalle-bochum.de/besuchen/veranstaltungen",
+            "https://www.bochum-tourismus.de/was-ist-los/news/10-date-ideen-in-bochum.html"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Neuland",
+          "type": "bar",
+          "address": "Rottstraße 15, 44793 Bochum",
+          "durationMin": 60,
+          "note": "Bar-Bistro-Hybrid im Rottstraßen-Kreativquartier, in dem das wiederbelebte Bochumer Schlegel-Pils gezapft wird.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/kneipentour-bochum/",
+            "https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/bars-und-kneipen.html"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Goldkante",
+          "type": "bar",
+          "address": "Alte Hattinger Straße 22, 44789 Bochum",
+          "durationMin": 90,
+          "note": "Wohnzimmerbar mit Retrocharme, Polstermöbeln und Kulturprogramm – der entspannte Absacker für lange Gespräche zu zweit.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/kneipentour-bochum/",
+            "https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/bars-und-kneipen.html"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bochum",
+      "slug": "bochum-kneipen-bermuda3eck-klassiker",
+      "title": "Kneipentour durchs Bermuda3eck: Fiege, Pinte & Nachtklassiker",
+      "description": "Der Klassiker durch das bekannteste Kneipenviertel des Ruhrgebiets mit rund vier Millionen Besuchern im Jahr. Vom Fiege-Brauereilokal über Traditionskneipen und Bochums kleinste Pinte bis zum Late-Night-Treffpunkt an der Viktoriastraße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "bermuda3eck",
+        "fiege",
+        "tradition",
+        "nightlife"
+      ],
+      "sourceUrls": [
+        "https://www.bermuda3eck.de/",
+        "https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/bars-und-kneipen.html",
+        "https://www.ruhr-guide.de/ausgehen/ausgehen-im-ruhrgebiet/bars-kneipen/bermuda3eck-in-bochum/",
+        "https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/bermuda3eck.html"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Fiege's Stammhaus",
+          "type": "restaurant",
+          "address": "Bongardstraße 23, 44787 Bochum",
+          "durationMin": 75,
+          "note": "Traditionelles Brauereilokal der Privatbrauerei Moritz Fiege – frisch gezapftes Fiege Pils und deftige Grundlage für die Nacht.",
+          "sourceUrls": [
+            "https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/bars-und-kneipen.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Zur Postkutsche",
+          "type": "bar",
+          "address": "Viktoriastraße 16, 44787 Bochum",
+          "durationMin": 60,
+          "note": "Traditionskneipe im Bermuda3eck mit hauseigenen Kräuterlikören wie Postillion und Bochumer Tropfen.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/kneipentour-bochum/",
+            "https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/bars-und-kneipen.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Pinte",
+          "type": "bar",
+          "address": "Kortumstraße 11, 44787 Bochum",
+          "durationMin": 45,
+          "note": "Bochums kleinste Kneipe zapft seit 1981 auf wenigen Quadratmetern – Kultstatus garantiert.",
+          "sourceUrls": [
+            "https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/bars-und-kneipen.html"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Mandragora",
+          "type": "bar",
+          "address": "Konrad-Adenauer-Platz 1, 44787 Bochum",
+          "durationMin": 60,
+          "note": "1977 als Crêperie eröffnet und die Keimzelle des Bermuda3ecks – mit riesigem Biergarten und Crêpes bis 2 Uhr nachts.",
+          "sourceUrls": [
+            "https://www.ruhr-guide.de/ausgehen/bars-und-kneipen/mandragora-in-bochum/13218,0,0.html",
+            "https://www.bermuda3eck.de/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Freibeuter",
+          "type": "bar",
+          "address": "Kortumstraße 2-4, 44787 Bochum",
+          "durationMin": 60,
+          "note": "Seit 2005 die Alternative im Viertel: Astra vom Fass und Musik abseits des Mainstreams.",
+          "sourceUrls": [
+            "https://www.ruhr-guide.de/ausgehen/ausgehen-im-ruhrgebiet/bars-kneipen/freibeuter-in-bochum/",
+            "https://www.bermuda3eck.de/locations/freibeuter/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Sachs",
+          "type": "bar",
+          "address": "Viktoriastraße 55, 44787 Bochum",
+          "durationMin": 90,
+          "note": "Seit über 30 Jahren einer der beliebtesten Treffpunkte Bochums – hier läuft die Nacht im Herzen des Bermuda3ecks aus, die legendäre Currywurst vom Bratwursthaus wartet gleich um die Ecke.",
+          "sourceUrls": [
+            "https://www.bermuda3eck.de/sachs/",
+            "https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/bars-und-kneipen.html"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bochum",
+      "slug": "bochum-food-ehrenfeld-currywurst",
+      "title": "Food-Tour Bochum: Ehrenfeld-Cafés, Markt & Currywurst-Kult",
+      "description": "Kulinarischer Tagestrip vom Szeneviertel Ehrenfeld bis in die Innenstadt: kreative Frühstücksbrote, veganes Eis, frische Marktstände und die von Grönemeyer besungene Currywurst. Zum Finale gibt es Omas Kuchen und Craft Beer an der langen Tafel.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "ehrenfeld",
+        "wochenmarkt",
+        "currywurst",
+        "vegetarisch"
+      ],
+      "sourceUrls": [
+        "https://coolibri.de/magazin/fruehstuecken-bochum/",
+        "https://www.mein-ruhrgebiet.blog/7-coole-orte-im-szeneviertel-bochum-ehrenfeld/",
+        "https://bochum.treffpunkt-wochenmarkt.de/dr-ruer-platz",
+        "https://www.bratwursthaus.com/",
+        "https://coolibri.de/magazin/kneipentour-bochum/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Schwester Ehrenfeld",
+          "type": "cafe",
+          "address": "Hans-Ehrenberg-Platz 1, 44789 Bochum",
+          "durationMin": 75,
+          "note": "Frühstücksinstitution im Künstlerviertel: selbstgebackenes Brot mit kreativen Aufstrichen wie Minze-Kürbiskern oder Frischkäse-Forelle-Limette.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/fruehstuecken-bochum/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Fräulein Coffea",
+          "type": "cafe",
+          "address": "Oskar-Hoffmann-Straße 34, 44789 Bochum",
+          "durationMin": 45,
+          "note": "Komplett veganes Schwestern-Café mit selbst gemachtem Eis in ausgefallenen Sorten und richtig gutem Kaffee – der vegetarisch-vegane Pflichtstopp.",
+          "sourceUrls": [
+            "https://www.ruhr-tourismus.de/en/gastro/fraeulein-coffea/",
+            "https://coolibri.de/magazin/bochum-ehrenfeld/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Omi backt!",
+          "type": "cafe",
+          "address": "Hunscheidtstraße 61, 44789 Bochum",
+          "durationMin": 60,
+          "note": "Handgemachte Kuchen, Torten und Quiches wie bei Oma – auch in veganen und glutenfreien Varianten, ab 12 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://www.omibackt.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Wochenmarkt Bochum-Mitte am Dr.-Ruer-Platz",
+          "type": "market",
+          "address": "Dr.-Ruer-Platz, 44787 Bochum",
+          "durationMin": 60,
+          "note": "Dienstags und freitags bis 14 Uhr: regionale Stände mit Obst, Käse und Backwaren mitten in der Innenstadt – ideal zum Probieren und Mitnehmen.",
+          "sourceUrls": [
+            "https://bochum.treffpunkt-wochenmarkt.de/dr-ruer-platz",
+            "https://www.bochum.de/Ordnungs--und-Veterinaeramt/Dienstleistungen-und-Infos/Wochenmaerkte"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Bratwursthaus",
+          "type": "restaurant",
+          "address": "Kortumstraße 18, 44787 Bochum",
+          "durationMin": 45,
+          "note": "Seit 1952 die Currywurst-Institution des Ruhrgebiets mit Wurst der Fleischerei Dönninghaus – verewigt in Grönemeyers Song Currywurst.",
+          "sourceUrls": [
+            "https://www.bratwursthaus.com/",
+            "https://de.wikipedia.org/wiki/Bratwursthaus"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Trinkhalle",
+          "type": "bar",
+          "address": "Herner Straße 8, 44787 Bochum",
+          "durationMin": 75,
+          "note": "Moderne Interpretation der Ruhrpott-Trinkhalle: Craft Beer aus dem Kühlregal aussuchen und an der großen Gemeinschaftstafel verkosten.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/kneipentour-bochum/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "wuppertal",
+      "slug": "wuppertal-date-luisenviertel",
+      "title": "Date-Abend: Hardt-Blick, Luisenviertel & Schwebebahn",
+      "description": "Romantischer Abend in Elberfeld: erst ein Spaziergang durch die Hardt-Anlagen, dann Aperitif und Lehmofen-Dinner im Luisenviertel. Zum Finale schwebt ihr mit der Schwebebahn über die Wupper und stoßt in der Cocktailbar an.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "luisenviertel",
+        "elberfeld",
+        "schwebebahn",
+        "romantisch"
+      ],
+      "sourceUrls": [
+        "https://coolibri.de/magazin/schoenste-orte-wuppertal/",
+        "https://www.mio3.de/",
+        "https://alaturka-wuppertal.de/",
+        "https://www.schwebebahn.de/",
+        "https://www.werkenntdenbesten.de/bar/wuppertal"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Hardt-Anlagen mit Elisenturm",
+          "type": "viewpoint",
+          "address": "Elisenhöhe 1, 42107 Wuppertal",
+          "durationMin": 45,
+          "note": "Auftakt mit Spaziergang durch den historischen Park über Elberfeld – vom Elisenturm am Botanischen Garten habt ihr den schönsten Blick übers Tal.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/schoenste-orte-wuppertal/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "MIO³ Café · Bar · Restaurant",
+          "type": "bar",
+          "address": "Kasinostraße 19-21, 42103 Wuppertal",
+          "durationMin": 60,
+          "note": "Aperitif in der eleganten Weinbar mit Loft-Charakter, wenige Gehminuten vom Luisenviertel.",
+          "sourceUrls": [
+            "https://www.mio3.de/",
+            "https://www.yelp.de/biz/mio-3-wuppertal"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Alaturka",
+          "type": "restaurant",
+          "address": "Luisenstraße 63, 42103 Wuppertal",
+          "durationMin": 90,
+          "note": "Seit 1998 eine Institution im Luisenviertel: türkische Spezialitäten frisch aus dem traditionellen Lehmofen und vom Holzkohlegrill, im Sommer mit Biergarten.",
+          "sourceUrls": [
+            "https://alaturka-wuppertal.de/",
+            "https://www.yelp.de/biz/alaturka-wuppertal-2"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Schwebebahn-Fahrt ab Ohligsmühle",
+          "type": "activity",
+          "address": "Bundesallee / Station Ohligsmühle, 42103 Wuppertal",
+          "durationMin": 60,
+          "note": "Mit dem Wuppertaler Wahrzeichen bei Nacht über die Wupper schweben – etwa bis zur historischen Station Werther Brücke und zurück.",
+          "sourceUrls": [
+            "https://www.schwebebahn.de/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Havana Cocktailbar",
+          "type": "bar",
+          "address": "Luisenstraße 17, 42103 Wuppertal",
+          "durationMin": 90,
+          "note": "Absacker-Cocktails in einer der bestbewerteten Bars der Stadt, freitags und samstags bis 3 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://www.werkenntdenbesten.de/cocktail/wuppertal",
+            "https://www.golocal.de/wuppertal/bars-lounges/havana-cocktailbar-1NMUs/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "wuppertal",
+      "slug": "wuppertal-kneipen-luisenviertel",
+      "title": "Kneipentour durchs Luisenviertel – Elberfelds Altstadt",
+      "description": "Das Luisenviertel gilt als Wuppertals Viertel mit der höchsten Kneipendichte, hier trifft sich abends die halbe Stadt. Die Tour arbeitet sich die Luisenstraße hinunter und endet mit einem Pint auf dem Ölberg.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "luisenviertel",
+        "elberfeld",
+        "oelberg",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://luisenviertel.org/",
+        "https://www.1a-region.de/staedte/wuppertal/luisenviertel-in-wuppertal",
+        "https://cafeducongo.de/",
+        "https://www.zumkoehlerliesel.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Café du Congo",
+          "type": "bar",
+          "address": "Luisenstraße 118, 42103 Wuppertal",
+          "durationMin": 60,
+          "note": "Klassischer Auftakt am oberen Ende der Luisenstraße – urige Kult-Kneipe, in der man gut isst und das erste Bier zischt.",
+          "sourceUrls": [
+            "https://cafeducongo.de/",
+            "https://www.golocal.de/wuppertal/cafes/cafe-du-congo-Np0Bh/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Luise Bar & Café",
+          "type": "bar",
+          "address": "Luisenstraße 100, 42103 Wuppertal",
+          "durationMin": 60,
+          "note": "Gemütliche Nachbarschaftsbar mitten im Viertel, seit 2014 Treffpunkt für alle Generationen.",
+          "sourceUrls": [
+            "https://www.tripadvisor.com/Restaurant_Review-g187388-d6414902-Reviews-Bar_Cafe_Luise-Wuppertal_North_Rhine_Westphalia.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Katzengold",
+          "type": "bar",
+          "address": "Untergrünewalder Straße 3, 42103 Wuppertal",
+          "durationMin": 60,
+          "note": "Kult-Adresse im efeuberankten Altbau in der Seitenstraße der Luisenstraße – tagsüber Café, abends Bar.",
+          "sourceUrls": [
+            "https://katzengold.shop/",
+            "https://restaurantguru.com/Katzengold-Wuppertal"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Zum Köhlerliesel",
+          "type": "bar",
+          "address": "Obergrünewalder Straße 3, 42103 Wuppertal",
+          "durationMin": 60,
+          "note": "Seit über 30 Jahren Institution im Hinterhof: kreative Schnaps-Spezialitäten, ab 18:30 Uhr geöffnet, freitags und samstags bis 3:30 Uhr.",
+          "sourceUrls": [
+            "https://www.zumkoehlerliesel.de/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "DOMHAN – Der Pub auf dem Ölberg",
+          "type": "bar",
+          "address": "Marienstraße 36, 42105 Wuppertal",
+          "durationMin": 90,
+          "note": "Finale mit einem Pint im irisch angehauchten Pub auf dem Ölberg – ab 19 Uhr geöffnet, nur Barzahlung.",
+          "sourceUrls": [
+            "https://www.domhan-wtal.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "wuppertal",
+      "slug": "wuppertal-food-oelberg-barmen",
+      "title": "Food-Tour: Ölberg, Nordbahntrasse & Barmer Brauhaus",
+      "description": "Kulinarische Tagestour vom Gründerzeit-Quartier Ölberg über die Nordbahntrasse bis nach Wichlinghausen und Barmen. Zwischen Waffeln, Patisserie, handgemachter Pasta und selbstgebrautem Bier zeigt sich Wuppertals ganze Bandbreite.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "oelberg",
+        "nordbahntrasse",
+        "wichlinghausen",
+        "barmen"
+      ],
+      "sourceUrls": [
+        "https://www.blickfeld-wuppertal.de/imtal/mit-herz-fuer-bauch-und-kopf-das-cafe-chouchous-am-oelberg",
+        "https://utopiastadt.eu/utopiastadt/gastronomie/",
+        "https://www.wz.de/nrw/wuppertal/nordbahntrasse-in-wuppertal-das-sind-die-besten-cafes-und-lokale_aid-37657363",
+        "https://www.wichernhaus-wtal.de/berufliche-integration/beschaeftigungsangebote-fuer-alle-altergruppen/cafe-nordbahntrasse",
+        "https://wuppertaler-brauhaus.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "ChouChous",
+          "type": "cafe",
+          "address": "Brunnenstraße 41, 42105 Wuppertal",
+          "durationMin": 75,
+          "note": "Frühstücksstart am Herzen des Ölbergs: stark gebrühter Kaffee, frische Waffeln und herzhafte Gerichte im rustikalen Eckcafé, ab 10 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://www.blickfeld-wuppertal.de/imtal/mit-herz-fuer-bauch-und-kopf-das-cafe-chouchous-am-oelberg"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "La petite confiserie",
+          "type": "cafe",
+          "address": "Marienstraße 37, 42105 Wuppertal",
+          "durationMin": 45,
+          "note": "Hausgemachte Torten, französische Patisserie und Cupcakes in verträumt-romantischem Ambiente auf der denkmalgeschützten Marienstraße.",
+          "sourceUrls": [
+            "https://www.fruehstuecksguide.de/cafe-finden/?stadt=Wuppertal"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "SUGO Handmade Pasta",
+          "type": "restaurant",
+          "address": "Marienstraße 13, 42105 Wuppertal",
+          "durationMin": 75,
+          "note": "Mittagsstopp mit täglich frisch handgemachter Pasta – der Ölberg-Geheimtipp mit vielen vegetarischen Gerichten.",
+          "sourceUrls": [
+            "https://www.tripadvisor.de/ShowUserReviews-g187388-d15759417-r864935962-SUGO_Wuppertal-Wuppertal_North_Rhine_Westphalia.html"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Café Hutmacher (Utopiastadt)",
+          "type": "cafe",
+          "address": "Mirkerstraße 48, 42105 Wuppertal",
+          "durationMin": 60,
+          "note": "Kaffeepause im soziokulturellen Zentrum am alten Bahnhof Mirke direkt an der Nordbahntrasse, mit regional-nachhaltigen Produkten und großem Außenbereich.",
+          "sourceUrls": [
+            "https://utopiastadt.eu/utopiastadt/gastronomie/",
+            "https://www.naturparkbergischesland.de/en/gastro/cafe-hutmacher"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Café Nordbahntrasse",
+          "type": "cafe",
+          "address": "Langobardenstraße 65, 42277 Wuppertal",
+          "durationMin": 60,
+          "note": "Über die Nordbahntrasse nach Wichlinghausen rollen: Kuchen und frischer Kaffee im gemeinnützigen Café am Bergischen Plateau mit weitem Panoramablick über die Stadt.",
+          "sourceUrls": [
+            "https://www.wichernhaus-wtal.de/berufliche-integration/beschaeftigungsangebote-fuer-alle-altergruppen/cafe-nordbahntrasse",
+            "https://www.wz.de/nrw/wuppertal/nordbahntrasse-in-wuppertal-das-sind-die-besten-cafes-und-lokale_aid-37657363"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Wuppertaler Brauhaus",
+          "type": "restaurant",
+          "address": "Kleine Flurstraße 5, 42275 Wuppertal",
+          "durationMin": 90,
+          "note": "Abschluss hinterm Barmer Rathaus: bergische Küche und selbstgebrautes Bier im historischen Jugendstil-Badehaus, täglich ab 11 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://wuppertaler-brauhaus.de/",
+            "https://www.yelp.com/biz/wuppertaler-brauhaus-wuppertal-3"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bielefeld",
+      "slug": "bielefeld-date-altstadt-sparrenburg",
+      "title": "Date-Abend: Tapas, Rooftop-Dinner & Sparrenburg-Blick",
+      "description": "Romantischer Abend zwischen Altstadtgassen und Bielefelds Wahrzeichen: Erst Wein und Tapas, dann Dinner mit Dachterrassen-Blick, Sonnenuntergang an der Sparrenburg und ein Cocktail-Finale. Alle Stops liegen fußläufig rund um Altstadt und Sparrenberg.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "altstadt",
+        "sparrenburg",
+        "rooftop",
+        "cocktails"
+      ],
+      "sourceUrls": [
+        "https://coolibri.de/magazin/restaurant-bielefeld/",
+        "https://www.bielefeld.jetzt/sparrenburg",
+        "https://www.bielefeld.jetzt/tipp/max-raebel",
+        "https://liv-bielefeld.de/",
+        "https://coolibri.de/magazin/bar-kneipe-club-bielefeld/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Jivino",
+          "type": "bar",
+          "address": "Obernstraße 51, 33602 Bielefeld",
+          "durationMin": 60,
+          "note": "Edle Tapas-Bar in der Altstadt mit hausgemachten Kleinigkeiten und exzellenten Weinen – perfekt für den Aperitif zu zweit.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/restaurant-bielefeld/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "The Bernstein",
+          "type": "restaurant",
+          "address": "Niederwall 2, 33602 Bielefeld",
+          "durationMin": 90,
+          "note": "Fine Dining mit regionalen Zutaten über den Dächern der Stadt – die Rooftop-Terrasse mit Blick Richtung Sparrenburg ist der romantischste Tisch Bielefelds.",
+          "sourceUrls": [
+            "https://www.tripadvisor.com/ShowUserReviews-g187368-d1307731-r602404148-The_Bernstein-Bielefeld_North_Rhine_Westphalia.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Sparrenburg",
+          "type": "viewpoint",
+          "address": "Am Sparrenberg 40, 33602 Bielefeld",
+          "durationMin": 60,
+          "note": "Abendspaziergang hinauf zum Wahrzeichen der Stadt: Das Burggelände ist jederzeit zugänglich und bietet Panoramablick über Bielefeld und den Teutoburger Wald.",
+          "sourceUrls": [
+            "https://www.bielefeld.jetzt/sparrenburg",
+            "https://de.wikipedia.org/wiki/Sparrenburg"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "LIV Bar",
+          "type": "bar",
+          "address": "Boulevard 1, 33602 Bielefeld",
+          "durationMin": 90,
+          "note": "Art-déco-Clubbar am Boulevard mit gehobener Cocktailkultur und Open-Air-Bereich – geöffnet Donnerstag bis Samstag, ideal als Absacker zum Abschluss.",
+          "sourceUrls": [
+            "https://liv-bielefeld.de/",
+            "https://www.bielefeld.jetzt/tipp/max-raebel"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bielefeld",
+      "slug": "bielefeld-kneipen-altstadt-siggi",
+      "title": "Kneipentour: Von der Altstadt zum Siggi",
+      "description": "Authentischer Crawl durch Bielefelds Kneipenlandschaft: Start im Brauhaus in der Altstadt, dann über die Arndtstraße in den Bielefelder Westen bis zum Siegfriedsplatz. Zum Finale warten Siggi-Biergarten, Fischbrötchen-Shots und eine Kult-Kneipe ohne Sperrstunde.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "altstadt",
+        "siegfriedsplatz",
+        "bielefelder-westen",
+        "bier"
+      ],
+      "sourceUrls": [
+        "https://coolibri.de/magazin/bar-kneipe-club-bielefeld/",
+        "https://www.brauhaus-joh-albrecht.de/bielefeld/",
+        "https://www.bi-buergerwache.de/kaffeewirtschaft.html",
+        "https://www.bielefeld.jetzt/tipp/siegfriedplatz"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Brauhaus Joh. Albrecht",
+          "type": "bar",
+          "address": "Hagenbruchstraße 8, 33602 Bielefeld",
+          "durationMin": 60,
+          "note": "Hausgebraute Bierspezialitäten Kupfer und Messing in einem der ältesten Gebäude Westfalens – der klassische Startpunkt in der Altstadt.",
+          "sourceUrls": [
+            "https://www.brauhaus-joh-albrecht.de/bielefeld/",
+            "https://www.yelp.com/biz/brauhaus-joh-albrecht-bielefeld"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Alt-Bielefeld Bierstube",
+          "type": "bar",
+          "address": "Obernstraße 12, 33602 Bielefeld",
+          "durationMin": 45,
+          "note": "Urige Bierstube um die Ecke vom Alten Markt – hier laufen Arminia-Spiele und das Pils kommt ohne Schnickschnack.",
+          "sourceUrls": [
+            "https://www.alt-bielefeld.com/home/alt-bielefeld-2/die-bierstube/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wunderbar",
+          "type": "bar",
+          "address": "Arndtstraße 21, 33602 Bielefeld",
+          "durationMin": 60,
+          "note": "Klassische Eckkneipe an der Arndtstraße mit Antipasti und Wochenkarte – der ideale Zwischenstopp auf dem Weg in den Bielefelder Westen.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/restaurant-bielefeld/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "KaffeeWirtschaft an der Bürgerwache",
+          "type": "bar",
+          "address": "Rolandstraße 16, 33615 Bielefeld",
+          "durationMin": 60,
+          "note": "Die Außengastronomie der Bürgerwache mit rund 150 Plätzen direkt auf dem Siegfriedsplatz – das Herz des Siggi an lauen Abenden.",
+          "sourceUrls": [
+            "https://www.bi-buergerwache.de/kaffeewirtschaft.html"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Heimat + Hafen",
+          "type": "bar",
+          "address": "Stapenhorststraße 78, 33615 Bielefeld",
+          "durationMin": 60,
+          "note": "Maritime Kiezbar unweit des Siggi, berühmt für den Jämmerling – einen Shot mit Sardinen-Garnitur für Mutige.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/bar-kneipe-club-bielefeld/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Zwiebel",
+          "type": "bar",
+          "address": "Stapenhorststraße 61, 33615 Bielefeld",
+          "durationMin": 90,
+          "note": "Seit über 40 Jahren eine Institution im Bielefelder Westen: rustikal, ohne festes Ende – hier versackt die Tour standesgemäß.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/bar-kneipe-club-bielefeld/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bielefeld",
+      "slug": "bielefeld-food-altstadt-siggi",
+      "title": "Food-Tour: Kaffeekultur, Siggi-Markt & Westfalen-Küche",
+      "description": "Kulinarische Tagestour von der Altstadt in den Bielefelder Westen und zurück: Konditorei-Frühstück, Specialty Coffee am Alten Markt, Wochenmarkt auf dem Siegfriedsplatz und zum Abschluss ostwestfälische Klassiker. Am besten mittwochs oder freitags starten, wenn der Siggi-Markt läuft.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "altstadt",
+        "siegfriedsplatz",
+        "wochenmarkt",
+        "westfaelisch"
+      ],
+      "sourceUrls": [
+        "https://www.bielefeld-guide.de/food_drinks/beste-cafes-in-bielefeld/",
+        "https://coolibri.de/magazin/restaurant-bielefeld/",
+        "https://www.wochenmarktfinder.de/markt/siegfriedplatz/",
+        "https://www.alt-bielefeld.com/",
+        "https://deppeundco.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Café Knigge Obernstraße",
+          "type": "cafe",
+          "address": "Obernstraße 33, 33602 Bielefeld",
+          "durationMin": 60,
+          "note": "Bielefelds Traditions-Konditorei mit über 90 täglich frisch gemachten Torten und Kuchen – klassischer Frühstücksstart in der Altstadt.",
+          "sourceUrls": [
+            "https://cafe-knigge.de/",
+            "https://www.tripadvisor.com/Restaurant_Review-g187368-d12514559-Reviews-Cafe_Knigge_Obernstrasse-Bielefeld_North_Rhine_Westphalia.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Deppe & Co",
+          "type": "cafe",
+          "address": "Obernstraße 2, 33602 Bielefeld",
+          "durationMin": 45,
+          "note": "Kaffeebar mit eigener Rösterei auf zwei Etagen direkt am Alten Markt – von oben gibt es den besten Blick auf das Altstadt-Treiben.",
+          "sourceUrls": [
+            "https://deppeundco.de/",
+            "https://www.bielefeld-guide.de/food_drinks/beste-cafes-in-bielefeld/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wochenmarkt Siegfriedplatz",
+          "type": "market",
+          "address": "Siegfriedplatz, 33615 Bielefeld",
+          "durationMin": 60,
+          "note": "Der beliebteste Wochenmarkt der Stadt mit Obst, Gemüse, Käse und regionalen Spezialitäten – mittwochs und freitags von 7 bis 13 Uhr auf dem Siggi.",
+          "sourceUrls": [
+            "https://www.wochenmarktfinder.de/markt/siegfriedplatz/",
+            "https://www.bielefeld.jetzt/tipp/siegfriedplatz"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Mein Lieblingscafé",
+          "type": "cafe",
+          "address": "Welle 6, 33602 Bielefeld",
+          "durationMin": 60,
+          "note": "Hippes Altstadt-Café mit vegetarisch-veganem Fokus: Bagels, Suppen, veganes Bananenbrot und wechselnder Mittagstisch – der pflanzenfreundliche Stop der Tour.",
+          "sourceUrls": [
+            "https://www.happycow.net/reviews/mein-lieblingscafe-bielefeld-384571",
+            "https://www.bielefeld-guide.de/food_drinks/beste-cafes-in-bielefeld/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Kachelhaus",
+          "type": "cafe",
+          "address": "Hagenbruchstraße 13, 33602 Bielefeld",
+          "durationMin": 60,
+          "note": "Historisches Kaffeehaus von 1927 mit grünen Meißner Kacheln – perfekte Kaffee-und-Kuchen-Pause im Herzen der Altstadt.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/restaurant-bielefeld/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Alt-Bielefeld Restaurant",
+          "type": "restaurant",
+          "address": "Obernstraße 12, 33602 Bielefeld",
+          "durationMin": 90,
+          "note": "Gutbürgerliche deutsche Küche mit saisonalen Spezialitäten aus Ostwestfalen, nur einen Steinwurf vom Alten Markt – der Westfalen-Klassiker zum Tagesabschluss.",
+          "sourceUrls": [
+            "https://www.alt-bielefeld.com/",
+            "https://www.alt-bielefeld.com/speisekarte/"
+          ]
+        }
+      ]
+    }
+  ]
+}
