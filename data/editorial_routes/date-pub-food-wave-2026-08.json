@@ -1,0 +1,2078 @@
+{
+  "version": 1,
+  "createdAt": "2026-08-03",
+  "status": "ready",
+  "importNotes": {
+    "rightsNote": "Venue-Empfehlungen aus Stadtmagazinen/Blogs recherchiert (Mit Vergnuegen, Geheimtipp, kessel.tv u.a.); Texte eigenformuliert, Quellen als sourceUrls dokumentiert. Keine Bilder uebernommen."
+  },
+  "routes": [
+    {
+      "citySlug": "berlin-berlin",
+      "slug": "berlin-date-neukoelln-sunset",
+      "title": "Sonnenuntergang & Naturwein: Date-Abend in Neukölln",
+      "description": "Erst Aperitif mit Panoramablick auf dem Klunkerkranich, dann Fine-Dining-Menü im Barra als Hauptmoment des Abends. Danach romantischer Kanal-Spaziergang am Maybachufer und Cocktails in einer der besten Bars Deutschlands.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "neukoelln",
+        "rooftop",
+        "naturwein",
+        "cocktails"
+      ],
+      "sourceUrls": [
+        "https://klunkerkranich.org/",
+        "https://guide.michelin.com/us/en/berlin-region/berlin/restaurant/barra",
+        "https://www.theinfatuation.com/berlin/reviews/barra",
+        "https://velvet-bar-berlin.de/",
+        "https://www.therooftopguide.com/rooftop-bars-in-berlin/klunkerkranich-rooftop.html"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Klunkerkranich",
+          "type": "viewpoint",
+          "address": "Karl-Marx-Straße 66, 12043 Berlin",
+          "durationMin": 90,
+          "note": "Kulturdachgarten über den Neukölln Arcaden mit dem schönsten Sonnenuntergangsblick der Stadt — perfekt für den Aperitif zum Auftakt.",
+          "sourceUrls": [
+            "https://klunkerkranich.org/",
+            "https://www.berlin.de/restaurants/rooftop-bars/8976255-5430166-klunkerkranich.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Barra",
+          "type": "restaurant",
+          "address": "Okerstraße 2, 12049 Berlin",
+          "durationMin": 120,
+          "note": "Michelin-gelistetes Bistro im Schillerkiez mit saisonalem Sharing-Menü und einer der besten Naturweinkarten Berlins — der Hauptmoment des Abends.",
+          "sourceUrls": [
+            "https://guide.michelin.com/us/en/berlin-region/berlin/restaurant/barra",
+            "https://www.cremeguides.com/en/berlin/barra-berlin-honest-fine-dining-to-share-in-neukoelln/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Spaziergang am Maybachufer",
+          "type": "landmark",
+          "address": "Maybachufer, 12047 Berlin",
+          "durationMin": 45,
+          "note": "Verdauungsspaziergang zu zweit am Landwehrkanal — abends eine der romantischsten Uferstrecken Berlins.",
+          "sourceUrls": [
+            "https://www.visitberlin.de/de/tuerkenmarkt-am-maybachufer"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Velvet Bar",
+          "type": "bar",
+          "address": "Ganghoferstraße 1, 12043 Berlin",
+          "durationMin": 90,
+          "note": "Hypersaisonale Cocktails aus regionalen Zutaten — zweifach als Bar des Jahres in Deutschland ausgezeichnet und in den World's 50 Best Bars gelistet.",
+          "sourceUrls": [
+            "https://velvet-bar-berlin.de/",
+            "https://www.diffordsguide.com/bars/zrQ4N5/velvet"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "slug": "berlin-kneipen-kreuzberg-classic",
+      "title": "Kneipentour SO36: Von Wrangelkiez bis Kotti",
+      "description": "Klassischer Crawl durchs alte Kreuzberg 36: Craft Beer im Wrangelkiez, Traditionskneipe und Szenebars auf der Oranienstraße, dann rund um den Kottbusser Tor bis zur 24-Stunden-Kneipe. Alle Stops liegen fußläufig auf einer Linie Richtung Graefekiez.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "kreuzberg",
+        "craft-beer",
+        "traditionskneipe",
+        "late-night"
+      ],
+      "sourceUrls": [
+        "https://www.tip-berlin.de/essen-trinken/bars/kneipen-in-kreuzberg/",
+        "https://mitvergnuegen.com/2018/11-bars-in-kreuzberg-die-ihr-kennen-solltet/",
+        "https://www.hopfenreich.de/",
+        "http://www.wuergeengel.de/",
+        "https://www.visitberlin.de/en/mobel-olfe"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Hopfenreich",
+          "type": "bar",
+          "address": "Sorauer Straße 31, 10997 Berlin",
+          "durationMin": 60,
+          "note": "Berlins erste Craft-Beer-Bar mit über 20 wechselnden Zapfhähnen — der ideale hopfige Auftakt im Wrangelkiez.",
+          "sourceUrls": [
+            "https://www.hopfenreich.de/",
+            "https://www.tip-berlin.de/essen-trinken/bars/kneipen-in-kreuzberg/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Zum Goldenen Hahn",
+          "type": "bar",
+          "address": "Oranienstraße 14a, 10999 Berlin",
+          "durationMin": 60,
+          "note": "Selbsternanntes Kreuzberger Weltkulturerbe — urige Traditionskneipe mit günstigem Bier und echtem Kiezpublikum.",
+          "sourceUrls": [
+            "https://www.yelp.com/biz/zum-goldenen-hahn-kreuzberger-weltkulturerbe-berlin"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Luzia",
+          "type": "bar",
+          "address": "Oranienstraße 34, 10999 Berlin",
+          "durationMin": 60,
+          "note": "Szenebar mit abgeblätterten Wänden und Wohnzimmer-Atmosphäre mitten auf der Oranienstraße.",
+          "sourceUrls": [
+            "https://www.berlin-escape.com/guides/kreuzberg-bars-guide/",
+            "https://www.visitberlin.de/en/going-out-oranienstrasse"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Möbel Olfe",
+          "type": "bar",
+          "address": "Reichenberger Straße 177, 10999 Berlin",
+          "durationMin": 60,
+          "note": "Legendäre queere Trinkhalle im ehemaligen Möbelgeschäft am Kottbusser Tor — laut, herzlich, ur-kreuzbergerisch.",
+          "sourceUrls": [
+            "https://www.visitberlin.de/en/mobel-olfe",
+            "https://www.berliner-zeitung.de/article/die-bar-moebel-olfe-liegt-mitten-im-zentrum-kreuzberg-am-kottbusser-tor-und-hat-das-nachtleben-veraendert-der-ewige-geheimtipp-63702"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Würgeengel",
+          "type": "bar",
+          "address": "Dresdener Straße 122, 10999 Berlin",
+          "durationMin": 75,
+          "note": "Elegante Cocktailbar im Stil der 20er-Jahre mit rotem Samt — der stilvolle Kontrastpunkt der Tour, täglich ab 19 Uhr.",
+          "sourceUrls": [
+            "http://www.wuergeengel.de/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Bei Schlawinchen",
+          "type": "bar",
+          "address": "Schönleinstraße 34, 10967 Berlin",
+          "durationMin": 90,
+          "note": "Seit über 36 Jahren durchgehend geöffnete 24-Stunden-Kneipe mit Kicker und skurrilem Interieur — hier endet die Nacht, wann ihr wollt.",
+          "sourceUrls": [
+            "https://www.falstaff.com/en/bars/bei-schlawinchen",
+            "https://www.tripadvisor.com/Attraction_Review-g187323-d5944526-Reviews-Bei_Schlawinchen-Berlin.html"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "slug": "berlin-food-kreuzberg-neukoelln",
+      "title": "Food-Tour: Von Görli über Markthalle Neun zur Sonnenallee",
+      "description": "Kulinarischer Tagestrip von Kreuzberg nach Neukölln: preisgekröntes Frühstück am Görlitzer Park, historische Markthalle, Hummus auf der Sonnenallee und Eis im Reuterkiez. Zum Abschluss Naturwein in einer Neuköllner Institution.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "kreuzberg",
+        "neukoelln",
+        "markthalle",
+        "vegetarisch"
+      ],
+      "sourceUrls": [
+        "https://www.berlinfoodstories.com/map/annelies",
+        "https://berlinecho.de/markthalle-neun-kreuzberg-wochenmarkt-street-food/",
+        "https://mitvergnuegen.com/tipps/azzam/",
+        "https://mitvergnuegen.com/2017/naturwein-fuer-anfaenger-und-fortgeschrittene-die-jaja-weinbar-in-neukoelln/",
+        "https://www.visitberlin.de/en/eiscafe-fraulein-frost"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Annelies",
+          "type": "cafe",
+          "address": "Görlitzer Straße 68, 10997 Berlin",
+          "durationMin": 75,
+          "note": "Modernes Frühstücksrestaurant am Görlitzer Park auf Casual-Fine-Dining-Niveau — einer der besten Brunch-Spots der Stadt.",
+          "sourceUrls": [
+            "https://www.berlinfoodstories.com/map/annelies",
+            "https://www.distriktcoffee.de/annelies"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Markthalle Neun",
+          "type": "market",
+          "address": "Eisenbahnstraße 42/43, 10997 Berlin",
+          "durationMin": 90,
+          "note": "Historische Markthalle von 1891 mit Wochenmarkt (Di/Fr/Sa) und Street Food Thursday — zum Probieren, Schlendern und Snacken, auch für Vegetarier ein Paradies.",
+          "sourceUrls": [
+            "https://berlinecho.de/markthalle-neun-kreuzberg-wochenmarkt-street-food/",
+            "https://www.wochenmarkt-deutschland.de/maerkte/berlin/indoor-wochenmarkt-in-kreuzberg-markthalle-9/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Azzam",
+          "type": "restaurant",
+          "address": "Sonnenallee 54, 12045 Berlin",
+          "durationMin": 60,
+          "note": "Levantinische Institution auf der Sonnenallee mit dem vielleicht besten Hummus der Stadt — der vegetarisch-freundliche Lunch-Stop.",
+          "sourceUrls": [
+            "https://mitvergnuegen.com/tipps/azzam/",
+            "https://www.visitberlin.de/en/azzam"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Katie's Blue Cat",
+          "type": "cafe",
+          "address": "Friedelstraße 31, 12047 Berlin",
+          "durationMin": 45,
+          "note": "Kleines Café mit hausgemachtem Gebäck und gutem Filterkaffee im Reuterkiez — die perfekte Nachmittagspause.",
+          "sourceUrls": [
+            "https://www.berlinfoodstories.com/map/annelies"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Fräulein Frost",
+          "type": "cafe",
+          "address": "Friedelstraße 38, 12047 Berlin",
+          "durationMin": 45,
+          "note": "Kult-Eisdiele seit 2008 mit ausgefallenen Sorten wie GuZiMi (Gurke-Zimt-Minze) — Eis auf die Hand für den Kiezspaziergang.",
+          "sourceUrls": [
+            "https://xn--frulein-frost-cfb.de/",
+            "https://www.visitberlin.de/en/eiscafe-fraulein-frost"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Jaja Weinbar",
+          "type": "bar",
+          "address": "Weichselstraße 7, 12045 Berlin",
+          "durationMin": 90,
+          "note": "Neuköllner Naturwein-Institution mit über 50 offenen Positionen und kleinen Tellern — der entspannte Tagesabschluss ab 18 Uhr.",
+          "sourceUrls": [
+            "https://mitvergnuegen.com/2017/naturwein-fuer-anfaenger-und-fortgeschrittene-die-jaja-weinbar-in-neukoelln/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "slug": "hamburg-date-alster-abend",
+      "title": "Romantischer Abend zwischen Rathaus und Alster",
+      "description": "Ein eleganter Date-Abend im Herzen der Hamburger Altstadt mit Art-déco-Flair, Dinner mit Alsterblick und Weltklasse-Cocktails. Alle Stops liegen nur wenige Gehminuten auseinander rund um Rathausmarkt und Jungfernstieg.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "innenstadt",
+        "alster",
+        "romantisch",
+        "cocktails"
+      ],
+      "sourceUrls": [
+        "https://hamburg.mitvergnuegen.com/2025/restaurants-date-hamburg/",
+        "https://hamburg.mitvergnuegen.com/2025/date-ideen-in-hamburg/",
+        "https://www.opentable.de/blog/romantische-restaurants-hamburg/",
+        "https://www.lelion.net/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Café Paris",
+          "type": "cafe",
+          "address": "Rathausstraße 4, 20095 Hamburg",
+          "durationMin": 60,
+          "note": "Aperitif und Austern unter der historischen Jugendstil-Kacheldecke der ehemaligen Schlachterei — französischer geht Hamburg nicht.",
+          "sourceUrls": [
+            "https://hamburg.mitvergnuegen.com/2025/restaurants-date-hamburg/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Wallter's Wine & Beef Kontor",
+          "type": "restaurant",
+          "address": "Alter Wall 12, 20457 Hamburg",
+          "durationMin": 90,
+          "note": "Steak Frites, Beef Tatar und feine Weine mit Blick aufs Alsterfleet — Beilagen zum Teilen machen es zum idealen Date-Dinner.",
+          "sourceUrls": [
+            "https://hamburg.mitvergnuegen.com/2025/restaurants-date-hamburg/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Jungfernstieg an der Binnenalster",
+          "type": "viewpoint",
+          "address": "Jungfernstieg, 20354 Hamburg",
+          "durationMin": 45,
+          "note": "Abendspaziergang an der beleuchteten Binnenalster mit Blick auf die Alsterfontäne — der klassische Hamburg-Moment zu zweit.",
+          "sourceUrls": [
+            "https://hamburg.mitvergnuegen.com/2025/date-ideen-in-hamburg/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Le Lion – Bar de Paris",
+          "type": "bar",
+          "address": "Rathausstraße 3, 20095 Hamburg",
+          "durationMin": 90,
+          "note": "Nur per Klingel zugängliche Weltklasse-Bar und Geburtsort des Gin Basil Smash — seit 2009 durchgehend in den World's 50 Best Bars.",
+          "sourceUrls": [
+            "https://www.lelion.net/",
+            "https://prinz.de/hamburg/locations/30490-le-lion-bar-de-paris/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "slug": "hamburg-kneipen-schanze",
+      "title": "Kneipen-Crawl durch die Sternschanze",
+      "description": "Von der Traditionskneipe über Craft Beer bis zur Minidisko im Keller: ein Abend quer durchs Schanzenviertel abseits der Reeperbahn-Touristenpfade. Zum Abschluss gibt es das legendäre Mitternachts-Schnitzel bei Erikas Eck.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "sternschanze",
+        "craft-beer",
+        "traditionskneipe",
+        "late-night"
+      ],
+      "sourceUrls": [
+        "https://geheimtipphamburg.de/stadtteil/sternschanze/",
+        "https://www.genussguide-hamburg.com/top-listen/bars-schanze/",
+        "https://www.hamburg-magazin.de/artikel/die-besten-kneipen-in-hamburg",
+        "https://hamburg.mitvergnuegen.com/neueroeffnungen-hamburg/das-goldfischglas-und-die-katze-haben-ein-neues-familienmitglied-die-pelican-bar/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Omas Apotheke",
+          "type": "bar",
+          "address": "Schanzenstraße 87, 20357 Hamburg",
+          "durationMin": 75,
+          "note": "Urige Traditionskneipe an der Ecke zur S-Bahn Sternschanze — hier startet man mit Astra und solider Kneipenküche in den Abend.",
+          "sourceUrls": [
+            "https://www.sternschanze.net/location/omas-apotheke-656/",
+            "https://www.yelp.com/biz/omas-apotheke-hamburg"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Braugasthaus Altes Mädchen",
+          "type": "bar",
+          "address": "Lagerstraße 28b, 20357 Hamburg",
+          "durationMin": 60,
+          "note": "Craft-Beer-Stop in den Schanzenhöfen mit Ratsherrn-Brauerei nebenan und großer Auswahl internationaler Biere vom Fass.",
+          "sourceUrls": [
+            "https://altes-maedchen.com/",
+            "https://www.schanzenhoefe.com/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Katze",
+          "type": "bar",
+          "address": "Schulterblatt 88, 20357 Hamburg",
+          "durationMin": 60,
+          "note": "Schanzen-Institution direkt am Schulterblatt — bis 22 Uhr gibt es die berühmten Happy-Hour-Caipirinhas.",
+          "sourceUrls": [
+            "https://www.genussguide-hamburg.com/top-listen/bars-schanze/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Goldfischglas",
+          "type": "bar",
+          "address": "Bartelsstraße 30, 20357 Hamburg",
+          "durationMin": 75,
+          "note": "Lange Bar an der Ecke Susannenstraße mit Minidisko im Keller — seit Jahren einer der beliebtesten Treffpunkte im Viertel.",
+          "sourceUrls": [
+            "https://goldfischglas.de/",
+            "https://www.sternschanze.net/location/goldfischglas-827/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Pelican Bar",
+          "type": "bar",
+          "address": "Am Brunnenhof 2-4, 20359 Hamburg",
+          "durationMin": 60,
+          "note": "Das neue Familienmitglied von Katze und Goldfischglas — ab 14 Uhr bis Open End, perfekt für die spätere Runde.",
+          "sourceUrls": [
+            "https://www.pelicanbar.de/",
+            "https://hamburg.mitvergnuegen.com/neueroeffnungen-hamburg/das-goldfischglas-und-die-katze-haben-ein-neues-familienmitglied-die-pelican-bar/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Erikas Eck",
+          "type": "restaurant",
+          "address": "Sternstraße 98, 20357 Hamburg",
+          "durationMin": 60,
+          "note": "Hamburgs Traditionslokal seit über 40 Jahren, fast rund um die Uhr geöffnet — das Schnitzel nach Mitternacht ist Pflichtprogramm.",
+          "sourceUrls": [
+            "https://www.erikaseck.com/",
+            "https://hamburgtourist.info/hamburg-essen-und-trinken/erikas-eck.html"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "slug": "hamburg-food-schanze-hafen",
+      "title": "Food-Tour von der Schanze bis zur Hafenkante",
+      "description": "Kulinarischer Tagestrip: Röstkaffee und Franzbrötchen in der Schanze, Markthallen-Bummel, Hamburgs beste Falafel und feinste Patisserie. Zum Abschluss geht es an die Hafenstraße zum Dinner mit Elbblick.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "sternschanze",
+        "st-pauli",
+        "vegetarisch",
+        "franzbrötchen"
+      ],
+      "sourceUrls": [
+        "https://hamburg.mitvergnuegen.com/2025/cafes-fruehstuecken-in-hamburg/",
+        "https://www.genussguide-hamburg.com/top-listen/franzbroetchen/",
+        "https://hamburg.mitvergnuegen.com/tipps/azeitona/",
+        "https://www.rindermarkthalle-stpauli.de/",
+        "https://saltandsilver.de/restaurants"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Elbgold Kaffeerösterei",
+          "type": "cafe",
+          "address": "Lagerstraße 34c, 20357 Hamburg",
+          "durationMin": 60,
+          "note": "Frühstück in der Rösterei in den Schanzenhöfen — die täglich frisch gebackenen Franzbrötchen gehören zu den besten der Stadt.",
+          "sourceUrls": [
+            "https://www.falstaff.com/en/cafes/elbgold-kaffeeroesterei",
+            "https://www.genussguide-hamburg.com/top-listen/franzbroetchen/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Rindermarkthalle St. Pauli",
+          "type": "market",
+          "address": "Neuer Kamp 31, 20359 Hamburg",
+          "durationMin": 60,
+          "note": "Wetterfester Markthallen-Bummel in der ehemaligen Rindermarkthalle mit Foodständen, Feinkost und regelmäßigen Märkten.",
+          "sourceUrls": [
+            "https://www.rindermarkthalle-stpauli.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Azeitona",
+          "type": "restaurant",
+          "address": "Beckstraße 17, 20357 Hamburg",
+          "durationMin": 60,
+          "note": "Vegetarisch-arabisches Lokal im Schanzenviertel — für viele Hamburger die beste Falafel der Stadt, perfekt für den Lunch.",
+          "sourceUrls": [
+            "https://azeitona.de/",
+            "https://hamburg.mitvergnuegen.com/tipps/azeitona/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Herr Max",
+          "type": "cafe",
+          "address": "Schulterblatt 12, 20357 Hamburg",
+          "durationMin": 60,
+          "note": "Das Hamburger Tortenwunder: klassische Konditorkunst trifft Pâtisserie — Rhabarber-Baiser-Torte und Pralinen im Retro-Ambiente.",
+          "sourceUrls": [
+            "https://ganz-hamburg.de/essen-trinken/cafes/cafes-in-hamburg-herr-max.html",
+            "https://www.yelp.com/biz/herr-max-hamburg"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Salt & Silver",
+          "type": "restaurant",
+          "address": "St. Pauli Hafenstraße 136, 20359 Hamburg",
+          "durationMin": 90,
+          "note": "Abschluss-Dinner der Weltenbummler-Küche direkt an der Elbe — Sonnenterrasse mit Hafenblick und wechselnder saisonaler Karte.",
+          "sourceUrls": [
+            "https://saltandsilver.de/restaurants",
+            "https://www.hamburg-magazin.de/artikel/salt-and-silver-restaurants-in-hamburg"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-date-isarblick",
+      "title": "Aperitivo, Isarblick & Nightcap – Date-Abend an der Isar",
+      "description": "Romantischer Abend von der Altstadt bis nach Haidhausen: italienischer Aperitivo, Dinner mit Isarblick und ein Absacker in einer klassischen American Bar. Alle Stops liegen fußläufig entlang der Isar.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "altstadt",
+        "lehel",
+        "haidhausen",
+        "isar",
+        "romantisch"
+      ],
+      "sourceUrls": [
+        "https://muenchen.mitvergnuegen.com/2025/11-dates-sommer-einzigartig-machen/",
+        "https://www.in-muenchen.de/gastro/restaurants/das-neue-restaurant-monti-monaco-an-der-isar.html",
+        "https://montimonaco.de/",
+        "https://muenchen.mitvergnuegen.com/tipps/negroni-bar/",
+        "https://www.muenchen.travel/artikel/muenchen-tipps-fuer/20-tipps-fuer-verliebte"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bar Centrale",
+          "type": "bar",
+          "address": "Ledererstraße 23, 80331 München",
+          "durationMin": 60,
+          "note": "Münchens italienischste Bar seit 1998 – zum Auftakt Aperol Spritz oder Negroni, zwischen 17 und 20 Uhr gibt es kleine Antipasti aufs Haus.",
+          "sourceUrls": [
+            "https://www.bar-centrale.com/en/",
+            "https://prinz.de/muenchen/locations/41616-bar-centrale-1/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Monti Monaco",
+          "type": "restaurant",
+          "address": "Steinsdorfstraße 22, 80538 München",
+          "durationMin": 105,
+          "note": "Italienisches Lifestyle-Restaurant auf zwei Etagen direkt an der Ludwigsbrücke – seit Frühjahr 2025 hier, mit großen Fensterfronten und Blick auf Isar und Museumsinsel.",
+          "sourceUrls": [
+            "https://montimonaco.de/kontakt-anfahrt/",
+            "https://www.in-muenchen.de/gastro/restaurants/das-neue-restaurant-monti-monaco-an-der-isar.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Kabelsteg & Praterinsel",
+          "type": "viewpoint",
+          "address": "Kabelsteg, 80538 München",
+          "durationMin": 45,
+          "note": "Kleiner Verdauungsspaziergang über den historischen Kabelsteg auf die Praterinsel – abends einer der stimmungsvollsten Isar-Momente der Stadt.",
+          "sourceUrls": [
+            "https://www.muenchen.travel/artikel/muenchen-tipps-fuer/20-tipps-fuer-verliebte"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Negroni Bar",
+          "type": "bar",
+          "address": "Sedanstraße 9, 81667 München",
+          "durationMin": 90,
+          "note": "Klassische American Bar in Haidhausen seit 1998 mit der größten Negroni-Auswahl der Stadt – perfekter Nightcap in Ledersofa-Atmosphäre.",
+          "sourceUrls": [
+            "https://muenchen.mitvergnuegen.com/tipps/negroni-bar/",
+            "https://www.mixology.eu/bars/klassische-bar/negroni-bar"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-kneipen-glockenbach",
+      "title": "Glockenbach-Crawl: Wirtshaus, Szenekneipen & Late-Night",
+      "description": "Authentische Kneipentour durch das Glockenbachviertel – vom bayerischen Wirtshaus über kultige Szenekneipen bis zu preisgekrönten Cocktailbars. Zum Schluss geht es ins legendäre Pimpernel, das bis 6 Uhr morgens offen hat.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "glockenbachviertel",
+        "cocktails",
+        "wirtshaus",
+        "nightlife"
+      ],
+      "sourceUrls": [
+        "https://geheimtippmuenchen.de/stadtteil/glockenbachviertel/",
+        "https://www.muenchen.travel/artikel/stadt-viertel/muenchner-stadtteile/stadtteil-glockenbachviertel",
+        "https://www.trisoux.com/",
+        "https://www.theworlds50best.com/discovery/Establishments/Germany/Munich/Zephyr-Bar.html",
+        "https://www.1000thingsmagazine.com/de/a/2151524/glockenbachviertel-guide-muenchen/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Gaststätte Faun",
+          "type": "restaurant",
+          "address": "Hans-Sachs-Straße 17, 80469 München",
+          "durationMin": 75,
+          "note": "Wirtshaus-Klassiker im Herzen des Glockenbachviertels – zur Grundlage bayerische Hausmannskost und das erste Bier des Abends.",
+          "sourceUrls": [
+            "https://www.mux.de/Faun",
+            "https://www.tripadvisor.com/Restaurant_Review-g187309-d695659-Reviews-Gaststatte_Faun-Munich_Upper_Bavaria_Bavaria.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Deutsche Eiche",
+          "type": "bar",
+          "address": "Reichenbachstraße 13, 80469 München",
+          "durationMin": 60,
+          "note": "Legendäres Wirtshaus und queere Institution seit über 150 Jahren – einst Stammlokal von Freddie Mercury und Fassbinder.",
+          "sourceUrls": [
+            "https://www.muenchen.travel/artikel/stadt-viertel/muenchner-stadtteile/stadtteil-glockenbachviertel"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Holy Home",
+          "type": "bar",
+          "address": "Reichenbachstraße 21, 80469 München",
+          "durationMin": 60,
+          "note": "Kultige kleine Szenekneipe ein paar Häuser weiter – ab 16 Uhr geöffnet, unprätentiös, laut und sehr Glockenbach.",
+          "sourceUrls": [
+            "https://prinz.de/muenchen/locations/37207-holy-home/",
+            "https://www.yelp.com/biz/holy-home-m%C3%BCnchen"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Trisoux Bar",
+          "type": "bar",
+          "address": "Müllerstraße 21, 80469 München",
+          "durationMin": 60,
+          "note": "Kleine inhabergeführte Cocktailbar mit wechselnden Signature-Drinks – einer der besten Craft-Cocktail-Spots des Viertels.",
+          "sourceUrls": [
+            "https://www.trisoux.com/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Zephyr Bar",
+          "type": "bar",
+          "address": "Baaderstraße 68, 80469 München",
+          "durationMin": 60,
+          "note": "Preisgekrönte Bar von Lukas Motejzik – MIXOLOGY Barteam des Jahres 2025 – mit experimentellen Drinks auf nur 35 Plätzen.",
+          "sourceUrls": [
+            "https://www.theworlds50best.com/discovery/Establishments/Germany/Munich/Zephyr-Bar.html",
+            "https://www.tripadvisor.com/Restaurant_Review-g187309-d3953347-Reviews-Bar_Zephyr-Munich_Upper_Bavaria_Bavaria.html"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Pimpernel",
+          "type": "bar",
+          "address": "Müllerstraße 56, 80469 München",
+          "durationMin": 90,
+          "note": "Late-Night-Institution seit 1970, täglich von 22 bis 6 Uhr – hier endet die Nacht im Glockenbachviertel, früher auch für Freddie Mercury.",
+          "sourceUrls": [
+            "https://www.yelp.com/biz/pimpernel-m%C3%BCnchen"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-food-viktualienmarkt",
+      "title": "Schmalznudel bis Weißbier: Food-Tour um den Viktualienmarkt",
+      "description": "Kulinarische Tagestour durch die Altstadt: Schmalznudel-Frühstück beim Original, Marktbummel und Ofenkartoffel-Lunch am Viktualienmarkt, Torten im Traditionskaffeehaus und Wirtshaus-Finale im Tal. Der Lunch-Stop ist ausdrücklich vegetarisch-freundlich.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "altstadt",
+        "viktualienmarkt",
+        "vegetarisch",
+        "tradition"
+      ],
+      "sourceUrls": [
+        "https://www.viktualienmarkt-muenchen.de/en/breakfast-at-the-viktualienmarkt/",
+        "https://www.muenchen.travel/artikel/stadt-viertel/tag-auf-dem-viktualienmarkt",
+        "https://muenchen.mitvergnuegen.com/tipps/kartoffeln-essen-bei-caspar-plautz-am-viktualienmarkt/",
+        "https://www.cafe-luitpold.de/",
+        "https://jaegerundsammlerblog.de/viktualienmarkt-muenchen/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Café Frischhut (Schmalznudel)",
+          "type": "cafe",
+          "address": "Prälat-Zistl-Straße 8, 80331 München",
+          "durationMin": 60,
+          "note": "Münchner Original seit 1973: frisch in Schmalz ausgebackene Schmalznudeln und Auszogne zum Kaffee – das klassische Marktfrühstück.",
+          "sourceUrls": [
+            "https://www.viktualienmarkt-muenchen.de/en/breakfast-at-the-viktualienmarkt/",
+            "https://www.tripadvisor.com/Restaurant_Review-g187309-d1944619-Reviews-Schmalznudel_Cafe_Frischhut-Munich_Upper_Bavaria_Bavaria.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Viktualienmarkt",
+          "type": "market",
+          "address": "Viktualienmarkt 3, 80331 München",
+          "durationMin": 75,
+          "note": "Bummel über 100 Standl mit frisch gepresstem Saft, ofenwarmen Brezn und kleinen Kostproben – Münchens kulinarisches Herz seit 1807.",
+          "sourceUrls": [
+            "https://www.muenchen.travel/artikel/stadt-viertel/tag-auf-dem-viktualienmarkt",
+            "https://www.viktualienmarkt-muenchen.de/en/food-at-the-viktualienmarkt/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Caspar Plautz",
+          "type": "restaurant",
+          "address": "Viktualienmarkt, Abteilung III Stand 38, 80331 München",
+          "durationMin": 60,
+          "note": "Kult-Kartoffelstand von Theo Lindinger und Dominik Klier: Ofenkartoffeln von Shakshuka bis Grüne Soße – der vegetarisch-freundliche Lunch der Tour (Küche Di–Sa 12–15 Uhr).",
+          "sourceUrls": [
+            "https://www.casparplautz.de/standl/",
+            "https://muenchen.mitvergnuegen.com/tipps/kartoffeln-essen-bei-caspar-plautz-am-viktualienmarkt/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Café Luitpold",
+          "type": "cafe",
+          "address": "Brienner Straße 11, 80333 München",
+          "durationMin": 75,
+          "note": "Kaffeehaus-Institution seit 1888 mit hauseigener Patisserie – Luitpoldtorte und Pralinen im Palmengarten als süßer Nachmittagsstop.",
+          "sourceUrls": [
+            "https://www.cafe-luitpold.de/",
+            "https://muenchen.mitvergnuegen.com/2016/fruehstueck-cafe-luitpold-muenchen/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Schneider Bräuhaus",
+          "type": "restaurant",
+          "address": "Tal 7, 80331 München",
+          "durationMin": 90,
+          "note": "Stammhaus der Schneider Weiße seit 1872 – zum Abschluss Weißbier vom Fass und bayerische Wirtshausküche mitten im Tal.",
+          "sourceUrls": [
+            "https://www.schneider-brauhaus.de/",
+            "https://www.oktoberfest.de/en/magazine/wirtshauswiesn/munich-innkeepers-and-restaurants"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "slug": "koeln-date-rheinblick",
+      "title": "Date-Abend: Weinbar, Fine Dining & Rheinblick",
+      "description": "Ein romantischer Abend zwischen Innenstadt, Altstadt und Rheinufer: erst Wein zum Ankommen, dann Casual Fine Dining am Alter Markt, Sonnenuntergang mit Dom-Panorama am Rheinboulevard und ein Abschluss-Cocktail in einer der besten Bars der Stadt. Alle Stationen sind fußläufig verbunden.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "altstadt",
+        "romantisch",
+        "rheinufer",
+        "cocktails"
+      ],
+      "sourceUrls": [
+        "https://koeln.mitvergnuegen.com/2025/romantische-restaurants/",
+        "https://koeln.mitvergnuegen.com/2025/romantische-bars/",
+        "https://koeln.mitvergnuegen.com/2025/romantische-orte/",
+        "https://koeln.mitvergnuegen.com/2025/bars-erstes-date/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "HENNE.Weinbar",
+          "type": "bar",
+          "address": "Pfeilstraße 31-35, 50672 Köln",
+          "durationMin": 60,
+          "note": "Aperitif zum Ankommen: unkomplizierte Weinbar von Hendrik Olfen mit toller Weinkarte und kleinen mediterranen Tellern.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2025/romantische-restaurants/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Puls",
+          "type": "restaurant",
+          "address": "Bürgerstraße 2, 50667 Köln",
+          "durationMin": 110,
+          "note": "Casual Fine Dining am Alter Markt mit Chef's-Choice-Menü — edel essen ohne steife Atmosphäre, ideal für einen besonderen Abend zu zweit.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2025/romantische-restaurants/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Rheinboulevard Deutz",
+          "type": "viewpoint",
+          "address": "Kennedy-Ufer / Rheinboulevard, 50679 Köln",
+          "durationMin": 45,
+          "note": "Über die Hohenzollernbrücke mit ihren Liebesschlössern spazieren und auf der Freitreppe den beleuchteten Dom über dem Rhein genießen.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2025/romantische-orte/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Seiberts",
+          "type": "bar",
+          "address": "Friesenwall 33, 50672 Köln",
+          "durationMin": 90,
+          "note": "Abschluss in einer der renommiertesten Cocktailbars Kölns — gedämpftes Licht, erstklassige Classics und Signature-Drinks vom Barmeister-Team Seibert.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2025/romantische-bars/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "slug": "koeln-kneipen-suedstadt",
+      "title": "Südstadt-Kneipentour: Kölsch-Kultur em Veedel",
+      "description": "Ein authentischer Crawl durchs kölscheste Veedel abseits der Altstadt-Touristenpfade: vom Brauhaus am Chlodwigplatz über Kult-Kneipen am Kartäuserwall bis zur traditionsreichen Thekenkneipe am Ubierring. Überall gibt es frisch gezapftes Kölsch und echte Veedels-Atmosphäre.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "suedstadt",
+        "koelsch",
+        "kneipenkultur",
+        "brauhaus"
+      ],
+      "sourceUrls": [
+        "https://koeln.mitvergnuegen.com/2024/bars-kneipen-suedstadt/",
+        "https://geheimtipp-koeln.de/geheimtipp/en-dr-weetschaff-is-die-stimmung-jrooss-7-kultkneipen-in-koeln/",
+        "https://koeln.mitvergnuegen.com/2026/koelsche-kneipen/",
+        "https://www.fruehemveedel.de/",
+        "https://www.koelntourismus.de/genuss-diversitaet/gastronomie/detail/frueh-em-veedel"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "FRÜH Em Veedel",
+          "type": "restaurant",
+          "address": "Chlodwigplatz 28, 50678 Köln",
+          "durationMin": 75,
+          "note": "Uriges Brauhaus von 1886 direkt am Chlodwigplatz — hier gibt es die deftige Grundlage (Himmel un Ääd, Reibekuchen) und das erste Früh Kölsch vom Köbes.",
+          "sourceUrls": [
+            "https://www.fruehemveedel.de/",
+            "https://www.koelntourismus.de/genuss-diversitaet/gastronomie/detail/frueh-em-veedel"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Torburg",
+          "type": "bar",
+          "address": "Kartäuserwall 1, 50678 Köln",
+          "durationMin": 60,
+          "note": "Traditionsreiche Eckkneipe an der Ulrepforte — unprätentiös, günstig und mit ordentlich Südstadt-Patina.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2024/bars-kneipen-suedstadt/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Lotta",
+          "type": "bar",
+          "address": "Kartäuser Wall 12, 50678 Köln",
+          "durationMin": 60,
+          "note": "Kollektiv geführte Kult-Kneipe mit Indie, Pop und Punk aus den Boxen — seit Jahren eine Institution im Veedel, nur ein paar Schritte von der Torburg.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2024/bars-kneipen-suedstadt/",
+            "https://www.lotta-koeln.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Maulvoll",
+          "type": "bar",
+          "address": "Im Ferkulum 30, 50678 Köln",
+          "durationMin": 60,
+          "note": "Kleine, gemütliche Veedelskneipe in der Seitenstraße zwischen Kartäuserwall und Chlodwigplatz — hier kommt man schnell mit den Nachbarn ins Gespräch.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2024/bars-kneipen-suedstadt/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Ubierschänke",
+          "type": "bar",
+          "address": "Ubierring 19, 50678 Köln",
+          "durationMin": 60,
+          "note": "Die wohl kölscheste Kneipe der Südstadt: Thekenkultur, Fußball und Kölsch am Ubierring — ein echtes Original, in dem schon so mancher Künstler entdeckt wurde.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2024/bars-kneipen-suedstadt/",
+            "https://geheimtipp-koeln.de/geheimtipp/en-dr-weetschaff-is-die-stimmung-jrooss-7-kultkneipen-in-koeln/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Punky Panda",
+          "type": "bar",
+          "address": "Alteburger Straße 20, 50678 Köln",
+          "durationMin": 75,
+          "note": "Junger, lässiger Absacker-Spot in der Alteburger Straße für die letzte Runde, wenn das Veedel langsam zur Ruhe kommt.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2024/bars-kneipen-suedstadt/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "slug": "koeln-food-ehrenfeld",
+      "title": "Food-Tour Ehrenfeld: Von Zimtschnecke bis Helios-Bier",
+      "description": "Ein kulinarischer Tag entlang Körnerstraße und Venloer Straße im Multikulti-Viertel Ehrenfeld: ausgiebiges Frühstück, Zimtschnecken aus der Glasbäckerei, vegetarisch-freundlicher Lunch, sizilianische Cannoli und zum Abschluss Bier aus Kölns kleinster Brauerei. Alle Stops liegen wenige Gehminuten auseinander.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "ehrenfeld",
+        "cafes",
+        "streetfood",
+        "craft-beer"
+      ],
+      "sourceUrls": [
+        "https://koeln.mitvergnuegen.com/2026/cafes-in-ehrenfeld/",
+        "https://koeln.mitvergnuegen.com/2025/lunchen-ehrenfeld/",
+        "https://koeln.mitvergnuegen.com/2025/venloer-strasse-kulinarisch/",
+        "https://braustelle.com/",
+        "https://www.koelntourismus.de/genuss-diversitaet/gastronomie/detail/braustelle"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Café Sehnsucht",
+          "type": "cafe",
+          "address": "Körnerstraße 67, 50823 Köln",
+          "durationMin": 90,
+          "note": "Ehrenfelder Frühstücks-Institution in der schönen Körnerstraße — Frühstückskarte zum Selbstzusammenstellen, dazu French Toast mit Obst.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2026/cafes-in-ehrenfeld/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Die Mehlwerkstatt",
+          "type": "cafe",
+          "address": "Venloer Straße 202, 50823 Köln",
+          "durationMin": 45,
+          "note": "Bäckerei mit Glasbackstube: beim zweiten Kaffee den Bäcker*innen zusehen und eine der dicken Zimtschnecken mit Ahornsirup und Walnuss probieren.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2026/cafes-in-ehrenfeld/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Lumos",
+          "type": "restaurant",
+          "address": "Lichtstraße 64, 50825 Köln",
+          "durationMin": 90,
+          "note": "Vegetarisch-freundlicher Lunch-Favorit an der Lichtstraße: gegrillte Sandwiches, pochierte Bio-Eier und einer der besten Mittagstische des Viertels.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2025/lunchen-ehrenfeld/",
+            "https://koeln.mitvergnuegen.com/2026/cafes-in-ehrenfeld/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Otto Cannoli",
+          "type": "cafe",
+          "address": "Schadowstraße 55, 50823 Köln",
+          "durationMin": 60,
+          "note": "Süßer Zwischenstopp: frisch gefüllte sizilianische Cannoli und Espresso in kleiner Manufaktur-Atmosphäre.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2026/cafes-in-ehrenfeld/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Falafel König",
+          "type": "restaurant",
+          "address": "Venloer Straße 384, 50825 Köln",
+          "durationMin": 45,
+          "note": "Kleiner herzhafter Snack für den Rückweg über die Venloer Straße — knusprige vegane Falafel, ein Klassiker der Ehrenfelder Streetfood-Meile.",
+          "sourceUrls": [
+            "https://koeln.mitvergnuegen.com/2025/lunchen-ehrenfeld/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Braustelle",
+          "type": "bar",
+          "address": "Christianstraße 2, 50825 Köln",
+          "durationMin": 90,
+          "note": "Abschluss in Kölns kleinster Brauerei (ab 17 Uhr, Di-Sa): hausgebrautes Helios direkt aus dem Sudkessel statt Industrie-Kölsch.",
+          "sourceUrls": [
+            "https://braustelle.com/",
+            "https://www.koelntourismus.de/genuss-diversitaet/gastronomie/detail/braustelle"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-date-main-skyline",
+      "title": "Romantischer Abend am Main: Aperitif, Menü & Skyline",
+      "description": "Ein fußläufiger Date-Abend ab 17:30 Uhr zwischen Mainufer, Neuer Altstadt und Bahnhofsviertel. Vom Aperitif mit Flussblick über ein saisonales Menü bis zum Skyline-Moment auf dem Eisernen Steg und Cocktails in einer der besten Bars Deutschlands.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "altstadt",
+        "bahnhofsviertel",
+        "skyline",
+        "cocktails"
+      ],
+      "sourceUrls": [
+        "https://www.funkenflug.app/liebeskram/bars-date-frankfurt-2/",
+        "https://www.funkenflug.app/liebeskram/restaurants-date-frankfurt/",
+        "https://mainnizza.de/",
+        "https://www.opentable.com/margarete",
+        "https://www.mixology.eu/bars/klassische-bar/kinly-bar-neu"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "MainNizza",
+          "type": "restaurant",
+          "address": "Untermainkai 17, 60311 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Aperitif auf der Panoramaterrasse direkt am Mainufer mit Blick auf Fluss und Skyline.",
+          "sourceUrls": [
+            "https://mainnizza.de/",
+            "https://www.opentable.com/r/main-nizza-frankfurt-am-main"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Margarete",
+          "type": "restaurant",
+          "address": "Braubachstraße 18-22, 60311 Frankfurt am Main",
+          "durationMin": 105,
+          "note": "Moderne deutsche Saisonküche in lässig-elegantem Ambiente nahe der Neuen Altstadt — vorab reservieren.",
+          "sourceUrls": [
+            "https://www.opentable.com/margarete",
+            "https://www.falstaff.com/en/restaurants/margarete-frankfurt-am-main"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Eiserner Steg",
+          "type": "viewpoint",
+          "address": "Eiserner Steg / Mainkai, 60311 Frankfurt am Main",
+          "durationMin": 45,
+          "note": "Abendspaziergang über die Liebesschloss-Brücke mit dem schönsten Blick auf die beleuchtete Skyline.",
+          "sourceUrls": [
+            "https://www.visitfrankfurt.travel/",
+            "https://frankfurtdubistsowunderbar.de/die-neun-romantische-restaurants-frankfurt"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "The Kinly Bar",
+          "type": "bar",
+          "address": "Elbestraße 34, 60329 Frankfurt am Main",
+          "durationMin": 90,
+          "note": "Preisgekrönte Cocktailbar hinter unscheinbarer Tür mit Klingel — 2020 als beste Bar Deutschlands ausgezeichnet.",
+          "sourceUrls": [
+            "https://www.mixology.eu/bars/klassische-bar/kinly-bar-neu",
+            "https://thepouringtales.com/thekinly/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-kneipen-sachsenhausen",
+      "title": "Ebbelwoi-Crawl durch Alt-Sachsenhausen",
+      "description": "Klassische Apfelwein-Tour ab 19:00 Uhr durch das Kopfsteinpflaster von Alt-Sachsenhausen bis zur Schweizer Straße. Sechs traditionsreiche Wirtschaften vom Neuen Wall bis zu den Kultlokalen Wagner und Gemaltes Haus — Bembel für Bembel.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "sachsenhausen",
+        "apfelwein",
+        "tradition"
+      ],
+      "sourceUrls": [
+        "https://www.apfelwein-wagner.com/en/start-en/",
+        "https://www.zumgemaltenhaus.de/",
+        "https://www.fichtekraenzi.de/",
+        "https://www.ebbelwei-express.de/en/information/cider-bars/",
+        "https://www.frankfurt-sachsenhausen.de/content/alt-sachsenhausen"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Dauth-Schneider",
+          "type": "restaurant",
+          "address": "Neuer Wall 5-7, 60594 Frankfurt am Main",
+          "durationMin": 75,
+          "note": "Traditionswirtschaft mit großem Garten — hier zum Auftakt eine solide Grundlage mit Handkäs und Schnitzel legen.",
+          "sourceUrls": [
+            "https://www.tripadvisor.com/Restaurant_Review-g187337-d1650041-Reviews-Dauth_Schneider-Frankfurt_Hesse.html",
+            "https://www.frankfurt-sachsenhausen.de/content/alt-sachsenhausen"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Klaane Sachsehäuser",
+          "type": "bar",
+          "address": "Neuer Wall 11, 60594 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Urige Apfelweinwirtschaft seit 1876, nur wenige Schritte weiter — Apfelwein aus eigener Kelterei.",
+          "sourceUrls": [
+            "https://www.klaanesachsehaeuser.com/en/index.html",
+            "https://www.ebbelwei-express.de/en/information/cider-bars/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Fichtekränzi",
+          "type": "bar",
+          "address": "Wallstraße 5, 60594 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Seit 1849 eine der ältesten Apfelweinkneipen der Stadt, mit Kastanien-Garten und langen Holztischen.",
+          "sourceUrls": [
+            "https://www.fichtekraenzi.de/",
+            "https://www.plazy.travel/destination-info/32104/top-10-apfelweintipps-fuer-frankfurt"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Kanonesteppel",
+          "type": "bar",
+          "address": "Textorstraße 20, 60594 Frankfurt am Main",
+          "durationMin": 45,
+          "note": "Kleines, unprätentiöses Lokal in der Textorstraße — hier trinkt man den Schoppen unter Einheimischen.",
+          "sourceUrls": [
+            "https://www.frankfurt-sachsenhausen.de/content/alt-sachsenhausen",
+            "https://www.plazy.travel/destination-info/32104/top-10-apfelweintipps-fuer-frankfurt"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Zum Gemalten Haus",
+          "type": "bar",
+          "address": "Schweizer Straße 67, 60594 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Weltbekannte Apfelweinwirtschaft mit bemalter Fassade und Gemälden im Schankraum — eine der ältesten der Stadt.",
+          "sourceUrls": [
+            "https://www.zumgemaltenhaus.de/",
+            "https://www.visitfrankfurt.travel/gastro/apfelwein-wagner"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Apfelwein Wagner",
+          "type": "bar",
+          "address": "Schweizer Straße 71, 60594 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Kultlokal seit 1931 direkt nebenan — zum Abschluss selbstgekelterter Apfelwein aus dem Bembel.",
+          "sourceUrls": [
+            "https://www.apfelwein-wagner.com/en/start-en/",
+            "https://www.visitfrankfurt.travel/gastro/apfelwein-wagner"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-food-kleinmarkthalle-wein",
+      "title": "Kulinarische Tagestour: Kleinmarkthalle & Rheingau-Wein",
+      "description": "Genusstag ab 10:00 Uhr rund um Altstadt und Kleinmarkthalle: Specialty Coffee, Marktstände, Wein vom Weingut Rollanderhof auf der Weinterrasse, vegetarisches Mittagessen, feine Pralinen und zum Abschluss Rheingauer Riesling in der Neuen Altstadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "wine",
+        "altstadt",
+        "kleinmarkthalle",
+        "rheingau"
+      ],
+      "sourceUrls": [
+        "https://www.kleinmarkthalle.com/",
+        "https://www.weingut-rollanderhof.de/pages/weinterrasse",
+        "https://www.balthasar-ress.de/weinbar-frankfurt",
+        "https://theholycross.de/en",
+        "https://stadtleben.de/frankfurt/guide/wein-trinken/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "The Holy Cross Brewing Society",
+          "type": "cafe",
+          "address": "Fahrgasse 7, 60311 Frankfurt am Main",
+          "durationMin": 45,
+          "note": "Start mit Specialty Coffee aus eigener Rösterei am Fischerplätzchen — eines der besten Cafés der Stadt.",
+          "sourceUrls": [
+            "https://theholycross.de/en",
+            "https://www.frankfurt-tipp.de/en/index/genuss/s/geniessertipp/the-holy-cross-brewing-society-for-all-coffee-nerds.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Kleinmarkthalle",
+          "type": "market",
+          "address": "Hasengasse 5-7, 60311 Frankfurt am Main",
+          "durationMin": 90,
+          "note": "Über 60 Stände auf 1.500 Quadratmetern — probieren: heiße Fleischwurst, Grüne Soße und internationale Delikatessen.",
+          "sourceUrls": [
+            "https://www.kleinmarkthalle.com/",
+            "https://www.kleinmarkthalle.com/gastronomie-staende"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Weinterrasse Weingut Rollanderhof",
+          "type": "bar",
+          "address": "Kleinmarkthalle (Galerie), Hasengasse 5-7, 60311 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Regionale Weine vom Fass auf der Außengalerie der Kleinmarkthalle Richtung Liebfrauenberg — Frankfurter Institution.",
+          "sourceUrls": [
+            "https://www.weingut-rollanderhof.de/pages/weinterrasse",
+            "https://www.kleinmarkthalle.com/gastronomie-staende"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "VEVAY",
+          "type": "restaurant",
+          "address": "Kleiner Hirschgraben 10, 60311 Frankfurt am Main",
+          "durationMin": 75,
+          "note": "Vegetarisch-veganes Mittagessen mit wechselnden Bowls, Suppen und kreativen Gerichten mitten in der Innenstadt.",
+          "sourceUrls": [
+            "https://www.tripadvisor.com/Restaurant_Review-g187337-d7705240-Reviews-VEVAY-Frankfurt_Hesse.html",
+            "https://prinz.de/frankfurt/locations/124717-vevay/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Bitter & Zart Chocolaterie",
+          "type": "cafe",
+          "address": "Braubachstraße 14, 60311 Frankfurt am Main",
+          "durationMin": 45,
+          "note": "Süße Pause im Schokoladensalon mit feinen Pralinen und heißer Schokolade — eine der besten Chocolaterien Frankfurts.",
+          "sourceUrls": [
+            "https://bitterundzart.de/",
+            "https://prinz.de/frankfurt/locations/89860-bitter-zart/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Balthasar Ress Weinbar & Vinothek",
+          "type": "bar",
+          "address": "Markt 13a, 60311 Frankfurt am Main",
+          "durationMin": 90,
+          "note": "Rheingauer Bio-Rieslinge des renommierten Weinguts am Hühnermarkt in der Neuen Altstadt zum Tagesausklang.",
+          "sourceUrls": [
+            "https://www.balthasar-ress.de/weinbar-frankfurt",
+            "https://www.rheingau.de/aktuelles/details/12164"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "stuttgart",
+      "slug": "stuttgart-date-kesselblick",
+      "title": "Date-Abend im Kessel: Aperitif, Sterneküche & Stäffele",
+      "description": "Romantischer Abend zwischen Schlossplatz, Bohnenviertel und Eugensplatz — alles fußläufig. Erst Aperitif mit Aussicht über den Kessel, dann feines Menü, Stäffele-Aufstieg zum Sonnenuntergang und ein Nightcap in einer der besten Bars Deutschlands.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "bohnenviertel",
+        "romantisch",
+        "aussicht",
+        "staeffele"
+      ],
+      "sourceUrls": [
+        "https://geheimtippstuttgart.de/category/geheimtipps/geheimtipps-im-raum-stuttgart/bar/",
+        "https://www.funkenflug.app/liebeskram/bars-date-stuttgart/",
+        "https://www.cube-restaurant.de/",
+        "https://guide.michelin.com/us/en/baden-wurttemberg/stuttgart/restaurant/der-zauberlehrling",
+        "https://www.schwarz-weiss-bar.de/de"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "CUBE Restaurant & Bar (Kunstmuseum)",
+          "type": "bar",
+          "address": "Kleiner Schlossplatz 1, 70173 Stuttgart",
+          "durationMin": 60,
+          "note": "Aperitif im Glaskubus über dem Schlossplatz — der Blick über den Kessel stimmt perfekt auf den Abend ein.",
+          "sourceUrls": [
+            "https://www.cube-restaurant.de/",
+            "https://www.stuttgart-tourist.de/a-cube"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Der Zauberlehrling",
+          "type": "restaurant",
+          "address": "Rosenstraße 38, 70182 Stuttgart",
+          "durationMin": 120,
+          "note": "Kontrastreiche Menüs von Küchenchef Fabian Heldmann im Designhotel mitten im Bohnenviertel — unbedingt reservieren.",
+          "sourceUrls": [
+            "https://guide.michelin.com/us/en/baden-wurttemberg/stuttgart/restaurant/der-zauberlehrling",
+            "https://www.zauberlehrling.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Eugensplatz mit Galatea-Brunnen",
+          "type": "viewpoint",
+          "address": "Eugensplatz 2, 70184 Stuttgart",
+          "durationMin": 45,
+          "note": "Über die Eugenstaffel hinauf zum Galatea-Brunnen: einer der schönsten Blicke über die abendliche Stadt, im Sommer mit Eis vom Pinocchio.",
+          "sourceUrls": [
+            "https://kessel.tv/52-date-ideen-fuer-stuttgart-und-die-region/",
+            "https://www.funkenflug.app/liebeskram/bars-date-stuttgart/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Schwarz Weiß Bar",
+          "type": "bar",
+          "address": "Wilhelmsstraße 8A, 70182 Stuttgart",
+          "durationMin": 90,
+          "note": "Winzige Jazz-Cocktailbar am Bohnenviertel, 2025 als beste Whisky-Bar Deutschlands ausgezeichnet — perfekter Schlussakkord zu zweit.",
+          "sourceUrls": [
+            "https://www.schwarz-weiss-bar.de/de",
+            "https://geheimtippstuttgart.de/schwarz-weiss-bar/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "stuttgart",
+      "slug": "stuttgart-kneipen-bohnenviertel",
+      "title": "Viertelestour: Kneipen & Weinstuben im Bohnenviertel",
+      "description": "Authentischer Crawl durchs Bohnen- und Leonhardsviertel, Stuttgarts ältestem Kneipenquartier — alle Stops liegen keine 500 Meter auseinander. Vom Vesper in der Traditionsweinstube über das älteste Weinlokal der Stadt bis zu modernen Drinks nach Mitternacht.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "bohnenviertel",
+        "leonhardsviertel",
+        "weinstube",
+        "viertele"
+      ],
+      "sourceUrls": [
+        "https://geheimtippstuttgart.de/schwaetzen-speisen-und-viertele-schlotzen-unsere-lieblingsweinstuben-im-kessel/",
+        "https://www.stuttgart-tourist.de/stuttgart-entdecken/lieblingsviertel/mittendrin/bohnenviertel-und-leonhardsviertel/typisch-leonhardsviertel/weinstuben-abc",
+        "https://kessel.tv/klassiker-weinstube-und-restaurant-schellenturm-stuttgart/",
+        "https://www.lift-online.de/essen-trinken/kneipen/",
+        "http://www.paulandgeorge.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Weinhaus Stetter",
+          "type": "restaurant",
+          "address": "Rosenstraße 32, 70182 Stuttgart",
+          "durationMin": 75,
+          "note": "Seit 1902 Weinhandlung mit Weinstube — zum Start ein Vesper mit Linsen, Maultaschen und einem Trollinger-Viertele als Grundlage.",
+          "sourceUrls": [
+            "https://kessel.tv/stetter-die-traditions-weinstube-im-stuttgarter-bohnenviertel/",
+            "https://www.stuttgart-tourist.de/stuttgart-entdecken/lieblingsviertel/a-weinhaus-stetter"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Weinstube zur Kiste",
+          "type": "restaurant",
+          "address": "Kanalstraße 2, 70182 Stuttgart",
+          "durationMin": 60,
+          "note": "Fast 200 Jahre alt und Stuttgarts berühmteste Weinstube — eng, urig und mit Besen-Atmosphäre wie aus dem Bilderbuch.",
+          "sourceUrls": [
+            "https://www.stuttgart-tourist.de/stuttgart-entdecken/lieblingsviertel/mittendrin/bohnenviertel-und-leonhardsviertel/typisch-leonhardsviertel/weinstuben-abc/a-zur-kiste"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Weinstube Schellenturm",
+          "type": "restaurant",
+          "address": "Weberstraße 72, 70182 Stuttgart",
+          "durationMin": 60,
+          "note": "Viertele schlotzen im historischen Stadtmauerturm von 1564 — ein Klassiker, den selbst viele Stuttgarter noch nicht von innen kennen.",
+          "sourceUrls": [
+            "https://www.schellenturm-stuttgart.de/",
+            "https://kessel.tv/klassiker-weinstube-und-restaurant-schellenturm-stuttgart/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Weinstube Fröhlich",
+          "type": "restaurant",
+          "address": "Leonhardstraße 5, 70182 Stuttgart",
+          "durationMin": 60,
+          "note": "Seit 1963 Institution im Leonhardsviertel, inzwischen mit VfB-Boss Alexander Wehrle als Mitgesellschafter — schwäbisch, laut und herzlich.",
+          "sourceUrls": [
+            "https://www.weinstube-froehlich.de/",
+            "https://www.stuttgart-tourist.de/a-weinstube-froehlich"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Paul & George",
+          "type": "bar",
+          "address": "Weberstraße 3, 70182 Stuttgart",
+          "durationMin": 90,
+          "note": "Gemütliche Nachbarschaftsbar in der Altstadt mit guten Cocktails, Weinen und Bieren aus aller Welt — täglich ab 18 Uhr bis spät.",
+          "sourceUrls": [
+            "http://www.paulandgeorge.de/",
+            "https://geheimtippstuttgart.de/paul-george/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "stuttgart",
+      "slug": "stuttgart-wein-uhlbach",
+      "title": "Weinstadt Stuttgart: Markthalle, Weinberge & Viertele",
+      "description": "Kulinarischer Tag durch die Weinstadt Stuttgart — am besten samstags: von der Jugendstil-Markthalle mit der S-Bahn hinaus in die Weinorte Uhlbach und Rotenberg. Weinbaumuseum, Weinwanderweg durch die Steillagen, Grabkapellen-Panorama und zum Abschluss schwäbische Küche am Kachelofen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "wine",
+        "uhlbach",
+        "rotenberg",
+        "weinwanderweg",
+        "markthalle"
+      ],
+      "sourceUrls": [
+        "https://www.stuttgart-tourist.de/a-vinothek-im-weinbaumuseum-stuttgart",
+        "https://m.tourismus-bw.de/Media/Touren/Weinwanderweg-Obertuerkheim-Uhlbach-Rotenberg-Untertuerkheim",
+        "https://www.collegium-wirtemberg.de/vinothek",
+        "https://geheimtippstuttgart.de/schwaetzen-speisen-und-viertele-schlotzen-unsere-lieblingsweinstuben-im-kessel/",
+        "https://weinstubekachelofen.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Markthalle Stuttgart",
+          "type": "market",
+          "address": "Dorotheenstraße 4, 70173 Stuttgart",
+          "durationMin": 75,
+          "note": "Frühstücksbummel durch die Jugendstil-Markthalle von 1914 — mit Feinkost-, Obst- und mediterranen Ständen auch für Vegetarier ein Paradies (sonntags geschlossen).",
+          "sourceUrls": [
+            "https://www.markthalle-stuttgart.de/",
+            "https://www.stuttgart-tourist.de/stuttgart-entdecken/lieblingsviertel/mittendrin/bohnenviertel-und-leonhardsviertel/typisch-leonhardsviertel/weinstuben-abc"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Weinbaumuseum Stuttgart mit Vinothek",
+          "type": "landmark",
+          "address": "Uhlbacher Platz 4, 70329 Stuttgart",
+          "durationMin": 75,
+          "note": "2000 Jahre Weingeschichte in der alten Kelter von Uhlbach; in der Weinsüden-Vinothek gibt es Stuttgarter Weine glasweise zur ersten Probe (Vinothek Sa/So ab 11 Uhr).",
+          "sourceUrls": [
+            "https://www.stuttgart-tourist.de/a-weinbaumuseum-stuttgart",
+            "https://www.stuttgart-tourist.de/a-vinothek-im-weinbaumuseum-stuttgart"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Württemberger Weinwanderweg Uhlbach–Rotenberg",
+          "type": "activity",
+          "address": "Uhlbacher Platz 4, 70329 Stuttgart",
+          "durationMin": 60,
+          "note": "Gut ausgeschilderter Aufstieg durch die Riesling- und Trollinger-Steillagen des Götzenbergs hinüber nach Rotenberg — mit Tafeln zum Stuttgarter Weinbau.",
+          "sourceUrls": [
+            "https://m.tourismus-bw.de/Media/Touren/Weinwanderweg-Obertuerkheim-Uhlbach-Rotenberg-Untertuerkheim",
+            "https://www.collegium-weine.de/Goetzenberg/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Collegium Wirtemberg – Vinothek Rotenberg",
+          "type": "bar",
+          "address": "Württembergstraße 230, 70327 Stuttgart",
+          "durationMin": 60,
+          "note": "Vinothek der Rotenberger und Uhlbacher Weingärtner mitten im Weinort — samstags nur bis 16 Uhr, also vor der Grabkapelle einkehren und verkosten.",
+          "sourceUrls": [
+            "https://www.collegium-wirtemberg.de/vinothek",
+            "https://www.collegium-wirtemberg.de/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Grabkapelle auf dem Württemberg",
+          "type": "viewpoint",
+          "address": "Württembergstraße 340, 70327 Stuttgart",
+          "durationMin": 60,
+          "note": "König Wilhelms Mausoleum über den Weinbergen — der schönste Blick übers Neckartal und die Stuttgarter Steillagen (März bis November geöffnet).",
+          "sourceUrls": [
+            "https://www.grabkapelle-rotenberg.de/",
+            "https://m.tourismus-bw.de/Media/Touren/Weinwanderweg-Obertuerkheim-Uhlbach-Rotenberg-Untertuerkheim"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Weinstube Kachelofen",
+          "type": "restaurant",
+          "address": "Eberhardstraße 10, 70173 Stuttgart",
+          "durationMin": 90,
+          "note": "Zurück in der Stadtmitte wartet am Hans-im-Glück-Brunnen hausgemachte schwäbische Küche mit regionalen Weinen — auch mit vegetarischen Klassikern wie Kässpätzle und Gemüsemaultaschen.",
+          "sourceUrls": [
+            "https://weinstubekachelofen.de/",
+            "https://www.stuttgart-tourist.de/a-weinstube-kachelofen"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "duesseldorf",
+      "slug": "duesseldorf-date-medienhafen",
+      "title": "Romantischer Abend: Altstadt-Aperitif & Medienhafen-Lichter",
+      "description": "Ein Abend, der in der Carlstadt mit einem eleganten Aperitif beginnt und über die Rheinuferpromenade in den glitzernden Medienhafen führt. Zum Abschluss gibt es Cocktails mit Panoramablick im Rheinturm.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "altstadt",
+        "medienhafen",
+        "rheinufer",
+        "cocktails"
+      ],
+      "sourceUrls": [
+        "https://thedorf.de/speis-und-trank/bars-clubs/elephant-bar/",
+        "https://dox-restaurant.de/",
+        "https://www.rheinturm.de/en/bar",
+        "https://www.visitduesseldorf.de/en/poi/detail/hyatt-regency-dox-bar-c62b4b1d27"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Elephant Bar",
+          "type": "bar",
+          "address": "Kurze Straße 3, 40213 Düsseldorf",
+          "durationMin": 60,
+          "note": "Stilvoller Auftakt bei dunklem Holz, Marmor und exzellent gemixten Aperitifs in der ruhigen Ecke der Altstadt.",
+          "sourceUrls": [
+            "https://thedorf.de/speis-und-trank/bars-clubs/elephant-bar/",
+            "https://www.visitduesseldorf.de/en/poi/detail/elephant-bar-1c533c2b25"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "DOX Restaurant & Bar",
+          "type": "restaurant",
+          "address": "Speditionstraße 19, 40221 Düsseldorf",
+          "durationMin": 120,
+          "note": "French-American Brasserie an der Hafenspitze mit offener Showküche und Blick auf Rhein und Medienhafen.",
+          "sourceUrls": [
+            "https://dox-restaurant.de/",
+            "https://www.visitduesseldorf.de/en/poi/detail/hyatt-regency-dox-bar-c62b4b1d27"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Gehry-Bauten am Neuen Zollhof",
+          "type": "viewpoint",
+          "address": "Neuer Zollhof 1-3, 40221 Düsseldorf",
+          "durationMin": 45,
+          "note": "Abendspaziergang zu den beleuchteten Gehry-Bauten und am Wasser entlang — der Fotomoment des Abends.",
+          "sourceUrls": [
+            "https://www.visitduesseldorf.de/en/experience/eating-and-going-out/breweries",
+            "https://www.rheinturm.de/en"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Bar & Lounge M 168 im Rheinturm",
+          "type": "bar",
+          "address": "Stromstraße 20, 40221 Düsseldorf",
+          "durationMin": 90,
+          "note": "Nightcap in 168 Metern Höhe: rund 40 Cocktails auf der Karte und ein Panoramablick über das nächtliche Düsseldorf.",
+          "sourceUrls": [
+            "https://www.rheinturm.de/en/bar",
+            "https://timeout.com/duesseldorf/bars-and-pubs/bar-lounge-m-168"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "duesseldorf",
+      "slug": "duesseldorf-kneipen-altstadt",
+      "title": "Altbier-Safari: Hausbrauereien & Klassiker der Altstadt",
+      "description": "Ein Crawl entlang der Ratinger Straße und durch die Gassen der Altstadt — von Hausbrauerei zu Hausbrauerei, abseits der Bolkerstraßen-Partymeile. Zum Finale gibt es den legendären Killepitsch-Absacker.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "altstadt",
+        "altbier",
+        "hausbrauereien",
+        "ratinger-strasse"
+      ],
+      "sourceUrls": [
+        "https://www.visitduesseldorf.de/en/experience/eating-and-going-out/breweries",
+        "https://www.visitduesseldorf.de/storys/2024/04/19/6-altbier-hotspots-keine-angst-vor-duesseldorfer-bier/",
+        "https://www.brauhaustour.com/brauhaustour-duesseldorf-altbier-tour/",
+        "https://www.stadtpfade-reisen.de/brauhaus-duesseldorf/",
+        "https://teilzeitreisender.de/alt-bier-genuss-in-den-hausbrauereien-der-duesseldorfer-altstadt/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Brauerei im Füchschen",
+          "type": "bar",
+          "address": "Ratinger Straße 28, 40213 Düsseldorf",
+          "durationMin": 60,
+          "note": "Institution auf der legendären Ratinger Straße — süffiges Füchschen Alt vom Köbes als perfekter Startpunkt.",
+          "sourceUrls": [
+            "https://www.visitduesseldorf.de/en/experience/eating-and-going-out/breweries",
+            "https://www.brauhaustour.com/brauhaustour-duesseldorf-altbier-tour/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Zum Goldenen Einhorn",
+          "type": "bar",
+          "address": "Ratinger Straße 18, 40213 Düsseldorf",
+          "durationMin": 60,
+          "note": "Kult-Kneipe der Ratinger Straße mit Punk-Historie — hier trinkt Düsseldorf sein Alt ohne Touristenrummel.",
+          "sourceUrls": [
+            "https://www.stadtpfade-reisen.de/brauhaus-duesseldorf/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Brauerei Kürzer",
+          "type": "bar",
+          "address": "Kurze Straße 18-20, 40213 Düsseldorf",
+          "durationMin": 60,
+          "note": "Die jüngste und modernste Hausbrauerei der Altstadt — unfiltriertes Alt direkt aus dem Tank im Industrial-Look.",
+          "sourceUrls": [
+            "https://www.brauhaustour.com/brauhaustour-duesseldorf-altbier-tour/",
+            "https://www.visitduesseldorf.de/en/experience/eating-and-going-out/breweries"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Hausbrauerei Zum Schlüssel",
+          "type": "bar",
+          "address": "Bolkerstraße 41-47, 40213 Düsseldorf",
+          "durationMin": 60,
+          "note": "Traditionsbrauhaus seit 1850 — das Original Schlüssel Alt schmeckt am besten stehend an der Theke.",
+          "sourceUrls": [
+            "https://www.brauhaustour.com/brauhaustour-duesseldorf-altbier-tour/",
+            "https://www.stadtpfade-reisen.de/brauhaus-duesseldorf/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Zum Uerige",
+          "type": "bar",
+          "address": "Berger Straße 1, 40213 Düsseldorf",
+          "durationMin": 75,
+          "note": "Die authentischste Brauerei der Stadt: das herb-würzige Uerige Alt und blau beschürzte Köbesse als Höhepunkt der Tour.",
+          "sourceUrls": [
+            "https://www.visitduesseldorf.de/storys/2024/04/19/6-altbier-hotspots-keine-angst-vor-duesseldorfer-bier/",
+            "https://teilzeitreisender.de/alt-bier-genuss-in-den-hausbrauereien-der-duesseldorfer-altstadt/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Et Kabüffke Killepitsch-Stube",
+          "type": "bar",
+          "address": "Flinger Straße 1, 40213 Düsseldorf",
+          "durationMin": 45,
+          "note": "Der traditionelle Absacker: ein Gläschen Killepitsch-Kräuterlikör in der winzigen Kult-Stube am Fenster.",
+          "sourceUrls": [
+            "https://www.visitduesseldorf.de/storys/2024/04/19/6-altbier-hotspots-keine-angst-vor-duesseldorfer-bier/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "duesseldorf",
+      "slug": "duesseldorf-food-carlsplatz-littletokyo",
+      "title": "Food-Tour: Vom Carlsplatz nach Little Tokyo",
+      "description": "Eine kulinarische Tagestour vom traditionsreichen Carlsplatz-Markt über eine vegane Buffet-Pause bis ins japanische Viertel an der Immermannstraße. Den Abschluss macht ein frisch gezapftes Altbier in der Altstadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "carlsplatz",
+        "little-tokyo",
+        "vegetarisch",
+        "markt"
+      ],
+      "sourceUrls": [
+        "https://www.foodieduesseldorf.de/post/unsere-lieblingsst%C3%A4nde-auf-dem-carsplatz",
+        "https://www.visitduesseldorf.de/en/experience/eating-and-going-out/carlsplatz",
+        "https://www.visitduesseldorf.de/storys/2025/09/12/6-hotspots-matcha-in-duesseldorf-little-tokyo/",
+        "https://www.baeckerei-hinkel.de/",
+        "https://sattgruen.de/standorte-und-oeffnungszeiten/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bäckerei Hinkel",
+          "type": "cafe",
+          "address": "Hohe Straße 31, 40213 Düsseldorf",
+          "durationMin": 45,
+          "note": "Frühstücksstart beim Traditionsbäcker seit 1891 — rustikale Brote mit krachender Kruste, für die Düsseldorf Schlange steht.",
+          "sourceUrls": [
+            "https://www.baeckerei-hinkel.de/deutsch/verkauf/hohe-stra%C3%9Fe/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Carlsplatz Markt",
+          "type": "market",
+          "address": "Carlsplatz, 40213 Düsseldorf",
+          "durationMin": 90,
+          "note": "Düsseldorfs ältester Markt mit über 60 Ständen: Trüffel-Pasta bei Casa Cortilla, rheinische Suppen bei Dauser und mehr zum Durchprobieren.",
+          "sourceUrls": [
+            "https://www.foodieduesseldorf.de/post/unsere-lieblingsst%C3%A4nde-auf-dem-carsplatz",
+            "https://www.visitduesseldorf.de/en/experience/eating-and-going-out/carlsplatz"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Sattgrün",
+          "type": "restaurant",
+          "address": "Graf-Adolf-Platz 6, 40213 Düsseldorf",
+          "durationMin": 60,
+          "note": "Vegetarisch-vegane Mittagspause am bunten Buffet von Deutschlands erster rein veganer Restaurantkette.",
+          "sourceUrls": [
+            "https://sattgruen.de/standorte-und-oeffnungszeiten/",
+            "https://www.duesseldorf-vegan.de/restaurants-cafes"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Takumi",
+          "type": "restaurant",
+          "address": "Immermannstraße 28, 40210 Düsseldorf",
+          "durationMin": 60,
+          "note": "Kult-Ramen-Adresse in Little Tokyo: authentische Sapporo-Ramen mit Schweinebauch, Mais und Butter.",
+          "sourceUrls": [
+            "https://verliebt-in-japan.de/duesseldorf-little-tokyo/",
+            "https://www.pubcrawl-duesseldorf.com/little-tokyo-duesseldorf/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Matcha Café Wakaba",
+          "type": "cafe",
+          "address": "Immermannstraße 18, 40210 Düsseldorf",
+          "durationMin": 45,
+          "note": "Süßer Japan-Stopp: Matcha-Tiramisu, Mochi und Matcha-Latte in Düsseldorfs bekanntester Matcha-Adresse.",
+          "sourceUrls": [
+            "https://www.visitduesseldorf.de/storys/2025/09/12/6-hotspots-matcha-in-duesseldorf-little-tokyo/",
+            "https://little-tokyo-guide.de/en/blogs/article/matcha-duesseldorf-matcha-cafes"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Zum Uerige",
+          "type": "bar",
+          "address": "Berger Straße 1, 40213 Düsseldorf",
+          "durationMin": 60,
+          "note": "Kulinarischer Tagesabschluss mit einem frisch gezapften Uerige Alt in der wohl authentischsten Hausbrauerei der Stadt.",
+          "sourceUrls": [
+            "https://www.visitduesseldorf.de/en/experience/eating-and-going-out/breweries",
+            "https://www.visitduesseldorf.de/storys/2024/04/19/6-altbier-hotspots-keine-angst-vor-duesseldorfer-bier/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "leipzig",
+      "slug": "leipzig-date-plagwitz-kanal",
+      "title": "Date-Abend am Karl-Heine-Kanal: Industriecharme & Rooftop",
+      "description": "Ein romantischer Abend im Leipziger Westen: Aperitif und Dinner direkt am Wasser, dazu ein Sonnenuntergangs-Spaziergang am Karl-Heine-Kanal. Zum Abschluss Rooftop-Wein über den Dächern von Plagwitz und ein Absacker in einer Szenebar — alles in Gehweite.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "plagwitz",
+        "karl-heine-kanal",
+        "romantisch",
+        "rooftop"
+      ],
+      "sourceUrls": [
+        "https://www.kaiserbad-leipzig.de/",
+        "https://stappoweinbar.de/",
+        "https://www.urbanite.net/leipzig/artikel/restaurantswasserleipzig/",
+        "https://www.leipzig.travel/poi/karl-heine-strasse-in-plagwitz",
+        "https://www.nochbesserleben.com/kontakt/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kaiserbad",
+          "type": "bar",
+          "address": "Karl-Heine-Straße 93, 04229 Leipzig",
+          "durationMin": 60,
+          "note": "Aperitif auf der Terrasse des alten Westwerk-Bads mit Blick direkt über den Karl-Heine-Kanal.",
+          "sourceUrls": [
+            "https://www.kaiserbad-leipzig.de/",
+            "https://westwerk-leipzig.de/gastronomie/kaiserbad/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Stelzenhaus",
+          "type": "restaurant",
+          "address": "Weißenfelser Straße 65, 04229 Leipzig",
+          "durationMin": 105,
+          "note": "Dinner im architektonisch besonderen Stelzenhaus über dem Kanal — kreative Küche und Weine mit Wasserblick.",
+          "sourceUrls": [
+            "https://www.urbanite.net/leipzig/locations/stelzenhaus-1/",
+            "https://www.leipzig-days.de/stelzenhaus-am-karl-heine-kana/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Karl-Heine-Kanal Uferweg an den Buntgarnwerken",
+          "type": "viewpoint",
+          "address": "Nonnenstraße 44, 04229 Leipzig",
+          "durationMin": 45,
+          "note": "Abendspaziergang am beleuchteten Uferweg vorbei an den Backstein-Kulissen der Buntgarnwerke — Leipzigs schönster Kanalblick zu zweit.",
+          "sourceUrls": [
+            "https://www.leipzig.travel/blog/verborgenes-leipzig-karl-heine-strasse",
+            "https://www.leipzig.travel/poi/karl-heine-strasse-in-plagwitz"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "STAPPO Weinbar",
+          "type": "bar",
+          "address": "Karl-Heine-Straße 85a, 04229 Leipzig",
+          "durationMin": 75,
+          "note": "Rooftop-Weinbar im Westwerk (Di–Sa ab 18 Uhr) mit kuratierten Weinen und Blick über die Dächer von Plagwitz.",
+          "sourceUrls": [
+            "https://stappoweinbar.de/",
+            "https://www.urbanite.net/leipzig/locations/stappo-weinbar/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Noch Besser Leben",
+          "type": "bar",
+          "address": "Merseburger Straße 25, 04229 Leipzig",
+          "durationMin": 60,
+          "note": "Absacker in der legendären Eck-Szenekneipe an der Karl-Heine-Straße, seit 2006 Treffpunkt der Leipziger Szene.",
+          "sourceUrls": [
+            "https://www.nochbesserleben.com/kontakt/",
+            "https://kreuzer-leipzig.de/adressen/noch-besser-leben"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "leipzig",
+      "slug": "leipzig-kneipen-karli",
+      "title": "Kneipentour auf der Karli: Von Südplatz bis in die Nacht",
+      "description": "Ein authentischer Crawl über Leipzigs Kult-Kneipenmeile Karl-Liebknecht-Straße: vom Traditionshaus über Irish Pub und Studentenkneipe bis zur Craft-Beer-Bar. Das Finale steigt in der Musikkneipe Flowerpower, die bis 6 Uhr morgens offen hat.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "suedvorstadt",
+        "karli",
+        "craft-beer",
+        "late-night"
+      ],
+      "sourceUrls": [
+        "https://www.leipzig-leben.de/karl-liebknecht-strasse-leipzig/",
+        "https://volkshaus-leipzig.de/",
+        "https://www.killiwilly.de/",
+        "https://www.dr-hops.de/",
+        "https://flower-power.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Volkshaus Leipzig",
+          "type": "restaurant",
+          "address": "Karl-Liebknecht-Straße 30-32, 04107 Leipzig",
+          "durationMin": 75,
+          "note": "Grundlage schaffen im traditionsreichen Volkshaus — deftige Küche und erstes Bier im Kult-Wirtshaus der Karli.",
+          "sourceUrls": [
+            "https://volkshaus-leipzig.de/",
+            "https://www.leipzig.travel/poi/volkshaus-leipzig"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Killiwilly Irish Pub",
+          "type": "bar",
+          "address": "Karl-Liebknecht-Straße 44, 04107 Leipzig",
+          "durationMin": 60,
+          "note": "Guinness und Whisky-Auswahl im traditionellen Irish Pub direkt am Südplatz.",
+          "sourceUrls": [
+            "https://www.killiwilly.de/",
+            "https://pulsleipzig.de/2026/03/12/killiwilly/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Beyerhaus",
+          "type": "bar",
+          "address": "Ernst-Schneller-Straße 6, 04107 Leipzig",
+          "durationMin": 60,
+          "note": "Historische Studentenkneipe mit Gewölbekeller und Craft-Bier, nur einen kurzen Schlenker von der Karli entfernt.",
+          "sourceUrls": [
+            "https://www.leipzig.travel/poi/beyerhaus",
+            "https://leipzigartig.de/locations/beyerhaus/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Café Puschkin",
+          "type": "bar",
+          "address": "Karl-Liebknecht-Straße 74, 04275 Leipzig",
+          "durationMin": 60,
+          "note": "Seit 1998 die klassische Szenekneipe der Südvorstadt — perfekt für Bier und Gespräche bis spät.",
+          "sourceUrls": [
+            "https://cafe-puschkin.de/",
+            "https://www.leipzig.travel/gastro/cafe-puschkin"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Dr. Hops Craft Beer Bar",
+          "type": "bar",
+          "address": "Eichendorffstraße 7, 04277 Leipzig",
+          "durationMin": 75,
+          "note": "Über 80 Craft-Biere inklusive eigener Sude — der Bier-Nerd-Stopp am südlichen Ende der Tour Richtung Connewitz.",
+          "sourceUrls": [
+            "https://www.dr-hops.de/",
+            "https://www.travelmag.com/articles/craft-beer-bars-leipzig/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Flowerpower Leipzig",
+          "type": "bar",
+          "address": "Riemannstraße 42, 04107 Leipzig",
+          "durationMin": 90,
+          "note": "Finale in der Rock- und Oldies-Musikkneipe (täglich 20–6 Uhr, freier Eintritt) — mit Tram 10/11 in wenigen Minuten zurück nach Norden.",
+          "sourceUrls": [
+            "https://flower-power.de/",
+            "https://leipzigartig.de/locations/flowerpower-leipzig/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "leipzig",
+      "slug": "leipzig-food-zentrum-sued",
+      "title": "Food-Tour: Von der Südvorstadt bis zu Auerbachs Keller",
+      "description": "Kulinarische Tagestour von der Südvorstadt in die Innenstadt: Art-déco-Frühstück, veganer Zwischenstopp auf der Karli, Bummel über den Wochenmarkt und die berühmte Leipziger Lerche. Zum Abschluss sächsische Küche im historischen Auerbachs Keller.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "suedvorstadt",
+        "zentrum",
+        "vegan-freundlich",
+        "leipziger-lerche"
+      ],
+      "sourceUrls": [
+        "https://www.cafe-grundmann.de/",
+        "https://www.cafehinundveg.de/",
+        "https://www.leipzig.de/freizeit-kultur-und-tourismus/einkaufen-und-ausgehen/maerkte/wochenmaerkte",
+        "https://www.cafekandler.de/",
+        "https://www.falstaff.com/en/streetfood/cafe-hin-veg"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Café Grundmann",
+          "type": "cafe",
+          "address": "August-Bebel-Straße 2, 04275 Leipzig",
+          "durationMin": 75,
+          "note": "Frühstück im original erhaltenen Art-déco-Kaffeehaus — eines der schönsten Wiener Cafés im deutschsprachigen Raum.",
+          "sourceUrls": [
+            "https://www.cafe-grundmann.de/",
+            "https://www.cafe-grundmann.de/haus/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Hin & Veg",
+          "type": "cafe",
+          "address": "Karl-Liebknecht-Straße 112, 04275 Leipzig",
+          "durationMin": 60,
+          "note": "Veganer Zwischenstopp auf der Karli: hausgemachte pflanzliche Küche von Frühstückstellern bis Kuchen — komplett vegetarisch-freundlich.",
+          "sourceUrls": [
+            "https://www.cafehinundveg.de/",
+            "https://www.falstaff.com/en/streetfood/cafe-hin-veg"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Leipziger Wochenmarkt am Marktplatz",
+          "type": "market",
+          "address": "Markt 1, 04109 Leipzig",
+          "durationMin": 60,
+          "note": "Dienstags und freitags (9–17 Uhr) regionale Stände mit Obst, Käse, Fisch und Honig mitten in der Altstadt — ideal zum Probieren.",
+          "sourceUrls": [
+            "https://www.leipzig.de/freizeit-kultur-und-tourismus/einkaufen-und-ausgehen/maerkte/wochenmaerkte",
+            "https://www.leipzig-leben.de/wochenmarkt-leipzig-innenstadt/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Café Kandler",
+          "type": "cafe",
+          "address": "Thomaskirchhof 11, 04109 Leipzig",
+          "durationMin": 60,
+          "note": "Kaffeepause gegenüber der Thomaskirche mit der originalen Leipziger Lerche, dem Mürbeteig-Klassiker mit Marzipanfüllung.",
+          "sourceUrls": [
+            "https://www.cafekandler.de/",
+            "https://maps.adac.de/poi/cafe-kandler-leipzig"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Auerbachs Keller",
+          "type": "restaurant",
+          "address": "Grimmaische Straße 2-4, 04109 Leipzig",
+          "durationMin": 105,
+          "note": "Abschluss-Dinner mit sächsischer Küche im Goethe-berühmten Kellergewölbe der Mädlerpassage aus dem 16. Jahrhundert.",
+          "sourceUrls": [
+            "https://www.auerbachs-keller-leipzig.de/",
+            "https://www.gastroguide.de/city/leipzig/romantisches-candlelight-dinner/"
+          ]
+        }
+      ]
+    }
+  ]
+}
