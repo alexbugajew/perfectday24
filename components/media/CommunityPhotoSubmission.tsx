@@ -88,7 +88,7 @@ function fileLabel(count: number) {
 export default function CommunityPhotoSubmission({
   entityType,
   entityId,
-  title = "Foto beisteuern",
+  title = "Community-Fotos",
   subtitle = "Teile Bilder zu Route, Stop oder Anlass. Neue Uploads landen zuerst in der Pruefung.",
   stopOptions = [],
   previewItems = [],
@@ -107,6 +107,7 @@ export default function CommunityPhotoSubmission({
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
   const [ownSubmissions, setOwnSubmissions] = useState<OwnMediaSubmission[]>([]);
   const [isLoadingOwnSubmissions, setIsLoadingOwnSubmissions] = useState(false);
+  const [showOwnSubmissions, setShowOwnSubmissions] = useState(false);
 
   const modeOptions = useMemo(() => {
     if (entityType !== "route_with_stops" || stopOptions.length === 0) return [];
@@ -164,24 +165,6 @@ export default function CommunityPhotoSubmission({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activePreviewIndex, previewItems]);
-
-  const galleryItems = useMemo(() => {
-    const minimumSlots = 8;
-    const sourceItems = previewItems.slice(0, Math.max(previewItems.length, minimumSlots));
-
-    if (sourceItems.length >= minimumSlots) {
-      return sourceItems;
-    }
-
-    return [
-      ...sourceItems,
-      ...Array.from({ length: minimumSlots - sourceItems.length }, (_, index) => ({
-        id: `placeholder-${index}`,
-        url: "",
-        alt: null,
-      })),
-    ];
-  }, [previewItems]);
 
   const activePreviewItem = activePreviewIndex !== null ? previewItems[activePreviewIndex] : null;
 
@@ -442,6 +425,7 @@ export default function CommunityPhotoSubmission({
       setSelectedStopId("");
       setSuccess(`${files.length} ${fileLabel(files.length)} eingereicht. Nach der Freigabe erscheinen sie in der Galerie.`);
       await loadOwnSubmissions();
+      setShowOwnSubmissions(true);
       if (onSubmitted) await onSubmitted();
       setIsDialogOpen(false);
     } catch (uploadError) {
@@ -454,87 +438,81 @@ export default function CommunityPhotoSubmission({
 
   return (
     <>
-      <section className="relative rounded-[28px] border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
-        <div className="flex items-center justify-between gap-3 px-1 pb-3">
-          <div className="min-w-0">
+      <section className="rounded-[28px] border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)]">
+        <div className="flex flex-wrap items-center justify-between gap-3 px-1 pb-3">
+          <div className="flex min-w-0 items-center gap-2">
             <div className="pd24-meta">
               {title}
             </div>
+            {previewItems.length > 0 ? (
+              <div className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-0.5 text-[11px] text-[var(--text-muted)]">
+                {previewItems.length === 1 ? "1 Bild" : `${previewItems.length} Bilder`}
+              </div>
+            ) : null}
           </div>
           <div className="flex items-center gap-2">
-            <div className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1 text-[11px] text-[var(--text-muted)]">
-              {previewItems.length === 1 ? "1 Bild" : `${previewItems.length} Bilder`}
-            </div>
+            {ownSubmissions.length > 0 ? (
+              <button
+                type="button"
+                onClick={() => setShowOwnSubmissions((open) => !open)}
+                aria-expanded={showOwnSubmissions}
+                className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs text-[var(--text-muted)] transition hover:bg-[var(--bg-surface)]"
+              >
+                Meine Uploads ({isLoadingOwnSubmissions ? "…" : ownSubmissions.length})
+              </button>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => {
+                setError(null);
+                setSuccess(null);
+                setIsDialogOpen(true);
+              }}
+              className="pd24-btn pd24-btn-sm pd24-btn-secondary"
+            >
+              + Foto beisteuern
+            </button>
           </div>
         </div>
 
-        <div className="overflow-x-auto overflow-y-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-2 pr-20 pb-20">
-          <div className="grid auto-cols-[8.5rem] grid-flow-col grid-rows-2 gap-2 sm:auto-cols-[9.5rem] lg:auto-cols-[10.25rem]">
-            {galleryItems.map((item, index) => (
+        {previewItems.length > 0 ? (
+          <div className="-mx-1 flex snap-x gap-2 overflow-x-auto px-1 pb-1">
+            {previewItems.map((item, index) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => openPreview(index)}
-                disabled={!item.url}
-                className={[
-                  "group relative aspect-square overflow-hidden rounded-[var(--radius-control)] border border-[rgba(15,23,42,0.05)] bg-white text-left",
-                  item.url
-                    ? "cursor-pointer transition hover:border-[var(--line-strong)] hover:shadow-[0_10px_24px_rgba(15,23,42,0.08)]"
-                    : "cursor-default",
-                ].join(" ")}
-                aria-label={item.url ? `Bild ${index + 1} ansehen` : "Leerer Bildplatz"}
+                className="group relative h-28 w-28 shrink-0 snap-start overflow-hidden rounded-[var(--radius-control)] border border-[rgba(15,23,42,0.05)] bg-white transition hover:border-[var(--line-strong)] hover:shadow-[0_10px_24px_rgba(15,23,42,0.08)] sm:h-32 sm:w-32"
+                aria-label={`Bild ${index + 1} vergrößern`}
               >
-                {item.url ? (
-                  <>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.url}
-                      alt={item.alt || `Community-Foto ${index + 1}`}
-                      className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.02),rgba(15,23,42,0.22))]" />
-                    <div className="absolute right-2 top-2 rounded-full border border-white/18 bg-black/28 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white opacity-0 backdrop-blur-sm transition group-hover:opacity-100">
-                      Vorschau
-                    </div>
-                  </>
-                ) : (
-                  <div className="flex h-full items-center justify-center bg-[linear-gradient(135deg,#f8fafc,#eef2f7)]">
-                    <div className="h-8 w-8 rounded-full border border-[var(--line-subtle)] bg-white/90" />
-                  </div>
-                )}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.url}
+                  alt={item.alt || `Community-Foto ${index + 1}`}
+                  className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                />
               </button>
             ))}
           </div>
-        </div>
-
-        <div className="pointer-events-none absolute bottom-6 right-6">
-          <button
-            type="button"
-            onClick={() => {
-              setError(null);
-              setSuccess(null);
-              setIsDialogOpen(true);
-            }}
-            className="pointer-events-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--text-strong)] text-3xl font-light text-white shadow-[0_20px_40px_rgba(15,23,42,0.22)] transition hover:scale-[1.03] hover:opacity-92"
-            aria-label="Foto hochladen"
-          >
-            +
-          </button>
-        </div>
-
-        <div className="mt-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white p-4">
-          <div className="flex items-center justify-between gap-3">
-            <div className="pd24-meta">
-              Meine Uploads
-            </div>
-            <div className="text-xs text-[var(--text-muted)]">
-              {isLoadingOwnSubmissions ? "wird geladen..." : `${ownSubmissions.length} Einreichungen`}
-            </div>
+        ) : (
+          <div className="rounded-[var(--radius-card-sm)] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-5 text-sm text-[var(--text-muted)]">
+            Noch keine Community-Fotos. Teile den ersten Eindruck.
           </div>
+        )}
 
-          <div className="mt-3 space-y-3">
-            {ownSubmissions.length > 0 ? (
-              ownSubmissions.slice(0, 4).map((submission) => {
+        {showOwnSubmissions && ownSubmissions.length > 0 ? (
+          <div className="mt-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-white p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div className="pd24-meta">
+                Meine Uploads
+              </div>
+              <div className="text-xs text-[var(--text-muted)]">
+                {isLoadingOwnSubmissions ? "wird geladen..." : `${ownSubmissions.length} Einreichung${ownSubmissions.length === 1 ? "" : "en"}`}
+              </div>
+            </div>
+
+            <div className="mt-3 space-y-3">
+              {ownSubmissions.slice(0, 4).map((submission) => {
                 const statusMeta = SUBMISSION_STATUS_META[submission.moderationStatus] ?? SUBMISSION_STATUS_META.submitted;
                 return (
                   <div
@@ -574,14 +552,10 @@ export default function CommunityPhotoSubmission({
                     </div>
                   </div>
                 );
-              })
-            ) : (
-              <div className="rounded-[var(--radius-control)] border border-dashed border-[var(--line-subtle)] px-4 py-4 text-sm text-[var(--text-muted)]">
-                Eigene Einreichungen erscheinen hier mit Status, sobald du Bilder hochgeladen hast.
-              </div>
-            )}
+              })}
+            </div>
           </div>
-        </div>
+        ) : null}
       </section>
 
       {success ? <div className="mt-3 rounded-2xl pd24-status-success px-4 py-3 text-sm">{success}</div> : null}
