@@ -1,0 +1,1956 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-04T08:14:21.198Z",
+  "candidatesFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\date-pub-food-wave2-batch2-2026-08-image-candidates.json",
+  "candidatesGeneratedAt": "2026-08-04T07:53:31.654Z",
+  "instructions": [
+    "Setze approved=true fuer jedes Bild, das live verwendet werden darf.",
+    "selectedCandidateId kann auf einen anderen Kandidaten aus candidates gesetzt werden.",
+    "approved=false oder selectedCandidateId=null bedeutet: beim Apply ueberspringen.",
+    "Vor Freigabe bitte Motiv, Landingpage, Lizenz und Attribution pruefen."
+  ],
+  "routes": [
+    {
+      "citySlug": "dortmund",
+      "cityLabel": "Dortmund",
+      "routeSlug": "dortmund-date-kreuzviertel-u",
+      "routeTitle": "Date-Abend: Wein, Steak & Lichtkunst am Dortmunder U",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "86153f0ea517ebb1",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "86153f0ea517ebb1",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Dortmund - Dortmunder U (39)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Dortmund_-_Dortmunder_U_%2839%29.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/2505120f-643d-4035-9d3e-cc15fba08f6d/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=78463973",
+            "width": 5106,
+            "height": 3404,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Fred Romero from Paris, France",
+            "creatorUrl": "https://www.flickr.com/people/129231073@N06",
+            "attributionText": "\"Dortmund - Dortmunder U (39)\" by Fred Romero from Paris, France, by 2.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=78463973).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "13b7fcf03e655bb9",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Dortmund - Dortmunder U (19)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/db/Dortmund_-_Dortmunder_U_%2819%29.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/077bffd9-6da0-4f95-8c98-7b41db926675/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=78463924",
+            "width": 3280,
+            "height": 4924,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Fred Romero from Paris, France",
+            "creatorUrl": "https://www.flickr.com/people/129231073@N06",
+            "attributionText": "\"Dortmund - Dortmunder U (19)\" by Fred Romero from Paris, France, by 2.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=78463924).",
+            "score": 90,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "a355f71a4443d822",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Dortmund - Dortmunder U",
+            "imageUrl": "https://live.staticflickr.com/5550/31221835611_33f74b3c7e_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/950f8977-de10-4691-ba74-8f1959dafb69/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/129231073@N06/31221835611",
+            "width": 682,
+            "height": 1024,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "corno.fulgur75",
+            "creatorUrl": "https://www.flickr.com/photos/129231073@N06",
+            "attributionText": "\"Dortmund - Dortmunder U\" by corno.fulgur75, by 2.0, via Openverse (https://www.flickr.com/photos/129231073@N06/31221835611).",
+            "score": 90,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "dortmund",
+      "cityLabel": "Dortmund",
+      "routeSlug": "dortmund-kneipen-kreuzviertel",
+      "routeTitle": "Kneipentour Kreuzviertel: Von Bergmann bis Miner's",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "dortmund",
+      "cityLabel": "Dortmund",
+      "routeSlug": "dortmund-food-markt-kreuzviertel",
+      "routeTitle": "Food-Tour: Hansamarkt, Kreuzviertel & Currywurst-Kult",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "essen",
+      "cityLabel": "Essen",
+      "routeSlug": "essen-date-rue-baldeneysee",
+      "routeTitle": "Date-Abend auf der R\u00fc: Wein, Nelson M\u00fcller & Seeblick",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "essen",
+      "cityLabel": "Essen",
+      "routeSlug": "essen-kneipen-rue",
+      "routeTitle": "Kneipentour \u00fcber die R\u00fc: Von der Amp\u00fctte ins Irish Pub",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "essen",
+      "cityLabel": "Essen",
+      "routeSlug": "essen-food-rue-zollverein",
+      "routeTitle": "Food-Tour durch Essen: R\u00fc, Markt & Zollverein",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "mannheim",
+      "cityLabel": "Mannheim",
+      "routeSlug": "mannheim-date-wasserturm",
+      "routeTitle": "Sterne \u00fcber den Quadraten: Date-Abend am Wasserturm",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "f06f09d31120cb96",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "f06f09d31120cb96",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Wasserturm Mannheim",
+            "imageUrl": "https://live.staticflickr.com/1942/44964928541_051465e055_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/47487e14-ade8-4a5f-81d9-d165382cfcdd/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/74738817@N07/44964928541",
+            "width": 1024,
+            "height": 770,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "anro0002",
+            "creatorUrl": "https://www.flickr.com/photos/74738817@N07",
+            "attributionText": "\"Wasserturm Mannheim\" by anro0002, by-sa 2.0, via Openverse (https://www.flickr.com/photos/74738817@N07/44964928541).",
+            "score": 85,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "93663f5adc36c02f",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Wasserturm Mannheim",
+            "imageUrl": "https://live.staticflickr.com/1965/44964923971_2b243a9fa5_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/61723659-765d-4b18-b3fe-64fae89aad74/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/74738817@N07/44964923971",
+            "width": 1024,
+            "height": 760,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "anro0002",
+            "creatorUrl": "https://www.flickr.com/photos/74738817@N07",
+            "attributionText": "\"Wasserturm Mannheim\" by anro0002, by-sa 2.0, via Openverse (https://www.flickr.com/photos/74738817@N07/44964923971).",
+            "score": 85,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ee64b4cbf87e476e",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "20180925Wasserturm Mannheim08",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/20180925Wasserturm_Mannheim08.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/b5e902c8-73f5-4baa-964a-e4e967d5ee1b/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=73080376",
+            "width": 3000,
+            "height": 2250,
+            "license": "cc0",
+            "licenseVersion": "1.0",
+            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+            "creator": "AnRo0002",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:AnRo0002",
+            "attributionText": "\"20180925Wasserturm Mannheim08\" by AnRo0002, cc0 1.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=73080376).",
+            "score": 70,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "mannheim",
+      "cityLabel": "Mannheim",
+      "routeSlug": "mannheim-kneipen-jungbusch",
+      "routeTitle": "Jungbusch-Crawl: Von Craft Beer bis Kult-Kneipe",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "mannheim",
+      "cityLabel": "Mannheim",
+      "routeSlug": "mannheim-food-quadrate-jungbusch",
+      "routeTitle": "Schmeck die Quadrate: Vom Marktplatz in den Jungbusch",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "wiesbaden",
+      "cityLabel": "Wiesbaden",
+      "routeSlug": "wiesbaden-date-kurpark",
+      "routeTitle": "Riesling, Genussk\u00fcche & Kurpark: Date-Abend in Wiesbaden",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "9fe5d4122c6cee12",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "9fe5d4122c6cee12",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Wiesbaden Moments ( #cc )",
+            "imageUrl": "https://live.staticflickr.com/463/31218616064_b6130e95b6_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/ea4d3cdb-c89f-4592-b4b0-c4c3e341cd60/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/45409431@N00/31218616064",
+            "width": 768,
+            "height": 1024,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "marfis75",
+            "creatorUrl": "https://www.flickr.com/photos/45409431@N00",
+            "attributionText": "\"Wiesbaden Moments ( #cc )\" by marfis75, by 2.0, via Openverse (https://www.flickr.com/photos/45409431@N00/31218616064).",
+            "score": 75,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "ae3912aeeead6d42",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Ice, ice...",
+            "imageUrl": "https://live.staticflickr.com/308/31191660503_4ec2dfc334_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/764c2e34-8327-416e-912a-691124c294d1/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/45409431@N00/31191660503",
+            "width": 1024,
+            "height": 768,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "marfis75",
+            "creatorUrl": "https://www.flickr.com/photos/45409431@N00",
+            "attributionText": "\"Ice, ice...\" by marfis75, by 2.0, via Openverse (https://www.flickr.com/photos/45409431@N00/31191660503).",
+            "score": 65,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "ec7798557aad8ee0",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Two too yellow ( #cc )",
+            "imageUrl": "https://live.staticflickr.com/5831/22249259553_89dbb80dd8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6809fac8-ff5d-4e11-841d-e525a51ed91e/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/45409431@N00/22249259553",
+            "width": 682,
+            "height": 1024,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "marfis75",
+            "creatorUrl": "https://www.flickr.com/photos/45409431@N00",
+            "attributionText": "\"Two too yellow ( #cc )\" by marfis75, by 2.0, via Openverse (https://www.flickr.com/photos/45409431@N00/22249259553).",
+            "score": 60,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "wiesbaden",
+      "cityLabel": "Wiesbaden",
+      "routeSlug": "wiesbaden-kneipen-westend",
+      "routeTitle": "Vom Sedanplatz zum Schlachthof: Kneipentour Wiesbaden",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "wiesbaden",
+      "cityLabel": "Wiesbaden",
+      "routeSlug": "wiesbaden-wein-markttag",
+      "routeTitle": "Markttag & Rheingau-Wein: Food-Tour durch Wiesbaden",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "duisburg",
+      "cityLabel": "Duisburg",
+      "routeSlug": "duisburg-date-innenhafen-lichter",
+      "routeTitle": "Date-Abend: Innenhafen-Dinner & Lichtermeer im Landschaftspark",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "2428dfc99840865a",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2428dfc99840865a",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Landschaftspark Duisburg-Nord 2020 - Hoch\u00f6fen 1 und 2 mit Lichtinstallation",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Landschaftspark_Duisburg-Nord_2020_-_Hoch%C3%B6fen_1_und_2_mit_Lichtinstallation.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6a35f390-46d7-4d7c-9a70-d145d6a4fd4e/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=94316979",
+            "width": 6024,
+            "height": 4024,
+            "license": "by-sa",
+            "licenseVersion": "3.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en/",
+            "creator": "Thoroe",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Thoroe",
+            "attributionText": "\"Landschaftspark Duisburg-Nord 2020 - Hoch\u00f6fen 1 und 2 mit Lichtinstallation\" by Thoroe, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=94316979).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "06d573d7a6fb70ac",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Duisburg, Landschaftspark Duisburg-Nord, K\u00fchlwerk -- 2024 -- 4278",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/96/Duisburg%2C_Landschaftspark_Duisburg-Nord%2C_K%C3%BChlwerk_--_2024_--_4278.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Duisburg%2C_Landschaftspark_Duisburg-Nord%2C_K%C3%BChlwerk_--_2024_--_4278.jpg/1280px-Duisburg%2C_Landschaftspark_Duisburg-Nord%2C_K%C3%BChlwerk_--_2024_--_4278.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Duisburg,_Landschaftspark_Duisburg-Nord,_K%C3%BChlwerk_--_2024_--_4278.jpg",
+            "width": 6720,
+            "height": 4480,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Duisburg, Landschaftspark Duisburg-Nord, K\u00fchlwerk -- 2024 -- 4278\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Duisburg,_Landschaftspark_Duisburg-Nord,_K%C3%BChlwerk_--_2024_--_4278.jpg).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "37770163b57a7eba",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Duisburg, Landschaftspark Duisburg-Nord, Hochofenstra\u00dfe -- 2025 -- 7441",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Duisburg%2C_Landschaftspark_Duisburg-Nord%2C_Hochofenstra%C3%9Fe_--_2025_--_7441.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Duisburg%2C_Landschaftspark_Duisburg-Nord%2C_Hochofenstra%C3%9Fe_--_2025_--_7441.jpg/1280px-Duisburg%2C_Landschaftspark_Duisburg-Nord%2C_Hochofenstra%C3%9Fe_--_2025_--_7441.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Duisburg,_Landschaftspark_Duisburg-Nord,_Hochofenstra%C3%9Fe_--_2025_--_7441.jpg",
+            "width": 3776,
+            "height": 4720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Duisburg, Landschaftspark Duisburg-Nord, Hochofenstra\u00dfe -- 2025 -- 7441\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Duisburg,_Landschaftspark_Duisburg-Nord,_Hochofenstra%C3%9Fe_--_2025_--_7441.jpg).",
+            "score": 90,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "duisburg",
+      "cityLabel": "Duisburg",
+      "routeSlug": "duisburg-kneipen-dellviertel",
+      "routeTitle": "Kneipentour: Vom Dellplatz bis zur l\u00e4ngsten Theke Neudorfs",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "duisburg",
+      "cityLabel": "Duisburg",
+      "routeSlug": "duisburg-food-innenhafen-hochfeld",
+      "routeTitle": "Food-Tour: R\u00f6stkaffee, Markt, Innenhafen & Hochfelder K\u00fcche",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bochum",
+      "cityLabel": "Bochum",
+      "routeSlug": "bochum-date-westpark-lichter",
+      "routeTitle": "Date-Abend in Bochum: Wein, Loft-Dinner & Westpark-Lichter",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "f784b7b641889640",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "f784b7b641889640",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Bochum - Alleestra\u00dfe - Westpark - Jahrhunderthalle 24 ies",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_24_ies.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_24_ies.jpg/1280px-Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_24_ies.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_24_ies.jpg",
+            "width": 5616,
+            "height": 3744,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Frank Vincentz",
+            "creatorUrl": null,
+            "attributionText": "\"Bochum - Alleestra\u00dfe - Westpark - Jahrhunderthalle 24 ies\" by Frank Vincentz, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_24_ies.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c405024861dd8fa5",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Bochum - Alleestra\u00dfe - Westpark - Jahrhunderthalle 33 ies",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/75/Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_33_ies.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_33_ies.jpg/1280px-Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_33_ies.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_33_ies.jpg",
+            "width": 5616,
+            "height": 3744,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Frank Vincentz",
+            "creatorUrl": null,
+            "attributionText": "\"Bochum - Alleestra\u00dfe - Westpark - Jahrhunderthalle 33 ies\" by Frank Vincentz, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_33_ies.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "cd7020a96fd969b9",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Bochum - Alleestra\u00dfe - Westpark - Jahrhunderthalle 04 ies",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_04_ies.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_04_ies.jpg/1280px-Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_04_ies.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_04_ies.jpg",
+            "width": 3744,
+            "height": 5616,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Frank Vincentz",
+            "creatorUrl": null,
+            "attributionText": "\"Bochum - Alleestra\u00dfe - Westpark - Jahrhunderthalle 04 ies\" by Frank Vincentz, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bochum_-_Alleestra%C3%9Fe_-_Westpark_-_Jahrhunderthalle_04_ies.jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bochum",
+      "cityLabel": "Bochum",
+      "routeSlug": "bochum-kneipen-bermuda3eck-klassiker",
+      "routeTitle": "Kneipentour durchs Bermuda3eck: Fiege, Pinte & Nachtklassiker",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bochum",
+      "cityLabel": "Bochum",
+      "routeSlug": "bochum-food-ehrenfeld-currywurst",
+      "routeTitle": "Food-Tour Bochum: Ehrenfeld-Caf\u00e9s, Markt & Currywurst-Kult",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "wuppertal",
+      "cityLabel": "Wuppertal",
+      "routeSlug": "wuppertal-date-luisenviertel",
+      "routeTitle": "Date-Abend: Hardt-Blick, Luisenviertel & Schwebebahn",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "wuppertal",
+      "cityLabel": "Wuppertal",
+      "routeSlug": "wuppertal-kneipen-luisenviertel",
+      "routeTitle": "Kneipentour durchs Luisenviertel \u2013 Elberfelds Altstadt",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "wuppertal",
+      "cityLabel": "Wuppertal",
+      "routeSlug": "wuppertal-food-oelberg-barmen",
+      "routeTitle": "Food-Tour: \u00d6lberg, Nordbahntrasse & Barmer Brauhaus",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bielefeld",
+      "cityLabel": "Bielefeld",
+      "routeSlug": "bielefeld-date-altstadt-sparrenburg",
+      "routeTitle": "Date-Abend: Tapas, Rooftop-Dinner & Sparrenburg-Blick",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "0f83c5cff078f0a5",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "0f83c5cff078f0a5",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Sparrenburg in Bielefeld (11)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/Sparrenburg_in_Bielefeld_%2811%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sparrenburg_in_Bielefeld_%2811%29.jpg/1280px-Sparrenburg_in_Bielefeld_%2811%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Sparrenburg_in_Bielefeld_(11).jpg",
+            "width": 5281,
+            "height": 2346,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Tournasol7",
+            "creatorUrl": null,
+            "attributionText": "\"Sparrenburg in Bielefeld (11)\" by Tournasol7, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Sparrenburg_in_Bielefeld_(11).jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "7ef4efbae33022f3",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg Bergfried 2012",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Bielefeld_Sparrenburg_Bergfried_2012.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/3e349dbe-0855-4a1e-84f7-79745979d387/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=19856120",
+            "width": 3648,
+            "height": 2736,
+            "license": "by-sa",
+            "licenseVersion": "3.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+            "creator": "Ub12vow",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Ub12vow",
+            "attributionText": "\"Bielefeld Sparrenburg Bergfried 2012\" by Ub12vow, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=19856120).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bielefeld",
+      "cityLabel": "Bielefeld",
+      "routeSlug": "bielefeld-kneipen-altstadt-siggi",
+      "routeTitle": "Kneipentour: Von der Altstadt zum Siggi",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bielefeld",
+      "cityLabel": "Bielefeld",
+      "routeSlug": "bielefeld-food-altstadt-siggi",
+      "routeTitle": "Food-Tour: Kaffeekultur, Siggi-Markt & Westfalen-K\u00fcche",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e016d8cefb9d1ec9",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld Altstadt",
+            "imageUrl": "https://live.staticflickr.com/6163/6178248659_9a2126dd9d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/55701323-75ab-4117-a410-2007e0839de7/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/55043400@N00/6178248659",
+            "width": 1024,
+            "height": 680,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "pthread1981",
+            "creatorUrl": "https://www.flickr.com/photos/55043400@N00",
+            "attributionText": "\"Bielefeld Altstadt\" by pthread1981, by 2.0, via Openverse (https://www.flickr.com/photos/55043400@N00/6178248659).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "464f6c013255cab2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Bielefeld - Kreuzstra\u00dfe",
+            "imageUrl": "https://live.staticflickr.com/3474/3905497791_e1a31d1296_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6063ca69-031c-4325-b50f-3004ee4b5b90/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/27556454@N07/3905497791",
+            "width": 1024,
+            "height": 718,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "rauter25",
+            "creatorUrl": "https://www.flickr.com/photos/27556454@N07",
+            "attributionText": "\"Bielefeld - Kreuzstra\u00dfe\" by rauter25, by-sa 2.0, via Openverse (https://www.flickr.com/photos/27556454@N07/3905497791).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ad1d7e8404a57fe2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Bielefeld Sparrenburg 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bielefeld_Sparrenburg_2.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d6773b05-90df-453a-99d3-f770f854e1db/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1336290",
+            "width": 2448,
+            "height": 1632,
+            "license": "by",
+            "licenseVersion": "2.5",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+            "creator": "Zefram",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Zefram",
+            "attributionText": "\"Bielefeld Sparrenburg 2\" by Zefram, by 2.5, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1336290).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    }
+  ]
+}

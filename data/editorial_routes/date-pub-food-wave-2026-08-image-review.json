@@ -1,0 +1,1933 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-04T08:14:20.976Z",
+  "candidatesFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\date-pub-food-wave-2026-08-image-candidates.json",
+  "candidatesGeneratedAt": "2026-08-04T07:50:20.890Z",
+  "instructions": [
+    "Setze approved=true fuer jedes Bild, das live verwendet werden darf.",
+    "selectedCandidateId kann auf einen anderen Kandidaten aus candidates gesetzt werden.",
+    "approved=false oder selectedCandidateId=null bedeutet: beim Apply ueberspringen.",
+    "Vor Freigabe bitte Motiv, Landingpage, Lizenz und Attribution pruefen."
+  ],
+  "routes": [
+    {
+      "citySlug": "berlin-berlin",
+      "cityLabel": "Berlin",
+      "routeSlug": "berlin-date-neukoelln-sunset",
+      "routeTitle": "Sonnenuntergang & Naturwein: Date-Abend in Neuk\u00f6lln",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "cityLabel": "Berlin",
+      "routeSlug": "berlin-kneipen-kreuzberg-classic",
+      "routeTitle": "Kneipentour SO36: Von Wrangelkiez bis Kotti",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "cityLabel": "Berlin",
+      "routeSlug": "berlin-food-kreuzberg-neukoelln",
+      "routeTitle": "Food-Tour: Von G\u00f6rli \u00fcber Markthalle Neun zur Sonnenallee",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-date-alster-abend",
+      "routeTitle": "Romantischer Abend zwischen Rathaus und Alster",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "088adf9d8e4ef59f",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "088adf9d8e4ef59f",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Hamburg-Jungfernstieg und Binnenalster im 19. Jh",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Hamburg-Jungfernstieg_und_Binnenalster_im_19._Jh.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Hamburg-Jungfernstieg_und_Binnenalster_im_19._Jh.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Hamburg-Jungfernstieg_und_Binnenalster_im_19._Jh.jpg",
+            "width": 982,
+            "height": 755,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Peter Suhr (1788-)",
+            "creatorUrl": null,
+            "attributionText": "\"Hamburg-Jungfernstieg und Binnenalster im 19. Jh\" by Peter Suhr (1788-), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Hamburg-Jungfernstieg_und_Binnenalster_im_19._Jh.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "21cc269f3397c7ff",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Pincerno - Binnenalster beim Jungfernstieg 1830",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Pincerno_-_Binnenalster_beim_Jungfernstieg_1830.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Pincerno_-_Binnenalster_beim_Jungfernstieg_1830.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Pincerno_-_Binnenalster_beim_Jungfernstieg_1830.jpg",
+            "width": 927,
+            "height": 656,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Gebr\u00fcder Suhr , \u2020 1842 und 1857",
+            "creatorUrl": null,
+            "attributionText": "\"Pincerno - Binnenalster beim Jungfernstieg 1830\" by Gebr\u00fcder Suhr , \u2020 1842 und 1857, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Pincerno_-_Binnenalster_beim_Jungfernstieg_1830.jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "33d5750cf3ff72e0",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Hamburg Jungfernstieg 01",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/75/Hamburg_Jungfernstieg_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Hamburg_Jungfernstieg_01.jpg/1280px-Hamburg_Jungfernstieg_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Hamburg_Jungfernstieg_01.jpg",
+            "width": 6028,
+            "height": 4042,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Huhu Uet",
+            "creatorUrl": null,
+            "attributionText": "\"Hamburg Jungfernstieg 01\" by Huhu Uet, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Hamburg_Jungfernstieg_01.jpg).",
+            "score": 92,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-kneipen-schanze",
+      "routeTitle": "Kneipen-Crawl durch die Sternschanze",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-food-schanze-hafen",
+      "routeTitle": "Food-Tour von der Schanze bis zur Hafenkante",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "M\u00fcnchen",
+      "routeSlug": "muenchen-date-isarblick",
+      "routeTitle": "Aperitivo, Isarblick & Nightcap \u2013 Date-Abend an der Isar",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "90bb72e6d9b415a2",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "90bb72e6d9b415a2",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Jugendstilbr\u00fccke \u201eKabelsteg\u201c \u00fcber die Isar in M\u00fcnchen zwischen Praterinsel und Isar-Ostufer (errichtet 1898)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/76/Jugendstilbr%C3%BCcke_%E2%80%9EKabelsteg%E2%80%9C_%C3%BCber_die_Isar_in_M%C3%BCnchen_zwischen_Praterinsel_und_Isar-Ostufer_%28errichtet_1898%29.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/c965bb4e-abf0-401d-beee-d608a910d3a4/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=72699514",
+            "width": 5344,
+            "height": 3008,
+            "license": "by-sa",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "creator": "Moausminga",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Moausminga&action=edit&redlink=1",
+            "attributionText": "\"Jugendstilbr\u00fccke \u201eKabelsteg\u201c \u00fcber die Isar in M\u00fcnchen zwischen Praterinsel und Isar-Ostufer (errichtet 1898)\" by Moausminga, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=72699514).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "7156876bf48d0bcc",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Kabelsteg Muenchen-5",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Kabelsteg_Muenchen-5.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Kabelsteg_Muenchen-5.jpg/1280px-Kabelsteg_Muenchen-5.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Kabelsteg_Muenchen-5.jpg",
+            "width": 5225,
+            "height": 3315,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Rufus46",
+            "creatorUrl": null,
+            "attributionText": "\"Kabelsteg Muenchen-5\" by Rufus46, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kabelsteg_Muenchen-5.jpg).",
+            "score": 82,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "e113b95e1f2ea59c",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Kabelsteg Muenchen-6",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Kabelsteg_Muenchen-6.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Kabelsteg_Muenchen-6.jpg/1280px-Kabelsteg_Muenchen-6.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Kabelsteg_Muenchen-6.jpg",
+            "width": 5400,
+            "height": 3510,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Rufus46",
+            "creatorUrl": null,
+            "attributionText": "\"Kabelsteg Muenchen-6\" by Rufus46, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kabelsteg_Muenchen-6.jpg).",
+            "score": 82,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "M\u00fcnchen",
+      "routeSlug": "muenchen-kneipen-glockenbach",
+      "routeTitle": "Glockenbach-Crawl: Wirtshaus, Szenekneipen & Late-Night",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "M\u00fcnchen",
+      "routeSlug": "muenchen-food-viktualienmarkt",
+      "routeTitle": "Schmalznudel bis Wei\u00dfbier: Food-Tour um den Viktualienmarkt",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "koeln",
+      "cityLabel": "K\u00f6ln",
+      "routeSlug": "koeln-date-rheinblick",
+      "routeTitle": "Date-Abend: Weinbar, Fine Dining & Rheinblick",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "a34b00210b146eef",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "a34b00210b146eef",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Rheinboulevard mit Freitreppe in K\u00f6ln-Deutz nach Teiler\u00f6ffnung-8227",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8227.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8227.jpg/1280px-Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8227.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8227.jpg",
+            "width": 5184,
+            "height": 2916,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Raimond Spekking",
+            "creatorUrl": null,
+            "attributionText": "\"Rheinboulevard mit Freitreppe in K\u00f6ln-Deutz nach Teiler\u00f6ffnung-8227\" by Raimond Spekking, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8227.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "d75887883584acf4",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Rheinboulevard mit Freitreppe in K\u00f6ln-Deutz nach Teiler\u00f6ffnung-8279",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8279.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8279.jpg/1280px-Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8279.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8279.jpg",
+            "width": 5184,
+            "height": 2916,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Raimond Spekking",
+            "creatorUrl": null,
+            "attributionText": "\"Rheinboulevard mit Freitreppe in K\u00f6ln-Deutz nach Teiler\u00f6ffnung-8279\" by Raimond Spekking, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Rheinboulevard_mit_Freitreppe_in_K%C3%B6ln-Deutz_nach_Teiler%C3%B6ffnung-8279.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "668cd450ae1ba126",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Pressekonferenz zu den arch\u00e4ologischen Grabungen am Rheinboulevard K\u00f6ln-Deutz-5057",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Pressekonferenz_zu_den_arch%C3%A4ologischen_Grabungen_am_Rheinboulevard_K%C3%B6ln-Deutz-5057.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Pressekonferenz_zu_den_arch%C3%A4ologischen_Grabungen_am_Rheinboulevard_K%C3%B6ln-Deutz-5057.jpg/1280px-Pressekonferenz_zu_den_arch%C3%A4ologischen_Grabungen_am_Rheinboulevard_K%C3%B6ln-Deutz-5057.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Pressekonferenz_zu_den_arch%C3%A4ologischen_Grabungen_am_Rheinboulevard_K%C3%B6ln-Deutz-5057.jpg",
+            "width": 3456,
+            "height": 5184,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Raimond Spekking",
+            "creatorUrl": null,
+            "attributionText": "\"Pressekonferenz zu den arch\u00e4ologischen Grabungen am Rheinboulevard K\u00f6ln-Deutz-5057\" by Raimond Spekking, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Pressekonferenz_zu_den_arch%C3%A4ologischen_Grabungen_am_Rheinboulevard_K%C3%B6ln-Deutz-5057.jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "koeln",
+      "cityLabel": "K\u00f6ln",
+      "routeSlug": "koeln-kneipen-suedstadt",
+      "routeTitle": "S\u00fcdstadt-Kneipentour: K\u00f6lsch-Kultur em Veedel",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "koeln",
+      "cityLabel": "K\u00f6ln",
+      "routeSlug": "koeln-food-ehrenfeld",
+      "routeTitle": "Food-Tour Ehrenfeld: Von Zimtschnecke bis Helios-Bier",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-date-main-skyline",
+      "routeTitle": "Romantischer Abend am Main: Aperitif, Men\u00fc & Skyline",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "d744f64e30ab28b2",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "d744f64e30ab28b2",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Skyline Frankfurt-am-Main Eiserner Steg",
+            "imageUrl": "https://live.staticflickr.com/1552/24764858615_0f4ae49dae_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/630ed642-8bb1-46d3-b7dc-79474f027c9f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/134928025@N05/24764858615",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "andreastrojak",
+            "creatorUrl": "https://www.flickr.com/photos/134928025@N05",
+            "attributionText": "\"Skyline Frankfurt-am-Main Eiserner Steg\" by andreastrojak, by 2.0, via Openverse (https://www.flickr.com/photos/134928025@N05/24764858615).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "443cb4d947030e6e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Frankfurt am Main - Eiserner Steg, Schaumainkai - 1",
+            "imageUrl": "https://live.staticflickr.com/2923/13925585227_5e72d1fd02_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/5fed1c37-ecbf-4660-8f16-8e9064b56be8/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/59923990@N05/13925585227",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Picturepest",
+            "creatorUrl": "https://www.flickr.com/photos/59923990@N05",
+            "attributionText": "\"Frankfurt am Main - Eiserner Steg, Schaumainkai - 1\" by Picturepest, by 2.0, via Openverse (https://www.flickr.com/photos/59923990@N05/13925585227).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "41a1ed582f8baa9f",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Frankfurt am Main - Eiserner Steg, Schaumainkai - 2",
+            "imageUrl": "https://live.staticflickr.com/7205/14132317763_a27a595b20_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/460c39db-6317-41ac-a704-94ef7e2be098/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/59923990@N05/14132317763",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Picturepest",
+            "creatorUrl": "https://www.flickr.com/photos/59923990@N05",
+            "attributionText": "\"Frankfurt am Main - Eiserner Steg, Schaumainkai - 2\" by Picturepest, by 2.0, via Openverse (https://www.flickr.com/photos/59923990@N05/14132317763).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-kneipen-sachsenhausen",
+      "routeTitle": "Ebbelwoi-Crawl durch Alt-Sachsenhausen",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-food-kleinmarkthalle-wein",
+      "routeTitle": "Kulinarische Tagestour: Kleinmarkthalle & Rheingau-Wein",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "stuttgart",
+      "cityLabel": "Stuttgart",
+      "routeSlug": "stuttgart-date-kesselblick",
+      "routeTitle": "Date-Abend im Kessel: Aperitif, Sternek\u00fcche & St\u00e4ffele",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "524eb2fb3a96cb6e",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "524eb2fb3a96cb6e",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Stuttgart - Mitte - Eugensplatz mit Galatea-Brunnen in der Blauen Stunde 1",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/56/Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_1.jpg/1280px-Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_1.jpg",
+            "width": 6000,
+            "height": 4000,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Roman Eisele",
+            "creatorUrl": null,
+            "attributionText": "\"Stuttgart - Mitte - Eugensplatz mit Galatea-Brunnen in der Blauen Stunde 1\" by Roman Eisele, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_1.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "4fb1b4f4e5b326fa",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Stuttgart - Mitte - Eugensplatz mit Galatea-Brunnen in der Blauen Stunde 2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/db/Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_2.jpg/1280px-Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_2.jpg",
+            "width": 6000,
+            "height": 4000,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Roman Eisele",
+            "creatorUrl": null,
+            "attributionText": "\"Stuttgart - Mitte - Eugensplatz mit Galatea-Brunnen in der Blauen Stunde 2\" by Roman Eisele, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "9a87b4c5e3e58d65",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Stuttgart - Mitte - Eugensplatz mit Galatea-Brunnen in der Blauen Stunde 1",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/56/Stuttgart_-_Mitte_-_Eugensplatz_mit_Galatea-Brunnen_in_der_Blauen_Stunde_1.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/79e3f76a-b93e-4d48-8afb-01317445943e/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=62398989",
+            "width": 6000,
+            "height": 4000,
+            "license": "by-sa",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "creator": "Roman Eisele",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Aristeas",
+            "attributionText": "\"Stuttgart - Mitte - Eugensplatz mit Galatea-Brunnen in der Blauen Stunde 1\" by Roman Eisele, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=62398989).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "stuttgart",
+      "cityLabel": "Stuttgart",
+      "routeSlug": "stuttgart-kneipen-bohnenviertel",
+      "routeTitle": "Viertelestour: Kneipen & Weinstuben im Bohnenviertel",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "stuttgart",
+      "cityLabel": "Stuttgart",
+      "routeSlug": "stuttgart-wein-uhlbach",
+      "routeTitle": "Weinstadt Stuttgart: Markthalle, Weinberge & Viertele",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "duesseldorf",
+      "cityLabel": "D\u00fcsseldorf",
+      "routeSlug": "duesseldorf-date-medienhafen",
+      "routeTitle": "Romantischer Abend: Altstadt-Aperitif & Medienhafen-Lichter",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "duesseldorf",
+      "cityLabel": "D\u00fcsseldorf",
+      "routeSlug": "duesseldorf-kneipen-altstadt",
+      "routeTitle": "Altbier-Safari: Hausbrauereien & Klassiker der Altstadt",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "duesseldorf",
+      "cityLabel": "D\u00fcsseldorf",
+      "routeSlug": "duesseldorf-food-carlsplatz-littletokyo",
+      "routeTitle": "Food-Tour: Vom Carlsplatz nach Little Tokyo",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "leipzig",
+      "cityLabel": "Leipzig",
+      "routeSlug": "leipzig-date-plagwitz-kanal",
+      "routeTitle": "Date-Abend am Karl-Heine-Kanal: Industriecharme & Rooftop",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "leipzig",
+      "cityLabel": "Leipzig",
+      "routeSlug": "leipzig-kneipen-karli",
+      "routeTitle": "Kneipentour auf der Karli: Von S\u00fcdplatz bis in die Nacht",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "leipzig",
+      "cityLabel": "Leipzig",
+      "routeSlug": "leipzig-food-zentrum-sued",
+      "routeTitle": "Food-Tour: Von der S\u00fcdvorstadt bis zu Auerbachs Keller",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2a010ea6aa1fafa8",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/WebMedia-Agentur%2C_S%C3%BCdvorstadt%2C_Leipzig_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg",
+            "width": 1024,
+            "height": 768,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Andr\u00e9 L.",
+            "creatorUrl": null,
+            "attributionText": "\"WebMedia-Agentur, S\u00fcdvorstadt, Leipzig - panoramio\" by Andr\u00e9 L., CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:WebMedia-Agentur,_S%C3%BCdvorstadt,_Leipzig_-_panoramio.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "253bfde9a6fb323e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig S\u00fcdvorstadt!",
+            "imageUrl": "https://live.staticflickr.com/175/400692167_f5d1e4623a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/557c770e-ae24-4bb1-b07d-1567ee928026/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/60634076@N00/400692167",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Adrian Be",
+            "creatorUrl": "https://www.flickr.com/photos/60634076@N00",
+            "attributionText": "\"Leipzig S\u00fcdvorstadt!\" by Adrian Be, by 2.0, via Openverse (https://www.flickr.com/photos/60634076@N00/400692167).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "03e2c68d88106462",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Leipzig",
+            "imageUrl": "https://live.staticflickr.com/4888/32493914128_88f7c513e8_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/26b0cd34-b8a2-4365-a3a6-72e2b6cabb1f/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/72482589@N07/32493914128",
+            "width": 1024,
+            "height": 683,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Astro_Alex",
+            "creatorUrl": "https://www.flickr.com/photos/72482589@N07",
+            "attributionText": "\"Leipzig\" by Astro_Alex, by-sa 2.0, via Openverse (https://www.flickr.com/photos/72482589@N07/32493914128).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    }
+  ]
+}

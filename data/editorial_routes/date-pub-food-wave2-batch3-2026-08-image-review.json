@@ -1,0 +1,1835 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-04T08:14:21.298Z",
+  "candidatesFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\date-pub-food-wave2-batch3-2026-08-image-candidates.json",
+  "candidatesGeneratedAt": "2026-08-04T07:55:07.747Z",
+  "instructions": [
+    "Setze approved=true fuer jedes Bild, das live verwendet werden darf.",
+    "selectedCandidateId kann auf einen anderen Kandidaten aus candidates gesetzt werden.",
+    "approved=false oder selectedCandidateId=null bedeutet: beim Apply ueberspringen.",
+    "Vor Freigabe bitte Motiv, Landingpage, Lizenz und Attribution pruefen."
+  ],
+  "routes": [
+    {
+      "citySlug": "augsburg",
+      "cityLabel": "Augsburg",
+      "routeSlug": "augsburg-date-maxstrasse-lechviertel",
+      "routeTitle": "Date-Abend: Maximilianstra\u00dfe, Welterbe-Kan\u00e4le & Cocktails",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "augsburg",
+      "cityLabel": "Augsburg",
+      "routeSlug": "augsburg-kneipen-altstadt-lech",
+      "routeTitle": "Kneipentour: Von der Riegele BrauWelt ins Lechviertel",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "augsburg",
+      "cityLabel": "Augsburg",
+      "routeSlug": "augsburg-food-stadtmarkt-schwaben",
+      "routeTitle": "Food-Tour: Stadtmarkt, schw\u00e4bische K\u00fcche & Kaffeehauskultur",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "braunschweig",
+      "cityLabel": "Braunschweig",
+      "routeSlug": "braunschweig-date-magniviertel",
+      "routeTitle": "Date-Abend im Magniviertel: Wein, Fuchs & L\u00f6wenstadt-Lichter",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "c16d2f1eca6ef04b",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "c16d2f1eca6ef04b",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "1166 Silberm\u00fcnze Heinrich der L\u00f6we",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/21/1166_Silberm%C3%BCnze_Heinrich_der_L%C3%B6we.png",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/6aab9371-2628-4226-b20d-f147ea868503/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=128153521",
+            "width": 805,
+            "height": 813,
+            "license": "by-sa",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "creator": "M\u00fcnzst\u00e4tte Braunschweig",
+            "creatorUrl": null,
+            "attributionText": "\"1166 Silberm\u00fcnze Heinrich der L\u00f6we\" by M\u00fcnzst\u00e4tte Braunschweig, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=128153521).",
+            "score": 68,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "f511cb21f78aee0b",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "BraunschweigDom",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e3/BraunschweigDom.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/a89b1175-8ae2-4370-b88e-07b6415bc7ca/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=1770712",
+            "width": 2734,
+            "height": 2418,
+            "license": "by-sa",
+            "licenseVersion": "3.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+            "creator": "Kassandro",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Kassandro",
+            "attributionText": "\"BraunschweigDom\" by Kassandro, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=1770712).",
+            "score": 65,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "braunschweig",
+      "cityLabel": "Braunschweig",
+      "routeSlug": "braunschweig-kneipen-magni-crawl",
+      "routeTitle": "Kneipentour: Von Theke zu Theke durchs Magniviertel",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "braunschweig",
+      "cityLabel": "Braunschweig",
+      "routeSlug": "braunschweig-food-loewenstadt",
+      "routeTitle": "Food-Tour: Kohlmarkt, Mumme & Magniviertel-Genuss",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "kiel",
+      "cityLabel": "Kiel",
+      "routeSlug": "kiel-date-foerde-romantik",
+      "routeTitle": "F\u00f6rde-Romantik: Weinbar, Sternemen\u00fc & Drinks \u00fcberm Wasser",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "2fcfdca734b7c76c",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "2fcfdca734b7c76c",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Kiellinie, H\u00f6he Reventloubr\u00fccke (Kiel 46.974)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Kiellinie%2C_H%C3%B6he_Reventloubr%C3%BCcke_%28Kiel_46.974%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Kiellinie%2C_H%C3%B6he_Reventloubr%C3%BCcke_%28Kiel_46.974%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Kiellinie,_H%C3%B6he_Reventloubr%C3%BCcke_(Kiel_46.974).jpg",
+            "width": 1024,
+            "height": 675,
+            "license": "CC BY-SA 3.0 de",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+            "creator": "Magnussen, Friedrich (1914-1987)",
+            "creatorUrl": null,
+            "attributionText": "\"Kiellinie, H\u00f6he Reventloubr\u00fccke (Kiel 46.974)\" by Magnussen, Friedrich (1914-1987), CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kiellinie,_H%C3%B6he_Reventloubr%C3%BCcke_(Kiel_46.974).jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "ce7ca6251fa7b45e",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Kiellinie, die neue Promenade zwischen Seeburg und Institut f\u00fcr Weltwirtschaft zur Kieler Woche 1972 (Kiel 5.311)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/21/Kiellinie%2C_die_neue_Promenade_zwischen_Seeburg_und_Institut_f%C3%BCr_Weltwirtschaft_zur_Kieler_Woche_1972_%28Kiel_5.311%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/2/21/Kiellinie%2C_die_neue_Promenade_zwischen_Seeburg_und_Institut_f%C3%BCr_Weltwirtschaft_zur_Kieler_Woche_1972_%28Kiel_5.311%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Kiellinie,_die_neue_Promenade_zwischen_Seeburg_und_Institut_f%C3%BCr_Weltwirtschaft_zur_Kieler_Woche_1972_(Kiel_5.311).jpg",
+            "width": 956,
+            "height": 720,
+            "license": "CC BY-SA 3.0 de",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+            "creator": "Magnussen, Friedrich (1914-1987)",
+            "creatorUrl": null,
+            "attributionText": "\"Kiellinie, die neue Promenade zwischen Seeburg und Institut f\u00fcr Weltwirtschaft zur Kieler Woche 1972 (Kiel 5.311)\" by Magnussen, Friedrich (1914-1987), CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kiellinie,_die_neue_Promenade_zwischen_Seeburg_und_Institut_f%C3%BCr_Weltwirtschaft_zur_Kieler_Woche_1972_(Kiel_5.311).jpg).",
+            "score": 92,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "58c973a3f6d52b5c",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Kiellinie, die neue Promenade zwischen Seeburg und Institut f\u00fcr Weltwirtschaft zur Kieler Woche 1972 (Kiel 53.345)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Kiellinie%2C_die_neue_Promenade_zwischen_Seeburg_und_Institut_f%C3%BCr_Weltwirtschaft_zur_Kieler_Woche_1972_%28Kiel_53.345%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Kiellinie%2C_die_neue_Promenade_zwischen_Seeburg_und_Institut_f%C3%BCr_Weltwirtschaft_zur_Kieler_Woche_1972_%28Kiel_53.345%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Kiellinie,_die_neue_Promenade_zwischen_Seeburg_und_Institut_f%C3%BCr_Weltwirtschaft_zur_Kieler_Woche_1972_(Kiel_53.345).jpg",
+            "width": 1024,
+            "height": 675,
+            "license": "CC BY-SA 3.0 de",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+            "creator": "Magnussen, Friedrich (1914-1987)",
+            "creatorUrl": null,
+            "attributionText": "\"Kiellinie, die neue Promenade zwischen Seeburg und Institut f\u00fcr Weltwirtschaft zur Kieler Woche 1972 (Kiel 53.345)\" by Magnussen, Friedrich (1914-1987), CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kiellinie,_die_neue_Promenade_zwischen_Seeburg_und_Institut_f%C3%BCr_Weltwirtschaft_zur_Kieler_Woche_1972_(Kiel_53.345).jpg).",
+            "score": 92,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "kiel",
+      "cityLabel": "Kiel",
+      "routeSlug": "kiel-kneipen-bergstrasse",
+      "routeTitle": "Kieler Kneipenkiez: Von der Brunswik zur Bergstra\u00dfe",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "kiel",
+      "cityLabel": "Kiel",
+      "routeSlug": "kiel-food-maritim",
+      "routeTitle": "Maritime Schlemmertour: R\u00f6ster, Markt & Fischbr\u00f6tchen",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "gelsenkirchen",
+      "cityLabel": "Gelsenkirchen",
+      "routeSlug": "gelsenkirchen-date-schloss-berge",
+      "routeTitle": "Date-Abend in Buer: Schlossromantik & Herkules-Blick",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "gelsenkirchen",
+      "cityLabel": "Gelsenkirchen",
+      "routeSlug": "gelsenkirchen-kneipen-buer",
+      "routeTitle": "Kneipentour Buer: Von der Domplatte bis zum Absacker",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "gelsenkirchen",
+      "cityLabel": "Gelsenkirchen",
+      "routeSlug": "gelsenkirchen-food-buer",
+      "routeTitle": "Food-Tour Gelsenkirchen: Markt, Currywurst & Dolce Vita",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "moenchengladbach",
+      "cityLabel": "M\u00f6nchengladbach",
+      "routeSlug": "moenchengladbach-date-altstadt",
+      "routeTitle": "Date-Abend: Weinkeller, Altstadt & Bunter Garten",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "moenchengladbach",
+      "cityLabel": "M\u00f6nchengladbach",
+      "routeSlug": "moenchengladbach-kneipen-waldhausener",
+      "routeTitle": "Kneipentour: Von der Hensen Brauerei zum Alten Markt",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "moenchengladbach",
+      "cityLabel": "M\u00f6nchengladbach",
+      "routeSlug": "moenchengladbach-food-rheydt-altstadt",
+      "routeTitle": "Food-Tour: Vom Rheydter Markt bis zur Markthalle",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "magdeburg",
+      "cityLabel": "Magdeburg",
+      "routeSlug": "magdeburg-date-elbufer-dom",
+      "routeTitle": "Date-Abend an der Elbe: Aperitif, Dom & Rooftop",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "magdeburg",
+      "cityLabel": "Magdeburg",
+      "routeSlug": "magdeburg-kneipen-hasselbachplatz",
+      "routeTitle": "Kneipentour Hasselbachplatz: Sternstra\u00dfe-Klassiker",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "magdeburg",
+      "cityLabel": "Magdeburg",
+      "routeSlug": "magdeburg-food-markt-buckau",
+      "routeTitle": "Food-Tour: Alter Markt, Buckau & Elbe-Biergarten",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "luebeck",
+      "cityLabel": "L\u00fcbeck",
+      "routeSlug": "luebeck-date-huexstrasse-obertrave",
+      "routeTitle": "Date-Abend: H\u00fcxstra\u00dfe, G\u00e4ngehof-Dinner & Trave-Romantik",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "6888d6dbe3ea92fb",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "6888d6dbe3ea92fb",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "File:Malerwinkel(L\u00fcbeck)01.JPG",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Malerwinkel%28L%C3%BCbeck%2901.JPG",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/df68901a-e6c6-4dd1-a828-cd448c35c821/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=19008995",
+            "width": 3648,
+            "height": 2736,
+            "license": "by-sa",
+            "licenseVersion": "3.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+            "creator": "Kresspahl",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Kresspahl",
+            "attributionText": "\"File:Malerwinkel(L\u00fcbeck)01.JPG\" by Kresspahl, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=19008995).",
+            "score": 85,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "b6925f95f2a1152a",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "L\u00fcbeck View from Malerwinkel to the bridge Dankwartsbr\u00fccke",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/L%C3%BCbeck_View_from_Malerwinkel_to_the_bridge_Dankwartsbr%C3%BCcke.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/86b0d643-502c-4251-a1f6-e63ec83b08d1/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=94393094",
+            "width": 3780,
+            "height": 2155,
+            "license": "by-sa",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "creator": "Nemracc",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Nemracc",
+            "attributionText": "\"L\u00fcbeck View from Malerwinkel to the bridge Dankwartsbr\u00fccke\" by Nemracc, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=94393094).",
+            "score": 85,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "b222b5440f791867",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "File:ViewFromMalerwinkel(L\u00fcbeck)09.JPG",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/92/ViewFromMalerwinkel%28L%C3%BCbeck%2909.JPG",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d05e7be8-8422-40ba-9cc4-858148cc9876/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=19008997",
+            "width": 3648,
+            "height": 2736,
+            "license": "by-sa",
+            "licenseVersion": "3.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+            "creator": "Kresspahl",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Kresspahl",
+            "attributionText": "\"File:ViewFromMalerwinkel(L\u00fcbeck)09.JPG\" by Kresspahl, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=19008997).",
+            "score": 75,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "luebeck",
+      "cityLabel": "L\u00fcbeck",
+      "routeSlug": "luebeck-kneipen-altstadtinsel",
+      "routeTitle": "Kneipentour: Vom Alten Zolln bis in den Gotteskeller",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "luebeck",
+      "cityLabel": "L\u00fcbeck",
+      "routeSlug": "luebeck-food-marzipan-rotspon",
+      "routeTitle": "Food-Tour: Marzipan, Markt, G\u00e4nge-Viertel & Rotspon",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "erfurt",
+      "cityLabel": "Erfurt",
+      "routeSlug": "erfurt-date-altstadt-abendlicht",
+      "routeTitle": "Date-Abend: Gera-Ufer, Kr\u00e4merbr\u00fccke & Cocktails",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "ffcb257163d572c9",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "ffcb257163d572c9",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Bundesarchiv Bild 183-H1023-0212-002, Erfurt, Innenstadt",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Bundesarchiv_Bild_183-H1023-0212-002%2C_Erfurt%2C_Innenstadt.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Bundesarchiv_Bild_183-H1023-0212-002%2C_Erfurt%2C_Innenstadt.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-H1023-0212-002,_Erfurt,_Innenstadt.jpg",
+            "width": 603,
+            "height": 800,
+            "license": "CC BY-SA 3.0 de",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+            "creator": "Dieter Demme",
+            "creatorUrl": null,
+            "attributionText": "\"Bundesarchiv Bild 183-H1023-0212-002, Erfurt, Innenstadt\" by Dieter Demme, CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-H1023-0212-002,_Erfurt,_Innenstadt.jpg).",
+            "score": 77,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "2b3c834e190185f2",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt, Wenigemarkt, Plastik",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Bundesarchiv_Bild_183-1990-0831-024%2C_Erfurt%2C_Wenigemarkt%2C_Plastik.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Bundesarchiv_Bild_183-1990-0831-024%2C_Erfurt%2C_Wenigemarkt%2C_Plastik.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-1990-0831-024,_Erfurt,_Wenigemarkt,_Plastik.jpg",
+            "width": 574,
+            "height": 800,
+            "license": "CC BY-SA 3.0 de",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+            "creator": "Hirschberger, Ralph",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt, Wenigemarkt, Plastik\" by Hirschberger, Ralph, CC BY-SA 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-1990-0831-024,_Erfurt,_Wenigemarkt,_Plastik.jpg).",
+            "score": 77,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "42001ec2b69ab163",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Wiki Loves Monuments 2014-Fototour Erfurt",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Wiki_Loves_Monuments_2014-Fototour_Erfurt.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Wiki_Loves_Monuments_2014-Fototour_Erfurt.pdf/page1-960px-Wiki_Loves_Monuments_2014-Fototour_Erfurt.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Wiki_Loves_Monuments_2014-Fototour_Erfurt.pdf",
+            "width": 1239,
+            "height": 1754,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dr. Bernd Gross",
+            "creatorUrl": null,
+            "attributionText": "\"Wiki Loves Monuments 2014-Fototour Erfurt\" by Dr. Bernd Gross, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wiki_Loves_Monuments_2014-Fototour_Erfurt.pdf).",
+            "score": 77,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "erfurt",
+      "cityLabel": "Erfurt",
+      "routeSlug": "erfurt-kneipen-michaelisstrasse",
+      "routeTitle": "Kneipentour: Michaelisstra\u00dfe & Andreasviertel",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "8d3403cb9bacc69d",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt Michaelisstra\u00dfe Sued",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Erfurt_Michaelisstra%C3%9Fe_Sued.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg",
+            "width": 599,
+            "height": 521,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Benutzer:Siechfred",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt Michaelisstra\u00dfe Sued\" by Benutzer:Siechfred, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_Michaelisstra%C3%9Fe_Sued.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "e73ec739c9974985",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Erfurt cathedral and severi church-2",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Erfurt_cathedral_and_severi_church-2.jpg/1280px-Erfurt_cathedral_and_severi_church-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg",
+            "width": 3420,
+            "height": 2640,
+            "license": "Public domain",
+            "licenseVersion": null,
+            "licenseUrl": null,
+            "creator": "Thuringius",
+            "creatorUrl": null,
+            "attributionText": "\"Erfurt cathedral and severi church-2\" by Thuringius, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Erfurt_cathedral_and_severi_church-2.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "3090ee8f724796be",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "19870529125NR Erfurt Katholisches Priesterseminar",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg/1280px-19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg",
+            "width": 3771,
+            "height": 3016,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "J\u00f6rg Blobelt",
+            "creatorUrl": null,
+            "attributionText": "\"19870529125NR Erfurt Katholisches Priesterseminar\" by J\u00f6rg Blobelt, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:19870529125NR_Erfurt_Katholisches_Priesterseminar.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "erfurt",
+      "cityLabel": "Erfurt",
+      "routeSlug": "erfurt-food-markt-bruecke",
+      "routeTitle": "Food-Tour: Vom Domplatz-Markt zur Kr\u00e4merbr\u00fccke",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "d461aefa05035b8a",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "d461aefa05035b8a",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Mustard museum Erfurt Wenigemarkt Born",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Mustard_museum_Erfurt_Wenigemarkt_Born.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Mustard_museum_Erfurt_Wenigemarkt_Born.JPG/1280px-Mustard_museum_Erfurt_Wenigemarkt_Born.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Mustard_museum_Erfurt_Wenigemarkt_Born.JPG",
+            "width": 2304,
+            "height": 3072,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Giorno2",
+            "creatorUrl": null,
+            "attributionText": "\"Mustard museum Erfurt Wenigemarkt Born\" by Giorno2, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mustard_museum_Erfurt_Wenigemarkt_Born.JPG).",
+            "score": 85,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    }
+  ]
+}

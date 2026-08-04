@@ -1,0 +1,2091 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-04T08:14:21.082Z",
+  "candidatesFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\date-pub-food-wave2-batch1-2026-08-image-candidates.json",
+  "candidatesGeneratedAt": "2026-08-04T07:52:07.773Z",
+  "instructions": [
+    "Setze approved=true fuer jedes Bild, das live verwendet werden darf.",
+    "selectedCandidateId kann auf einen anderen Kandidaten aus candidates gesetzt werden.",
+    "approved=false oder selectedCandidateId=null bedeutet: beim Apply ueberspringen.",
+    "Vor Freigabe bitte Motiv, Landingpage, Lizenz und Attribution pruefen."
+  ],
+  "routes": [
+    {
+      "citySlug": "dresden",
+      "cityLabel": "Dresden",
+      "routeSlug": "dresden-date-altstadt-abend",
+      "routeTitle": "Romantischer Abend zwischen Frauenkirche und Elbufer",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "dresden",
+      "cityLabel": "Dresden",
+      "routeSlug": "dresden-kneipen-aeussere-neustadt",
+      "routeTitle": "Kneipentour durch die \u00c4u\u00dfere Neustadt",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "dresden",
+      "cityLabel": "Dresden",
+      "routeSlug": "dresden-food-neustadt-tagestour",
+      "routeTitle": "Kulinarische Tagestour durch die Dresdner Neustadt",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "0b6beadb634ac6cd",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "0b6beadb634ac6cd",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Dresden - Kunsthofpassage: Hof der Tiere",
+            "imageUrl": "https://live.staticflickr.com/1453/26227382330_a8ba2dff48_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/507d85c9-7e2d-477e-aa9c-b31a414fa3bb/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/129231073@N06/26227382330",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "corno.fulgur75",
+            "creatorUrl": "https://www.flickr.com/photos/129231073@N06",
+            "attributionText": "\"Dresden - Kunsthofpassage: Hof der Tiere\" by corno.fulgur75, by 2.0, via Openverse (https://www.flickr.com/photos/129231073@N06/26227382330).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "b5c8f0eedd5012ae",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Dresden - Kunsthofpassage: Hof der Elemente",
+            "imageUrl": "https://live.staticflickr.com/1510/26500226325_9f0624efea_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/10f1e0eb-48d3-46c5-9af0-94a212840795/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/129231073@N06/26500226325",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "corno.fulgur75",
+            "creatorUrl": "https://www.flickr.com/photos/129231073@N06",
+            "attributionText": "\"Dresden - Kunsthofpassage: Hof der Elemente\" by corno.fulgur75, by 2.0, via Openverse (https://www.flickr.com/photos/129231073@N06/26500226325).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "9a4e60d9fbc64f53",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Dresden - Kunsthofpassage: Hof der Elemente",
+            "imageUrl": "https://live.staticflickr.com/1494/25895332894_34d87d8632_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/932ef51b-4090-4a22-92ef-190afaeb432d/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/129231073@N06/25895332894",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "corno.fulgur75",
+            "creatorUrl": "https://www.flickr.com/photos/129231073@N06",
+            "attributionText": "\"Dresden - Kunsthofpassage: Hof der Elemente\" by corno.fulgur75, by 2.0, via Openverse (https://www.flickr.com/photos/129231073@N06/25895332894).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "nuernberg",
+      "cityLabel": "N\u00fcrnberg",
+      "routeSlug": "nuernberg-date-sebalder-altstadt",
+      "routeTitle": "Date-Abend in der Sebalder Altstadt: Wein, Burg & Bar",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "nuernberg",
+      "cityLabel": "N\u00fcrnberg",
+      "routeSlug": "nuernberg-kneipen-gostenhof",
+      "routeTitle": "GoHo-Kneipentour: Rotbier, Retro-Salon & Craft Beer",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "nuernberg",
+      "cityLabel": "N\u00fcrnberg",
+      "routeSlug": "nuernberg-food-hauptmarkt",
+      "routeTitle": "Food-Tour: Hauptmarkt, Bratwurst, Lebkuchen & Rotbier",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "hannover",
+      "cityLabel": "Hannover",
+      "routeSlug": "hannover-date-maschsee",
+      "routeTitle": "Date-Abend: Aperitif, Seeblick & Rooftop-Finale",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "bf7c4e14f9550bc2",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "bf7c4e14f9550bc2",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Hannover Russischer Friedhof Maschsee",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/65/Hannover_Russischer_Friedhof_Maschsee.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/6/65/Hannover_Russischer_Friedhof_Maschsee.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Hannover_Russischer_Friedhof_Maschsee.jpg",
+            "width": 884,
+            "height": 692,
+            "license": "CC0",
+            "licenseVersion": null,
+            "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+            "creator": "Axel Hindemith",
+            "creatorUrl": null,
+            "attributionText": "\"Hannover Russischer Friedhof Maschsee\" by Axel Hindemith, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Hannover_Russischer_Friedhof_Maschsee.jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          },
+          {
+            "id": "8188fb3efc29b6f2",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Egon Kuhn ehemaliger Leiter Freizeitheim Linden in Hannover auf dem Ehrenfriedhof am Maschsee-Nordufer",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Egon_Kuhn_ehemaliger_Leiter_Freizeitheim_Linden_in_Hannover_auf_dem_Ehrenfriedhof_am_Maschsee-Nordufer.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Egon_Kuhn_ehemaliger_Leiter_Freizeitheim_Linden_in_Hannover_auf_dem_Ehrenfriedhof_am_Maschsee-Nordufer.jpg/1280px-Egon_Kuhn_ehemaliger_Leiter_Freizeitheim_Linden_in_Hannover_auf_dem_Ehrenfriedhof_am_Maschsee-Nordufer.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Egon_Kuhn_ehemaliger_Leiter_Freizeitheim_Linden_in_Hannover_auf_dem_Ehrenfriedhof_am_Maschsee-Nordufer.jpg",
+            "width": 1817,
+            "height": 2880,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Bernd Schwabe in Hannover",
+            "creatorUrl": null,
+            "attributionText": "\"Egon Kuhn ehemaliger Leiter Freizeitheim Linden in Hannover auf dem Ehrenfriedhof am Maschsee-Nordufer\" by Bernd Schwabe in Hannover, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Egon_Kuhn_ehemaliger_Leiter_Freizeitheim_Linden_in_Hannover_auf_dem_Ehrenfriedhof_am_Maschsee-Nordufer.jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "5165c15b3d3d1b2c",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Finals Hannover Maschsee Nordufer",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/16/Finals_Hannover_Maschsee_Nordufer.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/a5acd55a-30b9-449a-9572-a02484115a3e/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=196079359",
+            "width": 2189,
+            "height": 1519,
+            "license": "by-sa",
+            "licenseVersion": "3.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+            "creator": "Axel Hindemith",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:AxelHH",
+            "attributionText": "\"Finals Hannover Maschsee Nordufer\" by Axel Hindemith, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=196079359).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "hannover",
+      "cityLabel": "Hannover",
+      "routeSlug": "hannover-kneipen-limmerstrasse",
+      "routeTitle": "Limmern deluxe: Kneipentour durch Linden",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "hannover",
+      "cityLabel": "Hannover",
+      "routeSlug": "hannover-food-markthalle",
+      "routeTitle": "Food-Tour: Vom Fr\u00fchst\u00fcck durch den Bauch von Hannover",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bremen",
+      "cityLabel": "Bremen",
+      "routeSlug": "bremen-date-weserglanz",
+      "routeTitle": "Weserglanz: Romantischer Abend von Wein bis B\u00f6ttcherstra\u00dfe",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bremen",
+      "cityLabel": "Bremen",
+      "routeSlug": "bremen-kneipen-viertelklassiker",
+      "routeTitle": "Viertelklassiker: Kneipencrawl von Ostertor bis Steintor",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bremen",
+      "cityLabel": "Bremen",
+      "routeSlug": "bremen-food-kaffeestadt",
+      "routeTitle": "Kaffeestadt Bremen: Von der R\u00f6sterei bis in den Ratskeller",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bonn",
+      "cityLabel": "Bonn",
+      "routeSlug": "bonn-date-rheinblick",
+      "routeTitle": "Romantischer Abend: Altstadt-Wein, Rheinterrasse & Alter Zoll",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "e3b979959a768cbb",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "e3b979959a768cbb",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Bonn-475x-Alter Zoll (Bonn)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Bonn-475x-Alter_Zoll_%28Bonn%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bonn-475x-Alter_Zoll_%28Bonn%29.jpg/1280px-Bonn-475x-Alter_Zoll_%28Bonn%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Bonn-475x-Alter_Zoll_(Bonn).jpg",
+            "width": 4032,
+            "height": 2268,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Wolkenkratzer",
+            "creatorUrl": null,
+            "attributionText": "\"Bonn-475x-Alter Zoll (Bonn)\" by Wolkenkratzer, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bonn-475x-Alter_Zoll_(Bonn).jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "02eb1f7b9469e950",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Bonn-522 Alter Zoll",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Bonn-522_Alter_Zoll.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Bonn-522_Alter_Zoll.JPG/1280px-Bonn-522_Alter_Zoll.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Bonn-522_Alter_Zoll.JPG",
+            "width": 4032,
+            "height": 2268,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Wolkenkratzer",
+            "creatorUrl": null,
+            "attributionText": "\"Bonn-522 Alter Zoll\" by Wolkenkratzer, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bonn-522_Alter_Zoll.JPG).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c0e5a98a09e7c9ee",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "2017-09-03-Bonn Alter Zoll 01",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/2017-09-03-Bonn_Alter_Zoll_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/2017-09-03-Bonn_Alter_Zoll_01.jpg/1280px-2017-09-03-Bonn_Alter_Zoll_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:2017-09-03-Bonn_Alter_Zoll_01.jpg",
+            "width": 5472,
+            "height": 3648,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "HKuhse-Bonn",
+            "creatorUrl": null,
+            "attributionText": "\"2017-09-03-Bonn Alter Zoll 01\" by HKuhse-Bonn, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:2017-09-03-Bonn_Alter_Zoll_01.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bonn",
+      "cityLabel": "Bonn",
+      "routeSlug": "bonn-kneipen-altstadt",
+      "routeTitle": "Kneipentour Altstadt: Vom Brauhaus \u00fcber die Heerstra\u00dfe",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "bonn",
+      "cityLabel": "Bonn",
+      "routeSlug": "bonn-food-marktplatz-poppelsdorf",
+      "routeTitle": "Food-Tour: Marktplatz, Vollwert-Buffet & Poppelsdorf",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "muenster",
+      "cityLabel": "M\u00fcnster",
+      "routeSlug": "muenster-date-altstadt-abend",
+      "routeTitle": "Date-Abend: Aperitif, Frankreich-Flair & Prinzipalmarkt",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "a9c8249b59dcbedb",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "a9c8249b59dcbedb",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "M\u00fcnster, Prinzipalmarkt m. Lambertikirche",
+            "imageUrl": "https://live.staticflickr.com/7415/11416752213_c285819e81_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/47f32cde-27bf-4190-90b9-1f1cf2841f20/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/53974379@N05/11416752213",
+            "width": 1024,
+            "height": 768,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Riessdo",
+            "creatorUrl": "https://www.flickr.com/photos/53974379@N05",
+            "attributionText": "\"M\u00fcnster, Prinzipalmarkt m. Lambertikirche\" by Riessdo, by 2.0, via Openverse (https://www.flickr.com/photos/53974379@N05/11416752213).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "3b33f2ffc72414ad",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "2021-10-08 10-11 Mu\u0308nster 085 Prinzipalmarkt, Lambertikirche",
+            "imageUrl": "https://live.staticflickr.com/65535/51597112365_042c54befa_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/20a117ec-ca90-4480-b3de-7344e419809e/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/28577026@N02/51597112365",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Allie_Caulfield",
+            "creatorUrl": "https://www.flickr.com/photos/28577026@N02",
+            "attributionText": "\"2021-10-08 10-11 Mu\u0308nster 085 Prinzipalmarkt, Lambertikirche\" by Allie_Caulfield, by 2.0, via Openverse (https://www.flickr.com/photos/28577026@N02/51597112365).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          },
+          {
+            "id": "e7eeae2f16b0bb2d",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "2012-11-01 M\u00fcnster 023 Altstadt, Prinzipalmarkt, Lambertikirche",
+            "imageUrl": "https://live.staticflickr.com/8220/8333419210_e5a923e64f_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/3b2beca8-d3c3-44eb-9b5e-3a0158685363/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/28577026@N02/8333419210",
+            "width": 1024,
+            "height": 683,
+            "license": "by",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+            "creator": "Allie_Caulfield",
+            "creatorUrl": "https://www.flickr.com/photos/28577026@N02",
+            "attributionText": "\"2012-11-01 M\u00fcnster 023 Altstadt, Prinzipalmarkt, Lambertikirche\" by Allie_Caulfield, by 2.0, via Openverse (https://www.flickr.com/photos/28577026@N02/8333419210).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "muenster",
+      "cityLabel": "M\u00fcnster",
+      "routeSlug": "muenster-kneipen-kuhviertel-hafen",
+      "routeTitle": "Kneipentour: Vom Kuhviertel an den Hafen",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "muenster",
+      "cityLabel": "M\u00fcnster",
+      "routeSlug": "muenster-food-markt-hafen",
+      "routeTitle": "Food-Tour: Vom Wochenmarkt am Dom bis zum Kreativkai",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "aachen",
+      "cityLabel": "Aachen",
+      "routeSlug": "aachen-date-altstadt-abend",
+      "routeTitle": "Romantischer Altstadt-Abend rund um den Dom",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "d684d064dd256c9e",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "d684d064dd256c9e",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Nordfassade Aachener Dom - Katschhof - Altstadt Aachen - Nordrhein-Westfalen - Deutschland",
+            "imageUrl": "https://live.staticflickr.com/715/21947633015_d319057eec_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/ae6aa98f-d297-40f1-a0a7-4abfe53507e2/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/28169156@N03/21947633015",
+            "width": 1024,
+            "height": 576,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "Frans Berkelaar",
+            "creatorUrl": "https://www.flickr.com/photos/28169156@N03",
+            "attributionText": "\"Nordfassade Aachener Dom - Katschhof - Altstadt Aachen - Nordrhein-Westfalen - Deutschland\" by Frans Berkelaar, by-sa 2.0, via Openverse (https://www.flickr.com/photos/28169156@N03/21947633015).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "7fde6a8597ee2a77",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Aix-la-Chapelle, DE (Aachen)",
+            "imageUrl": "https://live.staticflickr.com/7537/16022369861_e6b804098a_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d9462d68-a0fd-44d1-81a1-828a1b3700ff/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/107439554@N07/16022369861",
+            "width": 1024,
+            "height": 576,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "TheToch",
+            "creatorUrl": "https://www.flickr.com/photos/107439554@N07",
+            "attributionText": "\"Aix-la-Chapelle, DE (Aachen)\" by TheToch, by-sa 2.0, via Openverse (https://www.flickr.com/photos/107439554@N07/16022369861).",
+            "score": 75,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "7726c44a7e4cfd56",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Riesenrad Reloaded",
+            "imageUrl": "https://live.staticflickr.com/4152/5001553091_0148680ae9_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/9163cbcd-ab92-43d2-b150-c8137ec6d795/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/30273903@N05/5001553091",
+            "width": 1024,
+            "height": 735,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "YaYapas",
+            "creatorUrl": "https://www.flickr.com/photos/30273903@N05",
+            "attributionText": "\"Riesenrad Reloaded\" by YaYapas, by-sa 2.0, via Openverse (https://www.flickr.com/photos/30273903@N05/5001553091).",
+            "score": 65,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "aachen",
+      "cityLabel": "Aachen",
+      "routeSlug": "aachen-kneipen-pontviertel",
+      "routeTitle": "Pontstra\u00dfen-Crawl: Vom Markt zum Ponttor",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "aachen",
+      "cityLabel": "Aachen",
+      "routeSlug": "aachen-food-printen-und-mehr",
+      "routeTitle": "Printen, Markt & Kaffeekultur: Aachen zum Anbei\u00dfen",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "karlsruhe",
+      "cityLabel": "Karlsruhe",
+      "routeSlug": "karlsruhe-date-schlossgarten",
+      "routeTitle": "Date-Abend: Weinbar, Fine Dining & Schlossgarten bei Nacht",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "babef497f21a90c4",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "babef497f21a90c4",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Aerial image of the Karlsruhe Schlossgarten (view from the south)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/07/Aerial_image_of_the_Karlsruhe_Schlossgarten_%28view_from_the_south%29.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d8865fb3-3028-491b-8265-bebf83fb2a35/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=157589922",
+            "width": 5400,
+            "height": 3700,
+            "license": "by-sa",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "creator": "Carsten Steger",
+            "creatorUrl": "https://commons.wikimedia.org/wiki/User:Carsten_Steger",
+            "attributionText": "\"Aerial image of the Karlsruhe Schlossgarten (view from the south)\" by Carsten Steger, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=157589922).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "9b784e099c75e20c",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Guten Morgen, Karlsruhe!",
+            "imageUrl": "https://live.staticflickr.com/8527/8678231074_9de2a524ac_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/d5e257bb-abde-42e5-bbc3-bf0df747c3e0/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/74395916@N08/8678231074",
+            "width": 1024,
+            "height": 682,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "christianreimer",
+            "creatorUrl": "https://www.flickr.com/photos/74395916@N08",
+            "attributionText": "\"Guten Morgen, Karlsruhe!\" by christianreimer, by-sa 2.0, via Openverse (https://www.flickr.com/photos/74395916@N08/8678231074).",
+            "score": 80,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "f194ca0892240504",
+            "provider": "openverse",
+            "providerSource": "flickr",
+            "title": "Karlsruher Schloss",
+            "imageUrl": "https://live.staticflickr.com/8261/8677012229_1be26d722d_b.jpg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/8d7d155e-852a-4eba-9b6d-a474340d5055/thumb/?format=json",
+            "landingUrl": "https://www.flickr.com/photos/74395916@N08/8677012229",
+            "width": 1024,
+            "height": 684,
+            "license": "by-sa",
+            "licenseVersion": "2.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "creator": "christianreimer",
+            "creatorUrl": "https://www.flickr.com/photos/74395916@N08",
+            "attributionText": "\"Karlsruher Schloss\" by christianreimer, by-sa 2.0, via Openverse (https://www.flickr.com/photos/74395916@N08/8677012229).",
+            "score": 65,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "karlsruhe",
+      "cityLabel": "Karlsruhe",
+      "routeSlug": "karlsruhe-kneipen-ost-sued",
+      "routeTitle": "Kneipentour: Von der Hausbrauerei durch Oststadt & S\u00fcdstadt",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "karlsruhe",
+      "cityLabel": "Karlsruhe",
+      "routeSlug": "karlsruhe-food-badisch",
+      "routeTitle": "Food-Tour: Markt, badische K\u00fcche & Wein bis zum Mount Klotz",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "f965a3eb6bdc6935",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "f965a3eb6bdc6935",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Auf dem Mount-Klotz - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/Auf_dem_Mount-Klotz_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Auf_dem_Mount-Klotz_-_panoramio.jpg/1280px-Auf_dem_Mount-Klotz_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Auf_dem_Mount-Klotz_-_panoramio.jpg",
+            "width": 2048,
+            "height": 1366,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "David Dreher",
+            "creatorUrl": null,
+            "attributionText": "\"Auf dem Mount-Klotz - panoramio\" by David Dreher, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Auf_dem_Mount-Klotz_-_panoramio.jpg).",
+            "score": 84,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c7cf98b877700cac",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Aussicht vom Mount Klotz - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Aussicht_vom_Mount_Klotz_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Aussicht_vom_Mount_Klotz_-_panoramio.jpg/1280px-Aussicht_vom_Mount_Klotz_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Aussicht_vom_Mount_Klotz_-_panoramio.jpg",
+            "width": 2048,
+            "height": 1366,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "David Dreher",
+            "creatorUrl": null,
+            "attributionText": "\"Aussicht vom Mount Klotz - panoramio\" by David Dreher, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Aussicht_vom_Mount_Klotz_-_panoramio.jpg).",
+            "score": 84,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "bdce9c2e665b53a0",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Mount Klotz - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Mount_Klotz_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Mount_Klotz_-_panoramio.jpg/1280px-Mount_Klotz_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Mount_Klotz_-_panoramio.jpg",
+            "width": 3264,
+            "height": 1836,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "David Dreher",
+            "creatorUrl": null,
+            "attributionText": "\"Mount Klotz - panoramio\" by David Dreher, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mount_Klotz_-_panoramio.jpg).",
+            "score": 84,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "freiburg-im-breisgau",
+      "cityLabel": "Freiburg im Breisgau",
+      "routeSlug": "freiburg-date-altstadt-schlossberg",
+      "routeTitle": "Romantik in der Altstadt: Rooftop, B\u00e4chle & Schlossberg",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "152a11bbb08758f2",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "152a11bbb08758f2",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Blick vom Gro\u00dfen Kanonenplatz am Schlossberg auf Freiburg, im Hintergrund der Kaiserstuhl",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Blick_vom_Gro%C3%9Fen_Kanonenplatz_am_Schlossberg_auf_Freiburg%2C_im_Hintergrund_der_Kaiserstuhl.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Blick_vom_Gro%C3%9Fen_Kanonenplatz_am_Schlossberg_auf_Freiburg%2C_im_Hintergrund_der_Kaiserstuhl.jpg/1280px-Blick_vom_Gro%C3%9Fen_Kanonenplatz_am_Schlossberg_auf_Freiburg%2C_im_Hintergrund_der_Kaiserstuhl.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Blick_vom_Gro%C3%9Fen_Kanonenplatz_am_Schlossberg_auf_Freiburg,_im_Hintergrund_der_Kaiserstuhl.jpg",
+            "width": 4000,
+            "height": 2404,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Andreas Schwarzkopf",
+            "creatorUrl": null,
+            "attributionText": "\"Blick vom Gro\u00dfen Kanonenplatz am Schlossberg auf Freiburg, im Hintergrund der Kaiserstuhl\" by Andreas Schwarzkopf, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Blick_vom_Gro%C3%9Fen_Kanonenplatz_am_Schlossberg_auf_Freiburg,_im_Hintergrund_der_Kaiserstuhl.jpg).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "freiburg-im-breisgau",
+      "cityLabel": "Freiburg im Breisgau",
+      "routeSlug": "freiburg-kneipen-altstadt-sedanviertel",
+      "routeTitle": "Kult-Kneipen: Von Feierling ins Sedanviertel",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": [
+          {
+            "id": "247c0b2103aee337",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg/1280px-Freiburg_im_Breisgau%2C_Deutschland%2C_Colombischl%C3%B6ssle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg",
+            "width": 1500,
+            "height": 998,
+            "license": "CC BY-SA 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "creator": "Thomas Berwing",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, Deutschland, Colombischl\u00f6ssle\" by Thomas Berwing, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_Deutschland,_Colombischl%C3%B6ssle.jpg).",
+            "score": 100,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "746aad2c05523611",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg/1280px-Freiburg_im_Breisgau%2C_M%C3%BCnster%2C_Vorhalle_--_2025_--_7903_%28kreativ_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg",
+            "width": 4480,
+            "height": 6720,
+            "license": "CC BY-SA 4.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "creator": "Dietmar Rabich",
+            "creatorUrl": null,
+            "attributionText": "\"Freiburg im Breisgau, M\u00fcnster, Vorhalle -- 2025 -- 7903 (kreativ 1)\" by Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Freiburg_im_Breisgau,_M%C3%BCnster,_Vorhalle_--_2025_--_7903_(kreativ_1).jpg).",
+            "score": 97,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+            ]
+          },
+          {
+            "id": "c22c8ce325763325",
+            "provider": "openverse",
+            "providerSource": "wikimedia",
+            "title": "Freiburg im Breisgau - Altstadt locator map",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Freiburg_im_Breisgau_-_Altstadt_locator_map.svg",
+            "thumbnailUrl": "https://api.openverse.org/v1/images/cbeb4b3d-39d5-459f-96ad-2f2313e562e0/thumb/?format=json",
+            "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=187154907",
+            "width": 2667,
+            "height": 2476,
+            "license": "by",
+            "licenseVersion": "4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+            "creator": "FbrG",
+            "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:FbrG&action=edit&redlink=1",
+            "attributionText": "\"Freiburg im Breisgau - Altstadt locator map\" by FbrG, by 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=187154907).",
+            "score": 95,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+              "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    },
+    {
+      "citySlug": "freiburg-im-breisgau",
+      "cityLabel": "Freiburg im Breisgau",
+      "routeSlug": "freiburg-wein-muenstermarkt-baden",
+      "routeTitle": "Badischer Wein & Markt: Vom M\u00fcnsterplatz zur Weinstube",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": "89aa43c0f6d8c4f6",
+        "notes": "",
+        "candidates": [
+          {
+            "id": "89aa43c0f6d8c4f6",
+            "provider": "wikimedia",
+            "providerSource": "Wikimedia Commons",
+            "title": "Alte Wache Haus der badischen Weine GmbH - panoramio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Alte_Wache_Haus_der_badischen_Weine_GmbH_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Alte_Wache_Haus_der_badischen_Weine_GmbH_-_panoramio.jpg/1280px-Alte_Wache_Haus_der_badischen_Weine_GmbH_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "landingUrl": "https://commons.wikimedia.org/wiki/File:Alte_Wache_Haus_der_badischen_Weine_GmbH_-_panoramio.jpg",
+            "width": 1600,
+            "height": 1200,
+            "license": "CC BY 3.0",
+            "licenseVersion": null,
+            "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+            "creator": "Mister No",
+            "creatorUrl": null,
+            "attributionText": "\"Alte Wache Haus der badischen Weine GmbH - panoramio\" by Mister No, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Alte_Wache_Haus_der_badischen_Weine_GmbH_-_panoramio.jpg).",
+            "score": 93,
+            "usageNotes": [
+              "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+            ]
+          }
+        ]
+      },
+      "stops": []
+    }
+  ]
+}
