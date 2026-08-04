@@ -1,0 +1,2060 @@
+{
+  "version": 1,
+  "createdAt": "2026-08-03",
+  "status": "ready",
+  "importNotes": {
+    "rightsNote": "Venue-Empfehlungen aus Stadtmagazinen/Portalen recherchiert; Texte eigenformuliert, Quellen als sourceUrls dokumentiert. Keine Bilder uebernommen."
+  },
+  "routes": [
+    {
+      "citySlug": "augsburg",
+      "slug": "augsburg-date-maxstrasse-lechviertel",
+      "title": "Date-Abend: Maximilianstraße, Welterbe-Kanäle & Cocktails",
+      "description": "Ein romantischer Abend zwischen Prachtboulevard und Lechviertel: Aperitif im Grandhotel, feine bayerisch-schwäbische Küche hinter dem Rathaus und ein Spaziergang entlang der UNESCO-Wasserläufe. Zum Abschluss Cocktailkunst in der Altstadt — alles bequem zu Fuß.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "lechviertel",
+        "maximilianstrasse",
+        "unesco-welterbe",
+        "romantisch"
+      ],
+      "sourceUrls": [
+        "https://www.bar3m.de/",
+        "https://www.restaurant-die-ecke.de/",
+        "https://www.augsburg-tourismus.de/de/unesco-welterbe",
+        "https://www.hallo-augsburg.de/augsburger-bars-10-bars-in-augsburg-der-perfekte-guide_Zh3"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bar 3M im Hotel Maximilian's",
+          "type": "bar",
+          "address": "Maximilianstraße 40, 86150 Augsburg",
+          "durationMin": 60,
+          "note": "Aperitif in Augsburgs eleganter Hotelbar — probiert den Maximilian's-Gin mit hauseigenem Bienenhonig.",
+          "sourceUrls": [
+            "https://www.bar3m.de/",
+            "https://www.augsburg-tourismus.de/de/poi/bar-3m-im-hotel-maximilians"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant Die Ecke",
+          "type": "restaurant",
+          "address": "Elias-Holl-Platz 2, 86150 Augsburg",
+          "durationMin": 105,
+          "note": "Feinschmecker-Klassiker direkt hinter dem Rathaus mit bayerisch-schwäbischer Küche, Wild- und Fischspezialitäten.",
+          "sourceUrls": [
+            "https://www.restaurant-die-ecke.de/",
+            "https://www.gusto-online.de/die-ecke.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Rathausplatz & Lechviertel-Kanäle",
+          "type": "landmark",
+          "address": "Rathausplatz 1, 86150 Augsburg",
+          "durationMin": 45,
+          "note": "Abendspaziergang vom beleuchteten Rathausplatz durch die romantischen Gassen des Lechviertels entlang der UNESCO-Welterbe-Wasserläufe.",
+          "sourceUrls": [
+            "https://www.augsburg-tourismus.de/de/unesco-welterbe/augsburg-ist-unesco-welterbe",
+            "https://wassersystem-augsburg.de/de/termine/welterbe-fuehrung-innenstadt"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Golden Glimmer Bar",
+          "type": "bar",
+          "address": "Schmiedberg 3, 86152 Augsburg",
+          "durationMin": 75,
+          "note": "Zum Abschluss Cocktailkunst mit frischen Zutaten und saisonalen Kreationen am Rand der Altstadt.",
+          "sourceUrls": [
+            "https://www.hallo-augsburg.de/augsburger-bars-10-bars-in-augsburg-der-perfekte-guide_Zh3"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "augsburg",
+      "slug": "augsburg-kneipen-altstadt-lech",
+      "title": "Kneipentour: Von der Riegele BrauWelt ins Lechviertel",
+      "description": "Der klassische Augsburger Crawl: Start in der Brauereigaststätte von Riegele, dann hinein in die Altstadt zur Hausbrauerei König von Flandern und durch die Kneipen des Lechviertels. Finale auf der Maximilianstraße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "altstadt",
+        "lechviertel",
+        "bier",
+        "brauerei"
+      ],
+      "sourceUrls": [
+        "https://www.riegele-wirtshaus.de/",
+        "https://koenigvonflandern.de/",
+        "https://www.hallo-augsburg.de/augsburger-bars-10-bars-in-augsburg-der-perfekte-guide_Zh3",
+        "https://www.neue-szene.de/locations/k%C3%B6nig-von-flandern"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Riegele Wirtshaus",
+          "type": "restaurant",
+          "address": "Frölichstraße 26, 86150 Augsburg",
+          "durationMin": 75,
+          "note": "Auftakt in der Brauereigaststätte der Riegele BrauWelt — frisch Gezapftes vom mehrfach ausgezeichneten Augsburger Traditionsbrauhaus.",
+          "sourceUrls": [
+            "https://www.riegele-wirtshaus.de/wirtshaus/",
+            "https://www.augsburg-city.de/listings/2530-riegele-wirtshaus/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "König von Flandern",
+          "type": "bar",
+          "address": "Karolinenstraße 12, 86150 Augsburg",
+          "durationMin": 60,
+          "note": "Augsburgs Gasthausbrauerei im ehemaligen Badhaus — unfiltriertes Drei-Heller-Bier direkt vom Kupferkessel.",
+          "sourceUrls": [
+            "https://koenigvonflandern.de/",
+            "https://www.neue-szene.de/locations/k%C3%B6nig-von-flandern"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "The Drunken Monkey",
+          "type": "bar",
+          "address": "Auf dem Rain 5, 86150 Augsburg",
+          "durationMin": 60,
+          "note": "Bierbar am Rand des Lechviertels mit über 100 Biersorten aus aller Welt für die Verkostungsrunde.",
+          "sourceUrls": [
+            "https://www.hallo-augsburg.de/augsburger-bars-10-bars-in-augsburg-der-perfekte-guide_Zh3"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Thing",
+          "type": "bar",
+          "address": "Vorderer Lech 45, 86150 Augsburg",
+          "durationMin": 60,
+          "note": "Kult-Kneipe im Lechviertel seit 1978 — Holzmöbel, blau beleuchtete Bar und einer der schönsten Innenstadt-Biergärten.",
+          "sourceUrls": [
+            "https://www.augsburg-city.de/shoppen-geniessen/essen-trinken/bars-und-kneipen-in-augsburg/",
+            "https://www.yelp.com/biz/thing-augsburg"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Beim Weissen Lamm",
+          "type": "bar",
+          "address": "Ludwigstraße 23, 86152 Augsburg",
+          "durationMin": 60,
+          "note": "Augsburgs öffentliches Wohnzimmer — unprätentiöse Kneipe mit kostenlosen Club-Events am Wochenende.",
+          "sourceUrls": [
+            "https://www.hallo-augsburg.de/augsburger-bars-10-bars-in-augsburg-der-perfekte-guide_Zh3"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Peaches",
+          "type": "bar",
+          "address": "Maximilianstraße 73, 86150 Augsburg",
+          "durationMin": 60,
+          "note": "Finale auf der Maxstraße: oben Bar, unten Tanzfläche — hier klingt der Abend aus oder nimmt erst Fahrt auf.",
+          "sourceUrls": [
+            "https://www.hallo-augsburg.de/augsburger-bars-10-bars-in-augsburg-der-perfekte-guide_Zh3"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "augsburg",
+      "slug": "augsburg-food-stadtmarkt-schwaben",
+      "title": "Food-Tour: Stadtmarkt, schwäbische Küche & Kaffeehauskultur",
+      "description": "Ein kulinarischer Tag durch die Augsburger Innenstadt: Frühstück im Annahof, Schlemmern auf dem Stadtmarkt, Spätzle im ältesten Gasthaus der Stadt und Kaffeehausklassiker auf der Maxstraße. Zum Ausklang Wein und regionale Kleinigkeiten.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "innenstadt",
+        "stadtmarkt",
+        "schwaebische-kueche",
+        "cafes"
+      ],
+      "sourceUrls": [
+        "https://geheimtippaugsburg.de/geheimtipp/unsere-leckeren-geheimtipps-fuer-euer-jahr-2025-food-drinks-hotspots-in-augsburg/",
+        "https://www.eat-the-world.com/blog/stadtmarkt-augsburg-feinschmecker-treffpunkt/",
+        "https://www.bauerntanz-augsburg.de/",
+        "https://www.fruehstuecken-in-augsburg.de/anna-cafe/",
+        "https://dichtl.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Anna Café",
+          "type": "cafe",
+          "address": "Im Annahof 4, 86150 Augsburg",
+          "durationMin": 60,
+          "note": "Frühstück mit frischen Bio-Zutaten im ruhigen, verkehrsfreien Annahof hinter der Annakirche.",
+          "sourceUrls": [
+            "https://www.fruehstuecken-in-augsburg.de/anna-cafe/",
+            "https://www.augsburg-city.de/listings/2399-anna-cafe/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Stadtmarkt Augsburg",
+          "type": "market",
+          "address": "Fuggerstraße 12a, 86150 Augsburg",
+          "durationMin": 75,
+          "note": "Augsburgs Feinschmecker-Treffpunkt: Bummel durch Viktualienhalle, Fleischhalle und Marktgassen mit regionalen Ständen wie der TAGWERK Biometzgerei.",
+          "sourceUrls": [
+            "https://www.eat-the-world.com/blog/stadtmarkt-augsburg-feinschmecker-treffpunkt/",
+            "https://geheimtippaugsburg.de/geheimtipp/unsere-leckeren-geheimtipps-fuer-euer-jahr-2025-food-drinks-hotspots-in-augsburg/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Café Noa im Stadtmarkt",
+          "type": "cafe",
+          "address": "Fuggerstraße 12a, 86150 Augsburg",
+          "durationMin": 45,
+          "note": "Vegetarisch-freundlicher Italien-Stopp mitten im Markt: frische Pasta, knusprige Paninis, gefüllte Cornetti und cremiges Tiramisu.",
+          "sourceUrls": [
+            "https://geheimtippaugsburg.de/geheimtipp/unsere-leckeren-geheimtipps-fuer-euer-jahr-2025-food-drinks-hotspots-in-augsburg/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Altstadtgasthaus Bauerntanz",
+          "type": "restaurant",
+          "address": "Bauerntanzgäßchen 1, 86150 Augsburg",
+          "durationMin": 90,
+          "note": "Schwäbisches Mittagessen im ältesten Gasthaus Augsburgs (seit 1572) — Kässpatzen und bayerisch-schwäbische Klassiker in rustikaler Stube.",
+          "sourceUrls": [
+            "https://www.bauerntanz-augsburg.de/",
+            "https://pages.et4.de/de/augsburg-tourismus/streaming/detail/Gastro/g_4914/altstadtgasthaus-bauerntanz"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Café Dichtl",
+          "type": "cafe",
+          "address": "Maximilianstraße 18, 86150 Augsburg",
+          "durationMin": 60,
+          "note": "Kaffeehauspause in der Traditionsconfiserie am Moritzplatz — Torten, Pralinen und Augsburger Spezialitäten.",
+          "sourceUrls": [
+            "https://dichtl.de/",
+            "https://www.fruehstuecken-in-augsburg.de/cafe-dichtl/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Herr Brand Wein & Bar",
+          "type": "bar",
+          "address": "Färbergäßchen 5, 86150 Augsburg",
+          "durationMin": 75,
+          "note": "Genussvoller Ausklang mit ausgesuchten Weinen und regionalen Kleinigkeiten in der Altstadt-Weinbar.",
+          "sourceUrls": [
+            "https://www.herrbrand.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "braunschweig",
+      "slug": "braunschweig-date-magniviertel",
+      "title": "Date-Abend im Magniviertel: Wein, Fuchs & Löwenstadt-Lichter",
+      "description": "Ein romantischer Abend im schönsten Fachwerkviertel Braunschweigs: vom Aperitif in der Enoteca über ein Dinner am Magnikirchplatz bis zum abendlichen Burgplatz mit dem Löwen. Zum Abschluss Cocktails in gemütlicher Barathmosphäre – alles bequem zu Fuß.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "magniviertel",
+        "romantisch",
+        "altstadt",
+        "cocktails"
+      ],
+      "sourceUrls": [
+        "https://loewenstadt.braunschweig.de/mmmhm-magni/",
+        "https://www.braunschweig.de/tourismus/ihr-besuch-in-braunschweig/sehenswuerdigkeiten/eintraege-sehenswuerdigkeiten/_magni-viertel.php",
+        "http://www.fuchs-blau.de/",
+        "https://loewenstadt.braunschweig.de/bars-und-kneipen/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "ENOTECA Pane e Vino",
+          "type": "bar",
+          "address": "Ölschlägern 36-38, 38100 Braunschweig",
+          "durationMin": 60,
+          "note": "Süditalienische Enoteca im Magniviertel – perfekt für einen Aperitif mit Wein und kleinen Antipasti zum Auftakt.",
+          "sourceUrls": [
+            "https://loewenstadt.braunschweig.de/mmmhm-magni/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Fuchs Blau",
+          "type": "restaurant",
+          "address": "Am Magnitor 1, 38100 Braunschweig",
+          "durationMin": 120,
+          "note": "Gehobenes Restaurant direkt am Magnikirchplatz mit modern interpretierten Klassikern – das Herzstück des Abends im Fachwerkambiente.",
+          "sourceUrls": [
+            "http://www.fuchs-blau.de/",
+            "https://loewenstadt.braunschweig.de/mmmhm-magni/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Burgplatz mit Braunschweiger Löwe",
+          "type": "landmark",
+          "address": "Burgplatz, 38100 Braunschweig",
+          "durationMin": 45,
+          "note": "Abendlicher Spaziergang vorbei am Dom zum beleuchteten Burgplatz mit Burg Dankwarderode und dem Löwen – der schönste Fotomoment der Stadt.",
+          "sourceUrls": [
+            "https://www.braunschweig.de/tourismus/ihr-besuch-in-braunschweig/rundgaenge/szeneviertel.php"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Luke 6",
+          "type": "bar",
+          "address": "Stobenstraße 12, 38100 Braunschweig",
+          "durationMin": 90,
+          "note": "Cocktailbar mit Klassikern und Eigenkreationen in gemütlicher Atmosphäre – der ideale Absacker wenige Gehminuten vom Magniviertel.",
+          "sourceUrls": [
+            "https://loewenstadt.braunschweig.de/bars-und-kneipen/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "braunschweig",
+      "slug": "braunschweig-kneipen-magni-crawl",
+      "title": "Kneipentour: Von Theke zu Theke durchs Magniviertel",
+      "description": "Der klassische Crawl durch Braunschweigs legendäres Kneipenviertel und die Innenstadt: urige Musikkneipen am Magnitor, Blues bei Barnaby's, Craft Beer am Steinweg und irisches Finale. Fünf Stationen, alle fußläufig verbunden.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "magniviertel",
+        "innenstadt",
+        "bier",
+        "livemusik"
+      ],
+      "sourceUrls": [
+        "https://loewenstadt.braunschweig.de/bars-und-kneipen/",
+        "https://www.braunschweig.de/tourismus/ihr-besuch-in-braunschweig/rundgaenge/szeneviertel.php",
+        "https://barnabys-bs.de/",
+        "https://www.bs-live.de/xnews/neu-in-der-region/craft-beer-bar-eroeffnet-auf-dem-steinweg.html"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Magnitorwächter",
+          "type": "bar",
+          "address": "Am Magnitor 9, 38100 Braunschweig",
+          "durationMin": 60,
+          "note": "Rustikale Musikkneipe im Magniviertel mit Happy Hour – der klassische Auftakt direkt am Magnitor.",
+          "sourceUrls": [
+            "https://www.gastroguide.de/restaurant/188065/magnitorwaechter-die-musikkneipe/braunschweig/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Altstadt Treff (AST)",
+          "type": "bar",
+          "address": "Am Magnitor 14-15, 38100 Braunschweig",
+          "durationMin": 60,
+          "note": "Charaktervolle Kneipe mit Tischkicker und Platz für Gruppen – seit Jahren fester Bestandteil des Magniviertels.",
+          "sourceUrls": [
+            "https://loewenstadt.braunschweig.de/bars-und-kneipen/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Barnaby's Blues Bar",
+          "type": "bar",
+          "address": "Ölschlägern 20, 38100 Braunschweig",
+          "durationMin": 75,
+          "note": "Das Zentrum des Blues in Braunschweig mit regelmäßigen Live-Konzerten und Jam-Sessions – täglich ab 17 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://barnabys-bs.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Craft Bier Bar Braunschweig",
+          "type": "bar",
+          "address": "Steinweg 34, 38100 Braunschweig",
+          "durationMin": 60,
+          "note": "24 Zapfhähne mit wechselnden Craft-Bieren aus aller Welt – geöffnet Donnerstag bis Samstag ab 17 Uhr.",
+          "sourceUrls": [
+            "https://www.bs-live.de/xnews/neu-in-der-region/craft-beer-bar-eroeffnet-auf-dem-steinweg.html",
+            "https://untappd.com/v/craft-bier-bar-braunschweig/5486589"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "The Wild Geese Irish Pub",
+          "type": "bar",
+          "address": "Gördelingerstraße 49, 38100 Braunschweig",
+          "durationMin": 90,
+          "note": "Irish Pub mit Guinness, Karaoke-Abenden, Quiz-Nights und Livemusik – das gesellige Finale in der Innenstadt.",
+          "sourceUrls": [
+            "https://loewenstadt.braunschweig.de/bars-und-kneipen/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "braunschweig",
+      "slug": "braunschweig-food-loewenstadt",
+      "title": "Food-Tour: Kohlmarkt, Mumme & Magniviertel-Genuss",
+      "description": "Kulinarischer Tag durch die Löwenstadt: Frühstück am historischen Kohlmarkt, Wochenmarkt vor dem Gewandhaus, Braunschweigs jahrhundertealte Mumme-Tradition und deftige Speisekneipen-Klassiker. Zum Ausklang veganer Kuchen im Plattenladen-Café und Grillen am eigenen Tisch im Magniviertel.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "kohlmarkt",
+        "magniviertel",
+        "mumme",
+        "vegetarisch"
+      ],
+      "sourceUrls": [
+        "https://www.nicoffee.de/",
+        "https://www.braunschweig.de/leben/einkaufen_maerkte/wochenmaerkte/wm_altstadtmarkt.php",
+        "https://www.braunschweig.de/tourismus/touristinfo/souvenirs/souvenirs_mumme.php",
+        "https://www.mutter-habenicht.de/",
+        "https://www.cafe-riptide.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "NI·COFFEE CoffeeBar",
+          "type": "cafe",
+          "address": "Kohlmarkt 7, 38100 Braunschweig",
+          "durationMin": 60,
+          "note": "Braunschweigs erster Coffeeshop (seit 2001) mit großer Außenterrasse und direktem Blick auf den historischen Kohlmarkt – idealer Frühstücksstart.",
+          "sourceUrls": [
+            "https://www.nicoffee.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Wochenmarkt Altstadtmarkt",
+          "type": "market",
+          "address": "Altstadtmarkt 1, 38100 Braunschweig",
+          "durationMin": 60,
+          "note": "Über 800 Jahre alter Traditionsmarkt zwischen Martinikirche und Gewandhaus mit rund 50 Ständen – mittwochs und samstags von 8 bis 13 Uhr.",
+          "sourceUrls": [
+            "https://www.braunschweig.de/leben/einkaufen_maerkte/wochenmaerkte/wm_altstadtmarkt.php"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Touristinfo Braunschweig (Mumme-Verkostung)",
+          "type": "activity",
+          "address": "Kleine Burg 14, 38100 Braunschweig",
+          "durationMin": 45,
+          "note": "Hier gibt es Braunschweigs legendären Malzextrakt Mumme als Bier, Likör oder Senf zu probieren und zu kaufen – einst wichtigstes Fernhandelsgut der Stadt.",
+          "sourceUrls": [
+            "https://www.braunschweig.de/tourismus/touristinfo/souvenirs/souvenirs_mumme.php",
+            "https://www.braunschweig.de/mumme"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Mutter Habenicht",
+          "type": "restaurant",
+          "address": "Papenstieg 3, 38100 Braunschweig",
+          "durationMin": 90,
+          "note": "Eine der traditionsreichsten Speisekneipen Braunschweigs – deftige Hausmannskost wie Roulade und Schnitzel im urigen Ambiente.",
+          "sourceUrls": [
+            "https://www.mutter-habenicht.de/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Café Riptide",
+          "type": "cafe",
+          "address": "Ölschlägern 14, 38100 Braunschweig",
+          "durationMin": 60,
+          "note": "Kult-Café mit Plattenladen im Magniviertel – komplett vegetarisch-vegane Karte mit hausgemachten Kuchen, Bagels und Crêpes.",
+          "sourceUrls": [
+            "https://www.cafe-riptide.de/",
+            "https://loewenstadt.braunschweig.de/zu-mittag-im-cafe-riptide/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Two Doors",
+          "type": "restaurant",
+          "address": "Am Magnitor 10/11, 38100 Braunschweig",
+          "durationMin": 90,
+          "note": "Innovatives Grill-Restaurant mit Whiskeybar, in dem Gäste ihr Essen auf einer integrierten Grillplatte am Tisch selbst zubereiten – genussvoller Tagesabschluss.",
+          "sourceUrls": [
+            "https://loewenstadt.braunschweig.de/mmmhm-magni/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "kiel",
+      "slug": "kiel-date-foerde-romantik",
+      "title": "Förde-Romantik: Weinbar, Sternemenü & Drinks überm Wasser",
+      "description": "Ein Abend für zwei zwischen Düsternbrook und Förde: Nach dem Aperitif in der Weinbar wartet das Sternemenü im Ahlmanns, danach Abendlicht an der Kiellinie und Drinks direkt über dem Wasser. Zum Finale geht es auf die Rooftop-Bar mit Panoramablick über die Kieler Förde.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "duesternbrook",
+        "fine-dining",
+        "foerde-blick",
+        "weinbar"
+      ],
+      "sourceUrls": [
+        "https://guide.michelin.com/us/en/schleswig-holstein/kiel/restaurant/ahlmanns",
+        "https://www.kieler-kaufmann.de/en/enjoy/ahlmanns-reserve-table/",
+        "https://seebar-kiel.de/",
+        "https://www.atlantic-hotels.de/en/hotel-kiel/bar-deck-8-kiel/",
+        "https://moinmoinkiel.de/bars-in-kiel/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "D.O. Weinbar",
+          "type": "bar",
+          "address": "Holtenauer Straße 160, 24105 Kiel",
+          "durationMin": 60,
+          "note": "Aperitif zum Auftakt: Weine aus Südafrika und Spanien plus Tapas mit schleswig-holsteinischen Zutaten.",
+          "sourceUrls": [
+            "https://do-weinbar.de/",
+            "https://www.falstaff.com/de/listings/die-besten-weinbars-in-schleswig-holstein"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Ahlmanns",
+          "type": "restaurant",
+          "address": "Niemannsweg 102, 24105 Kiel",
+          "durationMin": 120,
+          "note": "Kiels Sternerestaurant im Romantik Hotel Kieler Kaufmann serviert Lasse Knickrehms Menü ab 18:30 Uhr – unbedingt reservieren (Mi–Sa).",
+          "sourceUrls": [
+            "https://guide.michelin.com/us/en/schleswig-holstein/kiel/restaurant/ahlmanns",
+            "https://www.kieler-kaufmann.de/en/enjoy/ahlmanns-reserve-table/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Kiellinie an der Reventloubrücke",
+          "type": "viewpoint",
+          "address": "Kiellinie / Reventloubrücke, 24105 Kiel",
+          "durationMin": 45,
+          "note": "Verdauungsspaziergang an Kiels Flaniermeile mit Blick auf Fähren, Segler und die Lichter am Ostufer.",
+          "sourceUrls": [
+            "https://www.kiel-magazin.de/artikel/restaurants-an-der-kieler-foerde"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Seebar Kiel",
+          "type": "bar",
+          "address": "Kiellinie 130, 24106 Kiel",
+          "durationMin": 60,
+          "note": "Drink auf der Terrasse des Seebads Düsternbrook – Kiels einziges Lokal direkt auf dem Wasser der Förde.",
+          "sourceUrls": [
+            "https://seebar-kiel.de/",
+            "https://www.speisekarte.de/kiel/restaurant/seebar"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Deck 8 – Die Bar im ATLANTIC Hotel Kiel",
+          "type": "bar",
+          "address": "Raiffeisenstraße 2, 24103 Kiel",
+          "durationMin": 75,
+          "note": "Absacker-Cocktails in der 8. Etage mit Panoramablick über Hörn, Hafen und Förde (täglich ab 18 Uhr).",
+          "sourceUrls": [
+            "https://www.atlantic-hotels.de/en/hotel-kiel/bar-deck-8-kiel/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "kiel",
+      "slug": "kiel-kneipen-bergstrasse",
+      "title": "Kieler Kneipenkiez: Von der Brunswik zur Bergstraße",
+      "description": "Authentischer Crawl durch Kiels Kneipenlandschaft: von der über 100 Jahre alten Eckkneipe in der Brunswik über frisch Gebrautes am Alten Markt bis in den Kiez rund um die Bergstraße. Zum Schluss geht es in Café-Bars mit Szene-Charakter Richtung Ziegelteich und Schrevenpark.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "bergstrasse",
+        "altstadt",
+        "brunswik",
+        "kult-kneipen"
+      ],
+      "sourceUrls": [
+        "https://www.kiel-magazin.de/artikel/kneipen",
+        "https://www.kiel-magazin.de/artikel/nachtleben-angesagte-clubs-und-bars-in-kiel",
+        "https://schaubude-kiel.de/",
+        "https://www.innerpalenke.de/",
+        "https://moinmoinkiel.de/bars-in-kiel/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Palenke",
+          "type": "bar",
+          "address": "Gerhardstraße 91, 24105 Kiel",
+          "durationMin": 60,
+          "note": "Warm-up in der urigen Eckkneipe, in der seit über 100 Jahren Bier gezapft wird – mit Konzerten und Lesungen.",
+          "sourceUrls": [
+            "https://www.kiel-wiki.de/Palenke",
+            "https://www.innerpalenke.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Kieler Brauerei am Alten Markt",
+          "type": "bar",
+          "address": "Alter Markt 9, 24103 Kiel",
+          "durationMin": 75,
+          "note": "Hausgebrautes Kieler Bier zwischen Kupferkesseln und Eichentischen – hier lässt sich auch eine deftige Grundlage essen.",
+          "sourceUrls": [
+            "https://www.kieler-brauerei.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "T-Kiela Bar",
+          "type": "bar",
+          "address": "Bergstraße 28, 24103 Kiel",
+          "durationMin": 60,
+          "note": "Lebhafte Party-Bar im Bergstraßen-Kiez mit Tanzfläche, DJ-Sets und Konzerten.",
+          "sourceUrls": [
+            "https://www.kiel-magazin.de/artikel/kneipen"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Schaubude",
+          "type": "bar",
+          "address": "Bergstraße 17, 24103 Kiel",
+          "durationMin": 75,
+          "note": "Kieler Kult-Adresse für Underground-Konzerte, Poetry Slams und Partys – seit 2024 in der Bergstraße zu Hause.",
+          "sourceUrls": [
+            "https://www.schaubude-kiel.de/",
+            "https://kultur-rausch.de/schaubude"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "MUM&DAD",
+          "type": "bar",
+          "address": "Ziegelteich 14, 24103 Kiel",
+          "durationMin": 60,
+          "note": "Tagsüber Café, abends Szene-Bar – gute Drinks für die entspanntere Etappe des Abends.",
+          "sourceUrls": [
+            "https://www.kiel-magazin.de/artikel/kneipen"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Prinz Willy",
+          "type": "bar",
+          "address": "Lutherstraße 9, 24114 Kiel",
+          "durationMin": 60,
+          "note": "Absacker im Wohnzimmer-Café mit Bar-Betrieb am Wochenende – von Espresso Martini bis Tannenzäpfle vom Fass.",
+          "sourceUrls": [
+            "https://www.kiel-magazin.de/artikel/kneipen",
+            "https://prinz.de/kiel/locations/kategorie/clubs-bars/bars-kneipen/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "kiel",
+      "slug": "kiel-food-maritim",
+      "title": "Maritime Schlemmertour: Röster, Markt & Fischbrötchen",
+      "description": "Kulinarischer Tag zwischen Altstadt und Kiellinie: erst Kaffee aus der eigenen Rösterei und Wochenmarkt-Bummel, dann vegane Küche auf der Holtenauer und warme Fischbrötchen an der Blücherbrücke. Zum Abschluss Strandkorb-Pause mit Förde-Blick und Fährfahrt übers Wasser zurück.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "kiellinie",
+        "maritim",
+        "vegan-freundlich",
+        "wochenmarkt"
+      ],
+      "sourceUrls": [
+        "https://www.foerdefraeulein.de/impuls-kaffeeroesterei-kiel/",
+        "https://kiel-sailing-city.de/en/kiel-tips/top-10-of-kiels-best-fish-rolls",
+        "https://www.kielerleben.de/news/kuestensnack-besten-fischbroetchen-kiel-1005224.html",
+        "https://moinmoinkiel.de/blattgold/",
+        "https://www.kiel-magazin.de/artikel/fischbroetchen-kiel"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "impuls Kaffeemanufaktur",
+          "type": "cafe",
+          "address": "Küterstraße 7-9, 24103 Kiel",
+          "durationMin": 60,
+          "note": "Start mit Frühstück und Kaffee aus der hauseigenen Rösterei nahe dem Alten Markt.",
+          "sourceUrls": [
+            "https://www.foerdefraeulein.de/impuls-kaffeeroesterei-kiel/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Wochenmarkt auf dem Exerzierplatz",
+          "type": "market",
+          "address": "Exerzierplatz, 24103 Kiel",
+          "durationMin": 75,
+          "note": "Kiels großer Wochenmarkt (mittwochs und samstags vormittags) mit regionalem Obst, Käse und norddeutschen Spezialitäten zum Probieren.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Exerzierplatz_(Kiel)",
+            "https://www.foerdefraeulein.de/zauberhaftes-von-a-z/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Café Blattgold",
+          "type": "restaurant",
+          "address": "Holtenauer Straße 176, 24105 Kiel",
+          "durationMin": 75,
+          "note": "Vegetarisch-veganer Mittagsstopp: Kiels erstes komplett veganes Lokal mit Burgern, Loaded Fries und hausgemachten Torten (ab 12 Uhr).",
+          "sourceUrls": [
+            "https://moinmoinkiel.de/blattgold/",
+            "https://www.kielerleben.de/news/veganer-genuss-cafe-blattgold-10012116.html"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Kombüse Fischbrötchen",
+          "type": "restaurant",
+          "address": "Blücherbrücke 11, 24105 Kiel",
+          "durationMin": 45,
+          "note": "Warme Fischbrötchen auf weißen Holzbänken direkt an der Blücherbrücke – Matjes und gebratener Fisch mit hausgemachter Remoulade.",
+          "sourceUrls": [
+            "https://www.kielerleben.de/news/neuer-fischbroetchen-imbiss-bluecherbruecke-10024361.html",
+            "https://www.kiel-magazin.de/artikel/fischbroetchen-kiel"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "MOBY",
+          "type": "cafe",
+          "address": "Kiellinie 61a, 24105 Kiel",
+          "durationMin": 60,
+          "note": "Kaffee- und Strandkorb-Pause mit den Füßen im Sand und Blick auf die vorbeiziehenden Segler der Förde.",
+          "sourceUrls": [
+            "https://kiel-sailing-city.de/en/kiel-tips/top-10-of-kiels-best-fish-rolls"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Fördefähre ab Anleger Reventloubrücke",
+          "type": "activity",
+          "address": "Kiellinie / Anleger Reventloubrücke, 24105 Kiel",
+          "durationMin": 45,
+          "note": "Maritimes Finale: Mit der SFK-Fähre über die Förde zurück Richtung Bahnhofsbrücke – Hafenpanorama inklusive.",
+          "sourceUrls": [
+            "https://www.sfk-kiel.de/",
+            "https://kiel-sailing-city.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "gelsenkirchen",
+      "slug": "gelsenkirchen-date-schloss-berge",
+      "title": "Date-Abend in Buer: Schlossromantik & Herkules-Blick",
+      "description": "Ein romantischer Abend im grünen Norden Gelsenkirchens: Aperitif am St.-Urbanus-Kirchplatz, Dinner im Schloss Berge am See und ein Abendspaziergang zur Zeche Nordstern. Zum Abschluss Cocktails in einer der gemütlichsten Bars von Buer.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "buer",
+        "romantisch",
+        "nordsternpark",
+        "schloss-berge"
+      ],
+      "sourceUrls": [
+        "https://buerno.de/",
+        "https://www.thefork.de/restaurants/gelsenkirchen-c186229",
+        "https://www.nordsternturm.de/",
+        "https://www.ruhrgebiet-industriekultur.de/schloss-berge/",
+        "https://www.ruhrgebiet-industriekultur.de/nordsternpark/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Das Buerno",
+          "type": "bar",
+          "address": "St.-Urbanus-Kirchplatz 1, 45894 Gelsenkirchen",
+          "durationMin": 60,
+          "note": "Aperitif und kreative Signature-Drinks im Restaurant-Bar-Hybrid direkt am St.-Urbanus-Kirchplatz, ab 17 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://buerno.de/",
+            "https://buerno.de/ueber-uns/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Berger See am Schloss Berge",
+          "type": "viewpoint",
+          "address": "Adenauerallee 103, 45894 Gelsenkirchen",
+          "durationMin": 45,
+          "note": "Kleiner Vor-Dinner-Spaziergang durch den Schlosspark und entlang des Berger Sees in der Abendsonne.",
+          "sourceUrls": [
+            "https://www.ruhrgebiet-industriekultur.de/schloss-berge/",
+            "https://www.regiofreizeit.de/attraktionen/schloss-berge-gelsenkirchen-adenauerallee-103"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Restaurant Schloss Berge",
+          "type": "restaurant",
+          "address": "Adenauerallee 103, 45894 Gelsenkirchen",
+          "durationMin": 105,
+          "note": "Saisonale Küche im eleganten Wintergarten des Schlosshotels mit Blick auf Park und See — der Klassiker für besondere Anlässe in Buer.",
+          "sourceUrls": [
+            "https://www.thefork.com/restaurant/schloss-berge-r836095"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Nordsternpark mit Herkules von Gelsenkirchen",
+          "type": "landmark",
+          "address": "Nordsternplatz 1, 45899 Gelsenkirchen",
+          "durationMin": 60,
+          "note": "Abendspaziergang am Rhein-Herne-Kanal unter dem Nordsternturm, auf dem die 18 Meter hohe Herkules-Skulptur von Markus Lüpertz thront.",
+          "sourceUrls": [
+            "https://www.nordsternturm.de/herkules_von_gelsenkirchen.php",
+            "https://www.ruhrgebiet-industriekultur.de/nordsternpark/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "60Bar Sixty",
+          "type": "bar",
+          "address": "Hochstraße 60, 45894 Gelsenkirchen",
+          "durationMin": 90,
+          "note": "Absacker-Cocktails in gemütlicher Atmosphäre mitten in Buer, freitags und samstags bis 3 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://website-60bar-sixty.eatbu.com/?lang=de",
+            "https://lifeintown.de/location/sixty-60-bar/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "gelsenkirchen",
+      "slug": "gelsenkirchen-kneipen-buer",
+      "title": "Kneipentour Buer: Von der Domplatte bis zum Absacker",
+      "description": "Ein authentischer Crawl durch die alteingesessene Kneipenlandschaft rund um die Buersche Domplatte. Vom Fachwerk-Traditionshaus über die Kult-Kneipe von 1861 bis zum Irish Pub und späten Cocktails — alles fußläufig.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "buer",
+        "tradition",
+        "bier",
+        "domplatte"
+      ],
+      "sourceUrls": [
+        "https://visit.gelsenkirchen.de/de/Ausgehen/Bars_und_Kneipen.aspx",
+        "https://www.werkenntdenbesten.de/kneipe/gelsenkirchen",
+        "https://www.gelsenkirchener-geschichten.de/wiki/Wacholderh%C3%A4uschen",
+        "https://dorfkrug-buer.de/",
+        "https://manyos-buer.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Dorfkrug Buer",
+          "type": "bar",
+          "address": "Marienstraße 4, 45894 Gelsenkirchen",
+          "durationMin": 60,
+          "note": "Start im alteingesessenen Traditionshaus im urigen Fachwerkhäuschen — hier gibt es das erste Pils mit deftiger Grundlage.",
+          "sourceUrls": [
+            "https://dorfkrug-buer.de/",
+            "https://www.yelp.com/biz/dorfkrug-gelsenkirchen"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Dröges Eck",
+          "type": "bar",
+          "address": "Lindenstraße 79, 45894 Gelsenkirchen",
+          "durationMin": 60,
+          "note": "Königsblaue Traditions-Gaststätte mit Schalke-Herz — an Spieltagen laufen alle Partien auf drei Großbildschirmen.",
+          "sourceUrls": [
+            "https://droegeseck.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wacholderhäuschen",
+          "type": "bar",
+          "address": "Hochstraße 62, 45894 Gelsenkirchen",
+          "durationMin": 60,
+          "note": "Kult-Kneipe in einem Haus von 1861, in der sich seit Generationen Jung und Alt aus Buer treffen.",
+          "sourceUrls": [
+            "https://www.gelsenkirchener-geschichten.de/wiki/Wacholderh%C3%A4uschen",
+            "https://www.gastronomieguide.de/gelsenkirchen/wacholderhaeuschen/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Oisin Kelly Gallery Irish Pub",
+          "type": "bar",
+          "address": "Brinkgartenstraße 25, 45894 Gelsenkirchen",
+          "durationMin": 75,
+          "note": "Frisch gezapftes Guinness, große Whisky-Auswahl und jeden ersten Dienstag im Monat eine Irish-Music-Session.",
+          "sourceUrls": [
+            "https://www.kneipen.de/gelsenkirchen/oisin-kelly-gallery-the-irish-pub",
+            "https://www.tripadvisor.com/Restaurant_Review-g187376-d1349817-Reviews-Oisin_Kelly_Gallery-Gelsenkirchen_North_Rhine_Westphalia.html"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Manyos Buer",
+          "type": "bar",
+          "address": "Goldbergstraße 14, 45894 Gelsenkirchen",
+          "durationMin": 75,
+          "note": "Lateinamerikanische Cocktailbar als Absacker-Stopp — freitags und samstags bis 2 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://manyos-buer.de/",
+            "https://www.yelp.de/biz/manyos-gelsenkirchen"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "gelsenkirchen",
+      "slug": "gelsenkirchen-food-buer",
+      "title": "Food-Tour Gelsenkirchen: Markt, Currywurst & Dolce Vita",
+      "description": "Kulinarische Tagestour vom Wochenmarkt in Buer über entspanntes Café-Frühstück bis zur legendären Currywurst von Curry Heinz. Zum Abschluss italienisches Eis auf der Hochstraße — am besten samstags, wenn Markt und alle Stopps geöffnet sind.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "buer",
+        "wochenmarkt",
+        "currywurst",
+        "vegetarisch"
+      ],
+      "sourceUrls": [
+        "https://www.gelsendienste.de/Wochenmaerkte/Unsere_Leistungen/Wochenmaerkte_im_Stadtgebiet.asp",
+        "https://www.ruhr-guide.de/ausgehen/ausgehen-im-ruhrgebiet/kultimbisse/curry-heinz-in-gelsenkirchen/",
+        "https://www.curry-heinz.de/",
+        "https://www.veganfreundlich.org/restaurants/deutschland/gelsenkirchen.html",
+        "https://www.werkenntdenbesten.de/cafe/gelsenkirchen"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wochenmarkt Buer",
+          "type": "market",
+          "address": "De-la-Chevallerie-Straße, 45894 Gelsenkirchen",
+          "durationMin": 75,
+          "note": "Bis zu 60 Händler mit regionalem Obst, Käse und Backwaren — dienstags, donnerstags und samstags von 8 bis 14 Uhr.",
+          "sourceUrls": [
+            "https://www.gelsendienste.de/Wochenmaerkte/Unsere_Leistungen/Wochenmaerkte_im_Stadtgebiet.asp",
+            "https://www.wochenmarkt-deutschland.de/maerkte/nordrhein-westfalen/wochenmarkt-buer-in-gelsenkirchen/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Sorella Buer",
+          "type": "cafe",
+          "address": "Hochstraße 48, 45894 Gelsenkirchen",
+          "durationMin": 60,
+          "note": "Spätes Frühstück und Kaffeespezialitäten im Bali-inspirierten Lieblingscafé auf der Buerschen Einkaufsstraße.",
+          "sourceUrls": [
+            "https://www.werkenntdenbesten.de/cafe/gelsenkirchen"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Domgold",
+          "type": "restaurant",
+          "address": "Russellplatz 1, 45894 Gelsenkirchen",
+          "durationMin": 75,
+          "note": "Bar-Bistro im Schatten des St.-Urbanus-Doms mit großer Terrasse — der vegetarisch-vegane Stopp mit Flammkuchen, Pasta und Beyond-Meat-Burgern, samstags schon ab 10 Uhr.",
+          "sourceUrls": [
+            "https://www.veganfreundlich.org/restaurants/deutschland/geschaeft-10993-domgold-buer.html",
+            "https://www.speisekarte.de/gelsenkirchen/restaurant/domgold"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Curry Heinz",
+          "type": "restaurant",
+          "address": "Theodor-Otte-Straße 81B, 45897 Gelsenkirchen",
+          "durationMin": 45,
+          "note": "Der Ruhrpott-Klassiker schlechthin: preisgekrönte Currywurst und die berühmte Currylocke mit zehn Saucen zur Wahl — samstags ab 14:30 Uhr.",
+          "sourceUrls": [
+            "https://www.curry-heinz.de/",
+            "https://www.ruhr-guide.de/ausgehen/ausgehen-im-ruhrgebiet/kultimbisse/curry-heinz-in-gelsenkirchen/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Eiscafe Botticelli",
+          "type": "cafe",
+          "address": "Hochstraße 8, 45894 Gelsenkirchen",
+          "durationMin": 45,
+          "note": "Süßer Abschluss mit hausgemachtem italienischem Eis in einer der beliebtesten Eisdielen Buers.",
+          "sourceUrls": [
+            "https://www.gelbeseiten.de/gsbiz/47f116b4-2768-45a4-bf84-e38f18bfc572"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "moenchengladbach",
+      "slug": "moenchengladbach-date-altstadt",
+      "title": "Date-Abend: Weinkeller, Altstadt & Bunter Garten",
+      "description": "Romantischer Abend vom historischen Gewölbekeller im Haus Erholung über den Abteiberg bis ins FRENZEN in der Altstadt. Zum Ausklang ein Abendspaziergang durch den Bunten Garten und ein Cocktail auf der Waldhausener Straße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "altstadt",
+        "abteiberg",
+        "romantisch",
+        "weinbar"
+      ],
+      "sourceUrls": [
+        "https://hindenburger.de/gastro-artikel/westgenuss-weinkultur-fuer-jedermann-im-herzen-der-stadt.html",
+        "https://www.winebank.de/en/clubs/niederrhein",
+        "https://www.frenzen-mg.de/",
+        "https://deinmg.de/project/essen-trinken-tanzen-neu/",
+        "https://coolibri.de/magazin/restaurants-moenchengladbach/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "wineBAR im Haus Erholung",
+          "type": "bar",
+          "address": "Abteistraße 11, 41061 Mönchengladbach",
+          "durationMin": 60,
+          "note": "Aperitif im aufwendig sanierten Gewölbekeller von 1861 – die öffentliche Weinbar der wineBANK Niederrhein (Do–Sa geöffnet).",
+          "sourceUrls": [
+            "https://hindenburger.de/gastro-artikel/westgenuss-weinkultur-fuer-jedermann-im-herzen-der-stadt.html",
+            "https://www.winebank.de/en/clubs/niederrhein"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Münster St. Vitus & Abteiberg",
+          "type": "viewpoint",
+          "address": "Abteistraße 31, 41061 Mönchengladbach",
+          "durationMin": 45,
+          "note": "Kurzer Spaziergang zur Münsterbasilika und über die Abteiberg-Terrassen mit Blick über Geropark und Stadt – der schönste Fotospot der Altstadt.",
+          "sourceUrls": [
+            "https://deinmg.de/altstadt-mg/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "FRENZEN Restaurant",
+          "type": "restaurant",
+          "address": "Waldhausener Straße 89, 41061 Mönchengladbach",
+          "durationMin": 120,
+          "note": "Saisonale, handwerkliche Küche mit deutschen Wurzeln, kuratierter Weinkarte und ruhiger Terrasse mitten in der Altstadt – Küche bis 21 Uhr, reservieren.",
+          "sourceUrls": [
+            "https://www.frenzen-mg.de/",
+            "https://coolibri.de/magazin/restaurants-moenchengladbach/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Bunter Garten",
+          "type": "landmark",
+          "address": "Hohenzollernstraße 15, 41061 Mönchengladbach",
+          "durationMin": 45,
+          "note": "Abendlicher Verdauungsspaziergang durch Mönchengladbachs grüne Lunge mit Botanischem Garten und beleuchteter Kaiser-Friedrich-Halle als Kulisse.",
+          "sourceUrls": [
+            "https://deinmg.de/project/stadttouren-stadtrundgaenge/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Tobago Bay",
+          "type": "bar",
+          "address": "Waldhausener Straße 43, 41061 Mönchengladbach",
+          "durationMin": 60,
+          "note": "Nightcap-Cocktails in der Karibik-Bar auf der Waldhausener Straße – entspannter Schlusspunkt des Abends.",
+          "sourceUrls": [
+            "https://deinmg.de/project/essen-trinken-tanzen-neu/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "moenchengladbach",
+      "slug": "moenchengladbach-kneipen-waldhausener",
+      "title": "Kneipentour: Von der Hensen Brauerei zum Alten Markt",
+      "description": "Authentischer Crawl durch den Gladbacher Altstadt-Kiez: Start mit frisch gezapftem Hensen Alt aus der Traditionsbrauerei von 1793, dann die Waldhausener Straße hinauf bis zu den Kneipen am Alten Markt. Über 50 Locations liegen hier fußläufig beieinander.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "altstadt",
+        "waldhausener-strasse",
+        "altbier",
+        "alter-markt"
+      ],
+      "sourceUrls": [
+        "https://brauerei-hensen.de/",
+        "https://www.moenchengladbach.de/de/leben-in-mg/orte/hensen-brauerei",
+        "https://deinmg.de/project/essen-trinken-tanzen-neu/",
+        "https://deinmg.de/altstadt-mg/",
+        "https://altstadt-moenchengladbach.de/aktuelles/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Hensen Brauerei",
+          "type": "bar",
+          "address": "Untere Straße 133-135, 41068 Mönchengladbach",
+          "durationMin": 75,
+          "note": "Auftakt an der Gladbach-Quelle: Hensen Alt mit feiner Röstmalznote aus der 2017 wiederbelebten Brauerei von 1793, dazu solide Brauhausküche.",
+          "sourceUrls": [
+            "https://brauerei-hensen.de/",
+            "https://www.moenchengladbach.de/de/leben-in-mg/orte/hensen-brauerei"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Bar Plastique",
+          "type": "bar",
+          "address": "Waldhausener Straße 25, 41061 Mönchengladbach",
+          "durationMin": 45,
+          "note": "Erste Station auf der Partymeile – unprätentiöse Bar mitten im Trubel der Waldhausener Straße.",
+          "sourceUrls": [
+            "https://deinmg.de/project/essen-trinken-tanzen-neu/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Petit Paris",
+          "type": "bar",
+          "address": "Waldhausener Straße 26, 41061 Mönchengladbach",
+          "durationMin": 45,
+          "note": "Kleine Bar mit französischem Flair als charmanter Kontrast direkt gegenüber – kurzer Stopp auf ein Glas.",
+          "sourceUrls": [
+            "https://deinmg.de/project/essen-trinken-tanzen-neu/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Foormat",
+          "type": "bar",
+          "address": "Waldhausener Straße 8, 41061 Mönchengladbach",
+          "durationMin": 60,
+          "note": "Über 200 verschiedene Shots plus Kicker, Beer Pong und Rage Cage – die verspielteste Station des Abends.",
+          "sourceUrls": [
+            "https://deinmg.de/project/essen-trinken-tanzen-neu/",
+            "https://check-mg.de/nightlife/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "BrauHaus MaNaMaNa",
+          "type": "bar",
+          "address": "Alter Markt 12, 41061 Mönchengladbach",
+          "durationMin": 60,
+          "note": "Brauhaus-Atmosphäre direkt am Alten Markt, dem klassischen Kneipenplatz der Stadt.",
+          "sourceUrls": [
+            "https://deinmg.de/project/essen-trinken-tanzen-neu/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Markt 26",
+          "type": "bar",
+          "address": "Alter Markt 26, 41061 Mönchengladbach",
+          "durationMin": 60,
+          "note": "Absacker in der Traditionskneipe am Alten Markt – hier trifft sich Gladbach bis in die Nacht.",
+          "sourceUrls": [
+            "https://deinmg.de/project/essen-trinken-tanzen-neu/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "moenchengladbach",
+      "slug": "moenchengladbach-food-rheydt-altstadt",
+      "title": "Food-Tour: Vom Rheydter Markt bis zur Markthalle",
+      "description": "Kulinarische Tagestour von Mönchengladbachs größtem Wochenmarkt in Rheydt über Schloss Rheydt und das Kaffeehaus Van Dooren bis in die Markthalle am Alten Markt. Zum Abschluss rheinische Brauhausküche im St. Vith.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "rheydt",
+        "altstadt",
+        "wochenmarkt",
+        "niederrheinisch"
+      ],
+      "sourceUrls": [
+        "https://coolibri.de/magazin/fruehstuecken-moenchengladbach/",
+        "https://coolibri.de/magazin/restaurants-moenchengladbach/",
+        "https://markthallemg.de/",
+        "https://www.van-dooren-mg.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rheydter Wochenmarkt",
+          "type": "market",
+          "address": "Marktplatz, 41236 Mönchengladbach",
+          "durationMin": 60,
+          "note": "Mönchengladbachs größter Wochenmarkt (Di, Do, Sa vormittags) mit frischen Lebensmitteln vom Niederrhein – ideal zum Probieren und Eindecken.",
+          "sourceUrls": [
+            "https://markthallemg.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Rossini",
+          "type": "cafe",
+          "address": "Marktstraße 35, 41236 Mönchengladbach",
+          "durationMin": 45,
+          "note": "Espresso und Frühstück direkt am Rheydter Marktplatz – seit Jahren die erste Adresse für die Marktpause.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/fruehstuecken-moenchengladbach/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Purino Schloss Rheydt",
+          "type": "restaurant",
+          "address": "Schlossstraße 508, 41238 Mönchengladbach",
+          "durationMin": 90,
+          "note": "Vegetarisch-freundliches Mittagessen mit italienischer Frische-Küche und Terrasse direkt am Renaissance-Schloss Rheydt.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/fruehstuecken-moenchengladbach/",
+            "https://freizeitmonster.de/blog/romantische-restaurants-moenchengladbach"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Van Dooren – Café & Weinbar",
+          "type": "cafe",
+          "address": "Kaiserstraße 132, 41061 Mönchengladbach",
+          "durationMin": 60,
+          "note": "Kaffee aus eigener Röstung, handgemachtes Gebäck und saisonale Spezialitäten im liebevoll eingerichteten Kaffeehaus nahe Bunter Garten.",
+          "sourceUrls": [
+            "https://www.van-dooren-mg.de/",
+            "https://coolibri.de/magazin/fruehstuecken-moenchengladbach/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Markthalle Mönchengladbach",
+          "type": "market",
+          "address": "Alter Markt 40, 41061 Mönchengladbach",
+          "durationMin": 75,
+          "note": "Streetfood-Stände und die internationale Weinbar Wein & Seele unter einem Dach – perfekt für eine Probier-Runde am frühen Abend (Mo Ruhetag).",
+          "sourceUrls": [
+            "https://markthallemg.de/",
+            "https://urbano-portal.de/die-markthalle-schlemmen-geniessen-erleben/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "St. Vith",
+          "type": "restaurant",
+          "address": "Alter Markt 6, 41061 Mönchengladbach",
+          "durationMin": 90,
+          "note": "Rheinische Gerichte und Brauhausküche im Traditionshaus am Alten Markt – der niederrheinische Schlusspunkt der Tour.",
+          "sourceUrls": [
+            "https://coolibri.de/magazin/restaurants-moenchengladbach/",
+            "https://deinmg.de/project/essen-trinken-tanzen-neu/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "magdeburg",
+      "slug": "magdeburg-date-elbufer-dom",
+      "title": "Date-Abend an der Elbe: Aperitif, Dom & Rooftop",
+      "description": "Romantischer Abend entlang des Magdeburger Elbufers: Aperitif am Petriförder, Spaziergang zum Dom im Abendlicht, Crossover-Dinner am Domfelsen und Cocktails auf der Rooftop-Bar. Alle Stops liegen fußläufig an der Elbpromenade.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "altstadt",
+        "elbufer",
+        "romantisch",
+        "dom"
+      ],
+      "sourceUrls": [
+        "https://www.petrifoerder.de/",
+        "https://www.culinariarestaurant.de/",
+        "https://visit-magdeburg.de/entdecken/culinaria",
+        "https://www.magdeburg-tourist.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Petriförder Restaurant & Bar",
+          "type": "bar",
+          "address": "Petriförder 1, 39104 Magdeburg",
+          "durationMin": 60,
+          "note": "Aperitif mit Blick auf die Elbe an Magdeburgs Uferpromenade – entspannter Auftakt direkt am Wasser.",
+          "sourceUrls": [
+            "https://www.petrifoerder.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Magdeburger Dom & Fürstenwall-Promenade",
+          "type": "landmark",
+          "address": "Am Dom 1, 39104 Magdeburg",
+          "durationMin": 60,
+          "note": "Abendspaziergang über den Fürstenwall zum ältesten gotischen Dom Deutschlands – im Dämmerlicht besonders stimmungsvoll.",
+          "sourceUrls": [
+            "https://www.magdeburg-tourist.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Culinaria Restaurant",
+          "type": "restaurant",
+          "address": "Schleinufer 52, 39104 Magdeburg",
+          "durationMin": 120,
+          "note": "Handwerklich-internationale Crossover-Küche mit saisonalen und regionalen Produkten, direkt auf dem Domfelsen am Elbufer.",
+          "sourceUrls": [
+            "https://www.culinariarestaurant.de/",
+            "https://visit-magdeburg.de/entdecken/culinaria"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "CuliBaria Rooftop-Bar",
+          "type": "bar",
+          "address": "Schleinufer 52, 39104 Magdeburg",
+          "durationMin": 90,
+          "note": "Cocktails und ausgewählte Weine auf der Dachterrasse über der Elbe – Nightcap mit Blick auf Strom und Dom.",
+          "sourceUrls": [
+            "https://www.culinariarestaurant.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "magdeburg",
+      "slug": "magdeburg-kneipen-hasselbachplatz",
+      "title": "Kneipentour Hasselbachplatz: Sternstraße-Klassiker",
+      "description": "Klassischer Crawl durch Magdeburgs Kneipenmeile rund um den Hasselbachplatz: von der Stern Bar über Kult-Kneipen der Sternstraße bis zur Cocktail-Lounge. Alle Stops liegen wenige Gehminuten auseinander.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "hasselbachplatz",
+        "sternstrasse",
+        "nachtleben"
+      ],
+      "sourceUrls": [
+        "https://www.dates-md.de/locations/hasselbachplatz/",
+        "https://magdeburg.city-map.de/03082600/der-hasselbachplatz--das-kneipenviertel-in-magdeburg",
+        "https://magdeburg-regio.de/nachtleben-in-magdeburg/",
+        "https://www.dates-md.de/essen-trinken/charlyne-brusche-tiefgang-bar/",
+        "https://kneipen.de/magdeburg"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Stern Bar",
+          "type": "bar",
+          "address": "Sternstraße 9, 39104 Magdeburg",
+          "durationMin": 60,
+          "note": "Urige Auftakt-Kneipe in der Sternstraße – seit Jahren feste Größe im Hasselbachplatz-Viertel.",
+          "sourceUrls": [
+            "https://www.nochoffen.de/stern-bar-magdeburg-altstadt",
+            "https://kneipen.de/magdeburg"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Riff",
+          "type": "bar",
+          "address": "Sternstraße 29, 39104 Magdeburg",
+          "durationMin": 60,
+          "note": "Klassische Kneipe mit großer Bierauswahl und studentenfreundlichen Preisen – Karaoke- und Song-Slam-Abende sind Kult.",
+          "sourceUrls": [
+            "https://www.dates-md.de/locations/riff-magdeburg/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Café Central",
+          "type": "bar",
+          "address": "Sternstraße 30, 39104 Magdeburg",
+          "durationMin": 60,
+          "note": "Magdeburger Kult-Kneipe mit wechselndem Kulturprogramm und guter Musik in der Sternstraße.",
+          "sourceUrls": [
+            "https://www.youngspeech.de/kultur/magdeburger-gemuetlichkeit-cafe-central/",
+            "https://magdeburg.city-map.de/03082600/der-hasselbachplatz--das-kneipenviertel-in-magdeburg"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "T!efgang",
+          "type": "bar",
+          "address": "Breiter Weg 231, 39104 Magdeburg",
+          "durationMin": 60,
+          "note": "Kellerbar am Breiten Weg mit ordentlichen Drinks und entspannter Atmosphäre abseits des Trubels.",
+          "sourceUrls": [
+            "https://www.dates-md.de/essen-trinken/charlyne-brusche-tiefgang-bar/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Likido Lounge",
+          "type": "bar",
+          "address": "Hasselbachplatz 5, 39104 Magdeburg",
+          "durationMin": 90,
+          "note": "Cocktail-Lounge direkt am Hasselbachplatz – perfekter Abschluss mit langer Karte bis in die Nacht.",
+          "sourceUrls": [
+            "https://magdeburg-regio.de/nachtleben-in-magdeburg/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "magdeburg",
+      "slug": "magdeburg-food-markt-buckau",
+      "title": "Food-Tour: Alter Markt, Buckau & Elbe-Biergarten",
+      "description": "Kulinarische Tagestour von den regionalen Ständen des Wochenmarkts über die Grüne Zitadelle ins Szeneviertel Buckau mit Tapas-Bistro und Parkspaziergang. Zum Abschluss deutsche Küche im Biergarten am Klosterbergegarten.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "buckau",
+        "altstadt",
+        "regional",
+        "markt"
+      ],
+      "sourceUrls": [
+        "https://www.maerkte-magdeburg.de/alter-markt",
+        "https://visit-magdeburg.de/kulinarik",
+        "https://www.dates-md.de/essen-trinken/fruehstueck-und-brunch-in-magdeburg-2025/",
+        "https://www.speisekarte.de/magdeburg/restaurant/elbelandhaus"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wochenmarkt auf dem Alten Markt",
+          "type": "market",
+          "address": "Alter Markt 1, 39104 Magdeburg",
+          "durationMin": 60,
+          "note": "Regionale Produkte von Anbietern aus Magdeburg und dem Umland, direkt gegenüber dem sanierten Alten Rathaus (Di–Fr 9–16 Uhr, Sa 9–13 Uhr).",
+          "sourceUrls": [
+            "https://www.maerkte-magdeburg.de/alter-markt"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Grüne Zitadelle von Magdeburg",
+          "type": "landmark",
+          "address": "Breiter Weg 9, 39104 Magdeburg",
+          "durationMin": 60,
+          "note": "Hundertwassers letztes Bauwerk mit Arkaden, kleinen Läden und Cafés – ideal für einen Kaffee-Zwischenstopp beim Bummel.",
+          "sourceUrls": [
+            "https://visit-magdeburg.de/kulinarik"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Fritz & Helga",
+          "type": "restaurant",
+          "address": "Schönebecker Straße 23, 39104 Magdeburg",
+          "durationMin": 75,
+          "note": "Buckauer Nachbarschafts-Bistrorant mit feinen kleinen Vorspeisen und Tapas – dank vieler Gemüse-Tapas der vegetarisch-freundliche Stop der Tour.",
+          "sourceUrls": [
+            "https://www.dates-md.de/essen-trinken/ger%C3%BCchtek%C3%BCche/fritz-helga/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Klosterbergegarten",
+          "type": "activity",
+          "address": "Schönebecker Straße 129, 39104 Magdeburg",
+          "durationMin": 45,
+          "note": "Verdauungsspaziergang durch Deutschlands ersten Volksgarten zwischen Buckau und Elbe, vorbei am Gesellschaftshaus.",
+          "sourceUrls": [
+            "https://visit-magdeburg.de/kulinarik"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Elbelandhaus Restaurant-Café-Biergarten",
+          "type": "restaurant",
+          "address": "Benediktinerstraße 6, 39104 Magdeburg",
+          "durationMin": 90,
+          "note": "Deutsche Küche mit saisonalen Spezialitäten und Biergarten in Elbnähe am Klosterbergegarten – gemütlicher regionaler Abschluss.",
+          "sourceUrls": [
+            "https://www.speisekarte.de/magdeburg/restaurant/elbelandhaus"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "luebeck",
+      "slug": "luebeck-date-huexstrasse-obertrave",
+      "title": "Date-Abend: Hüxstraße, Gängehof-Dinner & Trave-Romantik",
+      "description": "Ein romantischer Abend im schönsten Quartier der Lübecker Altstadt: Aperitif in der Weinbar, Dinner im lauschigen Innenhof und ein Sonnenuntergangs-Moment an der Obertrave. Zum Abschluss geht es in eine der charmantesten Bars der Fleischhauerstraße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "altstadt",
+        "huexstrasse",
+        "romantisch",
+        "obertrave"
+      ],
+      "sourceUrls": [
+        "https://miera-restaurant.de/huexstrasse/",
+        "https://restaurant-vai.de/",
+        "https://www.luebeck-tourismus.de/altstadt/poi/malerwinkel",
+        "https://kandinsky-bar.de/",
+        "https://www.merian.de/deutschland/schleswig-holstein/besondere-restaurants-in-luebeck"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Weinbar Miera",
+          "type": "bar",
+          "address": "Hüxstraße 59, 23552 Lübeck",
+          "durationMin": 45,
+          "note": "Aperitif in der Weinbar der Lübecker Genuss-Institution Miera, mitten in der schönsten Einkaufsstraße der Altstadt.",
+          "sourceUrls": [
+            "https://miera-restaurant.de/huexstrasse/",
+            "https://miera-restaurant.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant VAI",
+          "type": "restaurant",
+          "address": "Hüxstraße 42, 23552 Lübeck",
+          "durationMin": 105,
+          "note": "Mediterran-norddeutsche Küche mit großer Weinkarte und idyllischem, geschütztem Innenhof – Reservierung empfohlen, abends ab 17:30 Uhr.",
+          "sourceUrls": [
+            "https://restaurant-vai.de/",
+            "https://www.luebeck-tourismus.de/altstadt/gastro/restaurant-vai-fhp029dh"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Obertrave & Malerwinkel",
+          "type": "viewpoint",
+          "address": "An der Obertrave / Wallstraße, 23552 Lübeck",
+          "durationMin": 45,
+          "note": "Abendspaziergang entlang der bunten Giebelhäuser an der Obertrave zum Malerwinkel mit Postkartenblick auf Marien- und Petrikirche.",
+          "sourceUrls": [
+            "https://www.luebeck-tourismus.de/altstadt/poi/malerwinkel",
+            "https://www.luebeck-tourismus.de/wasser/malerwinkel"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Kandinsky",
+          "type": "bar",
+          "address": "Fleischhauerstraße 89, 23552 Lübeck",
+          "durationMin": 75,
+          "note": "Absacker in der Café-Bar mit Wohnzimmer-Atmosphäre, Jazz und Klassik – täglich bis tief in die Nacht geöffnet.",
+          "sourceUrls": [
+            "https://kandinsky-bar.de/",
+            "https://www.tripadvisor.com/Restaurant_Review-g187413-d10641778-Reviews-Kandinsky-Lubeck_Schleswig_Holstein.html"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "luebeck",
+      "slug": "luebeck-kneipen-altstadtinsel",
+      "title": "Kneipentour: Vom Alten Zolln bis in den Gotteskeller",
+      "description": "Ein authentischer Crawl über die Altstadtinsel: von Lübecks ältester Kneipe über die hauseigene Brauerei bis zur Studenten-Institution und der Kellerbar der Schiffergesellschaft. Alle Stationen liegen fußläufig zwischen Mühlenstraße, Mengstraße und Koberg.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "altstadt",
+        "engelsgrube",
+        "bier",
+        "live-musik"
+      ],
+      "sourceUrls": [
+        "https://zolln.de/en/home/",
+        "https://www.luebeck-tourismus.de/altstadt/gastro/brauberger",
+        "https://finnegan-luebeck.de/",
+        "https://www.blauerengel-luebeck.de/",
+        "https://schiffergesellschaft.de/gotteskeller/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Im Alten Zolln",
+          "type": "bar",
+          "address": "Mühlenstraße 93-95, 23552 Lübeck",
+          "durationMin": 60,
+          "note": "Auftakt in Lübecks ältester Kneipe von 1589 – Bier vom Fass, deftige Küche und regelmäßig Live-Musik.",
+          "sourceUrls": [
+            "https://zolln.de/en/home/",
+            "https://www.luebeck-tourismus.de/altstadt/gastro/im-alten-zolln-9hggot95"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Brauberger zu Lübeck",
+          "type": "bar",
+          "address": "Alfstraße 36, 23552 Lübeck",
+          "durationMin": 75,
+          "note": "Die einzige Adresse der Stadt mit direkt im Haus gebrautem, unfiltriertem Zwickelbier aus dem Kupferkessel.",
+          "sourceUrls": [
+            "https://www.luebeck-tourismus.de/altstadt/gastro/brauberger",
+            "https://www.biunsinnorden.de/veranstaltungsorte/luebeck-brauberger"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Finnegan Irish Pub",
+          "type": "bar",
+          "address": "Mengstraße 42, 23552 Lübeck",
+          "durationMin": 60,
+          "note": "Irischer Pub mit Guinness vom Fass, Pub-Quiz mittwochs und Live-Musik freitags und samstags ab 21 Uhr.",
+          "sourceUrls": [
+            "https://finnegan-luebeck.de/",
+            "https://www.ranzkneipe.de/ranzkneipe/finnegan-irish-pub-luebeck/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Blauer Engel",
+          "type": "bar",
+          "address": "Clemensstraße 8, 23552 Lübeck",
+          "durationMin": 60,
+          "note": "Legendäre Studentenkneipe nahe der Engelsgrube mit günstigen Bierpreisen und regelmäßigen Konzerten, dienstags bis samstags ab 19 Uhr.",
+          "sourceUrls": [
+            "https://www.blauerengel-luebeck.de/",
+            "https://www.visit-luebeck.com/old-town/gastro/blue-angel"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Gotteskeller",
+          "type": "bar",
+          "address": "Breite Straße 2, 23552 Lübeck",
+          "durationMin": 75,
+          "note": "Finale in der rustikalen Kellerbar unter der Schiffergesellschaft – seit fast 40 Jahren eine Lübecker Institution, donnerstags bis samstags ab 17 Uhr bis open end.",
+          "sourceUrls": [
+            "https://schiffergesellschaft.de/gotteskeller/",
+            "https://wir-sind-luebeck.de/geschaefte-luebeck/restaurant-schiffergesellschaft/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "luebeck",
+      "slug": "luebeck-food-marzipan-rotspon",
+      "title": "Food-Tour: Marzipan, Markt, Gänge-Viertel & Rotspon",
+      "description": "Eine kulinarische Tagestour durch die Hansestadt: vom Niederegger-Stammhaus über den Wochenmarkt und Deutschlands ältesten Weinhändler bis zum Traditionslokal der Schiffergesellschaft. Zum Abschluss warten das barocke Gänge-Viertel und vegane Kuchen im Kulturcafé Tonfink.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "altstadt",
+        "marzipan",
+        "rotspon",
+        "markt"
+      ],
+      "sourceUrls": [
+        "https://www.niederegger.de/en/cafe-niederegger/cafe-niederegger/",
+        "https://www.luebeck.de/de/stadtleben/freizeit/wochenmaerkte/index.html",
+        "https://www.tesdorpf.de/inspiration/empfehlungen/luebecker-rotspon/",
+        "https://schiffergesellschaft.de/",
+        "https://www.tonfink.de/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Café Niederegger - Stammhaus",
+          "type": "cafe",
+          "address": "Breite Straße 89, 23552 Lübeck",
+          "durationMin": 90,
+          "note": "Frühstück mit Marzipan-Nusstorte im Stammhaus von 1806 gegenüber dem Rathaus – das kostenlose Marzipan-Museum im Obergeschoss nicht verpassen.",
+          "sourceUrls": [
+            "https://www.niederegger.de/en/cafe-niederegger/cafe-niederegger/",
+            "https://www.luebeck-tourismus.de/altstadt/gastro/cafe-niederegger-lrcjkh74"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Lübecker Wochenmarkt am Rathaus",
+          "type": "market",
+          "address": "Markt, 23552 Lübeck",
+          "durationMin": 45,
+          "note": "Montags und donnerstags von 10 bis 19 Uhr bieten regionale Händler Obst, Gemüse, Fisch und Käse direkt hinter dem Rathaus an.",
+          "sourceUrls": [
+            "https://www.luebeck.de/de/stadtleben/freizeit/wochenmaerkte/index.html",
+            "https://www.luebeck-tourismus.de/event/wochenmarkt-rathausmarkt-1"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Weinhandlung Carl Tesdorpf",
+          "type": "activity",
+          "address": "Mengstraße 64, 23552 Lübeck",
+          "durationMin": 45,
+          "note": "Deutschlands ältestes Weinhandelshaus (seit 1678) ist die Heimat des Lübecker Rotspon – im historischen Gewölbe probieren und eine Flasche mitnehmen.",
+          "sourceUrls": [
+            "https://www.tesdorpf.de/inspiration/empfehlungen/luebecker-rotspon/",
+            "https://www.luebeck-magazin.de/artikel/l%C3%BCbecker-rotspon-und-weinhandlung-tesdorpf"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Restaurant Schiffergesellschaft",
+          "type": "restaurant",
+          "address": "Breite Straße 2, 23552 Lübeck",
+          "durationMin": 90,
+          "note": "Mittagessen im Traditionslokal von 1535 mit Schleswig-Holsteiner Küche zwischen Schiffsmodellen und historischen Bänken, dienstags bis sonntags ab 12 Uhr.",
+          "sourceUrls": [
+            "https://schiffergesellschaft.de/",
+            "https://www.luebeck-tourismus.de/altstadt/gastro/schiffergesellschaft-pvueaket"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Füchtingshof",
+          "type": "landmark",
+          "address": "Glockengießerstraße 25, 23552 Lübeck",
+          "durationMin": 45,
+          "note": "Verdauungsspaziergang durch das Gänge-Viertel zum prächtigsten Stiftshof der Stadt von 1639 – nachmittags von 15 bis 18 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://www.luebeck-tourismus.de/altstadt/poi/fuechtingshof",
+            "https://www.fuechtingshof.de/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Tonfink - Kulturcafé & Bar",
+          "type": "cafe",
+          "address": "Große Burgstraße 46, 23552 Lübeck",
+          "durationMin": 60,
+          "note": "Süßer Abschluss im nachhaltigen Kulturcafé: veganer Schoko-Nuss-Kuchen, Tagessuppe mit Focaccia und Bio-Weine – ideal für Vegetarier.",
+          "sourceUrls": [
+            "https://www.tonfink.de/",
+            "https://www.veganfreundlich.org/restaurants/deutschland/geschaeft-12364-tonfink-kulturcafe-und-bar.html"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "erfurt",
+      "slug": "erfurt-date-altstadt-abendlicht",
+      "title": "Date-Abend: Gera-Ufer, Krämerbrücke & Cocktails",
+      "description": "Romantischer Abend durch die Erfurter Altstadt: Aperitif direkt am Wasser gegenüber der Krämerbrücke, feines Dinner im Ballenberger und Abendlicht an Erfurts schönsten Plätzen. Zum Abschluss klassische Cocktails auf der Michaelisstraße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "date",
+        "altstadt",
+        "kraemerbruecke",
+        "romantisch",
+        "cocktails"
+      ],
+      "sourceUrls": [
+        "https://www.uebersee-erfurt.de/",
+        "https://www.das-ballenberger.de/",
+        "https://www.erfurt-tourismus.de/einkaufen/kraemerbruecke/",
+        "https://feels-like-erfurt.de/5-bars-in-erfurt-in-denen-du-richtig-gute-cocktails-bekommst/",
+        "https://www.werkenntdenbesten.de/bar/erfurt"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Restaurant, Café & Bar Übersee",
+          "type": "bar",
+          "address": "Kürschnergasse 8, 99084 Erfurt",
+          "durationMin": 60,
+          "note": "Aperitif auf der Terrasse direkt an der Gera mit Blick auf die Krämerbrücke – einer der schönsten Sundowner-Spots der Stadt.",
+          "sourceUrls": [
+            "https://www.uebersee-erfurt.de/",
+            "https://www.erfurt-tourismus.de/stadtbummel/kraemerbruecke/restaurant-uebersee/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Das Ballenberger",
+          "type": "restaurant",
+          "address": "Gotthardtstraße 25/26, 99084 Erfurt",
+          "durationMin": 105,
+          "note": "Stylisches Restaurant hinter der Krämerbrücke mit mediterran-moderner Küche – vorab reservieren.",
+          "sourceUrls": [
+            "https://www.das-ballenberger.de/",
+            "https://guide.michelin.com/us/en/thuringen/erfurt/restaurant/das-ballenberger"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Krämerbrücke",
+          "type": "landmark",
+          "address": "Krämerbrücke, 99084 Erfurt",
+          "durationMin": 45,
+          "note": "Abendspaziergang über Europas längste bebaute Brücke, wenn die Fachwerkhäuser im warmen Licht liegen.",
+          "sourceUrls": [
+            "https://www.erfurt-tourismus.de/einkaufen/kraemerbruecke/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Domplatz",
+          "type": "viewpoint",
+          "address": "Domplatz, 99084 Erfurt",
+          "durationMin": 45,
+          "note": "Der beleuchtete Blick auf Dom und Severikirche über die Domstufen ist Erfurts romantischstes Panorama.",
+          "sourceUrls": [
+            "https://feels-like-erfurt.de/5-ideen-fuer-ein-schoenes-erstes-date-in-erfurt/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Modern Masters Bar and Lounge",
+          "type": "bar",
+          "address": "Michaelisstraße 48, 99084 Erfurt",
+          "durationMin": 90,
+          "note": "Klassische Cocktailkultur auf der Michaelisstraße – perfekter Schlusspunkt für den Abend zu zweit.",
+          "sourceUrls": [
+            "https://feels-like-erfurt.de/bar-und-kneipenguide-fuer-erfurt/",
+            "https://www.werkenntdenbesten.de/bar/erfurt"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "erfurt",
+      "slug": "erfurt-kneipen-michaelisstrasse",
+      "title": "Kneipentour: Michaelisstraße & Andreasviertel",
+      "description": "Authentischer Crawl durch Erfurts Kneipenmeile: vom hausgebrauten Bier im Goldenen Schwan über Studentenkult in der Engelsburg bis zu Bierspezialitäten im Gewölbekeller. Finale mit Whisky und Cocktails auf der Michaelisstraße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "pub-crawl",
+        "michaelisstrasse",
+        "andreasviertel",
+        "bier",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://feels-like-erfurt.de/bar-und-kneipenguide-fuer-erfurt/",
+        "https://www.zum-goldenen-schwan.de/",
+        "https://www.erfurt-tourismus.de/en/events-markets/nightclubs/engelsburg/",
+        "https://www.werkenntdenbesten.de/kneipe/erfurt",
+        "https://erfurt-touristinformation.de/cms/gastronomie-erfurt-restaurants/kneipen/"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zum Goldenen Schwan",
+          "type": "bar",
+          "address": "Michaelisstraße 9, 99084 Erfurt",
+          "durationMin": 60,
+          "note": "Traditionsgasthaus mit eigener Hausbrauerei – zum Auftakt ein selbstgebrautes Pils, Schwarzbier oder Weizen.",
+          "sourceUrls": [
+            "https://www.zum-goldenen-schwan.de/",
+            "https://www.erfurt-tourismus.de/stadtbummel/kraemerbruecke/zum-goldenen-schwan/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Steinhaus (Engelsburg)",
+          "type": "bar",
+          "address": "Allerheiligenstraße 20/21, 99084 Erfurt",
+          "durationMin": 60,
+          "note": "Studentenkneipe im ältesten Steinhaus Deutschlands (1152) mit malerischem Biergarten im Hof der Engelsburg.",
+          "sourceUrls": [
+            "https://www.erfurt-tourismus.de/en/events-markets/nightclubs/engelsburg/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Altstadtkneipe Noah",
+          "type": "bar",
+          "address": "Große Arche 8, 99084 Erfurt",
+          "durationMin": 60,
+          "note": "Urige Altstadtkneipe mit großer Bierauswahl für alle, die den Charme vergangener Zeiten mögen.",
+          "sourceUrls": [
+            "https://feels-like-erfurt.de/bar-und-kneipenguide-fuer-erfurt/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Der Bier-Rufer",
+          "type": "bar",
+          "address": "Michaelisstraße 46, 99084 Erfurt",
+          "durationMin": 60,
+          "note": "Kleiner Gewölbekeller mit Bieren aus aller Welt – hier wird probiert, verglichen und gefachsimpelt.",
+          "sourceUrls": [
+            "https://feels-like-erfurt.de/bar-und-kneipenguide-fuer-erfurt/",
+            "https://www.werkenntdenbesten.de/kneipe/erfurt"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Johnny Worker",
+          "type": "bar",
+          "address": "Michaelisstraße 37, 99084 Erfurt",
+          "durationMin": 60,
+          "note": "Rockige Kellerkneipe mit über 200 Whiskysorten mitten auf der Kneipenmeile.",
+          "sourceUrls": [
+            "https://feels-like-erfurt.de/bar-und-kneipenguide-fuer-erfurt/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Hemingway Bar & Lounge",
+          "type": "bar",
+          "address": "Michaelisstraße 45, 99084 Erfurt",
+          "durationMin": 90,
+          "note": "Cocktail-Absacker zum Finale – auch die alkoholfreie Auswahl ist ausgezeichnet.",
+          "sourceUrls": [
+            "https://feels-like-erfurt.de/bar-und-kneipenguide-fuer-erfurt/",
+            "https://www.werkenntdenbesten.de/bar/erfurt"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "erfurt",
+      "slug": "erfurt-food-markt-bruecke",
+      "title": "Food-Tour: Vom Domplatz-Markt zur Krämerbrücke",
+      "description": "Kulinarische Tagestour durch die Altstadt: morgens über den Wochenmarkt am Domplatz, dann Thüringer Rostbratwurst vom Holzkohlegrill, vegetarisches Lunch im Andreasviertel und Born-Senf am Wenigemarkt. Süßes Finale bei Goldhelm und deftiger Ausklang mit Klößen und Hausbier.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "food-tour",
+        "altstadt",
+        "kraemerbruecke",
+        "thueringer-kueche",
+        "wochenmarkt"
+      ],
+      "sourceUrls": [
+        "https://www.erfurt.de/ef/de/erleben/veranstaltungen/maerkte/wochenmarkt/116224.html",
+        "https://www.faustfood.de/",
+        "https://www.peckhams.de/bistro.html",
+        "https://born-feinkost.de/de/Unternehmen/Senfladen",
+        "https://www.erfurt-tourismus.de/stadtbummel/kraemerbruecke/goldhelm-laden"
+      ],
+      "sourceType": "city_magazine+venue_official",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Erfurter Wochenmarkt am Domplatz",
+          "type": "market",
+          "address": "Domplatz, 99084 Erfurt",
+          "durationMin": 60,
+          "note": "Mo–Sa bis 14 Uhr: regionales Obst, Gemüse, Käse, Wurst und Honig direkt vor der Kulisse von Dom und Severikirche.",
+          "sourceUrls": [
+            "https://www.erfurt.de/ef/de/erleben/veranstaltungen/maerkte/wochenmarkt/116224.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Faustfood",
+          "type": "restaurant",
+          "address": "Waagegasse 1, 99084 Erfurt",
+          "durationMin": 60,
+          "note": "Erfurts erster Inhouse-Grill: Original Thüringer Rostbratwurst vom Holzkohlegrill in der Waagegasse gleich am Domplatz.",
+          "sourceUrls": [
+            "https://www.faustfood.de/",
+            "https://www.yelp.com/biz/faustfood-erfurt"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Peckham's",
+          "type": "cafe",
+          "address": "Pergamentergasse 11, 99084 Erfurt",
+          "durationMin": 60,
+          "note": "Vegetarisch-freundlicher Lunch-Stop im Andreasviertel – Komponenten-System mit vegetarischen und veganen Basis-Gerichten (Mo–Fr 11:30–13:30).",
+          "sourceUrls": [
+            "https://www.peckhams.de/bistro.html",
+            "https://feels-like-erfurt.de/gastrotipp-peckhams/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "BORN Senf-Laden & Senf-Museum",
+          "type": "activity",
+          "address": "Wenigemarkt 11, 99084 Erfurt",
+          "durationMin": 45,
+          "note": "Thüringens Kult-Senf seit 1820 probieren – vom klassischen Bratwurstsenf bis zu kreativen Sorten, mit kleinem Museum.",
+          "sourceUrls": [
+            "https://born-feinkost.de/de/Unternehmen/Senfladen",
+            "https://www.erfurt-tourismus.de/stadtbummel/kraemerbruecke/born-senf/"
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Goldhelm Schokoladen Manufaktur",
+          "type": "cafe",
+          "address": "Krämerbrücke 12, 99084 Erfurt",
+          "durationMin": 45,
+          "note": "Handgemachte Pralinen, Trüffel und Tafelschokolade auf der Krämerbrücke – nebenan schöpft der Goldhelm Eiskrämer Eis aus eigener Herstellung.",
+          "sourceUrls": [
+            "https://www.erfurt-tourismus.de/stadtbummel/kraemerbruecke/goldhelm-laden",
+            "https://www.das-ist-thueringen.de/denker-macher/goldhelm-schokolade-erfurt/"
+          ]
+        },
+        {
+          "order": 6,
+          "title": "Zum Goldenen Schwan",
+          "type": "restaurant",
+          "address": "Michaelisstraße 9, 99084 Erfurt",
+          "durationMin": 75,
+          "note": "Deftiger Ausklang mit hausgemachten Thüringer Klößen und selbstgebrautem Bier im Traditionsgasthaus von 1775.",
+          "sourceUrls": [
+            "https://www.zum-goldenen-schwan.de/",
+            "https://www.erfurt-tourismus.de/stadtbummel/kraemerbruecke/zum-goldenen-schwan/"
+          ]
+        }
+      ]
+    }
+  ]
+}
