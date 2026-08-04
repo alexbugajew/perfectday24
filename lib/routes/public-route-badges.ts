@@ -45,13 +45,13 @@ export function inferPublicRouteBadges(route: BadgeInput): PublicRouteBadge[] {
   if (explicitOccasion === "date" || tags.includes("date")) {
     badges.push({ label: "Date", tone: "dark" });
   } else if (explicitOccasion === "family" || tags.includes("family")) {
-    badges.push({ label: "Family", tone: "soft" });
+    badges.push({ label: "Familie", tone: "soft" });
   } else if (explicitOccasion === "tourism" || tags.includes("tourism")) {
-    badges.push({ label: "Tourism", tone: "neutral" });
+    badges.push({ label: "Sightseeing", tone: "neutral" });
   } else if (explicitOccasion === "party" || tags.includes("party")) {
     badges.push({ label: "Party", tone: "dark" });
   } else if (explicitOccasion === "friends" || tags.includes("friends")) {
-    badges.push({ label: "Friends", tone: "neutral" });
+    badges.push({ label: "Freunde", tone: "neutral" });
   }
 
   if (
@@ -60,13 +60,13 @@ export function inferPublicRouteBadges(route: BadgeInput): PublicRouteBadge[] {
   ) {
     badges.push({ label: "Date", tone: "dark" });
   } else if (hasAny(text, ["family", "kinder", "zoo", "aquarium", "science center", "spiel", "kids"])) {
-    badges.push({ label: "Family", tone: "soft" });
+    badges.push({ label: "Familie", tone: "soft" });
   } else if (hasAny(text, ["tourism", "museum", "landmark", "altstadt", "old town", "sightseeing", "viewpoint"])) {
-    badges.push({ label: "Tourism", tone: "neutral" });
+    badges.push({ label: "Sightseeing", tone: "neutral" });
   } else if (hasAny(text, ["party", "club", "bar", "techno", "nightlife", "late food", "afterhour"])) {
     badges.push({ label: "Party", tone: "dark" });
   } else if (hasAny(text, ["friends", "arcade", "bowling", "social", "group", "burger"])) {
-    badges.push({ label: "Friends", tone: "neutral" });
+    badges.push({ label: "Freunde", tone: "neutral" });
   }
 
   if (explicitProfile === "foot" || tags.includes("foot")) {

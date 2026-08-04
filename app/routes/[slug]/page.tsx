@@ -261,7 +261,7 @@ function currentStopCandidate(stop: RouteStopRow): InlineSwapCandidate {
   return {
     location_id: stop.location_id,
     title: stop.title || `Stop ${stop.stop_order}`,
-    subtitle: "Originaler Stop",
+    subtitle: "",
     note: stop.note ?? "",
     external_url: stop.external_url ?? "",
     lat: stop.lat != null ? String(stop.lat) : "",
@@ -275,7 +275,7 @@ function reasonTextForKind(kind: PersonalizationKind) {
   if (kind === "activity_swap") return "Dieser Stop kann gegen passendere Aktivitäten oder kulturelle Highlights für eure Interessen ausgetauscht werden.";
   if (kind === "nightlife_swap") return "Dieser Stop kann gegen passendere Bars, Lounges oder Nightlife-Optionen ausgetauscht werden.";
   if (kind === "ambience_swap") return "Dieser Stop kann gegen passendere View-, Park- oder Scenic-Optionen ausgetauscht werden.";
-  return "Dieser Stop bleibt als Kernbestandteil der Route erhalten, damit Highlights und Flow stabil bleiben.";
+  return "";
 }
 
 function kindLabel(kind: PersonalizationKind) {
@@ -358,11 +358,13 @@ function SuggestionCard({
             </span>
           ))}
         </div>
-        <div className="flex items-center justify-between gap-3 text-xs text-gray-500">
-          <span>{route.avg_rating} / 5</span>
-          <span>{route.like_count} Likes</span>
-          <span>{route.bookmark_count} Saves</span>
-        </div>
+        {(route.rating_count ?? 0) > 0 || (route.like_count ?? 0) > 0 || (route.bookmark_count ?? 0) > 0 ? (
+          <div className="flex items-center gap-3 text-xs text-gray-500">
+            {(route.rating_count ?? 0) > 0 ? <span>{compactRating(route.avg_rating)} / 5</span> : null}
+            {(route.like_count ?? 0) > 0 ? <span>{route.like_count} Likes</span> : null}
+            {(route.bookmark_count ?? 0) > 0 ? <span>{route.bookmark_count} Saves</span> : null}
+          </div>
+        ) : null}
         {href ? (
           <Link href={href} className="inline-flex rounded-xl border px-3 py-2 text-sm hover:bg-gray-50">
             Route öffnen
@@ -496,7 +498,27 @@ function niceCreatorType(v: UserRouteRow["creator_type"]) {
   if (v === "influencer") return "Influencer";
   if (v === "creator") return "Creator";
   if (v === "brand") return "Brand";
-  return "User";
+  return "Community";
+}
+
+function routeCreatorLabel(route: UserRouteRow, creator?: CreatorProfileRow | null) {
+  const tags = Array.isArray(route.tags) ? route.tags : [];
+  if (
+    tags.some((tag) => typeof tag === "string" && tag.toLowerCase() === "editorial") ||
+    creator?.username === "pd24-redaktion" ||
+    creator?.creator_type === "editorial"
+  ) {
+    return "Redaktion";
+  }
+  return niceCreatorType(route.creator_type);
+}
+
+function formatTravelMinutes(min: number | null | undefined) {
+  const value = Math.max(0, Math.round(min ?? 0));
+  if (value < 90) return `${value} Min`;
+  const hours = Math.floor(value / 60);
+  const rest = value % 60;
+  return rest > 0 ? `${hours} h ${rest} Min` : `${hours} h`;
 }
 
 function creatorHref(creator: CreatorProfileRow | null | undefined) {
@@ -538,7 +560,7 @@ function visibilityLabel(v: UserRouteRow["visibility"]) {
 function durationBucketLabel(value: unknown) {
   if (value === "short") return "Kurz";
   if (value === "halfday") return "Halbtag";
-  if (value === "extended") return "Extended";
+  if (value === "extended") return "Ausgedehnt";
   if (value === "fullday") return "Ganztägig";
   return null;
 }
@@ -1628,8 +1650,6 @@ function RouteDetailPageContent() {
     [routeProfile, routeSummary]
   );
 
-  const travelSummaryUsesFallback = mapStops.length >= 2 && travelSummary == null;
-
   async function reloadRouteCounters() {
     if (!route?.slug) return;
 
@@ -2054,8 +2074,10 @@ function RouteDetailPageContent() {
             />
             <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
               <div className="mb-3 flex flex-wrap gap-2">
-                <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{niceCreatorType(route.creator_type)}</span>
-                <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{visibilityLabel(route.visibility)}</span>
+                <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{routeCreatorLabel(route, creator)}</span>
+                {route.visibility !== "public" ? (
+                  <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{visibilityLabel(route.visibility)}</span>
+                ) : null}
                 <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{routeCityLabel}</span>
                 {personalizedVariantMeta ? <span className="rounded-full border border-white/30 bg-emerald-500/20 px-3 py-1 text-xs backdrop-blur">Persönliche Variante</span> : null}
                 {route.is_featured ? <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">Featured</span> : null}
@@ -2071,8 +2093,12 @@ function RouteDetailPageContent() {
                 <span>Aktualisiert {formatDate(route.updated_at)}</span>
                 <span>•</span>
                 <span>{stops.length} Stop{stops.length === 1 ? "" : "s"}</span>
-                <span>•</span>
-                <span>{route.avg_rating} / 5 bei {route.rating_count} Bewertungen</span>
+                {(route.rating_count ?? 0) > 0 ? (
+                  <>
+                    <span>•</span>
+                    <span>{compactRating(route.avg_rating)} / 5 ({route.rating_count} Bewertung{route.rating_count === 1 ? "" : "en"})</span>
+                  </>
+                ) : null}
               </div>
               <p className="mt-4 max-w-3xl text-sm leading-7 text-white/88">
                 {routeIntro}
@@ -2093,8 +2119,10 @@ function RouteDetailPageContent() {
         ) : (
             <div className="bg-gradient-to-br from-stone-100 via-white to-stone-200 p-8 md:p-10">
             <div className="mb-3 flex flex-wrap gap-2">
-              <span className="rounded-full border px-3 py-1 text-xs">{niceCreatorType(route.creator_type)}</span>
-              <span className="rounded-full border px-3 py-1 text-xs">{visibilityLabel(route.visibility)}</span>
+              <span className="rounded-full border px-3 py-1 text-xs">{routeCreatorLabel(route, creator)}</span>
+              {route.visibility !== "public" ? (
+                <span className="rounded-full border px-3 py-1 text-xs">{visibilityLabel(route.visibility)}</span>
+              ) : null}
               <span className="rounded-full border px-3 py-1 text-xs">{routeCityLabel}</span>
               {personalizedVariantMeta ? <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-800">Persönliche Variante</span> : null}
             </div>
@@ -2106,7 +2134,7 @@ function RouteDetailPageContent() {
                 Sofort live nutzbar
               </span>
               <span className="rounded-full border border-black/10 bg-white px-3 py-1.5">
-                Direkt in Planner uebernehmbar
+                Direkt in Planner übernehmbar
               </span>
               <span className="rounded-full border border-black/10 bg-white px-3 py-1.5">
                 Auf Vorlieben anpassbar
@@ -2158,22 +2186,26 @@ function RouteDetailPageContent() {
             </div>
 
             <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs text-gray-600">
-              <span
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-[12px] font-semibold text-gray-950"
-                title={`${compactRating(route.avg_rating)} von 5`}
-              >
-                {compactRating(route.avg_rating)}/5
-              </span>
+              {(route.rating_count ?? 0) > 0 ? (
+                <span
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-[12px] font-semibold text-gray-950"
+                  title={`${compactRating(route.avg_rating)} von 5`}
+                >
+                  {compactRating(route.avg_rating)}/5
+                </span>
+              ) : null}
               <a
                 href="#route-rating"
-                aria-label={`${route.rating_count} Bewertungen. Route bewerten`}
-                title={`${route.rating_count} Bewertungen`}
+                aria-label={(route.rating_count ?? 0) > 0 ? `${route.rating_count} Bewertungen. Route bewerten` : "Route bewerten"}
+                title={(route.rating_count ?? 0) > 0 ? `${route.rating_count} Bewertungen` : "Route bewerten"}
                 className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-lg text-gray-900 transition hover:bg-gray-50"
               >
                 <span aria-hidden="true">☆</span>
-                <span className="absolute -right-0.5 -top-0.5 min-w-5 rounded-full bg-gray-950 px-1 text-center text-[10px] font-semibold leading-5 text-white">
-                  {compactCount(route.rating_count)}
-                </span>
+                {(route.rating_count ?? 0) > 0 ? (
+                  <span className="absolute -right-0.5 -top-0.5 min-w-5 rounded-full bg-gray-950 px-1 text-center text-[10px] font-semibold leading-5 text-white">
+                    {compactCount(route.rating_count)}
+                  </span>
+                ) : null}
               </a>
               <button
                 onClick={toggleLike}
@@ -2185,11 +2217,13 @@ function RouteDetailPageContent() {
                 }`}
               >
                 <span aria-hidden="true">♥</span>
-                <span className={`absolute -right-0.5 -top-0.5 min-w-5 rounded-full px-1 text-center text-[10px] font-semibold leading-5 ${
-                  liked ? "bg-white text-gray-950" : "bg-gray-950 text-white"
-                }`}>
-                  {compactCount(route.like_count)}
-                </span>
+                {(route.like_count ?? 0) > 0 ? (
+                  <span className={`absolute -right-0.5 -top-0.5 min-w-5 rounded-full px-1 text-center text-[10px] font-semibold leading-5 ${
+                    liked ? "bg-white text-gray-950" : "bg-gray-950 text-white"
+                  }`}>
+                    {compactCount(route.like_count)}
+                  </span>
+                ) : null}
               </button>
               <button
                 onClick={toggleBookmark}
@@ -2201,11 +2235,13 @@ function RouteDetailPageContent() {
                 }`}
               >
                 <span aria-hidden="true">🔖</span>
-                <span className={`absolute -right-0.5 -top-0.5 min-w-5 rounded-full px-1 text-center text-[10px] font-semibold leading-5 ${
-                  bookmarked ? "bg-white text-gray-950" : "bg-gray-950 text-white"
-                }`}>
-                  {compactCount(route.bookmark_count)}
-                </span>
+                {(route.bookmark_count ?? 0) > 0 ? (
+                  <span className={`absolute -right-0.5 -top-0.5 min-w-5 rounded-full px-1 text-center text-[10px] font-semibold leading-5 ${
+                    bookmarked ? "bg-white text-gray-950" : "bg-gray-950 text-white"
+                  }`}>
+                    {compactCount(route.bookmark_count)}
+                  </span>
+                ) : null}
               </button>
             </div>
 
@@ -2252,7 +2288,7 @@ function RouteDetailPageContent() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm font-semibold">{creatorName}</div>
-                  <div className="text-xs text-gray-500">{niceCreatorType(route.creator_type)}</div>
+                  <div className="text-xs text-gray-500">{routeCreatorLabel(route, creator)}</div>
                 </div>
                 {creatorProfileHref ? (
                   <Link href={creatorProfileHref} className="shrink-0 text-xs underline underline-offset-4">
@@ -2443,60 +2479,45 @@ function RouteDetailPageContent() {
             <PlanMap stops={mapStops} profile={routeProfile} height={360} onSummary={(s) => setRouteSummary(s)} showHeader={false} />
           </div>
 
-          <div className="rounded-2xl border bg-gray-50 p-4 text-sm text-gray-700">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="font-semibold text-gray-900">Travel Summary</div>
-                <div className="mt-1 text-xs text-gray-500">Zeigt echte Stop-Namen statt generischer Nummern.</div>
-              </div>
-              <div className="rounded-full bg-white px-3 py-1 text-xs text-gray-600">
-                {travelSummary ? "OSRM" : "Fallback"}
-              </div>
-            </div>
+          <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-4 text-sm text-[var(--text-muted)]">
+            <div className="font-semibold text-[var(--text-strong)]">Wege &amp; Zeiten</div>
 
             {mapStops.length < 2 ? (
-              <div className="mt-3 text-sm text-gray-600">Für eine Route brauchen wir mindestens Start plus einen Stop mit Koordinaten.</div>
+              <div className="mt-3 text-sm text-[var(--text-muted)]">Für eine Route brauchen wir mindestens Start plus einen Stop mit Koordinaten.</div>
             ) : travelSummary ? (
               <>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-gray-700">
-                    Gesamt: <span className="font-semibold">{travelSummary.totalDistanceKm} km</span>
+                  <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
+                    Gesamt: <span className="font-semibold text-[var(--text-strong)]">{travelSummary.totalDistanceKm} km</span>
                   </span>
-                  <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-gray-700">
-                    Wege: <span className="font-semibold">{travelSummary.totalDurationMin} Min</span>
+                  <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
+                    Wege: <span className="font-semibold text-[var(--text-strong)]">{formatTravelMinutes(travelSummary.totalDurationMin)}</span>
                   </span>
                 </div>
                 <div className="mt-3 grid gap-2">
                   {travelSummary.legs.map((leg, i) => (
-                    <div key={i} className="rounded-xl border border-black/10 bg-white px-3 py-2">
-                      <div className="text-sm font-medium text-gray-900">{leg.fromLabel} → {leg.toLabel}</div>
-                      <div className="mt-1 text-xs text-gray-600">{leg.distanceKm} km · {leg.durationMin} Min</div>
+                    <div key={i} className="rounded-xl border border-[var(--line-subtle)] bg-white px-3 py-2">
+                      <div className="text-sm font-medium text-[var(--text-strong)]">{leg.fromLabel} → {leg.toLabel}</div>
+                      <div className="mt-1 text-xs text-[var(--text-muted)]">{leg.distanceKm} km · {leg.durationMin} Min</div>
                     </div>
                   ))}
                 </div>
               </>
             ) : (
-              <>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-gray-700">
-                    Strecke: <span className="font-semibold">{fallbackSummary.distanceKm} km</span>
-                  </span>
-                  <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-gray-700">
-                    Wege: <span className="font-semibold">{fallbackSummary.travelMin} Min</span>
-                  </span>
-                  <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-gray-700">
-                    Aufenthalte: <span className="font-semibold">{fallbackSummary.stayMin} Min</span>
-                  </span>
-                  <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-gray-700">
-                    Gesamt: <span className="font-semibold">{fallbackSummary.totalMin} Min</span>
-                  </span>
-                </div>
-                {travelSummaryUsesFallback && routeProfile === "foot" ? (
-                  <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
-                    Die Gehzeit wurde auf eine realistischere Schätzung zurückgesetzt, weil die Rohwerte für diese Route unplausibel waren.
-                  </div>
-                ) : null}
-              </>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
+                  Strecke: <span className="font-semibold text-[var(--text-strong)]">~{fallbackSummary.distanceKm} km</span>
+                </span>
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
+                  Wege: <span className="font-semibold text-[var(--text-strong)]">~{formatTravelMinutes(fallbackSummary.travelMin)}</span>
+                </span>
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
+                  Aufenthalte: <span className="font-semibold text-[var(--text-strong)]">{formatTravelMinutes(fallbackSummary.stayMin)}</span>
+                </span>
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-xs text-[var(--text-muted)]">
+                  Gesamt: <span className="font-semibold text-[var(--text-strong)]">~{formatTravelMinutes(fallbackSummary.totalMin)}</span>
+                </span>
+              </div>
             )}
           </div>
       </section>
@@ -2599,13 +2620,11 @@ function RouteDetailPageContent() {
                       ) : null}
                       <div className="min-w-0 flex-1">
                         <div className="text-xl font-semibold leading-tight text-gray-950 sm:text-2xl">{displayCandidate.title || `Stop ${stop.stop_order}`}</div>
-                        {adjustable ? (
+                        {adjustable && (inlineSwapLoading || hasInlineSwitch) ? (
                           <div className="mt-1 text-xs text-amber-700 line-clamp-1">
                             {inlineSwapLoading
                               ? "Passende Alternativen werden geladen..."
-                              : hasInlineSwitch
-                                ? `Vorschlag ${swapIndex + 1} von ${swapOptions.length}`
-                                : "Aktuell kein weiterer Vorschlag verfügbar"}
+                              : `Vorschlag ${swapIndex + 1} von ${swapOptions.length}`}
                           </div>
                         ) : null}
                       </div>
@@ -2621,22 +2640,15 @@ function RouteDetailPageContent() {
                       ) : null}
                   </div>
 
-                  <div className="grid gap-2 text-xs text-gray-500 sm:grid-cols-2">
-                    <div className="rounded-xl bg-gray-50 px-3 py-2">
-                      {displayCandidate.lat && displayCandidate.lng
-                        ? `${Number(displayCandidate.lat).toFixed(4)}, ${Number(displayCandidate.lng).toFixed(4)}`
-                        : stop.lat != null && stop.lng != null
-                          ? `${stop.lat.toFixed(4)}, ${stop.lng.toFixed(4)}`
-                          : "Ohne Kartenkoordinaten"}
-                    </div>
-                    {adjustable && displayCandidate.subtitle ? (
-                      <div className="rounded-xl bg-amber-50 px-3 py-2 text-amber-800">{displayCandidate.subtitle}</div>
-                    ) : null}
-                  </div>
+                  {adjustable && displayCandidate.subtitle ? (
+                    <div className="rounded-xl bg-amber-50 px-3 py-2 text-xs text-amber-800">{displayCandidate.subtitle}</div>
+                  ) : null}
 
-                  <div className="line-clamp-2 text-sm leading-6 text-gray-600">
+                  {reasonTextForKind(personalizationKind) ? (
+                    <div className="line-clamp-2 text-sm leading-6 text-[var(--text-muted)]">
                       {reasonTextForKind(personalizationKind)}
-                  </div>
+                    </div>
+                  ) : null}
                 </div>
                 {stopPhotoUrl ? (
                   <div className="relative mt-3 overflow-hidden rounded-2xl border bg-gray-100">
@@ -2664,17 +2676,6 @@ function RouteDetailPageContent() {
                       className="absolute inset-x-3 bottom-3 truncate rounded-full bg-black/55 px-3 py-1 backdrop-blur"
                     />
                   </div>
-                ) : adjustable ? (
-                  <div className="relative mt-3 overflow-hidden rounded-2xl border bg-gradient-to-br from-amber-50 via-white to-stone-100 p-4">
-                    <div className="absolute left-3 top-3 z-10 rounded-full border border-amber-200 bg-amber-100/95 px-3 py-1 text-xs font-medium text-amber-900 shadow-sm backdrop-blur">
-                      ↔ Anpassbar
-                    </div>
-                    <div className="mt-9">
-                      <div className="text-xs uppercase tracking-wide text-amber-700">Aktueller Vorschlag</div>
-                      <div className="mt-2 text-xl font-semibold text-gray-950">{displayCandidate.title}</div>
-                      {displayCandidate.subtitle ? <div className="mt-2 text-sm text-gray-600">{displayCandidate.subtitle}</div> : null}
-                    </div>
-                  </div>
                 ) : null}
                 {(adjustable ? displayCandidate.note : stop.note) ? (
                   <div className="mt-3 line-clamp-3 rounded-xl bg-gray-50 px-3 py-2 text-sm leading-6 text-gray-700 whitespace-pre-wrap">
@@ -2691,9 +2692,9 @@ function RouteDetailPageContent() {
         <section>
           <div className="mb-4 flex items-end justify-between gap-3">
             <div>
-              <h2 className="text-2xl font-semibold">Mehr von diesem Creator</h2>
+              <h2 className="text-2xl font-semibold">Mehr von {creatorName}</h2>
               <p className="text-sm text-gray-600">
-                Weitere öffentliche Routen von {creatorName}.
+                Weitere öffentliche Routen aus diesem Profil.
               </p>
             </div>
             {creatorProfileHref ? (
@@ -2861,7 +2862,7 @@ function RouteDetailPageContent() {
             <div className="mt-1 text-sm text-gray-600">Kurzes Feedback zu Flow, Stops und Gesamtgefühl.</div>
           </div>
           <div className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700">
-            {route.avg_rating} / 5
+            {(route.rating_count ?? 0) > 0 ? `${compactRating(route.avg_rating)} / 5` : "Noch keine Bewertungen"}
           </div>
         </div>
         {!userId && authReady ? <div className="mt-3 text-sm text-gray-600">Für Likes, Bookmarks und Bewertungen bitte anmelden oder als Gast fortfahren.</div> : null}
@@ -2870,7 +2871,7 @@ function RouteDetailPageContent() {
             <button key={n} onClick={() => { setMyRating(n); saveRating(n); }} className={`text-2xl ${n <= myRating ? "" : "opacity-30"}`} aria-label={`${n} Sterne`} type="button" disabled={!userId}>★</button>
           ))}
         </div>
-        <textarea value={myReview} onChange={(e) => setMyReview(e.target.value)} placeholder="Optionales Review" className="min-h-[88px] w-full rounded-xl border p-3 text-sm" />
+        <textarea value={myReview} onChange={(e) => setMyReview(e.target.value)} placeholder="Dein Feedback (optional)" className="min-h-[88px] w-full rounded-xl border p-3 text-sm" />
         <div className="mt-3">
           <button onClick={() => saveRating()} disabled={savingRating || !userId} className="pd24-btn pd24-btn-secondary">
             {savingRating ? "Speichere..." : "Bewertung speichern"}

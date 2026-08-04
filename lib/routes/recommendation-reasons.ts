@@ -55,7 +55,7 @@ export function scoreRouteAgainstInterests(route: RecommendableRoute, interests:
       (interest.includes("bar") && badges.has("party")) ||
       (interest.includes("wine") && badges.has("date")) ||
       (interest.includes("cocktail") && badges.has("party")) ||
-      (interest.includes("family") && badges.has("family")) ||
+      (interest.includes("family") && badges.has("familie")) ||
       (interest.includes("date") && badges.has("date"))
     ) {
       score += 3;

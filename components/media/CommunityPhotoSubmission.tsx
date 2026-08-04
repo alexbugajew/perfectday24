@@ -463,7 +463,7 @@ export default function CommunityPhotoSubmission({
           </div>
           <div className="flex items-center gap-2">
             <div className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-1 text-[11px] text-[var(--text-muted)]">
-              {previewItems.length || 0} Bilder
+              {previewItems.length === 1 ? "1 Bild" : `${previewItems.length} Bilder`}
             </div>
           </div>
         </div>

@@ -222,7 +222,7 @@ function computeDurationBucket(stopCount: number) {
 function durationBucketLabel(value: unknown) {
   if (value === "short") return "Kurz";
   if (value === "halfday") return "Halbtag";
-  if (value === "extended") return "Extended";
+  if (value === "extended") return "Ausgedehnt";
   if (value === "fullday") return "Ganztägig";
   return null;
 }
