@@ -1,0 +1,5070 @@
+{
+  "version": 1,
+  "createdAt": null,
+  "routes": [
+    {
+      "slug": "griechenland-peloponnes-antike-meer::stage-1",
+      "citySlug": "athen",
+      "title": "Athen – Peloponnes — Antike, Küste & Mani",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Akropolis Athen",
+          "type": "landmark",
+          "address": "Athen"
+        },
+        {
+          "order": 2,
+          "title": "Anafiotika",
+          "type": "landmark",
+          "address": "Athen"
+        }
+      ]
+    },
+    {
+      "slug": "griechenland-peloponnes-antike-meer::stage-2",
+      "citySlug": "nafplio-epidauros",
+      "title": "Nafplio & Epidauros – Peloponnes — Antike, Küste & Mani",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Theater von Epidauros",
+          "type": "landmark",
+          "address": "Nafplio & Epidauros"
+        },
+        {
+          "order": 2,
+          "title": "Palamidi Nafplio",
+          "type": "landmark",
+          "address": "Nafplio & Epidauros"
+        }
+      ]
+    },
+    {
+      "slug": "griechenland-peloponnes-antike-meer::stage-3",
+      "citySlug": "monemvasia",
+      "title": "Monemvasia – Peloponnes — Antike, Küste & Mani",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kastro Monemvasia",
+          "type": "landmark",
+          "address": "Monemvasia"
+        },
+        {
+          "order": 2,
+          "title": "Agia Sophia Monemvasia",
+          "type": "landmark",
+          "address": "Monemvasia"
+        }
+      ]
+    },
+    {
+      "slug": "griechenland-peloponnes-antike-meer::stage-4",
+      "citySlug": "kardamili-mani",
+      "title": "Kardamili & Mani – Peloponnes — Antike, Küste & Mani",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Old Kardamili",
+          "type": "landmark",
+          "address": "Kardamili & Mani"
+        },
+        {
+          "order": 2,
+          "title": "Foneas Beach",
+          "type": "landmark",
+          "address": "Kardamili & Mani"
+        }
+      ]
+    },
+    {
+      "slug": "rumaenien-transfagarasan-siebenbuergen::stage-1",
+      "citySlug": "bukarest",
+      "title": "Bukarest – Siebenbürgen & Transfăgărășan — Burgen und Wolkenstraße",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Palatul Parlamentului",
+          "type": "landmark",
+          "address": "Bukarest"
+        },
+        {
+          "order": 2,
+          "title": "Lipscani Bukarest",
+          "type": "landmark",
+          "address": "Bukarest"
+        }
+      ]
+    },
+    {
+      "slug": "rumaenien-transfagarasan-siebenbuergen::stage-2",
+      "citySlug": "brasov-bran",
+      "title": "Brașov & Bran – Siebenbürgen & Transfăgărășan — Burgen und Wolkenstraße",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Castelul Bran",
+          "type": "landmark",
+          "address": "Brașov & Bran"
+        },
+        {
+          "order": 2,
+          "title": "Biserica Neagră Brașov",
+          "type": "landmark",
+          "address": "Brașov & Bran"
+        }
+      ]
+    },
+    {
+      "slug": "rumaenien-transfagarasan-siebenbuergen::stage-3",
+      "citySlug": "sighisoara",
+      "title": "Sighișoara – Siebenbürgen & Transfăgărășan — Burgen und Wolkenstraße",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Turnul cu Ceas Sighișoara",
+          "type": "landmark",
+          "address": "Sighișoara"
+        },
+        {
+          "order": 2,
+          "title": "Cetatea Sighișoara",
+          "type": "landmark",
+          "address": "Sighișoara"
+        }
+      ]
+    },
+    {
+      "slug": "rumaenien-transfagarasan-siebenbuergen::stage-4",
+      "citySlug": "sibiu",
+      "title": "Sibiu – Siebenbürgen & Transfăgărășan — Burgen und Wolkenstraße",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Piața Mare Sibiu",
+          "type": "landmark",
+          "address": "Sibiu"
+        },
+        {
+          "order": 2,
+          "title": "Turnul Sfatului Sibiu",
+          "type": "landmark",
+          "address": "Sibiu"
+        }
+      ]
+    },
+    {
+      "slug": "rumaenien-transfagarasan-siebenbuergen::stage-5",
+      "citySlug": "transfagarasan-balea-lac",
+      "title": "Transfăgărășan & Bâlea Lac – Siebenbürgen & Transfăgărășan — Burgen und Wolkenstraße",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Transfăgărășan Nordrampe",
+          "type": "landmark",
+          "address": "Transfăgărășan & Bâlea Lac"
+        },
+        {
+          "order": 2,
+          "title": "Cascada Bâlea",
+          "type": "landmark",
+          "address": "Transfăgărășan & Bâlea Lac"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-normandie-bretagne::stage-1",
+      "citySlug": "etretat",
+      "title": "Étretat – Normandie & Bretagne — Kreidefelsen bis Rosa Granit",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Falaise d'Aval Étretat",
+          "type": "landmark",
+          "address": "Étretat"
+        },
+        {
+          "order": 2,
+          "title": "Manneporte Étretat",
+          "type": "landmark",
+          "address": "Étretat"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-normandie-bretagne::stage-2",
+      "citySlug": "honfleur",
+      "title": "Honfleur – Normandie & Bretagne — Kreidefelsen bis Rosa Granit",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Vieux Bassin Honfleur",
+          "type": "landmark",
+          "address": "Honfleur"
+        },
+        {
+          "order": 2,
+          "title": "Église Sainte-Catherine Honfleur",
+          "type": "landmark",
+          "address": "Honfleur"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-normandie-bretagne::stage-3",
+      "citySlug": "bayeux-d-day-kuste",
+      "title": "Bayeux & D-Day-Küste – Normandie & Bretagne — Kreidefelsen bis Rosa Granit",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Musée de la Tapisserie de Bayeux",
+          "type": "landmark",
+          "address": "Bayeux & D-Day-Küste"
+        },
+        {
+          "order": 2,
+          "title": "Omaha Beach",
+          "type": "landmark",
+          "address": "Bayeux & D-Day-Küste"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-normandie-bretagne::stage-4",
+      "citySlug": "mont-saint-michel",
+      "title": "Mont-Saint-Michel – Normandie & Bretagne — Kreidefelsen bis Rosa Granit",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Passerelle du Mont-Saint-Michel",
+          "type": "landmark",
+          "address": "Mont-Saint-Michel"
+        },
+        {
+          "order": 2,
+          "title": "Abbaye du Mont-Saint-Michel",
+          "type": "landmark",
+          "address": "Mont-Saint-Michel"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-normandie-bretagne::stage-5",
+      "citySlug": "saint-malo",
+      "title": "Saint-Malo – Normandie & Bretagne — Kreidefelsen bis Rosa Granit",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Remparts de Saint-Malo",
+          "type": "landmark",
+          "address": "Saint-Malo"
+        },
+        {
+          "order": 2,
+          "title": "Île du Grand Bé",
+          "type": "landmark",
+          "address": "Saint-Malo"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-normandie-bretagne::stage-6",
+      "citySlug": "ploumanac-h",
+      "title": "Ploumanac'h – Normandie & Bretagne — Kreidefelsen bis Rosa Granit",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Sentier des Douaniers Ploumanac'h",
+          "type": "landmark",
+          "address": "Ploumanac'h"
+        },
+        {
+          "order": 2,
+          "title": "Phare de Mean Ruz",
+          "type": "landmark",
+          "address": "Ploumanac'h"
+        }
+      ]
+    },
+    {
+      "slug": "barcelona-jga-girls-weekend::stage-1",
+      "citySlug": "barcelona-born-gotic",
+      "title": "Barcelona · Born & Gòtic – JGA Barcelona — Spa, Katamaran & Beach-Nightlife",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Barri Gòtic",
+          "type": "landmark",
+          "address": "Barcelona · Born & Gòtic"
+        },
+        {
+          "order": 2,
+          "title": "Aire Ancient Baths Barcelona",
+          "type": "landmark",
+          "address": "Barcelona · Born & Gòtic"
+        }
+      ]
+    },
+    {
+      "slug": "barcelona-jga-girls-weekend::stage-2",
+      "citySlug": "barcelona-strand-nightlife",
+      "title": "Barcelona · Strand & Nightlife – JGA Barcelona — Spa, Katamaran & Beach-Nightlife",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Brunch & Cake Barcelona",
+          "type": "landmark",
+          "address": "Barcelona · Strand & Nightlife"
+        },
+        {
+          "order": 2,
+          "title": "Katamaran Port Olímpic",
+          "type": "landmark",
+          "address": "Barcelona · Strand & Nightlife"
+        }
+      ]
+    },
+    {
+      "slug": "lissabon-jga-girls-weekend::stage-1",
+      "citySlug": "lissabon-chiado-bairro-alto",
+      "title": "Lissabon · Chiado & Bairro Alto – JGA Lissabon — Rooftops, LX Factory & Fado",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Chiado Lissabon",
+          "type": "landmark",
+          "address": "Lissabon · Chiado & Bairro Alto"
+        },
+        {
+          "order": 2,
+          "title": "Park Bar Lissabon",
+          "type": "landmark",
+          "address": "Lissabon · Chiado & Bairro Alto"
+        }
+      ]
+    },
+    {
+      "slug": "lissabon-jga-girls-weekend::stage-2",
+      "citySlug": "lissabon-lx-factory-belem",
+      "title": "Lissabon · LX Factory & Belém – JGA Lissabon — Rooftops, LX Factory & Fado",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Botequim Bottega LX Factory",
+          "type": "landmark",
+          "address": "Lissabon · LX Factory & Belém"
+        },
+        {
+          "order": 2,
+          "title": "LX Factory",
+          "type": "landmark",
+          "address": "Lissabon · LX Factory & Belém"
+        }
+      ]
+    },
+    {
+      "slug": "paris-jga-girls-weekend::stage-1",
+      "citySlug": "paris-montmartre",
+      "title": "Paris · Montmartre – JGA Paris — Fotoshooting, Brunch & Rooftops",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Sacré-Cœur de Montmartre",
+          "type": "landmark",
+          "address": "Paris · Montmartre"
+        },
+        {
+          "order": 2,
+          "title": "La Maison Rose",
+          "type": "landmark",
+          "address": "Paris · Montmartre"
+        }
+      ]
+    },
+    {
+      "slug": "paris-jga-girls-weekend::stage-2",
+      "citySlug": "paris-trocadero-marais",
+      "title": "Paris · Trocadéro & Marais – JGA Paris — Fotoshooting, Brunch & Rooftops",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Esplanade du Trocadéro",
+          "type": "landmark",
+          "address": "Paris · Trocadéro & Marais"
+        },
+        {
+          "order": 2,
+          "title": "Café de Flore",
+          "type": "landmark",
+          "address": "Paris · Trocadéro & Marais"
+        }
+      ]
+    },
+    {
+      "slug": "krakau-jga-action-kazimierz::stage-1",
+      "citySlug": "krakau-altstadt",
+      "title": "Krakau · Altstadt – JGA Krakau — Wodka, Action & Kazimierz",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rynek Główny Krakau",
+          "type": "landmark",
+          "address": "Krakau · Altstadt"
+        },
+        {
+          "order": 2,
+          "title": "Wodka-Tasting",
+          "type": "landmark",
+          "address": "Krakau · Altstadt"
+        }
+      ]
+    },
+    {
+      "slug": "krakau-jga-action-kazimierz::stage-2",
+      "citySlug": "krakau-kazimierz",
+      "title": "Krakau · Kazimierz – JGA Krakau — Wodka, Action & Kazimierz",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Plac Nowy Krakau",
+          "type": "landmark",
+          "address": "Krakau · Kazimierz"
+        },
+        {
+          "order": 2,
+          "title": "Schießstand",
+          "type": "landmark",
+          "address": "Krakau · Kazimierz"
+        }
+      ]
+    },
+    {
+      "slug": "amsterdam-jga-grachten-bier::stage-1",
+      "citySlug": "amsterdam-oost-centrum",
+      "title": "Amsterdam · Oost & Centrum – JGA Amsterdam — Brauereien, Grachten & ArenA",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Brouwerij 't IJ",
+          "type": "landmark",
+          "address": "Amsterdam · Oost & Centrum"
+        },
+        {
+          "order": 2,
+          "title": "Foodhallen Amsterdam",
+          "type": "landmark",
+          "address": "Amsterdam · Oost & Centrum"
+        }
+      ]
+    },
+    {
+      "slug": "amsterdam-jga-grachten-bier::stage-2",
+      "citySlug": "amsterdam-grachten-arena",
+      "title": "Amsterdam · Grachten & ArenA – JGA Amsterdam — Brauereien, Grachten & ArenA",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Johan Cruijff ArenA",
+          "type": "landmark",
+          "address": "Amsterdam · Grachten & ArenA"
+        },
+        {
+          "order": 2,
+          "title": "Heineken Experience",
+          "type": "landmark",
+          "address": "Amsterdam · Grachten & ArenA"
+        }
+      ]
+    },
+    {
+      "slug": "alpine-lakes-borderline::stage-1",
+      "citySlug": "muenchen",
+      "title": "Muenchen – Alpine Lakes Borderline",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Viktualienmarkt",
+          "type": "landmark",
+          "address": "Muenchen"
+        },
+        {
+          "order": 2,
+          "title": "Isarufer",
+          "type": "landmark",
+          "address": "Muenchen"
+        }
+      ]
+    },
+    {
+      "slug": "alpine-lakes-borderline::stage-2",
+      "citySlug": "salzburg",
+      "title": "Salzburg – Alpine Lakes Borderline",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Salzburger Altstadt",
+          "type": "landmark",
+          "address": "Salzburg"
+        },
+        {
+          "order": 2,
+          "title": "Moenchsberg",
+          "type": "landmark",
+          "address": "Salzburg"
+        }
+      ]
+    },
+    {
+      "slug": "alpine-lakes-borderline::stage-3",
+      "citySlug": "zell-am-see",
+      "title": "Zell am See – Alpine Lakes Borderline",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zeller See",
+          "type": "landmark",
+          "address": "Zell am See"
+        },
+        {
+          "order": 2,
+          "title": "Kaprun",
+          "type": "landmark",
+          "address": "Zell am See"
+        }
+      ]
+    },
+    {
+      "slug": "alpine-lakes-borderline::stage-4",
+      "citySlug": "innsbruck",
+      "title": "Innsbruck – Alpine Lakes Borderline",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Goldenes Dachl",
+          "type": "landmark",
+          "address": "Innsbruck"
+        },
+        {
+          "order": 2,
+          "title": "Nordkette",
+          "type": "landmark",
+          "address": "Innsbruck"
+        }
+      ]
+    },
+    {
+      "slug": "hanse-sea-city-loop::stage-1",
+      "citySlug": "hamburg",
+      "title": "Hamburg – Hanse & Sea City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Speicherstadt",
+          "type": "landmark",
+          "address": "Hamburg"
+        },
+        {
+          "order": 2,
+          "title": "Elbphilharmonie",
+          "type": "landmark",
+          "address": "Hamburg"
+        }
+      ]
+    },
+    {
+      "slug": "hanse-sea-city-loop::stage-2",
+      "citySlug": "luebeck",
+      "title": "Luebeck – Hanse & Sea City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Holstentor",
+          "type": "landmark",
+          "address": "Luebeck"
+        },
+        {
+          "order": 2,
+          "title": "Luebecker Altstadt",
+          "type": "landmark",
+          "address": "Luebeck"
+        }
+      ]
+    },
+    {
+      "slug": "hanse-sea-city-loop::stage-3",
+      "citySlug": "kiel",
+      "title": "Kiel – Hanse & Sea City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kiellinie",
+          "type": "landmark",
+          "address": "Kiel"
+        },
+        {
+          "order": 2,
+          "title": "Laboe",
+          "type": "landmark",
+          "address": "Kiel"
+        }
+      ]
+    },
+    {
+      "slug": "hanse-sea-city-loop::stage-4",
+      "citySlug": "bremen",
+      "title": "Bremen – Hanse & Sea City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bremer Marktplatz",
+          "type": "landmark",
+          "address": "Bremen"
+        },
+        {
+          "order": 2,
+          "title": "Schnoor",
+          "type": "landmark",
+          "address": "Bremen"
+        }
+      ]
+    },
+    {
+      "slug": "east-germany-design-history-loop::stage-1",
+      "citySlug": "berlin",
+      "title": "Berlin – East Germany Design & History Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Museumsinsel",
+          "type": "landmark",
+          "address": "Berlin"
+        },
+        {
+          "order": 2,
+          "title": "Hackescher Markt",
+          "type": "landmark",
+          "address": "Berlin"
+        }
+      ]
+    },
+    {
+      "slug": "east-germany-design-history-loop::stage-2",
+      "citySlug": "dresden",
+      "title": "Dresden – East Germany Design & History Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bruehlsche Terrasse",
+          "type": "landmark",
+          "address": "Dresden"
+        },
+        {
+          "order": 2,
+          "title": "Dresden Neustadt",
+          "type": "landmark",
+          "address": "Dresden"
+        }
+      ]
+    },
+    {
+      "slug": "east-germany-design-history-loop::stage-3",
+      "citySlug": "leipzig",
+      "title": "Leipzig – East Germany Design & History Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Maedler Passage",
+          "type": "landmark",
+          "address": "Leipzig"
+        },
+        {
+          "order": 2,
+          "title": "Plagwitz",
+          "type": "landmark",
+          "address": "Leipzig"
+        }
+      ]
+    },
+    {
+      "slug": "east-germany-design-history-loop::stage-4",
+      "citySlug": "erfurt",
+      "title": "Erfurt – East Germany Design & History Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kraemerbruecke",
+          "type": "landmark",
+          "address": "Erfurt"
+        },
+        {
+          "order": 2,
+          "title": "Domplatz",
+          "type": "landmark",
+          "address": "Erfurt"
+        }
+      ]
+    },
+    {
+      "slug": "ruhr-industriekultur-after-dark::stage-1",
+      "citySlug": "duesseldorf",
+      "title": "Duesseldorf – Ruhr Industriekultur After Dark",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rheinuferpromenade",
+          "type": "landmark",
+          "address": "Duesseldorf"
+        },
+        {
+          "order": 2,
+          "title": "Altstadt Duesseldorf",
+          "type": "landmark",
+          "address": "Duesseldorf"
+        }
+      ]
+    },
+    {
+      "slug": "ruhr-industriekultur-after-dark::stage-2",
+      "citySlug": "essen",
+      "title": "Essen – Ruhr Industriekultur After Dark",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zeche Zollverein",
+          "type": "landmark",
+          "address": "Essen"
+        },
+        {
+          "order": 2,
+          "title": "Red Dot Design Museum",
+          "type": "landmark",
+          "address": "Essen"
+        }
+      ]
+    },
+    {
+      "slug": "ruhr-industriekultur-after-dark::stage-3",
+      "citySlug": "dortmund",
+      "title": "Dortmund – Ruhr Industriekultur After Dark",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Phoenix See",
+          "type": "landmark",
+          "address": "Dortmund"
+        },
+        {
+          "order": 2,
+          "title": "Dortmunder U",
+          "type": "landmark",
+          "address": "Dortmund"
+        }
+      ]
+    },
+    {
+      "slug": "ruhr-industriekultur-after-dark::stage-4",
+      "citySlug": "duisburg",
+      "title": "Duisburg – Ruhr Industriekultur After Dark",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Innenhafen",
+          "type": "landmark",
+          "address": "Duisburg"
+        },
+        {
+          "order": 2,
+          "title": "Landschaftspark Duisburg-Nord",
+          "type": "landmark",
+          "address": "Duisburg"
+        }
+      ]
+    },
+    {
+      "slug": "wien-jga-girls-weekend::stage-1",
+      "citySlug": "wien-neubau",
+      "title": "Wien · Neubau – JGA Wien — Brunch, Keramik & Donaukanal",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Neubaugasse Wien",
+          "type": "landmark",
+          "address": "Wien · Neubau"
+        },
+        {
+          "order": 2,
+          "title": "Potteria Wien",
+          "type": "landmark",
+          "address": "Wien · Neubau"
+        }
+      ]
+    },
+    {
+      "slug": "wien-jga-girls-weekend::stage-2",
+      "citySlug": "wien-innere-stadt-donaukanal",
+      "title": "Wien · Innere Stadt & Donaukanal – JGA Wien — Brunch, Keramik & Donaukanal",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "ULRICH Wien",
+          "type": "landmark",
+          "address": "Wien · Innere Stadt & Donaukanal"
+        },
+        {
+          "order": 2,
+          "title": "Graben Wien",
+          "type": "landmark",
+          "address": "Wien · Innere Stadt & Donaukanal"
+        }
+      ]
+    },
+    {
+      "slug": "franconia-bavaria-slow-drive::stage-1",
+      "citySlug": "nuernberg",
+      "title": "Nuernberg – Franconia to Bavaria Slow Drive",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kaiserburg Nuernberg",
+          "type": "landmark",
+          "address": "Nuernberg"
+        },
+        {
+          "order": 2,
+          "title": "Altstadt Nuernberg",
+          "type": "landmark",
+          "address": "Nuernberg"
+        }
+      ]
+    },
+    {
+      "slug": "franconia-bavaria-slow-drive::stage-2",
+      "citySlug": "augsburg",
+      "title": "Augsburg – Franconia to Bavaria Slow Drive",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Fuggerei",
+          "type": "landmark",
+          "address": "Augsburg"
+        },
+        {
+          "order": 2,
+          "title": "Augsburger Altstadt",
+          "type": "landmark",
+          "address": "Augsburg"
+        }
+      ]
+    },
+    {
+      "slug": "franconia-bavaria-slow-drive::stage-3",
+      "citySlug": "muenchen",
+      "title": "Muenchen – Franconia to Bavaria Slow Drive",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Viktualienmarkt",
+          "type": "landmark",
+          "address": "Muenchen"
+        },
+        {
+          "order": 2,
+          "title": "Englischer Garten",
+          "type": "landmark",
+          "address": "Muenchen"
+        }
+      ]
+    },
+    {
+      "slug": "rhine-main-wine-city-loop::stage-1",
+      "citySlug": "koeln",
+      "title": "Koeln – Rhine & Main Wine City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Koelner Dom",
+          "type": "landmark",
+          "address": "Koeln"
+        },
+        {
+          "order": 2,
+          "title": "Belgisches Viertel",
+          "type": "landmark",
+          "address": "Koeln"
+        }
+      ]
+    },
+    {
+      "slug": "rhine-main-wine-city-loop::stage-2",
+      "citySlug": "bonn",
+      "title": "Bonn – Rhine & Main Wine City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bonner Innenstadt",
+          "type": "landmark",
+          "address": "Bonn"
+        },
+        {
+          "order": 2,
+          "title": "Rheinaue",
+          "type": "landmark",
+          "address": "Bonn"
+        }
+      ]
+    },
+    {
+      "slug": "rhine-main-wine-city-loop::stage-3",
+      "citySlug": "wiesbaden",
+      "title": "Wiesbaden – Rhine & Main Wine City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kurhaus Wiesbaden",
+          "type": "landmark",
+          "address": "Wiesbaden"
+        },
+        {
+          "order": 2,
+          "title": "Neroberg",
+          "type": "landmark",
+          "address": "Wiesbaden"
+        }
+      ]
+    },
+    {
+      "slug": "rhine-main-wine-city-loop::stage-4",
+      "citySlug": "frankfurt-am-main",
+      "title": "Frankfurt am Main – Rhine & Main Wine City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Mainkai",
+          "type": "landmark",
+          "address": "Frankfurt am Main"
+        },
+        {
+          "order": 2,
+          "title": "Neue Altstadt",
+          "type": "landmark",
+          "address": "Frankfurt am Main"
+        }
+      ]
+    },
+    {
+      "slug": "highlands-coastline-run::stage-1",
+      "citySlug": "inverness",
+      "title": "Inverness – Highlands Coastline Run",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "River Ness",
+          "type": "landmark",
+          "address": "Inverness"
+        },
+        {
+          "order": 2,
+          "title": "Inverness Castle",
+          "type": "landmark",
+          "address": "Inverness"
+        }
+      ]
+    },
+    {
+      "slug": "highlands-coastline-run::stage-2",
+      "citySlug": "applecross",
+      "title": "Applecross – Highlands Coastline Run",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bealach na Ba",
+          "type": "landmark",
+          "address": "Applecross"
+        },
+        {
+          "order": 2,
+          "title": "Applecross",
+          "type": "landmark",
+          "address": "Applecross"
+        }
+      ]
+    },
+    {
+      "slug": "highlands-coastline-run::stage-3",
+      "citySlug": "ullapool",
+      "title": "Ullapool – Highlands Coastline Run",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Ullapool Harbour",
+          "type": "landmark",
+          "address": "Ullapool"
+        },
+        {
+          "order": 2,
+          "title": "Loch Broom",
+          "type": "landmark",
+          "address": "Ullapool"
+        }
+      ]
+    },
+    {
+      "slug": "highlands-coastline-run::stage-4",
+      "citySlug": "durness",
+      "title": "Durness – Highlands Coastline Run",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Smoo Cave",
+          "type": "landmark",
+          "address": "Durness"
+        },
+        {
+          "order": 2,
+          "title": "Balnakeil Beach",
+          "type": "landmark",
+          "address": "Durness"
+        }
+      ]
+    },
+    {
+      "slug": "highlands-coastline-run::stage-5",
+      "citySlug": "thurso",
+      "title": "Thurso – Highlands Coastline Run",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "North Coast",
+          "type": "landmark",
+          "address": "Thurso"
+        },
+        {
+          "order": 2,
+          "title": "Thurso",
+          "type": "landmark",
+          "address": "Thurso"
+        }
+      ]
+    },
+    {
+      "slug": "norway-fjords-icons::stage-1",
+      "citySlug": "bergen",
+      "title": "Bergen – Norway Fjords Icons",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bryggen",
+          "type": "landmark",
+          "address": "Bergen"
+        },
+        {
+          "order": 2,
+          "title": "Floeyen",
+          "type": "landmark",
+          "address": "Bergen"
+        }
+      ]
+    },
+    {
+      "slug": "norway-fjords-icons::stage-2",
+      "citySlug": "flam",
+      "title": "Flam – Norway Fjords Icons",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Aurlandsfjord",
+          "type": "landmark",
+          "address": "Flam"
+        },
+        {
+          "order": 2,
+          "title": "Stegastein",
+          "type": "landmark",
+          "address": "Flam"
+        }
+      ]
+    },
+    {
+      "slug": "norway-fjords-icons::stage-3",
+      "citySlug": "geiranger",
+      "title": "Geiranger – Norway Fjords Icons",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Geirangerfjord",
+          "type": "landmark",
+          "address": "Geiranger"
+        },
+        {
+          "order": 2,
+          "title": "Flydalsjuvet",
+          "type": "landmark",
+          "address": "Geiranger"
+        }
+      ]
+    },
+    {
+      "slug": "norway-fjords-icons::stage-4",
+      "citySlug": "alesund",
+      "title": "Alesund – Norway Fjords Icons",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Alesund Center",
+          "type": "landmark",
+          "address": "Alesund"
+        },
+        {
+          "order": 2,
+          "title": "Aksla",
+          "type": "landmark",
+          "address": "Alesund"
+        }
+      ]
+    },
+    {
+      "slug": "baltic-islands-family-loop::stage-1",
+      "citySlug": "rostock",
+      "title": "Rostock – Baltic Islands & Hanse Family Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Warnemuende",
+          "type": "landmark",
+          "address": "Rostock"
+        },
+        {
+          "order": 2,
+          "title": "Stadthafen Rostock",
+          "type": "landmark",
+          "address": "Rostock"
+        }
+      ]
+    },
+    {
+      "slug": "baltic-islands-family-loop::stage-2",
+      "citySlug": "stralsund",
+      "title": "Stralsund – Baltic Islands & Hanse Family Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Altstadt Stralsund",
+          "type": "landmark",
+          "address": "Stralsund"
+        },
+        {
+          "order": 2,
+          "title": "Ozeaneum",
+          "type": "landmark",
+          "address": "Stralsund"
+        }
+      ]
+    },
+    {
+      "slug": "baltic-islands-family-loop::stage-3",
+      "citySlug": "binz-auf-ruegen",
+      "title": "Binz auf Ruegen – Baltic Islands & Hanse Family Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Seebruecke Binz",
+          "type": "landmark",
+          "address": "Binz auf Ruegen"
+        },
+        {
+          "order": 2,
+          "title": "Strandpromenade Binz",
+          "type": "landmark",
+          "address": "Binz auf Ruegen"
+        }
+      ]
+    },
+    {
+      "slug": "baltic-islands-family-loop::stage-4",
+      "citySlug": "greifswald",
+      "title": "Greifswald – Baltic Islands & Hanse Family Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Marktplatz Greifswald",
+          "type": "landmark",
+          "address": "Greifswald"
+        },
+        {
+          "order": 2,
+          "title": "Museumshafen Greifswald",
+          "type": "landmark",
+          "address": "Greifswald"
+        }
+      ]
+    },
+    {
+      "slug": "harz-castles-steam-loop::stage-1",
+      "citySlug": "goslar",
+      "title": "Goslar – Harz Castles & Steam Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Altstadt Goslar",
+          "type": "landmark",
+          "address": "Goslar"
+        },
+        {
+          "order": 2,
+          "title": "Kaiserpfalz Goslar",
+          "type": "landmark",
+          "address": "Goslar"
+        }
+      ]
+    },
+    {
+      "slug": "harz-castles-steam-loop::stage-2",
+      "citySlug": "wernigerode",
+      "title": "Wernigerode – Harz Castles & Steam Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rathaus Wernigerode",
+          "type": "landmark",
+          "address": "Wernigerode"
+        },
+        {
+          "order": 2,
+          "title": "Schloss Wernigerode",
+          "type": "landmark",
+          "address": "Wernigerode"
+        }
+      ]
+    },
+    {
+      "slug": "harz-castles-steam-loop::stage-3",
+      "citySlug": "quedlinburg",
+      "title": "Quedlinburg – Harz Castles & Steam Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Schlossberg Quedlinburg",
+          "type": "landmark",
+          "address": "Quedlinburg"
+        },
+        {
+          "order": 2,
+          "title": "Altstadt Quedlinburg",
+          "type": "landmark",
+          "address": "Quedlinburg"
+        }
+      ]
+    },
+    {
+      "slug": "harz-castles-steam-loop::stage-4",
+      "citySlug": "braunlage",
+      "title": "Braunlage – Harz Castles & Steam Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wurmberg",
+          "type": "landmark",
+          "address": "Braunlage"
+        },
+        {
+          "order": 2,
+          "title": "Wurmbergseilbahn",
+          "type": "landmark",
+          "address": "Braunlage"
+        }
+      ]
+    },
+    {
+      "slug": "lake-constance-grand-loop::stage-1",
+      "citySlug": "konstanz",
+      "title": "Konstanz – Lake Constance Grand Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Hafen Konstanz",
+          "type": "landmark",
+          "address": "Konstanz"
+        },
+        {
+          "order": 2,
+          "title": "Altstadt Konstanz",
+          "type": "landmark",
+          "address": "Konstanz"
+        }
+      ]
+    },
+    {
+      "slug": "lake-constance-grand-loop::stage-2",
+      "citySlug": "meersburg",
+      "title": "Meersburg – Lake Constance Grand Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Meersburg Oberstadt",
+          "type": "landmark",
+          "address": "Meersburg"
+        },
+        {
+          "order": 2,
+          "title": "Uferpromenade Meersburg",
+          "type": "landmark",
+          "address": "Meersburg"
+        }
+      ]
+    },
+    {
+      "slug": "lake-constance-grand-loop::stage-3",
+      "citySlug": "lindau",
+      "title": "Lindau – Lake Constance Grand Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Lindauer Hafen",
+          "type": "landmark",
+          "address": "Lindau"
+        },
+        {
+          "order": 2,
+          "title": "Lindau Insel",
+          "type": "landmark",
+          "address": "Lindau"
+        }
+      ]
+    },
+    {
+      "slug": "lake-constance-grand-loop::stage-4",
+      "citySlug": "bregenz",
+      "title": "Bregenz – Lake Constance Grand Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bregenzer Seebuehne",
+          "type": "landmark",
+          "address": "Bregenz"
+        },
+        {
+          "order": 2,
+          "title": "Pfaender",
+          "type": "landmark",
+          "address": "Bregenz"
+        }
+      ]
+    },
+    {
+      "slug": "lake-constance-grand-loop::stage-5",
+      "citySlug": "st-gallen",
+      "title": "St. Gallen – Lake Constance Grand Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Stiftsbezirk St. Gallen",
+          "type": "landmark",
+          "address": "St. Gallen"
+        },
+        {
+          "order": 2,
+          "title": "Altstadt St. Gallen",
+          "type": "landmark",
+          "address": "St. Gallen"
+        }
+      ]
+    },
+    {
+      "slug": "alsace-black-forest-borderline::stage-1",
+      "citySlug": "strasbourg",
+      "title": "Strasbourg – Alsace & Black Forest Borderline",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Grande Ile Strasbourg",
+          "type": "landmark",
+          "address": "Strasbourg"
+        },
+        {
+          "order": 2,
+          "title": "Petite France",
+          "type": "landmark",
+          "address": "Strasbourg"
+        }
+      ]
+    },
+    {
+      "slug": "alsace-black-forest-borderline::stage-2",
+      "citySlug": "colmar",
+      "title": "Colmar – Alsace & Black Forest Borderline",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Vieille Ville Colmar",
+          "type": "landmark",
+          "address": "Colmar"
+        },
+        {
+          "order": 2,
+          "title": "La Petite Venise",
+          "type": "landmark",
+          "address": "Colmar"
+        }
+      ]
+    },
+    {
+      "slug": "alsace-black-forest-borderline::stage-3",
+      "citySlug": "freiburg",
+      "title": "Freiburg – Alsace & Black Forest Borderline",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Freiburger Muenster",
+          "type": "landmark",
+          "address": "Freiburg"
+        },
+        {
+          "order": 2,
+          "title": "Altstadt Freiburg",
+          "type": "landmark",
+          "address": "Freiburg"
+        }
+      ]
+    },
+    {
+      "slug": "alsace-black-forest-borderline::stage-4",
+      "citySlug": "baden-baden",
+      "title": "Baden-Baden – Alsace & Black Forest Borderline",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kurhaus Baden-Baden",
+          "type": "landmark",
+          "address": "Baden-Baden"
+        },
+        {
+          "order": 2,
+          "title": "Lichtentaler Allee",
+          "type": "landmark",
+          "address": "Baden-Baden"
+        }
+      ]
+    },
+    {
+      "slug": "dolomites-great-passes::stage-1",
+      "citySlug": "bolzano",
+      "title": "Bolzano – Dolomites Great Passes",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Via dei Portici",
+          "type": "landmark",
+          "address": "Bolzano"
+        },
+        {
+          "order": 2,
+          "title": "Piazza Walther",
+          "type": "landmark",
+          "address": "Bolzano"
+        }
+      ]
+    },
+    {
+      "slug": "dolomites-great-passes::stage-2",
+      "citySlug": "ortisei",
+      "title": "Ortisei – Dolomites Great Passes",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Ortisei Zentrum",
+          "type": "landmark",
+          "address": "Ortisei"
+        },
+        {
+          "order": 2,
+          "title": "Seceda",
+          "type": "landmark",
+          "address": "Ortisei"
+        }
+      ]
+    },
+    {
+      "slug": "dolomites-great-passes::stage-3",
+      "citySlug": "cortina-d-ampezzo",
+      "title": "Cortina d Ampezzo – Dolomites Great Passes",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Corso Italia Cortina",
+          "type": "landmark",
+          "address": "Cortina d Ampezzo"
+        },
+        {
+          "order": 2,
+          "title": "Passo Giau",
+          "type": "landmark",
+          "address": "Cortina d Ampezzo"
+        }
+      ]
+    },
+    {
+      "slug": "dolomites-great-passes::stage-4",
+      "citySlug": "dobbiaco",
+      "title": "Dobbiaco – Dolomites Great Passes",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Dobbiaco",
+          "type": "landmark",
+          "address": "Dobbiaco"
+        },
+        {
+          "order": 2,
+          "title": "Lago di Dobbiaco",
+          "type": "landmark",
+          "address": "Dobbiaco"
+        }
+      ]
+    },
+    {
+      "slug": "andalusia-white-villages-run::stage-1",
+      "citySlug": "seville",
+      "title": "Seville – Andalusia White Villages Run",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Casco Antiguo Sevilla",
+          "type": "landmark",
+          "address": "Seville"
+        },
+        {
+          "order": 2,
+          "title": "Catedral de Sevilla",
+          "type": "landmark",
+          "address": "Seville"
+        }
+      ]
+    },
+    {
+      "slug": "andalusia-white-villages-run::stage-2",
+      "citySlug": "ronda",
+      "title": "Ronda – Andalusia White Villages Run",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Puente Nuevo Ronda",
+          "type": "landmark",
+          "address": "Ronda"
+        },
+        {
+          "order": 2,
+          "title": "Casco Historico de Ronda",
+          "type": "landmark",
+          "address": "Ronda"
+        }
+      ]
+    },
+    {
+      "slug": "andalusia-white-villages-run::stage-3",
+      "citySlug": "setenil-de-las-bodegas",
+      "title": "Setenil de las Bodegas – Andalusia White Villages Run",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Setenil de las Bodegas",
+          "type": "landmark",
+          "address": "Setenil de las Bodegas"
+        },
+        {
+          "order": 2,
+          "title": "Mirador de Setenil",
+          "type": "landmark",
+          "address": "Setenil de las Bodegas"
+        }
+      ]
+    },
+    {
+      "slug": "andalusia-white-villages-run::stage-4",
+      "citySlug": "arcos-de-la-frontera",
+      "title": "Arcos de la Frontera – Andalusia White Villages Run",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Casco Antiguo Arcos",
+          "type": "landmark",
+          "address": "Arcos de la Frontera"
+        },
+        {
+          "order": 2,
+          "title": "Mirador de Arcos",
+          "type": "landmark",
+          "address": "Arcos de la Frontera"
+        }
+      ]
+    },
+    {
+      "slug": "salzkammergut-lakes-escape::stage-1",
+      "citySlug": "salzburg",
+      "title": "Salzburg – Salzkammergut Lakes Escape",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Salzburger Altstadt",
+          "type": "landmark",
+          "address": "Salzburg"
+        },
+        {
+          "order": 2,
+          "title": "Moenchsberg",
+          "type": "landmark",
+          "address": "Salzburg"
+        }
+      ]
+    },
+    {
+      "slug": "salzkammergut-lakes-escape::stage-2",
+      "citySlug": "st-gilgen",
+      "title": "St. Gilgen – Salzkammergut Lakes Escape",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wolfgangsee",
+          "type": "landmark",
+          "address": "St. Gilgen"
+        },
+        {
+          "order": 2,
+          "title": "St. Gilgen Ufer",
+          "type": "landmark",
+          "address": "St. Gilgen"
+        }
+      ]
+    },
+    {
+      "slug": "salzkammergut-lakes-escape::stage-3",
+      "citySlug": "hallstatt",
+      "title": "Hallstatt – Salzkammergut Lakes Escape",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Hallstaetter See",
+          "type": "landmark",
+          "address": "Hallstatt"
+        },
+        {
+          "order": 2,
+          "title": "Hallstatt Zentrum",
+          "type": "landmark",
+          "address": "Hallstatt"
+        }
+      ]
+    },
+    {
+      "slug": "salzkammergut-lakes-escape::stage-4",
+      "citySlug": "bad-ischl",
+      "title": "Bad Ischl – Salzkammergut Lakes Escape",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kaiservilla Bad Ischl",
+          "type": "landmark",
+          "address": "Bad Ischl"
+        },
+        {
+          "order": 2,
+          "title": "Traunpromenade",
+          "type": "landmark",
+          "address": "Bad Ischl"
+        }
+      ]
+    },
+    {
+      "slug": "bavarian-castles-alpine-finish::stage-1",
+      "citySlug": "muenchen",
+      "title": "Muenchen – Bavarian Castles & Alpine Finish",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Viktualienmarkt",
+          "type": "landmark",
+          "address": "Muenchen"
+        },
+        {
+          "order": 2,
+          "title": "Englischer Garten",
+          "type": "landmark",
+          "address": "Muenchen"
+        }
+      ]
+    },
+    {
+      "slug": "bavarian-castles-alpine-finish::stage-2",
+      "citySlug": "fuessen",
+      "title": "Fuessen – Bavarian Castles & Alpine Finish",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Altstadt Fuessen",
+          "type": "landmark",
+          "address": "Fuessen"
+        },
+        {
+          "order": 2,
+          "title": "Schloss Neuschwanstein",
+          "type": "landmark",
+          "address": "Fuessen"
+        }
+      ]
+    },
+    {
+      "slug": "bavarian-castles-alpine-finish::stage-3",
+      "citySlug": "garmisch-partenkirchen",
+      "title": "Garmisch-Partenkirchen – Bavarian Castles & Alpine Finish",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Partenkirchen",
+          "type": "landmark",
+          "address": "Garmisch-Partenkirchen"
+        },
+        {
+          "order": 2,
+          "title": "Partnachklamm",
+          "type": "landmark",
+          "address": "Garmisch-Partenkirchen"
+        }
+      ]
+    },
+    {
+      "slug": "bavarian-castles-alpine-finish::stage-4",
+      "citySlug": "berchtesgaden",
+      "title": "Berchtesgaden – Bavarian Castles & Alpine Finish",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Berchtesgaden Zentrum",
+          "type": "landmark",
+          "address": "Berchtesgaden"
+        },
+        {
+          "order": 2,
+          "title": "Koenigssee",
+          "type": "landmark",
+          "address": "Berchtesgaden"
+        }
+      ]
+    },
+    {
+      "slug": "german-wine-route-weekender::stage-1",
+      "citySlug": "speyer",
+      "title": "Speyer – German Wine Route Weekender",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Speyerer Dom",
+          "type": "landmark",
+          "address": "Speyer"
+        },
+        {
+          "order": 2,
+          "title": "Maximilianstrasse",
+          "type": "landmark",
+          "address": "Speyer"
+        }
+      ]
+    },
+    {
+      "slug": "german-wine-route-weekender::stage-2",
+      "citySlug": "neustadt-an-der-weinstrasse",
+      "title": "Neustadt an der Weinstrasse – German Wine Route Weekender",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Altstadt Neustadt",
+          "type": "landmark",
+          "address": "Neustadt an der Weinstrasse"
+        },
+        {
+          "order": 2,
+          "title": "Hambacher Schloss",
+          "type": "landmark",
+          "address": "Neustadt an der Weinstrasse"
+        }
+      ]
+    },
+    {
+      "slug": "german-wine-route-weekender::stage-3",
+      "citySlug": "bad-duerkheim",
+      "title": "Bad Duerkheim – German Wine Route Weekender",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kurpark Bad Duerkheim",
+          "type": "landmark",
+          "address": "Bad Duerkheim"
+        },
+        {
+          "order": 2,
+          "title": "Duerkheimer Fass",
+          "type": "landmark",
+          "address": "Bad Duerkheim"
+        }
+      ]
+    },
+    {
+      "slug": "german-wine-route-weekender::stage-4",
+      "citySlug": "landau-in-der-pfalz",
+      "title": "Landau in der Pfalz – German Wine Route Weekender",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rathausplatz Landau",
+          "type": "landmark",
+          "address": "Landau in der Pfalz"
+        },
+        {
+          "order": 2,
+          "title": "Landau Altstadt",
+          "type": "landmark",
+          "address": "Landau in der Pfalz"
+        }
+      ]
+    },
+    {
+      "slug": "black-forest-spa-city-loop::stage-1",
+      "citySlug": "karlsruhe",
+      "title": "Karlsruhe – Black Forest Spa & City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Karlsruher Schloss",
+          "type": "landmark",
+          "address": "Karlsruhe"
+        },
+        {
+          "order": 2,
+          "title": "ZKM",
+          "type": "landmark",
+          "address": "Karlsruhe"
+        }
+      ]
+    },
+    {
+      "slug": "black-forest-spa-city-loop::stage-2",
+      "citySlug": "freiburg",
+      "title": "Freiburg – Black Forest Spa & City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Freiburger Muenster",
+          "type": "landmark",
+          "address": "Freiburg"
+        },
+        {
+          "order": 2,
+          "title": "Schlossberg",
+          "type": "landmark",
+          "address": "Freiburg"
+        }
+      ]
+    },
+    {
+      "slug": "black-forest-spa-city-loop::stage-3",
+      "citySlug": "stuttgart",
+      "title": "Stuttgart – Black Forest Spa & City Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Weissenhofsiedlung",
+          "type": "landmark",
+          "address": "Stuttgart"
+        },
+        {
+          "order": 2,
+          "title": "Eugensplatz",
+          "type": "landmark",
+          "address": "Stuttgart"
+        }
+      ]
+    },
+    {
+      "slug": "moselle-wine-castle-curve::stage-1",
+      "citySlug": "koblenz",
+      "title": "Koblenz – Moselle Wine & Castle Curve",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Deutsches Eck",
+          "type": "landmark",
+          "address": "Koblenz"
+        },
+        {
+          "order": 2,
+          "title": "Festung Ehrenbreitstein",
+          "type": "landmark",
+          "address": "Koblenz"
+        }
+      ]
+    },
+    {
+      "slug": "moselle-wine-castle-curve::stage-2",
+      "citySlug": "cochem",
+      "title": "Cochem – Moselle Wine & Castle Curve",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Reichsburg Cochem",
+          "type": "landmark",
+          "address": "Cochem"
+        },
+        {
+          "order": 2,
+          "title": "Altstadt Cochem",
+          "type": "landmark",
+          "address": "Cochem"
+        }
+      ]
+    },
+    {
+      "slug": "moselle-wine-castle-curve::stage-3",
+      "citySlug": "bernkastel-kues",
+      "title": "Bernkastel-Kues – Moselle Wine & Castle Curve",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Marktplatz Bernkastel",
+          "type": "landmark",
+          "address": "Bernkastel-Kues"
+        },
+        {
+          "order": 2,
+          "title": "Burg Landshut",
+          "type": "landmark",
+          "address": "Bernkastel-Kues"
+        }
+      ]
+    },
+    {
+      "slug": "moselle-wine-castle-curve::stage-4",
+      "citySlug": "trier",
+      "title": "Trier – Moselle Wine & Castle Curve",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Porta Nigra",
+          "type": "landmark",
+          "address": "Trier"
+        },
+        {
+          "order": 2,
+          "title": "Trierer Dom",
+          "type": "landmark",
+          "address": "Trier"
+        }
+      ]
+    },
+    {
+      "slug": "slovenia-lakes-to-sea::stage-1",
+      "citySlug": "ljubljana",
+      "title": "Ljubljana – Slovenia Lakes to Sea",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Ljubljanica",
+          "type": "landmark",
+          "address": "Ljubljana"
+        },
+        {
+          "order": 2,
+          "title": "Ljubljana Castle",
+          "type": "landmark",
+          "address": "Ljubljana"
+        }
+      ]
+    },
+    {
+      "slug": "slovenia-lakes-to-sea::stage-2",
+      "citySlug": "bled",
+      "title": "Bled – Slovenia Lakes to Sea",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Lake Bled",
+          "type": "landmark",
+          "address": "Bled"
+        },
+        {
+          "order": 2,
+          "title": "Bled Castle",
+          "type": "landmark",
+          "address": "Bled"
+        }
+      ]
+    },
+    {
+      "slug": "slovenia-lakes-to-sea::stage-3",
+      "citySlug": "bovec",
+      "title": "Bovec – Slovenia Lakes to Sea",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Soca Valley",
+          "type": "landmark",
+          "address": "Bovec"
+        },
+        {
+          "order": 2,
+          "title": "Kobarid",
+          "type": "landmark",
+          "address": "Bovec"
+        }
+      ]
+    },
+    {
+      "slug": "slovenia-lakes-to-sea::stage-4",
+      "citySlug": "piran",
+      "title": "Piran – Slovenia Lakes to Sea",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tartini Square",
+          "type": "landmark",
+          "address": "Piran"
+        },
+        {
+          "order": 2,
+          "title": "Piran Waterfront",
+          "type": "landmark",
+          "address": "Piran"
+        }
+      ]
+    },
+    {
+      "slug": "istria-sunset-loop::stage-1",
+      "citySlug": "trieste",
+      "title": "Trieste – Istria Sunset Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Piazza Unita d Italia",
+          "type": "landmark",
+          "address": "Trieste"
+        },
+        {
+          "order": 2,
+          "title": "Canal Grande",
+          "type": "landmark",
+          "address": "Trieste"
+        }
+      ]
+    },
+    {
+      "slug": "istria-sunset-loop::stage-2",
+      "citySlug": "rovinj",
+      "title": "Rovinj – Istria Sunset Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rovinj Old Town",
+          "type": "landmark",
+          "address": "Rovinj"
+        },
+        {
+          "order": 2,
+          "title": "Rovinj Harbour",
+          "type": "landmark",
+          "address": "Rovinj"
+        }
+      ]
+    },
+    {
+      "slug": "istria-sunset-loop::stage-3",
+      "citySlug": "pula",
+      "title": "Pula – Istria Sunset Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Pula Arena",
+          "type": "landmark",
+          "address": "Pula"
+        },
+        {
+          "order": 2,
+          "title": "Pula Center",
+          "type": "landmark",
+          "address": "Pula"
+        }
+      ]
+    },
+    {
+      "slug": "istria-sunset-loop::stage-4",
+      "citySlug": "motovun",
+      "title": "Motovun – Istria Sunset Loop",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Motovun Old Town",
+          "type": "landmark",
+          "address": "Motovun"
+        },
+        {
+          "order": 2,
+          "title": "Motovun Walls",
+          "type": "landmark",
+          "address": "Motovun"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-familien-inselzeit::stage-1",
+      "citySlug": "wenningstedt",
+      "title": "Wenningstedt – Sylt mit Familie — Strand, Watt & Regentag-Plan B",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Strand Wenningstedt",
+          "type": "landmark",
+          "address": "Wenningstedt"
+        },
+        {
+          "order": 2,
+          "title": "Denghoog Wenningstedt",
+          "type": "landmark",
+          "address": "Wenningstedt"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-familien-inselzeit::stage-2",
+      "citySlug": "westerland",
+      "title": "Westerland – Sylt mit Familie — Strand, Watt & Regentag-Plan B",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Sylter Welle",
+          "type": "landmark",
+          "address": "Westerland"
+        },
+        {
+          "order": 2,
+          "title": "Café Wien Westerland",
+          "type": "landmark",
+          "address": "Westerland"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-familien-inselzeit::stage-3",
+      "citySlug": "list",
+      "title": "List – Sylt mit Familie — Strand, Watt & Regentag-Plan B",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Naturgewalten Sylt",
+          "type": "landmark",
+          "address": "List"
+        },
+        {
+          "order": 2,
+          "title": "Gosch List",
+          "type": "landmark",
+          "address": "List"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-girls-getaway::stage-1",
+      "citySlug": "kampen",
+      "title": "Kampen – Sylt Girls Getaway — Kliff, Kunst & Champagner",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Uwe Düne Kampen",
+          "type": "landmark",
+          "address": "Kampen"
+        },
+        {
+          "order": 2,
+          "title": "Kupferkanne Kampen",
+          "type": "landmark",
+          "address": "Kampen"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-girls-getaway::stage-2",
+      "citySlug": "westerland",
+      "title": "Westerland – Sylt Girls Getaway — Kliff, Kunst & Champagner",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Café Wien Westerland",
+          "type": "landmark",
+          "address": "Westerland"
+        },
+        {
+          "order": 2,
+          "title": "Friedrichstraße Westerland",
+          "type": "landmark",
+          "address": "Westerland"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-girls-getaway::stage-3",
+      "citySlug": "keitum",
+      "title": "Keitum – Sylt Girls Getaway — Kliff, Kunst & Champagner",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "St. Severin Keitum",
+          "type": "landmark",
+          "address": "Keitum"
+        },
+        {
+          "order": 2,
+          "title": "Keitum Boutiquen",
+          "type": "landmark",
+          "address": "Keitum"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-natur-slow-trail::stage-1",
+      "citySlug": "list-ellenbogen",
+      "title": "List (Ellenbogen) – Sylt Natur — Dünen, Watt & Weststrand",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Ellenbogen Sylt",
+          "type": "landmark",
+          "address": "List (Ellenbogen)"
+        },
+        {
+          "order": 2,
+          "title": "Königshafen List",
+          "type": "landmark",
+          "address": "List (Ellenbogen)"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-natur-slow-trail::stage-2",
+      "citySlug": "keitum",
+      "title": "Keitum – Sylt Natur — Dünen, Watt & Weststrand",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wattenmeer Keitum",
+          "type": "landmark",
+          "address": "Keitum"
+        },
+        {
+          "order": 2,
+          "title": "St. Severin Keitum",
+          "type": "landmark",
+          "address": "Keitum"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-natur-slow-trail::stage-3",
+      "citySlug": "hornum",
+      "title": "Hörnum – Sylt Natur — Dünen, Watt & Weststrand",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Hörnum Odde",
+          "type": "landmark",
+          "address": "Hörnum"
+        },
+        {
+          "order": 2,
+          "title": "Rantumbecken",
+          "type": "landmark",
+          "address": "Hörnum"
+        }
+      ]
+    },
+    {
+      "slug": "polnische-ostsee-wanderduenen::stage-1",
+      "citySlug": "danzig-gdansk",
+      "title": "Danzig (Gdańsk) – Polnische Ostsee — Danzig, Hel & Wanderdünen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Długi Targ (Langer Markt)",
+          "type": "landmark",
+          "address": "Danzig (Gdańsk)"
+        },
+        {
+          "order": 2,
+          "title": "Bazylika Mariacka Gdańsk",
+          "type": "landmark",
+          "address": "Danzig (Gdańsk)"
+        }
+      ]
+    },
+    {
+      "slug": "polnische-ostsee-wanderduenen::stage-2",
+      "citySlug": "sopot",
+      "title": "Sopot – Polnische Ostsee — Danzig, Hel & Wanderdünen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "ulica Bohaterów Monte Cassino Sopot",
+          "type": "landmark",
+          "address": "Sopot"
+        },
+        {
+          "order": 2,
+          "title": "Krzywy Domek Sopot",
+          "type": "landmark",
+          "address": "Sopot"
+        }
+      ]
+    },
+    {
+      "slug": "polnische-ostsee-wanderduenen::stage-3",
+      "citySlug": "halbinsel-hel",
+      "title": "Halbinsel Hel – Polnische Ostsee — Danzig, Hel & Wanderdünen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Chałupy Beach Hel Peninsula",
+          "type": "landmark",
+          "address": "Halbinsel Hel"
+        },
+        {
+          "order": 2,
+          "title": "Fokarium Stacja Morska Hel",
+          "type": "landmark",
+          "address": "Halbinsel Hel"
+        }
+      ]
+    },
+    {
+      "slug": "polnische-ostsee-wanderduenen::stage-4",
+      "citySlug": "eba-s-owinski-np",
+      "title": "Łeba (Słowiński-NP) – Polnische Ostsee — Danzig, Hel & Wanderdünen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Słowiński Park Narodowy",
+          "type": "landmark",
+          "address": "Łeba (Słowiński-NP)"
+        },
+        {
+          "order": 2,
+          "title": "Ruchome Wydmy Łącka Góra",
+          "type": "landmark",
+          "address": "Łeba (Słowiński-NP)"
+        }
+      ]
+    },
+    {
+      "slug": "polnische-ostsee-wanderduenen::stage-5",
+      "citySlug": "ko-obrzeg",
+      "title": "Kołobrzeg – Polnische Ostsee — Danzig, Hel & Wanderdünen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Park im. Stefana Żeromskiego Kołobrzeg",
+          "type": "landmark",
+          "address": "Kołobrzeg"
+        },
+        {
+          "order": 2,
+          "title": "Molo w Kołobrzegu",
+          "type": "landmark",
+          "address": "Kołobrzeg"
+        }
+      ]
+    },
+    {
+      "slug": "polnische-ostsee-wanderduenen::stage-6",
+      "citySlug": "swinoujscie",
+      "title": "Świnoujście – Polnische Ostsee — Danzig, Hel & Wanderdünen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Latarnia Morska Świnoujście",
+          "type": "landmark",
+          "address": "Świnoujście"
+        },
+        {
+          "order": 2,
+          "title": "Woliński Park Narodowy",
+          "type": "landmark",
+          "address": "Świnoujście"
+        }
+      ]
+    },
+    {
+      "slug": "schweiz-alpenpaesse-grand-tour::stage-1",
+      "citySlug": "luzern",
+      "title": "Luzern – Schweizer Alpenpässe — Vierwaldstättersee bis Lugano",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kapellbrücke Luzern",
+          "type": "landmark",
+          "address": "Luzern"
+        },
+        {
+          "order": 2,
+          "title": "Altstadt Luzern",
+          "type": "landmark",
+          "address": "Luzern"
+        }
+      ]
+    },
+    {
+      "slug": "schweiz-alpenpaesse-grand-tour::stage-2",
+      "citySlug": "lauterbrunnen",
+      "title": "Lauterbrunnen – Schweizer Alpenpässe — Vierwaldstättersee bis Lugano",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Staubbachfall",
+          "type": "landmark",
+          "address": "Lauterbrunnen"
+        },
+        {
+          "order": 2,
+          "title": "Trümmelbachfälle",
+          "type": "landmark",
+          "address": "Lauterbrunnen"
+        }
+      ]
+    },
+    {
+      "slug": "schweiz-alpenpaesse-grand-tour::stage-3",
+      "citySlug": "grindelwald",
+      "title": "Grindelwald – Schweizer Alpenpässe — Vierwaldstättersee bis Lugano",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "First Cliff Walk Grindelwald",
+          "type": "landmark",
+          "address": "Grindelwald"
+        },
+        {
+          "order": 2,
+          "title": "Bachalpsee",
+          "type": "landmark",
+          "address": "Grindelwald"
+        }
+      ]
+    },
+    {
+      "slug": "schweiz-alpenpaesse-grand-tour::stage-4",
+      "citySlug": "andermatt-furkapass",
+      "title": "Andermatt & Furkapass – Schweizer Alpenpässe — Vierwaldstättersee bis Lugano",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Grimselpass",
+          "type": "landmark",
+          "address": "Andermatt & Furkapass"
+        },
+        {
+          "order": 2,
+          "title": "Eisgrotte Rhonegletscher",
+          "type": "landmark",
+          "address": "Andermatt & Furkapass"
+        }
+      ]
+    },
+    {
+      "slug": "schweiz-alpenpaesse-grand-tour::stage-5",
+      "citySlug": "lugano",
+      "title": "Lugano – Schweizer Alpenpässe — Vierwaldstättersee bis Lugano",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Piazza della Riforma Lugano",
+          "type": "landmark",
+          "address": "Lugano"
+        },
+        {
+          "order": 2,
+          "title": "Parco Ciani",
+          "type": "landmark",
+          "address": "Lugano"
+        }
+      ]
+    },
+    {
+      "slug": "italien-amalfi-cilento-kueste::stage-1",
+      "citySlug": "neapel",
+      "title": "Neapel – Amalfiküste & Cilento — Klippen, Meer & Cucina",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Sfogliatelle Attanasio",
+          "type": "landmark",
+          "address": "Neapel"
+        },
+        {
+          "order": 2,
+          "title": "Spaccanapoli",
+          "type": "landmark",
+          "address": "Neapel"
+        }
+      ]
+    },
+    {
+      "slug": "italien-amalfi-cilento-kueste::stage-2",
+      "citySlug": "sorrent",
+      "title": "Sorrent – Amalfiküste & Cilento — Klippen, Meer & Cucina",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Piazza Tasso",
+          "type": "landmark",
+          "address": "Sorrent"
+        },
+        {
+          "order": 2,
+          "title": "I Giardini di Cataldo",
+          "type": "landmark",
+          "address": "Sorrent"
+        }
+      ]
+    },
+    {
+      "slug": "italien-amalfi-cilento-kueste::stage-3",
+      "citySlug": "positano",
+      "title": "Positano – Amalfiküste & Cilento — Klippen, Meer & Cucina",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Chiesa di Santa Maria Assunta",
+          "type": "landmark",
+          "address": "Positano"
+        },
+        {
+          "order": 2,
+          "title": "Spiaggia Grande Positano",
+          "type": "landmark",
+          "address": "Positano"
+        }
+      ]
+    },
+    {
+      "slug": "italien-amalfi-cilento-kueste::stage-4",
+      "citySlug": "amalfi-ravello",
+      "title": "Amalfi & Ravello – Amalfiküste & Cilento — Klippen, Meer & Cucina",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Cattedrale di Sant'Andrea Amalfi",
+          "type": "landmark",
+          "address": "Amalfi & Ravello"
+        },
+        {
+          "order": 2,
+          "title": "Museo della Carta Amalfi",
+          "type": "landmark",
+          "address": "Amalfi & Ravello"
+        }
+      ]
+    },
+    {
+      "slug": "italien-amalfi-cilento-kueste::stage-5",
+      "citySlug": "cilento-palinuro",
+      "title": "Cilento / Palinuro – Amalfiküste & Cilento — Klippen, Meer & Cucina",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Grotta Azzurra Palinuro",
+          "type": "landmark",
+          "address": "Cilento / Palinuro"
+        },
+        {
+          "order": 2,
+          "title": "Spiaggia del Buondormire",
+          "type": "landmark",
+          "address": "Cilento / Palinuro"
+        }
+      ]
+    },
+    {
+      "slug": "italien-amalfi-cilento-kueste::stage-6",
+      "citySlug": "paestum",
+      "title": "Paestum – Amalfiküste & Cilento — Klippen, Meer & Cucina",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tenuta Vannulo",
+          "type": "landmark",
+          "address": "Paestum"
+        },
+        {
+          "order": 2,
+          "title": "Parco Archeologico di Paestum",
+          "type": "landmark",
+          "address": "Paestum"
+        }
+      ]
+    },
+    {
+      "slug": "adria-istrien-kotor::stage-1",
+      "citySlug": "piran-slo",
+      "title": "Piran (SLO) – Adria-Roadtrip — von Istrien zur Bucht von Kotor",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tartinijev trg (Tartini-Platz), Piran",
+          "type": "landmark",
+          "address": "Piran (SLO)"
+        },
+        {
+          "order": 2,
+          "title": "Piranske mestne obzidje (Stadtmauern Piran)",
+          "type": "landmark",
+          "address": "Piran (SLO)"
+        }
+      ]
+    },
+    {
+      "slug": "adria-istrien-kotor::stage-2",
+      "citySlug": "rovinj-istrien-hr",
+      "title": "Rovinj & Istrien (HR) – Adria-Roadtrip — von Istrien zur Bucht von Kotor",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Grisia, Altstadt Rovinj",
+          "type": "landmark",
+          "address": "Rovinj & Istrien (HR)"
+        },
+        {
+          "order": 2,
+          "title": "Crkva sv. Eufemije (Kirche der hl. Euphemia), Rovinj",
+          "type": "landmark",
+          "address": "Rovinj & Istrien (HR)"
+        }
+      ]
+    },
+    {
+      "slug": "adria-istrien-kotor::stage-3",
+      "citySlug": "plitvicer-seen",
+      "title": "Plitvicer Seen – Adria-Roadtrip — von Istrien zur Bucht von Kotor",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Nationalpark Plitvička jezera – Ulaz 1 (Eingang 1)",
+          "type": "landmark",
+          "address": "Plitvicer Seen"
+        },
+        {
+          "order": 2,
+          "title": "Veliki slap (Großer Wasserfall), Plitvice",
+          "type": "landmark",
+          "address": "Plitvicer Seen"
+        }
+      ]
+    },
+    {
+      "slug": "adria-istrien-kotor::stage-4",
+      "citySlug": "zadar",
+      "title": "Zadar – Adria-Roadtrip — von Istrien zur Bucht von Kotor",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rimski forum & Crkva sv. Donata, Zadar",
+          "type": "landmark",
+          "address": "Zadar"
+        },
+        {
+          "order": 2,
+          "title": "Kalelarga (Široka ulica), Altstadt Zadar",
+          "type": "landmark",
+          "address": "Zadar"
+        }
+      ]
+    },
+    {
+      "slug": "adria-istrien-kotor::stage-5",
+      "citySlug": "split-inseln",
+      "title": "Split & Inseln – Adria-Roadtrip — von Istrien zur Bucht von Kotor",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Dioklecijanova palača (Diokletianpalast), Split",
+          "type": "landmark",
+          "address": "Split & Inseln"
+        },
+        {
+          "order": 2,
+          "title": "Peristil & Katedrala sv. Duje, Split",
+          "type": "landmark",
+          "address": "Split & Inseln"
+        }
+      ]
+    },
+    {
+      "slug": "adria-istrien-kotor::stage-6",
+      "citySlug": "dubrovnik",
+      "title": "Dubrovnik – Adria-Roadtrip — von Istrien zur Bucht von Kotor",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Gradske zidine (Stadtmauern), Dubrovnik",
+          "type": "landmark",
+          "address": "Dubrovnik"
+        },
+        {
+          "order": 2,
+          "title": "Stradun (Placa), Altstadt Dubrovnik",
+          "type": "landmark",
+          "address": "Dubrovnik"
+        }
+      ]
+    },
+    {
+      "slug": "adria-istrien-kotor::stage-7",
+      "citySlug": "bucht-von-kotor-mne",
+      "title": "Bucht von Kotor (MNE) – Adria-Roadtrip — von Istrien zur Bucht von Kotor",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Stari grad Kotor (Altstadt Kotor)",
+          "type": "landmark",
+          "address": "Bucht von Kotor (MNE)"
+        },
+        {
+          "order": 2,
+          "title": "Tvrđava Sveti Ivan / San Giovanni (Festung), Kotor",
+          "type": "landmark",
+          "address": "Bucht von Kotor (MNE)"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-gruener-norden-atlantik::stage-1",
+      "citySlug": "san-sebastian",
+      "title": "San Sebastián – Grüner Norden Spaniens — Atlantik, Pintxos & Picos",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Playa de la Concha",
+          "type": "landmark",
+          "address": "San Sebastián"
+        },
+        {
+          "order": 2,
+          "title": "Monte Igueldo",
+          "type": "landmark",
+          "address": "San Sebastián"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-gruener-norden-atlantik::stage-2",
+      "citySlug": "bilbao-gaztelugatxe",
+      "title": "Bilbao & Gaztelugatxe – Grüner Norden Spaniens — Atlantik, Pintxos & Picos",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Guggenheim Museum Bilbao",
+          "type": "landmark",
+          "address": "Bilbao & Gaztelugatxe"
+        },
+        {
+          "order": 2,
+          "title": "Gure Toki",
+          "type": "landmark",
+          "address": "Bilbao & Gaztelugatxe"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-gruener-norden-atlantik::stage-3",
+      "citySlug": "picos-de-europa",
+      "title": "Picos de Europa – Grüner Norden Spaniens — Atlantik, Pintxos & Picos",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Lagos de Covadonga",
+          "type": "landmark",
+          "address": "Picos de Europa"
+        },
+        {
+          "order": 2,
+          "title": "Santuario de Covadonga",
+          "type": "landmark",
+          "address": "Picos de Europa"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-gruener-norden-atlantik::stage-4",
+      "citySlug": "asturien-llanes",
+      "title": "Asturien (Llanes) – Grüner Norden Spaniens — Atlantik, Pintxos & Picos",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bufones de Pría",
+          "type": "landmark",
+          "address": "Asturien (Llanes)"
+        },
+        {
+          "order": 2,
+          "title": "Playa de Gulpiyuri",
+          "type": "landmark",
+          "address": "Asturien (Llanes)"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-gruener-norden-atlantik::stage-5",
+      "citySlug": "playa-de-las-catedrales",
+      "title": "Playa de las Catedrales – Grüner Norden Spaniens — Atlantik, Pintxos & Picos",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Playa de las Catedrales",
+          "type": "landmark",
+          "address": "Playa de las Catedrales"
+        },
+        {
+          "order": 2,
+          "title": "Faro Isla Pancha",
+          "type": "landmark",
+          "address": "Playa de las Catedrales"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-gruener-norden-atlantik::stage-6",
+      "citySlug": "rias-baixas-galicien",
+      "title": "Rías Baixas (Galicien) – Grüner Norden Spaniens — Atlantik, Pintxos & Picos",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Combarro",
+          "type": "landmark",
+          "address": "Rías Baixas (Galicien)"
+        },
+        {
+          "order": 2,
+          "title": "Bodega Martín Códax",
+          "type": "landmark",
+          "address": "Rías Baixas (Galicien)"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-andalusien-costa-de-la-luz::stage-1",
+      "citySlug": "sevilla",
+      "title": "Sevilla – Andalusien & Costa de la Luz — weiße Dörfer & Atlantikstrände",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Real Alcázar de Sevilla",
+          "type": "landmark",
+          "address": "Sevilla"
+        },
+        {
+          "order": 2,
+          "title": "Catedral de Sevilla y Giralda",
+          "type": "landmark",
+          "address": "Sevilla"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-andalusien-costa-de-la-luz::stage-2",
+      "citySlug": "cadiz",
+      "title": "Cádiz – Andalusien & Costa de la Luz — weiße Dörfer & Atlantikstrände",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Catedral de Cádiz",
+          "type": "landmark",
+          "address": "Cádiz"
+        },
+        {
+          "order": 2,
+          "title": "Mercado Central de Abastos de Cádiz",
+          "type": "landmark",
+          "address": "Cádiz"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-andalusien-costa-de-la-luz::stage-3",
+      "citySlug": "vejer-sanlucar",
+      "title": "Vejer & Sanlúcar – Andalusien & Costa de la Luz — weiße Dörfer & Atlantikstrände",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Vejer de la Frontera Casco Antiguo",
+          "type": "landmark",
+          "address": "Vejer & Sanlúcar"
+        },
+        {
+          "order": 2,
+          "title": "Plaza de España Vejer de la Frontera",
+          "type": "landmark",
+          "address": "Vejer & Sanlúcar"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-andalusien-costa-de-la-luz::stage-4",
+      "citySlug": "bolonia-tarifa",
+      "title": "Bolonia & Tarifa – Andalusien & Costa de la Luz — weiße Dörfer & Atlantikstrände",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Conjunto Arqueológico Baelo Claudia",
+          "type": "landmark",
+          "address": "Bolonia & Tarifa"
+        },
+        {
+          "order": 2,
+          "title": "Duna de Bolonia",
+          "type": "landmark",
+          "address": "Bolonia & Tarifa"
+        }
+      ]
+    },
+    {
+      "slug": "spanien-andalusien-costa-de-la-luz::stage-5",
+      "citySlug": "ronda",
+      "title": "Ronda – Andalusien & Costa de la Luz — weiße Dörfer & Atlantikstrände",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Puente Nuevo de Ronda",
+          "type": "landmark",
+          "address": "Ronda"
+        },
+        {
+          "order": 2,
+          "title": "Plaza de Toros de Ronda",
+          "type": "landmark",
+          "address": "Ronda"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-provence-cote-dazur::stage-1",
+      "citySlug": "marseille",
+      "title": "Marseille – Provence & Côte d’Azur — Calanques, Canyon & Küste",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "MuCEM",
+          "type": "landmark",
+          "address": "Marseille"
+        },
+        {
+          "order": 2,
+          "title": "Le Panier",
+          "type": "landmark",
+          "address": "Marseille"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-provence-cote-dazur::stage-2",
+      "citySlug": "cassis",
+      "title": "Cassis – Provence & Côte d’Azur — Calanques, Canyon & Küste",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Calanque d'En-Vau",
+          "type": "landmark",
+          "address": "Cassis"
+        },
+        {
+          "order": 2,
+          "title": "Port de Cassis",
+          "type": "landmark",
+          "address": "Cassis"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-provence-cote-dazur::stage-3",
+      "citySlug": "aix-en-provence",
+      "title": "Aix-en-Provence – Provence & Côte d’Azur — Calanques, Canyon & Küste",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Place Richelme",
+          "type": "landmark",
+          "address": "Aix-en-Provence"
+        },
+        {
+          "order": 2,
+          "title": "Cours Mirabeau",
+          "type": "landmark",
+          "address": "Aix-en-Provence"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-provence-cote-dazur::stage-4",
+      "citySlug": "verdon-schlucht",
+      "title": "Verdon-Schlucht – Provence & Côte d’Azur — Calanques, Canyon & Küste",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Moustiers-Sainte-Marie",
+          "type": "landmark",
+          "address": "Verdon-Schlucht"
+        },
+        {
+          "order": 2,
+          "title": "Notre-Dame de Beauvoir",
+          "type": "landmark",
+          "address": "Verdon-Schlucht"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-provence-cote-dazur::stage-5",
+      "citySlug": "saint-tropez",
+      "title": "Saint-Tropez – Provence & Côte d’Azur — Calanques, Canyon & Küste",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Place des Lices",
+          "type": "landmark",
+          "address": "Saint-Tropez"
+        },
+        {
+          "order": 2,
+          "title": "Vieux Port Saint-Tropez",
+          "type": "landmark",
+          "address": "Saint-Tropez"
+        }
+      ]
+    },
+    {
+      "slug": "frankreich-provence-cote-dazur::stage-6",
+      "citySlug": "nizza-eze",
+      "title": "Nizza & Èze – Provence & Côte d’Azur — Calanques, Canyon & Küste",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Cours Saleya",
+          "type": "landmark",
+          "address": "Nizza & Èze"
+        },
+        {
+          "order": 2,
+          "title": "Chez Thérésa",
+          "type": "landmark",
+          "address": "Nizza & Èze"
+        }
+      ]
+    },
+    {
+      "slug": "portugal-lissabon-algarve::stage-1",
+      "citySlug": "lissabon",
+      "title": "Lissabon – Portugals Küste — von Lissabon zur Algarve",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Pastéis de Belém",
+          "type": "landmark",
+          "address": "Lissabon"
+        },
+        {
+          "order": 2,
+          "title": "Mosteiro dos Jerónimos",
+          "type": "landmark",
+          "address": "Lissabon"
+        }
+      ]
+    },
+    {
+      "slug": "portugal-lissabon-algarve::stage-2",
+      "citySlug": "sintra-cascais",
+      "title": "Sintra & Cascais – Portugals Küste — von Lissabon zur Algarve",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Palácio da Pena",
+          "type": "landmark",
+          "address": "Sintra & Cascais"
+        },
+        {
+          "order": 2,
+          "title": "Quinta da Regaleira",
+          "type": "landmark",
+          "address": "Sintra & Cascais"
+        }
+      ]
+    },
+    {
+      "slug": "portugal-lissabon-algarve::stage-3",
+      "citySlug": "comporta",
+      "title": "Comporta – Portugals Küste — von Lissabon zur Algarve",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Arrozais da Comporta",
+          "type": "landmark",
+          "address": "Comporta"
+        },
+        {
+          "order": 2,
+          "title": "Praia do Carvalhal",
+          "type": "landmark",
+          "address": "Comporta"
+        }
+      ]
+    },
+    {
+      "slug": "portugal-lissabon-algarve::stage-4",
+      "citySlug": "alentejo-milfontes",
+      "title": "Alentejo (Milfontes) – Portugals Küste — von Lissabon zur Algarve",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Trilho dos Pescadores (Rota Vicentina)",
+          "type": "landmark",
+          "address": "Alentejo (Milfontes)"
+        },
+        {
+          "order": 2,
+          "title": "Praia das Furnas",
+          "type": "landmark",
+          "address": "Alentejo (Milfontes)"
+        }
+      ]
+    },
+    {
+      "slug": "portugal-lissabon-algarve::stage-5",
+      "citySlug": "lagos-algarve",
+      "title": "Lagos & Algarve – Portugals Küste — von Lissabon zur Algarve",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Ponta da Piedade",
+          "type": "landmark",
+          "address": "Lagos & Algarve"
+        },
+        {
+          "order": 2,
+          "title": "Praia da Marinha",
+          "type": "landmark",
+          "address": "Lagos & Algarve"
+        }
+      ]
+    },
+    {
+      "slug": "ostsee-ruegen-usedom::stage-1",
+      "citySlug": "lubeck",
+      "title": "Lübeck – Deutsche Ostsee — Lübeck, Rügen & Usedom",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Holstentor",
+          "type": "landmark",
+          "address": "Lübeck"
+        },
+        {
+          "order": 2,
+          "title": "Marienkirche Lübeck",
+          "type": "landmark",
+          "address": "Lübeck"
+        }
+      ]
+    },
+    {
+      "slug": "ostsee-ruegen-usedom::stage-2",
+      "citySlug": "fehmarn",
+      "title": "Fehmarn – Deutsche Ostsee — Lübeck, Rügen & Usedom",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wasservogelreservat Wallnau",
+          "type": "landmark",
+          "address": "Fehmarn"
+        },
+        {
+          "order": 2,
+          "title": "Fischlädchen Burgstaaken",
+          "type": "landmark",
+          "address": "Fehmarn"
+        }
+      ]
+    },
+    {
+      "slug": "ostsee-ruegen-usedom::stage-3",
+      "citySlug": "warnemunde",
+      "title": "Warnemünde – Deutsche Ostsee — Lübeck, Rügen & Usedom",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Strand Warnemünde",
+          "type": "landmark",
+          "address": "Warnemünde"
+        },
+        {
+          "order": 2,
+          "title": "Leuchtturm Warnemünde",
+          "type": "landmark",
+          "address": "Warnemünde"
+        }
+      ]
+    },
+    {
+      "slug": "ostsee-ruegen-usedom::stage-4",
+      "citySlug": "rugen-binz-jasmund",
+      "title": "Rügen (Binz & Jasmund) – Deutsche Ostsee — Lübeck, Rügen & Usedom",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Königsstuhl Nationalpark Jasmund",
+          "type": "landmark",
+          "address": "Rügen (Binz & Jasmund)"
+        },
+        {
+          "order": 2,
+          "title": "Seebrücke Sellin",
+          "type": "landmark",
+          "address": "Rügen (Binz & Jasmund)"
+        }
+      ]
+    },
+    {
+      "slug": "ostsee-ruegen-usedom::stage-5",
+      "citySlug": "usedom",
+      "title": "Usedom – Deutsche Ostsee — Lübeck, Rügen & Usedom",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Seebrücke Ahlbeck",
+          "type": "landmark",
+          "address": "Usedom"
+        },
+        {
+          "order": 2,
+          "title": "Strandpromenade Heringsdorf",
+          "type": "landmark",
+          "address": "Usedom"
+        }
+      ]
+    },
+    {
+      "slug": "kroatien-dalmatien-zadar-dubrovnik::stage-1",
+      "citySlug": "zadar",
+      "title": "Zadar – Dalmatien — Zadar bis Dubrovnik",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Forum Zadar",
+          "type": "landmark",
+          "address": "Zadar"
+        },
+        {
+          "order": 2,
+          "title": "Katedrala Sv. Stošije Zadar",
+          "type": "landmark",
+          "address": "Zadar"
+        }
+      ]
+    },
+    {
+      "slug": "kroatien-dalmatien-zadar-dubrovnik::stage-2",
+      "citySlug": "sibenik-krka",
+      "title": "Šibenik & Krka – Dalmatien — Zadar bis Dubrovnik",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Nacionalni Park Krka",
+          "type": "landmark",
+          "address": "Šibenik & Krka"
+        },
+        {
+          "order": 2,
+          "title": "Skradinski Buk",
+          "type": "landmark",
+          "address": "Šibenik & Krka"
+        }
+      ]
+    },
+    {
+      "slug": "kroatien-dalmatien-zadar-dubrovnik::stage-3",
+      "citySlug": "split",
+      "title": "Split – Dalmatien — Zadar bis Dubrovnik",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Dioklecijanova Palača Split",
+          "type": "landmark",
+          "address": "Split"
+        },
+        {
+          "order": 2,
+          "title": "Podrumi Dioklecijanove Palače",
+          "type": "landmark",
+          "address": "Split"
+        }
+      ]
+    },
+    {
+      "slug": "kroatien-dalmatien-zadar-dubrovnik::stage-4",
+      "citySlug": "makarska",
+      "title": "Makarska – Dalmatien — Zadar bis Dubrovnik",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Biokovo Skywalk",
+          "type": "landmark",
+          "address": "Makarska"
+        },
+        {
+          "order": 2,
+          "title": "Plaža Punta Rata Brela",
+          "type": "landmark",
+          "address": "Makarska"
+        }
+      ]
+    },
+    {
+      "slug": "kroatien-dalmatien-zadar-dubrovnik::stage-5",
+      "citySlug": "dubrovnik",
+      "title": "Dubrovnik – Dalmatien — Zadar bis Dubrovnik",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Gradske Zidine Dubrovnik",
+          "type": "landmark",
+          "address": "Dubrovnik"
+        },
+        {
+          "order": 2,
+          "title": "Stradun Dubrovnik",
+          "type": "landmark",
+          "address": "Dubrovnik"
+        }
+      ]
+    },
+    {
+      "slug": "toskana-chianti-val-dorcia::stage-1",
+      "citySlug": "florenz",
+      "title": "Florenz – Toskana — Florenz, Chianti & Val d'Orcia",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Cattedrale di Santa Maria del Fiore",
+          "type": "landmark",
+          "address": "Florenz"
+        },
+        {
+          "order": 2,
+          "title": "Piazza della Signoria",
+          "type": "landmark",
+          "address": "Florenz"
+        }
+      ]
+    },
+    {
+      "slug": "toskana-chianti-val-dorcia::stage-2",
+      "citySlug": "lucca",
+      "title": "Lucca – Toskana — Florenz, Chianti & Val d'Orcia",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Mura di Lucca",
+          "type": "landmark",
+          "address": "Lucca"
+        },
+        {
+          "order": 2,
+          "title": "Piazza dell'Anfiteatro",
+          "type": "landmark",
+          "address": "Lucca"
+        }
+      ]
+    },
+    {
+      "slug": "toskana-chianti-val-dorcia::stage-3",
+      "citySlug": "san-gimignano",
+      "title": "San Gimignano – Toskana — Florenz, Chianti & Val d'Orcia",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Piazza della Cisterna",
+          "type": "landmark",
+          "address": "San Gimignano"
+        },
+        {
+          "order": 2,
+          "title": "Torre Grossa San Gimignano",
+          "type": "landmark",
+          "address": "San Gimignano"
+        }
+      ]
+    },
+    {
+      "slug": "toskana-chianti-val-dorcia::stage-4",
+      "citySlug": "siena",
+      "title": "Siena – Toskana — Florenz, Chianti & Val d'Orcia",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Piazza del Campo",
+          "type": "landmark",
+          "address": "Siena"
+        },
+        {
+          "order": 2,
+          "title": "Torre del Mangia",
+          "type": "landmark",
+          "address": "Siena"
+        }
+      ]
+    },
+    {
+      "slug": "toskana-chianti-val-dorcia::stage-5",
+      "citySlug": "pienza-val-d-orcia",
+      "title": "Pienza & Val d'Orcia – Toskana — Florenz, Chianti & Val d'Orcia",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Centro Storico Pienza",
+          "type": "landmark",
+          "address": "Pienza & Val d'Orcia"
+        },
+        {
+          "order": 2,
+          "title": "La Taverna del Pecorino Pienza",
+          "type": "landmark",
+          "address": "Pienza & Val d'Orcia"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-nightlife-beach-party::stage-1",
+      "citySlug": "westerland",
+      "title": "Westerland – Sylt Party — Whisky-Meile, Beach Clubs & Sansibar",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Strandoase Sylt Westerland",
+          "type": "landmark",
+          "address": "Westerland"
+        },
+        {
+          "order": 2,
+          "title": "Westerland Bars",
+          "type": "landmark",
+          "address": "Westerland"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-nightlife-beach-party::stage-2",
+      "citySlug": "kampen",
+      "title": "Kampen – Sylt Party — Whisky-Meile, Beach Clubs & Sansibar",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Sturmhaube Kampen",
+          "type": "landmark",
+          "address": "Kampen"
+        },
+        {
+          "order": 2,
+          "title": "Strönwai Kampen",
+          "type": "landmark",
+          "address": "Kampen"
+        }
+      ]
+    },
+    {
+      "slug": "sylt-nightlife-beach-party::stage-3",
+      "citySlug": "rantum",
+      "title": "Rantum – Sylt Party — Whisky-Meile, Beach Clubs & Sansibar",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rantum Dünen",
+          "type": "landmark",
+          "address": "Rantum"
+        },
+        {
+          "order": 2,
+          "title": "Sansibar Rantum",
+          "type": "landmark",
+          "address": "Rantum"
+        }
+      ]
+    },
+    {
+      "slug": "irland-wild-atlantic-way::stage-1",
+      "citySlug": "galway",
+      "title": "Galway – Wild Atlantic Way — Irlands wilder Westen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Latin Quarter Galway",
+          "type": "landmark",
+          "address": "Galway"
+        },
+        {
+          "order": 2,
+          "title": "Spanish Arch",
+          "type": "landmark",
+          "address": "Galway"
+        }
+      ]
+    },
+    {
+      "slug": "irland-wild-atlantic-way::stage-2",
+      "citySlug": "doolin-cliffs-of-moher",
+      "title": "Doolin & Cliffs of Moher – Wild Atlantic Way — Irlands wilder Westen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Cliffs of Moher",
+          "type": "landmark",
+          "address": "Doolin & Cliffs of Moher"
+        },
+        {
+          "order": 2,
+          "title": "O'Brien's Tower",
+          "type": "landmark",
+          "address": "Doolin & Cliffs of Moher"
+        }
+      ]
+    },
+    {
+      "slug": "irland-wild-atlantic-way::stage-3",
+      "citySlug": "dingle",
+      "title": "Dingle – Wild Atlantic Way — Irlands wilder Westen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Slea Head Drive",
+          "type": "landmark",
+          "address": "Dingle"
+        },
+        {
+          "order": 2,
+          "title": "Coumeenoole Beach",
+          "type": "landmark",
+          "address": "Dingle"
+        }
+      ]
+    },
+    {
+      "slug": "irland-wild-atlantic-way::stage-4",
+      "citySlug": "killarney",
+      "title": "Killarney – Wild Atlantic Way — Irlands wilder Westen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Muckross House",
+          "type": "landmark",
+          "address": "Killarney"
+        },
+        {
+          "order": 2,
+          "title": "Torc Waterfall",
+          "type": "landmark",
+          "address": "Killarney"
+        }
+      ]
+    },
+    {
+      "slug": "irland-wild-atlantic-way::stage-5",
+      "citySlug": "kinsale",
+      "title": "Kinsale – Wild Atlantic Way — Irlands wilder Westen",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kinsale Old Town",
+          "type": "landmark",
+          "address": "Kinsale"
+        },
+        {
+          "order": 2,
+          "title": "Charles Fort Kinsale",
+          "type": "landmark",
+          "address": "Kinsale"
+        }
+      ]
+    },
+    {
+      "slug": "mailand-comersee-jga-girls::stage-1",
+      "citySlug": "mailand",
+      "title": "Mailand – JGA Mailand & Comer See — Quiet Luxury",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Galleria Vittorio Emanuele II",
+          "type": "landmark",
+          "address": "Mailand"
+        },
+        {
+          "order": 2,
+          "title": "Via Montenapoleone",
+          "type": "landmark",
+          "address": "Mailand"
+        }
+      ]
+    },
+    {
+      "slug": "mailand-comersee-jga-girls::stage-2",
+      "citySlug": "comer-see-bellagio-menaggio",
+      "title": "Comer See · Bellagio & Menaggio – JGA Mailand & Comer See — Quiet Luxury",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Como Classic Boats",
+          "type": "landmark",
+          "address": "Comer See · Bellagio & Menaggio"
+        },
+        {
+          "order": 2,
+          "title": "Trattoria San Giacomo Bellagio",
+          "type": "landmark",
+          "address": "Comer See · Bellagio & Menaggio"
+        }
+      ]
+    },
+    {
+      "slug": "prag-jga-maenner-klassiker::stage-1",
+      "citySlug": "prag-altstadt",
+      "title": "Prag · Altstadt – JGA Prag — Bierspa, Brauhaus & Clubnacht",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Original Beer Spa Prag",
+          "type": "landmark",
+          "address": "Prag · Altstadt"
+        },
+        {
+          "order": 2,
+          "title": "U Fleků",
+          "type": "landmark",
+          "address": "Prag · Altstadt"
+        }
+      ]
+    },
+    {
+      "slug": "prag-jga-maenner-klassiker::stage-2",
+      "citySlug": "prag-moldau-neustadt",
+      "title": "Prag · Moldau & Neustadt – JGA Prag — Bierspa, Brauhaus & Clubnacht",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Staropramen Brauerei",
+          "type": "landmark",
+          "address": "Prag · Moldau & Neustadt"
+        },
+        {
+          "order": 2,
+          "title": "Lokál Dlouhá",
+          "type": "landmark",
+          "address": "Prag · Moldau & Neustadt"
+        }
+      ]
+    },
+    {
+      "slug": "budapest-jga-sparty-ruinbars::stage-1",
+      "citySlug": "budapest-judisches-viertel",
+      "title": "Budapest · Jüdisches Viertel – JGA Budapest — Ruin Bars, Bierbad & Sparty",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Axtwerfen",
+          "type": "landmark",
+          "address": "Budapest · Jüdisches Viertel"
+        },
+        {
+          "order": 2,
+          "title": "Karaván Budapest",
+          "type": "landmark",
+          "address": "Budapest · Jüdisches Viertel"
+        }
+      ]
+    },
+    {
+      "slug": "budapest-jga-sparty-ruinbars::stage-2",
+      "citySlug": "budapest-stadtwaldchen-donau",
+      "title": "Budapest · Stadtwäldchen & Donau – JGA Budapest — Ruin Bars, Bierbad & Sparty",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Széchenyi Thermalbad",
+          "type": "landmark",
+          "address": "Budapest · Stadtwäldchen & Donau"
+        },
+        {
+          "order": 2,
+          "title": "Thermal Beer Spa Budapest",
+          "type": "landmark",
+          "address": "Budapest · Stadtwäldchen & Donau"
+        }
+      ]
+    },
+    {
+      "slug": "zuerich-jga-girls-weekend::stage-1",
+      "citySlug": "zurich-zurich-west",
+      "title": "Zürich · Zürich-West – JGA Zürich — Schoggi, See & Rooftop-Pool",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Frau Gerolds Garten",
+          "type": "landmark",
+          "address": "Zürich · Zürich-West"
+        },
+        {
+          "order": 2,
+          "title": "miniSchoggi Zürich",
+          "type": "landmark",
+          "address": "Zürich · Zürich-West"
+        }
+      ]
+    },
+    {
+      "slug": "zuerich-jga-girls-weekend::stage-2",
+      "citySlug": "zurich-altstadt-see",
+      "title": "Zürich · Altstadt & See – JGA Zürich — Schoggi, See & Rooftop-Pool",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Confiserie Sprüngli Paradeplatz",
+          "type": "landmark",
+          "address": "Zürich · Altstadt & See"
+        },
+        {
+          "order": 2,
+          "title": "Niederdorf Zürich",
+          "type": "landmark",
+          "address": "Zürich · Altstadt & See"
+        }
+      ]
+    },
+    {
+      "slug": "riga-jga-bobbahn-altstadt::stage-1",
+      "citySlug": "riga-altstadt",
+      "title": "Riga · Altstadt – JGA Riga — Bobbahn, Craft-Beer & Altstadt",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Melngalvju Nams Riga",
+          "type": "landmark",
+          "address": "Riga · Altstadt"
+        },
+        {
+          "order": 2,
+          "title": "Labietis Riga",
+          "type": "landmark",
+          "address": "Riga · Altstadt"
+        }
+      ]
+    },
+    {
+      "slug": "riga-jga-bobbahn-altstadt::stage-2",
+      "citySlug": "sigulda-riga-action",
+      "title": "Sigulda & Riga · Action – JGA Riga — Bobbahn, Craft-Beer & Altstadt",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bobsleja trase Sigulda",
+          "type": "landmark",
+          "address": "Sigulda & Riga · Action"
+        },
+        {
+          "order": 2,
+          "title": "Mittag in Sigulda",
+          "type": "landmark",
+          "address": "Sigulda & Riga · Action"
+        }
+      ]
+    },
+    {
+      "slug": "mallorca-jga-playa-bootsparty::stage-1",
+      "citySlug": "playa-de-palma",
+      "title": "Playa de Palma – JGA Mallorca — Strand, Bootsparty & Bierkönig",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Playa de Palma",
+          "type": "landmark",
+          "address": "Playa de Palma"
+        },
+        {
+          "order": 2,
+          "title": "Beachclub-Sundowner",
+          "type": "landmark",
+          "address": "Playa de Palma"
+        }
+      ]
+    },
+    {
+      "slug": "mallorca-jga-playa-bootsparty::stage-2",
+      "citySlug": "palma-kuste",
+      "title": "Palma & Küste – JGA Mallorca — Strand, Bootsparty & Bierkönig",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Katamaran Palma",
+          "type": "landmark",
+          "address": "Palma & Küste"
+        },
+        {
+          "order": 2,
+          "title": "Quad-Safari",
+          "type": "landmark",
+          "address": "Palma & Küste"
+        }
+      ]
+    },
+    {
+      "slug": "oetztal-area47-jga-action::stage-1",
+      "citySlug": "otztal-area-47",
+      "title": "Ötztal · Area 47 – JGA Area 47 — Rafting, Bungee & Tipi-Nacht",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Area 47 Ötztal",
+          "type": "landmark",
+          "address": "Ötztal · Area 47"
+        },
+        {
+          "order": 2,
+          "title": "Area 47 Water Area",
+          "type": "landmark",
+          "address": "Ötztal · Area 47"
+        }
+      ]
+    },
+    {
+      "slug": "oetztal-area47-jga-action::stage-2",
+      "citySlug": "imst-rafting-bungee",
+      "title": "Imst · Rafting & Bungee – JGA Area 47 — Rafting, Bungee & Tipi-Nacht",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rafting Imster Schlucht",
+          "type": "landmark",
+          "address": "Imst · Rafting & Bungee"
+        },
+        {
+          "order": 2,
+          "title": "Mittag im Basecamp",
+          "type": "landmark",
+          "address": "Imst · Rafting & Bungee"
+        }
+      ]
+    },
+    {
+      "slug": "interlaken-jga-adventure::stage-1",
+      "citySlug": "interlaken",
+      "title": "Interlaken – JGA Interlaken — Canyoning, Rafting & Alpenblick",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Höhematte Interlaken",
+          "type": "landmark",
+          "address": "Interlaken"
+        },
+        {
+          "order": 2,
+          "title": "Harder Kulm",
+          "type": "landmark",
+          "address": "Interlaken"
+        }
+      ]
+    },
+    {
+      "slug": "interlaken-jga-adventure::stage-2",
+      "citySlug": "interlaken-action-tag",
+      "title": "Interlaken · Action-Tag – JGA Interlaken — Canyoning, Rafting & Alpenblick",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Canyoning Saxetenschlucht",
+          "type": "landmark",
+          "address": "Interlaken · Action-Tag"
+        },
+        {
+          "order": 2,
+          "title": "Mittagspause",
+          "type": "landmark",
+          "address": "Interlaken · Action-Tag"
+        }
+      ]
+    },
+    {
+      "slug": "gran-canaria-jga-pride-maspalomas::stage-1",
+      "citySlug": "maspalomas-dunen-strand",
+      "title": "Maspalomas · Dünen & Strand – JGA Gran Canaria — Dünen, Drag & Yumbo",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Dunas de Maspalomas",
+          "type": "landmark",
+          "address": "Maspalomas · Dünen & Strand"
+        },
+        {
+          "order": 2,
+          "title": "Playa de Maspalomas Kiosco 5",
+          "type": "landmark",
+          "address": "Maspalomas · Dünen & Strand"
+        }
+      ]
+    },
+    {
+      "slug": "gran-canaria-jga-pride-maspalomas::stage-2",
+      "citySlug": "playa-del-ingles-yumbo",
+      "title": "Playa del Inglés · Yumbo – JGA Gran Canaria — Dünen, Drag & Yumbo",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Pool-Brunch",
+          "type": "landmark",
+          "address": "Playa del Inglés · Yumbo"
+        },
+        {
+          "order": 2,
+          "title": "Playa del Inglés",
+          "type": "landmark",
+          "address": "Playa del Inglés · Yumbo"
+        }
+      ]
+    },
+    {
+      "slug": "sitges-jga-pride-weekend::stage-1",
+      "citySlug": "sitges-altstadt-meer",
+      "title": "Sitges · Altstadt & Meer – JGA Sitges — Gay Village, Strand & Queenz",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Església de Sant Bartomeu Sitges",
+          "type": "landmark",
+          "address": "Sitges · Altstadt & Meer"
+        },
+        {
+          "order": 2,
+          "title": "Platja de la Bassa Rodona",
+          "type": "landmark",
+          "address": "Sitges · Altstadt & Meer"
+        }
+      ]
+    },
+    {
+      "slug": "sitges-jga-pride-weekend::stage-2",
+      "citySlug": "sitges-promenade-nightlife",
+      "title": "Sitges · Promenade & Nightlife – JGA Sitges — Gay Village, Strand & Queenz",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Passeig Marítim Sitges",
+          "type": "landmark",
+          "address": "Sitges · Promenade & Nightlife"
+        },
+        {
+          "order": 2,
+          "title": "Platja de Sant Sebastià Sitges",
+          "type": "landmark",
+          "address": "Sitges · Promenade & Nightlife"
+        }
+      ]
+    },
+    {
+      "slug": "mykonos-jga-pride-weekend::stage-1",
+      "citySlug": "mykonos-chora",
+      "title": "Mykonos · Chora – JGA Mykonos — Beach Clubs, Drag & Little Venice",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kato Mili Mykonos",
+          "type": "landmark",
+          "address": "Mykonos · Chora"
+        },
+        {
+          "order": 2,
+          "title": "Little Venice Mykonos",
+          "type": "landmark",
+          "address": "Mykonos · Chora"
+        }
+      ]
+    },
+    {
+      "slug": "mykonos-jga-pride-weekend::stage-2",
+      "citySlug": "mykonos-beach-clubs",
+      "title": "Mykonos · Beach Clubs – JGA Mykonos — Beach Clubs, Drag & Little Venice",
+      "theme": "roadtrip",
+      "tags": [
+        "roadtrip"
+      ],
+      "sourceUrls": [],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Elia Beach Mykonos",
+          "type": "landmark",
+          "address": "Mykonos · Beach Clubs"
+        },
+        {
+          "order": 2,
+          "title": "Beach-Lunch",
+          "type": "landmark",
+          "address": "Mykonos · Beach Clubs"
+        }
+      ]
+    }
+  ]
+}
