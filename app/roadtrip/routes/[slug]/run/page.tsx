@@ -9,6 +9,7 @@ import PlanExpensesPanel from "@/components/events/PlanExpensesPanel";
 import { fetchRoadtripRouteBySlug } from "@/lib/roadtrip/client";
 import {
   stopArrivalDate,
+  type RoadtripPlannedStop,
   type RoadtripRoute,
   type RoadtripRouteStop,
 } from "@/lib/roadtrip/types";
@@ -61,6 +62,16 @@ function cityNavigationUrl(stop: RoadtripRouteStop) {
     return `https://www.google.com/maps/search/?api=1&query=${stop.lat},${stop.lng}`;
   }
   return null;
+}
+
+// Navigation zu einem einzelnen Tagesstopp: präzise Koordinaten, wenn
+// geocodiert — sonst Ortsnamen-Suche mit Stadt-Kontext.
+function plannedStopNavigationUrl(stop: RoadtripRouteStop, planned: RoadtripPlannedStop) {
+  if (planned.lat != null && planned.lng != null) {
+    return `https://www.google.com/maps/search/?api=1&query=${planned.lat},${planned.lng}`;
+  }
+  const query = encodeURIComponent(`${planned.itemName || planned.label}, ${stop.cityLabel}`);
+  return `https://www.google.com/maps/search/?api=1&query=${query}`;
 }
 
 function statusLabel(status: RoadtripRunStopState) {
@@ -304,6 +315,21 @@ export default function RoadtripRouteRunPage() {
         } satisfies PlanMapStop;
       });
   }, [progress?.currentStopId, progress?.stopStates, stops]);
+
+  // Tagesstopps der aktiven Etappe mit Koordinaten → eigene Tagesplan-Karte.
+  const dayPlanMapStops = useMemo(() => {
+    if (!currentStop?.plannedStops) return [] as PlanMapStop[];
+    return currentStop.plannedStops
+      .map((planned, index) => ({ planned, index }))
+      .filter(({ planned }) => planned.lat != null && planned.lng != null)
+      .map(({ planned, index }) => ({
+        label: `${index + 1}`,
+        name: planned.label,
+        lat: planned.lat as number,
+        lng: planned.lng as number,
+        markerVariant: "start" as const,
+      }));
+  }, [currentStop]);
 
   const subStopKey = route ? `pd24:roadtrip-substops:${route.id}:${startDate}` : null;
 
@@ -568,38 +594,60 @@ export default function RoadtripRouteRunPage() {
                   const key = `${currentStop.id}:${i}`;
                   const done = Boolean(checkedSubStops[key]);
                   return (
-                    <button
+                    <div
                       key={key}
-                      type="button"
-                      onClick={() => toggleSubStop(key)}
-                      className={`flex w-full items-start gap-3 rounded-xl border px-3 py-2.5 text-left transition ${
+                      className={`flex w-full items-stretch gap-2 rounded-xl border transition ${
                         done
                           ? "pd24-status-success"
-                          : "border-[var(--line-subtle)] bg-[var(--bg-surface)] hover:bg-[var(--bg-panel)]"
+                          : "border-[var(--line-subtle)] bg-[var(--bg-surface)]"
                       }`}
                     >
-                      <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[10px] ${
-                        done ? "border-[var(--state-success)] bg-[var(--state-success)] text-white" : "border-[var(--line-subtle)] bg-white"
-                      }`}>
-                        {done ? "✓" : ""}
-                      </span>
-                      <div className="min-w-0">
-                        <div className={`text-sm font-medium leading-snug ${done ? "line-through" : "text-[var(--text-strong)]"}`}>
-                          {subStop.label}
-                        </div>
-                        {subStop.hint ? (
-                          <div className="mt-0.5 text-xs text-[var(--text-muted)]">{subStop.hint}</div>
-                        ) : null}
-                        {subStop.time ? (
-                          <div className="mt-1 inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]">
-                            {subStop.time}
+                      <button
+                        type="button"
+                        onClick={() => toggleSubStop(key)}
+                        className="flex min-w-0 flex-1 items-start gap-3 rounded-l-xl px-3 py-2.5 text-left transition hover:bg-[var(--bg-panel)]"
+                      >
+                        <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-[10px] ${
+                          done ? "border-[var(--state-success)] bg-[var(--state-success)] text-white" : "border-[var(--line-subtle)] bg-white"
+                        }`}>
+                          {done ? "✓" : ""}
+                        </span>
+                        <div className="min-w-0">
+                          <div className={`text-sm font-medium leading-snug ${done ? "line-through" : "text-[var(--text-strong)]"}`}>
+                            {subStop.label}
                           </div>
-                        ) : null}
-                      </div>
-                    </button>
+                          {subStop.hint ? (
+                            <div className="mt-0.5 text-xs text-[var(--text-muted)]">{subStop.hint}</div>
+                          ) : null}
+                          {subStop.time ? (
+                            <div className="mt-1 inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]">
+                              {subStop.time}
+                            </div>
+                          ) : null}
+                        </div>
+                      </button>
+                      <a
+                        href={plannedStopNavigationUrl(currentStop, subStop)}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`Zu ${subStop.label} navigieren`}
+                        title={`Zu ${subStop.label} navigieren`}
+                        className="flex min-w-11 shrink-0 items-center justify-center rounded-r-xl border-l border-[var(--line-subtle)] px-2 text-[var(--text-muted)] transition hover:bg-white hover:text-[var(--text-strong)]"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+                          <path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z" />
+                          <circle cx="12" cy="10" r="2.5" />
+                        </svg>
+                      </a>
+                    </div>
                   );
                 })}
               </div>
+              {dayPlanMapStops.length > 0 ? (
+                <div className="mt-3 overflow-hidden rounded-xl border border-[var(--line-subtle)]">
+                  <PlanMap stops={dayPlanMapStops} profile="foot" height={240} showHeader={false} />
+                </div>
+              ) : null}
             </div>
           ) : null}
 

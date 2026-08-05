@@ -15,6 +15,10 @@ export type RoadtripPlannedStop = {
   hint: string;
   time: string | null;
   itemName: string | null;
+  // Nachträglich geocodiert (scripts/geocode-roadtrip-planned-stops.js) —
+  // ältere Datensätze haben noch keine Koordinaten.
+  lat?: number | null;
+  lng?: number | null;
 };
 
 export type RoadtripRouteStop = {
