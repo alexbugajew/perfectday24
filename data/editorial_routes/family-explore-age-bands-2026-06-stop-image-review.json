@@ -1,0 +1,842 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-05T07:51:21.624Z",
+  "candidatesFile": "C:\\Users\\AlexBugajew\\SynologyDrive\\Dokumente\\ECB\\PD24\\perfectday24\\data\\editorial_routes\\family-explore-age-bands-2026-06-stop-image-candidates.json",
+  "candidatesGeneratedAt": "2026-08-04T13:26:20.689Z",
+  "instructions": [
+    "Setze approved=true fuer jedes Bild, das live verwendet werden darf.",
+    "selectedCandidateId kann auf einen anderen Kandidaten aus candidates gesetzt werden.",
+    "approved=false oder selectedCandidateId=null bedeutet: beim Apply ueberspringen.",
+    "Vor Freigabe bitte Motiv, Landingpage, Lizenz und Attribution pruefen."
+  ],
+  "routes": [
+    {
+      "citySlug": "frankfurt-am-main",
+      "cityLabel": "Frankfurt am Main",
+      "routeSlug": "frankfurt-family-0-6-wasser-gruen-pausen",
+      "routeTitle": "Familienroute 0-6: Wasser, Gruen & ruhige Pausen",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": []
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "Palmengarten",
+          "type": "garden",
+          "approved": true,
+          "selectedCandidateId": "2e3edb006e858039",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "2e3edb006e858039",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Frankfurt am Main - Palmengarten - Winterlichter (2025-2026) 02",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_%282025-2026%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_%282025-2026%29_02.jpg/1280px-Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_%282025-2026%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_(2025-2026)_02.jpg",
+              "width": 6000,
+              "height": 3375,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Dr. Thomas Liptak",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt am Main - Palmengarten - Winterlichter (2025-2026) 02\" by Dr. Thomas Liptak, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_(2025-2026)_02.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "d0712c4d8d503153",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Frankfurt am Main - Palmengarten - Winterlichter (2025-2026) 09",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_%282025-2026%29_09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_%282025-2026%29_09.jpg/1280px-Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_%282025-2026%29_09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_(2025-2026)_09.jpg",
+              "width": 5838,
+              "height": 3284,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Dr. Thomas Liptak",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt am Main - Palmengarten - Winterlichter (2025-2026) 09\" by Dr. Thomas Liptak, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main_-_Palmengarten_-_Winterlichter_(2025-2026)_09.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "6c4e17ba3c1f1d0c",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Frankfurt am Main, Palmengarten, im Palmenhaus (3)",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Frankfurt_am_Main%2C_Palmengarten%2C_im_Palmenhaus_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Frankfurt_am_Main%2C_Palmengarten%2C_im_Palmenhaus_%283%29.jpg/1280px-Frankfurt_am_Main%2C_Palmengarten%2C_im_Palmenhaus_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_Palmengarten,_im_Palmenhaus_(3).jpg",
+              "width": 1749,
+              "height": 2551,
+              "license": "CC BY 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+              "creator": "Dguendel",
+              "creatorUrl": null,
+              "attributionText": "\"Frankfurt am Main, Palmengarten, im Palmenhaus (3)\" by Dguendel, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frankfurt_am_Main,_Palmengarten,_im_Palmenhaus_(3).jpg).",
+              "score": 97,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Palmengarten Wasserspielplatz & Minigolf",
+          "type": "activity",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "Wasserspielanlage im Guenthersburgpark",
+          "type": "activity",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 4,
+          "title": "Junges Museum Frankfurt",
+          "type": "museum",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "[auto: alle Kandidaten ortsfremd (dokument-scan)]",
+          "candidates": [
+            {
+              "id": "408af870383088cd",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Bericht über die Senckenbergische Naturforschende Gesellschaft in Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/95/Bericht_%C2%A9ber_die_Senckenbergische_Naturforschende_Gesellschaft_in_Frankfurt_am_Main_%28IA_berichtberdies8990senc%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Bericht_%C2%A9ber_die_Senckenbergische_Naturforschende_Gesellschaft_in_Frankfurt_am_Main_%28IA_berichtberdies8990senc%29.pdf/page1-500px-Bericht_%C2%A9ber_die_Senckenbergische_Naturforschende_Gesellschaft_in_Frankfurt_am_Main_%28IA_berichtberdies8990senc%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Bericht_%C2%A9ber_die_Senckenbergische_Naturforschende_Gesellschaft_in_Frankfurt_am_Main_(IA_berichtberdies8990senc).pdf",
+              "width": 895,
+              "height": 1412,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Senckenbergische Naturforschende Gesellschaft",
+              "creatorUrl": null,
+              "attributionText": "\"Bericht über die Senckenbergische Naturforschende Gesellschaft in Frankfurt am Main\" by Senckenbergische Naturforschende Gesellschaft, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bericht_%C2%A9ber_die_Senckenbergische_Naturforschende_Gesellschaft_in_Frankfurt_am_Main_(IA_berichtberdies8990senc).pdf).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "758e14a163a90263",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Bericht der Senckenbergischen Naturforschenden Gesellschaft in Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_%28IA_berichtdersencke3738senc%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_%28IA_berichtdersencke3738senc%29.pdf/page1-500px-Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_%28IA_berichtdersencke3738senc%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_(IA_berichtdersencke3738senc).pdf",
+              "width": 791,
+              "height": 1270,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Senckenbergische Naturforschende Gesellschaft",
+              "creatorUrl": null,
+              "attributionText": "\"Bericht der Senckenbergischen Naturforschenden Gesellschaft in Frankfurt am Main\" by Senckenbergische Naturforschende Gesellschaft, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_(IA_berichtdersencke3738senc).pdf).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "e2424a1ab9095bff",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Bericht der Senckenbergischen Naturforschenden Gesellschaft in Frankfurt am Main",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_%28IA_berichtdersencke4142senc%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_%28IA_berichtdersencke4142senc%29.pdf/page1-500px-Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_%28IA_berichtdersencke4142senc%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_(IA_berichtdersencke4142senc).pdf",
+              "width": 897,
+              "height": 1368,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Senckenbergische Naturforschende Gesellschaft",
+              "creatorUrl": null,
+              "attributionText": "\"Bericht der Senckenbergischen Naturforschenden Gesellschaft in Frankfurt am Main\" by Senckenbergische Naturforschende Gesellschaft, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bericht_der_Senckenbergischen_Naturforschenden_Gesellschaft_in_Frankfurt_am_Main_(IA_berichtdersencke4142senc).pdf).",
+              "score": 87,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "cityLabel": "München",
+      "routeSlug": "muenchen-family-4-10-tiere-technik-mitmachen",
+      "routeTitle": "Familienroute 4-10: Tiere, Technik & Mitmachen",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": []
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tierpark Hellabrunn",
+          "type": "zoo",
+          "approved": true,
+          "selectedCandidateId": "3aa0b2480c8b4e9b",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "3aa0b2480c8b4e9b",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Aquarium und Menschenaffenstation Tierpark Hellabrunn München",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/25/Aquarium_und_Menschenaffenstation_Tierpark_Hellabrunn_M%C3%BCnchen.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/83ef0f5f-8245-486b-af97-8b1b68bbf8b6/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=32177999",
+              "width": 3223,
+              "height": 1837,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "Peterf",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Peterf&action=edit&redlink=1",
+              "attributionText": "\"Aquarium und Menschenaffenstation Tierpark Hellabrunn München\" by Peterf, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=32177999).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "20df2c9b0794a673",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Brücke Tierpark Hellabrunn München",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Br%C3%BCcke_Tierpark_Hellabrunn_M%C3%BCnchen.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/3718d9b2-fe5d-4b06-855b-f9bf858aa0d4/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=32178000",
+              "width": 3294,
+              "height": 1655,
+              "license": "by-sa",
+              "licenseVersion": "3.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+              "creator": "Peterf",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Peterf&action=edit&redlink=1",
+              "attributionText": "\"Brücke Tierpark Hellabrunn München\" by Peterf, by-sa 3.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=32178000).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "51d84f11c9deea3d",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Elefantenhaus Tierpark Hellabrunn 2008",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/72/Elefantenhaus_Tierpark_Hellabrunn_2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Elefantenhaus_Tierpark_Hellabrunn_2008.jpg/1280px-Elefantenhaus_Tierpark_Hellabrunn_2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Elefantenhaus_Tierpark_Hellabrunn_2008.jpg",
+              "width": 1967,
+              "height": 1070,
+              "license": "CC BY 3.0 de",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+              "creator": "High Contrast",
+              "creatorUrl": null,
+              "attributionText": "\"Elefantenhaus Tierpark Hellabrunn 2008\" by High Contrast, CC BY 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Elefantenhaus_Tierpark_Hellabrunn_2008.jpg).",
+              "score": 92,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Muehlendorf Streichelanlage Hellabrunn",
+          "type": "activity",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "Deutsches Museum",
+          "type": "museum",
+          "approved": true,
+          "selectedCandidateId": "1cb50e0806605bab",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "1cb50e0806605bab",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Astronomische Uhr Deutsches Museum München 24",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/35/Astronomische_Uhr_Deutsches_Museum_M%C3%BCnchen_24.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Astronomische_Uhr_Deutsches_Museum_M%C3%BCnchen_24.jpg/1280px-Astronomische_Uhr_Deutsches_Museum_M%C3%BCnchen_24.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Astronomische_Uhr_Deutsches_Museum_M%C3%BCnchen_24.jpg",
+              "width": 4434,
+              "height": 6651,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Burkhard Mücke",
+              "creatorUrl": null,
+              "attributionText": "\"Astronomische Uhr Deutsches Museum München 24\" by Burkhard Mücke, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Astronomische_Uhr_Deutsches_Museum_M%C3%BCnchen_24.jpg).",
+              "score": 97,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "d9204db1bb5b607e",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Deutsches Museum München",
+              "imageUrl": "https://live.staticflickr.com/7493/15981217112_3f7ea2a915_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/3e00fbdc-640a-4fea-9eff-759c483ba35d/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/28224460@N00/15981217112",
+              "width": 1024,
+              "height": 768,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "tm-md",
+              "creatorUrl": "https://www.flickr.com/photos/28224460@N00",
+              "attributionText": "\"Deutsches Museum München\" by tm-md, by-sa 2.0, via Openverse (https://www.flickr.com/photos/28224460@N00/15981217112).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "ccb691df30bbecd7",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Deutsches Museum Munich 2014 01",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Deutsches_Museum_Munich_2014_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Deutsches_Museum_Munich_2014_01.jpg/1280px-Deutsches_Museum_Munich_2014_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Deutsches_Museum_Munich_2014_01.jpg",
+              "width": 4096,
+              "height": 2890,
+              "license": "CC BY 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+              "creator": "Julian Herzog ( Website )",
+              "creatorUrl": null,
+              "attributionText": "\"Deutsches Museum Munich 2014 01\" by Julian Herzog ( Website ), CC BY 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Deutsches_Museum_Munich_2014_01.jpg).",
+              "score": 92,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Kinderreich im Deutschen Museum",
+          "type": "activity",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "[auto: alle Kandidaten ortsfremd (kein-bezug)]",
+          "candidates": [
+            {
+              "id": "a316e34271a0813e",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Dalmatien und Montenegro : Reise- und Kulturbilder",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Dalmatien_und_Montenegro_-_Reise-_und_Kulturbilder_%28IA_adw8415.0001.001.umich.edu%29.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Dalmatien_und_Montenegro_-_Reise-_und_Kulturbilder_%28IA_adw8415.0001.001.umich.edu%29.pdf/page1-500px-Dalmatien_und_Montenegro_-_Reise-_und_Kulturbilder_%28IA_adw8415.0001.001.umich.edu%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Dalmatien_und_Montenegro_-_Reise-_und_Kulturbilder_(IA_adw8415.0001.001.umich.edu).pdf",
+              "width": 956,
+              "height": 1164,
+              "license": "Public domain",
+              "licenseVersion": null,
+              "licenseUrl": null,
+              "creator": "Passarge, Ludwig, 1825-1912",
+              "creatorUrl": null,
+              "attributionText": "\"Dalmatien und Montenegro : Reise- und Kulturbilder\" by Passarge, Ludwig, 1825-1912, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Dalmatien_und_Montenegro_-_Reise-_und_Kulturbilder_(IA_adw8415.0001.001.umich.edu).pdf).",
+              "score": 72,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "cityLabel": "Hamburg",
+      "routeSlug": "hamburg-family-9-14-miniatur-vr-sterne",
+      "routeTitle": "Familienroute 9-14: Miniatur, VR & Sterne",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": []
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "Miniatur Wunderland",
+          "type": "museum",
+          "approved": true,
+          "selectedCandidateId": "7d6d1e684834abd7",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "7d6d1e684834abd7",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Miniatur Wunderland Hamburg",
+              "imageUrl": "https://live.staticflickr.com/4007/4215859372_db08404006_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/d96122b5-6917-4263-9a4c-6a57a7a42b6d/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/38101324@N00/4215859372",
+              "width": 1024,
+              "height": 685,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "alex.ch",
+              "creatorUrl": "https://www.flickr.com/photos/38101324@N00",
+              "attributionText": "\"Miniatur Wunderland Hamburg\" by alex.ch, by-sa 2.0, via Openverse (https://www.flickr.com/photos/38101324@N00/4215859372).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "a58c109a0d4cdd31",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Miniatur Wunderland Hamburg",
+              "imageUrl": "https://live.staticflickr.com/4070/4215890702_cd97b5a85d_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/11f1ad25-9137-4c48-81c2-9f0794214bda/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/38101324@N00/4215890702",
+              "width": 1024,
+              "height": 685,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "alex.ch",
+              "creatorUrl": "https://www.flickr.com/photos/38101324@N00",
+              "attributionText": "\"Miniatur Wunderland Hamburg\" by alex.ch, by-sa 2.0, via Openverse (https://www.flickr.com/photos/38101324@N00/4215890702).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "4faee453b8e2837a",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Miniatur Wunderland Hamburg",
+              "imageUrl": "https://live.staticflickr.com/2741/4215934440_8ca6ff1a21_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/abbbe319-c90c-46a2-be8c-8cfb053b1ecd/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/38101324@N00/4215934440",
+              "width": 1024,
+              "height": 685,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "alex.ch",
+              "creatorUrl": "https://www.flickr.com/photos/38101324@N00",
+              "attributionText": "\"Miniatur Wunderland Hamburg\" by alex.ch, by-sa 2.0, via Openverse (https://www.flickr.com/photos/38101324@N00/4215934440).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "YULLBE WUNDERLAND",
+          "type": "activity",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "Planetarium Hamburg",
+          "type": "museum",
+          "approved": true,
+          "selectedCandidateId": "f7e9eaefb2491624",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "f7e9eaefb2491624",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "planetarium_hamburg",
+              "imageUrl": "https://live.staticflickr.com/7224/7143263733_29485890bd_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/44f9dd05-6f2f-4ecb-8d3e-d753cf3499c6/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/37488071@N07/7143263733",
+              "width": 1024,
+              "height": 794,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "thovei",
+              "creatorUrl": "https://www.flickr.com/photos/37488071@N07",
+              "attributionText": "\"planetarium_hamburg\" by thovei, by 2.0, via Openverse (https://www.flickr.com/photos/37488071@N07/7143263733).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "8a9a52a4f788846d",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Hamburg Planetarium",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/41/Hamburg_Planetarium.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/39e49f19-dcbc-4104-9c88-167a195b9155/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=164530",
+              "width": 1800,
+              "height": 2400,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "Raimond Spekking",
+              "creatorUrl": "https://www.wikidata.org/wiki/Q108103612",
+              "attributionText": "\"Hamburg Planetarium\" by Raimond Spekking, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=164530).",
+              "score": 90,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "3a407005aa3bfce7",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Artist's impression of the E-ELT and the starry night sky",
+              "imageUrl": "https://live.staticflickr.com/8032/8029717008_b204b91871_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/51426056-e4b4-4d38-9e28-a1d73ac82aba/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/51207680@N04/8029717008",
+              "width": 1024,
+              "height": 1024,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "European Southern Observatory",
+              "creatorUrl": "https://www.flickr.com/photos/51207680@N04",
+              "attributionText": "\"Artist's impression of the E-ELT and the starry night sky\" by European Southern Observatory, by 2.0, via Openverse (https://www.flickr.com/photos/51207680@N04/8029717008).",
+              "score": 65,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Das Geheimnis der Papierrakete",
+          "type": "show",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        }
+      ]
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "cityLabel": "Berlin",
+      "routeSlug": "berlin-family-12-16-future-street-art-sunset",
+      "routeTitle": "Familienroute 12-16: Future, Street Art & Sunset",
+      "cover": {
+        "approved": false,
+        "selectedCandidateId": null,
+        "notes": "",
+        "candidates": []
+      },
+      "stops": [
+        {
+          "order": 1,
+          "title": "Futurium",
+          "type": "museum",
+          "approved": true,
+          "selectedCandidateId": "d2dad46f24ad9eda",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "d2dad46f24ad9eda",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Futurium Berlin bei Nacht IMG 20191012 231437",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Futurium_Berlin_bei_Nacht_IMG_20191012_231437_.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Futurium_Berlin_bei_Nacht_IMG_20191012_231437_.jpg/1280px-Futurium_Berlin_bei_Nacht_IMG_20191012_231437_.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Futurium_Berlin_bei_Nacht_IMG_20191012_231437_.jpg",
+              "width": 3648,
+              "height": 2736,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Chatchamp",
+              "creatorUrl": null,
+              "attributionText": "\"Futurium Berlin bei Nacht IMG 20191012 231437\" by Chatchamp, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Futurium_Berlin_bei_Nacht_IMG_20191012_231437_.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "5c1c9c7d929425fe",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Futurium Berlin",
+              "imageUrl": "https://live.staticflickr.com/65535/52253659723_d6058dfbd7_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/298ec55a-72ad-477d-bc2a-f72e3be518ae/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/190799284@N06/52253659723",
+              "width": 1024,
+              "height": 768,
+              "license": "by-sa",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+              "creator": "tenzin.peljor",
+              "creatorUrl": "https://www.flickr.com/photos/190799284@N06",
+              "attributionText": "\"Futurium Berlin\" by tenzin.peljor, by-sa 2.0, via Openverse (https://www.flickr.com/photos/190799284@N06/52253659723).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "9ac82018e43949c5",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Futurium Berlin bei Nacht IMG 20191012 231437",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Futurium_Berlin_bei_Nacht_IMG_20191012_231437_.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/ea1410c9-e54b-4d66-9b10-9c02f707bdc0/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=83119735",
+              "width": 3648,
+              "height": 2736,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "Chatchamp",
+              "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Chatchamp&action=edit&redlink=1",
+              "attributionText": "\"Futurium Berlin bei Nacht IMG 20191012 231437\" by Chatchamp, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=83119735).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Family Open Lab im Futurium",
+          "type": "workshop",
+          "approved": false,
+          "selectedCandidateId": null,
+          "notes": "",
+          "candidates": []
+        },
+        {
+          "order": 3,
+          "title": "URBAN NATION Museum",
+          "type": "museum",
+          "approved": true,
+          "selectedCandidateId": "8ef634aaf666cc28",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "8ef634aaf666cc28",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Urban Nation Museum Berlin",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Urban_Nation_Museum_Berlin.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/0a02ab62-d3fd-4844-8e5e-c37946cb9b71/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=117100135",
+              "width": 5555,
+              "height": 3642,
+              "license": "cc0",
+              "licenseVersion": "1.0",
+              "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+              "creator": "Singlespeedfahrer",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Singlespeedfahrer",
+              "attributionText": "\"Urban Nation Museum Berlin\" by Singlespeedfahrer, cc0 1.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=117100135).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            },
+            {
+              "id": "2d06535799f35653",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Urban Nation Museum Berlin",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Urban_Nation_Museum_Berlin.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Urban_Nation_Museum_Berlin.jpg/1280px-Urban_Nation_Museum_Berlin.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Urban_Nation_Museum_Berlin.jpg",
+              "width": 5555,
+              "height": 3642,
+              "license": "CC0",
+              "licenseVersion": null,
+              "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+              "creator": "Singlespeedfahrer",
+              "creatorUrl": null,
+              "attributionText": "\"Urban Nation Museum Berlin\" by Singlespeedfahrer, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Urban_Nation_Museum_Berlin.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen."
+              ]
+            },
+            {
+              "id": "7367cb2655954dca",
+              "provider": "openverse",
+              "providerSource": "wikimedia",
+              "title": "Urban Nation Museum (Berlin) - Januar 2024 am Abend",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/22/Urban_Nation_Museum_%28Berlin%29_-_Januar_2024_am_Abend.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/e7798125-2c73-4f8c-a063-d14883a3d8af/thumb/?format=json",
+              "landingUrl": "https://commons.wikimedia.org/w/index.php?curid=144701108",
+              "width": 4032,
+              "height": 3024,
+              "license": "by-sa",
+              "licenseVersion": "4.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+              "creator": "Cookroach",
+              "creatorUrl": "https://commons.wikimedia.org/wiki/User:Cookroach",
+              "attributionText": "\"Urban Nation Museum (Berlin) - Januar 2024 am Abend\" by Cookroach, by-sa 4.0, via Openverse (https://commons.wikimedia.org/w/index.php?curid=144701108).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Tempelhofer Feld",
+          "type": "outdoor",
+          "approved": true,
+          "selectedCandidateId": "303f04846194e172",
+          "notes": "",
+          "candidates": [
+            {
+              "id": "303f04846194e172",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Berlin Spring 2012 Tempelhofer Feld",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Berlin_Spring_2012_Tempelhofer_Feld.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Berlin_Spring_2012_Tempelhofer_Feld.jpg/1280px-Berlin_Spring_2012_Tempelhofer_Feld.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Berlin_Spring_2012_Tempelhofer_Feld.jpg",
+              "width": 6731,
+              "height": 3199,
+              "license": "CC BY-SA 3.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+              "creator": "A.Savin",
+              "creatorUrl": null,
+              "attributionText": "\"Berlin Spring 2012 Tempelhofer Feld\" by A.Savin, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Berlin_Spring_2012_Tempelhofer_Feld.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "88637288b01dcb67",
+              "provider": "wikimedia",
+              "providerSource": "Wikimedia Commons",
+              "title": "Berlin Tempelhofer Feld SW Brutgebiet Feldlerche P1050858 20200801",
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Berlin_Tempelhofer_Feld_SW_Brutgebiet_Feldlerche_P1050858_20200801.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+              "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Berlin_Tempelhofer_Feld_SW_Brutgebiet_Feldlerche_P1050858_20200801.jpg/1280px-Berlin_Tempelhofer_Feld_SW_Brutgebiet_Feldlerche_P1050858_20200801.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "landingUrl": "https://commons.wikimedia.org/wiki/File:Berlin_Tempelhofer_Feld_SW_Brutgebiet_Feldlerche_P1050858_20200801.jpg",
+              "width": 3888,
+              "height": 2592,
+              "license": "CC BY-SA 4.0",
+              "licenseVersion": null,
+              "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+              "creator": "Karlunun",
+              "creatorUrl": null,
+              "attributionText": "\"Berlin Tempelhofer Feld SW Brutgebiet Feldlerche P1050858 20200801\" by Karlunun, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Berlin_Tempelhofer_Feld_SW_Brutgebiet_Feldlerche_P1050858_20200801.jpg).",
+              "score": 100,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "CC BY-SA kann Share-Alike-Pflichten ausloesen; vor produktiver Nutzung bewusst freigeben."
+              ]
+            },
+            {
+              "id": "d36b2d9f925e4c94",
+              "provider": "openverse",
+              "providerSource": "flickr",
+              "title": "Tempelhofer Feld, Berlin, 2024. Sail man.",
+              "imageUrl": "https://live.staticflickr.com/65535/53848953152_7be91d99ab_b.jpg",
+              "thumbnailUrl": "https://api.openverse.org/v1/images/3e879e06-b7f2-4c4c-8605-1269dc2fd91f/thumb/?format=json",
+              "landingUrl": "https://www.flickr.com/photos/125339497@N03/53848953152",
+              "width": 1024,
+              "height": 1024,
+              "license": "by",
+              "licenseVersion": "2.0",
+              "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+              "creator": "Fabrice Le Coq",
+              "creatorUrl": "https://www.flickr.com/photos/125339497@N03",
+              "attributionText": "\"Tempelhofer Feld, Berlin, 2024. Sail man.\" by Fabrice Le Coq, by 2.0, via Openverse (https://www.flickr.com/photos/125339497@N03/53848953152).",
+              "score": 95,
+              "usageNotes": [
+                "Vor Veroeffentlichung Bildmotiv, Lizenzseite und Attribution manuell pruefen.",
+                "Openverse aggregiert Lizenzdaten; die Originalquelle sollte vor Nutzung gegengeprueft werden."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
