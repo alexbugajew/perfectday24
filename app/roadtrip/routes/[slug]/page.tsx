@@ -903,7 +903,8 @@ export default function RoadtripRouteDetailPage() {
           const suggestedRoutes = stop.creatorRouteSlug ? [] : cityRouteSuggestions[stop.citySlug] ?? [];
           const suggestedRoutesLoading = Boolean(cityRouteSuggestionsLoading[stop.citySlug]);
           const suggestedPrimaryRoute = suggestedRoutes.find((candidate) => Boolean(candidate.slug)) ?? null;
-          const previewOnlyStop = !plannerSupported && !stop.creatorRouteSlug && !suggestedPrimaryRoute;
+          const previewOnlyStop =
+            !plannerSupported && !stop.creatorRouteSlug && !suggestedPrimaryRoute && !stop.plannedStops?.length;
 
           return (
             <div
@@ -1156,10 +1157,10 @@ export default function RoadtripRouteDetailPage() {
                 <span className="text-xs text-[var(--text-muted)]">
                   {stop.creatorRouteSlug
                     ? "Creator-Route verfuegbar"
-                    : !plannerSupported
-                    ? "Roadtrip-Preview verfuegbar"
                     : stop.plannedStops?.length
                     ? `${stop.plannedStops.length} Stopps geplant`
+                    : !plannerSupported
+                    ? "Roadtrip-Preview verfuegbar"
                     : "Noch kein Tagesplan"}
                 </span>
                 {stop.creatorRouteSlug ? (
@@ -1168,6 +1169,16 @@ export default function RoadtripRouteDetailPage() {
                     className="pd24-btn pd24-btn-primary pd24-btn-sm active:scale-[0.97]"
                   >
                     Route starten
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                ) : stop.plannedStops?.length ? (
+                  <a
+                    href={`${roadtripRunHref}&stopIndex=${idx}`}
+                    className="pd24-btn pd24-btn-primary pd24-btn-sm active:scale-[0.97]"
+                  >
+                    Tagesplan öffnen
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -1190,16 +1201,6 @@ export default function RoadtripRouteDetailPage() {
                     className="pd24-btn pd24-btn-secondary pd24-btn-sm active:scale-[0.97]"
                   >
                     Karte öffnen
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                ) : stop.plannedStops?.length ? (
-                  <a
-                    href={`/planner?citySlug=${stop.citySlug}&planDate=${arrivalDate}&dayStartMin=${plannerDayStart}`}
-                    className="pd24-btn pd24-btn-primary pd24-btn-sm active:scale-[0.97]"
-                  >
-                    Im Planner öffnen
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>

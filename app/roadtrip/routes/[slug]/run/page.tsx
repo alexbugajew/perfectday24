@@ -20,6 +20,7 @@ import {
   type RoadtripRunStopState,
 } from "@/lib/roadtrip/roadtrip-run-progress";
 import HotelSearchLinks from "@/components/roadtrip/HotelSearchLinks";
+import { isPlannerSupportedCitySlug } from "@/lib/cities/planner-support";
 
 const PlanMap = dynamic(() => import("@/components/PlanMap"), { ssr: false });
 
@@ -134,18 +135,34 @@ function runStepSummary(stop: RunStop) {
   return parts.join(" · ");
 }
 
-function runStepAction(stop: RunStop, roadtripSlug?: string) {
+type RunStepAction =
+  | { kind: "link"; href: string; label: string }
+  | { kind: "day-plan"; label: string };
+
+function runStepAction(stop: RunStop, roadtripSlug?: string): RunStepAction | null {
   if (stop.creatorRouteSlug) {
     const backParam = roadtripSlug ? `?fromRoadtrip=${encodeURIComponent(roadtripSlug)}&startDate=${stop.arrivalDate}` : "";
     return {
+      kind: "link",
       href: `/routes/${stop.creatorRouteSlug}/run${backParam}`,
       label: "Creator-Route starten",
     };
   }
-  return {
-    href: `/planner?citySlug=${stop.citySlug}&planDate=${stop.arrivalDate}&dayStartMin=${ROADTRIP_AFTERNOON_START_MIN}`,
-    label: stop.plannedStops?.length ? "Tagesplanung öffnen" : "Tag planen",
-  };
+  // Vorbereiteter Tagesplan: direkt die Abhak-Liste auf dieser Seite öffnen,
+  // statt in den Planner zu springen (der würde neu planen).
+  if (stop.plannedStops?.length) {
+    return { kind: "day-plan", label: "Tagesplan öffnen" };
+  }
+  // Nur Städte mit Planner-Daten bekommen den Planner-Link — für andere
+  // (z. B. europäische Roadtrip-Ziele) würde der Planner ins Leere planen.
+  if (isPlannerSupportedCitySlug(stop.citySlug)) {
+    return {
+      kind: "link",
+      href: `/planner?citySlug=${stop.citySlug}&planDate=${stop.arrivalDate}&dayStartMin=${ROADTRIP_AFTERNOON_START_MIN}`,
+      label: "Tag planen",
+    };
+  }
+  return null;
 }
 
 function isTodayStop(stop: RunStop, today: string) {
@@ -201,10 +218,16 @@ export default function RoadtripRouteRunPage() {
     // Progress-Reset beim Wechsel von Route/Datum: liest gespeicherten
     // Fortschritt aus localStorage (SSR-unsicher) — bewusst sync im Effect.
     const next = buildInitialProgress(route, stops, startDate);
+    // ?stopIndex=N (von der Detailseite): gewünschte Etappe direkt öffnen.
+    const stopIndexRaw = searchParams.get("stopIndex");
+    if (stopIndexRaw != null && /^\d+$/.test(stopIndexRaw)) {
+      const requested = stops[Number(stopIndexRaw)];
+      if (requested) next.currentStopId = requested.id;
+    }
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setProgress(next);
     writeRoadtripRunProgress(next);
-  }, [route, startDate, stops]);
+  }, [route, startDate, stops, searchParams]);
 
   useEffect(() => {
     const nextStopId = progress?.currentStopId ?? null;
@@ -315,6 +338,17 @@ export default function RoadtripRouteRunPage() {
       ...progress,
       currentStopId: stopId,
       updatedAt: new Date().toISOString(),
+    });
+  }
+
+  // Öffnet die vorbereitete Tagesplan-Checkliste einer Etappe: Etappe als
+  // aktiv setzen und zur "Aktuelle Etappe"-Sektion scrollen (auch wenn die
+  // Etappe bereits aktiv ist und der Scroll-Effect deshalb nicht feuert).
+  function openDayPlan(stopId: string) {
+    setCurrentStop(stopId);
+    if (typeof window === "undefined") return;
+    window.requestAnimationFrame(() => {
+      currentStopSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
 
@@ -593,7 +627,7 @@ export default function RoadtripRouteRunPage() {
                 Zum Standort navigieren
               </Link>
             ) : null}
-            {currentStopAction ? (
+            {currentStopAction?.kind === "link" ? (
               <Link
                 href={currentStopAction.href}
                 className="pd24-btn pd24-btn-secondary"
@@ -732,12 +766,22 @@ export default function RoadtripRouteRunPage() {
                           Navigieren
                         </Link>
                       ) : null}
-                      <Link
-                        href={action.href}
-                        className="pd24-btn pd24-btn-primary pd24-btn-sm"
-                      >
-                        {action.label}
-                      </Link>
+                      {action?.kind === "day-plan" ? (
+                        <button
+                          type="button"
+                          onClick={() => openDayPlan(stop.id)}
+                          className="pd24-btn pd24-btn-primary pd24-btn-sm"
+                        >
+                          {action.label}
+                        </button>
+                      ) : action?.kind === "link" ? (
+                        <Link
+                          href={action.href}
+                          className="pd24-btn pd24-btn-primary pd24-btn-sm"
+                        >
+                          {action.label}
+                        </Link>
+                      ) : null}
                     </div>
                   </div>
                 </div>
@@ -763,13 +807,7 @@ export default function RoadtripRouteRunPage() {
             </div>
             <div
               className={`grid gap-2 ${
-                currentStopState === "pending"
-                  ? currentStopNavigationUrl
-                    ? "grid-cols-2"
-                    : "grid-cols-1"
-                  : currentStopNavigationUrl
-                    ? "grid-cols-2"
-                    : "grid-cols-1"
+                currentStopNavigationUrl && currentStopAction ? "grid-cols-2" : "grid-cols-1"
               }`}
             >
               {currentStopNavigationUrl ? (
@@ -782,7 +820,15 @@ export default function RoadtripRouteRunPage() {
                   Navigieren
                 </Link>
               ) : null}
-              {currentStopAction ? (
+              {currentStopAction?.kind === "day-plan" ? (
+                <button
+                  type="button"
+                  onClick={() => openDayPlan(currentStop.id)}
+                  className="pd24-btn pd24-btn-secondary"
+                >
+                  {currentStopAction.label}
+                </button>
+              ) : currentStopAction?.kind === "link" ? (
                 <Link
                   href={currentStopAction.href}
                   className="pd24-btn pd24-btn-secondary"
