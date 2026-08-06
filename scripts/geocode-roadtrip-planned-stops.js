@@ -35,15 +35,22 @@ function haversineKm(aLat, aLng, bLat, bLng) {
 }
 
 async function geocode(query) {
-  const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`;
-  const resp = await fetch(url, {
-    headers: { "User-Agent": "PerfectDay24 roadtrip enrichment (kontakt@perfectday24.de)" },
-  });
-  if (!resp.ok) return null;
-  const data = await resp.json();
-  const hit = Array.isArray(data) ? data[0] : null;
-  if (!hit?.lat || !hit?.lon) return null;
-  return { lat: Number(hit.lat), lng: Number(hit.lon) };
+  // Transiente Netzwerk-/Timeout-Fehler dürfen den Lauf nicht abbrechen —
+  // der Stop bleibt dann einfach ohne Koordinaten (Skript ist idempotent).
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`;
+    const resp = await fetch(url, {
+      headers: { "User-Agent": "PerfectDay24 roadtrip enrichment (kontakt@perfectday24.de)" },
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    const hit = Array.isArray(data) ? data[0] : null;
+    if (!hit?.lat || !hit?.lon) return null;
+    return { lat: Number(hit.lat), lng: Number(hit.lon) };
+  } catch {
+    return null;
+  }
 }
 
 (async () => {
@@ -68,11 +75,20 @@ async function geocode(query) {
         // "Paris · Trocadéro & Marais" -> "Paris" (Viertel-Suffix und Sonderzeichen
         // brechen die Nominatim-Suche).
         const cityQuery = String(stage.cityLabel ?? "").split("·")[0].replace(/&/g, " ").replace(/\s+/g, " ").trim();
-        await sleep(DELAY_MS);
-        let hit = await geocode(`${name}, ${cityQuery}`);
-        if (!hit) {
+        // Namensvarianten: Klammerzusätze ("Schilksee (Strandbar)") und
+        // Beschreibungs-Suffixe ("X – Y", "X & Y") verhindern sonst Treffer.
+        const noParens = name.replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim();
+        const beforeDash = noParens.split(/\s[–—-]\s|:/)[0].trim();
+        const beforeAmp = beforeDash.split(/\s&\s|\su\.\s|\sund\s/)[0].trim();
+        const nameVariants = [...new Set([name, noParens, beforeDash, beforeAmp].filter((v) => v.length >= 3))];
+        let hit = null;
+        for (const variant of nameVariants) {
           await sleep(DELAY_MS);
-          hit = await geocode(`${name} ${cityQuery}`);
+          hit = await geocode(`${variant}, ${cityQuery}`);
+          if (hit) break;
+          await sleep(DELAY_MS);
+          hit = await geocode(`${variant} ${cityQuery}`);
+          if (hit) break;
         }
         if (!hit) { missed += 1; console.log(`miss   ${rt.slug} | ${stage.cityLabel} | ${name}`); continue; }
         if (stage.lat != null && stage.lng != null) {
