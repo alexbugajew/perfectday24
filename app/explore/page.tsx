@@ -110,8 +110,6 @@ type SuggestedRoute = {
 };
 
 type OccasionFilter = "all" | "date" | "friends" | "family" | "tourism" | "party";
-type ExploreSurfaceKey = "day" | "roadtrip" | "events";
-
 const OCCASION_PILLS: { key: OccasionFilter; emoji: string; label: string }[] = [
   { key: "all", emoji: "", label: "Alle" },
   { key: "date", emoji: "🥂", label: "Date Night" },
@@ -119,44 +117,6 @@ const OCCASION_PILLS: { key: OccasionFilter; emoji: string; label: string }[] = 
   { key: "family", emoji: "👨‍👩‍👧", label: "Familie" },
   { key: "tourism", emoji: "🗺️", label: "Als Tourist" },
   { key: "party", emoji: "🎉", label: "Feiern" },
-];
-
-const EXPLORE_SURFACES: Array<{
-  key: ExploreSurfaceKey;
-  href: string;
-  eyebrow: string;
-  label: string;
-  badge: string;
-  description: string;
-  helper: string;
-}> = [
-  {
-    key: "day",
-    href: "#explore-all-routes",
-    eyebrow: "Aktiv in Explore",
-    label: "Tagesplanung",
-    badge: "1 Tag",
-    description: "Kuratierte Tagesrouten für heute, morgen oder den nächsten freien Tag.",
-    helper: "Direkt in Stadt-Routen, Themen und Varianten einsteigen.",
-  },
-  {
-    key: "roadtrip",
-    href: "/roadtrip/routes",
-    eyebrow: "Mehrtagsreisen",
-    label: "Roadtrips",
-    badge: "Mehrere Tage",
-    description: "Fertige Mehrstadt-Routen mit Stops, Hotels und direktem Start in deinen Roadtrip.",
-    helper: "Ideal, wenn du nicht pro Stadt neu planen willst.",
-  },
-  {
-    key: "events",
-    href: "/events",
-    eyebrow: "Anlässe & Gruppen",
-    label: "Events",
-    badge: "Buchbar",
-    description: "Hochzeiten, Geburtstage und Firmenfeiern mit Anfragen, Angeboten und Buchungsflow.",
-    helper: "Wenn aus Inspiration direkt eine organisierte Buchung werden soll.",
-  },
 ];
 
 function routeText(route: UserRouteRow) {
@@ -1140,7 +1100,6 @@ function ExplorePageContent() {
   }, [creators, creatorRankingMap]);
 
   const totalPublic = routes.length;
-  const activeSurface = EXPLORE_SURFACES[0];
   const personalizedRoutes = useMemo(() => {
     if (myInterests.length === 0) return [] as SuggestedRoute[];
 
@@ -1199,120 +1158,6 @@ function ExplorePageContent() {
                 Meine Pläne
               </Link>
             </div>
-          </div>
-
-          <div className="mt-5 grid gap-3 xl:grid-cols-3">
-            {EXPLORE_SURFACES.map((surface) => {
-              const isActive = surface.key === "day";
-              const cardClassName = isActive
-                ? "border-[var(--text-strong)] bg-white shadow-[0_14px_34px_rgba(15,23,42,0.08)]"
-                : surface.key === "roadtrip"
-                  ? "border-[rgba(196,137,79,0.22)] bg-[linear-gradient(135deg,rgba(196,137,79,0.06),rgba(90,118,136,0.05))] hover:border-[rgba(196,137,79,0.34)] hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)]"
-                  : "border-[var(--line-subtle)] bg-[var(--bg-surface)] hover:border-[var(--line-strong)] hover:bg-white";
-              const content = (
-                <>
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <div className={surface.key === "roadtrip" ? "pd24-kicker-warm" : "pd24-meta"}>
-                        {surface.eyebrow}
-                      </div>
-                      <div className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
-                        {surface.label}
-                      </div>
-                    </div>
-                    <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${
-                      isActive
-                        ? "bg-[var(--text-strong)] text-white"
-                        : surface.key === "roadtrip"
-                          ? "border border-[rgba(196,137,79,0.3)] bg-white text-[var(--brand-warm-ink)]"
-                          : "border border-[var(--line-subtle)] bg-white text-[var(--text-muted)]"
-                    }`}>
-                      {surface.badge}
-                    </span>
-                  </div>
-                  <p className="mt-4 text-sm leading-6 text-[var(--text-muted)]">
-                    {surface.description}
-                  </p>
-                  <div className="mt-5 flex items-end justify-between gap-3">
-                    <p className="max-w-[15rem] text-sm font-medium leading-6 text-[var(--text-muted)]">
-                      {surface.helper}
-                    </p>
-                    <span className={`inline-flex items-center gap-2 text-sm font-semibold ${
-                      surface.key === "roadtrip" ? "text-[var(--brand-warm-ink)]" : "text-[var(--text-strong)]"
-                    }`}>
-                      {isActive ? "Zu den Tagesrouten" : "Öffnen"}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
-                </>
-              );
-
-              if (surface.href.startsWith("#")) {
-                return (
-                  <a
-                    key={surface.key}
-                    href={surface.href}
-                    className={`rounded-[var(--radius-shell)] border px-5 py-5 transition ${cardClassName}`}
-                  >
-                    {content}
-                  </a>
-                );
-              }
-
-              return (
-                <Link
-                  key={surface.key}
-                  href={surface.href}
-                  className={`rounded-[var(--radius-shell)] border px-5 py-5 transition ${cardClassName}`}
-                >
-                  {content}
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="mt-4 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white px-4 py-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <div className="pd24-meta">
-                  Jetzt aktiv
-                </div>
-                <div className="mt-1 text-lg font-semibold tracking-tight text-[var(--text-strong)]">
-                  Tagesrouten direkt vergleichen und in deinen Plan übernehmen
-                </div>
-                <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
-                  Starte hier mit kuratierten Stadtplänen. Für Mehrtagesreisen wechselst du in die Roadtrip-Routen, für buchbare Gruppenanlässe direkt in Events.
-                </p>
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <a href="#explore-all-routes" className="pd24-btn pd24-btn-sm pd24-btn-primary">
-                  Tagesrouten ansehen
-                </a>
-                <Link href="/roadtrip/routes" className="inline-flex min-h-10 items-center rounded-xl border border-[rgba(196,137,79,0.3)] bg-white px-4 text-sm font-medium text-[var(--brand-warm-ink)] transition hover:bg-[rgba(196,137,79,0.06)]">
-                  Roadtrip-Routen
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Hero-Zeile */}
-          <div className="hidden mt-4 flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-2xl">
-              <h1 className="text-2xl font-bold tracking-tight text-[var(--text-strong)] sm:text-3xl">
-                Kuratierte Routen für deinen nächsten Tag
-              </h1>
-              <p className="mt-1.5 text-sm leading-6 text-[var(--text-muted)]">
-                {totalPublic} Routen für Tagesausflüge, Date Nights, Familientage und mehr — direkt in deinen Planer übernehmen.
-              </p>
-            </div>
-            <Link
-              href="/planner"
-              className="pd24-btn pd24-btn-sm pd24-btn-primary"
-            >
-              Tag planen →
-            </Link>
           </div>
 
           {/* Inspiration-Chips: Anlass-Filter als primäre Entscheidung */}
