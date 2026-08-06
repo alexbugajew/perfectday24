@@ -11,7 +11,6 @@ import {
 } from "@/lib/roadtrip/types";
 import { getRoadtripCoverArt } from "@/lib/roadtrip/cover-art";
 import { getRoadtripEditorial } from "@/lib/roadtrip/editorial";
-import ExploreSurfaceSwitch from "@/components/navigation/ExploreSurfaceSwitch";
 
 // ─── Route Card ───────────────────────────────────────────────────────────────
 
@@ -260,17 +259,6 @@ export default function RoadtripRoutesPage() {
               </Link>
             </div>
           </div>
-
-          <ExploreSurfaceSwitch
-            activeKey="roadtrip"
-            activeTitle="Roadtrips: fertige Mehrtagesrouten mit Stops, Hotels und direktem Start"
-            activeDescription="Hier findest du mehrtägige Vorlagen für komplette Reisen. Wenn du lieber einen einzelnen Tag in einer Stadt planst, springe in die Tagesplanung. Für Gruppenanlässe mit Angeboten und Buchung bleibst du im Event-Bereich."
-            primaryCtaHref="/roadtrip/discover"
-            primaryCtaLabel="Route entdecken"
-            secondaryCtaHref="/roadtrip"
-            secondaryCtaLabel="Eigene Route erstellen"
-            className="mt-5"
-          />
 
           {/* Search + Tag filter */}
           <div className="mt-4 flex flex-col gap-2 sm:flex-row">
