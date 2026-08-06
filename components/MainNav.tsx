@@ -57,7 +57,7 @@ export default function MainNav() {
       className="sticky top-0 z-[1200] w-full max-w-full overflow-x-clip border-b border-[var(--line-subtle)] bg-[rgba(248,250,252,0.9)] backdrop-blur-xl"
     >
       <div
-        className={`mx-auto flex min-w-0 max-w-7xl flex-col px-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6 sm:py-4 lg:px-8 ${
+        className={`mx-auto flex min-w-0 max-w-7xl flex-row items-center justify-between px-4 sm:flex-wrap sm:px-6 sm:py-4 lg:px-8 ${
           isRunExperience ? "gap-2 py-2" : "gap-3 py-3"
         }`}
       >
@@ -97,7 +97,7 @@ export default function MainNav() {
           aria-label={mobileOpen ? "Menü schließen" : "Menü öffnen"}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((v) => !v)}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white text-[var(--text-muted)] transition hover:text-[var(--text-strong)] sm:hidden"
+          className="ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white text-[var(--text-muted)] transition hover:text-[var(--text-strong)] sm:hidden"
         >
           {mobileOpen ? (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" className="h-5 w-5">
