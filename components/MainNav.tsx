@@ -32,12 +32,20 @@ export default function MainNav() {
      pathname === "/events" || pathname.startsWith("/events/") ||
      pathname === "/explore" || pathname.startsWith("/explore/"));
 
+  // /roadtrip/routes ist die Entdecken-Fläche für Roadtrips (Liste/Detail/Run) —
+  // sie gehört zur "Entdecken"-Gruppe, der Rest von /roadtrip zur Planung.
+  const isRoadtripDiscovery =
+    pathname === "/roadtrip/routes" || pathname.startsWith("/roadtrip/routes/");
+
   const isActive = (path: string) => {
     if (path === "/") return pathname === path;
     // /planner is also active when on /roadtrip (same planning-mode group)
     if (path === "/planner") {
       return pathname === "/planner" || pathname.startsWith("/planner/") ||
-        pathname === "/roadtrip" || pathname.startsWith("/roadtrip/");
+        ((pathname === "/roadtrip" || pathname.startsWith("/roadtrip/")) && !isRoadtripDiscovery);
+    }
+    if (path === "/explore") {
+      return pathname === "/explore" || pathname.startsWith("/explore/") || isRoadtripDiscovery;
     }
     return pathname === path || pathname.startsWith(`${path}/`);
   };

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const MODES = [
   {
     href: "/planner",
+    discoverHref: "/explore",
     label: "Tagesplanung",
     shortLabel: "Tag",
     icon: (
@@ -28,6 +29,7 @@ const MODES = [
   },
   {
     href: "/roadtrip",
+    discoverHref: "/roadtrip/routes",
     label: "Roadtrip",
     shortLabel: "Roadtrip",
     icon: (
@@ -49,6 +51,7 @@ const MODES = [
   },
   {
     href: "/events",
+    discoverHref: "/events",
     label: "Event planen",
     shortLabel: "Event",
     icon: (
@@ -71,6 +74,15 @@ const MODES = [
 export default function PlannerModeSwitcher() {
   const pathname = usePathname();
 
+  // Im Entdecken-Kontext (Explore, Roadtrip-Routen) wechseln die Tabs zwischen
+  // den Entdecken-Flächen — sonst würde z. B. "Roadtrip" mitten aus der
+  // Inspiration in die leere Neuplanung springen.
+  const isDiscoverySurface =
+    pathname === "/explore" ||
+    pathname.startsWith("/explore/") ||
+    pathname === "/roadtrip/routes" ||
+    pathname.startsWith("/roadtrip/routes/");
+
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
@@ -81,11 +93,12 @@ export default function PlannerModeSwitcher() {
       aria-label="Planungsart wählen"
     >
       {MODES.map((mode) => {
-        const active = isActive(mode.href);
+        const targetHref = isDiscoverySurface ? mode.discoverHref : mode.href;
+        const active = isActive(targetHref);
         return (
           <Link
             key={mode.href}
-            href={mode.href}
+            href={targetHref}
             role="tab"
             aria-selected={active}
             className={[
