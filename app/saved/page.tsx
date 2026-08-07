@@ -441,11 +441,64 @@ function SavedListRow({
   );
 }
 
+// Horizontale Scroll-Reihe mit Pfeil-Buttons: der Scrollbalken ist ausgeblendet,
+// ohne Buttons wäre die Reihe mit der Maus nicht bewegbar (nur Touch/Trackpad).
+function QuickScroller({ children }: { children: React.ReactNode }) {
+  const scrollerRef = React.useRef<HTMLDivElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const childCount = React.Children.count(children);
+
+  const updateArrows = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    updateArrows();
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateArrows, { passive: true });
+    window.addEventListener("resize", updateArrows);
+    return () => {
+      el.removeEventListener("scroll", updateArrows);
+      window.removeEventListener("resize", updateArrows);
+    };
+  }, [updateArrows, childCount]);
+
+  function scrollByStep(direction: 1 | -1) {
+    scrollerRef.current?.scrollBy({ left: direction * 480, behavior: "smooth" });
+  }
+
+  const arrowClass =
+    "absolute top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white text-[var(--text-strong)] shadow-md transition hover:bg-[var(--bg-surface)] sm:flex";
+
+  return (
+    <div className="relative">
+      <div ref={scrollerRef} className="pd24-scrollbar-none flex snap-x gap-3 overflow-x-auto overscroll-x-contain pb-1">
+        {children}
+      </div>
+      {canScrollLeft ? (
+        <button type="button" aria-label="Zurück scrollen" onClick={() => scrollByStep(-1)} className={cx(arrowClass, "-left-3")}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M15 18l-6-6 6-6" /></svg>
+        </button>
+      ) : null}
+      {canScrollRight ? (
+        <button type="button" aria-label="Weiter scrollen" onClick={() => scrollByStep(1)} className={cx(arrowClass, "-right-3")}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
 function QuickCard({ item }: { item: QuickItem }) {
   return (
     <Link
       href={item.href}
-      className="min-w-[220px] max-w-[240px] overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white shadow-sm transition hover:border-[var(--line-strong)] hover:shadow-md"
+      className="min-w-[220px] max-w-[240px] shrink-0 snap-start overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white shadow-sm transition hover:border-[var(--line-strong)] hover:shadow-md"
     >
       <div className="relative h-20 bg-[var(--bg-surface)]">
         {item.imageUrl ? (
@@ -784,11 +837,11 @@ export default function SavedPage() {
       {(isLoading || quickItems.length > 0) && (
         <section>
           <SectionHeader title="Zuletzt genutzt" />
-          <div className="pd24-scrollbar-none flex gap-3 overflow-x-auto overscroll-x-contain pb-1">
+          <QuickScroller>
             {isLoading
               ? Array.from({ length: 4 }).map((_, index) => <SkeletonCard key={`quick-skeleton-${index}`} />)
               : quickItems.map((item) => <QuickCard key={`${item.kind}-${item.id}`} item={item} />)}
-          </div>
+          </QuickScroller>
         </section>
       )}
 
