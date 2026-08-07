@@ -15,6 +15,9 @@ import {
   writeRouteBuilderDraft,
 } from "@/lib/routes/planner-route-bridge";
 import { writePlannerRunDraft } from "@/lib/routes/planner-run-bridge";
+import { downloadPlanIcs, openPlanPrintWindow } from "@/lib/planner/plan-export";
+import { usePremiumStatus } from "@/components/premium/usePremiumStatus";
+import UpgradeModal from "@/components/premium/UpgradeModal";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
 import { resolvePublicAffiliateLinksClient } from "@/lib/monetization/public-affiliate-client";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
@@ -163,6 +166,8 @@ function PlannerPageContent() {
 
   const [authReady, setAuthReady] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
+  const { isPremium, usedThisMonth } = usePremiumStatus(userId);
+  const [showExportUpgrade, setShowExportUpgrade] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
   const [draggedStopPosition, setDraggedStopPosition] = useState<number | null>(null);
   const [affiliateResolution, setAffiliateResolution] = useState<PublicAffiliateResolution>(
@@ -1623,6 +1628,28 @@ function PlannerPageContent() {
       ? `${occasionTitle} in ${cityLabel}`
       : occasionTitle;
 
+  // Premium-Export: PDF (Druckansicht) und Kalender (.ics). Free-User sehen
+  // das Upgrade-Modal — das ist das beworbene Premium-Feature.
+  function handlePlanExport(kind: "pdf" | "ics") {
+    if (plannedStops.length === 0) return;
+    if (!isPremium) {
+      setShowExportUpgrade(true);
+      return;
+    }
+    const input = {
+      title: plannerPageTitle,
+      cityLabel: cityLabel !== "-" ? cityLabel : null,
+      planDate: planDate || null,
+      stops: plannedStops,
+    };
+    if (kind === "pdf") {
+      const opened = openPlanPrintWindow(input);
+      if (!opened) showToast("Bitte Pop-ups für diese Seite erlauben, um das PDF zu erstellen.");
+    } else {
+      downloadPlanIcs(input);
+    }
+  }
+
   const plannerHeaderDescription = homepagePresetActive
     ? plannerLoading || citiesLoading
       ? "Wir stellen deinen Plan gerade zusammen — Orte, Timing und Wege werden abgestimmt."
@@ -2082,6 +2109,40 @@ function PlannerPageContent() {
             )}
           </div>
 
+          {/* Premium-Export — PDF & Kalender */}
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => handlePlanExport("pdf")}
+              disabled={plannedStops.length === 0}
+              className="pd24-btn pd24-btn-secondary flex-1 active:scale-[0.98]"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+              Als PDF
+              {isPremium === false ? (
+                <span className="rounded-full bg-[var(--brand-warm)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">Premium</span>
+              ) : null}
+            </button>
+            <button
+              type="button"
+              onClick={() => handlePlanExport("ics")}
+              disabled={plannedStops.length === 0}
+              className="pd24-btn pd24-btn-secondary flex-1 active:scale-[0.98]"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              In Kalender
+              {isPremium === false ? (
+                <span className="rounded-full bg-[var(--brand-warm)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">Premium</span>
+              ) : null}
+            </button>
+          </div>
+
           {/* Gruppenkontext-Hinweis */}
           {groupEnabled && (
             <div className="flex items-center gap-2 rounded-xl border border-[var(--state-success)]/20 bg-[var(--brand-accent-cloud)] px-3 py-2 text-xs text-[var(--state-success)]">
@@ -2395,6 +2456,13 @@ function PlannerPageContent() {
       </div>
         </section>
       </div>
+
+      <UpgradeModal
+        open={showExportUpgrade}
+        used={usedThisMonth}
+        limit={3}
+        onClose={() => setShowExportUpgrade(false)}
+      />
 
       <AiPlanModal
         open={showAiModal}
