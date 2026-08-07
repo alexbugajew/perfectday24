@@ -39,14 +39,6 @@ type UserRouteRow = {
   updated_at: string;
 };
 
-type BookmarkedRouteRow = {
-  id: string;
-  route_id: string;
-  user_id: string;
-  created_at: string;
-  user_routes: UserRouteRow | UserRouteRow[] | null;
-};
-
 const AVATAR_BUCKET = "avatars";
 
 // ─── Pure helpers ──────────────────────────────────────────────────────────────
@@ -115,7 +107,6 @@ function buildFallbackDisplayName(
 }
 
 type CreatedRouteFilter = "all" | UserRouteRow["visibility"];
-type SavedRouteFilter = "all" | "with-city" | "with-description";
 type StudioTab = "routes" | "roadtrips" | "events";
 
 type EventPlanRow = {
@@ -160,12 +151,6 @@ function formatRouteCityLabel(citySlug: string | null): string {
       return lower.charAt(0).toUpperCase() + lower.slice(1);
     })
     .join(" ");
-}
-
-function routeTileTone(visibility: UserRouteRow["visibility"]): string {
-  if (visibility === "public") return "pd24-status-success";
-  if (visibility === "unlisted") return "pd24-status-warning";
-  return "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)]";
 }
 
 // ─── Route list item ───────────────────────────────────────────────────────────
@@ -345,11 +330,8 @@ function ProfilePageInner() {
   const [cropOffsetY, setCropOffsetY] = useState(0);
   const [initialUsername, setInitialUsername] = useState("");
   const [userRoutes, setUserRoutes] = useState<UserRouteRow[]>([]);
-  const [bookmarkedRoutes, setBookmarkedRoutes] = useState<UserRouteRow[]>([]);
   const [createdRouteQuery, setCreatedRouteQuery] = useState("");
   const [createdRouteFilter, setCreatedRouteFilter] = useState<CreatedRouteFilter>("all");
-  const [savedRouteQuery, setSavedRouteQuery] = useState("");
-  const [savedRouteFilter, setSavedRouteFilter] = useState<SavedRouteFilter>("all");
   const [studioTab, setStudioTab] = useState<StudioTab>("routes");
   const [studioRoadtrips, setStudioRoadtrips] = useState<RoadtripRoute[]>([]);
   const [studioEvents, setStudioEvents] = useState<EventPlanRow[]>([]);
@@ -398,20 +380,6 @@ function ProfilePageInner() {
     });
   }, [createdRouteFilter, createdRouteQuery, userRoutes]);
 
-  const filteredBookmarkedRoutes = useMemo(() => {
-    const query = norm(savedRouteQuery);
-    return bookmarkedRoutes.filter((route) => {
-      if (savedRouteFilter === "with-city" && !route.city_slug) return false;
-      if (savedRouteFilter === "with-description" && !route.description?.trim()) return false;
-      if (!query) return true;
-      const haystack = norm(
-        [route.title, route.description, route.city_slug, formatRouteCityLabel(route.city_slug)]
-          .filter(Boolean)
-          .join(" ")
-      );
-      return haystack.includes(query);
-    });
-  }, [bookmarkedRoutes, savedRouteFilter, savedRouteQuery]);
 
   // ── Auth init ─────────────────────────────────────────────────────────────
 
@@ -543,38 +511,6 @@ function ProfilePageInner() {
           setUserRoutes((routeData ?? []) as UserRouteRow[]);
         }
 
-        const { data: bookmarkData, error: bookmarkError } = await supabase
-          .from("user_route_bookmarks")
-          .select(`
-            id,
-            route_id,
-            user_id,
-            created_at,
-            user_routes (
-              id,
-              title,
-              slug,
-              description,
-              city_slug,
-              visibility,
-              updated_at
-            )
-          `)
-          .eq("user_id", userId)
-          .order("created_at", { ascending: false });
-
-        if (bookmarkError) {
-          console.error("Bookmarked routes load error:", bookmarkError);
-          setBookmarkedRoutes([]);
-        } else {
-          const routes = ((bookmarkData ?? []) as BookmarkedRouteRow[])
-            .map((row) => {
-              const nested = row.user_routes;
-              return Array.isArray(nested) ? (nested[0] ?? null) : (nested ?? null);
-            })
-            .filter((route): route is UserRouteRow => Boolean(route));
-          setBookmarkedRoutes(routes);
-        }
       } finally {
         setLoadingProfile(false);
       }
@@ -981,20 +917,6 @@ function ProfilePageInner() {
     setStudioEvents((prev) => prev.filter((e) => e.id !== id));
   }
 
-  async function removeBookmark(routeId: string) {
-    if (!userId) return;
-    const { error } = await supabase
-      .from("user_route_bookmarks")
-      .delete()
-      .eq("route_id", routeId)
-      .eq("user_id", userId);
-    if (error) {
-      console.error("Bookmark remove error:", error);
-      return;
-    }
-    setBookmarkedRoutes((prev) => prev.filter((r) => r.id !== routeId));
-  }
-
   async function signUpWithEmail() {
     const nextEmail = authEmailInput.trim();
     const nextPassword = authPasswordInput;
@@ -1288,54 +1210,9 @@ function ProfilePageInner() {
           <PremiumStatusCard userId={userId} />
         ) : null}
 
-        {/* ── Lokale Daten ─────────────────────────────────────────────────── */}
-        <section className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
-          <div className="pd24-kicker-warm">Datenschutz</div>
-          <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">
-            Lokal gespeicherte Daten
-          </h2>
-          <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-            Auf diesem Gerät speichert perfectday24 deinen letzten Startpunkt,
-            offene Gruppen-Einladungen und – nur mit deiner Einwilligung –
-            anonyme Tracking-Kennungen. Auf gemeinsam genutzten Geräten kannst du
-            das hier jederzeit entfernen.
-          </p>
-          <div className="mt-3 flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                clearLocalPersonalData();
-                setLocalDataCleared(true);
-              }}
-              className="rounded-full border border-[var(--line-subtle)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[rgba(23,23,23,0.04)]"
-            >
-              Lokale Daten löschen
-            </button>
-            <button
-              type="button"
-              onClick={() => openConsentBanner()}
-              className="text-sm text-[var(--text-muted-warm)] underline-offset-2 hover:underline"
-            >
-              Cookie-Einstellungen ändern
-            </button>
-            {localDataCleared ? (
-              <span className="text-sm text-[var(--text-muted-warm)]">
-                Lokale Daten wurden gelöscht.
-              </span>
-            ) : null}
-          </div>
-        </section>
-
         {/* ── Two-column layout: interests + public profile ───────────────── */}
         {authReady && userId && !isAnonymous && (
-          <section className="space-y-5">
-            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
-              <div className="pd24-kicker-warm">Persönliche Basis</div>
-              <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Konto, Vorlieben und sichtbares Profil</h2>
-              <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-                Pflege hier deine persönlichen Einstellungen, Interessen und die Informationen, die andere Nutzer sehen sollen.
-              </p>
-            </div>
+          <section>
             <div className="grid gap-6 xl:grid-cols-2">
 
           {/* ── Interests ──────────────────────────────────────────────────── */}
@@ -1627,15 +1504,7 @@ function ProfilePageInner() {
 
         {/* ── Studio ──────────────────────────────────────────────────────────── */}
         {authReady && userId && !isAnonymous && (
-          <section className="space-y-5">
-            <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
-              <div className="pd24-kicker-warm">Meine Inhalte</div>
-              <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Eigene Routen, Roadtrips und gemerkte Vorlagen</h2>
-              <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-                Verwalte hier deine erstellten Inhalte und springe schnell zu dem weiter, was du später erneut nutzen möchtest.
-              </p>
-            </div>
-            <div className="grid gap-6 xl:grid-cols-2">
+          <section className="space-y-4">
 
           {/* Studio card with tab switcher */}
           <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
@@ -1878,108 +1747,17 @@ function ProfilePageInner() {
             )}
           </div>
 
-          {/* Bookmarked routes */}
-          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="pd24-kicker-warm">
-                  Meine Pläne
-                </div>
-                <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Gemerkte Vorlagen</h2>
-                <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-                  Aus Explore und geteilten Links gemerkte Routen.
-                </p>
-              </div>
-              <div className="flex shrink-0 gap-2">
-                <Link
-                  href="/saved"
-                  className="pd24-btn pd24-btn-sm pd24-btn-secondary"
-                >
-                  Meine Pläne
-                </Link>
-                <Link
-                  href="/explore"
-                  className="pd24-btn pd24-btn-sm pd24-btn-secondary"
-                >
-                  Explore
-                </Link>
-              </div>
+            {/* Gemerkte Vorlagen und gespeicherte Pläne leben in "Meine Pläne" —
+                hier nur der Verweis statt einer zweiten Verwaltungsfläche. */}
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3">
+              <p className="text-sm text-[var(--text-muted-warm)]">
+                Gemerkte Vorlagen und gespeicherte Pläne findest du gesammelt in „Meine Pläne“.
+              </p>
+              <Link href="/saved" className="pd24-btn pd24-btn-sm pd24-btn-secondary shrink-0">
+                Meine Pläne öffnen
+              </Link>
             </div>
-
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              <input
-                value={savedRouteQuery}
-                onChange={(e) => setSavedRouteQuery(e.target.value)}
-                placeholder="Gespeicherte Routen durchsuchen"
-                className="h-11 flex-1 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-3 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--text-strong)]"
-              />
-              <div className="flex flex-wrap gap-2">
-                {(
-                  [
-                    ["all", "Alle"],
-                    ["with-city", "Mit Stadt"],
-                    ["with-description", "Mit Text"],
-                  ] as const
-                ).map(([filter, label]) => {
-                  const active = savedRouteFilter === filter;
-                  return (
-                    <button
-                      key={`sf-${filter}`}
-                      type="button"
-                      onClick={() => setSavedRouteFilter(filter)}
-                      className={`rounded-full border px-3 py-1.5 text-sm transition ${
-                        active
-                          ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white"
-                          : "border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] text-[var(--text-muted-warm)] hover:bg-[var(--brand-warm-cloud)]"
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {loadingProfile ? (
-              <div className="mt-5 text-sm text-[var(--text-soft-warm)]">Lädt…</div>
-            ) : bookmarkedRoutes.length > 0 ? (
-              <div className="mt-5 max-h-[34rem] space-y-3 overflow-y-auto pr-1">
-                {filteredBookmarkedRoutes.length > 0 ? (
-                  filteredBookmarkedRoutes.map((route) => (
-                    <ProfileRouteListItem
-                      key={route.id}
-                      route={route}
-                      primaryHref={route.slug ? `/routes/${route.slug}` : null}
-                      primaryLabel="Route öffnen"
-                      onDelete={removeBookmark}
-                      deleteLabel="Lesezeichen entfernen"
-                    />
-                  ))
-                ) : (
-                  <div className="rounded-[var(--radius-card-sm)] border border-dashed border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-4 py-8 text-sm text-[var(--text-soft-warm)]">
-                    Keine gespeicherten Routen für diesen Filter.
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="mt-5 text-sm text-[var(--text-soft-warm)]">
-                Noch keine gemerkten Vorlagen. Merke in Explore interessante Routen für später.
-              </div>
-            )}
-          </div>
-          </div>
         </section>
-        )}
-
-        {/* ── Aktive Rollen-Schnellzugriffe ───────────────────────────────── */}
-        {(authReady && userId && !isAnonymous) && (
-          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
-            <div className="pd24-kicker-warm">Rollen & Zugänge</div>
-            <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Spezielle Bereiche und Freischaltungen</h2>
-            <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
-              Aktive Zugänge stehen oben. Weitere Programme und Ausbaustufen kannst du darunter bei Bedarf aufklappen.
-            </p>
-          </div>
         )}
 
         {userId && hasRoleBadge && (
@@ -2129,6 +1907,44 @@ function ProfilePageInner() {
             </div>
           </details>
         )}
+
+        {/* ── Lokale Daten (Datenschutz) — Rand-Task, bewusst am Seitenende ── */}
+        <section className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5">
+          <div className="pd24-kicker-warm">Datenschutz</div>
+          <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">
+            Lokal gespeicherte Daten
+          </h2>
+          <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+            Auf diesem Gerät speichert perfectday24 deinen letzten Startpunkt,
+            offene Gruppen-Einladungen und – nur mit deiner Einwilligung –
+            anonyme Tracking-Kennungen. Auf gemeinsam genutzten Geräten kannst du
+            das hier jederzeit entfernen.
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => {
+                clearLocalPersonalData();
+                setLocalDataCleared(true);
+              }}
+              className="rounded-full border border-[var(--line-subtle)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[rgba(23,23,23,0.04)]"
+            >
+              Lokale Daten löschen
+            </button>
+            <button
+              type="button"
+              onClick={() => openConsentBanner()}
+              className="text-sm text-[var(--text-muted-warm)] underline-offset-2 hover:underline"
+            >
+              Cookie-Einstellungen ändern
+            </button>
+            {localDataCleared ? (
+              <span className="text-sm text-[var(--text-muted-warm)]">
+                Lokale Daten wurden gelöscht.
+              </span>
+            ) : null}
+          </div>
+        </section>
       </div>
     </div>
   );
