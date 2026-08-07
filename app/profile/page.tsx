@@ -233,7 +233,7 @@ function ProfileRouteListItem({
 
       {/* Action buttons */}
       {!confirming && (
-        <div className="mt-2.5 flex flex-wrap items-center gap-2 pl-14">
+        <div className="mt-2.5 flex flex-wrap items-center gap-2 sm:pl-14">
           {primaryHref && (
             <Link
               href={primaryHref}
@@ -362,7 +362,6 @@ function ProfilePageInner() {
     ambience: "Ambiente & Outdoor",
   };
 
-  const interestPreview = useMemo(() => interests.slice(0, 4), [interests]);
 
   // ── Route filters ─────────────────────────────────────────────────────────
 
@@ -1035,7 +1034,8 @@ function ProfilePageInner() {
 
   return (
     <div className="pd24-page-standard min-h-screen bg-[var(--bg-canvas-warm)]">
-      <div className="space-y-6 px-4 py-8 sm:px-6">
+      {/* Außenabstände kommen aus pd24-page-standard — kein doppeltes Padding */}
+      <div className="space-y-6">
 
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <div>
@@ -1216,7 +1216,7 @@ function ProfilePageInner() {
             <div className="grid gap-6 xl:grid-cols-2">
 
           {/* ── Interests ──────────────────────────────────────────────────── */}
-          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
+          <div className="min-w-0 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-4 sm:p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="pd24-kicker-warm">
@@ -1233,25 +1233,6 @@ function ProfilePageInner() {
                 {savingProfile ? "Speichert…" : `${interests.length} / 12`}
               </div>
             </div>
-
-            {/* Interest preview chips */}
-            {interestPreview.length > 0 ? (
-              <div className="mt-4 flex flex-wrap gap-2">
-                {interestPreview.map((interest) => (
-                  <span
-                    key={`preview-${interest}`}
-                    className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-2.5 py-1 text-[11px] text-[var(--text-muted-warm)]"
-                  >
-                    {interest}
-                  </span>
-                ))}
-                {interests.length > interestPreview.length ? (
-                  <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-canvas-warm)] px-2.5 py-1 text-[11px] text-[var(--text-soft-warm)]">
-                    +{interests.length - interestPreview.length}
-                  </span>
-                ) : null}
-              </div>
-            ) : null}
 
             {/* Catalog */}
             <div className="mt-5 max-h-[26rem] space-y-5 overflow-y-auto pr-1">
@@ -1307,8 +1288,8 @@ function ProfilePageInner() {
           </div>
 
           {/* ── Public profile ──────────────────────────────────────────────── */}
-          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
-            <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-4 sm:p-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <div className="pd24-kicker-warm">
                   Öffentliches Profil
@@ -1320,7 +1301,7 @@ function ProfilePageInner() {
                   Sichtbar für andere Nutzer in Creator-Links und Einladungen.
                 </p>
               </div>
-              <div className="flex shrink-0 flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 sm:shrink-0">
                 {username ? (
                   <Link
                     href={`/u/${username}`}
@@ -1510,7 +1491,7 @@ function ProfilePageInner() {
           <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] p-6">
 
             {/* Header */}
-            <div className="flex items-start justify-between gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <div className="pd24-kicker-warm">Studio</div>
                 <h2 className="mt-2 text-lg font-semibold text-[var(--text-strong)]">Meine Inhalte</h2>
@@ -1519,24 +1500,24 @@ function ProfilePageInner() {
                 </p>
               </div>
               {studioTab === "routes" && (
-                <Link href="/routes" className="pd24-btn pd24-btn-sm pd24-btn-secondary shrink-0">
+                <Link href="/routes" className="pd24-btn pd24-btn-sm pd24-btn-secondary self-start sm:shrink-0">
                   Route erstellen
                 </Link>
               )}
               {studioTab === "roadtrips" && (
-                <Link href="/roadtrip" className="pd24-btn pd24-btn-sm pd24-btn-secondary shrink-0">
+                <Link href="/roadtrip" className="pd24-btn pd24-btn-sm pd24-btn-secondary self-start sm:shrink-0">
                   Roadtrip planen
                 </Link>
               )}
               {studioTab === "events" && (
-                <Link href="/events" className="pd24-btn pd24-btn-sm pd24-btn-secondary shrink-0">
+                <Link href="/events" className="pd24-btn pd24-btn-sm pd24-btn-secondary self-start sm:shrink-0">
                   Event anlegen
                 </Link>
               )}
             </div>
 
             {/* Tab switcher */}
-            <div className="mt-5 flex gap-1.5">
+            <div className="mt-5 flex flex-wrap gap-1.5">
               {([
                 { key: "routes" as const, label: "Routen", count: userRoutes.length },
                 { key: "roadtrips" as const, label: "Roadtrips", count: studioRoadtrips.length },
