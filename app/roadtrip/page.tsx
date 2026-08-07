@@ -200,6 +200,8 @@ function RoadtripPageContent() {
   const searchParams = useSearchParams();
   const templateLoadedRef = useRef(false);
   const [templateBanner, setTemplateBanner] = useState<{ title: string; slug: string } | null>(null);
+  // Cover der geladenen Vorlage — wird beim Speichern/Starten mitgeklont.
+  const [templateCoverUrl, setTemplateCoverUrl] = useState<string | null>(null);
 
   // Hero entry mode — drives the lower page content
   const [heroMode, setHeroMode] = useState<"ki" | "individual" | "creator">("individual");
@@ -273,6 +275,7 @@ function RoadtripPageContent() {
       setOccasion(route.occasion);
       setBudget(route.budget);
       setTemplateBanner({ title: route.title, slug: route.slug });
+      setTemplateCoverUrl(route.cover_image_url ?? null);
     })();
   }, [searchParams]);
 
@@ -570,6 +573,7 @@ function RoadtripPageContent() {
       const { route, error } = await createRoadtripRoute({
         title: saveTitle.trim() || tripName.trim() || "Mein Roadtrip",
         description: saveDesc.trim() || null,
+        coverImageUrl: templateCoverUrl,
         tags: saveTags,
         occasion,
         budget,
@@ -652,6 +656,7 @@ function RoadtripPageContent() {
     setOccasion(route.occasion);
     setBudget(route.budget);
     setTemplateBanner({ title: route.title, slug: route.slug });
+    setTemplateCoverUrl(route.cover_image_url ?? null);
     setGeneratedPlans([]);
     setPlanMode("individual");
     incrementRouteClones(route.id);
@@ -674,6 +679,7 @@ function RoadtripPageContent() {
       const { route, error } = await createRoadtripRoute({
         title: tripName.trim() || "Mein Roadtrip",
         description: null,
+        coverImageUrl: templateCoverUrl,
         tags: [],
         occasion,
         budget,

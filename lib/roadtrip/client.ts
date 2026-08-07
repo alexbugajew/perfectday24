@@ -123,6 +123,7 @@ export async function createRoadtripRoute(
     slug,
     title: input.title.trim(),
     description: input.description?.trim() ?? null,
+    cover_image_url: input.coverImageUrl ?? null,
     author_user_id: input.authorUserId ?? null,
     author_name: input.authorName?.trim() ?? null,
     visibility: input.visibility,

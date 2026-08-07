@@ -65,6 +65,9 @@ export type RoadtripRoute = {
 export type CreateRoadtripRouteInput = {
   title: string;
   description?: string | null;
+  // Cover der Vorlage — wird beim Klonen übernommen, damit eigene Roadtrips
+  // in Listen nicht bildlos sind.
+  coverImageUrl?: string | null;
   tags?: string[];
   occasion: string;
   budget: string;

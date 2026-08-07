@@ -15,7 +15,7 @@ function isSafeImageHost(url: string | null): boolean {
   if (!url) return false;
   try { return NEXT_IMAGE_SAFE_HOSTS.has(new URL(url).hostname); } catch { return false; }
 }
-import { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { deleteRoadtripRoute, fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
 import type { RoadtripRoute } from "@/lib/roadtrip/types";
@@ -78,6 +78,7 @@ type QuickItem = {
   title: string;
   meta: string;
   timestamp: string;
+  imageUrl?: string | null;
 };
 
 function cx(...parts: Array<string | false | null | undefined>) {
@@ -311,9 +312,19 @@ function SkeletonRow() {
   );
 }
 
+// Ab 7 Einträgen scrollt die Liste intern (max-Höhe ≈ 6,5 Zeilen, damit die
+// angeschnittene nächste Zeile als Scroll-Hinweis sichtbar bleibt).
+const LIST_SCROLL_THRESHOLD = 6;
+
 function ListContainer({ children }: { children: React.ReactNode }) {
+  const count = React.Children.count(children);
   return (
-    <div className="divide-y divide-[var(--line-subtle)] overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white shadow-sm">
+    <div
+      className={cx(
+        "divide-y divide-[var(--line-subtle)] rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white shadow-sm",
+        count > LIST_SCROLL_THRESHOLD ? "max-h-[26rem] overflow-y-auto" : "overflow-hidden"
+      )}
+    >
       {children}
     </div>
   );
@@ -434,18 +445,32 @@ function QuickCard({ item }: { item: QuickItem }) {
   return (
     <Link
       href={item.href}
-      className="flex min-h-[136px] min-w-[220px] flex-col justify-between rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-4 shadow-sm transition hover:border-[var(--line-strong)] hover:shadow-md"
+      className="min-w-[220px] max-w-[240px] overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white shadow-sm transition hover:border-[var(--line-strong)] hover:shadow-md"
     >
-      <div>
-        <div className="pd24-meta">
-          {item.kind === "plan" ? "Zuletzt genutzter Plan" : "Zuletzt genutzte Route"}
-        </div>
-        <div className="mt-3 line-clamp-2 text-base font-semibold text-[var(--text-strong)]">
+      <div className="relative h-20 bg-[var(--bg-surface)]">
+        {item.imageUrl ? (
+          <Image
+            src={item.imageUrl}
+            alt=""
+            fill
+            unoptimized={!isSafeImageHost(item.imageUrl)}
+            sizes="240px"
+            className="object-cover"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-2xl">
+            {item.kind === "plan" ? "🗓️" : "📍"}
+          </div>
+        )}
+      </div>
+      <div className="p-3">
+        <div className="line-clamp-1 text-sm font-semibold text-[var(--text-strong)]">
           {item.title}
         </div>
-        <div className="mt-2 text-sm text-[var(--text-muted)]">{item.meta}</div>
+        <div className="mt-1 truncate text-xs text-[var(--text-muted)]">
+          {item.meta} · {formatRelativeDate(item.timestamp)}
+        </div>
       </div>
-      <div className="mt-4 text-xs text-[var(--text-muted)]">{formatRelativeDate(item.timestamp)}</div>
     </Link>
   );
 }
@@ -648,6 +673,7 @@ export default function SavedPage() {
       title: route.title?.trim() || "Unbenannte Route",
       meta: routeCityLabel(route.city_slug),
       timestamp: route.saved_at,
+      imageUrl: route.cover_image_url,
     }));
 
     const roadtripItems = roadtripRoutes.map((rt) => ({
@@ -657,6 +683,7 @@ export default function SavedPage() {
       title: rt.title,
       meta: `Roadtrip · ${rt.stops.length} Städte`,
       timestamp: rt.updated_at,
+      imageUrl: rt.cover_image_url,
     }));
 
     return [...planItems, ...routeItems, ...roadtripItems]
