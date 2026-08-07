@@ -1058,33 +1058,18 @@ export default function SavedPage() {
   }
 
   return (
-    <div className="pd24-page-wide space-y-8">
-      <section className="pd24-shell p-6 sm:p-8">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <div className="pd24-kicker">Meine Pläne</div>
-            <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-4xl">
-              Deine Pläne, Routen und Entwürfe an einem Ort
-            </h1>
-            <p className="mt-4 text-base leading-7 text-[var(--text-muted)] sm:text-lg">
-              Hier findest du alles wieder, was du später fortsetzen, teilen oder erneut nutzen möchtest.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/planner"
-              className="pd24-btn pd24-btn-primary"
-            >
-              Neuen Plan starten
-            </Link>
-            <Link
-              href="/explore"
-              className="pd24-btn pd24-btn-secondary"
-            >
-              Entdecken
-            </Link>
-          </div>
+    <div className="pd24-page-wide space-y-6">
+      <section className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-3xl">
+          Meine Pläne
+        </h1>
+        <div className="flex flex-wrap gap-2">
+          <Link href="/planner" className="pd24-btn pd24-btn-sm pd24-btn-primary">
+            Neuen Plan starten
+          </Link>
+          <Link href="/explore" className="pd24-btn pd24-btn-sm pd24-btn-secondary">
+            Entdecken
+          </Link>
         </div>
       </section>
 
@@ -1115,10 +1100,7 @@ export default function SavedPage() {
 
       {(isLoading || quickItems.length > 0) && (
         <section>
-          <SectionHeader
-            title="Zuletzt genutzt"
-            description="Schneller Wiedereinstieg in die zuletzt geöffneten Pläne und Routen."
-          />
+          <SectionHeader title="Zuletzt genutzt" />
           <div className="pd24-scrollbar-none flex gap-3 overflow-x-auto overscroll-x-contain pb-1">
             {isLoading
               ? Array.from({ length: 4 }).map((_, index) => <SkeletonCard key={`quick-skeleton-${index}`} />)
@@ -1166,13 +1148,9 @@ export default function SavedPage() {
         />
       ) : null}
 
-      {(segment === "all" || segment === "tagesplanung") && !isEmpty ? (
+      {(segment === "tagesplanung" || (segment === "all" && (isLoading || finishedPlans.length > 0))) && !isEmpty ? (
         <section>
-          <SectionHeader
-            title="Gespeicherte Pläne"
-            count={finishedPlans.length}
-            description="Persönliche und gemeinsame Planungen, die du wieder öffnen oder weiterführen kannst."
-          />
+          <SectionHeader title="Gespeicherte Pläne" count={finishedPlans.length} />
 
           {isLoading ? (
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -1197,13 +1175,9 @@ export default function SavedPage() {
         </section>
       ) : null}
 
-      {(segment === "all" || segment === "tagesplanung") && !isEmpty ? (
+      {(segment === "tagesplanung" || (segment === "all" && (isLoading || savedRoutes.length > 0))) && !isEmpty ? (
         <section>
-          <SectionHeader
-            title="Gespeicherte Routen"
-            count={savedRoutes.length}
-            description="Gemerkte oder übernommene Routen aus Explore und öffentlichen Vorlagen."
-          />
+          <SectionHeader title="Gespeicherte Routen" count={savedRoutes.length} />
 
           {isLoading ? (
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -1228,13 +1202,9 @@ export default function SavedPage() {
         </section>
       ) : null}
 
-      {(segment === "all" || segment === "roadtrip") && !isEmpty ? (
+      {(segment === "roadtrip" || (segment === "all" && (isLoading || roadtripRoutes.length > 0))) && !isEmpty ? (
         <section>
-          <SectionHeader
-            title="Meine Roadtrips"
-            count={roadtripRoutes.length}
-            description="Mehrstädtige Reiserouten, die du geplant oder gestartet hast."
-          />
+          <SectionHeader title="Meine Roadtrips" count={roadtripRoutes.length} />
 
           {isLoading ? (
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -1261,13 +1231,9 @@ export default function SavedPage() {
         </section>
       ) : null}
 
-      {(segment === "all" || segment === "tagesplanung") && !isEmpty ? (
+      {(segment === "tagesplanung" || (segment === "all" && (isLoading || drafts.length > 0))) && !isEmpty ? (
         <section>
-          <SectionHeader
-            title="Offene Entwürfe"
-            count={drafts.length}
-            description="Noch nicht abgeschlossene Planungen, die du später fortsetzen kannst."
-          />
+          <SectionHeader title="Offene Entwürfe" count={drafts.length} />
 
           {isLoading ? (
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -1292,13 +1258,9 @@ export default function SavedPage() {
         </section>
       ) : null}
 
-      {(segment === "all" || segment === "events") && !isEmpty ? (
+      {(segment === "events" || (segment === "all" && (isLoading || eventPlans.length > 0))) && !isEmpty ? (
         <section>
-          <SectionHeader
-            title="Meine Event-Pläne"
-            count={eventPlans.length}
-            description="Gespeicherte Planungen für Feiern, Ausflüge und besondere Anlässe."
-          />
+          <SectionHeader title="Meine Event-Pläne" count={eventPlans.length} />
 
           {isLoading ? (
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
