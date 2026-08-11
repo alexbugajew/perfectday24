@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { stripe, STRIPE_PLANS, type StripePlanKey } from "@/lib/stripe/config";
+import { stripe, STRIPE_PLANS, PARTNER_TRIAL_DAYS, type StripePlanKey } from "@/lib/stripe/config";
 
 function getSupabaseAdmin() {
   return createClient(
@@ -123,6 +123,12 @@ export async function POST(req: Request) {
           plan_key: planKey,
           user_id: user.id,
         },
+        // B2B-Einstieg: Partner testen 3 Monate kostenlos — Sichtbarkeits-
+        // Effekte in KI-Plänen brauchen Zeit, danach überzeugt der ROI-Rechner
+        // mit eigenen Zahlen.
+        ...(planKey === "partner_basic" || planKey === "partner_pro"
+          ? { trial_period_days: PARTNER_TRIAL_DAYS }
+          : {}),
       },
       metadata: {
         ...(partner_entity_id ? { partner_profile_id: partner_entity_id } : {}),

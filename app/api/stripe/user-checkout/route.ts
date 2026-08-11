@@ -7,7 +7,13 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { stripe, STRIPE_PLANS } from "@/lib/stripe/config";
+import {
+  stripe,
+  STRIPE_PLANS,
+  USER_PREMIUM_TRIAL_DAYS,
+  USER_PREMIUM_YEARLY_AMOUNT_CENTS,
+  USER_PREMIUM_YEARLY_PRICE_ID,
+} from "@/lib/stripe/config";
 
 function getSupabaseAdmin() {
   return createClient(
@@ -41,17 +47,59 @@ async function getSessionUser() {
   return user;
 }
 
-export async function POST() {
+/**
+ * Liefert dem Upgrade-Modal die Checkout-Optionen: verfügbare Intervalle,
+ * Preise und ob dieser Nutzer noch Anspruch auf die Testphase hat
+ * (nur wer noch nie ein Abo hatte).
+ */
+export async function GET() {
   try {
     const user = await getSessionUser();
     if (!user) {
       return NextResponse.json({ error: "Nicht eingeloggt" }, { status: 401 });
     }
 
+    const supabase = getSupabaseAdmin();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: profile } = await (supabase as any)
+      .from("profiles")
+      .select("stripe_subscription_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    return NextResponse.json({
+      monthlyAmountCents: STRIPE_PLANS.user_premium.amountCents,
+      yearlyAvailable: Boolean(USER_PREMIUM_YEARLY_PRICE_ID),
+      yearlyAmountCents: USER_PREMIUM_YEARLY_AMOUNT_CENTS,
+      trialEligible: !profile?.stripe_subscription_id,
+      trialDays: USER_PREMIUM_TRIAL_DAYS,
+    });
+  } catch (err) {
+    console.error("[user-checkout GET]", err);
+    return NextResponse.json({ error: "Konfiguration nicht verfügbar" }, { status: 500 });
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const user = await getSessionUser();
+    if (!user) {
+      return NextResponse.json({ error: "Nicht eingeloggt" }, { status: 401 });
+    }
+
+    const body = (await req.json().catch(() => ({}))) as { interval?: string };
+    const interval = body.interval === "year" ? "year" : "month";
+
     const plan = STRIPE_PLANS.user_premium;
-    if (!plan.priceId) {
+    const priceId = interval === "year" ? USER_PREMIUM_YEARLY_PRICE_ID : plan.priceId;
+    if (!priceId) {
       return NextResponse.json(
-        { error: "STRIPE_USER_PREMIUM_PRICE_ID fehlt in der Konfiguration" },
+        {
+          error:
+            interval === "year"
+              ? "STRIPE_USER_PREMIUM_YEARLY_PRICE_ID fehlt in der Konfiguration"
+              : "STRIPE_USER_PREMIUM_PRICE_ID fehlt in der Konfiguration",
+        },
         { status: 500 }
       );
     }
@@ -59,10 +107,11 @@ export async function POST() {
     const supabase = getSupabaseAdmin();
 
     // Bestehende Stripe-Customer-ID aus profiles ziehen (Idempotenz).
+    // stripe_subscription_id entscheidet über den Trial-Anspruch.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: profile } = await (supabase as any)
       .from("profiles")
-      .select("stripe_customer_id")
+      .select("stripe_customer_id,stripe_subscription_id")
       .eq("user_id", user.id)
       .maybeSingle();
 
@@ -81,15 +130,20 @@ export async function POST() {
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
+    // Testphase nur beim allerersten Abo — wer schon einmal Kunde war,
+    // startet direkt bezahlt (verhindert Trial-Hopping).
+    const trialEligible = !profile?.stripe_subscription_id;
+
     const session = await stripe.checkout.sessions.create({
       customer: stripeCustomerId,
       customer_update: { address: "auto" as const },
       mode: "subscription" as const,
-      line_items: [{ price: plan.priceId, quantity: 1 }],
+      line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${baseUrl}/profile?premium=success`,
       cancel_url: `${baseUrl}/profile?premium=cancelled`,
       subscription_data: {
         metadata: { user_id: user.id, plan_key: "user_premium" },
+        ...(trialEligible ? { trial_period_days: USER_PREMIUM_TRIAL_DAYS } : {}),
       },
       metadata: { user_id: user.id, plan_key: "user_premium" },
       allow_promotion_codes: true,

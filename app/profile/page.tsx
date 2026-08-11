@@ -1843,7 +1843,7 @@ function ProfilePageInner() {
                 <div className="flex items-start justify-between gap-2">
                   <span className="text-2xl leading-none">🏢</span>
                   <span className="rounded-full bg-amber-400/20 px-2.5 py-0.5 text-[11px] font-medium text-amber-300">
-                    Ab 29€/Monat
+                    3 Monate gratis testen
                   </span>
                 </div>
                 <div>

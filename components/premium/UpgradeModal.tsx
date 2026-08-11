@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Zeigt sich wenn ein Free-User das AI-Plan-Monatslimit erreicht hat.
 // Startet den Stripe-User-Checkout und routet zurück auf /profile.
@@ -28,16 +28,43 @@ const BENEFITS: { emoji: string; title: string; body: string }[] = [
     title: "Export als PDF & Kalender",
     body: "Plan direkt drucken oder in deinen Kalender übernehmen.",
   },
-  {
-    emoji: "⚡",
-    title: "Priorisierte Verarbeitung",
-    body: "AI-Pläne werden schneller berechnet, auch zu Stoßzeiten.",
-  },
 ];
+
+type CheckoutConfig = {
+  monthlyAmountCents: number;
+  yearlyAvailable: boolean;
+  yearlyAmountCents: number;
+  trialEligible: boolean;
+  trialDays: number;
+};
+
+function formatEuro(cents: number) {
+  return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(cents / 100);
+}
 
 export default function UpgradeModal({ open, used, limit, onClose }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [config, setConfig] = useState<CheckoutConfig | null>(null);
+  const [billingInterval, setBillingInterval] = useState<"month" | "year">("month");
+
+  useEffect(() => {
+    if (!open) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch("/api/stripe/user-checkout");
+        if (!res.ok) return;
+        const json = (await res.json()) as CheckoutConfig;
+        if (!cancelled) setConfig(json);
+      } catch {
+        // Ohne Konfiguration bleibt der einfache Monats-Checkout nutzbar.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [open]);
 
   if (!open) return null;
 
@@ -45,7 +72,11 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch("/api/stripe/user-checkout", { method: "POST" });
+      const res = await fetch("/api/stripe/user-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ interval: billingInterval }),
+      });
       if (!res.ok) {
         const text = await res.text().catch(() => "");
         console.error(`Checkout fehlgeschlagen (${res.status})`, text);
@@ -96,12 +127,51 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
 
         <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-6">
           <div className="rounded-xl border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(180deg,rgba(255,249,241,0.85),rgba(255,253,248,0.85))] px-4 py-4">
+            {config?.yearlyAvailable ? (
+              <div className="mb-3 grid grid-cols-2 gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white p-1">
+                <button
+                  type="button"
+                  onClick={() => setBillingInterval("month")}
+                  className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
+                    billingInterval === "month"
+                      ? "bg-[var(--text-strong)] text-white"
+                      : "text-[var(--text-muted)] hover:text-[var(--text-strong)]"
+                  }`}
+                >
+                  Monatlich
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBillingInterval("year")}
+                  className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
+                    billingInterval === "year"
+                      ? "bg-[var(--text-strong)] text-white"
+                      : "text-[var(--text-muted)] hover:text-[var(--text-strong)]"
+                  }`}
+                >
+                  Jährlich · 2 Monate geschenkt
+                </button>
+              </div>
+            ) : null}
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-semibold tracking-tight text-[var(--text-strong)]">4,99 €</span>
-              <span className="text-sm text-[var(--text-muted)]">/ Monat</span>
+              <span className="text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
+                {billingInterval === "year" && config?.yearlyAvailable
+                  ? formatEuro(config.yearlyAmountCents)
+                  : formatEuro(config?.monthlyAmountCents ?? 499)}
+              </span>
+              <span className="text-sm text-[var(--text-muted)]">
+                {billingInterval === "year" && config?.yearlyAvailable ? "/ Jahr" : "/ Monat"}
+              </span>
+              {billingInterval === "year" && config?.yearlyAvailable ? (
+                <span className="rounded-full bg-[var(--brand-warm)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                  −33 %
+                </span>
+              ) : null}
             </div>
             <div className="mt-1 text-xs text-[var(--text-muted)]">
-              Jederzeit kündbar. Erste 7 Tage risikofrei.
+              {config?.trialEligible
+                ? `${config.trialDays} Tage kostenlos testen — jederzeit kündbar, erste Abbuchung erst danach.`
+                : "Jederzeit kündbar."}
             </div>
           </div>
 
@@ -146,6 +216,8 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
                 <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-white/60 border-t-transparent" />
                 Weiterleitung…
               </>
+            ) : config?.trialEligible ? (
+              `${config.trialDays} Tage kostenlos testen →`
             ) : (
               "Premium starten →"
             )}

@@ -169,6 +169,7 @@ const TIER_OPTIONS = [
     tier: "partner_basic" as const,
     label: "Partner Basic",
     price: "49 €/Monat",
+    trialNote: "Die ersten 3 Monate kostenlos — jederzeit kündbar.",
     features: ["Alles aus Kostenlos", "Featured-Platzierung", "Analytics-Dashboard", "Prioritäts-Matching"],
     badge: "bg-blue-50 border-blue-300 text-blue-900",
   },
@@ -176,6 +177,7 @@ const TIER_OPTIONS = [
     tier: "partner_pro" as const,
     label: "Partner Pro",
     price: "149 €/Monat",
+    trialNote: "Die ersten 3 Monate kostenlos — jederzeit kündbar.",
     features: ["Alles aus Basic", "Top-Platzierung in allen Städten", "Dedizierter Account Manager", "Affiliate-Links"],
     badge: "bg-amber-50 border-amber-300 text-amber-900",
   },
@@ -677,9 +679,11 @@ export default function PartnerOnboarding() {
                     </div>
                     <div className="shrink-0 text-right">
                       <span className="text-lg font-semibold text-[var(--text-strong)]">{opt.price}</span>
-                      {opt.tier !== "organic" && (
+                      {"trialNote" in opt && opt.trialNote ? (
+                        <p className="max-w-[10rem] text-xs font-medium text-[var(--state-success)]">{opt.trialNote}</p>
+                      ) : opt.tier !== "organic" ? (
                         <p className="text-xs text-[var(--text-muted)]">mtl. kündbar</p>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </button>

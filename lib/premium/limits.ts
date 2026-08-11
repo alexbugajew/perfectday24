@@ -6,6 +6,10 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 export const FREE_AI_PLANS_PER_MONTH = 3;
 
+// Free-Konten sehen nur ihre neuesten Pläne — ältere bleiben gespeichert
+// und werden mit Premium wieder sichtbar ("Behalte jeden Plan im Zugriff").
+export const FREE_SAVED_PLANS_VISIBLE = 10;
+
 export type PremiumStatus = {
   isPremium: boolean;
   premiumUntil: string | null;

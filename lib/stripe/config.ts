@@ -35,6 +35,18 @@ export const USER_PREMIUM_PLAN = {
   interval: "month" as const,
 };
 
+// Jahresplan (2 Monate geschenkt gegenüber 12 × 4,99 €). Ohne gesetzte
+// Env-Variable blendet das Upgrade-Modal die Jahres-Option einfach aus.
+export const USER_PREMIUM_YEARLY_PRICE_ID = process.env.STRIPE_USER_PREMIUM_YEARLY_PRICE_ID ?? "";
+export const USER_PREMIUM_YEARLY_AMOUNT_CENTS = 3999;
+
+// Kostenlose Testphase für Endnutzer — nur beim allerersten Abo.
+export const USER_PREMIUM_TRIAL_DAYS = 14;
+
+// Partner (B2B) testen 3 Monate kostenlos: Sichtbarkeits-Effekte in
+// KI-Plänen brauchen Zeit, der ROI-Rechner liefert danach eigene Zahlen.
+export const PARTNER_TRIAL_DAYS = 90;
+
 export type StripePlan = {
   key: StripePlanKey;
   label: string;

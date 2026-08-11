@@ -20,6 +20,9 @@ import { supabase } from "@/lib/supabaseClient";
 import { deleteRoadtripRoute, fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
 import type { RoadtripRoute } from "@/lib/roadtrip/types";
 import { stopSequenceLabel } from "@/lib/roadtrip/types";
+import { FREE_SAVED_PLANS_VISIBLE } from "@/lib/premium/limits";
+import { usePremiumStatus } from "@/components/premium/usePremiumStatus";
+import UpgradeModal from "@/components/premium/UpgradeModal";
 
 type SavedPlanRow = {
   id: string;
@@ -665,8 +668,19 @@ export default function SavedPage() {
     void loadSavedContent();
   }, [loadSavedContent]);
 
-  const drafts = useMemo(() => plans.filter(isDraft), [plans]);
-  const finishedPlans = useMemo(() => plans.filter((plan) => !isDraft(plan)), [plans]);
+  const { isPremium, usedThisMonth } = usePremiumStatus(userId);
+  const [showUpgrade, setShowUpgrade] = useState(false);
+
+  // Free sieht die neuesten Pläne — ältere bleiben gespeichert und werden
+  // mit Premium wieder sichtbar. Solange der Status lädt (null), nichts kappen.
+  const visiblePlans = useMemo(
+    () => (isPremium === false ? plans.slice(0, FREE_SAVED_PLANS_VISIBLE) : plans),
+    [plans, isPremium]
+  );
+  const hiddenPlanCount = plans.length - visiblePlans.length;
+
+  const drafts = useMemo(() => visiblePlans.filter(isDraft), [visiblePlans]);
+  const finishedPlans = useMemo(() => visiblePlans.filter((plan) => !isDraft(plan)), [visiblePlans]);
 
   async function deletePlan(id: string) {
     const { error } = await supabase.from("plans").delete().eq("id", id);
@@ -707,7 +721,7 @@ export default function SavedPage() {
   }
 
   const quickItems = useMemo<QuickItem[]>(() => {
-    const planItems = plans.map((plan) => {
+    const planItems = visiblePlans.map((plan) => {
       const context = planContext(plan);
       return {
         kind: "plan" as const,
@@ -742,7 +756,7 @@ export default function SavedPage() {
     return [...planItems, ...routeItems, ...roadtripItems]
       .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
       .slice(0, 6);
-  }, [plans, savedRoutes, roadtripRoutes]);
+  }, [visiblePlans, savedRoutes, roadtripRoutes]);
 
   const activeRoadtrip = useMemo(
     () => roadtripRoutes.find((r) => r.status === "active") ?? null,
@@ -751,12 +765,12 @@ export default function SavedPage() {
 
   const segments = useMemo(
     () => [
-      { key: "all" as const, label: "Alle", count: plans.length + savedRoutes.length + roadtripRoutes.length + eventPlans.length },
-      { key: "tagesplanung" as const, label: "Tagesplanung", count: plans.length + savedRoutes.length },
+      { key: "all" as const, label: "Alle", count: visiblePlans.length + savedRoutes.length + roadtripRoutes.length + eventPlans.length },
+      { key: "tagesplanung" as const, label: "Tagesplanung", count: visiblePlans.length + savedRoutes.length },
       { key: "roadtrip" as const, label: "Roadtrip", count: roadtripRoutes.length },
       { key: "events" as const, label: "Events", count: eventPlans.length },
     ],
-    [plans.length, savedRoutes.length, roadtripRoutes.length, eventPlans.length]
+    [visiblePlans.length, savedRoutes.length, roadtripRoutes.length, eventPlans.length]
   );
 
   const isEmpty = !isLoading && !hasError && plans.length === 0 && savedRoutes.length === 0 && roadtripRoutes.length === 0 && eventPlans.length === 0;
@@ -887,6 +901,21 @@ export default function SavedPage() {
       {(segment === "tagesplanung" || (segment === "all" && (isLoading || finishedPlans.length > 0))) && !isEmpty ? (
         <section>
           <SectionHeader title="Gespeicherte Pläne" count={finishedPlans.length} />
+
+          {hiddenPlanCount > 0 ? (
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2 rounded-[var(--radius-card-sm)] border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.7)] px-4 py-2.5">
+              <span className="text-xs text-[var(--brand-warm-ink)]">
+                {hiddenPlanCount} ältere Pl{hiddenPlanCount === 1 ? "an ist" : "äne sind"} archiviert — Free zeigt die letzten {FREE_SAVED_PLANS_VISIBLE}.
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowUpgrade(true)}
+                className="text-xs font-semibold text-[var(--brand-warm-ink)] underline underline-offset-2 hover:opacity-80"
+              >
+                Mit Premium freischalten
+              </button>
+            </div>
+          ) : null}
 
           {isLoading ? (
             <ListContainer>
@@ -1091,6 +1120,8 @@ export default function SavedPage() {
           )}
         </section>
       ) : null}
+
+      <UpgradeModal open={showUpgrade} used={usedThisMonth} limit={3} onClose={() => setShowUpgrade(false)} />
 
       {toast ? (
         <div
