@@ -47,6 +47,13 @@ export const USER_PREMIUM_TRIAL_DAYS = 14;
 // KI-Plänen brauchen Zeit, der ROI-Rechner liefert danach eigene Zahlen.
 export const PARTNER_TRIAL_DAYS = 90;
 
+// Stripe Tax + USt-IdNr.-Erfassung im Checkout. Erst aktivieren, wenn im
+// Stripe-Dashboard (1) Stripe Tax eingeschaltet ist und (2) die Prices
+// tax_behavior "inclusive" tragen — sonst schlägt der Checkout fehl bzw.
+// Stripe schlägt 19 % auf die kommunizierten Bruttopreise auf.
+export const STRIPE_AUTOMATIC_TAX_ENABLED =
+  process.env.STRIPE_AUTOMATIC_TAX === "true" || process.env.STRIPE_AUTOMATIC_TAX === "1";
+
 export type StripePlan = {
   key: StripePlanKey;
   label: string;

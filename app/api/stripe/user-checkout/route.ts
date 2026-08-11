@@ -10,6 +10,7 @@ import { cookies } from "next/headers";
 import {
   stripe,
   STRIPE_PLANS,
+  STRIPE_AUTOMATIC_TAX_ENABLED,
   USER_PREMIUM_TRIAL_DAYS,
   USER_PREMIUM_YEARLY_AMOUNT_CENTS,
   USER_PREMIUM_YEARLY_PRICE_ID,
@@ -136,7 +137,11 @@ export async function POST(req: Request) {
 
     const session = await stripe.checkout.sessions.create({
       customer: stripeCustomerId,
-      customer_update: { address: "auto" as const },
+      // name: "auto" wird von tax_id_collection bei bestehendem Customer verlangt.
+      customer_update: { address: "auto" as const, name: "auto" as const },
+      ...(STRIPE_AUTOMATIC_TAX_ENABLED
+        ? { automatic_tax: { enabled: true }, tax_id_collection: { enabled: true } }
+        : {}),
       mode: "subscription" as const,
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${baseUrl}/profile?premium=success`,

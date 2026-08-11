@@ -2,7 +2,13 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { stripe, STRIPE_PLANS, PARTNER_TRIAL_DAYS, type StripePlanKey } from "@/lib/stripe/config";
+import {
+  stripe,
+  STRIPE_PLANS,
+  PARTNER_TRIAL_DAYS,
+  STRIPE_AUTOMATIC_TAX_ENABLED,
+  type StripePlanKey,
+} from "@/lib/stripe/config";
 
 function getSupabaseAdmin() {
   return createClient(
@@ -111,8 +117,17 @@ export async function POST(req: Request) {
 
     const checkoutParams = {
       ...(stripeCustomerId
-        ? { customer: stripeCustomerId, customer_update: { address: "auto" as const } }
+        ? {
+            customer: stripeCustomerId,
+            // name: "auto" wird von tax_id_collection bei bestehendem Customer verlangt.
+            customer_update: { address: "auto" as const, name: "auto" as const },
+          }
         : { customer_email: user.email }),
+      // USt-IdNr.-Erfassung ist für B2B-Partner besonders relevant (steht
+      // damit automatisch auf der Stripe-Rechnung).
+      ...(STRIPE_AUTOMATIC_TAX_ENABLED
+        ? { automatic_tax: { enabled: true }, tax_id_collection: { enabled: true } }
+        : {}),
       mode: "subscription" as const,
       line_items: [{ price: plan.priceId, quantity: 1 }],
       success_url: `${baseUrl}/profile?payment=success`,
