@@ -726,7 +726,7 @@ export default function SavedPage() {
       return {
         kind: "plan" as const,
         id: plan.id,
-        href: `/planner?planId=${plan.id}`,
+        href: `/planner?planId=${plan.id}&resume=1`,
         title: plan.title?.trim() || context.occasionLabel,
         meta: `${context.cityLabel} · ${context.groupEnabled ? "Gruppe" : "Solo"}`,
         timestamp: plan.created_at,
@@ -938,7 +938,7 @@ export default function SavedPage() {
                 return (
                   <SavedListRow
                     key={plan.id}
-                    href={`/planner?planId=${plan.id}`}
+                    href={`/planner?planId=${plan.id}&resume=1`}
                     emoji="🗓️"
                     title={plan.title?.trim() || context.occasionLabel}
                     meta={`${context.cityLabel} · ${context.occasionLabel} · ${context.groupEnabled ? "Gruppe" : "Solo"} · Erstellt ${formatDate(plan.created_at)}`}
@@ -1056,7 +1056,7 @@ export default function SavedPage() {
                 return (
                   <SavedListRow
                     key={plan.id}
-                    href={`/planner?planId=${plan.id}&mode=edit`}
+                    href={`/planner?planId=${plan.id}&resume=1`}
                     emoji="✏️"
                     title={plan.title?.trim() || context.occasionLabel}
                     meta={`${context.cityLabel} · ${draftProgress(plan)}% vorbereitet`}

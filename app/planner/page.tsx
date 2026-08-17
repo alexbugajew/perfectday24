@@ -2111,14 +2111,35 @@ function PlannerPageContent() {
                 Anmelden zum Speichern
               </Link>
             ) : (
-              <button
-                type="button"
-                onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
-                disabled={!authReady || !userId || saving || plannedStops.length === 0}
-                className="pd24-btn pd24-btn-secondary flex-1 active:scale-[0.98]"
-              >
-                {!authReady ? "Einen Moment ..." : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={() => void savePlan(false, editingPlanId ? "new_version" : "default")}
+                  disabled={!authReady || !userId || saving || plannedStops.length === 0}
+                  className="pd24-btn pd24-btn-secondary flex-1 active:scale-[0.98]"
+                >
+                  {!authReady ? "Einen Moment ..." : saving ? "Speichern..." : editingPlanId ? "Als neuen Stand speichern" : "Plan speichern"}
+                </button>
+                {selectedPlan ?? latestSavedPlan ? (
+                  // Teilen auch ohne Gruppenmodus, sobald ein gespeicherter Plan da ist —
+                  // z. B. nach dem Öffnen aus "Meine Pläne".
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const planToShare = selectedPlan ?? latestSavedPlan;
+                      if (planToShare) void sharePlan(planToShare);
+                    }}
+                    disabled={plannedStops.length === 0}
+                    className="pd24-btn pd24-btn-secondary flex-1 active:scale-[0.98]"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                    Plan teilen
+                  </button>
+                ) : null}
+              </>
             )}
           </div>
 
