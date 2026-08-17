@@ -374,7 +374,7 @@ export default function HeroIntentBar() {
             if (e.key === "Enter") handleSubmit();
           }}
           placeholder='z. B. „Date-Abend in München mit Live-Konzert"'
-          className="min-h-[56px] flex-1 bg-transparent px-5 text-base text-[var(--text-strong)] placeholder-[#b0a49a] outline-none"
+          className="min-h-[56px] w-0 min-w-0 flex-1 bg-transparent px-5 text-base text-[var(--text-strong)] placeholder-[#b0a49a] outline-none"
         />
         <button
           type="button"
@@ -382,26 +382,29 @@ export default function HeroIntentBar() {
           disabled={text.trim().length === 0}
           className="pd24-btn pd24-btn-sm pd24-btn-primary m-1.5 shrink-0 active:scale-[0.97]"
         >
-          Autopilot starten
+          <span className="sm:hidden">Autopilot</span>
+          <span className="hidden sm:inline">Autopilot starten</span>
           <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
             <path fillRule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clipRule="evenodd" />
           </svg>
         </button>
       </div>
 
-      {/* Scenario tiles */}
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="pd24-meta">Oder Vorlage:</span>
-        {SCENARIOS.map((scenario) => (
-          <button
-            key={scenario.key}
-            type="button"
-            onClick={() => handleScenarioTile(scenario)}
-            className="inline-flex min-h-11 items-center rounded-full border border-[var(--line-strong)] bg-white/80 px-4 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.35)] hover:bg-[rgba(196,137,79,0.06)] hover:text-[var(--text-strong)] active:scale-[0.97]"
-          >
-            {scenario.emoji} {scenario.label}
-          </button>
-        ))}
+      {/* Scenario tiles — mobil als ruhiges 2er-Raster statt wild umbrechender Pillen */}
+      <div className="space-y-2">
+        <span className="pd24-meta block sm:inline">Oder Vorlage:</span>
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
+          {SCENARIOS.map((scenario) => (
+            <button
+              key={scenario.key}
+              type="button"
+              onClick={() => handleScenarioTile(scenario)}
+              className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line-strong)] bg-white/80 px-4 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(196,137,79,0.35)] hover:bg-[rgba(196,137,79,0.06)] hover:text-[var(--text-strong)] active:scale-[0.97] sm:justify-start"
+            >
+              {scenario.emoji} {scenario.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

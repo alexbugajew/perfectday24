@@ -346,9 +346,12 @@ export default async function HomepageScaffoldMinimal() {
               >
                 Events
               </Link>
+              {/* Mobil ausgeblendet: die vierte Pille bricht die Zeile und wirkt
+                  im Nutzer-Einstieg deplatziert — Partner-CTA kommt weiter unten
+                  in der Partner-Sektion und im Footer. */}
               <Link
                 href="/partner"
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] hover:bg-white"
+                className="hidden min-h-11 items-center justify-center rounded-full border border-[rgba(196,137,79,0.28)] bg-[rgba(255,249,241,0.92)] px-4 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:border-[var(--text-strong)] hover:bg-white sm:inline-flex"
               >
                 Partner werden
               </Link>
@@ -383,11 +386,11 @@ export default async function HomepageScaffoldMinimal() {
 
                 <HeroIntentBar />
 
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <PD24Button href="/planner" className="min-w-[12rem]">
+                <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
+                  <PD24Button href="/planner" className="w-full sm:w-auto sm:min-w-[12rem]">
                     Tag jetzt planen
                   </PD24Button>
-                  <PD24Button href="#hero-proof" variant="secondary" className="min-w-[11rem]">
+                  <PD24Button href="#hero-proof" variant="secondary" className="w-full sm:w-auto sm:min-w-[11rem]">
                     Beispiel ansehen
                   </PD24Button>
                 </div>
