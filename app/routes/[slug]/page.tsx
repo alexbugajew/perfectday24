@@ -316,7 +316,7 @@ function SuggestionCard({
   const coverImageUrl = renderableImageUrl(route.cover_image_url);
 
   return (
-    <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
+    <div className="overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white shadow-sm">
       <div className="relative h-36 bg-gradient-to-br from-stone-100 via-white to-stone-200">
         {coverImageUrl ? (
           <>
@@ -339,9 +339,9 @@ function SuggestionCard({
         ) : null}
         <RecommendationReason reason={reason} reasonBadges={reasonBadges} />
         <div className="flex flex-wrap gap-2">
-          <span className="rounded-full border px-2 py-1 text-[11px] text-[var(--text-muted)]">{cityLabel}</span>
+          <span className="rounded-full border border-[var(--line-subtle)] px-2 py-1 text-[11px] text-[var(--text-muted)]">{cityLabel}</span>
           {durationBadge ? (
-            <span className="rounded-full border px-2 py-1 text-[11px] text-[var(--text-muted)]">{durationBadge}</span>
+            <span className="rounded-full border border-[var(--line-subtle)] px-2 py-1 text-[11px] text-[var(--text-muted)]">{durationBadge}</span>
           ) : null}
           {badges.map((badge, badgeIndex) => (
             <span
@@ -366,7 +366,7 @@ function SuggestionCard({
           </div>
         ) : null}
         {href ? (
-          <Link href={href} className="inline-flex rounded-xl border px-3 py-2 text-sm hover:bg-[var(--bg-surface)]">
+          <Link href={href} className="inline-flex rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-sm hover:bg-[var(--bg-surface)]">
             Route öffnen
           </Link>
         ) : null}
@@ -1951,7 +1951,7 @@ function RouteDetailPageContent() {
             <div className="text-sm text-[var(--text-muted)]">Route wird vorbereitet</div>
           </div>
 
-          <section className="overflow-hidden rounded-[28px] border bg-white shadow-sm">
+          <section className="overflow-hidden rounded-[28px] border border-[var(--line-subtle)] bg-white shadow-sm">
             <div className="h-[280px] animate-pulse bg-gradient-to-br from-stone-100 via-stone-50 to-stone-200 md:h-[360px]" />
             <div className="grid gap-6 p-6 md:grid-cols-[1.2fr_0.8fr] md:p-8">
               <div className="space-y-4">
@@ -1961,7 +1961,7 @@ function RouteDetailPageContent() {
                 <div className="h-4 w-3/4 animate-pulse rounded-full bg-stone-100" />
                 <div className="grid grid-cols-4 gap-1.5">
                   {Array.from({ length: 4 }).map((_, index) => (
-                    <div key={index} className="min-w-0 rounded-xl border bg-stone-50 px-1.5 py-2">
+                    <div key={index} className="min-w-0 rounded-xl border border-[var(--line-subtle)] bg-stone-50 px-1.5 py-2">
                       <div className="mx-auto h-2 w-8 animate-pulse rounded-full bg-stone-100" />
                       <div className="mx-auto mt-2 h-3 w-10 animate-pulse rounded-full bg-stone-100" />
                     </div>
@@ -1969,12 +1969,12 @@ function RouteDetailPageContent() {
                 </div>
               </div>
               <div className="space-y-4">
-                <div className="rounded-2xl border bg-stone-50 p-5">
+                <div className="rounded-2xl border border-[var(--line-subtle)] bg-stone-50 p-5">
                   <div className="h-4 w-20 animate-pulse rounded-full bg-stone-100" />
                   <div className="mt-3 h-5 w-40 animate-pulse rounded-full bg-stone-100" />
                   <div className="mt-2 h-4 w-32 animate-pulse rounded-full bg-stone-100" />
                 </div>
-                <div className="rounded-2xl border bg-stone-50 p-5">
+                <div className="rounded-2xl border border-[var(--line-subtle)] bg-stone-50 p-5">
                   <div className="h-4 w-24 animate-pulse rounded-full bg-stone-100" />
                   <div className="mt-3 h-5 w-48 animate-pulse rounded-full bg-stone-100" />
                 </div>
@@ -1982,7 +1982,7 @@ function RouteDetailPageContent() {
             </div>
           </section>
 
-          <div className="rounded-2xl border bg-white px-4 py-3 text-sm text-[var(--text-muted)]">
+          <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm text-[var(--text-muted)]">
             {slowLoad
               ? "Die Route braucht gerade länger als üblich. Du kannst auf der Seite bleiben oder zurück zur Routenübersicht wechseln."
               : "Lade Route..."}
@@ -2060,7 +2060,7 @@ function RouteDetailPageContent() {
         </Link>
       </div>
 
-      <section className="overflow-hidden rounded-[28px] border bg-white shadow-sm">
+      <section className="overflow-hidden rounded-[28px] border border-[var(--line-subtle)] bg-white shadow-sm">
         {heroCover ? (
           <div className="relative bg-[var(--bg-surface)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -2119,11 +2119,11 @@ function RouteDetailPageContent() {
         ) : (
             <div className="bg-gradient-to-br from-stone-100 via-white to-stone-200 p-8 md:p-10">
             <div className="mb-3 flex flex-wrap gap-2">
-              <span className="rounded-full border px-3 py-1 text-xs">{routeCreatorLabel(route, creator)}</span>
+              <span className="rounded-full border border-[var(--line-subtle)] px-3 py-1 text-xs">{routeCreatorLabel(route, creator)}</span>
               {route.visibility !== "public" ? (
-                <span className="rounded-full border px-3 py-1 text-xs">{visibilityLabel(route.visibility)}</span>
+                <span className="rounded-full border border-[var(--line-subtle)] px-3 py-1 text-xs">{visibilityLabel(route.visibility)}</span>
               ) : null}
-              <span className="rounded-full border px-3 py-1 text-xs">{routeCityLabel}</span>
+              <span className="rounded-full border border-[var(--line-subtle)] px-3 py-1 text-xs">{routeCityLabel}</span>
               {personalizedVariantMeta ? <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-800">Persönliche Variante</span> : null}
             </div>
               <h1 className="max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">{route.title}</h1>
@@ -2173,7 +2173,7 @@ function RouteDetailPageContent() {
                 <div
                   key={fact.label}
                   title={fact.title ?? fact.value}
-                  className="min-w-0 overflow-hidden rounded-xl border bg-[var(--bg-surface)] px-1.5 py-2 text-center"
+                  className="min-w-0 overflow-hidden rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-1.5 py-2 text-center"
                 >
                   <div className="truncate text-[8.5px] font-medium uppercase tracking-[0.08em] text-[var(--text-muted)] sm:text-[10px]">
                     {fact.label}
@@ -2276,9 +2276,9 @@ function RouteDetailPageContent() {
           </div>
 
           <aside className="space-y-3">
-            <div className="rounded-2xl border bg-[var(--bg-surface)] p-3">
+            <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3">
               <div className="flex items-center gap-3">
-                <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border bg-white">
+                <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[var(--line-subtle)] bg-white">
                   {creator?.avatar_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={creator.avatar_url} alt={creatorName} className="h-full w-full object-cover" />
@@ -2371,10 +2371,10 @@ function RouteDetailPageContent() {
           </div>
 
           {routeInfoOpen ? (
-            <div id="route-personalization" className="rounded-2xl border bg-white p-4">
+            <div id="route-personalization" className="rounded-2xl border border-[var(--line-subtle)] bg-white p-4">
               <div className="grid gap-3 lg:grid-cols-3">
                 {(adjustableStopsCount > 0 || adjustedStopsCount > 0) ? (
-                  <div className="rounded-2xl border bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
+                  <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
                     <div className="text-sm font-medium text-[var(--text-strong)]">Personalisierung dieser Route</div>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {adjustableStopsCount > 0 ? <span className="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-800">{adjustableStopsCount} anpassbar</span> : null}
@@ -2405,7 +2405,7 @@ function RouteDetailPageContent() {
                     </div>
                   </div>
                 ) : null}
-                <div className="rounded-2xl border bg-[var(--bg-surface)] px-4 py-3 text-xs text-[var(--text-muted)]">
+                <div className="rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-xs text-[var(--text-muted)]">
                   <div className="text-sm font-medium text-[var(--text-strong)]">Fixiert / Anpassbar</div>
                   <div className="mt-2 flex flex-wrap gap-2">
                     <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-800">Fixiert</span>
@@ -2414,7 +2414,7 @@ function RouteDetailPageContent() {
                   <div className="mt-2 leading-5 text-[var(--text-muted)]">Fixierte Stops sind Kern-Highlights. Anpassbar sind meist Food-, Aktivitäts- oder Einkehr-Stationen.</div>
                 </div>
                 {personalizationKindsInRoute.length > 0 ? (
-                  <div className="rounded-2xl border bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
+                  <div className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
                     <div className="text-sm font-medium text-[var(--text-strong)]">Was in dieser Route anpassbar ist</div>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {personalizationKindsInRoute.map((kind) => (
@@ -2436,7 +2436,7 @@ function RouteDetailPageContent() {
               <button
                 onClick={() => void continueAsGuest()}
                 disabled={authLoading}
-                className="rounded-full border px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-surface)] disabled:opacity-60"
+                className="rounded-full border border-[var(--line-subtle)] px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-surface)] disabled:opacity-60"
               >
                 {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
               </button>
@@ -2451,7 +2451,7 @@ function RouteDetailPageContent() {
         </div>
       ) : null}
 
-      <section id="route-map" className="space-y-4 rounded-2xl border bg-white p-4 shadow-sm md:p-8">
+      <section id="route-map" className="space-y-4 rounded-2xl border border-[var(--line-subtle)] bg-white p-4 shadow-sm md:p-8">
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
               <div className="font-semibold">Route & Karte</div>
@@ -2461,13 +2461,13 @@ function RouteDetailPageContent() {
               <button
                 disabled={!googleRouteUrl}
                 onClick={() => { if (googleRouteUrl) window.open(googleRouteUrl, "_blank", "noreferrer"); }}
-                className="rounded-full border bg-white px-4 py-2 text-sm font-medium text-[var(--text-strong)] hover:bg-[var(--bg-surface)] disabled:opacity-60"
+                className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm font-medium text-[var(--text-strong)] hover:bg-[var(--bg-surface)] disabled:opacity-60"
               >
                 In Google Maps öffnen
               </button>
               <label className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
                 <span className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Wegprofil</span>
-                <select value={routeProfile} onChange={(e) => setRouteProfile(e.target.value as "foot" | "car")} className="rounded-full border px-4 py-2 text-sm text-[var(--text-strong)]">
+                <select value={routeProfile} onChange={(e) => setRouteProfile(e.target.value as "foot" | "car")} className="rounded-full border border-[var(--line-subtle)] px-4 py-2 text-sm text-[var(--text-strong)]">
                   <option value="foot">Zu Fuß</option>
                   <option value="car">Auto</option>
                 </select>
@@ -2475,7 +2475,7 @@ function RouteDetailPageContent() {
             </div>
           </div>
 
-          <div className="-mx-4 overflow-hidden rounded-none border-y sm:mx-0 sm:rounded-2xl sm:border">
+          <div className="-mx-4 overflow-hidden rounded-none border-y border-[var(--line-subtle)] sm:mx-0 sm:rounded-2xl sm:border">
             <PlanMap stops={mapStops} profile={routeProfile} height={360} onSummary={(s) => setRouteSummary(s)} showHeader={false} />
           </div>
 
@@ -2545,9 +2545,9 @@ function RouteDetailPageContent() {
           <div className="text-sm text-[var(--text-muted)]">{stops.length} Stop{stops.length === 1 ? "" : "s"}</div>
         </div>
         {stopsLoading ? (
-          <div className="rounded-2xl border bg-white p-4">Lade Stops...</div>
+          <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-4">Lade Stops...</div>
         ) : stops.length === 0 ? (
-          <div className="rounded-2xl border bg-white p-4 text-sm text-[var(--text-muted)]">Diese Route hat noch keine Stops.</div>
+          <div className="rounded-2xl border border-[var(--line-subtle)] bg-white p-4 text-sm text-[var(--text-muted)]">Diese Route hat noch keine Stops.</div>
         ) : (
           <div className="space-y-5">
             {stops.map((stop) => {
@@ -2572,11 +2572,11 @@ function RouteDetailPageContent() {
               const stopPhotoAttributionMeta =
                 !primaryStopMediaUrl && rawStopPhotoUrl && rawStopPhotoUrl === stop.photo_url ? stop.meta : null;
               return (
-              <div key={stop.id} className="rounded-2xl border bg-white p-4 shadow-sm">
+              <div key={stop.id} className="rounded-2xl border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
                 <div className="flex flex-col gap-4 sm:flex-row">
                   {/* Bild links — mobil oben, auf sm streckt es sich auf die Texthöhe */}
                   {stopPhotoUrl ? (
-                    <div className="relative w-full overflow-hidden rounded-2xl border bg-[var(--bg-surface)] sm:w-[250px] sm:shrink-0 sm:self-stretch sm:min-h-[230px]">
+                    <div className="relative w-full overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] sm:w-[250px] sm:shrink-0 sm:self-stretch sm:min-h-[230px]">
                       <div className="absolute left-3 top-3 z-10">
                         {adjustable ? (
                           <div className="rounded-full border border-amber-200 bg-amber-100/95 px-2.5 py-1 text-[11px] font-medium text-amber-900 shadow-sm backdrop-blur">
@@ -2607,9 +2607,9 @@ function RouteDetailPageContent() {
                   <div className="min-w-0 flex-1 space-y-3">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex min-w-0 flex-wrap items-center gap-1.5">
-                      <div className="rounded-full border px-2.5 py-1 text-[11px]">Stop {stop.stop_order}</div>
+                      <div className="rounded-full border border-[var(--line-subtle)] px-2.5 py-1 text-[11px]">Stop {stop.stop_order}</div>
                       {stop.is_required ? <div className="rounded-full bg-[var(--text-strong)] px-2.5 py-1 text-[11px] text-white">Pflicht</div> : null}
-                      {stop.duration_min != null ? <div className="rounded-full border px-2.5 py-1 text-[11px]">{stop.duration_min} Min</div> : null}
+                      {stop.duration_min != null ? <div className="rounded-full border border-[var(--line-subtle)] px-2.5 py-1 text-[11px]">{stop.duration_min} Min</div> : null}
                       {adjustable ? (
                         <div className={`rounded-full px-2.5 py-1 text-[11px] ${kindTone(personalizationKind)}`}>↔ {kindLabel(personalizationKind)}</div>
                       ) : (
@@ -2622,7 +2622,7 @@ function RouteDetailPageContent() {
                         targetUrl={externalTargetUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium hover:bg-[var(--bg-surface)]"
+                        className="shrink-0 rounded-full border border-[var(--line-subtle)] px-3 py-1.5 text-xs font-medium hover:bg-[var(--bg-surface)]"
                         routeId={route?.id ?? null}
                         locationId={resolvedLocationId}
                         partnerProfileId={affiliateMatch?.partnerProfileId ?? null}
@@ -2643,7 +2643,7 @@ function RouteDetailPageContent() {
                         <button
                           type="button"
                           onClick={() => cycleInlineCandidate(stop.id, "prev")}
-                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border text-sm hover:bg-[var(--bg-surface)]"
+                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border border-[var(--line-subtle)] text-sm hover:bg-[var(--bg-surface)]"
                           aria-label="Vorheriger Vorschlag"
                         >
                           ‹
@@ -2663,7 +2663,7 @@ function RouteDetailPageContent() {
                         <button
                           type="button"
                           onClick={() => cycleInlineCandidate(stop.id, "next")}
-                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border text-sm hover:bg-[var(--bg-surface)]"
+                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border border-[var(--line-subtle)] text-sm hover:bg-[var(--bg-surface)]"
                           aria-label="Nächster Vorschlag"
                         >
                           ›
@@ -2862,7 +2862,7 @@ function RouteDetailPageContent() {
         </section>
       ) : null}
 
-      <section id="route-rating" className="rounded-2xl border bg-white p-6 shadow-sm md:p-8">
+      <section id="route-rating" className="rounded-2xl border border-[var(--line-subtle)] bg-white p-6 shadow-sm md:p-8">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
             <div className="font-semibold">Deine Bewertung</div>
@@ -2878,7 +2878,7 @@ function RouteDetailPageContent() {
             <button key={n} onClick={() => { setMyRating(n); saveRating(n); }} className={`text-2xl ${n <= myRating ? "" : "opacity-30"}`} aria-label={`${n} Sterne`} type="button" disabled={!userId}>★</button>
           ))}
         </div>
-        <textarea value={myReview} onChange={(e) => setMyReview(e.target.value)} placeholder="Dein Feedback (optional)" className="min-h-[88px] w-full rounded-xl border p-3 text-sm" />
+        <textarea value={myReview} onChange={(e) => setMyReview(e.target.value)} placeholder="Dein Feedback (optional)" className="min-h-[88px] w-full rounded-xl border border-[var(--line-subtle)] p-3 text-sm" />
         <div className="mt-3">
           <button onClick={() => saveRating()} disabled={savingRating || !userId} className="pd24-btn pd24-btn-secondary">
             {savingRating ? "Speichere..." : "Bewertung speichern"}

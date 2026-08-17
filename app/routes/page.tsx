@@ -1497,10 +1497,10 @@ async function handleDeleteRoute(routeId: string) {
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="flex flex-wrap gap-2 mb-2">
-                          <span className="text-[11px] px-2 py-1 rounded-full border bg-[var(--bg-panel)] text-[var(--text-muted)]">
+                          <span className="text-[11px] px-2 py-1 rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] text-[var(--text-muted)]">
                             {creatorLabel(route.creator_type)}
                           </span>
-                          <span className="text-[11px] px-2 py-1 rounded-full border bg-[var(--bg-panel)] text-[var(--text-muted)]">
+                          <span className="text-[11px] px-2 py-1 rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] text-[var(--text-muted)]">
                             {visibilityLabel(route.visibility)}
                           </span>
                           {isPersonalizedVariant ? (
@@ -1509,17 +1509,17 @@ async function handleDeleteRoute(routeId: string) {
                             </span>
                           ) : null}
                           {personalizedVariantName ? (
-                            <span className="text-[11px] px-2 py-1 rounded-full border bg-white text-[var(--text-muted)]">
+                            <span className="text-[11px] px-2 py-1 rounded-full border border-[var(--line-subtle)] bg-white text-[var(--text-muted)]">
                               {personalizedVariantName}
                             </span>
                           ) : null}
                           {route.city_slug ? (
-                            <span className="text-[11px] px-2 py-1 rounded-full border bg-[var(--bg-panel)] text-[var(--text-muted)]">
+                            <span className="text-[11px] px-2 py-1 rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] text-[var(--text-muted)]">
                               {route.city_slug}
                             </span>
                           ) : null}
                           {durationBadge ? (
-                            <span className="text-[11px] px-2 py-1 rounded-full border bg-[var(--bg-panel)] text-[var(--text-muted)]">
+                            <span className="text-[11px] px-2 py-1 rounded-full border border-[var(--line-subtle)] bg-[var(--bg-panel)] text-[var(--text-muted)]">
                               {durationBadge}
                             </span>
                           ) : null}
@@ -1947,12 +1947,12 @@ async function handleDeleteRoute(routeId: string) {
                     value={routeTagsInput}
                     onChange={(e) => setRouteTagsInput(e.target.value)}
                     placeholder="z. B. rooftop, vegan, museum, sunset"
-                    className="w-full border bg-white p-3 rounded-xl"
+                    className="w-full border border-[var(--line-subtle)] bg-white p-3 rounded-xl"
                   />
                 </label>
               </div>
 
-              <div className="rounded-xl border bg-[var(--bg-panel)] p-4 space-y-3">
+              <div className="rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-4 space-y-3">
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <div className="font-medium">Cover & Medien</div>
@@ -1975,7 +1975,7 @@ async function handleDeleteRoute(routeId: string) {
                     value={coverImageUrl}
                     onChange={(e) => setCoverImageUrl(e.target.value)}
                     placeholder="https://.../cover.jpg"
-                    className="w-full border bg-white p-3 rounded-xl"
+                    className="w-full border border-[var(--line-subtle)] bg-white p-3 rounded-xl"
                   />
                 </label>
 
@@ -2008,7 +2008,7 @@ async function handleDeleteRoute(routeId: string) {
                   ) : null}
                 </div>
 
-                <div className="rounded-2xl overflow-hidden border bg-white">
+                <div className="rounded-2xl overflow-hidden border border-[var(--line-subtle)] bg-white">
                   {coverPreviewUrl ? (
                     <div className="relative h-40">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -2087,7 +2087,7 @@ async function handleDeleteRoute(routeId: string) {
               </div>
 
               {!userId && authReady ? (
-                <div className="mt-3 rounded-xl border border-dashed p-3 text-sm text-[var(--text-muted)] space-y-2">
+                <div className="mt-3 rounded-xl border border-[var(--line-subtle)] border-dashed p-3 text-sm text-[var(--text-muted)] space-y-2">
                   <div>
                     Du bist noch nicht angemeldet. Für eigene Routen kannst du dich
                     einloggen oder direkt als Gast fortfahren.
@@ -2133,7 +2133,7 @@ async function handleDeleteRoute(routeId: string) {
               {locationResults.length > 0 ? (
                 <div className="mt-4 grid max-h-[20rem] gap-3 overflow-y-auto pr-1 md:grid-cols-2">
                   {locationResults.map((loc) => (
-                    <div key={loc.id} className="border rounded-xl p-3 flex flex-col gap-3">
+                    <div key={loc.id} className="border border-[var(--line-subtle)] rounded-xl p-3 flex flex-col gap-3">
                       <div>
                         <div className="font-medium">{loc.name}</div>
                         <div className="text-xs text-[var(--text-muted)]">
@@ -2200,9 +2200,9 @@ async function handleDeleteRoute(routeId: string) {
                           </div>
 
                           <div className="grid w-full grid-cols-3 gap-2 sm:w-auto sm:flex sm:shrink-0 sm:flex-wrap sm:justify-end">
-                            <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "up"); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]">Hoch</button>
-                            <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "down"); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]">Runter</button>
-                            <button type="button" onClick={(e) => { e.stopPropagation(); removeDraftStop(stop.localId); }} className="min-h-9 rounded-xl border px-3 py-2 text-xs font-medium text-[var(--state-error)] transition hover:bg-[var(--state-error)]/10">Entfernen</button>
+                            <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "up"); }} className="min-h-9 rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]">Hoch</button>
+                            <button type="button" onClick={(e) => { e.stopPropagation(); moveDraftStop(stop.localId, "down"); }} className="min-h-9 rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]">Runter</button>
+                            <button type="button" onClick={(e) => { e.stopPropagation(); removeDraftStop(stop.localId); }} className="min-h-9 rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-xs font-medium text-[var(--state-error)] transition hover:bg-[var(--state-error)]/10">Entfernen</button>
                           </div>
                         </div>
                       </div>
@@ -2229,7 +2229,7 @@ async function handleDeleteRoute(routeId: string) {
               </div>
 
               {activeStop ? (
-                <div className="space-y-3 border-t pt-4">
+                <div className="space-y-3 border-t border-[var(--line-subtle)] pt-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <div className="font-medium">Aktiver Stop</div>
@@ -2305,7 +2305,7 @@ async function handleDeleteRoute(routeId: string) {
                         <span className="font-medium">Aufenthalt</span>
                         <input value={activeStop.duration_min} onChange={(e) => updateDraftStop(activeStop.localId, { duration_min: e.target.value })} placeholder="z. B. 60" className="rounded-xl border border-[var(--line-subtle)] p-3" />
                       </label>
-                      <label className="flex items-center gap-2 text-sm border rounded-xl px-3 py-3 mt-7">
+                      <label className="flex items-center gap-2 text-sm border border-[var(--line-subtle)] rounded-xl px-3 py-3 mt-7">
                         <input type="checkbox" checked={activeStop.is_required} onChange={(e) => updateDraftStop(activeStop.localId, { is_required: e.target.checked })} />
                         Pflicht-Stop
                       </label>
@@ -2321,7 +2321,7 @@ async function handleDeleteRoute(routeId: string) {
                       <input value={activeStop.photo_url} onChange={(e) => updateDraftStop(activeStop.localId, { photo_url: e.target.value })} placeholder="https://.../bild.jpg" className="w-full rounded-xl border border-[var(--line-subtle)] p-3" />
                     </label>
 
-                    <div className="rounded-xl border bg-[var(--bg-panel)] p-3">
+                    <div className="rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-3">
                       <div className="font-medium text-sm">Kartenposition</div>
                       <div className="mt-1 text-xs text-[var(--text-muted)]">Nur nötig, wenn der Stop nicht schon über eine verknüpfte Location kommt.</div>
                       <div className="mt-3 grid grid-cols-2 gap-3">
@@ -2339,7 +2339,7 @@ async function handleDeleteRoute(routeId: string) {
                               <button
                                 type="button"
                                 onClick={() => restoreOriginalStop(activeStop.localId)}
-                                className="rounded-xl border px-3 py-2 text-xs"
+                                className="rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-xs"
                               >
                                 Original
                               </button>
@@ -2348,7 +2348,7 @@ async function handleDeleteRoute(routeId: string) {
                               <button
                                 type="button"
                                 onClick={() => applySwapCandidate(activeStop.localId, activeStop.swapCandidates![0])}
-                                className="rounded-xl border px-3 py-2 text-xs"
+                                className="rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-xs"
                               >
                                 Beste Wahl
                               </button>
@@ -2357,7 +2357,7 @@ async function handleDeleteRoute(routeId: string) {
                               <button
                                 type="button"
                                 onClick={() => applyNextSwapCandidate(activeStop.localId)}
-                                className="rounded-xl border px-3 py-2 text-xs"
+                                className="rounded-xl border border-[var(--line-subtle)] px-3 py-2 text-xs"
                               >
                                 Nächster Vorschlag
                               </button>
@@ -2400,22 +2400,22 @@ async function handleDeleteRoute(routeId: string) {
                   </div>
                 </div>
               ) : (
-                <div className="text-sm text-[var(--text-muted)] border-t pt-4">Wähle links einen Stop aus, um Details zu bearbeiten.</div>
+                <div className="text-sm text-[var(--text-muted)] border-t border-[var(--line-subtle)] pt-4">Wähle links einen Stop aus, um Details zu bearbeiten.</div>
               )}
 
-              <div className="border-t pt-4 space-y-2 text-sm">
+              <div className="border-t border-[var(--line-subtle)] pt-4 space-y-2 text-sm">
                 <div className="font-medium">Öffentliche Vorschau</div>
                 <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel)] p-4">
                   {coverPreviewUrl ? (
-                    <div className="mb-3 overflow-hidden rounded-xl border bg-white">
+                    <div className="mb-3 overflow-hidden rounded-xl border border-[var(--line-subtle)] bg-white">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={coverPreviewUrl} alt="Cover der Route" className="h-36 w-full object-cover" />
                     </div>
                   ) : null}
                   <div className="flex flex-wrap gap-2 mb-2">
-                    <span className="text-[11px] px-2 py-1 rounded-full border bg-white text-[var(--text-muted)]">{creatorLabel(creatorType)}</span>
-                    <span className="text-[11px] px-2 py-1 rounded-full border bg-white text-[var(--text-muted)]">{visibilityLabel(visibility)}</span>
-                    {selectedCitySlug ? <span className="text-[11px] px-2 py-1 rounded-full border bg-white text-[var(--text-muted)]">{selectedCitySlug}</span> : null}
+                    <span className="text-[11px] px-2 py-1 rounded-full border border-[var(--line-subtle)] bg-white text-[var(--text-muted)]">{creatorLabel(creatorType)}</span>
+                    <span className="text-[11px] px-2 py-1 rounded-full border border-[var(--line-subtle)] bg-white text-[var(--text-muted)]">{visibilityLabel(visibility)}</span>
+                    {selectedCitySlug ? <span className="text-[11px] px-2 py-1 rounded-full border border-[var(--line-subtle)] bg-white text-[var(--text-muted)]">{selectedCitySlug}</span> : null}
                   </div>
                   <div className="font-semibold text-lg">{title.trim() || "Route ohne Titel"}</div>
                   {description.trim() ? <div className="text-sm text-[var(--text-muted)] mt-1 line-clamp-3">{description}</div> : null}
