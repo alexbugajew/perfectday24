@@ -146,6 +146,8 @@ export type LocationRow = {
   id: string;
   name: string;
   type: string;
+  /** Einladende Kurzbeschreibung — vom Location-Besitzer gepflegt oder KI-generiert (Cache in DB). */
+  description?: string | null;
 
   budget?: string | null;
   occasion?: string | null;

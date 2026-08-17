@@ -162,6 +162,7 @@ const LOCATION_BASE_COLUMNS = [
   "id",
   "name",
   "type",
+  "description",
   "budget",
   "occasion",
   "daytime",

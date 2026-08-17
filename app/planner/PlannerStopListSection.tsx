@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLink";
 import type { PlannedStop, RouteProfile } from "@/lib/planner";
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
@@ -176,6 +179,46 @@ export default function PlannerStopListSection({
   onSetDraggedStopPosition,
   onBumpStop,
 }: PlannerStopListSectionProps) {
+  // Einladende Location-Beschreibungen: gepflegte Texte kommen direkt mit dem
+  // Plan (item.description); fehlende werden on-demand generiert und in der DB
+  // gecacht (/api/locations/describe). requestedRef verhindert Doppel-Requests.
+  const [aiDescriptions, setAiDescriptions] = useState<Record<string, string>>({});
+  const requestedDescriptionIds = useRef<Set<string>>(new Set());
+
+  useEffect(() => {
+    const missingIds = plannedStops
+      .filter(
+        (stop) =>
+          stop.item &&
+          stop.item.source_primary !== "planner_event" &&
+          !(typeof stop.item.description === "string" && stop.item.description.trim().length > 0)
+      )
+      .map((stop) => String(stop.item!.id))
+      .filter((id) => !requestedDescriptionIds.current.has(id));
+    if (missingIds.length === 0) return;
+    missingIds.forEach((id) => requestedDescriptionIds.current.add(id));
+
+    // Bewusst KEIN Abbruch über ein Cleanup-Flag: plannedStops bekommt bei
+    // jedem Parent-Render eine neue Identität, das Cleanup würde die Antwort
+    // verwerfen, obwohl die IDs schon als angefragt markiert sind. Der
+    // Cache-Merge ist idempotent und damit auch nach Re-Renders unbedenklich.
+    void (async () => {
+      try {
+        const res = await fetch("/api/locations/describe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ locationIds: missingIds.slice(0, 12) }),
+        });
+        if (!res.ok) return;
+        const json = (await res.json()) as { descriptions?: Record<string, string> };
+        if (!json?.descriptions) return;
+        setAiDescriptions((prev) => ({ ...prev, ...json.descriptions }));
+      } catch {
+        // Beschreibungen sind Zusatz-Komfort — Fehler still schlucken.
+      }
+    })();
+  }, [plannedStops]);
+
   return (
     <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-4 shadow-[var(--shadow-soft)] sm:p-5">
       <header className="mb-5 border-b border-[rgba(68,57,46,0.08)] pb-4">
@@ -302,14 +345,14 @@ export default function PlannerStopListSection({
                   </div>
                 ) : (
                 <div
-                  className={`min-w-0 flex-1 overflow-hidden rounded-lg border ${
+                  className={`flex min-w-0 flex-1 flex-col overflow-hidden rounded-lg border sm:flex-row ${
                     draggedStopPosition === i
                       ? "border-[rgba(199,104,60,0.32)] bg-[rgba(255,248,240,0.96)]"
                       : "border-[rgba(68,57,46,0.08)] bg-[rgba(255,253,248,0.94)]"
                   }`}
                 >
-                  {/* Großformatiges Hero-Foto */}
-                  <div className="relative h-32 w-full overflow-hidden sm:h-40">
+                  {/* Bild links (Magazin-Layout wie auf den Routen-Seiten) */}
+                  <div className="relative h-36 w-full shrink-0 overflow-hidden sm:h-auto sm:min-h-[200px] sm:w-[220px] sm:self-stretch">
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-[linear-gradient(135deg,rgba(248,244,237,0.96),rgba(231,238,242,0.92))]">
                       <div className="flex h-10 w-10 items-center justify-center rounded-md border border-[rgba(68,57,46,0.12)] bg-white text-xs font-semibold tracking-[0.14em] text-[var(--text-strong)] shadow-sm">
                         {visualMeta.icon}
@@ -323,7 +366,7 @@ export default function PlannerStopListSection({
                         src={imageUrl}
                         alt={stop.item?.name ? `Bild von ${stop.item.name}` : `${visualMeta.label} Bild`}
                         fill
-                        sizes="(min-width: 768px) 500px, 100vw"
+                        sizes="(min-width: 640px) 220px, 100vw"
                         className="object-cover"
                         loading="lazy"
                         unoptimized
@@ -332,8 +375,8 @@ export default function PlannerStopListSection({
                         }}
                       />
                     ) : null}
-                    {/* Gradient overlay für Lesbarkeit der Chips */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/15" />
+                    {/* Leichter Verlauf oben für die Lesbarkeit der Chips */}
+                    <div className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-black/30 to-transparent" />
                     {/* Phase-Chip oben links */}
                     {phaseLabel ? (
                       <span className="absolute left-3 top-3 rounded-full border border-white/30 bg-white/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-[var(--text-strong)] backdrop-blur-sm">
@@ -362,27 +405,37 @@ export default function PlannerStopListSection({
                         ↓
                       </button>
                     </div>
-                    {/* Name und Type-Pill unten auf dem Foto */}
-                    <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                  </div>
+
+                  {/* Content rechts neben dem Foto */}
+                  <div className="min-w-0 flex-1 p-3 sm:p-4">
+                    <div className="flex flex-wrap items-center gap-1.5">
                       {stop.item?.type ? (
-                        <span className="inline-block rounded-full border border-white/30 bg-white/85 px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)] backdrop-blur-sm">
+                        <span className="rounded-full border border-[rgba(68,57,46,0.1)] bg-white px-2 py-0.5 text-[10px] font-medium text-[var(--text-muted)]">
                           {stop.item.type}
                         </span>
                       ) : null}
-                      <div className="mt-1.5 text-base font-semibold leading-tight tracking-tight text-white drop-shadow sm:text-lg">
-                        {stop.item?.name ?? stop.label}
-                      </div>
+                      {stop.durationMin != null ? (
+                        <span className="rounded-full border border-[rgba(68,57,46,0.1)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]">
+                          {stop.durationMin} Min
+                        </span>
+                      ) : null}
                     </div>
-                  </div>
-
-                  {/* Content unter dem Foto */}
-                  <div className="p-3 sm:p-4">
-                    {(stop.hint || stop.durationMin != null) ? (
-                      <div className="text-xs text-[var(--text-muted)]">
-                        {stop.hint}
-                        {stop.durationMin != null ? ` · ${stop.durationMin} Min` : null}
-                      </div>
+                    <div className="mt-1.5 break-words text-base font-semibold leading-snug tracking-tight text-[var(--text-strong)] sm:text-lg">
+                      {stop.item?.name ?? stop.label}
+                    </div>
+                    {stop.hint ? (
+                      <div className="mt-0.5 text-xs text-[var(--text-muted)]">{stop.hint}</div>
                     ) : null}
+                    {(() => {
+                      const description =
+                        (typeof stop.item?.description === "string" && stop.item.description.trim().length > 0
+                          ? stop.item.description.trim()
+                          : null) ?? (stop.item ? aiDescriptions[String(stop.item.id)] ?? null : null);
+                      return description ? (
+                        <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{description}</p>
+                      ) : null;
+                    })()}
 
                     {/* Max 2 quality signals + warning chip */}
                     {qualitySignals.length > 0 || stop.timingWarnings?.length ? (
