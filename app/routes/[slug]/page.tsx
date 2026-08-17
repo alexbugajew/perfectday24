@@ -332,26 +332,26 @@ function SuggestionCard({
         ) : null}
       </div>
       <div className="space-y-3 p-4">
-        <div className="text-[11px] uppercase tracking-wide text-gray-400">{eyebrow}</div>
-        <div className="text-lg font-semibold text-gray-950 line-clamp-2">{route.title}</div>
+        <div className="text-[11px] uppercase tracking-wide text-[var(--text-muted)]">{eyebrow}</div>
+        <div className="text-lg font-semibold text-[var(--text-strong)] line-clamp-2">{route.title}</div>
         {route.description ? (
-          <p className="text-sm text-gray-600 line-clamp-2">{route.description}</p>
+          <p className="text-sm text-[var(--text-muted)] line-clamp-2">{route.description}</p>
         ) : null}
         <RecommendationReason reason={reason} reasonBadges={reasonBadges} />
         <div className="flex flex-wrap gap-2">
-          <span className="rounded-full border px-2 py-1 text-[11px] text-gray-700">{cityLabel}</span>
+          <span className="rounded-full border px-2 py-1 text-[11px] text-[var(--text-muted)]">{cityLabel}</span>
           {durationBadge ? (
-            <span className="rounded-full border px-2 py-1 text-[11px] text-gray-700">{durationBadge}</span>
+            <span className="rounded-full border px-2 py-1 text-[11px] text-[var(--text-muted)]">{durationBadge}</span>
           ) : null}
           {badges.map((badge, badgeIndex) => (
             <span
               key={`${route.id}-${badge.label}-${badgeIndex}`}
               className={`rounded-full px-2 py-1 text-[11px] ${
                 badge.tone === "dark"
-                  ? "bg-black text-white"
+                  ? "bg-[var(--text-strong)] text-white"
                   : badge.tone === "soft"
-                    ? "border border-black/10 bg-stone-100 text-gray-700"
-                    : "border bg-white text-gray-700"
+                    ? "border border-[var(--line-subtle)] bg-stone-100 text-[var(--text-muted)]"
+                    : "border bg-white text-[var(--text-muted)]"
               }`}
             >
               {badge.label}
@@ -359,14 +359,14 @@ function SuggestionCard({
           ))}
         </div>
         {(route.rating_count ?? 0) > 0 || (route.like_count ?? 0) > 0 || (route.bookmark_count ?? 0) > 0 ? (
-          <div className="flex items-center gap-3 text-xs text-gray-500">
+          <div className="flex items-center gap-3 text-xs text-[var(--text-muted)]">
             {(route.rating_count ?? 0) > 0 ? <span>{compactRating(route.avg_rating)} / 5</span> : null}
             {(route.like_count ?? 0) > 0 ? <span>{route.like_count} Likes</span> : null}
             {(route.bookmark_count ?? 0) > 0 ? <span>{route.bookmark_count} Saves</span> : null}
           </div>
         ) : null}
         {href ? (
-          <Link href={href} className="inline-flex rounded-xl border px-3 py-2 text-sm hover:bg-gray-50">
+          <Link href={href} className="inline-flex rounded-xl border px-3 py-2 text-sm hover:bg-[var(--bg-surface)]">
             Route öffnen
           </Link>
         ) : null}
@@ -1982,7 +1982,7 @@ function RouteDetailPageContent() {
             </div>
           </section>
 
-          <div className="rounded-2xl border bg-white px-4 py-3 text-sm text-gray-600">
+          <div className="rounded-2xl border bg-white px-4 py-3 text-sm text-[var(--text-muted)]">
             {slowLoad
               ? "Die Route braucht gerade länger als üblich. Du kannst auf der Seite bleiben oder zurück zur Routenübersicht wechseln."
               : "Lade Route..."}
@@ -2062,7 +2062,7 @@ function RouteDetailPageContent() {
 
       <section className="overflow-hidden rounded-[28px] border bg-white shadow-sm">
         {heroCover ? (
-          <div className="relative bg-gray-100">
+          <div className="relative bg-[var(--bg-surface)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={heroCover} alt={route.title} className="h-[300px] w-full object-cover md:h-[380px]" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
@@ -2127,16 +2127,16 @@ function RouteDetailPageContent() {
               {personalizedVariantMeta ? <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-800">Persönliche Variante</span> : null}
             </div>
               <h1 className="max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">{route.title}</h1>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-gray-700">{routeIntro}</p>
-            <div className="mt-3 text-sm text-gray-600">Aktualisiert {formatDate(route.updated_at)}</div>
-            <div className="mt-4 flex flex-wrap gap-2 text-xs text-gray-700">
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5">
+            <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--text-muted)]">{routeIntro}</p>
+            <div className="mt-3 text-sm text-[var(--text-muted)]">Aktualisiert {formatDate(route.updated_at)}</div>
+            <div className="mt-4 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
+              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5">
                 Sofort live nutzbar
               </span>
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5">
+              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5">
                 Direkt in Planner übernehmbar
               </span>
-              <span className="rounded-full border border-black/10 bg-white px-3 py-1.5">
+              <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5">
                 Auf Vorlieben anpassbar
               </span>
             </div>
@@ -2173,22 +2173,22 @@ function RouteDetailPageContent() {
                 <div
                   key={fact.label}
                   title={fact.title ?? fact.value}
-                  className="min-w-0 overflow-hidden rounded-xl border bg-gray-50 px-1.5 py-2 text-center"
+                  className="min-w-0 overflow-hidden rounded-xl border bg-[var(--bg-surface)] px-1.5 py-2 text-center"
                 >
-                  <div className="truncate text-[8.5px] font-medium uppercase tracking-[0.08em] text-gray-500 sm:text-[10px]">
+                  <div className="truncate text-[8.5px] font-medium uppercase tracking-[0.08em] text-[var(--text-muted)] sm:text-[10px]">
                     {fact.label}
                   </div>
-                  <div className="mt-0.5 truncate text-[11px] font-semibold leading-tight text-gray-950 sm:text-sm">
+                  <div className="mt-0.5 truncate text-[11px] font-semibold leading-tight text-[var(--text-strong)] sm:text-sm">
                     {fact.value}
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs text-gray-600">
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs text-[var(--text-muted)]">
               {(route.rating_count ?? 0) > 0 ? (
                 <span
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-[12px] font-semibold text-gray-950"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white text-[12px] font-semibold text-[var(--text-strong)]"
                   title={`${compactRating(route.avg_rating)} von 5`}
                 >
                   {compactRating(route.avg_rating)}/5
@@ -2198,11 +2198,11 @@ function RouteDetailPageContent() {
                 href="#route-rating"
                 aria-label={(route.rating_count ?? 0) > 0 ? `${route.rating_count} Bewertungen. Route bewerten` : "Route bewerten"}
                 title={(route.rating_count ?? 0) > 0 ? `${route.rating_count} Bewertungen` : "Route bewerten"}
-                className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-lg text-gray-900 transition hover:bg-gray-50"
+                className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white text-lg text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
               >
                 <span aria-hidden="true">☆</span>
                 {(route.rating_count ?? 0) > 0 ? (
-                  <span className="absolute -right-0.5 -top-0.5 min-w-5 rounded-full bg-gray-950 px-1 text-center text-[10px] font-semibold leading-5 text-white">
+                  <span className="absolute -right-0.5 -top-0.5 min-w-5 rounded-full bg-[var(--text-strong)] px-1 text-center text-[10px] font-semibold leading-5 text-white">
                     {compactCount(route.rating_count)}
                   </span>
                 ) : null}
@@ -2213,13 +2213,13 @@ function RouteDetailPageContent() {
                 aria-label={liked ? `${route.like_count} Likes. Like entfernen` : `${route.like_count} Likes. Route liken`}
                 title={`${route.like_count} Likes`}
                 className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-lg transition disabled:opacity-60 ${
-                  liked ? "border-black bg-black text-white" : "border-black/10 bg-white text-gray-900 hover:bg-gray-50"
+                  liked ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white" : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-surface)]"
                 }`}
               >
                 <span aria-hidden="true">♥</span>
                 {(route.like_count ?? 0) > 0 ? (
                   <span className={`absolute -right-0.5 -top-0.5 min-w-5 rounded-full px-1 text-center text-[10px] font-semibold leading-5 ${
-                    liked ? "bg-white text-gray-950" : "bg-gray-950 text-white"
+                    liked ? "bg-white text-[var(--text-strong)]" : "bg-[var(--text-strong)] text-white"
                   }`}>
                     {compactCount(route.like_count)}
                   </span>
@@ -2231,13 +2231,13 @@ function RouteDetailPageContent() {
                 aria-label={bookmarked ? `${route.bookmark_count} Saves. Gespeichert` : `${route.bookmark_count} Saves. Route speichern`}
                 title={`${route.bookmark_count} Saves`}
                 className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-base transition disabled:opacity-60 ${
-                  bookmarked ? "border-black bg-black text-white" : "border-black/10 bg-white text-gray-900 hover:bg-gray-50"
+                  bookmarked ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white" : "border-[var(--line-subtle)] bg-white text-[var(--text-strong)] hover:bg-[var(--bg-surface)]"
                 }`}
               >
                 <span aria-hidden="true">🔖</span>
                 {(route.bookmark_count ?? 0) > 0 ? (
                   <span className={`absolute -right-0.5 -top-0.5 min-w-5 rounded-full px-1 text-center text-[10px] font-semibold leading-5 ${
-                    bookmarked ? "bg-white text-gray-950" : "bg-gray-950 text-white"
+                    bookmarked ? "bg-white text-[var(--text-strong)]" : "bg-[var(--text-strong)] text-white"
                   }`}>
                     {compactCount(route.bookmark_count)}
                   </span>
@@ -2246,7 +2246,7 @@ function RouteDetailPageContent() {
             </div>
 
             {route.description ? (
-              <p className="rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm leading-7 text-gray-700 whitespace-pre-wrap">
+              <p className="rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm leading-7 text-[var(--text-muted)] whitespace-pre-wrap">
                 {route.description}
               </p>
             ) : null}
@@ -2276,19 +2276,19 @@ function RouteDetailPageContent() {
           </div>
 
           <aside className="space-y-3">
-            <div className="rounded-2xl border bg-gray-50 p-3">
+            <div className="rounded-2xl border bg-[var(--bg-surface)] p-3">
               <div className="flex items-center gap-3">
                 <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border bg-white">
                   {creator?.avatar_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={creator.avatar_url} alt={creatorName} className="h-full w-full object-cover" />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-gray-500">{creatorName.slice(0, 1).toUpperCase()}</div>
+                    <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-[var(--text-muted)]">{creatorName.slice(0, 1).toUpperCase()}</div>
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm font-semibold">{creatorName}</div>
-                  <div className="text-xs text-gray-500">{routeCreatorLabel(route, creator)}</div>
+                  <div className="text-xs text-[var(--text-muted)]">{routeCreatorLabel(route, creator)}</div>
                 </div>
                 {creatorProfileHref ? (
                   <Link href={creatorProfileHref} className="shrink-0 text-xs underline underline-offset-4">
@@ -2303,12 +2303,12 @@ function RouteDetailPageContent() {
                 <div className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
                   <span className="shrink-0 font-medium text-amber-950">Vorlieben</span>
                   {personalizationMembers.map((member) => (
-                    <span key={member.name} className={`shrink-0 rounded-full px-2.5 py-1 ${member.isCurrentUser ? "bg-black text-white" : "border border-black/10 bg-white text-gray-700"}`}>
+                    <span key={member.name} className={`shrink-0 rounded-full px-2.5 py-1 ${member.isCurrentUser ? "bg-[var(--text-strong)] text-white" : "border border-[var(--line-subtle)] bg-white text-[var(--text-muted)]"}`}>
                       {member.name}
                     </span>
                   ))}
                   {effectivePersonalizationInterests.slice(0, 3).map((interest) => (
-                    <span key={interest} className="shrink-0 rounded-full border border-black/10 bg-white px-2.5 py-1 text-gray-700">
+                    <span key={interest} className="shrink-0 rounded-full border border-[var(--line-subtle)] bg-white px-2.5 py-1 text-[var(--text-muted)]">
                       {interest}
                     </span>
                   ))}
@@ -2374,8 +2374,8 @@ function RouteDetailPageContent() {
             <div id="route-personalization" className="rounded-2xl border bg-white p-4">
               <div className="grid gap-3 lg:grid-cols-3">
                 {(adjustableStopsCount > 0 || adjustedStopsCount > 0) ? (
-                  <div className="rounded-2xl border bg-white px-4 py-3 text-xs text-gray-700">
-                    <div className="text-sm font-medium text-gray-900">Personalisierung dieser Route</div>
+                  <div className="rounded-2xl border bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
+                    <div className="text-sm font-medium text-[var(--text-strong)]">Personalisierung dieser Route</div>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {adjustableStopsCount > 0 ? <span className="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-800">{adjustableStopsCount} anpassbar</span> : null}
                       <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-800">{adjustedStopsCount} angepasst</span>
@@ -2400,22 +2400,22 @@ function RouteDetailPageContent() {
                         </span>
                       </div>
                     ) : null}
-                    <div className="mt-2 leading-5 text-gray-600">
+                    <div className="mt-2 leading-5 text-[var(--text-muted)]">
                       Vorschläge lassen sich durchschalten und danach als {groupMemberCount > 0 ? "Gruppen-" : "persönlicher "}Entwurf übernehmen.
                     </div>
                   </div>
                 ) : null}
-                <div className="rounded-2xl border bg-gray-50 px-4 py-3 text-xs text-gray-700">
-                  <div className="text-sm font-medium text-gray-900">Fixiert / Anpassbar</div>
+                <div className="rounded-2xl border bg-[var(--bg-surface)] px-4 py-3 text-xs text-[var(--text-muted)]">
+                  <div className="text-sm font-medium text-[var(--text-strong)]">Fixiert / Anpassbar</div>
                   <div className="mt-2 flex flex-wrap gap-2">
                     <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-800">Fixiert</span>
                     <span className="rounded-full bg-amber-100 px-3 py-1 text-xs text-amber-800">Anpassbar</span>
                   </div>
-                  <div className="mt-2 leading-5 text-gray-600">Fixierte Stops sind Kern-Highlights. Anpassbar sind meist Food-, Aktivitäts- oder Einkehr-Stationen.</div>
+                  <div className="mt-2 leading-5 text-[var(--text-muted)]">Fixierte Stops sind Kern-Highlights. Anpassbar sind meist Food-, Aktivitäts- oder Einkehr-Stationen.</div>
                 </div>
                 {personalizationKindsInRoute.length > 0 ? (
-                  <div className="rounded-2xl border bg-white px-4 py-3 text-xs text-gray-700">
-                    <div className="text-sm font-medium text-gray-900">Was in dieser Route anpassbar ist</div>
+                  <div className="rounded-2xl border bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
+                    <div className="text-sm font-medium text-[var(--text-strong)]">Was in dieser Route anpassbar ist</div>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {personalizationKindsInRoute.map((kind) => (
                         <span key={kind} className={`rounded-full px-3 py-1 text-xs ${kindTone(kind)}`}>
@@ -2423,7 +2423,7 @@ function RouteDetailPageContent() {
                         </span>
                       ))}
                     </div>
-                    <div className="mt-2 leading-5 text-gray-600">Diese Routentypen können angepasst werden, ohne die Kern-Highlights zu verlieren.</div>
+                    <div className="mt-2 leading-5 text-[var(--text-muted)]">Diese Routentypen können angepasst werden, ohne die Kern-Highlights zu verlieren.</div>
                   </div>
                 ) : null}
               </div>
@@ -2431,12 +2431,12 @@ function RouteDetailPageContent() {
           ) : null}
 
           {!userId && authReady ? (
-            <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--text-muted)]">
               <span>Ohne Konto testen?</span>
               <button
                 onClick={() => void continueAsGuest()}
                 disabled={authLoading}
-                className="rounded-full border px-3 py-2 text-sm text-gray-900 hover:bg-gray-50 disabled:opacity-60"
+                className="rounded-full border px-3 py-2 text-sm text-[var(--text-strong)] hover:bg-[var(--bg-surface)] disabled:opacity-60"
               >
                 {authLoading ? "Starte Gast..." : "Als Gast fortfahren"}
               </button>
@@ -2455,19 +2455,19 @@ function RouteDetailPageContent() {
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
               <div className="font-semibold">Route & Karte</div>
-              <div className="text-sm text-gray-600">Start, Stop-Namen und realistischer Wegverlauf im gewählten Profil.</div>
+              <div className="text-sm text-[var(--text-muted)]">Start, Stop-Namen und realistischer Wegverlauf im gewählten Profil.</div>
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <button
                 disabled={!googleRouteUrl}
                 onClick={() => { if (googleRouteUrl) window.open(googleRouteUrl, "_blank", "noreferrer"); }}
-                className="rounded-full border bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 disabled:opacity-60"
+                className="rounded-full border bg-white px-4 py-2 text-sm font-medium text-[var(--text-strong)] hover:bg-[var(--bg-surface)] disabled:opacity-60"
               >
                 In Google Maps öffnen
               </button>
-              <label className="flex items-center gap-2 text-sm text-gray-600">
-                <span className="text-xs uppercase tracking-wide text-gray-500">Wegprofil</span>
-                <select value={routeProfile} onChange={(e) => setRouteProfile(e.target.value as "foot" | "car")} className="rounded-full border px-4 py-2 text-sm text-gray-900">
+              <label className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+                <span className="text-xs uppercase tracking-wide text-[var(--text-muted)]">Wegprofil</span>
+                <select value={routeProfile} onChange={(e) => setRouteProfile(e.target.value as "foot" | "car")} className="rounded-full border px-4 py-2 text-sm text-[var(--text-strong)]">
                   <option value="foot">Zu Fuß</option>
                   <option value="car">Auto</option>
                 </select>
@@ -2541,13 +2541,13 @@ function RouteDetailPageContent() {
 
       <section id="route-stops">
         <div className="mb-4 flex items-center justify-between gap-3">
-          <div><h2 className="text-2xl font-semibold">Stops</h2><p className="text-sm text-gray-600">Die Route ist in Reihenfolge aufgebaut, damit du den Flow direkt nachvollziehen kannst.</p></div>
-          <div className="text-sm text-gray-500">{stops.length} Stop{stops.length === 1 ? "" : "s"}</div>
+          <div><h2 className="text-2xl font-semibold">Stops</h2><p className="text-sm text-[var(--text-muted)]">Die Route ist in Reihenfolge aufgebaut, damit du den Flow direkt nachvollziehen kannst.</p></div>
+          <div className="text-sm text-[var(--text-muted)]">{stops.length} Stop{stops.length === 1 ? "" : "s"}</div>
         </div>
         {stopsLoading ? (
           <div className="rounded-2xl border bg-white p-4">Lade Stops...</div>
         ) : stops.length === 0 ? (
-          <div className="rounded-2xl border bg-white p-4 text-sm text-gray-600">Diese Route hat noch keine Stops.</div>
+          <div className="rounded-2xl border bg-white p-4 text-sm text-[var(--text-muted)]">Diese Route hat noch keine Stops.</div>
         ) : (
           <div className="space-y-5">
             {stops.map((stop) => {
@@ -2591,7 +2591,7 @@ function RouteDetailPageContent() {
                         targetUrl={externalTargetUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium hover:bg-gray-50"
+                        className="shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium hover:bg-[var(--bg-surface)]"
                         routeId={route?.id ?? null}
                         locationId={resolvedLocationId}
                         partnerProfileId={affiliateMatch?.partnerProfileId ?? null}
@@ -2612,14 +2612,14 @@ function RouteDetailPageContent() {
                         <button
                           type="button"
                           onClick={() => cycleInlineCandidate(stop.id, "prev")}
-                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border text-sm hover:bg-gray-50"
+                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border text-sm hover:bg-[var(--bg-surface)]"
                           aria-label="Vorheriger Vorschlag"
                         >
                           ‹
                         </button>
                       ) : null}
                       <div className="min-w-0 flex-1">
-                        <div className="text-xl font-semibold leading-tight text-gray-950 sm:text-2xl">{displayCandidate.title || `Stop ${stop.stop_order}`}</div>
+                        <div className="text-xl font-semibold leading-tight text-[var(--text-strong)] sm:text-2xl">{displayCandidate.title || `Stop ${stop.stop_order}`}</div>
                         {adjustable && (inlineSwapLoading || hasInlineSwitch) ? (
                           <div className="mt-1 text-xs text-amber-700 line-clamp-1">
                             {inlineSwapLoading
@@ -2632,7 +2632,7 @@ function RouteDetailPageContent() {
                         <button
                           type="button"
                           onClick={() => cycleInlineCandidate(stop.id, "next")}
-                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border text-sm hover:bg-gray-50"
+                          className="mt-0.5 h-9 w-9 shrink-0 rounded-full border text-sm hover:bg-[var(--bg-surface)]"
                           aria-label="Nächster Vorschlag"
                         >
                           ›
@@ -2651,7 +2651,7 @@ function RouteDetailPageContent() {
                   ) : null}
                 </div>
                 {stopPhotoUrl ? (
-                  <div className="relative mt-3 overflow-hidden rounded-2xl border bg-gray-100">
+                  <div className="relative mt-3 overflow-hidden rounded-2xl border bg-[var(--bg-surface)]">
                     <div className="absolute left-3 top-3 z-10">
                       {adjustable ? (
                         <div className="rounded-full border border-amber-200 bg-amber-100/95 px-2.5 py-1 text-[11px] font-medium text-amber-900 shadow-sm backdrop-blur">
@@ -2678,7 +2678,7 @@ function RouteDetailPageContent() {
                   </div>
                 ) : null}
                 {(adjustable ? displayCandidate.note : stop.note) ? (
-                  <div className="mt-3 line-clamp-3 rounded-xl bg-gray-50 px-3 py-2 text-sm leading-6 text-gray-700 whitespace-pre-wrap">
+                  <div className="mt-3 line-clamp-3 rounded-xl bg-[var(--bg-surface)] px-3 py-2 text-sm leading-6 text-[var(--text-muted)] whitespace-pre-wrap">
                     {adjustable ? displayCandidate.note : stop.note}
                   </div>
                 ) : null}
@@ -2693,7 +2693,7 @@ function RouteDetailPageContent() {
           <div className="mb-4 flex items-end justify-between gap-3">
             <div>
               <h2 className="text-2xl font-semibold">Mehr von {creatorName}</h2>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-[var(--text-muted)]">
                 Weitere öffentliche Routen aus diesem Profil.
               </p>
             </div>
@@ -2716,30 +2716,30 @@ function RouteDetailPageContent() {
           <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
             <div>
               <h2 className="text-2xl font-semibold">Variantenfamilie</h2>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-[var(--text-muted)]">
                 Verknüpfte Originalroute und redaktionell eingeordnete Varianten dieser Route.
               </p>
-              <div className="mt-2 flex flex-wrap gap-2 text-xs text-gray-600">
-                <span className="rounded-full border border-black/10 bg-white px-3 py-1">
+              <div className="mt-2 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1">
                   {variantFamilyCounts.originals} Original
                   {variantFamilyCounts.originals === 1 ? "" : "e"}
                 </span>
-                <span className="rounded-full border border-black/10 bg-white px-3 py-1">
+                <span className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1">
                   {variantFamilyCounts.variants} Variante
                   {variantFamilyCounts.variants === 1 ? "" : "n"}
                 </span>
-                <span className="rounded-full border border-black/10 bg-stone-50 px-3 py-1">
+                <span className="rounded-full border border-[var(--line-subtle)] bg-stone-50 px-3 py-1">
                   Sichtbar: {variantFamilyCounts.visibleOriginals + variantFamilyCounts.visibleVariants}
                 </span>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600">
+            <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
               <label className="flex items-center gap-2">
                 <span>Familie</span>
                 <select
                   value={familyVariantFilter}
                   onChange={(e) => setFamilyVariantFilter(e.target.value as VariantFilter)}
-                  className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-gray-900"
+                  className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-strong)]"
                 >
                   <option value="all">Alle</option>
                   <option value="original">Nur Original</option>
@@ -2751,7 +2751,7 @@ function RouteDetailPageContent() {
                 <select
                   value={familyVariantSort}
                   onChange={(e) => setFamilyVariantSort(e.target.value as VariantSort)}
-                  className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-gray-900"
+                  className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-strong)]"
                 >
                   <option value="default">Relevanz + Aktualität</option>
                   <option value="original-first">Original zuerst</option>
@@ -2760,7 +2760,7 @@ function RouteDetailPageContent() {
               </label>
             </div>
           </div>
-          <div className="-mt-2 mb-4 text-xs text-gray-500">
+          <div className="-mt-2 mb-4 text-xs text-[var(--text-muted)]">
             {familyVariantFilter === "all"
               ? "Zeigt Basisroute und alle bekannten Varianten gemeinsam."
               : familyVariantFilter === "original"
@@ -2792,7 +2792,7 @@ function RouteDetailPageContent() {
         <section>
           <div className="mb-4">
             <h2 className="text-2xl font-semibold">Ähnliche Routen</h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-[var(--text-muted)]">
               Vorschläge mit ähnlicher Stadt, Stimmung oder öffentlicher Einordnung.
             </p>
           </div>
@@ -2809,7 +2809,7 @@ function RouteDetailPageContent() {
           <div className="mb-4 flex items-end justify-between gap-3">
             <div>
               <h2 className="text-2xl font-semibold">Passt zu deinen Interessen</h2>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-[var(--text-muted)]">
                 Vorschläge, die besonders gut zu deinem Profil passen{myInterests.length ? `: ${myInterests.slice(0, 4).join(", ")}` : ""}.
               </p>
             </div>
@@ -2836,7 +2836,7 @@ function RouteDetailPageContent() {
         <section>
           <div className="mb-4">
             <h2 className="text-2xl font-semibold">Oft gemeinsam gespeichert</h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-[var(--text-muted)]">
               Routen, die andere Nutzer häufig zusammen mit dieser Route gespeichert haben.
             </p>
           </div>
@@ -2859,13 +2859,13 @@ function RouteDetailPageContent() {
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
             <div className="font-semibold">Deine Bewertung</div>
-            <div className="mt-1 text-sm text-gray-600">Kurzes Feedback zu Flow, Stops und Gesamtgefühl.</div>
+            <div className="mt-1 text-sm text-[var(--text-muted)]">Kurzes Feedback zu Flow, Stops und Gesamtgefühl.</div>
           </div>
-          <div className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700">
+          <div className="rounded-full bg-[var(--bg-surface)] px-3 py-1 text-xs text-[var(--text-muted)]">
             {(route.rating_count ?? 0) > 0 ? `${compactRating(route.avg_rating)} / 5` : "Noch keine Bewertungen"}
           </div>
         </div>
-        {!userId && authReady ? <div className="mt-3 text-sm text-gray-600">Für Likes, Bookmarks und Bewertungen bitte anmelden oder als Gast fortfahren.</div> : null}
+        {!userId && authReady ? <div className="mt-3 text-sm text-[var(--text-muted)]">Für Likes, Bookmarks und Bewertungen bitte anmelden oder als Gast fortfahren.</div> : null}
         <div className="mt-4 mb-3 flex gap-2">
           {[1, 2, 3, 4, 5].map((n) => (
             <button key={n} onClick={() => { setMyRating(n); saveRating(n); }} className={`text-2xl ${n <= myRating ? "" : "opacity-30"}`} aria-label={`${n} Sterne`} type="button" disabled={!userId}>★</button>
@@ -2880,7 +2880,7 @@ function RouteDetailPageContent() {
       </section>
 
       {toast ? (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-xl bg-gray-900 px-4 py-2 text-sm text-white shadow-lg">
+        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm text-white shadow-lg">
           {toast}
         </div>
       ) : null}

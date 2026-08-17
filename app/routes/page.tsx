@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { supabase } from "@/lib/supabaseClient";
+import { dedupeCitiesByCanonicalSlug } from "@/lib/cities/canonical";
 import { inferPublicRouteBadges } from "@/lib/routes/public-route-badges";
 import { consumeRouteBuilderDraft } from "@/lib/routes/planner-route-bridge";
 
@@ -563,7 +564,18 @@ function RoutesPageContent() {
           return;
         }
 
-        setCities((data as CityRow[]) ?? []);
+        // Die cities-Tabelle enthält Dubletten (mehrere Slugs pro Stadt) und
+        // Verwaltungseinheiten — fürs Dropdown deduplizieren und ausfiltern.
+        const seenNames = new Set<string>();
+        const cleaned = dedupeCitiesByCanonicalSlug((data as CityRow[]) ?? [])
+          .filter((c) => !/^(Landkreis|Kreis|Regionalverband|Region)\s/i.test(c.name))
+          .filter((c) => {
+            const key = c.name.trim().toLowerCase();
+            if (seenNames.has(key)) return false;
+            seenNames.add(key);
+            return true;
+          });
+        setCities(cleaned);
       } finally {
         setCitiesLoading(false);
       }
@@ -1819,7 +1831,7 @@ async function handleDeleteRoute(routeId: string) {
                   <option value="">Stadt wählen</option>
                   {cities.map((c) => (
                     <option key={c.slug} value={c.slug}>
-                      {c.name}{typeof c.population === "number" ? ` | ${c.population.toLocaleString("de-DE")}` : ""}
+                      {c.name}
                     </option>
                   ))}
                 </select>
@@ -1877,7 +1889,7 @@ async function handleDeleteRoute(routeId: string) {
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <select value={creatorType} onChange={(e) => setCreatorType(e.target.value as CreatorType)} className="border p-3 rounded-xl">
+                <select value={creatorType} onChange={(e) => setCreatorType(e.target.value as CreatorType)} className="rounded-xl border border-[var(--line-subtle)] bg-white p-3">
                   <option value="user">User</option>
                   <option value="creator">Creator</option>
                   <option value="influencer">Influencer</option>
@@ -1896,7 +1908,7 @@ async function handleDeleteRoute(routeId: string) {
                 <div className="grid gap-3 md:grid-cols-3">
                   <label className="grid gap-2 text-sm">
                     <span className="font-medium">Occasion</span>
-                    <select value={routeOccasion} onChange={(e) => setRouteOccasion(e.target.value as RouteOccasion)} className="border bg-white p-3 rounded-xl">
+                    <select value={routeOccasion} onChange={(e) => setRouteOccasion(e.target.value as RouteOccasion)} className="rounded-xl border border-[var(--line-subtle)] bg-white p-3">
                       <option value="none">{routeOccasionLabel("none")}</option>
                       <option value="date">{routeOccasionLabel("date")}</option>
                       <option value="family">{routeOccasionLabel("family")}</option>
@@ -1908,7 +1920,7 @@ async function handleDeleteRoute(routeId: string) {
 
                   <label className="grid gap-2 text-sm">
                     <span className="font-medium">Route-Profil</span>
-                    <select value={routeProfileMode} onChange={(e) => setRouteProfileMode(e.target.value as RouteProfileMode)} className="border bg-white p-3 rounded-xl">
+                    <select value={routeProfileMode} onChange={(e) => setRouteProfileMode(e.target.value as RouteProfileMode)} className="rounded-xl border border-[var(--line-subtle)] bg-white p-3">
                       <option value="none">{routeProfileLabel("none")}</option>
                       <option value="foot">{routeProfileLabel("foot")}</option>
                       <option value="public_transit">{routeProfileLabel("public_transit")}</option>
@@ -1918,7 +1930,7 @@ async function handleDeleteRoute(routeId: string) {
 
                   <label className="grid gap-2 text-sm">
                     <span className="font-medium">Hauptthema</span>
-                    <select value={routeTheme} onChange={(e) => setRouteTheme(e.target.value as RouteTheme)} className="border bg-white p-3 rounded-xl">
+                    <select value={routeTheme} onChange={(e) => setRouteTheme(e.target.value as RouteTheme)} className="rounded-xl border border-[var(--line-subtle)] bg-white p-3">
                       <option value="none">{routeThemeLabel("none")}</option>
                       <option value="food">{routeThemeLabel("food")}</option>
                       <option value="culture">{routeThemeLabel("culture")}</option>
@@ -2109,7 +2121,7 @@ async function handleDeleteRoute(routeId: string) {
                   value={locationSearch}
                   onChange={(e) => setLocationSearch(e.target.value)}
                   placeholder="Locations suchen (z.B. Sushi, Museum, Bar, Bahnhof)"
-                  className="border p-3 rounded-xl flex-1 min-w-[260px]"
+                  className="flex-1 min-w-[260px] rounded-xl border border-[var(--line-subtle)] bg-white p-3"
                 />
                 <button onClick={() => void searchLocations()} disabled={searchingLocations} className="pd24-btn pd24-btn-secondary">
                   {searchingLocations ? "Suche..." : "Suchen"}
