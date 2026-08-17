@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import type { Dispatch, SetStateAction } from "react";
 import { CitySearchInput } from "@/components/ui/CitySearchInput";
 import InternalMonetizationSlot from "@/components/monetization/InternalMonetizationSlot";
@@ -356,8 +357,10 @@ export default function PlannerControlsSection({
 
   return (
     <>
-      {showPrefsModal ? (
-        /* Overlay — z-index über der Bottom Nav (z-[1300]) */
+      {showPrefsModal && typeof document !== "undefined" ? createPortal(
+        /* Overlay — z-index über der Bottom Nav (z-[1300]). Als Portal auf
+           document.body, weil die sticky Controls-Spalte sonst einen eigenen
+           Stacking-Kontext bildet und die Stop-Karten das Modal überdecken. */
         <div
           className="fixed inset-0 z-[1500] flex items-end bg-black/40 sm:items-center sm:p-4"
           role="dialog"
@@ -470,7 +473,8 @@ export default function PlannerControlsSection({
             </div>
 
           </div>
-        </div>
+        </div>,
+        document.body
       ) : null}
 
       <section className="overflow-hidden rounded-lg border border-[var(--line-subtle)] bg-white p-3 shadow-[var(--shadow-soft)]">

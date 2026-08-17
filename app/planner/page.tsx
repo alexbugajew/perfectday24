@@ -2077,9 +2077,22 @@ function PlannerPageContent() {
               <button
                 type="button"
                 onClick={() => {
-                  const planToShare = selectedPlan ?? latestSavedPlan;
-                  if (planToShare) void sharePlan(planToShare);
-                  else showToast("Speichere den Plan zuerst, um ihn zu teilen.");
+                  void (async () => {
+                    const planToShare = selectedPlan ?? latestSavedPlan;
+                    if (planToShare) {
+                      await sharePlan(planToShare);
+                      return;
+                    }
+                    // Kein gespeicherter Plan: automatisch speichern und direkt teilen —
+                    // im Gruppenmodus gibt es keinen separaten Speichern-Button.
+                    if (!userId) {
+                      showToast("Melde dich an, um den Plan mit deiner Gruppe zu teilen.");
+                      return;
+                    }
+                    const saved = await savePlan(false, editingPlanId ? "new_version" : "default");
+                    if (saved) await sharePlan(saved);
+                    else showToast("Der Plan konnte nicht gespeichert werden. Bitte versuche es erneut.");
+                  })();
                 }}
                 disabled={plannedStops.length === 0}
                 className="pd24-btn pd24-btn-secondary flex-1 active:scale-[0.98]"
