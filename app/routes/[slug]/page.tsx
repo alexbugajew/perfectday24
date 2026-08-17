@@ -2573,11 +2573,42 @@ function RouteDetailPageContent() {
                 !primaryStopMediaUrl && rawStopPhotoUrl && rawStopPhotoUrl === stop.photo_url ? stop.meta : null;
               return (
               <div key={stop.id} className="rounded-2xl border bg-white p-4 shadow-sm">
-                <div className="space-y-3">
+                <div className="flex flex-col gap-4 sm:flex-row">
+                  {/* Bild links — mobil oben, auf sm streckt es sich auf die Texthöhe */}
+                  {stopPhotoUrl ? (
+                    <div className="relative w-full overflow-hidden rounded-2xl border bg-[var(--bg-surface)] sm:w-[250px] sm:shrink-0 sm:self-stretch sm:min-h-[230px]">
+                      <div className="absolute left-3 top-3 z-10">
+                        {adjustable ? (
+                          <div className="rounded-full border border-amber-200 bg-amber-100/95 px-2.5 py-1 text-[11px] font-medium text-amber-900 shadow-sm backdrop-blur">
+                            ↔ Anpassbar
+                          </div>
+                        ) : (
+                          <div className="rounded-full border border-emerald-200 bg-emerald-100/95 px-2.5 py-1 text-[11px] font-medium text-emerald-900 shadow-sm backdrop-blur">
+                            ● Fixiert
+                          </div>
+                        )}
+                      </div>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={stopPhotoUrl}
+                        alt={displayCandidate.title || stop.title || `Stop ${stop.stop_order}`}
+                        className="h-[200px] w-full object-cover sm:absolute sm:inset-0 sm:h-full"
+                      />
+                      <ImageAttribution
+                        meta={stopPhotoAttributionMeta}
+                        compact
+                        tone="dark"
+                        className="absolute inset-x-3 bottom-3 truncate rounded-full bg-black/55 px-3 py-1 backdrop-blur"
+                      />
+                    </div>
+                  ) : null}
+
+                  {/* Text rechts */}
+                  <div className="min-w-0 flex-1 space-y-3">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex min-w-0 flex-wrap items-center gap-1.5">
                       <div className="rounded-full border px-2.5 py-1 text-[11px]">Stop {stop.stop_order}</div>
-                      {stop.is_required ? <div className="rounded-full bg-black px-2.5 py-1 text-[11px] text-white">Pflicht</div> : null}
+                      {stop.is_required ? <div className="rounded-full bg-[var(--text-strong)] px-2.5 py-1 text-[11px] text-white">Pflicht</div> : null}
                       {stop.duration_min != null ? <div className="rounded-full border px-2.5 py-1 text-[11px]">{stop.duration_min} Min</div> : null}
                       {adjustable ? (
                         <div className={`rounded-full px-2.5 py-1 text-[11px] ${kindTone(personalizationKind)}`}>↔ {kindLabel(personalizationKind)}</div>
@@ -2644,44 +2675,20 @@ function RouteDetailPageContent() {
                     <div className="rounded-xl bg-amber-50 px-3 py-2 text-xs text-amber-800">{displayCandidate.subtitle}</div>
                   ) : null}
 
+                  {/* Einladende Stop-Beschreibung — voller Fließtext statt geklemmter Box */}
+                  {(adjustable ? displayCandidate.note : stop.note) ? (
+                    <p className="text-[15px] leading-7 text-[var(--text-muted)] whitespace-pre-wrap">
+                      {adjustable ? displayCandidate.note : stop.note}
+                    </p>
+                  ) : null}
+
                   {reasonTextForKind(personalizationKind) ? (
-                    <div className="line-clamp-2 text-sm leading-6 text-[var(--text-muted)]">
+                    <div className="border-t border-[var(--line-subtle)] pt-2 text-xs leading-5 text-[var(--text-muted)]">
                       {reasonTextForKind(personalizationKind)}
                     </div>
                   ) : null}
+                  </div>
                 </div>
-                {stopPhotoUrl ? (
-                  <div className="relative mt-3 overflow-hidden rounded-2xl border bg-[var(--bg-surface)]">
-                    <div className="absolute left-3 top-3 z-10">
-                      {adjustable ? (
-                        <div className="rounded-full border border-amber-200 bg-amber-100/95 px-2.5 py-1 text-[11px] font-medium text-amber-900 shadow-sm backdrop-blur">
-                          ↔ Anpassbar
-                        </div>
-                      ) : (
-                        <div className="rounded-full border border-emerald-200 bg-emerald-100/95 px-2.5 py-1 text-[11px] font-medium text-emerald-900 shadow-sm backdrop-blur">
-                          ● Fixiert
-                        </div>
-                      )}
-                    </div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={stopPhotoUrl}
-                      alt={displayCandidate.title || stop.title || `Stop ${stop.stop_order}`}
-                      className="h-[210px] w-full object-cover sm:h-[260px]"
-                    />
-                    <ImageAttribution
-                      meta={stopPhotoAttributionMeta}
-                      compact
-                      tone="dark"
-                      className="absolute inset-x-3 bottom-3 truncate rounded-full bg-black/55 px-3 py-1 backdrop-blur"
-                    />
-                  </div>
-                ) : null}
-                {(adjustable ? displayCandidate.note : stop.note) ? (
-                  <div className="mt-3 line-clamp-3 rounded-xl bg-[var(--bg-surface)] px-3 py-2 text-sm leading-6 text-[var(--text-muted)] whitespace-pre-wrap">
-                    {adjustable ? displayCandidate.note : stop.note}
-                  </div>
-                ) : null}
               </div>
             )})}
           </div>
