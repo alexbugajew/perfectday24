@@ -78,23 +78,35 @@ function buildTextPrompt(b: RequestBody): string {
 
 // Bildmotive je Anlass — bewusst ohne Text im Bild (Typo aus Bildmodellen ist
 // unzuverlässig); die Karte setzt Titel/Datum selbst in HTML.
+// Feier-Anlässe bekommen bewusst lebendige Partystimmung (Feedback 17.08.:
+// "ruhig/romantisch" wirkte bei Geburtstagen fehl am Platz); nur Hochzeit
+// und Konferenz bleiben im eleganten bzw. professionellen Register.
 const IMAGE_MOTIF: Record<string, string> = {
-  Geburtstag:       "festliche Geburtstagstafel mit Kerzenschein, Konfetti und warmem Abendlicht",
+  Geburtstag:       "ausgelassene Geburtstagsfeier im Freien: Lichterketten, bunte Luftballons, Konfetti in der Luft, reich gedeckter Tisch mit Getränken, goldenes Abendlicht",
   Hochzeit:         "elegante Hochzeitsszene mit zarten Blumenarrangements in Rosé und Champagner, weiches Licht",
-  Teambuilding:     "freundliche Outdoor-Teamszene im Grünen, frische Salbeitöne, viel Tageslicht",
-  Firmenfeier:      "stilvolle Abendveranstaltung mit Lichterketten und Sektgläsern, tiefblaue Abendstimmung",
-  Kindergeburtstag: "fröhliche Kindergeburtstagsszene mit Luftballons und Wimpelketten in warmen Apricot-Tönen",
+  Teambuilding:     "energiegeladene Outdoor-Teamszene im Grünen mit Spielen und Picknick, strahlender Sommertag, viel Bewegung",
+  Firmenfeier:      "lebendige Abendveranstaltung mit Lichterketten, angestoßenen Sektgläsern und tanzender Menge, warme festliche Beleuchtung",
+  Kindergeburtstag: "quirlige Kindergeburtstagsparty mit Luftballons, Wimpelketten, Seifenblasen und buntem Partytisch, sonnig und verspielt",
   Konferenz:        "modernes, helles Konferenz-Ambiente mit klaren Linien, dezente Slate-Töne",
-  "Jubiläum":       "festliche Jubiläumsdekoration mit goldenen Akzenten und warmem Glanz",
-  "Städtereise":    "stimmungsvolle europäische Altstadtgasse im Abendlicht, Teal- und Cremetöne",
+  "Jubiläum":       "rauschende Jubiläumsfeier mit goldenen Ballons, Konfettiregen und funkelnden Lichtern, warme Glanzlichter",
+  "Städtereise":    "belebte europäische Altstadtgasse im Abendlicht mit Straßencafés und Lichterketten, sommerlich-warme Töne",
 };
 
+// Anlässe, die bewusst ruhig/edel bleiben — alle anderen bekommen den Party-Stil.
+const CALM_OCCASIONS = new Set(["Hochzeit", "Konferenz"]);
+
 function buildImagePrompt(b: RequestBody): string {
-  const motif = IMAGE_MOTIF[b.occasion] ?? `stimmungsvolle, festliche Szene passend zu: ${b.occasion}`;
+  const motif = IMAGE_MOTIF[b.occasion] ?? `fröhliche, festliche Szene passend zu: ${b.occasion}`;
+  const style = CALM_OCCASIONS.has(b.occasion)
+    ? "Hochwertiger editorialer Stil, weiche natürliche Farben, ruhige Komposition mit Tiefe."
+    : "Fröhlicher, einladender Illustration-trifft-Foto-Look: kräftige sommerliche Farben, viel Licht, spürbare Feierlaune und Dynamik — die Szene soll nach Party aussehen, nicht ruhig oder romantisch.";
   const city = b.city ? ` Die Szene darf dezent an ${b.city} erinnern.` : "";
+  const titleHint = b.title
+    ? ` Das Event heißt "${b.title.slice(0, 120)}" — passende Motivdetails (z. B. Grill, Picknick, Strand, Musik) gerne aufgreifen.`
+    : "";
   return (
-    `Elegantes Titelbild für eine Einladungskarte: ${motif}.${city} ` +
-    `Hochwertiger editorialer Stil, weiche natürliche Farben, ruhige Komposition mit Tiefe. ` +
+    `Titelbild für eine Einladungskarte: ${motif}.${titleHint}${city} ` +
+    `${style} ` +
     `WICHTIG: kein Text, keine Buchstaben, keine Zahlen, keine Logos, keine Wasserzeichen im Bild.`
   );
 }
