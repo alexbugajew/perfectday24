@@ -54,6 +54,13 @@ export const PARTNER_TRIAL_DAYS = 90;
 export const STRIPE_AUTOMATIC_TAX_ENABLED =
   process.env.STRIPE_AUTOMATIC_TAX === "true" || process.env.STRIPE_AUTOMATIC_TAX === "1";
 
+// AGB-Zustimmung als Pflichtfeld im Stripe-Checkout. Erst aktivieren, wenn im
+// Stripe-Dashboard unter Settings → Business → Public details die
+// "Terms of service"-URL (https://www.perfectday24.de/agb) hinterlegt ist —
+// ohne URL lehnt Stripe Sessions mit consent_collection ab.
+export const STRIPE_TOS_CONSENT_ENABLED =
+  process.env.STRIPE_TOS_CONSENT === "true" || process.env.STRIPE_TOS_CONSENT === "1";
+
 export type StripePlan = {
   key: StripePlanKey;
   label: string;

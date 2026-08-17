@@ -7,6 +7,7 @@ import {
   STRIPE_PLANS,
   PARTNER_TRIAL_DAYS,
   STRIPE_AUTOMATIC_TAX_ENABLED,
+  STRIPE_TOS_CONSENT_ENABLED,
   type StripePlanKey,
 } from "@/lib/stripe/config";
 
@@ -127,6 +128,9 @@ export async function POST(req: Request) {
       // damit automatisch auf der Stripe-Rechnung).
       ...(STRIPE_AUTOMATIC_TAX_ENABLED
         ? { automatic_tax: { enabled: true }, tax_id_collection: { enabled: true } }
+        : {}),
+      ...(STRIPE_TOS_CONSENT_ENABLED
+        ? { consent_collection: { terms_of_service: "required" as const } }
         : {}),
       mode: "subscription" as const,
       line_items: [{ price: plan.priceId, quantity: 1 }],

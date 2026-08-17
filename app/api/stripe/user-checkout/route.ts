@@ -11,6 +11,7 @@ import {
   stripe,
   STRIPE_PLANS,
   STRIPE_AUTOMATIC_TAX_ENABLED,
+  STRIPE_TOS_CONSENT_ENABLED,
   USER_PREMIUM_TRIAL_DAYS,
   USER_PREMIUM_YEARLY_AMOUNT_CENTS,
   USER_PREMIUM_YEARLY_PRICE_ID,
@@ -141,6 +142,9 @@ export async function POST(req: Request) {
       customer_update: { address: "auto" as const, name: "auto" as const },
       ...(STRIPE_AUTOMATIC_TAX_ENABLED
         ? { automatic_tax: { enabled: true }, tax_id_collection: { enabled: true } }
+        : {}),
+      ...(STRIPE_TOS_CONSENT_ENABLED
+        ? { consent_collection: { terms_of_service: "required" as const } }
         : {}),
       mode: "subscription" as const,
       line_items: [{ price: priceId, quantity: 1 }],

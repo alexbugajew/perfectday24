@@ -503,12 +503,37 @@ export default function DatenschutzPage() {
         />
       </LegalSection>
 
-      <LegalSection title="20. Empfänger von Daten">
+      <LegalSection title="20. Versand von Transaktions-E-Mails (Resend)">
+        <p>
+          Für den Versand von Transaktions-E-Mails — insbesondere Registrierungsbestätigungen,
+          E-Mails zum Zurücksetzen des Passworts sowie sicherheitsbezogene Konto-Benachrichtigungen —
+          nutzen wir den Dienst <strong>Resend</strong> (Resend, Inc., USA). Der Versand erfolgt über
+          Infrastruktur in der Europäischen Union (Region Irland).
+        </p>
+        <p>Dabei können folgende Daten verarbeitet werden:</p>
+        <BulletList
+          items={[
+            "E-Mail-Adresse des Empfängers",
+            "Inhalt und Betreff der jeweiligen Nachricht",
+            "technische Zustellmetadaten (z. B. Zustellstatus, Zeitpunkt)",
+          ]}
+        />
+        <p>
+          Die Verarbeitung ist für die Bereitstellung des Nutzerkontos erforderlich und erfolgt auf
+          Grundlage von Art. 6 Abs. 1 lit. b DSGVO. Soweit dabei eine Übermittlung in die USA nicht
+          ausgeschlossen werden kann, erfolgt diese auf Grundlage geeigneter Garantien
+          (EU-Standardvertragsklauseln); die konkrete vertragliche Ausgestaltung mit Resend ist vor
+          Veröffentlichung dieser Datenschutzerklärung zu prüfen.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="21. Empfänger von Daten">
         <p>Empfänger Ihrer Daten können insbesondere sein:</p>
         <BulletList
           items={[
             "Hosting-Provider",
             "Supabase als Infrastruktur- und Datenbankdienstleister",
+            "Resend als E-Mail-Versanddienstleister",
             "OpenAI bei Nutzung der KI-Textfunktion",
             "Anbieter externer Karten-, Routing- und Linkziele",
             "gegebenenfalls Partner- und Affiliate-Anbieter, soweit Sie entsprechende Links aktiv nutzen",
@@ -520,7 +545,7 @@ export default function DatenschutzPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="21. Drittlandübermittlungen">
+      <LegalSection title="22. Drittlandübermittlungen">
         <p>
           Soweit wir Dienstleister oder Angebote einsetzen, bei denen eine Übermittlung
           personenbezogener Daten in Staaten außerhalb der Europäischen Union bzw. des Europäischen
@@ -534,7 +559,7 @@ export default function DatenschutzPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="22. Speicherdauer">
+      <LegalSection title="23. Speicherdauer">
         <p>
           Wir speichern personenbezogene Daten nur so lange, wie dies für die jeweiligen Zwecke
           erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen.
@@ -552,7 +577,7 @@ export default function DatenschutzPage() {
         <p>Die finalen Fristen sind intern festzulegen und an dieser Stelle zu konkretisieren.</p>
       </LegalSection>
 
-      <LegalSection title="23. Ihre Rechte">
+      <LegalSection title="24. Ihre Rechte">
         <p>Sie haben nach Maßgabe der gesetzlichen Voraussetzungen insbesondere folgende Rechte:</p>
         <BulletList
           items={[
@@ -571,7 +596,7 @@ export default function DatenschutzPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="24. Beschwerderecht bei einer Aufsichtsbehörde">
+      <LegalSection title="25. Beschwerderecht bei einer Aufsichtsbehörde">
         <p>
           Sie haben außerdem das Recht, sich bei einer Datenschutzaufsichtsbehörde über die
           Verarbeitung Ihrer personenbezogenen Daten durch uns zu beschweren.
@@ -580,7 +605,7 @@ export default function DatenschutzPage() {
         <p>[bitte zuständige Landesdatenschutzbehörde des Verantwortlichen ergänzen]</p>
       </LegalSection>
 
-      <LegalSection title="25. Pflicht zur Bereitstellung von Daten">
+      <LegalSection title="26. Pflicht zur Bereitstellung von Daten">
         <p>
           Die Bereitstellung personenbezogener Daten ist teilweise für die Nutzung einzelner
           Funktionen von <strong>perfectday24</strong> erforderlich. Ohne bestimmte Daten können wir
@@ -594,7 +619,7 @@ export default function DatenschutzPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="26. Änderungen dieser Datenschutzerklärung">
+      <LegalSection title="27. Änderungen dieser Datenschutzerklärung">
         <p>
           Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn dies aufgrund
           technischer, rechtlicher oder organisatorischer Änderungen erforderlich wird. Es gilt die

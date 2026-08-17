@@ -195,6 +195,15 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
               {error}
             </div>
           ) : null}
+
+          <p className="mt-4 text-[11px] leading-5 text-[var(--text-muted)]">
+            Mit dem Kauf akzeptierst du unsere{" "}
+            <a href="/agb" target="_blank" rel="noreferrer" className="underline underline-offset-2">AGB</a>{" "}
+            und die{" "}
+            <a href="/datenschutz" target="_blank" rel="noreferrer" className="underline underline-offset-2">Datenschutzerklärung</a>.
+            Du stimmst zu, dass die Leistung sofort beginnt; dein Widerrufsrecht erlischt dadurch nicht — du kannst
+            innerhalb von 14 Tagen ohne Angabe von Gründen widerrufen und jederzeit zum Laufzeitende kündigen.
+          </p>
         </div>
 
         <div className="flex items-center justify-between gap-2 border-t border-[var(--line-subtle)] bg-[var(--bg-surface)] px-5 py-3 sm:px-6">
