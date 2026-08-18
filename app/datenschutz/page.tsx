@@ -527,13 +527,43 @@ export default function DatenschutzPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="21. Empfänger von Daten">
+      <LegalSection title="21. Reichweitenmessung mit Plausible Analytics">
+        <p>
+          Zur Auswertung der Nutzung unserer Website setzen wir <strong>Plausible Analytics</strong>
+          ein (Plausible Insights OÜ, Estland). Die Verarbeitung findet ausschließlich auf Servern in
+          der Europäischen Union statt. Die Auslieferung erfolgt über unsere eigene Domain, es werden
+          also keine Verbindungsdaten an einen weiteren Drittanbieter übertragen.
+        </p>
+        <p>
+          Plausible verzichtet vollständig auf Cookies und speichert keinerlei Informationen auf
+          Ihrem Endgerät. Es findet keine geräteübergreifende Wiedererkennung und keine Bildung von
+          Nutzerprofilen statt. Erhoben werden ausschließlich aggregierte Angaben:
+        </p>
+        <BulletList
+          items={[
+            "aufgerufene Seite und verweisende Seite (Referrer)",
+            "Land, abgeleitet aus der IP-Adresse — die IP-Adresse selbst wird nicht gespeichert",
+            "Gerätetyp, Betriebssystem und Browser in grober Kategorie",
+            "Auslösen bestimmter Funktionen, etwa das Erstellen, Speichern oder Teilen eines Plans (ohne Inhalt des Plans)",
+          ]}
+        />
+        <p>
+          Ein Personenbezug wird dabei nicht hergestellt; ein Rückschluss auf einzelne Personen ist
+          uns nicht möglich. Da kein Zugriff auf Informationen in Ihrem Endgerät erfolgt, ist eine
+          Einwilligung nach § 25 Abs. 1 TTDSG nicht erforderlich. Rechtsgrundlage ist unser
+          berechtigtes Interesse an einer datensparsamen statistischen Auswertung und an der
+          bedarfsgerechten Weiterentwicklung unseres Angebots nach Art. 6 Abs. 1 lit. f DSGVO.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="22. Empfänger von Daten">
         <p>Empfänger Ihrer Daten können insbesondere sein:</p>
         <BulletList
           items={[
             "Hosting-Provider",
             "Supabase als Infrastruktur- und Datenbankdienstleister",
             "Resend als E-Mail-Versanddienstleister",
+            "Plausible Analytics als Anbieter der cookielosen Reichweitenmessung (EU)",
             "OpenAI bei Nutzung der KI-Textfunktion",
             "Anbieter externer Karten-, Routing- und Linkziele",
             "gegebenenfalls Partner- und Affiliate-Anbieter, soweit Sie entsprechende Links aktiv nutzen",
@@ -545,7 +575,7 @@ export default function DatenschutzPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="22. Drittlandübermittlungen">
+      <LegalSection title="23. Drittlandübermittlungen">
         <p>
           Soweit wir Dienstleister oder Angebote einsetzen, bei denen eine Übermittlung
           personenbezogener Daten in Staaten außerhalb der Europäischen Union bzw. des Europäischen
@@ -559,7 +589,7 @@ export default function DatenschutzPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="23. Speicherdauer">
+      <LegalSection title="24. Speicherdauer">
         <p>
           Wir speichern personenbezogene Daten nur so lange, wie dies für die jeweiligen Zwecke
           erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen.
@@ -577,7 +607,7 @@ export default function DatenschutzPage() {
         <p>Die finalen Fristen sind intern festzulegen und an dieser Stelle zu konkretisieren.</p>
       </LegalSection>
 
-      <LegalSection title="24. Ihre Rechte">
+      <LegalSection title="25. Ihre Rechte">
         <p>Sie haben nach Maßgabe der gesetzlichen Voraussetzungen insbesondere folgende Rechte:</p>
         <BulletList
           items={[
@@ -596,7 +626,7 @@ export default function DatenschutzPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="25. Beschwerderecht bei einer Aufsichtsbehörde">
+      <LegalSection title="26. Beschwerderecht bei einer Aufsichtsbehörde">
         <p>
           Sie haben außerdem das Recht, sich bei einer Datenschutzaufsichtsbehörde über die
           Verarbeitung Ihrer personenbezogenen Daten durch uns zu beschweren.
@@ -605,7 +635,7 @@ export default function DatenschutzPage() {
         <p>[bitte zuständige Landesdatenschutzbehörde des Verantwortlichen ergänzen]</p>
       </LegalSection>
 
-      <LegalSection title="26. Pflicht zur Bereitstellung von Daten">
+      <LegalSection title="27. Pflicht zur Bereitstellung von Daten">
         <p>
           Die Bereitstellung personenbezogener Daten ist teilweise für die Nutzung einzelner
           Funktionen von <strong>perfectday24</strong> erforderlich. Ohne bestimmte Daten können wir
@@ -619,7 +649,7 @@ export default function DatenschutzPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="27. Änderungen dieser Datenschutzerklärung">
+      <LegalSection title="28. Änderungen dieser Datenschutzerklärung">
         <p>
           Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn dies aufgrund
           technischer, rechtlicher oder organisatorischer Änderungen erforderlich wird. Es gilt die

@@ -1766,8 +1766,18 @@ export default function ExplorePage() {
     <Suspense
       fallback={
         <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
-          <div className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 text-[var(--text-muted)] shadow-[var(--shadow-soft)]">
-            Explore wird geladen...
+          {/* Ersatzansicht = SSR-HTML: Die Explore-Oberflaeche ist eine
+              Client-Komponente mit useSearchParams und wird nicht vorgerendert.
+              Ueberschrift und Einleitung muessen deshalb hier stehen. */}
+          <div className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-6 shadow-[var(--shadow-soft)]">
+            <h1 className="text-2xl font-bold tracking-tight text-[var(--text-strong)] sm:text-3xl">
+              Finde fertige Tagesrouten, Roadtrips oder Events ohne neu bei null zu planen
+            </h1>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+              Öffentliche Routen für Tagesausflüge, Date Nights, Familientage und
+              Wochenenden — filterbar nach Stadt, Anlass und Stil.
+            </p>
+            <div className="mt-4 text-sm text-[var(--text-muted)]">Explore wird geladen...</div>
           </div>
         </main>
       }

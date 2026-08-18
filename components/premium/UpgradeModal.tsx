@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { trackEvent } from "@/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 
 // Zeigt sich wenn ein Free-User das AI-Plan-Monatslimit erreicht hat.
 // Startet den Stripe-User-Checkout und routet zurück auf /profile.
@@ -69,6 +71,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
   if (!open) return null;
 
   async function handleUpgrade() {
+    trackEvent(ANALYTICS_EVENTS.checkoutStarted, { plan: "user_premium", interval: billingInterval });
     setError(null);
     setLoading(true);
     try {

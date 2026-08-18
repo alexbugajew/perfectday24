@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
+import { trackEvent } from "@/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 
 type CopyablePlan = {
   title: string | null;
@@ -122,6 +124,7 @@ export default function CopyPlanButton({
       }
 
       setMsg("Kopie erstellt ✅ Öffne sie auf der Startseite unter „Meine gespeicherten Pläne“.");
+      trackEvent(ANALYTICS_EVENTS.sharedPlanCopied, { city: citySlug ?? null });
       void trackMonetizationEvent({
         eventType: "plan_save",
         userId,

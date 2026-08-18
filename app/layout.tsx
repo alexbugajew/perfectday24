@@ -6,6 +6,9 @@ import MainNav from "@/components/MainNav";
 import FloatingChat from "@/components/ui/FloatingChat";
 import MobileBottomNav from "@/components/ui/MobileBottomNav";
 import ConsentBanner from "@/components/consent/ConsentBanner";
+import Analytics from "@/components/analytics/Analytics";
+import JsonLd from "@/components/seo/JsonLd";
+import { organizationJsonLd, webSiteJsonLd } from "@/lib/seo/json-ld";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,6 +65,11 @@ export default function RootLayout({
         <FloatingChat />
         <MobileBottomNav />
         <ConsentBanner />
+        {/* Sitewide-Auszeichnung: Wer betreibt die Seite, wie heißt sie.
+            Seiten-spezifische Typen (TouristTrip, ItemList) haengen an den
+            jeweiligen Seiten und verweisen ueber @id hierher. */}
+        <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />
+        <Analytics />
       </body>
     </html>
   );

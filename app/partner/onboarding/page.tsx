@@ -7,6 +7,8 @@ import { EVENT_SUPPORTED_CITY_OPTIONS } from "@/lib/cities/planner-support";
 import { CitySearchInput } from "@/components/ui/CitySearchInput";
 import { PhotoUpload } from "@/components/ui/PhotoUpload";
 import { safeExternalUrl } from "@/lib/security/safe-url";
+import { trackEvent } from "@/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -308,6 +310,7 @@ export default function PartnerOnboarding() {
     // trigger (AFTER INSERT on partner_profiles, security definer). No manual insert needed.
 
     if (step5.tier !== "organic") {
+      trackEvent(ANALYTICS_EVENTS.checkoutStarted, { plan: step5.tier });
       const res = await fetch("/api/stripe/create-checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

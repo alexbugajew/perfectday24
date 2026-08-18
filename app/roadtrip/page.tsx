@@ -2165,7 +2165,16 @@ export default function RoadtripPage() {
       fallback={
         <main className="pd24-page-wide space-y-4">
           <section className="rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-4 shadow-[var(--shadow-soft)]">
-            <div className="text-sm text-[var(--text-muted)]">Roadtrip-Planner wird geladen…</div>
+            {/* Ersatzansicht = SSR-HTML (Client-Komponente mit useSearchParams).
+                Ohne Ueberschrift hier hat die Seite fuer Crawler kein h1. */}
+            <h1 className="text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
+              Roadtrip planen
+            </h1>
+            <p className="mt-1.5 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+              Zwei Städte eintragen, Tage wählen — wir bauen die Etappen, Hotels und
+              Tagespläne dazu.
+            </p>
+            <div className="mt-4 text-sm text-[var(--text-muted)]">Roadtrip-Planner wird geladen…</div>
           </section>
         </main>
       }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 export const revalidate = 3600;
@@ -21,6 +22,25 @@ function makeClient() {
   if (!url || !key) return null;
   return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
 }
+
+/**
+ * Profil-Grunddaten. `cache()` teilt die Abfrage zwischen generateMetadata und
+ * dem Layout-Rendering, sonst liefe sie pro Seitenaufruf doppelt.
+ */
+const loadCreator = cache(async (username: string): Promise<CreatorMeta | null> => {
+  const supabase = makeClient();
+  if (!supabase) return null;
+  try {
+    const { data } = await supabase
+      .from("creator_profiles")
+      .select("username, display_name, bio, avatar_url, cover_image_url, creator_type, is_verified, route_count, home_city_slug")
+      .eq("username", username)
+      .maybeSingle();
+    return (data as CreatorMeta | null) ?? null;
+  } catch {
+    return null;
+  }
+});
 
 export async function generateStaticParams(): Promise<{ username: string }[]> {
   const supabase = makeClient();
@@ -50,20 +70,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { username } = await params;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.perfectday24.de";
-  const supabase = makeClient();
-
-  let creator: CreatorMeta | null = null;
-
-  if (supabase) {
-    try {
-      const { data } = await supabase
-        .from("creator_profiles")
-        .select("username, display_name, bio, avatar_url, cover_image_url, creator_type, is_verified, route_count, home_city_slug")
-        .eq("username", username)
-        .maybeSingle();
-      creator = (data as CreatorMeta | null) ?? null;
-    } catch { /* ignore */ }
-  }
+  const creator = await loadCreator(username);
 
   if (!creator) {
     return {
@@ -116,6 +123,31 @@ export async function generateMetadata({
   };
 }
 
-export default function CreatorLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+export default async function CreatorLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ username: string }>;
+}) {
+  const { username } = await params;
+  const creator = await loadCreator(username);
+
+  return (
+    <>
+      {/*
+        Wie bei den Routenseiten: Die Profilseite holt ihre Daten erst im
+        Browser, im ausgelieferten HTML stand deshalb keine Überschrift.
+        Dieser serverseitige Kopf ist `sr-only`, weil derselbe Name sichtbar
+        im Hero steht, sobald die Seite geladen ist.
+      */}
+      {creator ? (
+        <header className="sr-only">
+          <h1>{creator.display_name} (@{creator.username})</h1>
+          {creator.bio ? <p>{creator.bio}</p> : null}
+        </header>
+      ) : null}
+      {children}
+    </>
+  );
 }

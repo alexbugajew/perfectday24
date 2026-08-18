@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import { trackEvent } from "@/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 import {
   OCCASION_EMOJI,
   OCCASION_LABEL,
@@ -196,6 +198,7 @@ export default function InvitationPage() {
 
       const planRow = (Array.isArray(rows) ? rows[0] : rows) as SharedPlan;
       setPlan(planRow);
+      trackEvent(ANALYTICS_EVENTS.inviteOpened, { occasion: planRow.occasion_slug ?? null });
 
       // Load city name
       if (planRow.city_slug) {

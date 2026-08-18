@@ -9,6 +9,7 @@ import InternalMonetizationSlot from "@/components/monetization/InternalMonetiza
 import MonetizationDebugPanel from "@/components/monetization/MonetizationDebugPanel";
 import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLink";
 import TrackOnMount from "@/components/monetization/TrackOnMount";
+import TrackEventOnMount from "@/components/analytics/TrackEventOnMount";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
 import { resolvePublicAffiliateLinks } from "@/lib/monetization/public-affiliate-server";
 
@@ -251,6 +252,10 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
 
   return (
     <main className="pd24-page-standard px-4 pb-16 pt-6">
+      <TrackEventOnMount
+        event="shared_plan_opened"
+        props={{ occasion: plan.filters?.occasion ?? null }}
+      />
       <TrackOnMount
         eventType="share_activation"
         planId={plan.id}

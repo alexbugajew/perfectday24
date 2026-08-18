@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
+import { trackEvent } from "@/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 
 type PartnerMarketingCtaProps = {
   href: string;
@@ -29,6 +31,7 @@ export default function PartnerMarketingCta({
     <Link
       href={href}
       onClick={() => {
+        trackEvent(ANALYTICS_EVENTS.partnerLead, { surface });
         void trackMonetizationEvent({
           eventType: "click",
           surface,

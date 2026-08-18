@@ -2,8 +2,8 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { supabase } from "@/lib/supabaseClient";
 import TrackOnMount from "@/components/monetization/TrackOnMount";
@@ -11,6 +11,8 @@ import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLi
 import InternalMonetizationSlot from "@/components/monetization/InternalMonetizationSlot";
 import MonetizationDebugPanel from "@/components/monetization/MonetizationDebugPanel";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
+import { trackEvent } from "@/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 import { resolvePublicAffiliateLinksClient } from "@/lib/monetization/public-affiliate-client";
 import {
   emptyPublicAffiliateResolution,
@@ -94,7 +96,7 @@ function SliderRouteIcon() {
   );
 }
 
-type UserRouteRow = {
+export type UserRouteRow = {
   id: string;
   user_id: string;
   creator_profile_id?: string | null;
@@ -120,7 +122,7 @@ type UserRouteRow = {
   updated_at: string;
 };
 
-type RouteStopRow = {
+export type RouteStopRow = {
   id: string;
   route_id: string;
   stop_order: number;
@@ -153,7 +155,7 @@ type RouteRatingRow = {
   updated_at: string;
 };
 
-type CreatorProfileRow = {
+export type CreatorProfileRow = {
   id: string;
   user_id: string;
   username: string | null;
@@ -573,21 +575,33 @@ function niceStartType(v: string | null) {
   return "Adresse";
 }
 
-function RouteDetailPageContent() {
+/**
+ * Daten, die die Server-Komponente bereits geladen hat.
+ *
+ * `stops: null` bedeutet "wurde serverseitig nicht geladen" und ist etwas
+ * anderes als `[]` ("Route hat keine Stopps") — nur im ersten Fall muss der
+ * Client nachladen.
+ */
+export type RouteDetailInitialData = {
+  route: UserRouteRow | null;
+  stops: RouteStopRow[] | null;
+  creator: CreatorProfileRow | null;
+};
+
+function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }) {
   const params = useParams<{ slug: string }>();
-  const searchParams = useSearchParams();
   const slug = typeof params?.slug === "string" ? params.slug : "";
 
   const [authReady, setAuthReady] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [authLoading, setAuthLoading] = useState(false);
 
-  const [route, setRoute] = useState<UserRouteRow | null>(null);
-  const [stops, setStops] = useState<RouteStopRow[]>([]);
+  const [route, setRoute] = useState<UserRouteRow | null>(initial.route);
+  const [stops, setStops] = useState<RouteStopRow[]>(initial.stops ?? []);
   const [routeGalleryItems, setRouteGalleryItems] = useState<MediaGalleryItem[]>([]);
   const [routeStopPrimaryMap, setRouteStopPrimaryMap] = useState<Map<string, string>>(new Map());
   const [routeMediaVersion, setRouteMediaVersion] = useState(0);
-  const [creator, setCreator] = useState<CreatorProfileRow | null>(null);
+  const [creator, setCreator] = useState<CreatorProfileRow | null>(initial.creator);
   const [moreFromCreator, setMoreFromCreator] = useState<UserRouteRow[]>([]);
   const [similarRoutes, setSimilarRoutes] = useState<UserRouteRow[]>([]);
   const [variantBaseRoute, setVariantBaseRoute] = useState<UserRouteRow | null>(null);
@@ -602,8 +616,15 @@ function RouteDetailPageContent() {
   const [groupMembers, setGroupMembers] = useState<GroupMember[]>([]);
   const [cities, setCities] = useState<CityRow[]>([]);
 
-  const [loading, setLoading] = useState(true);
-  const [stopsLoading, setStopsLoading] = useState(true);
+  const [loading, setLoading] = useState(!initial.route);
+  const [stopsLoading, setStopsLoading] = useState(initial.stops === null);
+
+  // Was der Server schon mitgebracht hat, wird nicht sofort noch einmal geholt:
+  // Ein zweiter Fetch wuerde den bereits gerenderten Inhalt kurz durch einen
+  // Ladezustand ersetzen und die Abfrage pro Aufruf verdoppeln.
+  const skipInitialRouteFetch = useRef(Boolean(initial.route));
+  const skipInitialStopsFetch = useRef(initial.stops !== null);
+  const skipInitialCreatorFetch = useRef(Boolean(initial.creator));
   const [slowLoad, setSlowLoad] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
@@ -630,10 +651,16 @@ function RouteDetailPageContent() {
     () => Array.from(new Set([...myInterests, ...groupInterests])),
     [myInterests, groupInterests]
   );
-  const monetizationDebug = useMemo(
-    () => shouldShowInternalMonetization(searchParams.get("monetization")),
-    [searchParams]
-  );
+  // Das Debug-Panel haengt am Query-Parameter ?monetization=. Frueher lief das
+  // ueber useSearchParams - und genau dieser Aufruf hat den gesamten Seitenbaum
+  // vom statischen Vorrendern ausgenommen (BAILOUT_TO_CLIENT_SIDE_RENDERING),
+  // sodass im ausgelieferten HTML kein einziger Stopp stand. Fuer ein
+  // Debug-Werkzeug reicht das Auslesen nach dem Mount vollauf.
+  const [monetizationDebug, setMonetizationDebug] = useState(false);
+  useEffect(() => {
+    const value = new URLSearchParams(window.location.search).get("monetization");
+    setMonetizationDebug(shouldShowInternalMonetization(value));
+  }, []);
 
   const [toast, setToast] = useState<string | null>(null);
   function showToast(msg: string) {
@@ -683,6 +710,7 @@ function RouteDetailPageContent() {
       sourceRouteSlug: route.slug,
     });
 
+    trackEvent(ANALYTICS_EVENTS.routeCopied, { city: route.city_slug ?? null, target: "planner_template" });
     await trackMonetizationEvent({
       eventType: "route_copy",
       userId,
@@ -863,6 +891,7 @@ function RouteDetailPageContent() {
       }),
     });
 
+    trackEvent(ANALYTICS_EVENTS.routeCopied, { city: route.city_slug ?? null, target: "personalized_route" });
     await trackMonetizationEvent({
       eventType: "route_copy",
       userId,
@@ -1083,6 +1112,10 @@ function RouteDetailPageContent() {
 
   useEffect(() => {
     if (!slug) return;
+    if (skipInitialRouteFetch.current) {
+      skipInitialRouteFetch.current = false;
+      return;
+    }
 
     (async () => {
       setLoading(true);
@@ -1142,6 +1175,10 @@ function RouteDetailPageContent() {
 
   useEffect(() => {
     if (!route?.id) return;
+    if (skipInitialStopsFetch.current) {
+      skipInitialStopsFetch.current = false;
+      return;
+    }
 
     (async () => {
       setStopsLoading(true);
@@ -1208,6 +1245,10 @@ function RouteDetailPageContent() {
 
   useEffect(() => {
     if (!route?.user_id) return;
+    if (skipInitialCreatorFetch.current) {
+      skipInitialCreatorFetch.current = false;
+      return;
+    }
 
     (async () => {
       const { data, error } = await supabase
@@ -2088,7 +2129,7 @@ function RouteDetailPageContent() {
                   </span>
                 ))}
               </div>
-              <h1 className="max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">{route.title}</h1>
+              <div className="max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">{route.title}</div> {/* h1 steht serverseitig im Layout — siehe Kommentar dort */}
               <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-white/85">
                 <span>Aktualisiert {formatDate(route.updated_at)}</span>
                 <span>•</span>
@@ -2126,7 +2167,7 @@ function RouteDetailPageContent() {
               <span className="rounded-full border border-[var(--line-subtle)] px-3 py-1 text-xs">{routeCityLabel}</span>
               {personalizedVariantMeta ? <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-800">Persönliche Variante</span> : null}
             </div>
-              <h1 className="max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">{route.title}</h1>
+              <div className="max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">{route.title}</div> {/* h1 steht serverseitig im Layout — siehe Kommentar dort */}
             <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--text-muted)]">{routeIntro}</p>
             <div className="mt-3 text-sm text-[var(--text-muted)]">Aktualisiert {formatDate(route.updated_at)}</div>
             <div className="mt-4 flex flex-wrap gap-2 text-xs text-[var(--text-muted)]">
@@ -2895,18 +2936,6 @@ function RouteDetailPageContent() {
   );
 }
 
-export default function RouteDetailPage() {
-  return (
-    <Suspense
-      fallback={
-        <main className="mx-auto max-w-7xl px-1 py-4 sm:px-2 lg:px-4">
-          <div className="pd24-shell p-6 text-sm text-[var(--text-muted)]">
-            Route wird geladen...
-          </div>
-        </main>
-      }
-    >
-      <RouteDetailPageContent />
-    </Suspense>
-  );
+export default function RouteDetailClient({ initial }: { initial: RouteDetailInitialData }) {
+  return <RouteDetailPageContent initial={initial} />;
 }

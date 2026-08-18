@@ -844,9 +844,10 @@ function CreatorPageContent() {
                 </div>
 
                 <div className="min-w-0">
-                  <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                  {/* h1 steht serverseitig im Layout — siehe Kommentar dort. */}
+                  <div className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                     {creator.display_name}
-                  </h1>
+                  </div>
                   <div className="mt-2 text-sm text-white/85">@{creator.username}</div>
                   <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/90">
                     {creator.bio?.trim() || "Dieses Profil teilt kuratierte PerfectDay24-Routen und Ideen für echte Tageserlebnisse."}

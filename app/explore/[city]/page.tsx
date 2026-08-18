@@ -3,6 +3,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, cityRoutesJsonLd } from "@/lib/seo/json-ld";
 
 // ─── City map ────────────────────────────────────────────────────────────────
 
@@ -153,6 +155,20 @@ export default async function CityExplorePage({
 
   return (
     <main className="pd24-page-standard space-y-6 pb-20 pt-6">
+
+      {/* Die Liste zeichnet genau die Routen aus, die unten auch sichtbar
+          stehen — strukturierte Daten duerfen nie ueber den Seiteninhalt
+          hinausgehen. */}
+      <JsonLd
+        data={[
+          cityRoutesJsonLd({ cityLabel: cityConfig.label, citySlug: city, routes: allRoutes }),
+          breadcrumbJsonLd([
+            { name: "Start", path: "/" },
+            { name: "Entdecken", path: "/explore" },
+            { name: cityConfig.label, path: `/explore/${city}` },
+          ]),
+        ]}
+      />
 
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">

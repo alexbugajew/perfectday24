@@ -2588,7 +2588,19 @@ export default function Home() {
       fallback={
         <main className="space-y-6">
           <section className="rounded-[var(--radius-hero)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-6 py-7 shadow-[var(--shadow-large)] sm:px-8">
-            <div className="text-sm text-[var(--text-muted)]">Planner wird geladen...</div>
+            {/* Diese Ersatzansicht ist das, was Crawler ohne JavaScript sehen:
+                Die Planner-Oberflaeche ist eine Client-Komponente mit
+                useSearchParams und wird deshalb nicht vorgerendert. Ueberschrift
+                und Einleitung muessen hier stehen, sonst liefert die Seite im
+                SSR-HTML weder h1 noch Text. */}
+            <h1 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
+              Tagesplan erstellen
+            </h1>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+              Stadt, Anlass und Zeitrahmen angeben — PerfectDay24 baut daraus einen
+              fertigen Ablauf aus echten Orten, aktuellen Events und den Wegen dazwischen.
+            </p>
+            <div className="mt-4 text-sm text-[var(--text-muted)]">Planner wird geladen...</div>
           </section>
         </main>
       }

@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
+import { trackEvent } from "@/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 import type {
   EvaluationMode,
   EventPlanningMode,
@@ -131,6 +133,12 @@ export function usePlannerGeneration({
         if (!isCancelled) {
           setPlannerData(json);
           if (json.plannedStops?.length) {
+            trackEvent(ANALYTICS_EVENTS.planGenerated, {
+              city: effectiveCitySlug,
+              occasion,
+              mode: planMode,
+              stops: json.plannedStops.length,
+            });
             void trackMonetizationEvent({
               eventType: "plan_intent",
               userId,

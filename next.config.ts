@@ -88,6 +88,21 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  /**
+   * Plausible läuft über die eigene Domain statt über plausible.io.
+   *
+   * Damit bleibt die CSP bei `script-src 'self'` und Werbeblocker, die in
+   * Deutschland einen erheblichen Teil der Analytics-Aufrufe abfangen, greifen
+   * nicht. PLAUSIBLE_HOST nur setzen, wenn eine selbst gehostete Instanz
+   * verwendet wird.
+   */
+  async rewrites() {
+    const plausibleHost = (process.env.PLAUSIBLE_HOST ?? "https://plausible.io").replace(/\/+$/, "");
+    return [
+      { source: "/pd/js/script.js", destination: `${plausibleHost}/js/script.js` },
+      { source: "/pd/api/event", destination: `${plausibleHost}/api/event` },
+    ];
+  },
   images: {
     // Begrenzt, wie lange optimierte Varianten im Cache wachsen können.
     minimumCacheTTL: 60 * 60 * 24 * 7,
@@ -148,6 +163,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.pexels.com",
         pathname: "/photos/**",
+      },
+      // Flickr (Stop-Fotos aus dem OSM-/Editorial-Bestand, u.a. /roadtrip/discover)
+      {
+        protocol: "https",
+        hostname: "live.staticflickr.com",
       },
     ],
     // For unknown external hosts that can't be enumerated upfront,

@@ -11,6 +11,8 @@ import type { RoadtripRoute } from "@/lib/roadtrip/types";
 import PremiumStatusCard from "@/components/premium/PremiumStatusCard";
 import { safeInternalPath } from "@/lib/security/safe-url";
 import { clearLocalPersonalData, openConsentBanner } from "@/lib/consent";
+import { trackEvent } from "@/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -291,6 +293,38 @@ function ProfileRouteListItem({
 
 // ─── Main page ─────────────────────────────────────────────────────────────────
 
+/**
+ * OAuth-Registrierungen sind am Callback nicht vom Login zu unterscheiden —
+ * Supabase liefert in beiden Fällen dasselbe SIGNED_IN-Ereignis. Ein Konto,
+ * das jünger als fünf Minuten ist, ist praktisch immer gerade erst entstanden;
+ * das ist die einzige Stelle, an der Google-/Microsoft-Registrierungen
+ * überhaupt messbar sind. Der E-Mail-Pfad meldet sich selbst in
+ * signUpWithEmail() und ist hier bewusst ausgenommen.
+ */
+const FRESH_ACCOUNT_WINDOW_MS = 5 * 60 * 1000;
+
+function maybeTrackFreshSignup(
+  user: { id?: string; created_at?: string; app_metadata?: { provider?: string } } | null
+): void {
+  if (!user?.id || !user.created_at) return;
+  const provider = user.app_metadata?.provider;
+  if (provider !== "google" && provider !== "azure") return;
+
+  const age = Date.now() - new Date(user.created_at).getTime();
+  if (!Number.isFinite(age) || age < 0 || age > FRESH_ACCOUNT_WINDOW_MS) return;
+
+  // Die Session-Sperre verhindert Doppelzählung, wenn applySession zweimal
+  // läuft (getSession + onAuthStateChange).
+  const guardKey = `pd24_signup_tracked:${user.id}`;
+  try {
+    if (window.sessionStorage.getItem(guardKey)) return;
+    window.sessionStorage.setItem(guardKey, "1");
+  } catch {
+    // Storage blockiert — lieber einmal zu viel zählen als gar nicht.
+  }
+  trackEvent(ANALYTICS_EVENTS.signupCompleted, { method: provider });
+}
+
 function ProfilePageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -397,6 +431,7 @@ function ProfilePageInner() {
       setIsAnonymous(Boolean((user as { is_anonymous?: boolean } | null)?.is_anonymous));
       setEmail(user?.email ?? null);
       setProvider(user?.app_metadata?.provider ?? (user ? "email" : null));
+      maybeTrackFreshSignup(user);
       setAuthReady(true);
     };
 
@@ -947,6 +982,7 @@ function ProfilePageInner() {
         );
         return;
       }
+      trackEvent(ANALYTICS_EVENTS.signupCompleted, { method: "email" });
       setStatus(
         "Registrierung gestartet. Falls E-Mail-Bestätigung aktiv ist, prüfe bitte dein Postfach. Danach kannst du dich direkt anmelden."
       );

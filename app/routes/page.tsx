@@ -2443,8 +2443,16 @@ export default function RoutesPage() {
     <Suspense
       fallback={
         <main className="pd24-page-wide px-1 py-4 sm:px-2 lg:px-4">
-          <div className="pd24-shell p-6 text-sm text-[var(--text-muted)]">
-            Routen werden geladen...
+          {/* Ohne JavaScript ist diese Ersatzansicht die ganze Seite — das
+              Routenstudio ist eine Client-Komponente hinter useSearchParams.
+              Ueberschrift und Einleitung deshalb hier. */}
+          <div className="pd24-shell p-6">
+            <h1 className="text-4xl font-bold tracking-tight text-[var(--text-strong)]">Routenstudio</h1>
+            <p className="mt-2 max-w-3xl text-[var(--text-muted)]">
+              Hier bearbeitest und veröffentlichst du eigene Routen — mit klarer
+              Stop-Reihenfolge, sauberem Startpunkt, Cover und öffentlicher Vorschau.
+            </p>
+            <div className="mt-4 text-sm text-[var(--text-muted)]">Routen werden geladen...</div>
           </div>
         </main>
       }

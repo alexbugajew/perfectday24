@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
+import { trackEvent } from "@/lib/analytics/client";
+import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 import type {
   ExperienceMode,
   FamilyAgeBand,
@@ -556,6 +558,7 @@ export function usePlannerPersistence({
         }
 
         if (savedPlan) {
+          trackEvent(ANALYTICS_EVENTS.planSaved, { city: effectiveCitySlug });
           void trackMonetizationEvent({
             eventType: "plan_save",
             userId,
@@ -649,6 +652,11 @@ export function usePlannerPersistence({
       if (!shareUrl) return;
       const choiceText = buildChoiceSummaryText(plan);
       const shareText = choiceText ? `${choiceText}\n${shareUrl}` : shareUrl;
+      trackEvent(ANALYTICS_EVENTS.planShared, {
+        channel: "link",
+        city: effectiveCitySlug,
+        group: Boolean(plan.filters?.groupEnabled),
+      });
       void trackMonetizationEvent({
         eventType: "share_activation",
         userId,
@@ -689,6 +697,7 @@ export function usePlannerPersistence({
         buildChoiceSummaryText(plan),
         shareUrl,
       ].filter(Boolean);
+      trackEvent(ANALYTICS_EVENTS.planShared, { channel: "chat", city: effectiveCitySlug, group: true });
 
       void trackMonetizationEvent({
         eventType: "share_activation",
