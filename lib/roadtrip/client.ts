@@ -71,11 +71,18 @@ export async function fetchRoadtripRouteByToken(shareToken: string): Promise<Roa
   return withResolvedCover ?? null;
 }
 
-/** Routen des eingeloggten Nutzers laden (alle Visibility-Stufen) */
-export async function fetchMyRoadtripRoutes(): Promise<RoadtripRoute[]> {
+/**
+ * Routen des eingeloggten Nutzers laden — mit Fehler-Signatur,
+ * damit Aufrufer (z.B. /saved) einen Query-Fehler von "keine Routen"
+ * unterscheiden können.
+ */
+export async function fetchMyRoadtripRoutesWithError(): Promise<{
+  routes: RoadtripRoute[];
+  error: string | null;
+}> {
   const { data: sessionData } = await supabase.auth.getSession();
   const userId = sessionData.session?.user?.id;
-  if (!userId) return [];
+  if (!userId) return { routes: [], error: null };
 
   const { data, error } = await supabase
     .from(TABLE)
@@ -85,9 +92,18 @@ export async function fetchMyRoadtripRoutes(): Promise<RoadtripRoute[]> {
 
   if (error) {
     console.error("fetchMyRoadtripRoutes error:", error.message);
-    return [];
+    return { routes: [], error: error.message };
   }
-  return applyResolvedRoadtripCovers((data ?? []) as RoadtripRoute[]);
+  return {
+    routes: await applyResolvedRoadtripCovers((data ?? []) as RoadtripRoute[]),
+    error: null,
+  };
+}
+
+/** Routen des eingeloggten Nutzers laden (alle Visibility-Stufen) */
+export async function fetchMyRoadtripRoutes(): Promise<RoadtripRoute[]> {
+  const { routes } = await fetchMyRoadtripRoutesWithError();
+  return routes;
 }
 
 // ─── Write ────────────────────────────────────────────────────────────────────
