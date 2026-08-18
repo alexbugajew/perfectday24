@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
@@ -24,6 +24,14 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.perfectday24.de
 const siteDescription =
   "Plane deinen nächsten Tag in der Stadt – mit echten Orten, Events und Wegen. Kostenlos, keine Anmeldung nötig.";
 const defaultOgImage = "https://images.unsplash.com/photo-1560969184-10fe8719e047?w=1200&h=630&fit=crop&auto=format&q=80";
+
+// viewport-fit=cover, damit env(safe-area-inset-*) auf iOS echte Werte liefert
+// (MobileBottomNav, Sticky-CTAs und Run-Bars nutzen die Insets bereits).
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "PerfectDay24 – Deinen Tag planen",

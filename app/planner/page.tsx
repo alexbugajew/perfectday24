@@ -439,7 +439,7 @@ function PlannerPageContent() {
       const { data, error } = await supabase.auth.signInAnonymously();
       if (error) {
         console.error("Anonymous login failed:", error);
-        showToast(`Gastzugang fehlgeschlagen: ${error.message}`);
+        showToast("Gastzugang gerade nicht möglich. Bitte versuch es gleich noch einmal.");
         return;
       }
       setUserId(data.user?.id ?? null);
@@ -1949,7 +1949,7 @@ function PlannerPageContent() {
                           ) : null}
                         </div>
                         <div className="flex shrink-0 flex-wrap justify-end gap-1.5">
-                          <span className="rounded-full bg-[rgba(193,124,74,0.12)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent-strong)]">
+                          <span className="rounded-full bg-[var(--brand-warm-cloud)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--brand-warm-ink)]">
                             {startPointSuggestionTypeLabel(suggestion.type)}
                           </span>
                           <span className="rounded-full bg-[rgba(68,57,46,0.07)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">
@@ -2561,7 +2561,7 @@ function PlannerPageContent() {
       <div
         role="status"
         aria-live="polite"
-        className={`fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-[var(--text-strong)] px-4 py-2 text-sm text-white shadow-lg transition-opacity duration-200 ${
+        className={`fixed bottom-24 sm:bottom-4 left-1/2 z-[1400] -translate-x-1/2 rounded-lg bg-[var(--text-strong)] px-4 py-2 text-sm text-white shadow-lg transition-opacity duration-200 ${
           toast ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >

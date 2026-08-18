@@ -304,7 +304,7 @@ function PublicRouteCard({
           <div className="mt-3 space-y-2 leading-relaxed">
             <p>{desc}</p>
             <div className="flex flex-wrap gap-3 text-xs text-gray-500">
-              <span>{route.avg_rating?.toFixed(1) ?? "0.0"} Bewertung</span>
+              <span>{route.avg_rating?.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) ?? "0,0"} Bewertung</span>
               <span>{route.like_count ?? 0} Likes</span>
               <span>{route.bookmark_count ?? 0} Bookmarks</span>
               <span>Aktualisiert {formatDate(route.updated_at)}</span>

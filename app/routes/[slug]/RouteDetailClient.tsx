@@ -579,7 +579,7 @@ function niceStartType(v: string | null) {
  * Daten, die die Server-Komponente bereits geladen hat.
  *
  * `stops: null` bedeutet "wurde serverseitig nicht geladen" und ist etwas
- * anderes als `[]` ("Route hat keine Stopps") — nur im ersten Fall muss der
+ * anderes als `[]` ("Route hat keine Stops") — nur im ersten Fall muss der
  * Client nachladen.
  */
 export type RouteDetailInitialData = {
@@ -627,6 +627,8 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
   const skipInitialCreatorFetch = useRef(Boolean(initial.creator));
   const [slowLoad, setSlowLoad] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  const [loadError, setLoadError] = useState(false);
+  const [routeReloadToken, setRouteReloadToken] = useState(0);
 
   const [routeProfile, setRouteProfile] = useState<"foot" | "car">("foot");
   const [routeSummary, setRouteSummary] = useState<RouteSummary | null>(null);
@@ -1120,6 +1122,7 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
     (async () => {
       setLoading(true);
       setNotFound(false);
+      setLoadError(false);
 
       try {
         const { data, error } = await supabase
@@ -1128,10 +1131,12 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
           .eq("slug", slug)
           .maybeSingle();
 
+        // Lade-/Netzwerkfehler vom echten Nicht-gefunden-Fall trennen:
+        // nur ein leeres Ergebnis bedeutet "Route existiert nicht".
         if (error) {
           console.error("Route load error:", error);
           setRoute(null);
-          setNotFound(true);
+          setLoadError(true);
           return;
         }
 
@@ -1147,11 +1152,15 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
           ...loadedRoute,
           cover_image_url: resolvedCoverMap.get(loadedRoute.id) ?? loadedRoute.cover_image_url,
         });
+      } catch (error) {
+        console.error("Route load error:", error);
+        setRoute(null);
+        setLoadError(true);
       } finally {
         setLoading(false);
       }
     })();
-  }, [slug]);
+  }, [slug, routeReloadToken]);
 
   useEffect(() => {
     if (!loading) {
@@ -2028,6 +2037,32 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
               ? "Die Route braucht gerade länger als üblich. Du kannst auf der Seite bleiben oder zurück zur Routenübersicht wechseln."
               : "Lade Route..."}
           </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (loadError && !route) {
+    return (
+      <main className="pd24-page-standard px-4 pb-16 pt-6">
+        <div className="mb-6">
+          <Link href="/saved" className="text-sm text-[var(--text-muted)] underline underline-offset-4">
+            Meine Pläne
+          </Link>
+        </div>
+        <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
+          <div className="pd24-meta">Verbindungsproblem</div>
+          <h1 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Route konnte nicht geladen werden</h1>
+          <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
+            Gerade nicht erreichbar — bitte prüfe deine Internetverbindung und versuche es erneut.
+          </p>
+          <button
+            type="button"
+            onClick={() => setRouteReloadToken((token) => token + 1)}
+            className="pd24-btn pd24-btn-primary mt-4"
+          >
+            Erneut laden
+          </button>
         </div>
       </main>
     );
@@ -2928,7 +2963,7 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
       </section>
 
       {toast ? (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm text-white shadow-lg">
+        <div className="fixed bottom-24 sm:bottom-4 left-1/2 z-[1400] -translate-x-1/2 rounded-xl bg-[var(--text-strong)] px-4 py-2 text-sm text-white shadow-lg">
           {toast}
         </div>
       ) : null}

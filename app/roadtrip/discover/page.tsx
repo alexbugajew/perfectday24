@@ -640,7 +640,7 @@ export default function RoadtripDiscoverPage() {
           <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-white/82">
             {[
               { step: "1", label: "Route", active: Boolean(from && to) },
-              { step: "2", label: "Stopps", active: result.length > 0 },
+              { step: "2", label: "Stops", active: result.length > 0 },
               { step: "3", label: "Planen", active: selectedCount > 0 },
             ].map((item) => (
               <span
@@ -711,7 +711,7 @@ export default function RoadtripDiscoverPage() {
               className="mt-3 flex w-full flex-wrap items-center gap-3"
             >
               <div className="flex items-center gap-1.5">
-                <span className="text-xs text-white/70">Stopps:</span>
+                <span className="text-xs text-white/70">Stops:</span>
                 {[3, 5, 6, 8, 10].map((n) => (
                   <button
                     key={n}
@@ -744,7 +744,7 @@ export default function RoadtripDiscoverPage() {
                     KI analysiert Route…
                   </>
                 ) : (
-                  <>Stopps vorschlagen</>
+                  <>Stops vorschlagen</>
                 )}
               </button>
             </div>
@@ -773,7 +773,7 @@ export default function RoadtripDiscoverPage() {
                   {resultRouteLabel}
                 </div>
                 <div className="mt-1 text-xs text-[var(--text-muted)]">
-                  {easyStopsCount} nahe Stopps, {result.length} Vorschläge insgesamt
+                  {easyStopsCount} nahe Stops, {result.length} Vorschläge insgesamt
                 </div>
               </div>
 
@@ -781,7 +781,7 @@ export default function RoadtripDiscoverPage() {
                 {[
                   { label: "Ausgewählt", value: `${selectedCount}/${result.length}` },
                   { label: "Zeit vor Ort", value: selectedDurationLabel },
-                  { label: "Alle Stopps", value: resultDurationLabel },
+                  { label: "Alle Stops", value: resultDurationLabel },
                   { label: "Umweg", value: strongestDetourLabel(selectedStops) },
                 ].map((stat) => (
                   <div key={stat.label} className="rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2">
@@ -809,7 +809,7 @@ export default function RoadtripDiscoverPage() {
 
           <div className="hidden flex-wrap items-center gap-3 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 text-sm">
             <span className="text-[var(--text-muted)]">
-              <strong className="text-[var(--text-strong)]">{result.length}</strong> Stopps zwischen{" "}
+              <strong className="text-[var(--text-strong)]">{result.length}</strong> Stops zwischen{" "}
               <strong className="text-[var(--text-strong)]">{resultFrom.label.split(",")[0]}</strong>
               {" → "}
               <strong className="text-[var(--text-strong)]">{resultTo.label.split(",")[0]}</strong>
@@ -819,14 +819,14 @@ export default function RoadtripDiscoverPage() {
             </span>
           </div>
 
-          {/* Zweispaltiges Layout: Karte + Stopps */}
+          {/* Zweispaltiges Layout: Karte + Stops */}
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_400px]">
             {/* Karte (sticky auf Desktop) */}
             <div className="order-1">
               <div className="sticky top-4 h-[360px] overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white shadow-[var(--shadow-soft)] lg:h-[560px]">
                 <div className="pointer-events-none absolute left-3 right-3 top-3 z-[500] flex flex-wrap items-center gap-2">
                   <span className="rounded-full border border-white/50 bg-white/92 px-3 py-1.5 text-xs font-semibold text-[var(--text-strong)] shadow-sm backdrop-blur">
-                    {selectedCount} von {result.length} Stopps aktiv
+                    {selectedCount} von {result.length} Stops aktiv
                   </span>
                   <span className="rounded-full border border-white/50 bg-white/92 px-3 py-1.5 text-xs text-[var(--text-muted)] shadow-sm backdrop-blur">
                     {selectedDurationLabel}
@@ -859,7 +859,7 @@ export default function RoadtripDiscoverPage() {
                   Waypoints
                 </div>
                 <div className="mt-1 text-sm font-semibold text-[var(--text-strong)]">
-                  Stopps entlang deiner Route
+                  Stops entlang deiner Route
                 </div>
                 <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
                   Nah am Weg, schnell vergleichbar, bereit für die Planung.
@@ -890,7 +890,7 @@ export default function RoadtripDiscoverPage() {
                 {selectedCount > 0 ? (
                   <>
                     <div className="font-semibold text-amber-900">
-                      {selectedCount} {selectedCount === 1 ? "Stopp" : "Stopps"} ausgewählt
+                      {selectedCount} {selectedCount === 1 ? "Stopp" : "Stops"} ausgewählt
                     </div>
                     <div className="mt-0.5 max-w-3xl truncate text-sm text-amber-700">
                       {resultRouteLabel} / {selectedDurationLabel} vor Ort
@@ -903,7 +903,7 @@ export default function RoadtripDiscoverPage() {
                   </>
                 ) : (
                   <div className="text-sm font-medium text-[var(--text-muted)]">
-                    Noch keine Stopps aktiv
+                    Noch keine Stops aktiv
                   </div>
                 )}
               </div>

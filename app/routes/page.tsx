@@ -913,7 +913,7 @@ function RoutesPageContent() {
 
   async function handleCreateOrUpdateRoute() {
     if (!userId) {
-      showToast("Kein User verfuegbar", "error");
+      showToast("Bitte melde dich an, um Routen zu speichern.", "error");
       return;
     }
 
@@ -924,7 +924,7 @@ function RoutesPageContent() {
     }
 
     if (!selectedCitySlug) {
-      showToast("Bitte zuerst eine Stadt auswaehlen", "error");
+      showToast("Bitte zuerst eine Stadt auswählen.", "error");
       return;
     }
 
@@ -1083,7 +1083,7 @@ async function handleDeleteRoute(routeId: string) {
       dbId: s.id,
       location_id: s.location_id,
       title: s.title ?? "",
-      subtitle: s.location_id ? "Verknuepfte Location" : "Freier Stop",
+      subtitle: s.location_id ? "Verknüpfte Location" : "Freier Stop",
       note: s.note ?? "",
       external_url: s.external_url ?? "",
       is_required: s.is_required,
@@ -2037,8 +2037,8 @@ async function handleDeleteRoute(routeId: string) {
                 </select>
                 <input value={startLabel} onChange={(e) => setStartLabel(e.target.value)} placeholder="z.B. Hauptbahnhof Berlin" className="w-full rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
                 <div className="grid grid-cols-2 gap-3">
-                  <input value={startLat} onChange={(e) => setStartLat(e.target.value)} placeholder="Latitude" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
-                  <input value={startLng} onChange={(e) => setStartLng(e.target.value)} placeholder="Longitude" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
+                  <input value={startLat} onChange={(e) => setStartLat(e.target.value)} placeholder="Breitengrad" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
+                  <input value={startLng} onChange={(e) => setStartLng(e.target.value)} placeholder="Längengrad" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
                 </div>
               </div>
 
@@ -2325,8 +2325,8 @@ async function handleDeleteRoute(routeId: string) {
                       <div className="font-medium text-sm">Kartenposition</div>
                       <div className="mt-1 text-xs text-[var(--text-muted)]">Nur nötig, wenn der Stop nicht schon über eine verknüpfte Location kommt.</div>
                       <div className="mt-3 grid grid-cols-2 gap-3">
-                        <input value={activeStop.lat} onChange={(e) => updateDraftStop(activeStop.localId, { lat: e.target.value })} placeholder="Latitude" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
-                        <input value={activeStop.lng} onChange={(e) => updateDraftStop(activeStop.localId, { lng: e.target.value })} placeholder="Longitude" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
+                        <input value={activeStop.lat} onChange={(e) => updateDraftStop(activeStop.localId, { lat: e.target.value })} placeholder="Breitengrad" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
+                        <input value={activeStop.lng} onChange={(e) => updateDraftStop(activeStop.localId, { lng: e.target.value })} placeholder="Längengrad" className="rounded-xl border border-[var(--line-subtle)] bg-white p-3" />
                       </div>
                     </div>
 
@@ -2430,7 +2430,7 @@ async function handleDeleteRoute(routeId: string) {
       )}
 
       {toast ? (
-        <div className={`fixed bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl shadow-lg text-sm z-50 ${toast.kind === "success" ? "bg-[var(--text-strong)] text-white" : toast.kind === "error" ? "bg-[var(--state-error)] text-white" : "bg-[var(--text-strong)] text-white"}`}>
+        <div className={`fixed bottom-24 sm:bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl shadow-lg text-sm z-[1400] ${toast.kind === "success" ? "bg-[var(--text-strong)] text-white" : toast.kind === "error" ? "bg-[var(--state-error)] text-white" : "bg-[var(--text-strong)] text-white"}`}>
           {toast.message}
         </div>
       ) : null}

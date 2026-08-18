@@ -127,7 +127,7 @@ export default function EditorialRoutesShowcase() {
               <span>
                 {route.stop_count ?? "?"} Stops
                 {typeof route.avg_rating === "number" && route.avg_rating > 0
-                  ? ` · ★ ${route.avg_rating.toFixed(1)}`
+                  ? ` · ★ ${route.avg_rating.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`
                   : ""}
               </span>
               <span className="text-[var(--brand-warm-ink)] transition group-hover:translate-x-0.5">

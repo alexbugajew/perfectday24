@@ -162,7 +162,7 @@ type CityCreatorRouteSuggestion = {
 function creatorRouteSuggestionMeta(route: CityCreatorRouteSuggestion): string {
   const parts: string[] = [];
   if (route.stop_count && route.stop_count > 0) parts.push(`${route.stop_count} Stops`);
-  if (route.avg_rating && route.avg_rating > 0) parts.push(`${route.avg_rating.toFixed(1)} / 5`);
+  if (route.avg_rating && route.avg_rating > 0) parts.push(`${route.avg_rating.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} / 5`);
   if (route.bookmark_count && route.bookmark_count > 0) parts.push(`${route.bookmark_count} Saves`);
   return parts.join(" - ") || "Fertige Tagesroute";
 }
@@ -733,7 +733,7 @@ export default function RoadtripRouteDetailPage() {
                     </div>
                   </div>
                   <div className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                    {route.stops.length} Stopps
+                    {route.stops.length} Stops
                   </div>
                 </div>
                 <div className="p-3 sm:p-4">
@@ -876,7 +876,7 @@ export default function RoadtripRouteDetailPage() {
                 {route.stops[todayStopIdx].creatorRouteTitle
                   ? `Creator-Route: ${route.stops[todayStopIdx].creatorRouteTitle}`
                   : route.stops[todayStopIdx].plannedStops?.length
-                  ? `${route.stops[todayStopIdx].plannedStops.length} geplante Stopps`
+                  ? `${route.stops[todayStopIdx].plannedStops.length} geplante Stops`
                   : "Noch kein Tagesplan — jetzt planen"}
               </div>
             </div>

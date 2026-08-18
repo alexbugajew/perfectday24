@@ -311,17 +311,28 @@ export default function PartnerOnboarding() {
 
     if (step5.tier !== "organic") {
       trackEvent(ANALYTICS_EVENTS.checkoutStarted, { plan: step5.tier });
-      const res = await fetch("/api/stripe/create-checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tier: step5.tier, partner_entity_id: partnerId }),
-      });
-      const data = (await res.json()) as { url?: string; error?: string };
-      if (data.url) {
-        window.location.href = data.url;
-        return;
+      // Das Profil ist an diesem Punkt bereits angelegt — ein Fehler beim
+      // Checkout darf den Submit deshalb nicht dauerhaft blockieren.
+      const checkoutFailedMessage =
+        "Dein Portal wurde angelegt, aber der Bezahlvorgang konnte nicht gestartet werden. Du kannst die Buchung jederzeit im Partner-Dashboard nachholen.";
+      try {
+        const res = await fetch("/api/stripe/create-checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tier: step5.tier, partner_entity_id: partnerId }),
+        });
+        const data = res.ok
+          ? ((await res.json()) as { url?: string; error?: string })
+          : null;
+        if (data?.url) {
+          window.location.href = data.url;
+          return;
+        }
+        setSubmitError(data?.error ?? checkoutFailedMessage);
+      } catch (err) {
+        console.error("Stripe-Checkout konnte nicht gestartet werden", err);
+        setSubmitError(checkoutFailedMessage);
       }
-      setSubmitError(data.error ?? "Stripe Checkout konnte nicht erstellt werden.");
       setSubmitting(false);
       return;
     }
@@ -350,7 +361,7 @@ export default function PartnerOnboarding() {
             Partner-Portal einrichten
           </h1>
           <p className="mt-2 text-sm text-[var(--text-muted)]">
-            Richte Profil, erste Assets und deine Vermarktungsbasis fuer Explore, Planner und Buchungswege ein.
+            Richte Profil, erste Assets und deine Vermarktungsbasis für Explore, Planner und Buchungswege ein.
           </p>
           {/* Progress bar with step labels */}
           <div className="mt-5">
@@ -389,7 +400,7 @@ export default function PartnerOnboarding() {
         {/* ── Step 1: Typ ───────────────────────────────────────────────────── */}
         {step === 1 && (
           <StepShell
-            title="Was moechtest du vermarkten?"
+            title="Was möchtest du vermarkten?"
             subtitle="Wähle die Kategorie, die am besten zu deinem Angebot passt."
           >
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -700,7 +711,8 @@ export default function PartnerOnboarding() {
         )}
 
         {/* ── Navigation ───────────────────────────────────────────────────── */}
-        <div className="sticky bottom-4 z-10 mt-6">
+        {/* bottom-24 auf Mobile: liegt sonst hinter der fixen MobileBottomNav (~66px hoch). */}
+        <div className="sticky bottom-24 z-10 mt-6 sm:bottom-4">
           <div className="rounded-[28px] border border-[var(--line-subtle)] bg-white/95 p-4 shadow-[var(--shadow-soft)] backdrop-blur sm:p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0">
@@ -718,7 +730,7 @@ export default function PartnerOnboarding() {
                     onClick={() => setStep((s) => s - 1)}
                     className="pd24-btn pd24-btn-secondary w-full sm:w-auto"
                   >
-                    ← Zurueck
+                    ← Zurück
                   </button>
                 ) : null}
 

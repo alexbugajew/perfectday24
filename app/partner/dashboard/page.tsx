@@ -1252,7 +1252,7 @@ export default function PartnerDashboard() {
   const billingMeta = BILLING_META[profile.billing_status]  ?? BILLING_META.inactive;
   const isAdmin     = role === "owner" || role === "admin";
   const convRate    = stats.impressions > 0
-    ? `${((stats.clicks / stats.impressions) * 100).toFixed(1)} %`
+    ? `${((stats.clicks / stats.impressions) * 100).toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`
     : "—";
 
   const openBookings = bookings.filter((b) => b.status === "interested" || b.status === "pending");

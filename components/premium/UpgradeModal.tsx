@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics/client";
 import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
 
@@ -49,6 +49,56 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [config, setConfig] = useState<CheckoutConfig | null>(null);
   const [billingInterval, setBillingInterval] = useState<"month" | "year">("month");
+
+  // Dialog-A11y: Escape schließt, Tab bleibt im Dialog, Fokus wird beim
+  // Öffnen gesetzt und beim Schließen zurückgegeben (Muster PlannerControlsSection).
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const restoreFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (open) {
+      restoreFocusRef.current =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      setTimeout(() => dialogRef.current?.focus(), 60);
+    } else {
+      restoreFocusRef.current?.focus();
+      restoreFocusRef.current = null;
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const container = dialogRef.current;
+      if (!container) return;
+      const focusables = container.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey) {
+        if (active === first || !container.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !container.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
 
   useEffect(() => {
     if (!open) return;
@@ -100,8 +150,17 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-[1500] flex items-end bg-black/50 sm:items-center sm:p-4">
-      <div className="flex w-full max-h-[92vh] flex-col overflow-hidden rounded-t-2xl bg-white shadow-xl sm:mx-auto sm:max-w-lg sm:rounded-2xl">
+    <div
+      className="fixed inset-0 z-[1500] flex items-end bg-black/50 sm:items-center sm:p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="upgrade-modal-title"
+    >
+      <div
+        ref={dialogRef}
+        tabIndex={-1}
+        className="flex w-full max-h-[92vh] flex-col overflow-hidden rounded-t-2xl bg-white shadow-xl outline-none sm:mx-auto sm:max-w-lg sm:rounded-2xl"
+      >
         <div className="flex justify-center pt-3 sm:hidden">
           <div className="h-1 w-10 rounded-full bg-[var(--bg-panel)]" />
         </div>
@@ -111,7 +170,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
             <div className="pd24-kicker-warm">
               PerfectDay24 Premium
             </div>
-            <h2 className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
+            <h2 id="upgrade-modal-title" className="mt-1 text-xl font-semibold tracking-tight text-[var(--text-strong)]">
               Dein Free-Limit ist erreicht.
             </h2>
             <p className="mt-1 text-xs text-[var(--text-muted)]">
@@ -194,7 +253,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
           </div>
 
           {error ? (
-            <div className="mt-3 rounded-lg pd24-status-error px-3 py-2 text-xs">
+            <div role="alert" className="mt-3 rounded-lg pd24-status-error px-3 py-2 text-xs">
               {error}
             </div>
           ) : null}
@@ -213,7 +272,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
+            className="pd24-btn pd24-btn-sm pd24-btn-secondary"
           >
             Später
           </button>
@@ -221,7 +280,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
             type="button"
             onClick={() => void handleUpgrade()}
             disabled={loading}
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
+            className="pd24-btn pd24-btn-primary active:scale-[0.98]"
           >
             {loading ? (
               <>

@@ -140,7 +140,7 @@ function buildInitialProgress(route: RoadtripRoute, stops: RunStop[], startDate:
 
 function runStepSummary(stop: RunStop) {
   const parts = [`${stop.nights} ${stop.nights === 1 ? "Nacht" : "Nächte"}`];
-  if (stop.creatorRouteTitle) parts.push("Creator-Route verfuegbar");
+  if (stop.creatorRouteTitle) parts.push("Creator-Route verfügbar");
   else if (stop.plannedStops?.length) parts.push(`${stop.plannedStops.length} Tagesstopps`);
   else parts.push("Noch kein Tagesplan");
   return parts.join(" · ");
@@ -182,7 +182,7 @@ function isTodayStop(stop: RunStop, today: string) {
 
 function runStepPlanPreview(stop: RunStop) {
   if (stop.creatorRouteTitle) return stop.creatorRouteTitle;
-  if (stop.plannedStops?.length) return `${stop.plannedStops.length} Stopps vorbereitet`;
+  if (stop.plannedStops?.length) return `${stop.plannedStops.length} Stops vorbereitet`;
   return "Noch kein Tagesplan vorbereitet";
 }
 
@@ -508,7 +508,7 @@ export default function RoadtripRouteRunPage() {
       ) : (
         <section className="rounded-2xl pd24-status-success p-4 shadow-sm sm:rounded-3xl sm:p-5">
           <div className="text-[11px] font-semibold uppercase tracking-[0.16em]">Roadtrip abgeschlossen</div>
-          <div className="mt-1 text-base font-semibold">Alle Stopps sind erledigt oder bewusst uebersprungen.</div>
+          <div className="mt-1 text-base font-semibold">Alle Stops sind erledigt oder bewusst uebersprungen.</div>
           <div className="mt-1 text-sm">Du kannst den Fortschritt zurücksetzen oder den Roadtrip als Vorlage erneut starten.</div>
         </section>
       )}
@@ -542,7 +542,7 @@ export default function RoadtripRouteRunPage() {
               </div>
               {currentStopState === "pending" && (
                 <div className="mt-2 text-xs font-medium text-[var(--state-warning)]">
-                  Diese Etappe ist jetzt aktiv. Navigation und Tagesplanung sind direkt darunter verfuegbar.
+                  Diese Etappe ist jetzt aktiv. Navigation und Tagesplanung sind direkt darunter verfügbar.
                 </div>
               )}
             </div>

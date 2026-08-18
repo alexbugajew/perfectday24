@@ -528,6 +528,7 @@ export function usePlannerPersistence({
             raw: error,
             formatted: formatSupabaseError(error),
           });
+          showToast("Plan konnte nicht gespeichert werden — bitte versuche es erneut.");
           return null;
         }
 
@@ -649,7 +650,10 @@ export function usePlannerPersistence({
       }
 
       const shareUrl = await ensurePlanShareUrl(plan);
-      if (!shareUrl) return;
+      if (!shareUrl) {
+        showToast("Share-Link konnte nicht erzeugt werden. Bitte versuche es erneut.");
+        return;
+      }
       const choiceText = buildChoiceSummaryText(plan);
       const shareText = choiceText ? `${choiceText}\n${shareUrl}` : shareUrl;
       trackEvent(ANALYTICS_EVENTS.planShared, {
@@ -721,7 +725,10 @@ export function usePlannerPersistence({
   const openPlanGroupChat = useCallback(
     async (plan: SavedPlanRow) => {
       const chatId = await ensurePlanGroupChat(plan);
-      if (!chatId) return;
+      if (!chatId) {
+        showToast("Gruppenchat konnte nicht geöffnet werden. Bitte versuche es erneut.");
+        return;
+      }
       onSetActivePlanGroupChatId(chatId);
       void trackMonetizationEvent({
         eventType: "group_confirmation",
@@ -737,7 +744,7 @@ export function usePlannerPersistence({
       });
       window.location.href = `/chat?group=${chatId}`;
     },
-    [ensurePlanGroupChat, onSetActivePlanGroupChatId, userId, effectiveCitySlug]
+    [ensurePlanGroupChat, onSetActivePlanGroupChatId, userId, effectiveCitySlug, showToast]
   );
 
   const resolveEditSuggestion = useCallback(

@@ -123,7 +123,7 @@ type EventPlanRow = {
 };
 
 function formatRouteTitle(route: UserRouteRow): string {
-  return route.title?.trim() || "Untitled Route";
+  return route.title?.trim() || "Route ohne Titel";
 }
 
 function formatRouteVisibilityLabel(visibility: UserRouteRow["visibility"]): string {
@@ -934,6 +934,7 @@ function ProfilePageInner() {
     const { error } = await supabase.from("user_routes").delete().eq("id", id);
     if (error) {
       console.error("Route delete error:", error);
+      setStatus("Route konnte nicht gelöscht werden — bitte erneut versuchen.");
       return;
     }
     setUserRoutes((prev) => prev.filter((r) => r.id !== id));
@@ -941,13 +942,21 @@ function ProfilePageInner() {
 
   async function deleteStudioRoadtrip(id: string) {
     const { error } = await deleteRoadtripRoute(id);
-    if (error) { console.error("Roadtrip delete error:", error); return; }
+    if (error) {
+      console.error("Roadtrip delete error:", error);
+      setStatus("Roadtrip konnte nicht gelöscht werden — bitte erneut versuchen.");
+      return;
+    }
     setStudioRoadtrips((prev) => prev.filter((r) => r.id !== id));
   }
 
   async function deleteStudioEvent(id: string) {
     const { error } = await supabase.from("event_plans").delete().eq("id", id);
-    if (error) { console.error("Event delete error:", error); return; }
+    if (error) {
+      console.error("Event delete error:", error);
+      setStatus("Event konnte nicht gelöscht werden — bitte erneut versuchen.");
+      return;
+    }
     setStudioEvents((prev) => prev.filter((e) => e.id !== id));
   }
 
@@ -1310,7 +1319,7 @@ function ProfilePageInner() {
               />
               <button
                 onClick={addCustomInterest}
-                className="inline-flex min-h-11 items-center rounded-xl bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90"
+                className="pd24-btn pd24-btn-sm pd24-btn-primary"
               >
                 Hinzufügen
               </button>

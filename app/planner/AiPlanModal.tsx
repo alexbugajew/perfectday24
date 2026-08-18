@@ -220,7 +220,7 @@ export default function AiPlanModal({
         <div className="flex items-start justify-between gap-3 border-b border-[var(--line-subtle)] px-5 pb-3 pt-4 sm:px-6">
           <div>
             <div className="pd24-kicker-warm">
-              Autopilot · AI
+              Autopilot · KI
             </div>
             <h2
               id="ai-plan-modal-title"
@@ -229,7 +229,7 @@ export default function AiPlanModal({
               Schreib deinen Tag — in einem Satz.
             </h2>
             <p className="mt-1 text-xs text-[var(--text-muted)]">
-              AI baut den Plan mit echten Locations und Events aus unserer Datenbank.
+              Die KI baut den Plan mit echten Locations und Events aus unserer Datenbank.
             </p>
           </div>
           <button

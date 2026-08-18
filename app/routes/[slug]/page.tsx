@@ -12,13 +12,13 @@ import { breadcrumbJsonLd, routeJsonLd } from "@/lib/seo/json-ld";
 /**
  * Routendetailseite.
  *
- * Bis 08/2026 war das eine reine Client-Komponente: Titel, Stopps und
+ * Bis 08/2026 war das eine reine Client-Komponente: Titel, Stops und
  * Beschreibungen entstanden erst im Browser. Im ausgelieferten HTML stand
  * dadurch kein einziger Stopp — für Suchmaschinen, Link-Vorschauen und die
  * Crawler der KI-Antwortmaschinen (die kein JavaScript ausführen) war die
  * teuerste Inhaltsfläche des Projekts schlicht leer.
  *
- * Jetzt lädt diese Server-Komponente Route, Stopps und Creator-Profil vorab
+ * Jetzt lädt diese Server-Komponente Route, Stops und Creator-Profil vorab
  * und übergibt sie an die Client-Komponente, die daraus ihren Anfangszustand
  * bildet. Das Markup entsteht damit schon auf dem Server; interaktiv bleibt
  * alles wie zuvor. Dieselben Daten speisen die strukturierte Auszeichnung.

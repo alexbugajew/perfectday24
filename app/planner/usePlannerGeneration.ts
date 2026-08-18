@@ -103,7 +103,7 @@ export function usePlannerGeneration({
       setPlannerErrorKind("origin");
       setPlannerError(
         startPointMode === "custom"
-          ? "Ein manueller Startpunkt braucht Latitude und Longitude. Sonst kann der Radius nicht korrekt um den gewählten Ort geplant werden."
+          ? "Bitte wähle den Startpunkt aus den Adressvorschlägen, damit wir den genauen Ort kennen."
           : "Startpunkt wird noch ermittelt."
       );
       return;

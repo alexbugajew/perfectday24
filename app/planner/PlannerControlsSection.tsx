@@ -919,7 +919,7 @@ export default function PlannerControlsSection({
                             </div>
 
                             <div className="flex shrink-0 flex-wrap justify-end gap-1.5">
-                              <span className="rounded-full bg-[rgba(193,124,74,0.12)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent-strong)]">
+                              <span className="rounded-full bg-[var(--brand-warm-cloud)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--brand-warm-ink)]">
                                 {startPointSuggestionTypeLabel(suggestion.type)}
                               </span>
                               <span className="rounded-full bg-[rgba(68,57,46,0.07)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">

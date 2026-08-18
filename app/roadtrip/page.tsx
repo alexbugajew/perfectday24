@@ -516,13 +516,14 @@ function RoadtripPageContent() {
             error: null,
           };
         } catch (err) {
+          console.error("Roadtrip-Tagesplan fehlgeschlagen", err);
           return {
             citySlug: stop.citySlug,
             date: stop.date,
             status: "error" as const,
             stops: [],
             variantLabel: null,
-            error: err instanceof Error ? err.message : "Unbekannter Fehler",
+            error: "Für diese Stadt konnte kein Tagesplan geladen werden — bitte versuche es erneut.",
           };
         }
       })
@@ -829,7 +830,7 @@ function RoadtripPageContent() {
               )}
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#b76a43]/90 backdrop-blur-sm">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--brand-warm-deep)]/90 backdrop-blur-sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-4 w-4">
                       <circle cx="12" cy="12" r="3" />
                       <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
@@ -849,7 +850,7 @@ function RoadtripPageContent() {
               onClick={() => setHeroMode("individual")}
               className={`group relative overflow-hidden rounded-2xl text-left transition active:scale-[0.98] ${
                 heroMode === "individual"
-                  ? "ring-2 ring-[#5a7688] ring-offset-2 shadow-lg"
+                  ? "ring-2 ring-[color:var(--brand-accent)] ring-offset-2 shadow-lg"
                   : "shadow-sm hover:shadow-md"
               }`}
               style={{ height: 200 }}
@@ -863,7 +864,7 @@ function RoadtripPageContent() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               {heroMode === "individual" && (
-                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#5a7688] shadow">
+                <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--brand-accent)] shadow">
                   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} className="h-3 w-3">
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
@@ -871,7 +872,7 @@ function RoadtripPageContent() {
               )}
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#5a7688]/90 backdrop-blur-sm">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--brand-accent)]/90 backdrop-blur-sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-4 w-4">
                       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
                       <circle cx="12" cy="9" r="2.5" />
@@ -913,7 +914,7 @@ function RoadtripPageContent() {
               )}
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#7c6fa0]/90 backdrop-blur-sm">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--brand-creative)]/90 backdrop-blur-sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.75} className="h-4 w-4">
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                     </svg>
@@ -921,7 +922,7 @@ function RoadtripPageContent() {
                   <span className="text-sm font-bold text-white drop-shadow">Roadtrip-Vorlagen</span>
                 </div>
                 <p className="mt-1 text-xs leading-4 text-white/80">
-                  Fertige Roadtrips direkt in deinen Plan uebernehmen
+                  Fertige Roadtrips direkt in deinen Plan übernehmen
                 </p>
               </div>
             </button>
@@ -962,7 +963,7 @@ function RoadtripPageContent() {
           <div className="grid grid-cols-3 divide-x divide-[var(--line-subtle)] border-t border-[var(--line-subtle)]">
             {[
               { icon: "🗺️", label: "Strecke eingeben" },
-              { icon: "✨", label: "KI generiert Stopps" },
+              { icon: "✨", label: "KI generiert Stops" },
               { icon: "🚗", label: "Route starten" },
             ].map(({ icon, label }) => (
               <div key={label} className="flex flex-col items-center gap-1.5 px-3 py-4">
@@ -1819,7 +1820,7 @@ function RoadtripPageContent() {
                                         <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3 text-amber-400">
                                           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                                         </svg>
-                                        {cr.avg_rating.toFixed(1)}
+                                        {cr.avg_rating.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
                                       </span>
                                     )}
                                     {cr.creator_type !== "user" && (

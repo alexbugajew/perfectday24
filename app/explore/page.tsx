@@ -335,7 +335,7 @@ function buildRouteCardTeaser(
 ) {
   const cityName = route.city_slug ? cityMap.get(route.city_slug)?.name ?? "deiner Stadt" : "deiner Stadt";
   const stopCount = route.stop_count ?? route.required_stop_count ?? null;
-  const stopPhrase = stopCount ? `${stopCount} stimmig gesetzte Stopps` : "ein klar kuratierter Tagesflow";
+  const stopPhrase = stopCount ? `${stopCount} stimmig gesetzte Stops` : "ein klar kuratierter Tagesflow";
   const focus = routeTitleFocus(route.title);
   const focusPhrase = focus ? ` rund um ${focus}` : "";
   const badgeSet = new Set(badges.map((badge) => badge.label.toLowerCase()));
@@ -377,7 +377,7 @@ function buildRouteCardTeaser(
     return `Ein leichter Outdoor-Tag in ${cityName} mit ${stopPhrase}${focusPhrase} und genau genug Luft für spontane Momente.${transportPhrase}`;
   }
 
-  return `Eine kuratierte Route in ${cityName} mit ${stopPhrase}${focusPhrase}, die sofort Lust macht, den Tag nicht nur zu planen, sondern direkt zu waehlen.${transportPhrase}`;
+  return `Eine kuratierte Route in ${cityName} mit ${stopPhrase}${focusPhrase}, die sofort Lust macht, den Tag nicht nur zu planen, sondern direkt zu erleben.${transportPhrase}`;
 }
 
 function isSafeImageHost(url: string | null): boolean {
@@ -576,7 +576,7 @@ function RouteCard({
             {durationLabel}
           </span>
           <span className="rounded-full border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-[11px] text-[var(--text-muted)]">
-            {route.stop_count ?? 0} Stopps
+            {route.stop_count ?? 0} Stops
           </span>
           {badges.slice(0, 1).map((badge, index) => (
             <span
@@ -619,8 +619,8 @@ function RouteCard({
               </div>
             </div>
             <div className="flex flex-wrap gap-3 text-xs text-[var(--text-soft)]">
-              <span>{route.required_stop_count ?? 0} Pflicht-Stopps</span>
-              <span>{route.avg_rating?.toFixed(1) ?? "0.0"} ⭐</span>
+              <span>{route.required_stop_count ?? 0} Pflicht-Stops</span>
+              <span>{route.avg_rating?.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) ?? "0,0"} ⭐</span>
               <span>{route.like_count ?? 0} Likes</span>
               <span>Aktualisiert {formatDate(route.updated_at)}</span>
             </div>

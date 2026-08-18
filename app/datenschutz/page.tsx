@@ -230,7 +230,7 @@ export default function DatenschutzPage() {
             "Interessen und Gruppenpräferenzen",
             "manueller Startpunkt mit Bezeichnung und Koordinaten",
             "optional der aktuelle Standort, wenn Sie die Standortfreigabe in Ihrem Browser erteilen",
-            "Planvarianten, Stopps, Begründungen und Zusammenfassungen",
+            "Planvarianten, Stops, Begründungen und Zusammenfassungen",
           ]}
         />
         <p>
@@ -270,7 +270,7 @@ export default function DatenschutzPage() {
             "Titel des Plans",
             "Filter- und Planungseinstellungen",
             "effektiven Radius und Sortierung",
-            "ausgewählte Stopps mit Bezeichnungen, Notizen, Dauer, Koordinaten und externen Links",
+            "ausgewählte Stops mit Bezeichnungen, Notizen, Dauer, Koordinaten und externen Links",
             "Gruppenbezug und Varianteninformationen",
             "eine gegebenenfalls erzeugte KI-Beschreibung des Plans",
           ]}
@@ -293,7 +293,7 @@ export default function DatenschutzPage() {
           items={[
             "Titel und Inhalte des geteilten Plans",
             "Startpunktbezeichnung",
-            "gespeicherte Stopps und Beschreibungen",
+            "gespeicherte Stops und Beschreibungen",
             "gegebenenfalls die KI-generierte Planbeschreibung",
             "gemeinschaftliche Wahl-/Abstimmungsinformationen",
             "Änderungswünsche der Gruppe",
@@ -355,7 +355,7 @@ export default function DatenschutzPage() {
         <p>Wenn Sie Routen erstellen oder mit Routen interagieren, verarbeiten wir insbesondere:</p>
         <BulletList
           items={[
-            "Routentitel, Beschreibungen, Stopps, Notizen und Koordinaten",
+            "Routentitel, Beschreibungen, Stops, Notizen und Koordinaten",
             "Sichtbarkeitseinstellungen",
             "Likes",
             "Bookmarks",
@@ -455,7 +455,7 @@ export default function DatenschutzPage() {
         <BulletList
           items={[
             "Planparameter wie Budget, Anlass, Modus und Interessen",
-            "ausgewählte Stopps und Slot-Informationen",
+            "ausgewählte Stops und Slot-Informationen",
             "Bezeichnungen, Kategorien, Distanzen und sonstige planrelevante Angaben",
           ]}
         />

@@ -418,6 +418,12 @@ textarea:disabled {
   background: linear-gradient(90deg, rgba(17, 24, 39, 0), var(--line-subtle), rgba(17, 24, 39, 0));
 }
 
+/* Safe-Area (iOS): env(safe-area-inset-bottom) liefert erst mit
+   viewport-fit=cover (export const viewport in app/layout.tsx) Werte > 0. */
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -71,6 +71,10 @@ export default function VendorQuotePage() {
   const [quote, setQuote]       = useState<QuoteData | null>(null);
   const [loading, setLoading]   = useState(true);
   const [notFound, setNotFound] = useState(false);
+  // Netzwerk-/RPC-Fehler getrennt vom "Link ungültig"-Fall halten — sonst
+  // wirkt ein gültiger Anfrage-Link bei einem kurzen Verbindungsproblem tot.
+  const [loadError, setLoadError] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
 
   // Form state
   const [priceEur, setPriceEur]     = useState("");
@@ -81,11 +85,16 @@ export default function VendorQuotePage() {
 
   useEffect(() => {
     if (!token) return;
+    setLoading(true);
+    setLoadError(false);
 
     supabase
       .rpc("get_vendor_quote_by_token", { p_token: token })
       .then(({ data, error }) => {
-        if (error || !data || (Array.isArray(data) && data.length === 0)) {
+        if (error) {
+          console.error("Vendor-Quote laden fehlgeschlagen:", error.message);
+          setLoadError(true);
+        } else if (!data || (Array.isArray(data) && data.length === 0)) {
           setNotFound(true);
         } else {
           const row = Array.isArray(data) ? data[0] : data;
@@ -97,7 +106,7 @@ export default function VendorQuotePage() {
         }
         setLoading(false);
       });
-  }, [token]);
+  }, [token, reloadKey]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -128,6 +137,29 @@ export default function VendorQuotePage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[var(--bg-canvas-warm)]">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--text-strong)] border-t-transparent" />
+      </div>
+    );
+  }
+
+  // ── Lade-/Netzwerkfehler: Link ist evtl. gültig, nur gerade nicht erreichbar ──
+  if (loadError) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-canvas-warm)] px-4">
+        <div className="max-w-sm text-center">
+          <div className="mb-4 text-4xl">📡</div>
+          <h1 className="mb-2 text-xl font-semibold text-[var(--text-strong)]">Gerade nicht erreichbar</h1>
+          <p className="mb-4 text-sm text-[var(--text-soft-warm)]">
+            Die Anfrage konnte nicht geladen werden. Bitte prüfen Sie Ihre Verbindung
+            und versuchen Sie es erneut — der Link bleibt gültig.
+          </p>
+          <button
+            type="button"
+            onClick={() => setReloadKey((value) => value + 1)}
+            className="pd24-btn pd24-btn-sm pd24-btn-primary"
+          >
+            Erneut versuchen
+          </button>
+        </div>
       </div>
     );
   }

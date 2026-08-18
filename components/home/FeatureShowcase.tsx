@@ -128,7 +128,7 @@ export default function FeatureShowcase() {
           </ul>
           <Link
             href={feature.cta.href}
-            className="mt-6 inline-flex min-h-11 items-center rounded-full bg-[var(--text-strong)] px-5 text-sm font-semibold text-white transition hover:opacity-90"
+            className="pd24-btn pd24-btn-sm pd24-btn-primary mt-6"
           >
             {feature.cta.label} →
           </Link>

@@ -106,7 +106,7 @@ function buildInviteText(plan: SharedPlan, cityName: string): string {
 
     kindergeburtstag: `${when ? `Am ${when}` : "Bald"} wird gefeiert! ${hosted} hat Geburtstag und darf seine liebsten Freunde einladen. Freut euch auf einen unvergesslichen Nachmittag voller Spiel, Spaß und natürlich Torte${cityName ? ` in ${cityName}` : ""}. Wir freuen uns riesig auf euch!`,
 
-    konferenz: `Wir laden Sie herzlich ${hosted ? `${hosted} ` : ""}zu unserer Veranstaltung ein${cityName ? ` in ${cityName}` : ""}${when ? `, am ${when}` : ""}. Freuen Sie sich auf spannende Fachvorträge, wertvolle Gespräche und einen informativen Austausch. Wir freuen uns auf Ihre Teilnahme.`,
+    konferenz: `Wir laden euch herzlich ${hosted ? `${hosted} ` : ""}zu unserer Veranstaltung ein${cityName ? ` in ${cityName}` : ""}${when ? `, am ${when}` : ""}. Freut euch auf spannende Fachvorträge, wertvolle Gespräche und einen informativen Austausch. Wir freuen uns auf eure Teilnahme.`,
 
     jubilaeum: `${when ? `Am ${when}` : "Bald"} begehen wir ein besonderes Jubiläum ${hosted}${cityName ? ` in ${cityName}` : ""}. Dieser Meilenstein soll gebührend gefeiert werden — mit all jenen, die diesen Weg mitgegangen sind. Wir freuen uns sehr auf euer Kommen.`,
 
@@ -176,6 +176,8 @@ export default function InvitationPage() {
   const [cityName, setCityName] = useState("");
   const [loading, setLoading]   = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [loadError, setLoadError] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
 
   // RSVP form
   const [guestName, setGuestName]   = useState("");
@@ -185,12 +187,24 @@ export default function InvitationPage() {
   useEffect(() => {
     if (!token) return;
 
+    setLoading(true);
+    setLoadError(false);
+
     (async () => {
       const { data: rows, error } = await supabase.rpc("public_event_plan_by_token", {
         p_token: token,
       });
 
-      if (error || !rows || (Array.isArray(rows) && rows.length === 0)) {
+      // Fetch-/Serverfehler ≠ "Link existiert nicht": bei transienten Fehlern
+      // neutralen Retry-Zustand zeigen statt "abgelaufen" zu behaupten.
+      if (error) {
+        console.error("Einladung laden fehlgeschlagen", error);
+        setLoadError(true);
+        setLoading(false);
+        return;
+      }
+
+      if (!rows || (Array.isArray(rows) && rows.length === 0)) {
         setNotFound(true);
         setLoading(false);
         return;
@@ -219,7 +233,7 @@ export default function InvitationPage() {
       setBookings((bkgs ?? []) as unknown as EventBooking[]);
       setLoading(false);
     })();
-  }, [token]);
+  }, [token, reloadKey]);
 
   async function handleRsvp(response: "accepted" | "declined") {
     if (!plan || !guestName.trim()) return;
@@ -248,8 +262,30 @@ export default function InvitationPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-canvas-warm)]">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--brand-warm-deep)] border-t-transparent" />
+      <div role="status" className="flex min-h-screen items-center justify-center bg-[var(--bg-canvas-warm)]">
+        <div aria-hidden className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--brand-warm-deep)] border-t-transparent" />
+        <span className="sr-only">Einladung wird geladen …</span>
+      </div>
+    );
+  }
+
+  // ─── Render: load error (transient) ────────────────────────────────────────
+
+  if (loadError) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[var(--bg-canvas-warm)] px-4 text-center">
+        <div className="text-4xl">📡</div>
+        <p className="text-lg font-semibold text-[var(--text-strong)]">Gerade nicht erreichbar</p>
+        <p className="text-sm text-[var(--text-soft-warm)]">
+          Die Einladung konnte nicht geladen werden. Bitte versuche es gleich noch einmal.
+        </p>
+        <button
+          type="button"
+          onClick={() => setReloadKey((k) => k + 1)}
+          className="pd24-btn pd24-btn-sm pd24-btn-secondary mt-2"
+        >
+          Erneut versuchen
+        </button>
       </div>
     );
   }
@@ -395,7 +431,7 @@ export default function InvitationPage() {
             </span>
             <div className="h-px flex-1" style={{ background: theme.soft }} />
           </div>
-          <p className="leading-7 text-[#3d3530]" style={{ fontFamily: "Georgia, serif", fontSize: "15px" }}>
+          <p className="leading-7 text-[var(--text-muted-warm)]" style={{ fontFamily: "Georgia, serif", fontSize: "15px" }}>
             {inviteText}
           </p>
           {plan.notes && (
@@ -468,40 +504,44 @@ export default function InvitationPage() {
           </div>
 
           {rsvpState === "error_duplicate" && (
-            <div className="pd24-status-warning mb-4 rounded-[12px] px-4 py-3 text-sm">
+            <div role="alert" className="pd24-status-warning mb-4 rounded-[12px] px-4 py-3 text-sm">
               Für diesen Namen liegt bereits eine Rückmeldung vor.
             </div>
           )}
           {rsvpState === "error" && (
-            <div className="pd24-status-error mb-4 rounded-[12px] px-4 py-3 text-sm">
+            <div role="alert" className="pd24-status-error mb-4 rounded-[12px] px-4 py-3 text-sm">
               Etwas ist schiefgelaufen. Bitte versuche es erneut.
             </div>
           )}
 
           <div className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
+              <label htmlFor="rsvp-name" className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
                 Dein Name <span style={{ color: theme.accent }}>*</span>
               </label>
               <input
+                id="rsvp-name"
                 type="text"
+                required
+                aria-required="true"
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
                 placeholder="Vorname Nachname"
-                className="w-full rounded-xl border border-[var(--line-strong)] bg-[#fafaf8] px-4 py-3 text-sm text-[var(--text-strong)] placeholder-[var(--text-soft-warm)] outline-none focus:border-[var(--text-strong)]"
+                className="w-full rounded-xl border border-[var(--line-strong)] bg-[var(--bg-surface-warm)] px-4 py-3 text-sm text-[var(--text-strong)] placeholder-[var(--text-soft-warm)] outline-none focus:border-[var(--text-strong)]"
               />
             </div>
 
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
+              <label htmlFor="rsvp-message" className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
                 Nachricht (optional)
               </label>
               <textarea
+                id="rsvp-message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows={2}
                 placeholder="Ich freue mich sehr! / Leider verhindert, weil …"
-                className="w-full resize-none rounded-xl border border-[var(--line-strong)] bg-[#fafaf8] px-4 py-3 text-sm text-[var(--text-strong)] placeholder-[var(--text-soft-warm)] outline-none focus:border-[var(--text-strong)]"
+                className="w-full resize-none rounded-xl border border-[var(--line-strong)] bg-[var(--bg-surface-warm)] px-4 py-3 text-sm text-[var(--text-strong)] placeholder-[var(--text-soft-warm)] outline-none focus:border-[var(--text-strong)]"
               />
             </div>
 
@@ -520,7 +560,7 @@ export default function InvitationPage() {
                 type="button"
                 disabled={!guestName.trim() || rsvpState === "submitting"}
                 onClick={() => void handleRsvp("declined")}
-                className="flex flex-col items-center gap-1 rounded-xl border-2 border-[var(--line-strong)] bg-[#fafaf8] py-3.5 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(23,23,23,0.25)] disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex flex-col items-center gap-1 rounded-xl border-2 border-[var(--line-strong)] bg-[var(--bg-surface-warm)] py-3.5 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[rgba(23,23,23,0.25)] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <span className="text-xl">😔</span>
                 <span>Leider nicht</span>
@@ -528,7 +568,7 @@ export default function InvitationPage() {
             </div>
 
             {rsvpState === "submitting" && (
-              <p className="text-center text-xs text-[var(--text-soft-warm)]">Wird gespeichert …</p>
+              <p role="status" className="text-center text-xs text-[var(--text-soft-warm)]">Wird gespeichert …</p>
             )}
           </div>
         </div>
@@ -558,7 +598,7 @@ export default function InvitationPage() {
 function FactChip({ icon, label, borderColor }: { icon: string; label: string; borderColor: string }) {
   return (
     <span
-      className="inline-flex items-center gap-1.5 rounded-full border bg-white px-3 py-1 text-xs font-medium text-[#3d3530] shadow-sm"
+      className="inline-flex items-center gap-1.5 rounded-full border bg-white px-3 py-1 text-xs font-medium text-[var(--text-muted-warm)] shadow-sm"
       style={{ borderColor }}
     >
       <span>{icon}</span>

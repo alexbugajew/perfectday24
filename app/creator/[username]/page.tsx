@@ -327,7 +327,7 @@ function RouteCard({
             <div className="mt-1 font-medium text-gray-900">{durationLabel}</div>
           </div>
           <div className="rounded-2xl border border-black/5 bg-gray-50 px-3 py-3">
-            <div className="text-gray-400">Stopps</div>
+            <div className="text-gray-400">Stops</div>
             <div className="mt-1 font-medium text-gray-900">{route.stop_count ?? 0} Stationen</div>
           </div>
           <div className="rounded-2xl border border-black/5 bg-gray-50 px-3 py-3">
@@ -360,8 +360,8 @@ function RouteCard({
           <div className="mt-3 space-y-2 leading-relaxed">
             <p>{desc}</p>
             <div className="flex flex-wrap gap-3 text-xs text-gray-500">
-              <span>{route.required_stop_count ?? 0} Pflicht-Stopps</span>
-              <span>{route.avg_rating?.toFixed(1) ?? "0.0"} Bewertung</span>
+              <span>{route.required_stop_count ?? 0} Pflicht-Stops</span>
+              <span>{route.avg_rating?.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) ?? "0,0"} Bewertung</span>
               <span>{route.like_count ?? 0} Likes</span>
               <span>Aktualisiert {formatDate(route.updated_at)}</span>
             </div>
@@ -1090,7 +1090,7 @@ function CreatorPageContent() {
       </div>
 
       {toast ? (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-black px-4 py-2 text-sm text-white shadow-lg">
+        <div className="fixed bottom-24 sm:bottom-4 left-1/2 z-[1400] -translate-x-1/2 rounded-full bg-black px-4 py-2 text-sm text-white shadow-lg">
           {toast}
         </div>
       ) : null}

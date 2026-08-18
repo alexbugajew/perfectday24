@@ -66,7 +66,7 @@ function getLocationFromSlot(s: any) {
 function kmText(v: any) {
   const n = typeof v === "number" ? v : v == null ? null : Number(v);
   if (n == null || !Number.isFinite(n)) return "";
-  return `${n.toFixed(1)} km`;
+  return `${n.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} km`;
 }
 
 function buildMapStops(plan: PublicPlan | null) {
@@ -186,7 +186,33 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
     ? (rpcDataRaw[0] ?? null)
     : (rpcDataRaw ?? null);
 
-  if (rpcResp.error || !plan) {
+  // Fetch-/Serverfehler ≠ "Link existiert nicht": bei transienten Fehlern
+  // neutralen Retry-Zustand zeigen statt "nicht mehr aktiv" zu behaupten.
+  if (rpcResp.error) {
+    console.error("Geteilten Plan laden fehlgeschlagen", rpcResp.error);
+    return (
+      <main className="pd24-page-standard px-4 pb-16 pt-6">
+        <nav className="mb-8 flex items-center justify-between gap-4">
+          <Link href="/" className="text-sm font-semibold text-[var(--text-strong)]">PerfectDay24</Link>
+        </nav>
+        <div className="rounded-xl border border-[var(--line-subtle)] bg-white p-5 shadow-[var(--shadow-soft)]">
+          <div className="pd24-meta">Gerade nicht erreichbar</div>
+          <h2 className="mt-2 text-xl font-semibold text-[var(--text-strong)]">Der Plan konnte nicht geladen werden.</h2>
+          <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
+            Das liegt vermutlich an einer kurzen Störung. Bitte versuche es gleich noch einmal.
+          </p>
+          <a
+            href={`/p/${encodeURIComponent(token)}`}
+            className="mt-4 pd24-btn pd24-btn-sm pd24-btn-secondary"
+          >
+            Erneut versuchen
+          </a>
+        </div>
+      </main>
+    );
+  }
+
+  if (!plan) {
     return (
       <main className="pd24-page-standard px-4 pb-16 pt-6">
         <nav className="mb-8 flex items-center justify-between gap-4">
@@ -275,7 +301,7 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
         </Link>
         <Link
           href="/planner"
-          className="rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
+          className="inline-flex min-h-11 items-center rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-muted)] transition hover:bg-[var(--bg-panel)]"
         >
           Eigenen Plan erstellen →
         </Link>
@@ -459,7 +485,7 @@ export default async function SharePlanPage(props: { params: any; searchParams?:
                         targetUrl={targetUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="shrink-0 rounded-lg border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+                        className="inline-flex min-h-11 shrink-0 items-center rounded-lg border border-[var(--line-subtle)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
                         planId={plan.id}
                         locationId={typeof loc?.id === "string" ? loc.id : null}
                         partnerProfileId={affiliateMatch?.partnerProfileId ?? null}

@@ -13,7 +13,7 @@ const SUPABASE_HOST = "nxrkhlokadhwwtuoglxa.supabase.co";
  * `unsafe-inline` bei style-src ist nötig, weil Leaflet und React inline-Styles
  * setzen. `unsafe-eval` bleibt auf die Entwicklungsumgebung beschränkt (HMR).
  */
-function buildCsp(isDev: boolean): string {
+function buildCsp(isDev: boolean, isEnforced: boolean): string {
   const scriptSrc = [
     "'self'",
     "'unsafe-inline'", // Next.js Bootstrap-/Hydration-Skripte
@@ -41,7 +41,9 @@ function buildCsp(isDev: boolean): string {
     "base-uri 'self'",
     "form-action 'self'",
     "frame-ancestors 'none'",
-    "upgrade-insecure-requests",
+    // In Report-Only-Policies wird upgrade-insecure-requests von Browsern
+    // ignoriert und erzeugt nur Console-Fehler — daher nur im Enforce-Modus.
+    ...(isEnforced ? ["upgrade-insecure-requests"] : []),
   ].join("; ");
 }
 
@@ -53,11 +55,11 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
     const isDev = process.env.NODE_ENV !== "production";
-    const csp = buildCsp(isDev);
-    const cspHeaderName =
-      process.env.CSP_ENFORCE === "true"
-        ? "Content-Security-Policy"
-        : "Content-Security-Policy-Report-Only";
+    const isEnforced = process.env.CSP_ENFORCE === "true";
+    const csp = buildCsp(isDev, isEnforced);
+    const cspHeaderName = isEnforced
+      ? "Content-Security-Policy"
+      : "Content-Security-Policy-Report-Only";
 
     return [
       {

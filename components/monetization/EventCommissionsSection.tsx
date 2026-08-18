@@ -148,7 +148,7 @@ export default async function EventCommissionsSection() {
                     </td>
                     <td className="px-4 py-3 text-xs text-[var(--text-strong)]">{row.need_slug ?? "—"}</td>
                     <td className="px-4 py-3 text-right text-xs text-[var(--text-strong)]">{euros(row.base_amount_cents)}</td>
-                    <td className="px-4 py-3 text-right text-xs text-[var(--text-muted)]">{(row.rate_bps / 100).toFixed(1)}%</td>
+                    <td className="px-4 py-3 text-right text-xs text-[var(--text-muted)]">{(row.rate_bps / 100).toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%</td>
                     <td className="px-4 py-3 text-right text-xs font-semibold text-[var(--text-strong)]">{euros(row.commission_cents)}</td>
                     <td className="px-4 py-3">
                       <span
