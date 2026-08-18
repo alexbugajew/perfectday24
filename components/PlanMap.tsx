@@ -373,7 +373,7 @@ export default function PlanMap({
               : loading
                 ? "Route wird berechnet..."
                 : err
-                  ? "Route nicht verfuegbar"
+                  ? "Route nicht verfügbar"
                   : "OSRM aktiv"}
           </div>
         </div>

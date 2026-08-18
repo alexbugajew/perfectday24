@@ -516,8 +516,8 @@ export default async function PartnerLandingPage() {
             </div>
           </div>
 
-          <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[linear-gradient(180deg,#0f172a,#1f2937)] p-6 text-white shadow-[var(--shadow-soft)]">
-            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">Direktkontakt</div>
+          <div className="rounded-[28px] border border-[var(--line-subtle)] bg-[var(--text-strong)] p-6 text-white shadow-[var(--shadow-soft)]">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[rgba(255,253,248,0.72)]">Direktkontakt</div>
             <h3 className="mt-3 text-xl font-semibold text-white">Fragen vor dem Start?</h3>
             <p className="mt-2 text-sm leading-6 text-white/70">
               Unser Team beantwortet Fragen zu Paketen, Sichtbarkeit und Integration — per E-Mail oder Demo-Gespräch.

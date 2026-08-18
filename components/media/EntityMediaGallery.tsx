@@ -32,9 +32,9 @@ export default function EntityMediaGallery({
   title,
   subtitle,
   items,
-  emptyTitle = "Noch keine Bilder verfuegbar",
+  emptyTitle = "Noch keine Bilder verfügbar",
   emptyBody = "Sobald erste Fotos freigegeben sind, erscheinen sie hier als Galerie.",
-  rightsHint = "Community-Fotos werden vor der Freigabe geprueft. Mit dem Upload muessen Nutzungsrechte bestaetigt werden.",
+  rightsHint = "Community-Fotos werden vor der Freigabe geprüft. Mit dem Upload müssen Nutzungsrechte bestätigt werden.",
   className,
 }: EntityMediaGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -218,11 +218,11 @@ export default function EntityMediaGallery({
 
       {activeIndex !== null && activeItem ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(15,23,42,0.82)] px-4 py-6"
+          className="fixed inset-0 z-[1500] flex items-center justify-center bg-[rgba(15,23,42,0.82)] px-4 py-6"
           onClick={closeLightbox}
         >
           <div
-            className="relative w-full max-w-6xl overflow-hidden rounded-[30px] border border-white/12 bg-[#0f172a] shadow-2xl"
+            className="relative w-full max-w-6xl overflow-hidden rounded-[var(--radius-shell)] border border-white/12 bg-[#0f172a] shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 text-white">

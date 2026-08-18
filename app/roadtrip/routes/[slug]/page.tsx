@@ -285,7 +285,7 @@ function RoadtripPreviewCard({
         </div>
 
         <div className="rounded-[var(--radius-card-sm)] border border-[rgba(23,23,23,0.06)] bg-white px-4 py-3.5 text-sm leading-6 text-[var(--text-muted)]">
-          {stops.length} Stopps mit {totalNights} Nächten zwischen {firstStop} und {lastStop}.{" "}
+          {stops.length} Stops mit {totalNights} Nächten zwischen {firstStop} und {lastStop}.{" "}
           {editorial.highlights[0] ?? editorial.intro}
         </div>
       </div>
@@ -481,7 +481,7 @@ export default function RoadtripRouteDetailPage() {
           </p>
           <Link
             href="/roadtrip/routes"
-            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[var(--text-strong)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+            className="pd24-btn pd24-btn-primary mt-4"
           >
             Alle Roadtrip-Routen →
           </Link>
@@ -846,7 +846,7 @@ export default function RoadtripRouteDetailPage() {
         <CommunityPhotoSubmission
           entityType="roadtrip"
           entityId={route.id}
-          title="Roadtrip-Foto hinzufuegen"
+          title="Roadtrip-Foto hinzufügen"
           subtitle="Lade Bilder zur gesamten Route hoch. Freigegebene Fotos können später Cover, Galerie oder Highlights der Etappen stärken."
           previewItems={roadtripGalleryItems.slice(0, 16).map((item) => ({
             id: item.id,
@@ -964,7 +964,7 @@ export default function RoadtripRouteDetailPage() {
                           href={`/routes/${stop.creatorRouteSlug}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="shrink-0 text-[10px] text-[var(--brand-warm-deep)] underline underline-offset-2 hover:text-[#9d5a38]"
+                          className="shrink-0 text-[10px] text-[var(--brand-warm-deep)] underline underline-offset-2 transition hover:opacity-80"
                         >
                           Ansehen →
                         </a>
@@ -1031,7 +1031,7 @@ export default function RoadtripRouteDetailPage() {
                                     {candidate.title}
                                   </div>
                                   <p className="mt-1 line-clamp-2 text-[11px] leading-5 text-[var(--text-muted)]">
-                                    {candidate.description?.trim() || `Fertige Route fuer deinen Stop in ${stop.cityLabel}.`}
+                                    {candidate.description?.trim() || `Fertige Route für deinen Stop in ${stop.cityLabel}.`}
                                   </p>
                                   <div className="mt-2 text-[11px] text-[var(--text-muted)]">
                                     {creatorRouteSuggestionMeta(candidate)}
@@ -1139,7 +1139,7 @@ export default function RoadtripRouteDetailPage() {
               >
                 {previewOnlyStop ? (
                   <>
-                    <span className="text-xs text-[var(--text-muted)]">Roadtrip-Vorschau verfuegbar</span>
+                    <span className="text-xs text-[var(--text-muted)]">Roadtrip-Vorschau verfügbar</span>
                     <a
                       href={stopMapHref}
                       target="_blank"
@@ -1156,11 +1156,11 @@ export default function RoadtripRouteDetailPage() {
                   <>
                 <span className="text-xs text-[var(--text-muted)]">
                   {stop.creatorRouteSlug
-                    ? "Creator-Route verfuegbar"
+                    ? "Creator-Route verfügbar"
                     : stop.plannedStops?.length
-                    ? `${stop.plannedStops.length} Stopps geplant`
+                    ? `${stop.plannedStops.length} Stops geplant`
                     : !plannerSupported
-                    ? "Roadtrip-Preview verfuegbar"
+                    ? "Vorschau verfügbar"
                     : "Noch kein Tagesplan"}
                 </span>
                 {stop.creatorRouteSlug ? (

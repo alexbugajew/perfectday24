@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
@@ -194,6 +194,9 @@ function PlanNewInner() {
   const [quoteRequests, setQuoteRequests]       = useState<Record<string, VendorWithScore>>({});
   const [modalState, setModalState]             = useState<{ vendor: VendorWithScore; needSlug: string } | null>(null);
   const [saving, setSaving]                     = useState(false);
+  const [saveError, setSaveError]               = useState<string | null>(null);
+  const [titleError, setTitleError]             = useState<string | null>(null);
+  const [vendorsError, setVendorsError]         = useState(false);
 
   // ── Load city name ────────────────────────────────────────────────────────
 
@@ -214,6 +217,9 @@ function PlanNewInner() {
 
     const serviceTypes = [...new Set(needs.flatMap((n) => NEED_SERVICE_TYPES[n] ?? []))];
     if (!serviceTypes.length) { setLoading(false); return; }
+
+    setLoading(true);
+    setVendorsError(false);
 
     const { data: rows, error } = await supabase
       .from("service_providers")
@@ -237,6 +243,7 @@ function PlanNewInner() {
 
     if (error) {
       console.error("vendor query failed:", error.message);
+      setVendorsError(true);
       setLoading(false);
       return;
     }
@@ -320,11 +327,20 @@ function PlanNewInner() {
   // ── Save ─────────────────────────────────────────────────────────────────
 
   async function handleSave() {
+    if (!eventTitle.trim()) {
+      setTitleError("Bitte gib deinem Event einen Namen, damit du den Plan später wiederfindest.");
+      const input = document.getElementById("event-title");
+      input?.scrollIntoView({ behavior: "smooth", block: "center" });
+      input?.focus({ preventScroll: true });
+      return;
+    }
+
+    setSaveError(null);
     setSaving(true);
     const { data: { session } } = await supabase.auth.getSession();
 
     if (!session) {
-      const returnUrl = encodeURIComponent(window.location.href);
+      const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
       router.push(`/profile?return=${returnUrl}`);
       return;
     }
@@ -345,7 +361,12 @@ function PlanNewInner() {
       .select("id")
       .single();
 
-    if (planErr || !plan) { setSaving(false); return; }
+    if (planErr || !plan) {
+      console.error("event plan insert failed:", planErr?.message ?? "no plan returned");
+      setSaveError("Plan konnte nicht gespeichert werden — bitte erneut versuchen.");
+      setSaving(false);
+      return;
+    }
 
     // Bookings for vendors with selected packages
     const bookings = Object.values(selections).map((s) => ({
@@ -359,8 +380,16 @@ function PlanNewInner() {
       status: "interested",
     }));
 
+    let createdBookingCount = 0;
+    let bookingFailed = false;
     if (bookings.length) {
-      await supabase.from("event_bookings").insert(bookings);
+      const { error: bookingsErr } = await supabase.from("event_bookings").insert(bookings);
+      if (bookingsErr) {
+        console.error("event bookings insert failed:", bookingsErr.message);
+        bookingFailed = true;
+      } else {
+        createdBookingCount = bookings.length;
+      }
     }
 
     // Inquiries for vendors without prices
@@ -413,10 +442,11 @@ function PlanNewInner() {
     const nextParams = new URLSearchParams({
       created: "1",
       inquiries: String(createdQuoteCount),
-      bookings: String(bookings.length),
+      bookings: String(createdBookingCount),
       tab: nextTab,
     });
     if (inquiryFailed) nextParams.set("inquiryError", "1");
+    if (bookingFailed) nextParams.set("bookingError", "1");
 
     router.push(`/events/plan/${plan.id}?${nextParams.toString()}`);
   }
@@ -483,16 +513,32 @@ function PlanNewInner() {
         {/* Event-Name */}
         {hasWizardContext && (
           <div className="mb-8">
-            <label className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
+            <label htmlFor="event-title" className="mb-1.5 block text-sm font-medium text-[var(--text-strong)]">
               Event-Name <span className="text-[var(--brand-warm-deep)]">*</span>
             </label>
             <input
+              id="event-title"
               type="text"
               value={eventTitle}
-              onChange={(e) => setEventTitle(e.target.value)}
+              onChange={(e) => {
+                setEventTitle(e.target.value);
+                if (titleError && e.target.value.trim()) setTitleError(null);
+              }}
               placeholder="z.B. Weihnachtsfeier 2026, Teambuilding Marketing"
-              className="w-full rounded-2xl border border-[var(--line-strong)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] placeholder-[var(--text-soft-warm)] outline-none focus:border-[var(--text-strong)] focus:ring-2 focus:ring-[rgba(23,23,23,0.08)]"
+              aria-invalid={titleError ? "true" : undefined}
+              aria-describedby={titleError ? "event-title-error" : undefined}
+              className={cx(
+                "w-full rounded-2xl border bg-white px-4 py-3 text-sm text-[var(--text-strong)] placeholder-[var(--text-soft-warm)] outline-none focus:ring-2",
+                titleError
+                  ? "border-[var(--state-error)] focus:border-[var(--state-error)] focus:ring-[rgba(161,75,69,0.12)]"
+                  : "border-[var(--line-strong)] focus:border-[var(--text-strong)] focus:ring-[rgba(23,23,23,0.08)]"
+              )}
             />
+            {titleError && (
+              <p id="event-title-error" role="alert" className="mt-1.5 text-xs font-medium text-[var(--state-error)]">
+                {titleError}
+              </p>
+            )}
           </div>
         )}
 
@@ -512,6 +558,25 @@ function PlanNewInner() {
             >
               Zum Event-Planer
             </Link>
+          </div>
+        ) : vendorsError ? (
+
+          /* Vendor query failed → retry card instead of misleading empty states */
+          <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-white p-8 text-center sm:p-10">
+            <div className="text-3xl">📡</div>
+            <h2 className="mt-3 text-lg font-semibold text-[var(--text-strong)]">
+              Anbieter konnten nicht geladen werden
+            </h2>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[var(--text-muted-warm)]">
+              Das lag nicht an dir — bitte prüfe kurz deine Verbindung und versuch es noch einmal.
+            </p>
+            <button
+              type="button"
+              onClick={() => { void loadVendors(); }}
+              className="pd24-btn pd24-btn-primary mt-6"
+            >
+              Erneut versuchen
+            </button>
           </div>
         ) : (
           <div className="space-y-10">
@@ -601,21 +666,26 @@ function PlanNewInner() {
                             ← Zurück
                           </button>
 
-                          {/* Page dots */}
-                          <div className="flex items-center gap-1.5">
+                          {/* Page dots — Klickfläche min. 24px, Punkt als inneres span */}
+                          <div className="flex items-center">
                             {Array.from({ length: totalPages }, (_, idx) => (
                               <button
                                 key={idx}
                                 type="button"
                                 onClick={() => setNeedPage(needSlug, idx)}
-                                className={cx(
-                                  "h-2 rounded-full transition-all",
-                                  idx === page
-                                    ? "w-5 bg-[var(--text-strong)]"
-                                    : "w-2 bg-[rgba(23,23,23,0.20)] hover:bg-[rgba(23,23,23,0.40)]"
-                                )}
+                                className="group flex items-center justify-center p-2"
                                 aria-label={`Seite ${idx + 1}`}
-                              />
+                                aria-current={idx === page ? "true" : undefined}
+                              >
+                                <span
+                                  className={cx(
+                                    "h-2 rounded-full transition-all",
+                                    idx === page
+                                      ? "w-5 bg-[var(--text-strong)]"
+                                      : "w-2 bg-[rgba(23,23,23,0.20)] group-hover:bg-[rgba(23,23,23,0.40)]"
+                                  )}
+                                />
+                              </button>
                             ))}
                           </div>
 
@@ -668,6 +738,7 @@ function PlanNewInner() {
                     value={customerMessage}
                     onChange={(e) => setCustomerMessage(e.target.value)}
                     rows={3}
+                    aria-label="Persönliche Nachricht an die Anbieter"
                     placeholder="z.B. besondere Anforderungen, Stil-Wünsche, Fragen …"
                     className="mt-2 w-full rounded-xl border border-[rgba(154,107,47,0.35)] bg-white px-3 py-2 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--brand-warm-deep)] resize-none"
                   />
@@ -700,7 +771,13 @@ function PlanNewInner() {
         className="fixed bottom-0 left-0 right-0 z-[1200] border-t border-[var(--line-subtle)] bg-[rgba(255,253,248,0.96)] px-4 pt-4 backdrop-blur-xl sm:px-6"
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom, 0px))" }}
       >
-          <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
+          <div className="mx-auto max-w-3xl">
+            {saveError && (
+              <div role="alert" className="pd24-status-error mb-3 rounded-xl px-4 py-2.5 text-sm">
+                {saveError}
+              </div>
+            )}
+            <div className="flex items-center justify-between gap-4">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-wide text-[var(--text-soft-warm)]">
                 {selectionCount > 0 && `${selectionCount} ausgewählt`}
@@ -736,6 +813,7 @@ function PlanNewInner() {
             >
               {saveLabel}
             </button>
+            </div>
           </div>
         </div>
       )}
@@ -793,7 +871,7 @@ function VendorCard({
             <div>
               <p className="text-sm font-semibold text-[#2b221c]">{vendor.name}</p>
               <p className="mt-1 text-xs text-[#7c6b5d]">
-                Profilbild folgt. Preise, Pakete und Verfuegbarkeit sind bereits hinterlegt.
+                Profilbild folgt. Preise, Pakete und Verfügbarkeit sind bereits hinterlegt.
               </p>
             </div>
           </div>
@@ -894,10 +972,49 @@ function VendorModal({
   const photo = vendor.cover_image_url ?? vendor.media_urls?.[0] ?? null;
   const hasPackages = vendor.packages.length > 0;
 
-  // Close on Escape
+  // Dialog-A11y: Fokus beim Öffnen in den Dialog, Tab bleibt im Dialog,
+  // beim Schließen zurück auf das auslösende Element (Muster PlannerControlsSection).
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const restoreFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    restoreFocusRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const focusTimer = setTimeout(() => dialogRef.current?.focus(), 60);
+    return () => {
+      clearTimeout(focusTimer);
+      restoreFocusRef.current?.focus();
+      restoreFocusRef.current = null;
+    };
+  }, []);
+
+  // Escape schließt, Tab-Zyklus im Dialog; Body-Scroll gesperrt
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const container = dialogRef.current;
+      if (!container) return;
+      const focusables = container.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (e.shiftKey) {
+        if (active === first || !container.contains(active)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !container.contains(active)) {
+        e.preventDefault();
+        first.focus();
+      }
     }
     document.addEventListener("keydown", onKey);
     // Lock body scroll
@@ -919,7 +1036,12 @@ function VendorModal({
 
       {/* Sheet */}
       <div
-        className="relative z-10 flex max-h-[90dvh] w-full flex-col overflow-hidden bg-white sm:max-w-lg sm:rounded-[28px] rounded-t-[28px]"
+        ref={dialogRef}
+        tabIndex={-1}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vendor-modal-title"
+        className="relative z-10 flex max-h-[90dvh] w-full flex-col overflow-hidden bg-white outline-none sm:max-w-lg sm:rounded-[28px] rounded-t-[28px]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drag handle (mobile) */}
@@ -943,7 +1065,7 @@ function VendorModal({
               <div>
                 <p className="text-base font-semibold text-[#2b221c]">{vendor.name}</p>
                 <p className="mt-1 max-w-sm text-sm leading-6 text-[#7c6b5d]">
-                  Noch ohne Titelbild. Leistungen, Kontakt und moegliche Pakete sind trotzdem direkt verfuegbar.
+                  Noch ohne Titelbild. Leistungen, Kontakt und mögliche Pakete sind trotzdem direkt verfügbar.
                 </p>
               </div>
             </div>
@@ -963,7 +1085,7 @@ function VendorModal({
             type="button"
             onClick={onClose}
             aria-label="Schließen"
-            className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#171717]/60 text-white transition hover:bg-[#171717]/80"
+            className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-[#171717]/60 text-white transition hover:bg-[#171717]/80"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -977,7 +1099,7 @@ function VendorModal({
           {/* Header */}
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h2 className="text-lg font-bold leading-tight text-[var(--text-strong)]">{vendor.name}</h2>
+              <h2 id="vendor-modal-title" className="text-lg font-bold leading-tight text-[var(--text-strong)]">{vendor.name}</h2>
               {vendor.is_verified && (
                 <p className="mt-0.5 text-xs font-medium text-[var(--state-success)]">Verifizierter Anbieter ✓</p>
               )}

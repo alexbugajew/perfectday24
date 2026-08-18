@@ -374,7 +374,7 @@ export default function HeroIntentBar() {
             if (e.key === "Enter") handleSubmit();
           }}
           placeholder='z. B. „Date-Abend in München mit Live-Konzert"'
-          className="min-h-[56px] w-0 min-w-0 flex-1 bg-transparent px-5 text-base text-[var(--text-strong)] placeholder-[#b0a49a] outline-none"
+          className="min-h-[56px] w-0 min-w-0 flex-1 bg-transparent px-5 text-base text-[var(--text-strong)] placeholder:text-[var(--text-soft-warm)] outline-none"
         />
         <button
           type="button"

@@ -103,9 +103,9 @@ function buildGroupChatShortcuts(message: GroupChatMessageRow | null) {
 
   if (body.includes("mehrheit erreicht")) {
     return [
-      { label: "Ich stimme auch zu", text: "Ich bin auch fuer diese Variante.", tone: "emerald" },
+      { label: "Ich stimme auch zu", text: "Ich bin auch für diese Variante.", tone: "emerald" },
       { label: "Andere Variante anschauen", text: "Lasst uns kurz noch eine andere Variante vergleichen.", tone: "sky" },
-      { label: "Plan finalisieren", text: "Sieht gut aus. Wir koennen den Plan jetzt finalisieren.", tone: "amber" },
+      { label: "Plan finalisieren", text: "Sieht gut aus. Wir können den Plan jetzt finalisieren.", tone: "amber" },
     ];
   }
 
@@ -113,20 +113,20 @@ function buildGroupChatShortcuts(message: GroupChatMessageRow | null) {
     return [
       { label: "Perfekt", text: "Perfekt, dann nehmen wir genau diesen Plan.", tone: "emerald" },
       { label: "Uhrzeiten abstimmen", text: "Wollen wir kurz noch Treffpunkt und Uhrzeit abstimmen?", tone: "sky" },
-      { label: "Details klaeren", text: "Ich bin dabei. Lasst uns noch die letzten Details klaeren.", tone: "amber" },
+      { label: "Details klären", text: "Ich bin dabei. Lasst uns noch die letzten Details klären.", tone: "amber" },
     ];
   }
 
   if (body.includes("bestaetigt") || body.includes("bevorzugt jetzt")) {
     return [
-      { label: "Ich stimme zu", text: "Passt fuer mich auch gut.", tone: "emerald" },
-      { label: "Kompromiss vorschlagen", text: "Ich waere offen fuer einen kleinen Kompromiss bei den Stops.", tone: "amber" },
-      { label: "Andere Idee teilen", text: "Ich haette noch eine andere Idee fuer die Gruppe.", tone: "sky" },
+      { label: "Ich stimme zu", text: "Passt für mich auch gut.", tone: "emerald" },
+      { label: "Kompromiss vorschlagen", text: "Ich wäre offen für einen kleinen Kompromiss bei den Stops.", tone: "amber" },
+      { label: "Andere Idee teilen", text: "Ich hätte noch eine andere Idee für die Gruppe.", tone: "sky" },
     ];
   }
 
   return [
-    { label: "Klingt gut", text: "Klingt gut fuer mich.", tone: "emerald" },
+    { label: "Klingt gut", text: "Klingt gut für mich.", tone: "emerald" },
     { label: "Kurz abstimmen", text: "Lasst uns das kurz gemeinsam abstimmen.", tone: "sky" },
   ];
 }

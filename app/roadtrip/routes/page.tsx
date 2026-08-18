@@ -253,7 +253,7 @@ export default function RoadtripRoutesPage() {
               </Link>
               <Link
                 href="/roadtrip"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+                className="pd24-btn pd24-btn-primary"
               >
                 + Eigene Route erstellen
               </Link>
@@ -343,7 +343,7 @@ export default function RoadtripRoutesPage() {
             </p>
             <Link
               href="/roadtrip"
-              className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[var(--text-strong)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#1f2937]"
+              className="pd24-btn pd24-btn-primary mt-4"
             >
               Route erstellen →
             </Link>

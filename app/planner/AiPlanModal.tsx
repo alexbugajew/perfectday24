@@ -171,7 +171,8 @@ export default function AiPlanModal({
       if (err instanceof FreeLimitReachedError) {
         setLimitInfo({ used: err.used, limit: err.limit });
       } else {
-        setError(err instanceof Error ? err.message : "AI-Plan fehlgeschlagen.");
+        console.error("AI plan generation failed:", err);
+        setError("Der KI-Plan konnte gerade nicht erstellt werden. Bitte versuch es erneut.");
       }
     } finally {
       setLoading(false);

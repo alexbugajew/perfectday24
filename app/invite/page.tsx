@@ -194,7 +194,7 @@ export default function InvitePage() {
                     onClick={() => void addToPlanner(profile)}
                     className="pd24-btn pd24-btn-sm pd24-btn-primary"
                   >
-                    In Planner uebernehmen
+                    In den Planner übernehmen
                   </button>
                   {profile.username ? (
                     <Link
@@ -208,7 +208,7 @@ export default function InvitePage() {
                     href="/planner"
                     className="pd24-btn pd24-btn-sm pd24-btn-secondary"
                   >
-                    Planner oeffnen
+                    Planner öffnen
                   </Link>
                 </div>
               </div>
@@ -216,7 +216,7 @@ export default function InvitePage() {
           </div>
         ) : (
           <div className="text-sm text-[var(--text-muted)]">
-            Suche nach Profilen, um Gruppenmitglieder mit ihren Interessen zu uebernehmen.
+            Suche nach Profilen, um Gruppenmitglieder mit ihren Interessen zu übernehmen.
           </div>
         )}
       </section>

@@ -441,6 +441,9 @@ export default function EventPlanDetailPage() {
       }
 
       await loadPlan();
+    } catch (err) {
+      console.error("bookVendor failed:", err);
+      setBookingError("Buchung konnte nicht gespeichert werden — bitte Verbindung prüfen.");
     } finally {
       setBookingLoading(null);
     }
@@ -668,10 +671,11 @@ export default function EventPlanDetailPage() {
             <p className="text-sm font-semibold text-[var(--text-strong)]">Einladung anpassen</p>
 
             <div>
-              <label className="mb-1 block text-xs font-medium text-[var(--text-muted)]">
+              <label htmlFor="invite-host" className="mb-1 block text-xs font-medium text-[var(--text-muted)]">
                 Wer lädt ein? Zum Beispiel Anna & Thomas oder die Marketingabteilung.
               </label>
               <input
+                id="invite-host"
                 type="text"
                 value={hostName}
                 onChange={(e) => setHostName(e.target.value)}
@@ -681,10 +685,11 @@ export default function EventPlanDetailPage() {
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-medium text-[var(--text-muted)]">
+              <label htmlFor="invite-note" className="mb-1 block text-xs font-medium text-[var(--text-muted)]">
                 Persönliche Nachricht an die Gäste (optional)
               </label>
               <textarea
+                id="invite-note"
                 value={inviteNote}
                 onChange={(e) => setInviteNote(e.target.value)}
                 rows={3}
@@ -940,6 +945,7 @@ export default function EventPlanDetailPage() {
             <button
               key={tab.id}
               type="button"
+              aria-current={isActive ? "true" : undefined}
               onClick={() => setActiveTab(tab.id as EventDetailTab)}
               className={[
                 "inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition",
@@ -962,14 +968,14 @@ export default function EventPlanDetailPage() {
               subtitle="Mood-Bilder und Anbieter-Cover machen aus dem Event sofort einen greifbaren Rahmen statt nur einer Funktionsansicht."
               items={eventMediaItems}
               emptyTitle="Noch keine Event-Bilder freigegeben"
-              emptyBody="Sobald Mood-Bilder oder freigegebene Anbieterfotos vorhanden sind, erscheinen sie hier gebuendelt fuer den gesamten Anlass."
-              rightsHint="Event-Cover, Mood-Bilder und Anbieterfotos laufen ueber dieselbe Freigabe- und Prioritaetslogik."
+              emptyBody="Sobald Mood-Bilder oder freigegebene Anbieterfotos vorhanden sind, erscheinen sie hier gebündelt für den gesamten Anlass."
+              rightsHint="Alle Bilder werden vor der Anzeige geprüft und freigegeben."
             />
             <CommunityPhotoSubmission
               entityType="event_plan"
               entityId={plan.id}
-              title="Mood-Bild hinzufuegen"
-              subtitle="Lade ein Bild fuer Einladung, Anlass oder Rueckblick hoch. Neue Event-Fotos landen zuerst in der Pruefung."
+              title="Mood-Bild hinzufügen"
+              subtitle="Lade ein Bild für Einladung, Anlass oder Rückblick hoch. Neue Event-Fotos landen zuerst in der Prüfung."
               previewItems={eventMediaItems.slice(0, 16).map((item) => ({
                 id: item.id,
                 url: item.url,

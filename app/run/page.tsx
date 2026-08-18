@@ -33,7 +33,7 @@ function startNavigationUrl(draft: PlannerRunDraft) {
 
 function statusLabel(status: PlannerRunStopState) {
   if (status === "done") return "Erledigt";
-  if (status === "skipped") return "Uebersprungen";
+  if (status === "skipped") return "Übersprungen";
   return "Offen";
 }
 

@@ -47,7 +47,7 @@ function formatMediaReportReason(reason: string) {
     case "copyright":
       return "Copyright";
     case "privacy":
-      return "Privatsphaere";
+      return "Privatsphäre";
     case "offensive":
       return "Missbrauch";
     case "irrelevant":
@@ -138,10 +138,10 @@ function AdminAccessState({ reason }: { reason: Exclude<MonetizationAdminAccessS
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)] sm:text-base">
           {isLoginRequired
-            ? "Das Monetization-Admin ist nur fuer freigeschaltete interne Admin-Konten sichtbar."
+            ? "Das Monetization-Admin ist nur für freigeschaltete interne Admin-Konten sichtbar."
             : isMisconfigured
-              ? "Die Admin-Allowlist ist fuer diese Umgebung noch nicht konfiguriert. Hinterlege zuerst die internen Admin-Konten in den Server-Umgebungsvariablen."
-              : "Dieses Monetization-Admin ist nur fuer interne Admin-Konten freigegeben."}
+              ? "Die Admin-Allowlist ist für diese Umgebung noch nicht konfiguriert. Hinterlege zuerst die internen Admin-Konten in den Server-Umgebungsvariablen."
+              : "Dieses Monetization-Admin ist nur für interne Admin-Konten freigegeben."}
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -155,7 +155,7 @@ function AdminAccessState({ reason }: { reason: Exclude<MonetizationAdminAccessS
             href="/explore"
             className="pd24-btn pd24-btn-secondary"
           >
-            Zurueck zu Explore
+            Zurück zu Explore
           </Link>
         </div>
       </section>
@@ -454,7 +454,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
   const mediaTargetsByAssetId = new Map<string, string[]>();
   for (const row of snapshot.routeMedia) {
     const route = routeById.get(row.target_id);
-    pushMediaTarget(mediaTargetsByAssetId, row.asset_id, `Route: ${route?.title ?? "oeffentliche Route"}`);
+    pushMediaTarget(mediaTargetsByAssetId, row.asset_id, `Route: ${route?.title ?? "öffentliche Route"}`);
   }
   for (const row of snapshot.routeStopMedia) {
     pushMediaTarget(mediaTargetsByAssetId, row.asset_id, "Route-Stop");
@@ -595,7 +595,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
         <Section
           title="Partner Review Queue"
-          subtitle="Self-Service Profil-, Standort-, Kampagnen- und Affiliate-Einreichungen sauber moderieren und veroeffentlichen."
+          subtitle="Self-Service Profil-, Standort-, Kampagnen- und Affiliate-Einreichungen sauber moderieren und veröffentlichen."
         >
           <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-4">
             {[
@@ -658,8 +658,8 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                       </div>
                       <div className="flex flex-wrap justify-end gap-2">
                         <AdminEntityToggle entity="partner" id={partner.id} patch={{ review_status: "in_review" }} label="In Review" />
-                        <AdminEntityToggle entity="partner" id={partner.id} patch={{ review_status: "changes_requested" }} label="Aenderungen" tone="warning" />
-                        <AdminEntityToggle entity="partner" id={partner.id} patch={{ review_status: "published" }} label="Veroeffentlichen" tone="active" />
+                        <AdminEntityToggle entity="partner" id={partner.id} patch={{ review_status: "changes_requested" }} label="Änderungen" tone="warning" />
+                        <AdminEntityToggle entity="partner" id={partner.id} patch={{ review_status: "published" }} label="Veröffentlichen" tone="active" />
                       </div>
                     </div>
                   </div>
@@ -688,8 +688,8 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                         </div>
                         <div className="flex flex-wrap justify-end gap-2">
                           <AdminEntityToggle entity="provider" id={provider.id} patch={{ review_status: "in_review" }} label="In Review" />
-                          <AdminEntityToggle entity="provider" id={provider.id} patch={{ review_status: "changes_requested" }} label="Aenderungen" tone="warning" />
-                          <AdminEntityToggle entity="provider" id={provider.id} patch={{ review_status: "published" }} label="Veroeffentlichen" tone="active" />
+                          <AdminEntityToggle entity="provider" id={provider.id} patch={{ review_status: "changes_requested" }} label="Änderungen" tone="warning" />
+                          <AdminEntityToggle entity="provider" id={provider.id} patch={{ review_status: "published" }} label="Veröffentlichen" tone="active" />
                         </div>
                       </div>
                     </div>
@@ -719,9 +719,9 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                         </div>
                         <div className="flex flex-wrap justify-end gap-2">
                           <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "in_review" }} label="In Review" />
-                          <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "changes_requested" }} label="Aenderungen" tone="warning" />
+                          <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "changes_requested" }} label="Änderungen" tone="warning" />
                           <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "approved" }} label="Freigeben" />
-                          <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "published" }} label="Veroeffentlichen" tone="active" />
+                          <AdminEntityToggle entity="campaign" id={campaign.id} patch={{ review_status: "published" }} label="Veröffentlichen" tone="active" />
                         </div>
                       </div>
                     </div>
@@ -751,9 +751,9 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                         </div>
                         <div className="flex flex-wrap justify-end gap-2">
                           <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "in_review" }} label="In Review" />
-                          <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "changes_requested" }} label="Aenderungen" tone="warning" />
+                          <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "changes_requested" }} label="Änderungen" tone="warning" />
                           <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "approved" }} label="Freigeben" />
-                          <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "published" }} label="Veroeffentlichen" tone="active" />
+                          <AdminEntityToggle entity="affiliate" id={link.id} patch={{ review_status: "published" }} label="Veröffentlichen" tone="active" />
                         </div>
                       </div>
                     </div>
@@ -888,19 +888,19 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
         <Section
           title="Foto Meldungen"
-          subtitle="Copyright-, Missbrauchs- und Qualitaetsmeldungen direkt pruefen und abschliessen."
+          subtitle="Copyright-, Missbrauchs- und Qualitätsmeldungen direkt prüfen und abschließen."
         >
           <div className="pd24-status-warning mb-6 rounded-[var(--radius-card)] px-4 py-3 text-sm leading-6">
-            Wenn du eine Meldung als <span className="font-semibold">Geloest</span> markierst, wird das betroffene Bild aus
-            Sicherheitsgruenden automatisch auf <span className="font-semibold">rejected + private</span> gesetzt. Bei
-            bestaetigtem Copyright-Verstoss wird zusaetzlich der Rechte-Status auf <span className="font-semibold">rejected</span> gesetzt.
+            Wenn du eine Meldung als <span className="font-semibold">Gelöst</span> markierst, wird das betroffene Bild aus
+            Sicherheitsgründen automatisch auf <span className="font-semibold">rejected + private</span> gesetzt. Bei
+            bestätigtem Copyright-Verstoß wird zusätzlich der Rechte-Status auf <span className="font-semibold">rejected</span> gesetzt.
           </div>
 
           <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-4">
             {[
               { label: "offen", value: openMediaReports.length },
-              { label: "in Pruefung", value: reviewingMediaReports.length },
-              { label: "geloest", value: resolvedMediaReports.length },
+              { label: "in Prüfung", value: reviewingMediaReports.length },
+              { label: "gelöst", value: resolvedMediaReports.length },
               { label: "abgewiesen", value: dismissedMediaReports.length },
             ].map((item) => (
               <div key={item.label} className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-3 sm:p-4">
@@ -914,7 +914,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
             {[
               { label: "Alle", value: "all" },
               { label: "Copyright", value: "copyright" },
-              { label: "Privatsphaere", value: "privacy" },
+              { label: "Privatsphäre", value: "privacy" },
               { label: "Missbrauch", value: "offensive" },
               { label: "Unpassend", value: "irrelevant" },
               { label: "Duplikat", value: "duplicate" },
@@ -990,7 +990,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                           </div>
                           {openSiblingCount > 1 ? (
                             <div className="mt-2 text-xs font-medium text-[var(--state-warning)]">
-                              {openSiblingCount} aktive Meldungen fuer dieses Bild.
+                              {openSiblingCount} aktive Meldungen für dieses Bild.
                             </div>
                           ) : null}
                           {asset ? (
@@ -1023,7 +1023,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                           {reportHistory.length > 1 ? (
                             <div className="mt-3 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-3">
                               <div className="pd24-meta">
-                                Historie fuer dieses Bild
+                                Historie für dieses Bild
                               </div>
                               <div className="mt-2 space-y-2">
                                 {reportHistory.slice(0, 4).map((historyEntry) => (
@@ -1052,8 +1052,8 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                       </div>
 
                       <div className="flex flex-wrap justify-end gap-2">
-                        <AdminEntityToggle entity="media_report" id={report.id} patch={{ status: "reviewing" }} label="In Pruefung" />
-                        <AdminEntityToggle entity="media_report" id={report.id} patch={{ status: "resolved" }} label="Geloest" tone="active" />
+                        <AdminEntityToggle entity="media_report" id={report.id} patch={{ status: "reviewing" }} label="In Prüfung" />
+                        <AdminEntityToggle entity="media_report" id={report.id} patch={{ status: "resolved" }} label="Gelöst" tone="active" />
                         <AdminEntityToggle entity="media_report" id={report.id} patch={{ status: "dismissed" }} label="Abweisen" tone="warning" />
                       </div>
                     </div>
@@ -1081,7 +1081,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
                 value: compactNumber(activePilotsByRail.reduce((sum, entry) => sum + entry.count, 0)),
               },
               {
-                label: "Rails mit Aktivitaet",
+                label: "Rails mit Aktivität",
                 value: compactNumber(new Set(clicksByRail.map((entry) => entry.surface)).size),
               },
             ].map((item) => (
@@ -1254,7 +1254,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
           <div className="mt-6 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
             <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5">
-              <div className="text-sm font-medium text-[var(--text-strong)]">Staerkste Creator-Profile</div>
+              <div className="text-sm font-medium text-[var(--text-strong)]">Stärkste Creator-Profile</div>
               <div className="mt-4 space-y-3">
                 {creatorProfileTopCreators.length > 0 ? (
                   creatorProfileTopCreators.map((entry) => (
@@ -1340,7 +1340,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
         <Section
           title="Filter"
-          subtitle="Damit ihr interne Piloten, Surface-spezifische Rails und frische Klicksignale schneller lesen koennt."
+          subtitle="Damit ihr interne Piloten, Surface-spezifische Rails und frische Klicksignale schneller lesen könnt."
         >
           <div className="flex flex-wrap gap-2">
             <Link
@@ -1391,7 +1391,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
         <Section
           title="Interne Explore-Piloten"
-          subtitle="Hier koennt ihr die beiden echten Explore-Rails direkt an- und ausschalten."
+          subtitle="Hier könnt ihr die beiden echten Explore-Rails direkt an- und ausschalten."
         >
           {internalExplorePilots.length === 0 ? (
             <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
@@ -1565,7 +1565,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
         <Section
           title="Interne Share-Piloten"
-          subtitle="Kontextnahe Partner-CTAs auf geteilten Plaenen, weiterhin nur intern sichtbar und steuerbar."
+          subtitle="Kontextnahe Partner-CTAs auf geteilten Plänen, weiterhin nur intern sichtbar und steuerbar."
         >
           {internalSharePilots.length === 0 ? (
             <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
@@ -1652,7 +1652,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
         <Section
           title="Interne Route-Detail-Piloten"
-          subtitle="Distribution fuer Creator- oder Brand-Routen direkt auf der Detailseite, intern testbar und sauber getrennt vom organischen Inhalt."
+          subtitle="Distribution für Creator- oder Brand-Routen direkt auf der Detailseite, intern testbar und sauber getrennt vom organischen Inhalt."
         >
           {internalRoutePilots.length === 0 ? (
             <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
@@ -1739,7 +1739,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
 
         <Section
           title="Interne Creator-Profil-Piloten"
-          subtitle="Featured Routes auf Creator- und oeffentlichen Profilseiten, intern steuerbar und getrennt vom organischen Profil-Feed."
+          subtitle="Featured Routes auf Creator- und öffentlichen Profilseiten, intern steuerbar und getrennt vom organischen Profil-Feed."
         >
           {internalCreatorProfilePilots.length === 0 ? (
             <div className="rounded-[var(--radius-card)] border border-black/5 bg-[var(--bg-panel)] p-5 text-sm text-[var(--text-muted)]">
@@ -1831,7 +1831,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           )}
         </Section>
 
-        <Section title="Sponsored Slots" subtitle="Getrennte Premium-Flaechen, zunaechst intern testbar.">
+        <Section title="Sponsored Slots" subtitle="Getrennte Premium-Flächen, zunächst intern testbar.">
           <div className="space-y-4">
             {snapshot.slots.map((slot) => {
               const assignments = snapshot.assignments.filter((assignment) => assignment.slot_id === slot.id);
@@ -2114,7 +2114,7 @@ export default async function MonetizationAdminPage(props: { searchParams?: Prom
           </div>
         </Section>
 
-        <Section title="Event-Provisionen" subtitle="Automatisch erfasst wenn ein Vendor-Quote auf status=accepted geht. Rate default 10%, pro Partner ueberschreibbar.">
+        <Section title="Event-Provisionen" subtitle="Automatisch erfasst, wenn ein Vendor-Quote auf status=accepted geht. Rate default 10%, pro Partner überschreibbar.">
           <EventCommissionsSection />
         </Section>
 

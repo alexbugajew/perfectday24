@@ -27,7 +27,7 @@ export default function SharedPlanChoicePanel({
   const [voterLabel, setVoterLabel] = useState("");
   const [reactions, setReactions] = useState<ChoiceReaction[]>(initialReactions);
   const [saving, setSaving] = useState(false);
-  const [status, setStatus] = useState<string | null>(null);
+  const [status, setStatus] = useState<{ text: string; isError: boolean } | null>(null);
 
   useEffect(() => {
     setReactions(initialReactions);
@@ -109,7 +109,7 @@ export default function SharedPlanChoicePanel({
   async function toggleConfirmation() {
     const trimmed = voterLabel.trim();
     if (!trimmed) {
-      setStatus("Bitte gib einen Namen ein.");
+      setStatus({ text: "Bitte gib einen Namen ein.", isError: true });
       return;
     }
 
@@ -127,12 +127,15 @@ export default function SharedPlanChoicePanel({
 
       if (error) {
         console.error("Shared plan choice reaction toggle error:", error);
-        setStatus("Zustimmung konnte nicht aktualisiert werden.");
+        setStatus({ text: "Zustimmung konnte nicht aktualisiert werden.", isError: true });
         return;
       }
 
       await refreshReactions();
-      setStatus(hasConfirmed ? "Deine Zustimmung wurde entfernt." : "Deine Zustimmung wurde gespeichert.");
+      setStatus({
+        text: hasConfirmed ? "Deine Zustimmung wurde entfernt." : "Deine Zustimmung wurde gespeichert.",
+        isError: false,
+      });
     } finally {
       setSaving(false);
     }
@@ -175,6 +178,7 @@ export default function SharedPlanChoicePanel({
           value={voterLabel}
           onChange={(e) => setVoterLabel(e.target.value)}
           placeholder="Dein Name"
+          aria-label="Dein Name"
           className="min-w-[180px] flex-1 rounded-lg border border-sky-200 bg-white px-3 py-2"
         />
         <button
@@ -187,7 +191,13 @@ export default function SharedPlanChoicePanel({
         </button>
       </div>
 
-      {status ? <div className="mt-2 text-xs text-sky-900/80">{status}</div> : null}
+      <div
+        role={status?.isError ? "alert" : "status"}
+        aria-live="polite"
+        className={status ? "mt-2 text-xs text-sky-900/80" : "sr-only"}
+      >
+        {status?.text ?? ""}
+      </div>
 
       {reactions.length ? (
         <div className="mt-3 flex flex-wrap gap-2">

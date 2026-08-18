@@ -63,11 +63,16 @@ export default function FloatingChat() {
     ((pathname.startsWith("/routes/") || pathname.startsWith("/roadtrip/routes/")) &&
       pathname.endsWith("/run"));
 
+  // Die Event-Planungs-Seiten haben eine fixe Speichern-Leiste, die — anders als
+  // die Run-Leisten — auch ab sm sichtbar ist: FAB dort auf allen Viewports höher
+  // setzen, damit er den "Plan speichern"-Button nicht überdeckt.
+  const hasEventPlanBottomBar = pathname.startsWith("/events/plan/");
+
   return (
     <button
       onClick={() => router.push("/chat")}
       aria-label="Chat öffnen"
-      className={`fixed ${hasOwnBottomBar ? "bottom-40" : "bottom-24"} right-4 z-[1200] flex h-13 w-13 items-center justify-center rounded-full bg-[var(--text-strong)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.28)] transition hover:scale-105 hover:shadow-[0_12px_32px_rgba(0,0,0,0.36)] active:scale-95 sm:bottom-6 sm:right-6 sm:h-14 sm:w-14`}
+      className={`fixed ${hasOwnBottomBar || hasEventPlanBottomBar ? "bottom-40" : "bottom-24"} right-4 z-[1200] flex h-13 w-13 items-center justify-center rounded-full bg-[var(--text-strong)] text-white shadow-[0_8px_24px_rgba(0,0,0,0.28)] transition hover:scale-105 hover:shadow-[0_12px_32px_rgba(0,0,0,0.36)] active:scale-95 ${hasEventPlanBottomBar ? "sm:bottom-28" : "sm:bottom-6"} sm:right-6 sm:h-14 sm:w-14`}
     >
       {/* Chat-Bubble Icon */}
       <svg

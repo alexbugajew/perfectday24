@@ -262,7 +262,7 @@ export default function HotelSearchLinks({
                 rel="noopener noreferrer sponsored"
                 className="pd24-btn pd24-btn-sm pd24-btn-primary active:scale-[0.97]"
               >
-                Empfehlung auf Booking.com oeffnen
+                Empfehlung auf Booking.com öffnen
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
@@ -272,7 +272,7 @@ export default function HotelSearchLinks({
 
           <p className="mb-2.5 text-[11px] leading-relaxed text-[var(--text-muted)]">
             Klicke auf einen Anbieter. Du wirst direkt zur Hotelsuche weitergeleitet -
-            wir erhalten eine Provision, wenn du buchst (kein Aufpreis fuer dich).
+            wir erhalten eine Provision, wenn du buchst (kein Aufpreis für dich).
           </p>
 
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -314,7 +314,7 @@ export default function HotelSearchLinks({
           </div>
 
           <p className="mt-2.5 text-[10px] text-[var(--text-muted)]">
-            * Affiliate-Links. Wir verdienen eine kleine Provision bei einer Buchung - ohne Mehrkosten fuer dich.
+            * Affiliate-Links. Wir verdienen eine kleine Provision bei einer Buchung - ohne Mehrkosten für dich.
           </p>
         </div>
       )}

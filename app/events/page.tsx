@@ -219,10 +219,11 @@ function SavedPlanCard({
   onDelete,
 }: {
   plan: SavedPlan;
-  onDelete: (id: string) => Promise<void>;
+  onDelete: (id: string) => Promise<boolean>;
 }) {
   const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
 
   const dateFormatted = plan.event_date
     ? new Date(plan.event_date).toLocaleDateString("de-DE", {
@@ -239,8 +240,10 @@ function SavedPlanCard({
 
   async function handleDelete() {
     setDeleting(true);
-    await onDelete(plan.id);
+    setDeleteError(false);
+    const ok = await onDelete(plan.id);
     setDeleting(false);
+    if (!ok) setDeleteError(true);
   }
 
   return (
@@ -273,7 +276,7 @@ function SavedPlanCard({
             type="button"
             aria-label="Plan löschen"
             onClick={() => setConfirming(true)}
-            className="shrink-0 rounded-full p-1.5 text-[var(--text-soft-warm)] transition hover:bg-[rgba(161,75,69,0.08)] hover:text-[var(--state-error)]"
+            className="-my-2 -mr-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[var(--text-soft-warm)] transition hover:bg-[rgba(161,75,69,0.08)] hover:text-[var(--state-error)]"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth={1.75} strokeLinecap="round"
@@ -321,7 +324,9 @@ function SavedPlanCard({
       {confirming && (
         <div className="mt-1 flex items-center justify-between gap-3 rounded-[var(--radius-control)] border border-[rgba(161,75,69,0.24)] bg-white px-3 py-2.5">
           <p className="text-xs text-[var(--state-error)] font-medium">
-            Plan wirklich löschen?
+            {deleteError
+              ? "Löschen fehlgeschlagen — bitte erneut versuchen."
+              : "Plan wirklich löschen?"}
           </p>
           <div className="flex shrink-0 gap-2">
             <button
@@ -416,11 +421,14 @@ export default function EventsPage() {
     });
   }, []);
 
-  async function deletePlan(id: string) {
+  async function deletePlan(id: string): Promise<boolean> {
     const { error } = await supabase.from("event_plans").delete().eq("id", id);
-    if (!error) {
-      setSavedPlans((prev) => prev.filter((p) => p.id !== id));
+    if (error) {
+      console.error("Event-Plan löschen fehlgeschlagen:", error.message);
+      return false;
     }
+    setSavedPlans((prev) => prev.filter((p) => p.id !== id));
+    return true;
   }
 
   // Whenever the occasion changes, pre-select all required needs.

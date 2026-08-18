@@ -174,7 +174,7 @@ export default function RouteRunGroupSection({ routeId, routeSlug, routeTitle }:
                 type="button"
                 onClick={() => removeMember(member.id)}
                 aria-label={`${member.name} entfernen`}
-                className="text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
+                className="-my-1.5 -mr-2 inline-flex h-8 w-8 items-center justify-center text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
               >
                 ✕
               </button>

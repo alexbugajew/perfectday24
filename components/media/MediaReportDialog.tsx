@@ -15,8 +15,8 @@ type MediaReportDialogProps = {
 
 const REPORT_REASONS: Array<{ value: MediaReportReason; label: string }> = [
   { value: "copyright", label: "Copyright / Rechte" },
-  { value: "privacy", label: "Privatsphaere" },
-  { value: "offensive", label: "Anstoessig" },
+  { value: "privacy", label: "Privatsphäre" },
+  { value: "offensive", label: "Anstößig" },
   { value: "irrelevant", label: "Unpassend" },
   { value: "duplicate", label: "Duplikat" },
   { value: "other", label: "Sonstiges" },
@@ -103,10 +103,10 @@ export default function MediaReportDialog({
 
       setSuccess(
         payload?.autoHeld
-          ? payload.message || "Die Meldung wurde priorisiert. Das Bild ist bis zur Pruefung vorlaeufig ausgeblendet."
+          ? payload.message || "Die Meldung wurde priorisiert. Das Bild ist bis zur Prüfung vorläufig ausgeblendet."
           : payload?.reviewStatus === "reviewing"
-            ? "Die Meldung wurde priorisiert und direkt zur Pruefung weitergegeben."
-            : "Die Meldung wurde eingereicht und intern zur Pruefung weitergegeben."
+            ? "Die Meldung wurde priorisiert und direkt zur Prüfung weitergegeben."
+            : "Die Meldung wurde eingereicht und intern zur Prüfung weitergegeben."
       );
       setNote("");
       setReason("copyright");
@@ -123,7 +123,7 @@ export default function MediaReportDialog({
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-[rgba(15,23,42,0.72)] px-4 py-6"
+      className="fixed inset-0 z-[1600] flex items-center justify-center bg-[rgba(15,23,42,0.72)] px-4 py-6"
       onClick={onClose}
     >
       <div
@@ -137,7 +137,7 @@ export default function MediaReportDialog({
             </div>
             <div className="mt-2 text-lg font-semibold text-[var(--text-strong)]">{assetLabel}</div>
             <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
-              Melde Copyright-, Missbrauchs- oder Qualitaetsprobleme direkt an das interne Review-Team.
+              Melde Copyright-, Missbrauchs- oder Qualitätsprobleme direkt an das interne Review-Team.
             </p>
           </div>
           <button

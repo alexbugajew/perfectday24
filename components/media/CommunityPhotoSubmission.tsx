@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 import MediaReportDialog from "@/components/media/MediaReportDialog";
@@ -59,7 +59,7 @@ const SUBMISSION_STATUS_META: Record<
     className: "border-[var(--line-subtle)] bg-[var(--bg-surface)] text-[var(--text-muted)]",
   },
   submitted: {
-    label: "In Pruefung",
+    label: "In Prüfung",
     className: "pd24-status-info",
   },
   approved: {
@@ -85,11 +85,32 @@ function fileLabel(count: number) {
   return count === 1 ? "Foto" : "Fotos";
 }
 
+// Tab-Zyklus im Dialog halten (Muster aus app/planner/PlannerControlsSection.tsx).
+function trapFocus(event: KeyboardEvent, container: HTMLElement | null) {
+  if (!container) return;
+  const focusables = container.querySelectorAll<HTMLElement>(
+    'button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+  );
+  if (focusables.length === 0) return;
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+  const active = document.activeElement;
+  if (event.shiftKey) {
+    if (active === first || !container.contains(active)) {
+      event.preventDefault();
+      last.focus();
+    }
+  } else if (active === last || !container.contains(active)) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
 export default function CommunityPhotoSubmission({
   entityType,
   entityId,
   title = "Community-Fotos",
-  subtitle = "Teile Bilder zu Route, Stop oder Anlass. Neue Uploads landen zuerst in der Pruefung.",
+  subtitle = "Teile Bilder zu Route, Stop oder Anlass. Neue Uploads landen zuerst in der Prüfung.",
   stopOptions = [],
   previewItems = [],
   partnerProfileId = null,
@@ -114,7 +135,36 @@ export default function CommunityPhotoSubmission({
     return [{ id: "", label: "Zur ganzen Route" }, ...stopOptions];
   }, [entityType, stopOptions]);
   const isRouteTargetSelectionVisible = modeOptions.length > 0;
-  const isAnyOverlayOpen = isDialogOpen || activePreviewIndex !== null;
+  const isPreviewOpen = activePreviewIndex !== null;
+  const isAnyOverlayOpen = isDialogOpen || isPreviewOpen;
+
+  // Fokus-Management: beim Öffnen in den Dialog, beim Schließen zurück zum Auslöser.
+  const uploadDialogRef = useRef<HTMLDivElement>(null);
+  const uploadRestoreFocusRef = useRef<HTMLElement | null>(null);
+  const previewDialogRef = useRef<HTMLDivElement>(null);
+  const previewRestoreFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (isDialogOpen) {
+      uploadRestoreFocusRef.current =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      setTimeout(() => uploadDialogRef.current?.focus(), 60);
+    } else {
+      uploadRestoreFocusRef.current?.focus();
+      uploadRestoreFocusRef.current = null;
+    }
+  }, [isDialogOpen]);
+
+  useEffect(() => {
+    if (isPreviewOpen) {
+      previewRestoreFocusRef.current =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      setTimeout(() => previewDialogRef.current?.focus(), 60);
+    } else {
+      previewRestoreFocusRef.current?.focus();
+      previewRestoreFocusRef.current = null;
+    }
+  }, [isPreviewOpen]);
 
   useEffect(() => {
     if (!isAnyOverlayOpen) return;
@@ -132,6 +182,10 @@ export default function CommunityPhotoSubmission({
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setIsDialogOpen(false);
+        return;
+      }
+      if (event.key === "Tab") {
+        trapFocus(event, uploadDialogRef.current);
       }
     }
 
@@ -143,6 +197,8 @@ export default function CommunityPhotoSubmission({
     if (activePreviewIndex === null) return;
 
     function handleKeyDown(event: KeyboardEvent) {
+      // Der Meldedialog liegt über der Lightbox — dessen Tastatursteuerung nicht kapern.
+      if (isReportDialogOpen) return;
       if (event.key === "Escape") {
         setActivePreviewIndex(null);
         return;
@@ -159,12 +215,16 @@ export default function CommunityPhotoSubmission({
           if (current === null || previewItems.length <= 1) return current;
           return (current + 1) % previewItems.length;
         });
+        return;
+      }
+      if (event.key === "Tab") {
+        trapFocus(event, previewDialogRef.current);
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activePreviewIndex, previewItems]);
+  }, [activePreviewIndex, previewItems, isReportDialogOpen]);
 
   const activePreviewItem = activePreviewIndex !== null ? previewItems[activePreviewIndex] : null;
 
@@ -327,7 +387,7 @@ export default function CommunityPhotoSubmission({
 
     if (files.length === 0) return;
     if (!rightsConfirmed) {
-      setError("Bitte bestaetige die Nutzungsrechte vor dem Upload.");
+      setError("Bitte bestätige die Nutzungsrechte vor dem Upload.");
       return;
     }
 
@@ -342,11 +402,11 @@ export default function CommunityPhotoSubmission({
 
     for (const file of files) {
       if (!ACCEPTED_TYPES.includes(file.type)) {
-        setError(`Dateityp nicht unterstuetzt: ${file.name}`);
+        setError(`Dateityp nicht unterstützt: ${file.name}`);
         return;
       }
       if (file.size > MAX_FILE_SIZE) {
-        setError(`Datei zu gross: ${file.name}`);
+        setError(`Datei zu groß: ${file.name}`);
         return;
       }
     }
@@ -563,11 +623,16 @@ export default function CommunityPhotoSubmission({
 
       {isDialogOpen ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(15,23,42,0.62)] px-4 py-6"
+          className="fixed inset-0 z-[1500] flex items-center justify-center bg-[rgba(15,23,42,0.62)] px-4 py-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Fotos hochladen"
           onClick={() => setIsDialogOpen(false)}
         >
           <div
-            className="w-full max-w-2xl rounded-[30px] border border-[rgba(255,255,255,0.18)] bg-white p-5 shadow-2xl"
+            ref={uploadDialogRef}
+            tabIndex={-1}
+            className="w-full max-w-2xl rounded-[var(--radius-shell)] border border-[rgba(255,255,255,0.18)] bg-white p-5 shadow-2xl outline-none"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4">
@@ -627,7 +692,7 @@ export default function CommunityPhotoSubmission({
                     type="text"
                     value={creditName}
                     onChange={(event) => setCreditName(event.target.value)}
-                    placeholder="Optionaler Name fuer die Bildquelle"
+                    placeholder="Optionaler Name für die Bildquelle"
                     className="w-full rounded-2xl border border-[var(--line-subtle)] bg-white px-4 py-3 text-sm text-[var(--text-strong)] focus:border-[var(--text-strong)] focus:outline-none"
                   />
                 </label>
@@ -638,13 +703,13 @@ export default function CommunityPhotoSubmission({
                   </div>
                   <label className="flex cursor-pointer flex-col rounded-[var(--radius-card)] border-2 border-dashed border-[var(--line-subtle)] bg-[var(--bg-surface)] px-5 py-6 transition hover:border-[rgba(23,23,23,0.18)] hover:bg-white">
                     <span className="text-sm font-semibold text-[var(--text-strong)]">
-                      {submitting ? "Bilder werden hochgeladen..." : "Fotos auswählen"}
+                      {submitting ? "Bilder werden hochgeladen …" : "Fotos auswählen"}
                     </span>
                     <span className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
-                      JPG, PNG oder WEBP bis 10 MB pro Datei. Mehrere Bilder koennen in einem Schritt hochgeladen werden.
+                      JPG, PNG oder WEBP bis 10 MB pro Datei. Mehrere Bilder können in einem Schritt hochgeladen werden.
                     </span>
                     <span className="mt-4 inline-flex w-fit rounded-full bg-[var(--text-strong)] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-90">
-                      {submitting ? "Upload laeuft..." : "Dateien waehlen"}
+                      {submitting ? "Upload läuft …" : "Dateien wählen"}
                     </span>
                     <input
                       type="file"
@@ -668,7 +733,7 @@ export default function CommunityPhotoSubmission({
                     className="mt-1 h-4 w-4 rounded border-[var(--line-subtle)]"
                   />
                   <span>
-                    Ich bestaetige, dass ich dieses Bild hochladen darf und dass keine Rechte Dritter verletzt werden.
+                    Ich bestätige, dass ich dieses Bild hochladen darf und dass keine Rechte Dritter verletzt werden.
                   </span>
                 </label>
                 <div className="mt-4 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-white px-4 py-3">
@@ -697,11 +762,16 @@ export default function CommunityPhotoSubmission({
 
       {activePreviewItem ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(15,23,42,0.82)] px-4 py-6"
+          className="fixed inset-0 z-[1500] flex items-center justify-center bg-[rgba(15,23,42,0.82)] px-4 py-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Bildvorschau"
           onClick={closePreview}
         >
           <div
-            className="relative w-full max-w-5xl overflow-hidden rounded-[30px] border border-white/12 bg-[#0f172a] shadow-2xl"
+            ref={previewDialogRef}
+            tabIndex={-1}
+            className="relative w-full max-w-5xl overflow-hidden rounded-[var(--radius-shell)] border border-white/12 bg-[#0f172a] shadow-2xl outline-none"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 text-white">

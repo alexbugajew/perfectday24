@@ -421,7 +421,7 @@ function StopCardV2({
           </div>
 
           <div className={`mt-auto pt-3 text-xs font-semibold ${selected ? "text-emerald-700" : "text-[var(--text-muted)]"}`}>
-            {selected ? "✓ In deiner Route" : "Zur Route hinzufuegen"}
+            {selected ? "✓ In deiner Route" : "Zur Route hinzufügen"}
           </div>
         </div>
       </div>
@@ -773,13 +773,13 @@ export default function RoadtripDiscoverPage() {
                   {resultRouteLabel}
                 </div>
                 <div className="mt-1 text-xs text-[var(--text-muted)]">
-                  {easyStopsCount} nahe Stopps, {result.length} Vorschlaege insgesamt
+                  {easyStopsCount} nahe Stopps, {result.length} Vorschläge insgesamt
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:min-w-[520px]">
                 {[
-                  { label: "Ausgewaehlt", value: `${selectedCount}/${result.length}` },
+                  { label: "Ausgewählt", value: `${selectedCount}/${result.length}` },
                   { label: "Zeit vor Ort", value: selectedDurationLabel },
                   { label: "Alle Stopps", value: resultDurationLabel },
                   { label: "Umweg", value: strongestDetourLabel(selectedStops) },
@@ -862,7 +862,7 @@ export default function RoadtripDiscoverPage() {
                   Stopps entlang deiner Route
                 </div>
                 <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
-                  Nah am Weg, schnell vergleichbar, bereit fuer die Planung.
+                  Nah am Weg, schnell vergleichbar, bereit für die Planung.
                 </p>
               </div>
               {result.map((stop, idx) => (
@@ -880,7 +880,7 @@ export default function RoadtripDiscoverPage() {
           </div>
 
           {/* ── CTA: Roadtrip planen ──────────────────────────────────────── */}
-          <section className={`sticky bottom-4 z-40 rounded-2xl border px-4 py-3 shadow-[0_20px_50px_rgba(15,23,42,0.18)] backdrop-blur transition-all sm:px-5 sm:py-4 ${
+          <section className={`sticky bottom-24 z-40 rounded-2xl border px-4 py-3 shadow-[0_20px_50px_rgba(15,23,42,0.18)] backdrop-blur transition-all sm:bottom-4 sm:px-5 sm:py-4 ${
             selectedCount > 0
               ? "border-amber-300 bg-amber-50/96"
               : "border-[var(--line-subtle)] bg-white/96"

@@ -91,7 +91,7 @@ export default function ConsentBanner() {
             </span>
             <Link
               href="/datenschutz"
-              className="font-medium text-[var(--text-strong)] underline underline-offset-2 transition hover:text-[var(--brand-warm-deep)]"
+              className="-mx-1.5 -my-3.5 inline-block px-1.5 py-3.5 font-medium text-[var(--text-strong)] underline underline-offset-2 transition hover:text-[var(--brand-warm-deep)]"
             >
               <span className="sm:hidden">Mehr erfahren</span>
               <span className="hidden sm:inline">Datenschutzerklärung</span>

@@ -165,7 +165,7 @@ export default async function EventCommissionsSection() {
           </table>
           {rows.length > 40 ? (
             <div className="border-t border-[var(--line-subtle)] bg-[var(--bg-panel)] px-4 py-2.5 text-xs text-[var(--text-muted)]">
-              Zeige neueste 40 von {rows.length} Eintraegen. Status-Aenderungen aktuell direkt in Supabase Studio via UPDATE event_commissions SET status='invoiced' | 'paid' WHERE id=…
+              Zeige neueste 40 von {rows.length} Einträgen. Statuswechsel aktuell manuell durch das Team.
             </div>
           ) : null}
         </div>

@@ -444,6 +444,7 @@ export default function PlannerControlsSection({
                   onChange={(e) => setInterestInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addInterestFromInput(); } }}
                   placeholder="Eigene Vorliebe (z.B. Tapas)"
+                  aria-label="Eigene Vorliebe hinzufügen"
                   className="flex-1 rounded-xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-sm text-[var(--text-strong)] outline-none transition focus:border-[var(--line-strong)]"
                 />
                 <button

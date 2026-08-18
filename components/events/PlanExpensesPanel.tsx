@@ -123,7 +123,8 @@ export default function PlanExpensesPanel({
       .single();
     setSaving(false);
     if (e) {
-      setError(e.message);
+      console.error("Plan expense insert error:", e);
+      setError("Der Eintrag konnte nicht gespeichert werden.");
       return;
     }
     if (data) setExpenses((prev) => [...(prev ?? []), data as PlanExpense]);

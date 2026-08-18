@@ -201,7 +201,7 @@ const partnerPortalModules = [
   },
   {
     title: "Medien & Cover",
-    body: "Eigene Bilder hochladen, Covers setzen und freigegebene UGC-Fotos uebernehmen.",
+    body: "Eigene Bilder hochladen, Covers setzen und freigegebene Community-Fotos übernehmen.",
   },
   {
     title: "Pakete & Preise",
@@ -527,12 +527,12 @@ export default async function HomepageScaffoldMinimal() {
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(45,90,61,0.32)] via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--state-success)]/30 via-transparent to-transparent" />
                 </div>
                 <div className="flex flex-1 flex-col p-7">
                   {/* Explizite Utilities statt .pd24-kicker-warm: die un-gelayerte
                       Klasse würde das gewollte Grün der Event-Karte überschreiben. */}
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#2d5a3d]">Event Flow</div>
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--state-success)]">Event Flow</div>
                   <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
                     Ein Event veranstalten
                   </h3>
@@ -541,7 +541,7 @@ export default async function HomepageScaffoldMinimal() {
                   </p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {["Geburtstag", "JGA", "Teamday", "Dinner"].map((tag) => (
-                      <span key={tag} className="rounded-full border border-[rgba(45,90,61,0.15)] bg-white/80 px-3 py-1.5 text-sm text-[#2d5a3d]">
+                      <span key={tag} className="rounded-full border border-[var(--state-success)]/15 bg-white/80 px-3 py-1.5 text-sm text-[var(--state-success)]">
                         {tag}
                       </span>
                     ))}

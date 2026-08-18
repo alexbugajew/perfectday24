@@ -17,7 +17,7 @@ function isSafeImageHost(url: string | null): boolean {
 }
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import { deleteRoadtripRoute, fetchMyRoadtripRoutes } from "@/lib/roadtrip/client";
+import { deleteRoadtripRoute, fetchMyRoadtripRoutesWithError } from "@/lib/roadtrip/client";
 import type { RoadtripRoute } from "@/lib/roadtrip/types";
 import { stopSequenceLabel } from "@/lib/roadtrip/types";
 import { FREE_SAVED_PLANS_VISIBLE } from "@/lib/premium/limits";
@@ -610,7 +610,7 @@ export default function SavedPage() {
     setHasError(false);
 
     try {
-      const [plansResp, bookmarksResp, myRoadtrips, eventPlansResp] = await Promise.all([
+      const [plansResp, bookmarksResp, myRoadtripsResp, eventPlansResp] = await Promise.all([
         supabase
           .from("plans")
           .select("id, title, created_at, filters, slots, share_token, ai_description")
@@ -625,7 +625,7 @@ export default function SavedPage() {
           .eq("user_id", userId)
           .order("created_at", { ascending: false })
           .limit(50),
-        fetchMyRoadtripRoutes(),
+        fetchMyRoadtripRoutesWithError(),
         supabase
           .from("event_plans")
           .select("id, title, occasion_slug, city_slug, event_date, guests, status, created_at, updated_at")
@@ -634,8 +634,10 @@ export default function SavedPage() {
           .limit(50),
       ]);
 
-      if (plansResp.error || bookmarksResp.error) {
-        console.error("Saved content load failed:", plansResp.error || bookmarksResp.error);
+      const loadError =
+        plansResp.error || bookmarksResp.error || eventPlansResp.error || myRoadtripsResp.error;
+      if (loadError) {
+        console.error("Saved content load failed:", loadError);
         setHasError(true);
         return;
       }
@@ -654,7 +656,7 @@ export default function SavedPage() {
 
       setPlans(nextPlans);
       setSavedRoutes(nextRoutes);
-      setRoadtripRoutes(myRoadtrips);
+      setRoadtripRoutes(myRoadtripsResp.routes);
       setEventPlans((eventPlansResp.data as EventPlanRow[] | null) ?? []);
     } catch (error) {
       console.error("Saved content unexpected load error:", error);
@@ -1108,7 +1110,7 @@ export default function SavedPage() {
                 return (
                   <SavedListRow
                     key={ep.id}
-                    href={`/events?planId=${ep.id}`}
+                    href={`/events/plan/${ep.id}`}
                     emoji="🎉"
                     title={ep.title?.trim() || eventOccasionLabel(ep.occasion_slug)}
                     meta={metaParts.join(" · ")}
