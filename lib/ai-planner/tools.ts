@@ -3,6 +3,7 @@
 // Felder), damit der LLM-Context nicht explodiert.
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { normalizePlannerEventTitle } from "@/lib/planner/events";
 
 export type Daytime = "morning" | "midday" | "afternoon" | "evening" | "night";
 export type BudgetLevel = "low" | "medium" | "high" | "any";
@@ -274,14 +275,18 @@ export async function findEvent(args: {
   const limit = Math.min(args.limit ?? 6, 12);
   const dayStart = `${args.date}T00:00:00.000Z`;
   const dayEnd = `${args.date}T23:59:59.999Z`;
+  // Spaltennamen in planner_events: title (nicht name), start_at/end_at (nicht
+  // starts_at/ends_at). Mit den falschen Namen antwortete PostgREST mit 42703,
+  // und weil hier geworfen wird, ist jede Event-Suche des KI-Planners
+  // abgebrochen — die Tabelle enthält knapp 34.000 Termine.
   const { data, error } = await sb
     .from("planner_events")
-    .select("id,name,category,starts_at,ends_at,venue_name,lat,lng,ticket_url")
+    .select("id,title,category,start_at,end_at,venue_name,lat,lng,ticket_url")
     .eq("city_slug", args.citySlug)
     .eq("status", "scheduled")
-    .gte("starts_at", dayStart)
-    .lte("starts_at", dayEnd)
-    .order("starts_at", { ascending: true })
+    .gte("start_at", dayStart)
+    .lte("start_at", dayEnd)
+    .order("start_at", { ascending: true })
     .limit(40);
   if (error) throw new Error(`findEvent: ${error.message}`);
 
@@ -293,12 +298,14 @@ export async function findEvent(args: {
         : undefined;
     return {
       id: e.id,
-      name: e.name,
+      // Gleiche Bereinigung wie im Planner: Quellen stellen dem Namen
+      // gelegentlich die Datumsspanne des Gesamtfestivals voran.
+      name: normalizePlannerEventTitle(e.title),
       type: "event",
       category: e.category ?? "event",
       budget: null,
       duration_min: 90,
-      opening_hours: `${e.starts_at} – ${e.ends_at ?? "?"}${e.venue_name ? ` @ ${e.venue_name}` : ""}`,
+      opening_hours: `${e.start_at} – ${e.end_at ?? "?"}${e.venue_name ? ` @ ${e.venue_name}` : ""}`,
       lat: e.lat,
       lng: e.lng,
       distance_km: distance,

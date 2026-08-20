@@ -29,7 +29,12 @@ const OFFICIAL_CITY_EVENT_SOURCES = new Set([
   "dortmund_tourism",
 ]);
 
-function localDateKey(value: string, timezone: string | null | undefined) {
+/**
+ * Kalendertag eines Zeitstempels in der Zeitzone des Events ("2026-08-20").
+ * Exportiert, damit Skripte, die Testdaten aus der Datenbank ziehen, exakt
+ * dieselbe Tagesgrenze verwenden wie plannerEventIsActive.
+ */
+export function localDateKey(value: string, timezone: string | null | undefined) {
   try {
     return new Intl.DateTimeFormat("en-CA", {
       timeZone: timezone || "UTC",
@@ -253,6 +258,49 @@ function defaultOccasionsForEvent(row: PlannerEventRow) {
   return ["friends", "tourism"];
 }
 
+const GERMAN_MONTH =
+  "(?:Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)";
+
+/**
+ * Datumsspanne, die manche Quellseiten dem Veranstaltungsnamen voranstellen:
+ * "14. und 15. August 2026 MS Dockville", "24. September bis 3. Oktober 2026
+ * FilmFest Hamburg".
+ *
+ * Der Monatsname ist Pflicht — und zwar aus einem konkreten Grund: Ohne ihn
+ * würde das Muster auch Ordnungszahlen im Namen abschneiden und aus
+ * "4. Schlosskonzert" ein "Schlosskonzert" machen oder aus
+ * "60. Kunstausstellung im Sozialgericht" die 60. Ausgabe tilgen. Mit
+ * Monatspflicht bleiben solche Titel unangetastet.
+ */
+// Das Muster kommt bewusst ohne Backslashes aus: `[0-9]` statt `d`-Klasse,
+// `[ ]` statt Leerzeichen-Klasse, `[.]` statt maskiertem Punkt. In einem
+// Template-Literal muesste jeder Backslash verdoppelt werden, und genau daran
+// ist der erste Entwurf gescheitert - das Muster passte lautlos auf nichts.
+const EVENT_TITLE_DATE_PREFIX = new RegExp(
+  `^[ ]*[0-9]{1,2}[.](?:[ ]*(?:und|bis|[-]|[/]|,|–)[ ]*[0-9]{1,2}[.]?)?[ ]*${GERMAN_MONTH}` +
+    `(?:[ ]*(?:bis|[-]|[/]|–)[ ]*[0-9]{1,2}[.][ ]*${GERMAN_MONTH})?[ ]*(?:20[0-9]{2})?[ ]*`,
+  "i"
+);
+
+/**
+ * Entfernt eine vorangestellte Datumsspanne aus dem Veranstaltungstitel.
+ *
+ * Hintergrund: Mehrtägige Feste werden von einzelnen Quellen als eine Zeile
+ * pro Tag geliefert, während der Titel die komplette Spanne nennt. In einem
+ * Tagesplan für den 21. August stand dann "14. und 15. August 2026 MS
+ * Dockville" — für den Nutzer sichtbar das falsche Datum. Der Zeitstempel
+ * der Zeile selbst ist korrekt, nur der Name trägt den Ballast der Quellseite.
+ *
+ * Bleibt nach dem Abschneiden kein sinnvoller Name übrig, wird der Originaltitel
+ * beibehalten — lieber ein umständlicher als ein leerer Name.
+ */
+export function normalizePlannerEventTitle(title: string): string {
+  if (!title) return title;
+  const stripped = title.replace(EVENT_TITLE_DATE_PREFIX, "").trim();
+  if (stripped.length < 3 || !/[A-Za-zÄÖÜäöü]/.test(stripped)) return title;
+  return stripped;
+}
+
 export function plannerEventToLocationRow(row: PlannerEventRow): LocationRow {
   const daytime = inferEventDaytime(row);
   const rowSubtypes = Array.isArray(row.subtypes) ? row.subtypes : [];
@@ -272,7 +320,7 @@ export function plannerEventToLocationRow(row: PlannerEventRow): LocationRow {
 
   return {
     id: row.id,
-    name: row.title,
+    name: normalizePlannerEventTitle(row.title),
     type: "event",
     occasion: defaultOccasionsForEvent(row)[0] ?? "friends",
     daytime,

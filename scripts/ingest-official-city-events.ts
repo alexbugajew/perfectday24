@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createClient } from "@supabase/supabase-js";
+import { normalizePlannerEventTitle } from "../lib/planner/events";
 import {
   fetchVisitBerlinEvents,
   normalizeVisitBerlinEvent,
@@ -487,6 +488,19 @@ async function main() {
     }
 
     totalFetched += rawCount;
+
+    // Manche Stadtportale stellen dem Veranstaltungsnamen die Datumsspanne des
+    // Gesamtfestivals voran ("24. September bis 3. Oktober 2026 FilmFest
+    // Hamburg") und liefern dazu eine Zeile pro Tag. In einem Tagesplan stand
+    // damit sichtbar ein Datum, das nicht zum Termin der Zeile passt.
+    //
+    // Bereinigt wird zentral fuer alle Anbieter statt in jedem Parser einzeln —
+    // und mit derselben Funktion, die auch beim Anzeigen greift, damit es nur
+    // eine Regel gibt. Der Rohtitel bleibt in source_payload erhalten.
+    normalized = normalized.map((item) =>
+      item.title ? { ...item, title: normalizePlannerEventTitle(item.title) } : item
+    );
+
     normalized = dedupeOfficialEvents(normalized);
     totalNormalized += normalized.length;
     touchedCities.add(config.city_slug);

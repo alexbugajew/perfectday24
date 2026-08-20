@@ -14,6 +14,7 @@ import { AI_PLANNER_TOOLS, callTool, type ToolName, type AiCandidate } from "@/l
 import { createClient } from "@supabase/supabase-js";
 import { getUserPremiumStatus, FREE_AI_PLANS_PER_MONTH } from "@/lib/premium/limits";
 import { isOpenAt } from "@/lib/planner/opening-hours";
+import { normalizePlannerEventTitle } from "@/lib/planner/events";
 import { getRequestUserId } from "@/lib/security/session";
 import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
 
@@ -118,10 +119,25 @@ async function resolveStopsFromDb(stops: AiStopPlan[]): Promise<ResolvedStop[]> 
     eventIds.length > 0
       ? sb
           .from("planner_events")
-          .select("id,name,category,starts_at,ends_at,lat,lng")
+          // "name:title" ist eine PostgREST-Umbenennung: Die Tabelle hat title,
+          // der Code unten liest row.name. Vorher stand hier schlicht "name",
+          // dazu starts_at/ends_at - drei Spalten, die es nicht gibt. PostgREST
+          // antwortete mit 42703, der Fehler wurde nicht geprueft, evMap blieb
+          // leer und JEDER Event-Stop fiel unten aus dem Plan. starts_at/ends_at
+          // werden hier ohnehin nicht gelesen und entfallen deshalb ganz.
+          .select("id,name:title,category,lat,lng")
           .in("id", eventIds)
       : Promise.resolve({ data: [] as Array<Record<string, unknown>>, error: null }),
   ]);
+
+  // Ein Ladefehler darf nicht laenger als "keine Treffer" durchgehen - genau so
+  // ist der Spaltenfehler oben monatelang unsichtbar geblieben.
+  if (locRes.error) {
+    console.error("[generate-plan-ai] Locations laden fehlgeschlagen:", locRes.error.message);
+  }
+  if (evRes.error) {
+    console.error("[generate-plan-ai] Events laden fehlgeschlagen:", evRes.error.message);
+  }
 
   const locMap = new Map<string, Record<string, unknown>>();
   for (const row of locRes.data ?? []) locMap.set(String(row.id), row);
@@ -147,7 +163,11 @@ async function resolveStopsFromDb(stops: AiStopPlan[]): Promise<ResolvedStop[]> 
       label: s.label || (isEvent ? "Event" : "Stop"),
       hint: s.hint ?? "",
       itemId: String(row.id),
-      itemName: String(row.name ?? ""),
+      // Quellen stellen dem Namen gelegentlich die Datumsspanne des
+      // Gesamtfestivals voran - gleiche Bereinigung wie im klassischen Planner.
+      itemName: isEvent
+        ? normalizePlannerEventTitle(String(row.name ?? ""))
+        : String(row.name ?? ""),
       itemType: String(row.type ?? "event"),
       itemCategory: (row.category as string | null) ?? null,
       lat: typeof row.lat === "number" ? (row.lat as number) : null,
