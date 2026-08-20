@@ -298,6 +298,10 @@ function PlannerPageContent() {
     const requestedPlanDate = searchParams.get("planDate");
     const requestedInterests = searchParams.get("interests");
     const requestedDayStartMin = searchParams.get("dayStartMin");
+    // Einstieg ueber ein konkretes Event: Die Event-Flaechen verlinken hierher
+    // mit citySlug, planDate und eventId, damit der Tag um dieses Event herum
+    // entsteht statt bei Stadt und Anlass zu beginnen.
+    const requestedEventId = searchParams.get("eventId");
 
     const signature = [
       requestedCitySlug ?? "",
@@ -308,6 +312,7 @@ function PlannerPageContent() {
       requestedPlanDate ?? "",
       requestedInterests ?? "",
       requestedDayStartMin ?? "",
+      requestedEventId ?? "",
     ].join("|");
 
     if (!signature.replace(/\|/g, "")) return;
@@ -341,6 +346,15 @@ function PlannerPageContent() {
       requestedExperienceMode === "market_festival"
     ) {
       setExperienceMode(requestedExperienceMode);
+    } else if (requestedEventId) {
+      // Ohne Modus wuerde der Planner im klassischen Ablauf starten und gar
+      // keine Events laden — dann liefe der Deep Link ins Leere.
+      setExperienceMode("event_visit");
+    }
+
+    if (requestedEventId) {
+      setSelectedEventId(requestedEventId);
+      setEventPlanningMode("locked");
     }
 
     if (
@@ -1342,6 +1356,11 @@ function PlannerPageContent() {
       setEventPlanningMode("auto");
       return;
     }
+
+    // Solange keine Kandidaten geladen sind, laesst sich nicht unterscheiden,
+    // ob das Event fehlt oder die Liste noch kommt. Ohne diese Sperre haette
+    // ein per URL gesetztes Event den ersten Renderdurchlauf nicht ueberlebt.
+    if (eventCandidates.length === 0) return;
 
     if (selectedEventId && !eventCandidates.some((event) => event.id === selectedEventId)) {
       setSelectedEventId(null);
