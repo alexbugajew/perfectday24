@@ -7,6 +7,8 @@ import ConsentSettingsLink from "@/components/consent/ConsentSettingsLink";
 import HeroIntentBar from "@/components/home/HeroIntentBar";
 import HeroLiveDemo from "@/components/home/HeroLiveDemo";
 import EditorialRoutesShowcase from "@/components/home/EditorialRoutesShowcase";
+import CityCarousel from "@/components/cities/CityCarousel";
+import { listCitiesWithRoutes } from "@/lib/cities/city-directory";
 import FeatureShowcase from "@/components/home/FeatureShowcase";
 import AiExploreTeaser from "@/components/home/AiExploreTeaser";
 import { formatReachCount, getReachStats } from "@/lib/reach-stats";
@@ -284,6 +286,7 @@ function ListBlock({
 
 export default async function HomepageScaffoldMinimal() {
   const reach = await getReachStats();
+  const cities = await listCitiesWithRoutes();
   const partnerProofStats = [
     { value: String(reach.visibleCities), label: "Städte", note: "stadtspezifische Sichtbarkeit" },
     ...partnerProofStatsStatic,
@@ -576,6 +579,19 @@ export default async function HomepageScaffoldMinimal() {
             </div>
             <EditorialRoutesShowcase />
           </section>
+
+          {/* Einstieg in die Stadtseiten. Ohne diesen Abschnitt waren
+              /explore/<stadt> und die Anlass-Seiten darunter aus dem Produkt
+              heraus ueber keinen einzigen Link erreichbar. */}
+          <CityCarousel
+            cities={cities}
+            kicker="Nach Stadt"
+            title="Such dir deine Stadt aus."
+            subtitle="Jede Stadt mit fertigen Routen, aktuellen Events und Plänen für jeden Anlass."
+            moreHref="/explore"
+            moreLabel="Alle Städte"
+            limit={12}
+          />
 
           <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[linear-gradient(160deg,rgba(248,250,252,0.96),rgba(238,244,248,0.92))] p-6 shadow-[var(--shadow-soft)] sm:p-8">
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">

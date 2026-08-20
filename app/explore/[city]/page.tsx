@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, cityRoutesJsonLd } from "@/lib/seo/json-ld";
+import { breadcrumbJsonLd, routeListJsonLd } from "@/lib/seo/json-ld";
+import { CITY_OCCASIONS, routeMatchesOccasion } from "@/lib/cities/occasions";
 
 // ─── City map ────────────────────────────────────────────────────────────────
 
@@ -25,6 +26,7 @@ type RouteRow = {
   ranking_score: number | null;
   is_featured: boolean;
   start_label: string | null;
+  tags: unknown;
 };
 
 type CreatorRow = {
@@ -93,7 +95,7 @@ async function fetchCityData(citySlug: string) {
   const [routesResult, creatorsResult, cityCoverResult, eventCountResult] = await Promise.all([
     supabase
       .from("user_routes")
-      .select("id, slug, title, description, cover_image_url, creator_type, stop_count, like_count, bookmark_count, ranking_score, is_featured, start_label")
+      .select("id, slug, title, description, cover_image_url, creator_type, stop_count, like_count, bookmark_count, ranking_score, is_featured, start_label, tags")
       .eq("city_slug", citySlug)
       .eq("visibility", "public")
       .order("ranking_score", { ascending: false })
@@ -114,9 +116,21 @@ async function fetchCityData(citySlug: string) {
       .select("*", { count: "exact", head: true })
       .eq("city_slug", citySlug)
       .eq("status", "scheduled")
-      .gte("starts_at", now.toISOString())
-      .lte("starts_at", in30Days.toISOString()),
+      // Die Spalte heißt start_at, nicht starts_at. Mit dem falschen Namen
+      // antwortete PostgREST mit 42703, `count` war null und das `?? 0` unten
+      // machte daraus eine glaubwürdige Null — auf allen 552 Stadtseiten,
+      // obwohl knapp 9.500 künftige Events in der Datenbank stehen.
+      .gte("start_at", now.toISOString())
+      .lte("start_at", in30Days.toISOString()),
   ]);
+
+  // Ein Abfragefehler darf nicht länger als "keine Events" durchgehen.
+  if (eventCountResult.error) {
+    console.error(
+      `[explore/${citySlug}] Event-Zählung fehlgeschlagen:`,
+      eventCountResult.error.message
+    );
+  }
 
   return {
     routes: (routesResult.data ?? []) as RouteRow[],
@@ -147,6 +161,12 @@ export default async function CityExplorePage({
   const allRoutes = featuredRoutes.length >= 6 ? routes : routes;
   const coverRoute = allRoutes.find((r) => r.cover_image_url) ?? null;
 
+  // Anlass-Landing-Pages, die es fuer diese Stadt tatsaechlich gibt. Ohne
+  // Verlinkung von hier blieben sie verwaist und wuerden schlecht gecrawlt.
+  const occasionPages = CITY_OCCASIONS.filter((occasion) =>
+    routes.some((route) => route.slug && routeMatchesOccasion(route.tags, occasion))
+  );
+
   // Editorial-Cover hat Vorrang. Fallback: erstes Route-Cover, dann Gradient.
   const heroImage = cityCover?.editorial_cover_url ?? coverRoute?.cover_image_url ?? null;
   const heroAlt = cityCover?.editorial_cover_alt ?? cityConfig.label;
@@ -161,7 +181,11 @@ export default async function CityExplorePage({
           hinausgehen. */}
       <JsonLd
         data={[
-          cityRoutesJsonLd({ cityLabel: cityConfig.label, citySlug: city, routes: allRoutes }),
+          routeListJsonLd({
+            name: `Tagesrouten in ${cityConfig.label}`,
+            pagePath: `/explore/${city}`,
+            routes: allRoutes,
+          }),
           breadcrumbJsonLd([
             { name: "Start", path: "/" },
             { name: "Entdecken", path: "/explore" },
@@ -250,6 +274,31 @@ export default async function CityExplorePage({
           </Link>
         </div>
       </section>
+
+      {/* Anlass-Seiten: eigene, vollstaendig ausformulierte Seiten je Anlass —
+          nicht zu verwechseln mit den Filter-Chips darunter, die nur die
+          Explore-Liste vorfiltern. */}
+      {occasionPages.length > 0 ? (
+        <section className="rounded-[var(--radius-shell)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 shadow-[var(--shadow-soft)]">
+          <h2 className="text-lg font-semibold text-[var(--text-strong)]">
+            Fertige Pläne für {cityConfig.label}
+          </h2>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">
+            Jeder Anlass mit komplettem Ablauf — Stopp für Stopp, in der richtigen Reihenfolge.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {occasionPages.map((occasion) => (
+              <Link
+                key={occasion.slug}
+                href={`/explore/${city}/${occasion.slug}`}
+                className="rounded-full border border-[var(--line-subtle)] bg-white px-3.5 py-2 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-panel)]"
+              >
+                {occasion.label} in {cityConfig.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {/* Occasion chips */}
       <div className="flex flex-wrap gap-2">

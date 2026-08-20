@@ -2154,7 +2154,20 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
                 {route.visibility !== "public" ? (
                   <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{visibilityLabel(route.visibility)}</span>
                 ) : null}
-                <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{routeCityLabel}</span>
+                {/* Verlinkt auf die Stadtseite. Bis 08/2026 stand die Stadt hier
+                    nur als Text — es gab im ganzen Produkt keinen Link auf
+                    /explore/<stadt>, obwohl der JSON-LD-Breadcrumb genau diesen
+                    Pfad behauptet. */}
+                {route.city_slug ? (
+                  <Link
+                    href={`/explore/${route.city_slug}`}
+                    className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur transition hover:bg-white/20"
+                  >
+                    {routeCityLabel}
+                  </Link>
+                ) : (
+                  <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{routeCityLabel}</span>
+                )}
                 {personalizedVariantMeta ? <span className="rounded-full border border-white/30 bg-emerald-500/20 px-3 py-1 text-xs backdrop-blur">Persönliche Variante</span> : null}
                 {route.is_featured ? <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">Featured</span> : null}
                 {durationBadge ? <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs backdrop-blur">{durationBadge}</span> : null}
@@ -2199,7 +2212,16 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
               {route.visibility !== "public" ? (
                 <span className="rounded-full border border-[var(--line-subtle)] px-3 py-1 text-xs">{visibilityLabel(route.visibility)}</span>
               ) : null}
-              <span className="rounded-full border border-[var(--line-subtle)] px-3 py-1 text-xs">{routeCityLabel}</span>
+              {route.city_slug ? (
+                <Link
+                  href={`/explore/${route.city_slug}`}
+                  className="rounded-full border border-[var(--line-subtle)] px-3 py-1 text-xs transition hover:bg-[var(--bg-surface)]"
+                >
+                  {routeCityLabel}
+                </Link>
+              ) : (
+                <span className="rounded-full border border-[var(--line-subtle)] px-3 py-1 text-xs">{routeCityLabel}</span>
+              )}
               {personalizedVariantMeta ? <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-800">Persönliche Variante</span> : null}
             </div>
               <div className="max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl">{route.title}</div> {/* h1 steht serverseitig im Layout — siehe Kommentar dort */}

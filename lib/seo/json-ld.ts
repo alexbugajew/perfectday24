@@ -266,11 +266,13 @@ export function routeJsonLd(input: {
   });
 }
 
-// ─── Stadtseite (ItemList) ───────────────────────────────────────────────────
+// ─── Routenlisten (ItemList) ─────────────────────────────────────────────────
 
-export function cityRoutesJsonLd(input: {
-  cityLabel: string;
-  citySlug: string;
+export function routeListJsonLd(input: {
+  /** Sprechender Name der Liste, z. B. "Tagesrouten in Berlin". */
+  name: string;
+  /** Pfad der Seite, auf der die Liste steht — dient als stabile @id. */
+  pagePath: string;
   routes: { slug: string | null; title: string | null }[];
 }): JsonLdObject | undefined {
   const items = input.routes
@@ -288,8 +290,8 @@ export function cityRoutesJsonLd(input: {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "@id": `${SITE_URL}/explore/${input.citySlug}#routes`,
-    name: `Tagesrouten in ${input.cityLabel}`,
+    "@id": `${absoluteUrl(input.pagePath)}#routes`,
+    name: input.name,
     numberOfItems: items.length,
     itemListElement: items,
   };

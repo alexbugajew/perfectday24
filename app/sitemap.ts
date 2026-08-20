@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
+import { listOccasionParams } from "./explore/[city]/[occasion]/data";
 
 export const revalidate = 3600;
 
@@ -26,6 +27,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const cityPages: MetadataRoute.Sitemap = PLANNER_33_ROLLOUT
     .filter((c) => c.plannerVisibility === "visible")
     .map((c) => url(`/explore/${c.slug}`, 0.85, "daily"));
+
+  // ─── Stadt-Anlass-Landing-Pages ───────────────────────────────────────────
+  // Nur Kombinationen, fuer die es tatsaechlich Routen gibt — dieselbe Quelle
+  // wie generateStaticParams, damit Sitemap und gebaute Seiten nicht
+  // auseinanderlaufen.
+  let occasionPages: MetadataRoute.Sitemap = [];
+  try {
+    const combos = await listOccasionParams();
+    occasionPages = combos.map((combo) =>
+      url(`/explore/${combo.city}/${combo.occasion}`, 0.8, "weekly")
+    );
+  } catch { /* ignore — sitemap degrades gracefully */ }
 
   // ─── Public routes ────────────────────────────────────────────────────────
   let routePages: MetadataRoute.Sitemap = [];
@@ -74,5 +87,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     } catch { /* ignore */ }
   }
 
-  return [...staticPages, ...cityPages, ...routePages, ...creatorPages];
+  return [...staticPages, ...cityPages, ...occasionPages, ...routePages, ...creatorPages];
 }
