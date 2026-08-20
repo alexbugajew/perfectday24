@@ -33,27 +33,31 @@ export default async function ExploreLayout({ children }: { children: React.Reac
 
   return (
     <>
-      {children}
-
       {/*
-        Die Städte-Übersicht steht bewusst im Layout und nicht in der Seite
-        selbst: /explore nutzt useSearchParams für seine Filter und wird deshalb
-        nicht vorgerendert. Alles, was in der Client-Komponente steht, fehlt im
-        ausgelieferten HTML — und genau dort sollen diese Links stehen, weil die
-        Stadtseiten sonst verwaist bleiben.
+        Die Städte-Leiste steht bewusst im Layout und über der Seite, nicht in
+        ihr: /explore nutzt useSearchParams für seine Filter und wird deshalb
+        nicht vorgerendert. Alles in der Client-Komponente fehlt im
+        ausgelieferten HTML — und genau dort sollen diese Links stehen, sonst
+        bleiben die Stadtseiten verwaist.
 
-        Preis dieser Entscheidung: Der Abschnitt sitzt unter der Routenliste
-        statt darüber. Weiter oben wäre er sichtbarer, aber für Crawler
-        unsichtbar — und das ist der Hauptgrund, warum es ihn gibt.
+        Ein erster Versuch platzierte die Leiste unter {children}. Sie landete
+        damit am Ende einer sehr langen Seite und war praktisch unsichtbar. Als
+        Kopfleiste erfüllt sie ihren Zweck: erst Stadt wählen, dann stöbern.
+        Ihre Überschrift ist deshalb ein Label und kein <h2> — vor dem <h1> der
+        Seite wäre das eine verdrehte Gliederung.
       */}
-      <div className="pd24-page-wide px-1 pb-16 sm:px-2 lg:px-4">
+      <div className="pd24-page-wide px-1 pb-6 sm:px-2 lg:px-4">
         <CityCarousel
           cities={cities}
-          kicker="Nach Stadt stöbern"
-          title="Alle Städte mit fertigen Routen"
-          subtitle="Jede Stadt mit eigener Übersicht, aktuellen Events und Plänen für jeden Anlass."
+          compact
+          kicker="Nach Stadt"
+          title="Direkt in eine Stadt springen"
+          moreHref="/planner"
+          moreLabel="Eigenen Tag planen"
         />
       </div>
+
+      {children}
     </>
   );
 }

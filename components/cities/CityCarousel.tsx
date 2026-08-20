@@ -24,6 +24,12 @@ type Props = {
   moreLabel?: string;
   /** Begrenzt die Anzahl der Karten — die Übersicht auf /explore zeigt alle. */
   limit?: number;
+  /**
+   * Schmale Leiste statt voller Sektion. Die Überschrift wird dabei zu einem
+   * einfachen Label: Die Leiste steht auf /explore über der Seitenüberschrift,
+   * und ein <h2> vor dem <h1> würde die Gliederung der Seite verdrehen.
+   */
+  compact?: boolean;
 };
 
 export default function CityCarousel({
@@ -34,18 +40,25 @@ export default function CityCarousel({
   moreHref,
   moreLabel = "Alle Städte",
   limit,
+  compact = false,
 }: Props) {
   const shown = typeof limit === "number" ? cities.slice(0, limit) : cities;
   if (shown.length === 0) return null;
 
   return (
-    <section className="space-y-5">
+    <section className={compact ? "space-y-3" : "space-y-5"}>
       <div className="flex items-end justify-between gap-3">
         <div>
           {kicker ? <div className="pd24-kicker-warm">{kicker}</div> : null}
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-3xl">
-            {title}
-          </h2>
+          {compact ? (
+            <div className="mt-1 text-base font-semibold tracking-tight text-[var(--text-strong)]">
+              {title}
+            </div>
+          ) : (
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-3xl">
+              {title}
+            </h2>
+          )}
           {subtitle ? (
             <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted-warm)]">{subtitle}</p>
           ) : null}
@@ -69,9 +82,9 @@ export default function CityCarousel({
             <Link
               key={city.slug}
               href={`/explore/${city.slug}`}
-              className="group w-[220px] shrink-0 snap-start overflow-hidden rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-large)]"
+              className={`group shrink-0 snap-start ${compact ? "w-[168px]" : "w-[220px]"} overflow-hidden rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-large)]`}
             >
-              <div className="relative h-[130px] w-full overflow-hidden bg-[var(--bg-canvas-warm)]">
+              <div className={`relative w-full overflow-hidden bg-[var(--bg-canvas-warm)] ${compact ? "h-[96px]" : "h-[130px]"}`}>
                 {cover ? (
                   // Bewusst ein einfaches <img>: Die Cover stammen aus wechselnden
                   // Quellen (Editorial-Uploads, Wikimedia, Unsplash), die nicht
