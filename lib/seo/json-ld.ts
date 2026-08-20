@@ -266,6 +266,81 @@ export function routeJsonLd(input: {
   });
 }
 
+// ─── Veranstaltung ───────────────────────────────────────────────────────────
+
+export type JsonLdEvent = {
+  title: string;
+  summary: string | null;
+  start_at: string;
+  end_at: string | null;
+  venue_name: string | null;
+  venue_address: string | null;
+  lat: number | null;
+  lng: number | null;
+  ticket_url: string | null;
+  source_url: string | null;
+  price_min: number | null;
+  price_max: number | null;
+  currency: string | null;
+};
+
+/**
+ * schema.org/Event fuer die Detailseite einer Veranstaltung.
+ *
+ * Die Seite selbst bleibt auf `noindex` — Veranstaltungen verfallen, und
+ * tausende tote Seiten im Index waeren der falsche Tausch. Die Auszeichnung ist
+ * trotzdem sinnvoll: Antwortmaschinen crawlen zum Zeitpunkt der Frage live und
+ * bekommen so saubere Fakten statt Fliesstext.
+ *
+ * `endDate` erscheint nur, wenn die Quelle eines liefert. Bei rund 10.700
+ * geplanten Events fehlt es — eine geschaetzte Endzeit auszuzeichnen waere eine
+ * Behauptung, die die Daten nicht decken.
+ */
+export function eventJsonLd(input: {
+  event: JsonLdEvent;
+  url: string;
+  cityLabel: string | null;
+}): JsonLdObject | undefined {
+  const { event, url, cityLabel } = input;
+
+  return compact({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.title,
+    description: event.summary,
+    startDate: event.start_at,
+    endDate: event.end_at,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    url,
+    inLanguage: "de-DE",
+    location: compact({
+      "@type": "Place",
+      name: event.venue_name,
+      address: compact({
+        "@type": "PostalAddress",
+        streetAddress: event.venue_address,
+        addressLocality: cityLabel,
+        addressCountry: "DE",
+      }),
+      geo:
+        typeof event.lat === "number" && typeof event.lng === "number"
+          ? { "@type": "GeoCoordinates", latitude: event.lat, longitude: event.lng }
+          : undefined,
+    }),
+    offers:
+      typeof event.price_min === "number"
+        ? compact({
+            "@type": "Offer",
+            price: event.price_min,
+            priceCurrency: event.currency ?? "EUR",
+            url: event.ticket_url ?? event.source_url,
+            availability: "https://schema.org/InStock",
+          })
+        : undefined,
+  });
+}
+
 // ─── Routenlisten (ItemList) ─────────────────────────────────────────────────
 
 export function routeListJsonLd(input: {
