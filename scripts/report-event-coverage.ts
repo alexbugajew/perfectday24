@@ -125,6 +125,11 @@ async function main() {
       .from("event_source_configs")
       .select("provider,city_slug,is_active")
       .in("city_slug", citySlugs)
+      // Stabile Sortierung: Ohne sie darf Postgres an einer Seitengrenze
+      // dieselbe Zeile zweimal liefern. Die Tabelle passt mit ~50 Zeilen zwar
+      // in eine einzige Seite, aber die Annahme soll nicht stillschweigend
+      // gelten.
+      .order("id")
       .range(from, to)
   );
 

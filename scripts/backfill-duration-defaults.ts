@@ -105,20 +105,31 @@ function computeDefaultDuration(loc: LocationRow): number {
   }
 }
 
-async function fetchAllRows<T>(
+/**
+ * Blättert per Keyset: Jede Seite holt die nächsten Zeilen mit
+ * `id > zuletzt gesehene id`.
+ *
+ * Vorher lief das über `.range(from, to)` ohne Sortierung — dabei darf Postgres
+ * an Seitengrenzen dieselbe Zeile zweimal liefern, und das OFFSET wächst mit
+ * jeder Seite. Dieselbe Korrektur steckt in planner-quality-check.ts, wo genau
+ * das in den `statement timeout` gelaufen ist.
+ */
+async function fetchAllRows<T extends { id: string }>(
   fetchPage: (
-    from: number,
-    to: number
+    afterId: string | null,
+    limit: number
   ) => Promise<{ data: T[] | null; error: { message: string } | null }>
 ): Promise<T[]> {
   const pageSize = 1000;
   const rows: T[] = [];
-  for (let from = 0; ; from += pageSize) {
-    const { data, error } = await fetchPage(from, from + pageSize - 1);
+  let afterId: string | null = null;
+  for (;;) {
+    const { data, error } = await fetchPage(afterId, pageSize);
     if (error) throw new Error(error.message);
     const page = data ?? [];
     rows.push(...page);
     if (page.length < pageSize) break;
+    afterId = page[page.length - 1].id;
   }
   return rows;
 }
@@ -130,14 +141,16 @@ async function main() {
 
   console.log(`Mode: ${dryRun ? "DRY RUN (pass --live to write)" : "LIVE"}`);
 
-  const locations = await fetchAllRows<LocationRow>(async (from, to) =>
-    supabase
+  const locations = await fetchAllRows<LocationRow>(async (afterId, limit) => {
+    const query = supabase
       .from("locations")
       .select("*")
       .eq("is_plannable", true)
       .is("duration_min", null)
-      .range(from, to)
-  );
+      .order("id")
+      .limit(limit);
+    return afterId ? query.gt("id", afterId) : query;
+  });
 
   console.log(`Plannable locations without duration_min: ${locations.length}`);
 

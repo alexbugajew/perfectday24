@@ -46,17 +46,31 @@ function getSupabaseAdmin() {
 
 // ─── pagination helper ────────────────────────────────────────────────────────
 
-async function fetchAllRows<T>(
-  fetchPage: (from: number, to: number) => Promise<{ data: T[] | null; error: { message: string } | null }>
+/**
+ * Blättert per Keyset: Jede Seite holt die nächsten Zeilen mit
+ * `id > zuletzt gesehene id`.
+ *
+ * Vorher lief das über `.range(from, to)` ohne Sortierung — dabei darf Postgres
+ * an Seitengrenzen dieselbe Zeile zweimal liefern, und das OFFSET wächst mit
+ * jeder Seite. Dieselbe Korrektur steckt in planner-quality-check.ts, wo genau
+ * das in den `statement timeout` gelaufen ist.
+ */
+async function fetchAllRows<T extends { id: string }>(
+  fetchPage: (
+    afterId: string | null,
+    limit: number
+  ) => Promise<{ data: T[] | null; error: { message: string } | null }>
 ): Promise<T[]> {
   const PAGE = 1000;
   const rows: T[] = [];
-  for (let from = 0; ; from += PAGE) {
-    const { data, error } = await fetchPage(from, from + PAGE - 1);
+  let afterId: string | null = null;
+  for (;;) {
+    const { data, error } = await fetchPage(afterId, PAGE);
     if (error) throw new Error(error.message);
     const page = data ?? [];
     rows.push(...page);
     if (page.length < PAGE) break;
+    afterId = page[page.length - 1].id;
   }
   return rows;
 }
@@ -120,13 +134,15 @@ async function main() {
   console.log("");
 
   // Fetch
-  const locations = await fetchAllRows<LocationRow>(async (from, to) => {
+  const locations = await fetchAllRows<LocationRow>(async (afterId, limit) => {
     let q = supabase
       .from("locations")
       .select("*")
       .eq("is_plannable", true)
-      .range(from, to);
+      .order("id")
+      .limit(limit);
     if (cityArg) q = q.eq("city_slug", cityArg);
+    if (afterId) q = q.gt("id", afterId);
     return q;
   });
 

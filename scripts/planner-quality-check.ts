@@ -307,15 +307,30 @@ function hasDedupeShadow(event: PlannerEventRow) {
   return eventSubtypes(event).includes("dedupe_shadow");
 }
 
-async function fetchAllRows<T>(
-  fetchPage: (from: number, to: number) => Promise<{ data: T[] | null; error: { message: string } | null }>
+/**
+ * Blättert per Keyset über eine Tabelle: Jede Seite holt die nächsten Zeilen
+ * mit `id > zuletzt gesehene id`.
+ *
+ * Vorher lief das über `.range(from, to)` ganz ohne `order` — das waren zwei
+ * Probleme in einem. Ohne stabile Sortierung darf Postgres an Seitengrenzen
+ * dieselbe Zeile zweimal liefern (dagegen gab es unten eine Dedup-Schleife),
+ * und ein OFFSET, das mit jeder Seite wächst, ließ die Abfrage über die rund
+ * 37.000 Zeilen in `planner_events` immer wieder in den `statement timeout`
+ * laufen. Keyset-Paginierung nutzt den Primärschlüssel-Index und ist für jede
+ * Seite gleich schnell, unabhängig von der Tiefe.
+ */
+async function fetchAllRows<T extends { id: string }>(
+  fetchPage: (
+    afterId: string | null,
+    limit: number
+  ) => Promise<{ data: T[] | null; error: { message: string } | null }>
 ) {
   const pageSize = 1000;
   const rows: T[] = [];
+  let afterId: string | null = null;
 
-  for (let from = 0; ; from += pageSize) {
-    const to = from + pageSize - 1;
-    const { data, error } = await fetchPage(from, to);
+  for (;;) {
+    const { data, error } = await fetchPage(afterId, pageSize);
     if (error) {
       throw new Error(error.message);
     }
@@ -326,6 +341,8 @@ async function fetchAllRows<T>(
     if (page.length < pageSize) {
       break;
     }
+
+    afterId = page[page.length - 1].id;
   }
 
   return rows;
@@ -491,28 +508,32 @@ async function main() {
   for (let index = 0; index < CITY_SLUGS.length; index += 1) {
     const citySlug = CITY_SLUGS[index];
     const [rawCityLocations, cityEvents] = await Promise.all([
-      fetchAllRows<LocationRow>(async (from, to) =>
-        supabase
+      fetchAllRows<LocationRow>(async (afterId, limit) => {
+        const query = supabase
           .from("locations")
           .select("*")
           .eq("city_slug", citySlug)
           .eq("is_plannable", true)
           .order("id")
-          .range(from, to)
-      ),
-      fetchAllRows<PlannerEventRow>(async (from, to) =>
-        supabase
+          .limit(limit);
+        return afterId ? query.gt("id", afterId) : query;
+      }),
+      fetchAllRows<PlannerEventRow>(async (afterId, limit) => {
+        const query = supabase
           .from("planner_events")
           .select("*")
           .eq("city_slug", citySlug)
           .in("status", ["scheduled", "draft"])
-          .range(from, to)
-      ),
+          .order("id")
+          .limit(limit);
+        return afterId ? query.gt("id", afterId) : query;
+      }),
     ]);
 
-    // Deduplicate by id — Supabase without a stable sort can return the same row on
-    // two adjacent pages at a page boundary, which inflates counts and creates phantom
-    // duplicate groups in the locationDuplicateGroups check.
+    // Sicherheitsnetz: Seit fetchAllRows per Keyset blättert, kann dieselbe
+    // Zeile nicht mehr auf zwei Seiten auftauchen. Die Prüfung bleibt, weil ein
+    // Duplikat hier unbemerkt die Zählungen aufblähen und im
+    // locationDuplicateGroups-Check Phantom-Gruppen erzeugen würde.
     const seenIds = new Set<string>();
     const cityLocations = rawCityLocations.filter((loc) => {
       if (seenIds.has(loc.id)) return false;

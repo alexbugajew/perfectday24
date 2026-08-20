@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import {
   classify,
   generatePlan,
+  localDateKey,
   plannerEventCategoriesForExperienceMode,
   plannerEventIsActive,
   plannerEventToLocationRow,
@@ -11,6 +12,7 @@ import {
 } from "../lib/planner";
 import type {
   ExperienceMode,
+  LocationRow,
   OccasionKey,
   PlannerEventRow,
   PlannerRequest,
@@ -22,6 +24,10 @@ type CoreRegressionCase = {
   id: string;
   title: string;
   citySlug: string;
+  /**
+   * Rückfallebene. Das tatsächlich verwendete Datum kommt aus resolvePlanDate()
+   * und wird erst zur Laufzeit bestimmt — siehe Kommentar dort.
+   */
   planDate: string;
   occasion: OccasionKey;
   experienceMode: ExperienceMode;
@@ -51,6 +57,8 @@ type CaseReport = {
   title: string;
   citySlug: string;
   planDate: string;
+  /** "data" = aus der Datenbank ermittelt, "fallback" = festes Datum aus der Falldefinition. */
+  planDateSource: "data" | "fallback";
   occasion: OccasionKey;
   experienceMode: ExperienceMode;
   activeLevel: string;
@@ -317,15 +325,28 @@ function buildCases(): CoreRegressionCase[] {
   ];
 }
 
-async function fetchAllRows<T>(
-  fetchPage: (from: number, to: number) => Promise<{ data: T[] | null; error: { message: string } | null }>
+/**
+ * Blättert per Keyset über eine Tabelle: Jede Seite holt die nächsten Zeilen
+ * mit `id > zuletzt gesehene id`.
+ *
+ * Vorher lief das über `.range(from, to)` ohne jede Sortierung. Damit darf
+ * Postgres an Seitengrenzen dieselbe Zeile zweimal liefern, und das OFFSET
+ * wächst mit jeder Seite — bei großen Städten der Weg in den
+ * `statement timeout`. Dieselbe Korrektur steckt in
+ * `planner-quality-check.ts`, wo genau das aufgetreten ist.
+ */
+async function fetchAllRows<T extends { id: string }>(
+  fetchPage: (
+    afterId: string | null,
+    limit: number
+  ) => Promise<{ data: T[] | null; error: { message: string } | null }>
 ) {
   const pageSize = 1000;
   const rows: T[] = [];
+  let afterId: string | null = null;
 
-  for (let from = 0; ; from += pageSize) {
-    const to = from + pageSize - 1;
-    const { data, error } = await fetchPage(from, to);
+  for (;;) {
+    const { data, error } = await fetchPage(afterId, pageSize);
     if (error) {
       throw new Error(error.message);
     }
@@ -336,6 +357,8 @@ async function fetchAllRows<T>(
     if (page.length < pageSize) {
       break;
     }
+
+    afterId = page[page.length - 1].id;
   }
 
   return rows;
@@ -345,14 +368,16 @@ async function loadLocations(
   supabase: ReturnType<typeof getSupabaseAdmin>,
   citySlug: string
 ) {
-  return fetchAllRows(async (from, to) =>
-    supabase
+  return fetchAllRows<LocationRow>(async (afterId, limit) => {
+    const query = supabase
       .from("locations")
       .select("*")
       .eq("city_slug", citySlug)
       .eq("is_plannable", true)
-      .range(from, to)
-  );
+      .order("id")
+      .limit(limit);
+    return afterId ? query.gt("id", afterId) : query;
+  });
 }
 
 async function loadActiveEventLocations(
@@ -360,15 +385,17 @@ async function loadActiveEventLocations(
   testCase: CoreRegressionCase
 ) {
   const categories = plannerEventCategoriesForExperienceMode(testCase.experienceMode);
-  const rows = await fetchAllRows<PlannerEventRow>(async (from, to) =>
-    supabase
+  const rows = await fetchAllRows<PlannerEventRow>(async (afterId, limit) => {
+    const query = supabase
       .from("planner_events")
       .select("*")
       .eq("city_slug", testCase.citySlug)
       .in("status", ["scheduled", "draft"])
       .in("category", categories)
-      .range(from, to)
-  );
+      .order("id")
+      .limit(limit);
+    return afterId ? query.gt("id", afterId) : query;
+  });
 
   const activeRows = rows.filter((row) =>
     plannerEventIsActive(row, testCase.planDate)
@@ -383,6 +410,52 @@ async function loadActiveEventLocations(
     rows: visibleRows,
     locations: visibleRows.map(plannerEventToLocationRow),
   };
+}
+
+/**
+ * Bestimmt das Testdatum aus den Daten: der nächste Tag ab heute, an dem für
+ * Stadt und Erlebnismodus überhaupt passende Events vorliegen.
+ *
+ * Vorher stand in jedem Fall ein festes Datum aus April/Mai 2026. Solche Daten
+ * altern: Am 20.08.2026 fanden fünf der neun Fälle dort keine Events mehr, die
+ * Guardrails wurden übersprungen — und der Lauf meldete trotzdem „bestanden",
+ * ohne noch eine einzige Event-Zusicherung geprüft zu haben. Je länger die
+ * festen Daten zurückliegen, desto mehr Fälle fallen still aus.
+ *
+ * Dass die Läufe dadurch nicht mehr bit-identisch reproduzierbar sind, ist
+ * hier vertretbar: Die Guardrails prüfen strukturell (taucht ein Event im Flow
+ * auf, genug gefüllte Stops, kein zweites Event als Ausklang) und nicht gegen
+ * gespeicherte Snapshots. Welcher konkrete Termin gewählt wird, ändert daran
+ * nichts.
+ *
+ * Liefert null, wenn es gar keine künftigen Events gibt — dann greift das feste
+ * Datum aus der Falldefinition, und der Fall überspringt wie bisher.
+ */
+async function resolvePlanDate(
+  supabase: ReturnType<typeof getSupabaseAdmin>,
+  testCase: CoreRegressionCase
+): Promise<string | null> {
+  const categories = plannerEventCategoriesForExperienceMode(testCase.experienceMode);
+  const { data, error } = await supabase
+    .from("planner_events")
+    .select("start_at, timezone")
+    .eq("city_slug", testCase.citySlug)
+    .eq("status", "scheduled")
+    .in("category", categories)
+    .gte("start_at", new Date().toISOString())
+    .order("start_at", { ascending: true })
+    .limit(1);
+
+  if (error) {
+    throw new Error(`resolvePlanDate(${testCase.id}): ${error.message}`);
+  }
+
+  const row = (data ?? [])[0] as { start_at?: string; timezone?: string | null } | undefined;
+  if (!row?.start_at) return null;
+
+  // Dieselbe Tagesgrenze wie plannerEventIsActive, damit das ermittelte Datum
+  // den gefundenen Termin auch wirklich einschließt.
+  return localDateKey(row.start_at, row.timezone);
 }
 
 function toStopSnapshot(stop: PlannedStop): StopSnapshot {
@@ -480,7 +553,8 @@ function evaluateGuardrails(
 
 async function runCase(
   supabase: ReturnType<typeof getSupabaseAdmin>,
-  testCase: CoreRegressionCase
+  testCase: CoreRegressionCase,
+  planDateSource: "data" | "fallback"
 ): Promise<CaseReport> {
   const request: PlannerRequest = {
     citySlug: testCase.citySlug,
@@ -523,6 +597,7 @@ async function runCase(
     title: testCase.title,
     citySlug: testCase.citySlug,
     planDate: testCase.planDate,
+    planDateSource,
     occasion: testCase.occasion,
     experienceMode: testCase.experienceMode,
     activeLevel: result.activeLevel,
@@ -588,7 +663,19 @@ async function main() {
 
   const reports: CaseReport[] = [];
   for (const testCase of cases) {
-    reports.push(await runCase(supabase, testCase));
+    const resolved = await resolvePlanDate(supabase, testCase);
+    const effectiveCase = resolved ? { ...testCase, planDate: resolved } : testCase;
+    const source = resolved ? ("data" as const) : ("fallback" as const);
+
+    if (resolved) {
+      console.log(`  ${testCase.id.padEnd(24)} planDate=${resolved} (aus Daten)`);
+    } else {
+      console.log(
+        `  ${testCase.id.padEnd(24)} planDate=${testCase.planDate} (Rückfall — keine künftigen Events für diese Stadt/Kategorie)`
+      );
+    }
+
+    reports.push(await runCase(supabase, effectiveCase, source));
   }
 
   const outDir = join(process.cwd(), "reports");
