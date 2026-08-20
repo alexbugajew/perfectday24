@@ -114,7 +114,14 @@ export function dedupePlannerEventsForPlanning(rows: PlannerEventRow[]) {
 }
 
 export function inferPlannerEventKind(category: PlannerEventCategory): PlannerEventKind {
-  if (category === "concert" || category === "theater" || category === "show") {
+  // Comedy hat wie Konzert und Theater eine feste Anfangszeit, zu der man da
+  // sein muss. Ausstellungen laufen ueber Wochen und sind deshalb flexibel.
+  if (
+    category === "concert" ||
+    category === "theater" ||
+    category === "show" ||
+    category === "comedy"
+  ) {
     return "anchored_event";
   }
   return "flex_event";
@@ -122,7 +129,7 @@ export function inferPlannerEventKind(category: PlannerEventCategory): PlannerEv
 
 export function plannerEventCategoriesForExperienceMode(mode: string) {
   if (mode === "show") {
-    return ["concert", "theater", "show"] as PlannerEventCategory[];
+    return ["concert", "theater", "show", "comedy"] as PlannerEventCategory[];
   }
 
   if (mode === "market_festival") {
@@ -134,6 +141,8 @@ export function plannerEventCategoriesForExperienceMode(mode: string) {
       "concert",
       "theater",
       "show",
+      "comedy",
+      "exhibition",
       "market",
       "festival",
       "fair",
@@ -150,6 +159,8 @@ export function plannerEventLabel(category: PlannerEventCategory) {
   if (category === "concert") return "Konzert";
   if (category === "theater") return "Theater";
   if (category === "show") return "Show";
+  if (category === "comedy") return "Comedy";
+  if (category === "exhibition") return "Ausstellung";
   if (category === "market") return "Markt";
   if (category === "festival") return "Festival";
   if (category === "fair") return "Kirmes";
@@ -252,7 +263,8 @@ function inferEventDaytime(row: PlannerEventRow) {
 function defaultOccasionsForEvent(row: PlannerEventRow) {
   if (row.family_friendly) return ["family", "friends", "tourism"];
   if (row.category === "concert" || row.category === "show") return ["date", "friends", "party"];
-  if (row.category === "theater") return ["date", "tourism"];
+  if (row.category === "comedy") return ["date", "friends"];
+  if (row.category === "theater" || row.category === "exhibition") return ["date", "tourism"];
   if (row.category === "market" || row.category === "seasonal") return ["tourism", "family", "friends", "date"];
   if (row.category === "festival" || row.category === "food_event") return ["friends", "party", "tourism"];
   return ["friends", "tourism"];
@@ -299,6 +311,79 @@ export function normalizePlannerEventTitle(title: string): string {
   const stripped = title.replace(EVENT_TITLE_DATE_PREFIX, "").trim();
   if (stripped.length < 3 || !/[A-Za-zÄÖÜäöü]/.test(stripped)) return title;
   return stripped;
+}
+
+/**
+ * Kategorien, aus denen heraus nachklassifiziert werden darf.
+ *
+ * Alles andere bleibt unangetastet: Ein Konzert bleibt ein Konzert, auch wenn
+ * im Beschreibungstext das Wort "Comedy" vorkommt. Nachklassifiziert wird nur
+ * aus den Sammel-Eimern, in denen die Parser mangels passender Kategorie
+ * abgelegt haben.
+ */
+const REFINABLE_CATEGORIES: ReadonlySet<string> = new Set([
+  "fair",
+  "show",
+  "other",
+  "community",
+]);
+
+// Bewusst schlichte Teilstring-Suche statt regulaerer Ausdruecke: Im Deutschen
+// sind genau die Komposita der Treffer, den wir wollen — "Sonderausstellung",
+// "Kunstausstellung", "Stand-up-Comedy".
+const EXHIBITION_MARKERS = [
+  "ausstellung",
+  "vernissage",
+  "galerie",
+  "museum",
+  "exhibition",
+  "retrospektive",
+];
+
+const COMEDY_MARKERS = [
+  "comedy",
+  "kabarett",
+  "stand-up",
+  "standup",
+  "comedian",
+  "improtheater",
+];
+
+/**
+ * Ordnet Veranstaltungen einer treffenderen Kategorie zu, als der jeweilige
+ * Stadt-Parser vergeben konnte.
+ *
+ * Hintergrund: Bis 08/2026 kannte die Taxonomie weder Ausstellung noch Comedy.
+ * Rund 30 Stadt-Parser mappen Ausstellungen deshalb auf "fair" (siehe etwa
+ * lib/events/official/aachen.ts) — mit dem Ergebnis, dass die groesste
+ * Kategorie ueberwiegend Malerei und Museumsprogramm enthielt. Fuer den Planner
+ * war der grobe Eimer ausreichend; sobald Kategorien zur Navigation werden,
+ * fuehrt er Nutzer in die Irre.
+ *
+ * Statt in 30 Parsern nachzubessern greift die Regel zentral — an derselben
+ * Stelle wie die Titelbereinigung, damit es eine Regel gibt und nicht dreissig.
+ */
+export function refinePlannerEventCategory(input: {
+  category: string;
+  title?: string | null;
+}): PlannerEventCategory {
+  const current = input.category as PlannerEventCategory;
+  if (!REFINABLE_CATEGORIES.has(input.category)) return current;
+
+  // Bewusst nur der Titel, nicht die Beschreibung. Ein erster Entwurf las auch
+  // `summary` — und machte aus "boat 2027" (Bootsmesse) eine Comedy, weil im
+  // Text ein Rahmenprogramm erwaehnt war, und aus einem Weinfest im
+  // Weinbaumuseum eine Ausstellung. Der Titel benennt die Veranstaltung, der
+  // Beschreibungstext erwaehnt nur, was darin vorkommt.
+  const haystack = (input.title ?? "").toLowerCase();
+  if (!haystack.trim()) return current;
+
+  // Ausstellung zuerst: Das Signal ist eindeutiger, und ein Kabarett im Museum
+  // soll nicht wegen des Wortes "Museum" zur Ausstellung werden.
+  if (COMEDY_MARKERS.some((marker) => haystack.includes(marker))) return "comedy";
+  if (EXHIBITION_MARKERS.some((marker) => haystack.includes(marker))) return "exhibition";
+
+  return current;
 }
 
 export function plannerEventToLocationRow(row: PlannerEventRow): LocationRow {

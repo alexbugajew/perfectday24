@@ -1,7 +1,17 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createClient } from "@supabase/supabase-js";
-import { normalizePlannerEventTitle } from "../lib/planner/events";
+import { normalizePlannerEventTitle, refinePlannerEventCategory } from "../lib/planner/events";
+import type { PlannerEventCategory } from "../lib/planner/types";
+
+/**
+ * Was tatsaechlich in die Datenbank geht: die Parser-Ausgabe, aber mit der
+ * vollen Kategorien-Taxonomie statt des groben Parser-Satzes.
+ */
+type PreparedEvent = Omit<
+  NonNullable<ReturnType<typeof normalizeVisitBerlinEvent>>,
+  "category"
+> & { category: PlannerEventCategory };
 import {
   fetchVisitBerlinEvents,
   normalizeVisitBerlinEvent,
@@ -497,20 +507,30 @@ async function main() {
     // Bereinigt wird zentral fuer alle Anbieter statt in jedem Parser einzeln —
     // und mit derselben Funktion, die auch beim Anzeigen greift, damit es nur
     // eine Regel gibt. Der Rohtitel bleibt in source_payload erhalten.
-    normalized = normalized.map((item) =>
-      item.title ? { ...item, title: normalizePlannerEventTitle(item.title) } : item
+    // Ausstellung und Comedy kannte die Taxonomie bis 08/2026 nicht, weshalb
+    // rund 30 Stadt-Parser Ausstellungen auf "fair" und Comedy auf "show"
+    // ablegen. Die Parser behalten ihren groben Satz — die Verfeinerung ist ein
+    // eigener, zentraler Schritt, sonst muessten alle 30 angefasst werden.
+    const prepared: PreparedEvent[] = dedupeOfficialEvents(
+      normalized.map((item) => {
+        const title = item.title ? normalizePlannerEventTitle(item.title) : item.title;
+        return {
+          ...item,
+          title,
+          category: refinePlannerEventCategory({ category: item.category, title }),
+        };
+      })
     );
 
-    normalized = dedupeOfficialEvents(normalized);
-    totalNormalized += normalized.length;
+    totalNormalized += prepared.length;
     touchedCities.add(config.city_slug);
 
-    if (normalized.length === 0) {
+    if (prepared.length === 0) {
       console.log(`[official] ${config.provider}/${config.city_slug}: keine normalisierten Events`);
       continue;
     }
 
-    const sourceName = normalized[0]?.source;
+    const sourceName = prepared[0]?.source;
     const cleanupKey = sourceName ? `${sourceName}:${config.city_slug}` : null;
     if (sourceName && cleanupKey && !cleanedSources.has(cleanupKey)) {
       const { error: deleteError } = await supabase
@@ -528,7 +548,7 @@ async function main() {
       cleanedSources.add(cleanupKey);
     }
 
-    for (const batch of chunkItems(normalized, 80)) {
+    for (const batch of chunkItems(prepared, 80)) {
       const { error: upsertError } = await supabase
         .from("planner_events")
         .upsert(batch, {

@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
-import { normalizePlannerEventTitle } from "../lib/planner/events";
+import { normalizePlannerEventTitle, refinePlannerEventCategory } from "../lib/planner/events";
 
 /**
  * Die Positivfälle sind die neun Titel, die am 20.08.2026 tatsächlich in
@@ -67,5 +67,60 @@ describe("normalizePlannerEventTitle", () => {
   it("behält den Originaltitel, wenn nach dem Abschneiden nichts Sinnvolles bleibt", () => {
     assert.equal(normalizePlannerEventTitle("14. und 15. August 2026"), "14. und 15. August 2026");
     assert.equal(normalizePlannerEventTitle("3. Mai 2026 –"), "3. Mai 2026 –");
+  });
+});
+
+/**
+ * Die Nachklassifizierung greift nur aus den Sammel-Eimern heraus und nur auf
+ * den Titel. Ein erster Entwurf las auch die Beschreibung — und machte aus der
+ * Bootsmesse "boat 2027" eine Comedy, weil im Rahmenprogramm eine erwaehnt war.
+ */
+describe("refinePlannerEventCategory", () => {
+  it("erkennt Ausstellungen in den Sammel-Kategorien", () => {
+    const cases: Array<[string, string]> = [
+      ["fair", "Sonderausstellung zum 150. Geburtstag des Telefons"],
+      ["fair", "Angewandte Kunst und Skulpturen - Dauerausstellung"],
+      ["show", "Gelebte Reformation. Die Barmer Theologische Ausstellung"],
+      ["community", "Sonntagsführung durch die Dauerausstellung"],
+      ["other", "Galerie Anja Es: KUNST!"],
+    ];
+    for (const [category, title] of cases) {
+      assert.equal(refinePlannerEventCategory({ category, title }), "exhibition", title);
+    }
+  });
+
+  it("erkennt Comedy in den Sammel-Kategorien", () => {
+    const cases: Array<[string, string]> = [
+      ["show", "Saying the Wrong Thing — English Stand-up Comedy in Berlin"],
+      ["show", "Comedy Club: die Stand-up-Show"],
+      ["community", "Comedy | Martin Schopps \"Elternabend\""],
+      ["other", "Kabarett am Abend"],
+    ];
+    for (const [category, title] of cases) {
+      assert.equal(refinePlannerEventCategory({ category, title }), "comedy", title);
+    }
+  });
+
+  it("lässt belastbare Kategorien unangetastet", () => {
+    // Ein Konzert bleibt ein Konzert, auch wenn der Titel "Comedy" enthält.
+    assert.equal(
+      refinePlannerEventCategory({ category: "concert", title: "Comedy-Rock Live" }),
+      "concert"
+    );
+    assert.equal(
+      refinePlannerEventCategory({ category: "theater", title: "Ausstellungsstück" }),
+      "theater"
+    );
+    assert.equal(
+      refinePlannerEventCategory({ category: "market", title: "Kunstmarkt im Museum" }),
+      "market"
+    );
+  });
+
+  it("lässt Sammel-Kategorien ohne Signal, wie sie sind", () => {
+    assert.equal(refinePlannerEventCategory({ category: "fair", title: "boat 2027" }), "fair");
+    assert.equal(refinePlannerEventCategory({ category: "fair", title: "Herbstkirmes" }), "fair");
+    assert.equal(refinePlannerEventCategory({ category: "show", title: "" }), "show");
+    assert.equal(refinePlannerEventCategory({ category: "community", title: null }), "community");
   });
 });
