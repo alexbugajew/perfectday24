@@ -628,16 +628,29 @@ export default function SavedPage() {
         fetchMyRoadtripRoutesWithError(),
         supabase
           .from("event_plans")
-          .select("id, title, occasion_slug, city_slug, event_date, guests, status, created_at, updated_at")
+          .select(
+            "id, title, occasion_slug, city_slug, event_date, guests:guest_count, status, created_at, updated_at"
+          )
           .eq("user_id", userId)
           .order("updated_at", { ascending: false })
           .limit(50),
       ]);
 
-      const loadError =
-        plansResp.error || bookmarksResp.error || eventPlansResp.error || myRoadtripsResp.error;
-      if (loadError) {
-        console.error("Saved content load failed:", loadError);
+      // Vier unabhaengige Quellen. Faellt eine aus, ist das kein Grund, die
+      // anderen drei zu verschweigen — die Seite zeigt, was geladen wurde, und
+      // meldet den harten Fehler erst, wenn gar nichts durchkam.
+      const failures = [
+        ["plans", plansResp.error],
+        ["user_route_bookmarks", bookmarksResp.error],
+        ["roadtrip_routes", myRoadtripsResp.error],
+        ["event_plans", eventPlansResp.error],
+      ].filter(([, error]) => Boolean(error));
+
+      for (const [source, error] of failures) {
+        console.error(`Saved content load failed for ${source}:`, error);
+      }
+
+      if (failures.length === 4) {
         setHasError(true);
         return;
       }
