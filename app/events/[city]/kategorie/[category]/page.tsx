@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd } from "@/lib/seo/json-ld";
+import { breadcrumbJsonLd, eventListJsonLd } from "@/lib/seo/json-ld";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
 import { countCityEventsByCategory, listCityEvents } from "@/lib/events/around-event";
 import { findCategoryFilter, findTimeWindow, type EventTimeWindowSlug } from "@/lib/events/categories";
@@ -37,11 +37,19 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const title = `${headline} | PerfectDay24`;
   const description = `${headline} — mit Datum, Uhrzeit und Ort. Zu jeder Veranstaltung zeigen wir, was davor und danach in Laufnähe passt.`;
 
+
+  // Leere Seiten gehoeren nicht in den Index — dasselbe Muster, das bei den
+  // inhaltslosen Stadtseiten aufgefallen ist. `listCityEvents` steckt in
+  // React-cache(), die Abfrage teilt sich also mit dem Seitenaufbau.
+  const { from, to } = findTimeWindow(undefined).range(new Date());
+  const events = await listCityEvents(city, { from, to, categories: filter.categories });
+
   return {
     title,
     description,
     openGraph: { title, description, locale: "de_DE", type: "website" },
     alternates: { canonical: `/events/${city}/kategorie/${category}` },
+    ...(events.length === 0 ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
@@ -71,12 +79,20 @@ export default async function CityCategoryEventsPage({
   return (
     <main className="pd24-page-standard px-4 pb-20 pt-6">
       <JsonLd
-        data={breadcrumbJsonLd([
-          { name: "Start", path: "/" },
-          { name: "Veranstaltungen", path: "/events" },
-          { name: config.label, path: `/events/${city}` },
-          { name: filter.label, path: `/events/${city}/kategorie/${category}` },
-        ])}
+        data={[
+          breadcrumbJsonLd([
+            { name: "Start", path: "/" },
+            { name: "Veranstaltungen", path: "/events" },
+            { name: config.label, path: `/events/${city}` },
+            { name: filter.label, path: `/events/${city}/kategorie/${category}` },
+          ]),
+          eventListJsonLd({
+            name: headline,
+            pagePath: `/events/${city}/kategorie/${category}`,
+            cityLabel: config.label,
+            events: events.map((item) => ({ ...item, citySlug: city })),
+          }),
+        ]}
       />
 
       <nav className="mb-5 flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">

@@ -15,6 +15,7 @@ import { cache } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { classify, localDateKey } from "@/lib/planner";
 import { haversineKm } from "@/lib/planner/travel";
+import { EVENT_CATEGORY_FILTERS } from "./categories";
 import type {
   LocationCategory,
   LocationRow,
@@ -393,3 +394,69 @@ export const countCityEventsByCategory = cache(
     }
   }
 );
+
+export type EventSitemapEntry = {
+  citySlug: string;
+  /** Slugs der Kategoriefilter, die in dieser Stadt tatsaechlich belegt sind. */
+  categorySlugs: string[];
+};
+
+/**
+ * Welche Stadt- und Kategorieseiten der Event-Strecke Inhalt haben.
+ *
+ * Nur diese gehoeren in den Sitemap. Eine Kategorieseite ohne Veranstaltungen
+ * waere eine leere Seite im Index — genau das Muster, das bei den 519
+ * inhaltslosen Stadtseiten schon einmal aufgefallen ist.
+ *
+ * Betrachtet werden die naechsten 30 Tage: Was darueber hinausgeht, ist zu weit
+ * weg, um eine Seite zu rechtfertigen, die woechentlich neu gecrawlt wird.
+ */
+export const listEventSitemapEntries = cache(async (): Promise<EventSitemapEntry[]> => {
+  const supabase = supabaseOrNull();
+  if (!supabase) return [];
+
+  const now = new Date();
+  const until = new Date(now.getTime() + 30 * 86_400_000);
+
+  try {
+    // Keyset statt range(): Ohne stabile Sortierung liefert Postgres an
+    // Seitengrenzen Dubletten — dieselbe Korrektur wie in den Pruefskripten.
+    const rows: { city_slug: string; category: string }[] = [];
+    let afterId: string | null = null;
+    for (;;) {
+      let request = supabase
+        .from("planner_events")
+        .select("id, city_slug, category")
+        .eq("status", "scheduled")
+        .gte("start_at", now.toISOString())
+        .lte("start_at", until.toISOString())
+        .order("id")
+        .limit(1000);
+      if (afterId) request = request.gt("id", afterId);
+
+      const { data, error } = await request;
+      if (error) break;
+      const page = (data ?? []) as { id: string; city_slug: string; category: string }[];
+      rows.push(...page.map((row) => ({ city_slug: row.city_slug, category: row.category })));
+      if (page.length < 1000) break;
+      afterId = page[page.length - 1].id;
+    }
+
+    const byCity = new Map<string, Set<string>>();
+    for (const row of rows) {
+      if (!row.city_slug) continue;
+      if (!byCity.has(row.city_slug)) byCity.set(row.city_slug, new Set());
+      byCity.get(row.city_slug)!.add(row.category);
+    }
+
+    return Array.from(byCity.entries()).map(([citySlug, categories]) => ({
+      citySlug,
+      categorySlugs: EVENT_CATEGORY_FILTERS.filter((filter) =>
+        filter.categories.some((key) => categories.has(key))
+      ).map((filter) => filter.slug),
+    }));
+  } catch (err) {
+    console.error("[around-event] Sitemap-Eintraege fehlgeschlagen:", err);
+    return [];
+  }
+});

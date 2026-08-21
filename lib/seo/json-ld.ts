@@ -341,6 +341,57 @@ export function eventJsonLd(input: {
   });
 }
 
+/**
+ * Liste von Veranstaltungen als ItemList — fuer Stadt- und Kategorieseiten.
+ *
+ * Ausgezeichnet wird genau das, was auf der Seite steht: Name, Beginn, Ort und
+ * die eigene URL je Eintrag. Mehr nicht — strukturierte Daten, die ueber den
+ * sichtbaren Inhalt hinausgehen, gelten als Spam.
+ */
+export function eventListJsonLd(input: {
+  name: string;
+  pagePath: string;
+  events: Array<{
+    id: string;
+    title: string;
+    startIso: string;
+    venueName: string | null;
+    citySlug: string;
+  }>;
+  cityLabel: string;
+}): JsonLdObject | undefined {
+  const items = input.events.slice(0, 40).map((event, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: compact({
+      "@type": "Event",
+      name: event.title,
+      startDate: event.startIso,
+      url: `${SITE_URL}/events/${event.citySlug}/${event.id}`,
+      location: compact({
+        "@type": "Place",
+        name: event.venueName,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: input.cityLabel,
+          addressCountry: "DE",
+        },
+      }),
+    }),
+  }));
+
+  if (items.length === 0) return undefined;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${SITE_URL}${input.pagePath}#events`,
+    name: input.name,
+    numberOfItems: items.length,
+    itemListElement: items,
+  };
+}
+
 // ─── Routenlisten (ItemList) ─────────────────────────────────────────────────
 
 export function routeListJsonLd(input: {

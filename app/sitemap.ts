@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
 import { listOccasionParams } from "./explore/[city]/[occasion]/data";
+import { listEventSitemapEntries } from "@/lib/events/around-event";
 
 export const revalidate = 3600;
 
@@ -38,6 +39,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     occasionPages = combos.map((combo) =>
       url(`/explore/${combo.city}/${combo.occasion}`, 0.8, "weekly")
     );
+  } catch { /* ignore — sitemap degrades gracefully */ }
+
+  // ─── Event-Strecke ────────────────────────────────────────────────────────
+  // Stadt- und Kategorieseiten sind die bestaendigen Flaechen: Die Frage "Was
+  // laeuft am Wochenende in Koeln?" wird jede Woche neu gestellt, die Seite dazu
+  // bleibt. Aufgenommen wird nur, was in den naechsten 30 Tagen tatsaechlich
+  // Inhalt hat — eine leere Kategorieseite im Index waere genau das Muster, das
+  // schon bei den inhaltslosen Stadtseiten aufgefallen ist.
+  //
+  // Einzelne Veranstaltungen fehlen hier bewusst: Sie verfallen und stehen auf
+  // noindex.
+  let eventPages: MetadataRoute.Sitemap = [];
+  try {
+    const entries = await listEventSitemapEntries();
+    eventPages = [
+      url("/events", 0.8, "daily"),
+      ...entries.flatMap((entry) => [
+        url(`/events/${entry.citySlug}`, 0.75, "daily"),
+        ...entry.categorySlugs.map((slug) =>
+          url(`/events/${entry.citySlug}/kategorie/${slug}`, 0.7, "daily")
+        ),
+      ]),
+    ];
   } catch { /* ignore — sitemap degrades gracefully */ }
 
   // ─── Public routes ────────────────────────────────────────────────────────
@@ -87,5 +111,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     } catch { /* ignore */ }
   }
 
-  return [...staticPages, ...cityPages, ...occasionPages, ...routePages, ...creatorPages];
+  return [...staticPages, ...cityPages, ...occasionPages, ...eventPages, ...routePages, ...creatorPages];
 }
