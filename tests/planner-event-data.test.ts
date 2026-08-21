@@ -1,6 +1,10 @@
+// Tests fuer die Aufbereitung der Event-Rohdaten: Titel, Kategorie und
+// Einlasszeit. Alle drei korrigieren Werte, die die Quellen unbrauchbar
+// liefern, bevor sie in Plaene oder Navigation geraten.
 import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
 import { normalizePlannerEventTitle, refinePlannerEventCategory } from "../lib/planner/events";
+import { plausibleDoorsAt } from "../lib/planner/route/timing";
 
 /**
  * Die Positivfälle sind die neun Titel, die am 20.08.2026 tatsächlich in
@@ -122,5 +126,42 @@ describe("refinePlannerEventCategory", () => {
     assert.equal(refinePlannerEventCategory({ category: "fair", title: "Herbstkirmes" }), "fair");
     assert.equal(refinePlannerEventCategory({ category: "show", title: "" }), "show");
     assert.equal(refinePlannerEventCategory({ category: "community", title: null }), "community");
+  });
+});
+
+/**
+ * Der Einlass aus der Quelle darf die Zeitschiene nicht sprengen: Ticketmaster
+ * liefert in doors_at ueberwiegend den Import-Zeitstempel statt eines Einlasses
+ * (643 von 653 Werten unplausibel). Ungeprueft uebernommen zog er den
+ * Event-Stop stundenlang nach vorn.
+ */
+describe("plausibleDoorsAt", () => {
+  const start = new Date("2026-08-20T17:00:00Z"); // 19:00 Ortszeit
+
+  it("akzeptiert einen Einlass kurz vor Beginn", () => {
+    const doors = new Date("2026-08-20T16:30:00Z");
+    assert.equal(plausibleDoorsAt(doors, start)?.toISOString(), doors.toISOString());
+  });
+
+  it("akzeptiert Einlass gleichzeitig mit Beginn", () => {
+    assert.equal(plausibleDoorsAt(start, start)?.toISOString(), start.toISOString());
+  });
+
+  it("verwirft einen Einlass Monate vor dem Termin", () => {
+    // Der reale Fall: Import-Zeitstempel vom 24. April fuer ein Event im August.
+    assert.equal(plausibleDoorsAt(new Date("2026-04-24T13:28:08Z"), start), null);
+  });
+
+  it("verwirft einen Einlass nach Beginn", () => {
+    assert.equal(plausibleDoorsAt(new Date("2026-08-20T18:00:00Z"), start), null);
+  });
+
+  it("verwirft einen Einlass mehr als vier Stunden vor Beginn", () => {
+    assert.equal(plausibleDoorsAt(new Date("2026-08-20T12:00:00Z"), start), null);
+  });
+
+  it("kommt mit fehlenden Werten zurecht", () => {
+    assert.equal(plausibleDoorsAt(null, start), null);
+    assert.equal(plausibleDoorsAt(start, null), null);
   });
 });
