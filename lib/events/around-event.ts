@@ -15,7 +15,12 @@ import { cache } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { classify, localDateKey } from "@/lib/planner";
 import { haversineKm } from "@/lib/planner/travel";
-import type { LocationCategory, LocationRow, PlannerEventRow } from "@/lib/planner/types";
+import type {
+  LocationCategory,
+  LocationRow,
+  PlannerEventCategory,
+  PlannerEventRow,
+} from "@/lib/planner/types";
 
 /** Wie weit ein Vorschlag höchstens vom Veranstaltungsort entfernt sein darf. */
 const MAX_DISTANCE_KM = 1.8;
@@ -274,28 +279,42 @@ export type CityEventListItem = {
   venueName: string | null;
 };
 
+export type CityEventQuery = {
+  /** Interne Kategorien, auf die gefiltert wird. Leer = alle. */
+  categories?: PlannerEventCategory[];
+  from: Date;
+  to: Date;
+  limit?: number;
+};
+
 /**
- * Kommende Veranstaltungen einer Stadt, chronologisch.
+ * Veranstaltungen einer Stadt im gewaehlten Zeitfenster, chronologisch.
  *
- * Bewusst schlank gehalten: Diese Liste ist der Weg zur Detailseite, nicht das
- * Produkt. Die ausgebaute Fassung mit Zeit- und Kategoriefiltern gehoert zu
- * Schritt 4 des Konzepts.
+ * Serverseitig gefiltert statt im Browser: Die Filter sind Teil der URL und
+ * sollen auch fuer Crawler sichtbar wirken — eine Kategorieseite, die ihre
+ * Auswahl erst per JavaScript trifft, waere im ausgelieferten HTML leer.
  */
-export const listUpcomingCityEvents = cache(
-  async (citySlug: string, limit = 60): Promise<CityEventListItem[]> => {
+export const listCityEvents = cache(
+  async (citySlug: string, query: CityEventQuery): Promise<CityEventListItem[]> => {
     const supabase = supabaseOrNull();
     if (!supabase) return [];
 
     try {
-      const { data, error } = await supabase
+      let request = supabase
         .from("planner_events")
         .select("id, title, category, start_at, timezone, venue_name")
         .eq("city_slug", citySlug)
         .eq("status", "scheduled")
-        .gte("start_at", new Date().toISOString())
+        .gte("start_at", query.from.toISOString())
+        .lte("start_at", query.to.toISOString())
         .order("start_at", { ascending: true })
-        .limit(limit);
+        .limit(query.limit ?? 80);
 
+      if (query.categories && query.categories.length > 0) {
+        request = request.in("category", query.categories);
+      }
+
+      const { data, error } = await request;
       if (error) {
         console.error(`[around-event] Liste fuer ${citySlug} fehlgeschlagen:`, error.message);
         return [];
@@ -320,6 +339,40 @@ export const listUpcomingCityEvents = cache(
     } catch (err) {
       console.error("[around-event] Liste fehlgeschlagen:", err);
       return [];
+    }
+  }
+);
+
+/**
+ * Wie viele Veranstaltungen je Kategorie im Zeitfenster liegen.
+ *
+ * Damit zeigen die Filter-Chips echte Zahlen und fuehren nicht auf leere
+ * Seiten — ein Filter, hinter dem nichts steht, ist schlimmer als keiner.
+ */
+export const countCityEventsByCategory = cache(
+  async (citySlug: string, from: Date, to: Date): Promise<Record<string, number>> => {
+    const supabase = supabaseOrNull();
+    if (!supabase) return {};
+
+    try {
+      const { data, error } = await supabase
+        .from("planner_events")
+        .select("category")
+        .eq("city_slug", citySlug)
+        .eq("status", "scheduled")
+        .gte("start_at", from.toISOString())
+        .lte("start_at", to.toISOString())
+        .limit(1000);
+
+      if (error) return {};
+
+      const counts: Record<string, number> = {};
+      for (const row of (data ?? []) as { category: string }[]) {
+        counts[row.category] = (counts[row.category] ?? 0) + 1;
+      }
+      return counts;
+    } catch {
+      return {};
     }
   }
 );
