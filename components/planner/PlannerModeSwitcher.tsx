@@ -51,9 +51,13 @@ const MODES = [
   },
   {
     href: "/feiern",
-    discoverHref: "/feiern",
+    discoverHref: "/events",
     label: "Event planen",
     shortLabel: "Event",
+    // Auf den Entdecken-Flaechen fuehrt der Tab nicht ins Planungsformular,
+    // sondern in die Event-Strecke — die Beschriftung muss das mittragen.
+    discoverLabel: "Events entdecken",
+    discoverShortLabel: "Events",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +85,9 @@ export default function PlannerModeSwitcher() {
     pathname === "/explore" ||
     pathname.startsWith("/explore/") ||
     pathname === "/roadtrip/routes" ||
-    pathname.startsWith("/roadtrip/routes/");
+    pathname.startsWith("/roadtrip/routes/") ||
+    ((pathname === "/events" || pathname.startsWith("/events/")) &&
+      !pathname.startsWith("/events/agenda/"));
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
@@ -94,6 +100,12 @@ export default function PlannerModeSwitcher() {
     >
       {MODES.map((mode) => {
         const targetHref = isDiscoverySurface ? mode.discoverHref : mode.href;
+        const label =
+          isDiscoverySurface && "discoverLabel" in mode ? mode.discoverLabel : mode.label;
+        const shortLabel =
+          isDiscoverySurface && "discoverShortLabel" in mode
+            ? mode.discoverShortLabel
+            : mode.shortLabel;
         const active = isActive(targetHref);
         return (
           <Link
@@ -109,8 +121,8 @@ export default function PlannerModeSwitcher() {
             ].join(" ")}
           >
             {mode.icon}
-            <span className="hidden sm:inline">{mode.label}</span>
-            <span className="sm:hidden">{mode.shortLabel}</span>
+            <span className="hidden sm:inline">{label}</span>
+            <span className="sm:hidden">{shortLabel}</span>
           </Link>
         );
       })}

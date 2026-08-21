@@ -25,12 +25,20 @@ export default function MainNav() {
     pathname === "/business/dashboard" ||
     pathname.startsWith("/business/");
 
+  // /events ist die Entdecken-Fläche für Veranstaltungen und gehört damit in
+  // dieselbe Umschaltgruppe. Die Agenda-Einladungen darunter sind fertige
+  // Links an Gäste — dort hat eine Planungs-Navigation nichts verloren.
+  const isEventDiscovery =
+    (pathname === "/events" || pathname.startsWith("/events/")) &&
+    !pathname.startsWith("/events/agenda/");
+
   const showModeSwitcher =
     !isRunExperience &&
     (pathname === "/planner" || pathname.startsWith("/planner/") ||
      pathname === "/roadtrip" || pathname.startsWith("/roadtrip/") ||
      pathname === "/feiern" || pathname.startsWith("/feiern/") ||
-     pathname === "/explore" || pathname.startsWith("/explore/"));
+     pathname === "/explore" || pathname.startsWith("/explore/") ||
+     isEventDiscovery);
 
   // /roadtrip/routes ist die Entdecken-Fläche für Roadtrips (Liste/Detail/Run) —
   // sie gehört zur "Entdecken"-Gruppe, der Rest von /roadtrip zur Planung.
@@ -153,7 +161,7 @@ export default function MainNav() {
           <nav className="flex flex-col gap-1">
             <Link href="/planner"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/planner") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Planen</Link>
             <Link href="/explore"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/explore") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Entdecken</Link>
-            <Link href="/events"   onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/feiern") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Events</Link>
+            <Link href="/events"   onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/events") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Events</Link>
             <Link href="/saved"    onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/saved") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Meine Pläne</Link>
             <Link href="/profile"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/profile") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Profil</Link>
             <div className="my-1 border-t border-[var(--line-subtle)]" />
