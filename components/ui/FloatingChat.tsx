@@ -66,7 +66,7 @@ export default function FloatingChat() {
   // Die Event-Planungs-Seiten haben eine fixe Speichern-Leiste, die — anders als
   // die Run-Leisten — auch ab sm sichtbar ist: FAB dort auf allen Viewports höher
   // setzen, damit er den "Plan speichern"-Button nicht überdeckt.
-  const hasEventPlanBottomBar = pathname.startsWith("/events/plan/");
+  const hasEventPlanBottomBar = pathname.startsWith("/feiern/plan/");
 
   return (
     <button

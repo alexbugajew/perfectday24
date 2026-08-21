@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { canonicalCitySlug } from "@/lib/cities/canonical";
+import { PLANNER_33_ROLLOUT } from "@/lib/cities/rollout";
 import { haversineKm, type StartPointType } from "@/lib/planner";
 import { cityStartFallbackLabel } from "./helpers";
 import type { CityRow, StartPoint, StartPointSuggestion } from "./types";
@@ -12,12 +13,27 @@ const DEFAULT_START_POINT: StartPoint = {
   lng: null,
 };
 
+/**
+ * Ab dieser Entfernung zum Stadtzentrum gehoert ein gespeicherter Startpunkt
+ * offensichtlich nicht mehr zur gewaehlten Stadt.
+ *
+ * Grosszuegig gewaehlt: Berlin misst rund 45 km in der Ausdehnung, und ein
+ * Flughafen darf auch ausserhalb liegen. Es geht nur darum, den Fall
+ * abzufangen, dass jemand zuletzt eine voellig andere Stadt geplant hat.
+ */
+const START_POINT_CITY_RADIUS_KM = 60;
+
 type UsePlannerStartPointParams = {
   mounted: boolean;
   cities: CityRow[];
   visibleCities: CityRow[];
   selectedCountryCode: string;
   selectedCitySlug: string | null;
+  /**
+   * True, wenn der Startpunkt aus der URL kommt. Dann ist er gesetzt und
+   * gewollt — die Stadt-Plausibilitaet darf ihn nicht anfassen.
+   */
+  startPointFromUrl?: boolean;
 };
 
 export function usePlannerStartPoint({
@@ -26,6 +42,7 @@ export function usePlannerStartPoint({
   visibleCities,
   selectedCountryCode,
   selectedCitySlug,
+  startPointFromUrl = false,
 }: UsePlannerStartPointParams) {
   const [autoCitySlug, setAutoCitySlug] = useState<string | null>(null);
   const [userLat, setUserLat] = useState<number | null>(null);
@@ -38,6 +55,11 @@ export function usePlannerStartPoint({
 
   useEffect(() => {
     if (!mounted) return;
+    // Ein Startpunkt aus der URL schlaegt den gespeicherten. Ohne diese Sperre
+    // legt der wiederhergestellte Wert sich darueber — und weil ein frueher
+    // verworfener Startpunkt als leerer Wert gespeichert wird, landete man bei
+    // "Kein Startpunkt", obwohl der Link einen Ort mitbrachte.
+    if (startPointFromUrl) return;
     try {
       const raw = localStorage.getItem("pd24_start_point");
       if (!raw) return;
@@ -59,7 +81,7 @@ export function usePlannerStartPoint({
         }));
       }
     } catch {}
-  }, [mounted]);
+  }, [mounted, startPointFromUrl]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -67,6 +89,45 @@ export function usePlannerStartPoint({
       localStorage.setItem("pd24_start_point", JSON.stringify(startPoint));
     } catch {}
   }, [mounted, startPoint]);
+
+  /**
+   * Verwirft einen Startpunkt, der nicht zur gewaehlten Stadt gehoert.
+   *
+   * Der Startpunkt wird ohne Stadtbezug in localStorage gehalten. Wer zuletzt
+   * Koeln geplant hatte und dann ueber einen Link in Hamburg landet, behielt
+   * "Koeln Altstadt / Dom" als Start — die Karte zeigte Koeln, und der Plan
+   * meldete fuer jeden Stop "keine Location gepasst", weil 400 km entfernt
+   * gesucht wurde.
+   *
+   * Das betrifft jeden Link mit `citySlug`: Stadtseiten, Anlass-Seiten und die
+   * Event-Strecke. Deshalb wird hier zurueckgesetzt statt an jeder Aufrufstelle.
+   */
+  useEffect(() => {
+    if (!mounted) return;
+    if (!selectedCitySlug) return;
+    // Ein Startpunkt aus der URL ist ausdruecklich gewollt. Ohne diese Sperre
+    // schlaegt die Pruefung im ersten Durchlauf zu, weil `selectedCitySlug`
+    // dann noch die alte Stadt haelt: Der Hamburger Veranstaltungsort wird
+    // gegen Berlin gemessen, landet bei 255 km — und ist wieder weg.
+    if (startPointFromUrl) return;
+    if (typeof startPoint.lat !== "number" || typeof startPoint.lng !== "number") return;
+
+    // Fuer 330 der 4.455 Staedte fehlt der Mittelpunkt in der Datenbank —
+    // darunter Hamburg. Die Rollout-Konfiguration hat ihn, also dient sie als
+    // Rueckfallebene, sonst greift die Pruefung ausgerechnet dort nicht.
+    const city = cities.find((entry) => entry.slug === selectedCitySlug);
+    const rollout = PLANNER_33_ROLLOUT.find((entry) => entry.slug === selectedCitySlug);
+    const centerLat =
+      typeof city?.center_lat === "number" ? city.center_lat : rollout?.lat ?? null;
+    const centerLng =
+      typeof city?.center_lng === "number" ? city.center_lng : rollout?.lng ?? null;
+    if (typeof centerLat !== "number" || typeof centerLng !== "number") return;
+
+    const distanceKm = haversineKm(startPoint.lat, startPoint.lng, centerLat, centerLng);
+    if (distanceKm <= START_POINT_CITY_RADIUS_KM) return;
+
+    setStartPoint(DEFAULT_START_POINT);
+  }, [mounted, selectedCitySlug, cities, startPoint, setStartPoint, startPointFromUrl]);
 
   useEffect(() => {
     if (!mounted) return;

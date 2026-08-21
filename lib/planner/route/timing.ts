@@ -197,6 +197,27 @@ function pushTimingWarning(stop: PlannedStop, warning: string) {
   stop.timingWarnings = [...(stop.timingWarnings ?? []), warning];
 }
 
+/** Ein Einlass laengstens so lange vor Beginn gilt als plausibel. */
+const MAX_DOORS_LEAD_MIN = 240;
+
+/**
+ * Gibt den Einlass nur zurueck, wenn er zeitlich zum Beginn passt.
+ *
+ * Ticketmaster liefert in `doors_at` haeufig den Zeitstempel des Imports statt
+ * eines Einlasses — 643 von 653 Werten lagen ausserhalb jedes sinnvollen
+ * Fensters, teils Monate vor dem Termin. Ungeprueft uebernommen zog dieser Wert
+ * den Event-Stop stundenlang nach vorn: Aus einem Comedy-Abend um 19:00 wurde
+ * ein Stop ab 15:28, und der Rueckwaertslauf drueckte den Auftakt auf die
+ * 07:00-Untergrenze.
+ */
+export function plausibleDoorsAt(doorsAt: Date | null, eventStart: Date | null): Date | null {
+  if (!doorsAt || !eventStart) return null;
+  const leadMs = eventStart.getTime() - doorsAt.getTime();
+  if (leadMs < 0) return null;
+  if (leadMs > MAX_DOORS_LEAD_MIN * 60_000) return null;
+  return doorsAt;
+}
+
 function annotateTimingWarnings(params: {
   stops: PlannedStop[];
   context: PlanningContext;
@@ -308,7 +329,7 @@ export function applyStopSchedule(params: {
     const eventStart = timing.startAt;
     const eventEnd = timing.endAt ?? (eventStart ? withMinutes(eventStart, duration) : null);
     const entryAt =
-      timing.doorsAt ??
+      plausibleDoorsAt(timing.doorsAt, eventStart) ??
       (eventStart ? withMinutes(eventStart, context.experienceMode === "show" ? -20 : -10) : null);
 
     if (entryAt && eventEnd) {

@@ -24,6 +24,8 @@ export type PlannerEventCategory =
   | "concert"
   | "theater"
   | "show"
+  | "comedy"
+  | "exhibition"
   | "market"
   | "festival"
   | "fair"

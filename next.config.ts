@@ -98,6 +98,20 @@ const nextConfig: NextConfig = {
    * nicht. PLAUSIBLE_HOST nur setzen, wenn eine selbst gehostete Instanz
    * verwendet wird.
    */
+  /**
+   * Der Event-Planer ist von /events nach /feiern gezogen, weil /events jetzt
+   * der Event-Entdeckung gehoert. Alte Links und Lesezeichen laufen weiter.
+   *
+   * /events/agenda/<token> bleibt bewusst, wo es ist: Diese Einladungslinks
+   * sind bereits verschickt und duerfen sich nicht aendern.
+   */
+  async redirects() {
+    return [
+      { source: "/events/dashboard", destination: "/feiern/dashboard", permanent: true },
+      { source: "/events/plan/new", destination: "/feiern/plan/new", permanent: true },
+      { source: "/events/plan/:id", destination: "/feiern/plan/:id", permanent: true },
+    ];
+  },
   async rewrites() {
     const plausibleHost = (process.env.PLAUSIBLE_HOST ?? "https://plausible.io").replace(/\/+$/, "");
     return [

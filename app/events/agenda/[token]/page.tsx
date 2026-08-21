@@ -582,7 +582,7 @@ export default function InvitationPage() {
             </Link>
           </p>
           <Link
-            href="/events"
+            href="/feiern"
             className="inline-flex min-h-10 items-center gap-1 text-xs text-[var(--text-soft-warm)] hover:text-[var(--text-strong)]"
           >
             Eigenen Event planen →

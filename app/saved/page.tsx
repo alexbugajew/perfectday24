@@ -1087,7 +1087,7 @@ export default function SavedPage() {
             <EmptyState
               title="Noch kein Event geplant."
               description="Plane einen besonderen Anlass für Geburtstage, Jubiläen oder Gruppenausflüge."
-              primaryHref="/events"
+              primaryHref="/feiern"
               primaryLabel="Event planen"
             />
           ) : (
@@ -1110,7 +1110,7 @@ export default function SavedPage() {
                 return (
                   <SavedListRow
                     key={ep.id}
-                    href={`/events/plan/${ep.id}`}
+                    href={`/feiern/plan/${ep.id}`}
                     emoji="🎉"
                     title={ep.title?.trim() || eventOccasionLabel(ep.occasion_slug)}
                     meta={metaParts.join(" · ")}

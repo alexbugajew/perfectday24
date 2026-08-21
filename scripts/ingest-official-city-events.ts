@@ -1,7 +1,17 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createClient } from "@supabase/supabase-js";
-import { normalizePlannerEventTitle } from "../lib/planner/events";
+import { normalizePlannerEventTitle, refinePlannerEventCategory } from "../lib/planner/events";
+import type { PlannerEventCategory } from "../lib/planner/types";
+
+/**
+ * Was tatsaechlich in die Datenbank geht: die Parser-Ausgabe, aber mit der
+ * vollen Kategorien-Taxonomie statt des groben Parser-Satzes.
+ */
+type PreparedEvent = Omit<
+  NonNullable<ReturnType<typeof normalizeVisitBerlinEvent>>,
+  "category"
+> & { category: PlannerEventCategory };
 import {
   fetchVisitBerlinEvents,
   normalizeVisitBerlinEvent,
@@ -248,7 +258,10 @@ async function main() {
 
   let totalFetched = 0;
   let totalNormalized = 0;
-  const cleanedSources = new Set<string>();
+  // Quelle+Stadt, die in diesem Lauf geschrieben wurden — danach wird dort
+  // aufgeraeumt.
+  const touchedSources = new Set<string>();
+  const runStartedAt = new Date().toISOString();
   const touchedCities = new Set<string>();
   const failedSources: string[] = [];
 
@@ -497,38 +510,44 @@ async function main() {
     // Bereinigt wird zentral fuer alle Anbieter statt in jedem Parser einzeln —
     // und mit derselben Funktion, die auch beim Anzeigen greift, damit es nur
     // eine Regel gibt. Der Rohtitel bleibt in source_payload erhalten.
-    normalized = normalized.map((item) =>
-      item.title ? { ...item, title: normalizePlannerEventTitle(item.title) } : item
+    // Ausstellung und Comedy kannte die Taxonomie bis 08/2026 nicht, weshalb
+    // rund 30 Stadt-Parser Ausstellungen auf "fair" und Comedy auf "show"
+    // ablegen. Die Parser behalten ihren groben Satz — die Verfeinerung ist ein
+    // eigener, zentraler Schritt, sonst muessten alle 30 angefasst werden.
+    const prepared: PreparedEvent[] = dedupeOfficialEvents(
+      normalized.map((item) => {
+        const title = item.title ? normalizePlannerEventTitle(item.title) : item.title;
+        return {
+          ...item,
+          title,
+          category: refinePlannerEventCategory({ category: item.category, title }),
+        };
+      })
     );
 
-    normalized = dedupeOfficialEvents(normalized);
-    totalNormalized += normalized.length;
+    totalNormalized += prepared.length;
     touchedCities.add(config.city_slug);
 
-    if (normalized.length === 0) {
+    if (prepared.length === 0) {
       console.log(`[official] ${config.provider}/${config.city_slug}: keine normalisierten Events`);
       continue;
     }
 
-    const sourceName = normalized[0]?.source;
-    const cleanupKey = sourceName ? `${sourceName}:${config.city_slug}` : null;
-    if (sourceName && cleanupKey && !cleanedSources.has(cleanupKey)) {
-      const { error: deleteError } = await supabase
-        .from("planner_events")
-        .delete()
-        .eq("source", sourceName)
-        .eq("city_slug", config.city_slug);
-
-      if (deleteError) {
-        throw new Error(
-          `[official] ${config.provider}/${config.city_slug}: Vorbereinigung fehlgeschlagen: ${deleteError.message}`
-        );
-      }
-
-      cleanedSources.add(cleanupKey);
+    const sourceName = prepared[0]?.source;
+    // Frueher wurde hier alles zu Quelle und Stadt geloescht und anschliessend
+    // neu geschrieben. Das vergab bei jedem Lauf frische UUIDs — und liess damit
+    // jeden geteilten Link auf /events/<stadt>/<eventId> sterben, sobald der
+    // Cron lief. Ausserdem gab es ein Zeitfenster, in dem eine Stadt gar keine
+    // Veranstaltungen hatte.
+    //
+    // Jetzt aktualisiert der Upsert ueber (source, external_id) an Ort und
+    // Stelle; die IDs bleiben. Aufgeraeumt wird nach dem Lauf ueber
+    // last_seen_at — siehe unten.
+    if (sourceName) {
+      touchedSources.add(`${sourceName}::${config.city_slug}`);
     }
 
-    for (const batch of chunkItems(normalized, 80)) {
+    for (const batch of chunkItems(prepared, 80)) {
       const { error: upsertError } = await supabase
         .from("planner_events")
         .upsert(batch, {
@@ -553,6 +572,30 @@ async function main() {
       if (!continueOnError) {
         throw error;
       }
+    }
+  }
+
+  // Aufraeumen: Was in diesem Lauf nicht mehr geliefert wurde, ist bei der
+  // Quelle verschwunden und kann weg. Alles andere behaelt seine ID.
+  //
+  // Der Vergleich laeuft ueber last_seen_at, das jeder Upsert auf den aktuellen
+  // Lauf setzt. Faellt eine Quelle einmal teilweise aus, verschwinden nur die
+  // fehlenden Zeilen — vorher waeren es alle gewesen.
+  for (const key of touchedSources) {
+    const [sourceName, citySlug] = key.split("::");
+    const { error: cleanupError, count } = await supabase
+      .from("planner_events")
+      .delete({ count: "exact" })
+      .eq("source", sourceName)
+      .eq("city_slug", citySlug)
+      .lt("last_seen_at", runStartedAt);
+
+    if (cleanupError) {
+      console.error(`[official] ${sourceName}/${citySlug}: Aufraeumen fehlgeschlagen: ${cleanupError.message}`);
+      continue;
+    }
+    if (count && count > 0) {
+      console.log(`[official] ${sourceName}/${citySlug}: ${count} verschwundene Events entfernt`);
     }
   }
 

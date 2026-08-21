@@ -36,6 +36,7 @@
     "events:ingest:openagenda": "node .codex-scripts-dist/scripts/ingest-openagenda-events.js",
     "events:ingest:official": "node .codex-scripts-dist/scripts/ingest-official-city-events.js",
     "events:coverage": "node .codex-scripts-dist/scripts/report-event-coverage.js",
+    "events:reclassify": "npx tsx scripts/reclassify-event-categories.ts",
     "events:refresh:ticketmaster": "npm run events:build && npm run events:ingest:ticketmaster:rollout33 && npm run events:coverage",
     "events:refresh:official": "npm run events:build && npm run events:ingest:official -- --provider=all --delay-ms=1500 --continue-on-error=true && npm run events:coverage",
     "usage:aggregate": "npm run events:build && node .codex-scripts-dist/scripts/aggregate-usage-scores.js",

@@ -1555,7 +1555,7 @@ function ProfilePageInner() {
                 </Link>
               )}
               {studioTab === "events" && (
-                <Link href="/events" className="pd24-btn pd24-btn-sm pd24-btn-secondary self-start sm:shrink-0">
+                <Link href="/feiern" className="pd24-btn pd24-btn-sm pd24-btn-secondary self-start sm:shrink-0">
                   Event anlegen
                 </Link>
               )}
@@ -1743,7 +1743,7 @@ function ProfilePageInner() {
                             </span>
                           </div>
                           <div className="mt-2.5 flex flex-wrap items-center gap-2">
-                            <Link href={`/events/plan/${ev.id}`}
+                            <Link href={`/feiern/plan/${ev.id}`}
                               className="pd24-btn pd24-btn-sm pd24-btn-primary">
                               Öffnen
                             </Link>
@@ -1764,7 +1764,7 @@ function ProfilePageInner() {
                     <p className="text-sm text-[var(--text-soft-warm)]">
                       Noch keine Events. Plane einen Geburtstag, JGA, Teamtag oder eine Firmenfeier.
                     </p>
-                    <Link href="/events" className="pd24-btn pd24-btn-sm pd24-btn-primary">
+                    <Link href="/feiern" className="pd24-btn pd24-btn-sm pd24-btn-primary">
                       Event anlegen →
                     </Link>
                   </div>

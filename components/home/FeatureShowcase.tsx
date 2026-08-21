@@ -61,7 +61,7 @@ const FEATURES: Feature[] = [
       "Preise im Vergleich",
       "Buchungswege & Einladungen",
     ],
-    cta: { href: "/events", label: "Event planen" },
+    cta: { href: "/feiern", label: "Event planen" },
     image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=900&h=600&fit=crop&auto=format&q=80",
     imageAlt: "Geburtstagsfeier mit Lichterkette",
   },

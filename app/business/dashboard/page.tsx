@@ -367,7 +367,7 @@ export default function BusinessDashboardPage() {
               if (typeof window !== "undefined") {
                 sessionStorage.setItem("pd24_event_return", "/business/dashboard");
               }
-              window.location.href = "/events";
+              window.location.href = "/feiern";
             }}
             className="pd24-btn pd24-btn-primary"
           >
@@ -420,7 +420,7 @@ export default function BusinessDashboardPage() {
           {events.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] px-6 py-12 text-center">
               <p className="text-sm text-[var(--text-muted)]">Noch keine Business-Events angelegt.</p>
-              <Link href="/events" className="pd24-btn pd24-btn-primary pd24-btn-sm mt-3">
+              <Link href="/feiern" className="pd24-btn pd24-btn-primary pd24-btn-sm mt-3">
                 Erstes Event planen →
               </Link>
             </div>

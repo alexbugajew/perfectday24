@@ -92,7 +92,7 @@ export default function MobileBottomNav() {
     HIDDEN_ON.has(pathname) ||
     (pathname.startsWith("/routes/") && pathname.endsWith("/run")) ||
     (pathname.startsWith("/roadtrip/routes/") && pathname.endsWith("/run")) ||
-    pathname.startsWith("/events/plan/");
+    pathname.startsWith("/feiern/plan/");
 
   if (hideNav) return null;
 

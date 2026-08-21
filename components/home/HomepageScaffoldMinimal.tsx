@@ -178,7 +178,7 @@ const useCases = [
     title: "Geburtstag mit Anbieteranfragen",
     body: "Anbieter anfragen, Preise vergleichen und Einladungen von einem Ort aus steuern.",
     cta: "Event planen",
-    href: "/events",
+    href: "/feiern",
     image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&h=380&fit=crop&auto=format&q=80",
     imageAlt: "Geburtstagsfeier mit Lichterkette",
   },
@@ -314,7 +314,7 @@ export default async function HomepageScaffoldMinimal() {
       value: formatReachCount(reach.activeEventProviders, 100),
       label: "Event-Anbieter",
       note: "von Florist bis Location",
-      href: "/events",
+      href: "/feiern",
     },
   ];
 
@@ -344,7 +344,7 @@ export default async function HomepageScaffoldMinimal() {
                 Entdecken
               </Link>
               <Link
-                href="/events"
+                href="/feiern"
                 className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
               >
                 Events
@@ -549,7 +549,7 @@ export default async function HomepageScaffoldMinimal() {
                       </span>
                     ))}
                   </div>
-                  <PD24Button href="/events" variant="secondary" className="mt-6 self-start">
+                  <PD24Button href="/feiern" variant="secondary" className="mt-6 self-start">
                     Event planen
                   </PD24Button>
                 </div>
