@@ -874,6 +874,131 @@ function buildPostShowFallback(params: {
   return pool[0] ?? null;
 }
 
+/**
+ * Notnagel fuer den Stop VOR dem Event — Gegenstueck zu buildPostShowFallback.
+ *
+ * Liegt das Event am Stadtrand (Arena, Messegelaende, Freilichtbuehne), steht im
+ * Cluster-Radius um den Anker haeufig nichts: Beim DBB Super Cup in der Hamburger
+ * Arena lag genau ein Lokal innerhalb der 3,1 km, die die Cluster-Policy einem
+ * Essens-Slot neben dem Anker zugesteht — waehrend die Stadt 210 im Pool hatte.
+ * Alle Kandidaten fielen hart durch, und der Auftakt blieb leer.
+ *
+ * Hier zaehlt deshalb nicht der Abstand zum Event, sondern der Umweg. Wer vom
+ * Startpunkt zur Arena faehrt, isst unterwegs; gesucht ist der Stop, der
+ * `Start → X → Event` am wenigsten verlaengert. Der Fallback greift erst, wenn
+ * alle regulaeren Stufen leer ausgegangen sind, und kann gute Plaene damit nicht
+ * verschlechtern — er ersetzt nur den leeren Stop.
+ */
+function buildPreShowFallback(params: {
+  context: PlanningContext;
+  slot: PlanningContext["slotTemplate"][number];
+  slotIndex: number;
+  eventAnchor: { slotIndex: number; candidate: ScoredLocation } | null;
+  previousStop: ScoredLocation | null;
+  candidates: ScoredLocation[];
+  usedIds: Set<string>;
+}) {
+  const { context, slot, slotIndex, eventAnchor, previousStop, candidates, usedIds } = params;
+
+  if (!eventAnchor || slotIndex >= eventAnchor.slotIndex) return null;
+  if (
+    context.experienceMode !== "show" &&
+    context.experienceMode !== "event_visit"
+  ) {
+    return null;
+  }
+
+  const anchor = resolveCandidateReferenceCoords(eventAnchor.candidate, candidates);
+  const startStop = previousStop
+    ? resolveCandidateReferenceCoords(previousStop, candidates)
+    : null;
+  const fromLat = startStop?.lat ?? context.origin.lat;
+  const fromLng = startStop?.lng ?? context.origin.lng;
+  if (anchor.lat == null || anchor.lng == null || fromLat == null || fromLng == null) {
+    return null;
+  }
+
+  const directKm = haversineKm(fromLat, fromLng, anchor.lat, anchor.lng);
+  if (!Number.isFinite(directKm)) return null;
+
+  // Wieviel Umweg ein Zwischenstopp kosten darf. Zu Fuss ist die Schmerzgrenze
+  // deutlich enger als mit Bahn oder Auto.
+  const maxDetourKm =
+    context.filters.routeProfile === "foot"
+      ? 1.6
+      : context.filters.routeProfile === "public_transit"
+        ? 4.5
+        : 6;
+
+  const meal =
+    slot.kind === "dinner" || slot.kind === "lunch" || slot.kind === "breakfast";
+
+  const pool = candidates
+    .filter((candidate) => {
+      if (usedIds.has(candidate.id)) return false;
+      if (candidate.id === eventAnchor.candidate.id) return false;
+      if (candidate.lat == null || candidate.lng == null) return false;
+
+      const category = classify(candidate);
+      // Ein zweites Event vor dem Event waere kein Auftakt, sondern Konkurrenz.
+      if (category === "event") return false;
+      if (meal) return category === "restaurant" || category === "cafe";
+      return (
+        category === "restaurant" ||
+        category === "cafe" ||
+        category === "culture" ||
+        category === "activity"
+      );
+    })
+    .map((candidate) => {
+      const toCandidateKm = haversineKm(fromLat, fromLng, candidate.lat!, candidate.lng!);
+      const toAnchorKm = haversineKm(candidate.lat!, candidate.lng!, anchor.lat!, anchor.lng!);
+      return {
+        candidate,
+        toCandidateKm,
+        detourKm: toCandidateKm + toAnchorKm - directKm,
+      };
+    })
+    .filter((entry) => Number.isFinite(entry.detourKm) && entry.detourKm <= maxDetourKm)
+    .map((entry) => {
+      const travelMin =
+        estimateTravelMinFromKmForProfile(entry.toCandidateKm, context.filters.routeProfile) ?? 0;
+      const category = classify(entry.candidate);
+
+      let softBoost = 0;
+      if (meal && category === "restaurant") softBoost += 30;
+      else if (meal && category === "cafe") softBoost += 18;
+      else if (category === "culture") softBoost += 12;
+      else if (category === "activity") softBoost += 8;
+
+      if (context.filters.occasion === "date" && category === "restaurant") softBoost += 8;
+
+      return {
+        candidate: entry.candidate,
+        // Der Umweg wiegt schwer: Ein passables Lokal auf dem Weg schlaegt ein
+        // besseres, das erst in die Gegenrichtung zwingt.
+        finalScore:
+          (entry.candidate.totalScore ?? 0) +
+          softBoost -
+          Math.round(entry.detourKm * 12) -
+          travelMin,
+        travelMin,
+        // Vor einem festen Anker bleibt der Zwischenstopp bewusst knapp: Ein
+        // ausgedehntes Essen wuerde den Tagesbeginn nur unplausibel nach vorn
+        // druecken — dieselbe Obergrenze wie beim Ausklang danach.
+        durationMin: Math.min(75, clampDurationForSlot(slot, estimateDurationMin(entry.candidate))),
+        strictMatch: slotCategoryMatch(slot.kind, entry.candidate),
+        travelFeasible: true,
+        policyResults: [],
+        policyReasons: ["liegt auf dem Weg zum Event und passt zeitlich davor"],
+        hardFail: false,
+      };
+    })
+    .sort((a, b) => b.finalScore - a.finalScore);
+
+  return pool[0] ?? null;
+}
+
 export function constructRoute(params: {
   context: PlanningContext;
   candidates: ScoredLocation[];
@@ -1182,6 +1307,56 @@ export function constructRoute(params: {
             phase: slot.phase,
             phaseGoal: slot.phaseGoal,
             occasionReasons: ["haelt den reservierten Event-Anchor im Zielslot fest"],
+          }),
+        });
+        continue;
+      }
+
+      // Letzter Versuch vor dem leeren Stop: etwas auf dem Weg zum Event.
+      const preShowFallback = buildPreShowFallback({
+        context,
+        slot,
+        slotIndex: i,
+        eventAnchor,
+        previousStop,
+        candidates,
+        usedIds,
+      });
+      if (preShowFallback) {
+        timeUsed += (preShowFallback.travelMin ?? 0) + preShowFallback.durationMin;
+        usedIds.add(preShowFallback.candidate.id);
+        usedCategories.push(classify(preShowFallback.candidate));
+        previousStop = preShowFallback.candidate;
+
+        output.push({
+          index: slot.index + 1,
+          label: slot.label,
+          hint: slot.hint,
+          item: preShowFallback.candidate,
+          durationMin: preShowFallback.durationMin,
+          travelMinFromPrev: preShowFallback.travelMin,
+          groupDecision: buildGroupDecision(context, preShowFallback.candidate, slot.kind),
+          debug:
+            context.evaluationMode === "trace"
+              ? {
+                  selectedFrom: "soft",
+                  finalScore: Math.round(preShowFallback.finalScore),
+                  candidateTotalScore: preShowFallback.candidate.totalScore ?? 0,
+                  travelFeasible: true,
+                  hardFail: false,
+                  policyResults: [],
+                }
+              : null,
+          reasons: buildStopReasons({
+            candidate: preShowFallback.candidate,
+            occasion: context.filters.occasion,
+            strictMatch: preShowFallback.strictMatch,
+            travelMin: preShowFallback.travelMin,
+            usedCategories: [...usedCategories],
+            slotKind: slot.kind,
+            phase: slot.phase,
+            phaseGoal: slot.phaseGoal,
+            occasionReasons: preShowFallback.policyReasons,
           }),
         });
         continue;
@@ -1673,6 +1848,56 @@ export function constructRoute(params: {
             phase: slot.phase,
             phaseGoal: slot.phaseGoal,
             occasionReasons: carriedAfter.policyReasons,
+          }),
+        });
+        continue;
+      }
+
+      // Letzter Versuch vor dem leeren Stop: etwas auf dem Weg zum Event.
+      const preShowFallback = buildPreShowFallback({
+        context,
+        slot,
+        slotIndex: i,
+        eventAnchor,
+        previousStop,
+        candidates,
+        usedIds,
+      });
+      if (preShowFallback) {
+        timeUsed += (preShowFallback.travelMin ?? 0) + preShowFallback.durationMin;
+        usedIds.add(preShowFallback.candidate.id);
+        usedCategories.push(classify(preShowFallback.candidate));
+        previousStop = preShowFallback.candidate;
+
+        output.push({
+          index: slot.index + 1,
+          label: slot.label,
+          hint: slot.hint,
+          item: preShowFallback.candidate,
+          durationMin: preShowFallback.durationMin,
+          travelMinFromPrev: preShowFallback.travelMin,
+          groupDecision: buildGroupDecision(context, preShowFallback.candidate, slot.kind),
+          debug:
+            context.evaluationMode === "trace"
+              ? {
+                  selectedFrom: "soft",
+                  finalScore: Math.round(preShowFallback.finalScore),
+                  candidateTotalScore: preShowFallback.candidate.totalScore ?? 0,
+                  travelFeasible: true,
+                  hardFail: false,
+                  policyResults: [],
+                }
+              : null,
+          reasons: buildStopReasons({
+            candidate: preShowFallback.candidate,
+            occasion: context.filters.occasion,
+            strictMatch: preShowFallback.strictMatch,
+            travelMin: preShowFallback.travelMin,
+            usedCategories: usedCategoriesSnapshot,
+            slotKind: slot.kind,
+            phase: slot.phase,
+            phaseGoal: slot.phaseGoal,
+            occasionReasons: preShowFallback.policyReasons,
           }),
         });
         continue;
