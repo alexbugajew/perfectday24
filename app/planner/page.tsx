@@ -302,6 +302,15 @@ function PlannerPageContent() {
     // mit citySlug, planDate und eventId, damit der Tag um dieses Event herum
     // entsteht statt bei Stadt und Anlass zu beginnen.
     const requestedEventId = searchParams.get("eventId");
+    // Ein Deep Link ohne Startpunkt erzeugt gar keinen Plan: Ohne belastbaren
+    // Start generiert der Planner nichts, ohne Plan gibt es keine
+    // Event-Kandidaten — und ohne Kandidaten laesst sich auch kein Event als
+    // Anker setzen. Die Event-Strecke gibt deshalb den Veranstaltungsort mit.
+    const rawStartLat = searchParams.get("startLat");
+    const rawStartLng = searchParams.get("startLng");
+    const requestedStartLat = rawStartLat ? Number(rawStartLat) : null;
+    const requestedStartLng = rawStartLng ? Number(rawStartLng) : null;
+    const requestedStartLabel = searchParams.get("startLabel");
 
     const signature = [
       requestedCitySlug ?? "",
@@ -313,6 +322,8 @@ function PlannerPageContent() {
       requestedInterests ?? "",
       requestedDayStartMin ?? "",
       requestedEventId ?? "",
+      rawStartLat ?? "",
+      rawStartLng ?? "",
     ].join("|");
 
     if (!signature.replace(/\|/g, "")) return;
@@ -352,9 +363,21 @@ function PlannerPageContent() {
       setExperienceMode("event_visit");
     }
 
-    if (requestedEventId) {
-      setSelectedEventId(requestedEventId);
-      setEventPlanningMode("locked");
+    if (
+      typeof requestedStartLat === "number" &&
+      Number.isFinite(requestedStartLat) &&
+      Math.abs(requestedStartLat) <= 90 &&
+      typeof requestedStartLng === "number" &&
+      Number.isFinite(requestedStartLng) &&
+      Math.abs(requestedStartLng) <= 180
+    ) {
+      setStartPoint({
+        mode: "custom",
+        type: "other",
+        label: (requestedStartLabel ?? "").trim().slice(0, 120) || "Veranstaltungsort",
+        lat: requestedStartLat,
+        lng: requestedStartLng,
+      });
     }
 
     if (
@@ -397,9 +420,19 @@ function PlannerPageContent() {
       setDayStartMin(null);
     }
 
-    setSelectedEventId(null);
+    // Presets von der Startseite bringen kein Event mit, deshalb wird hier
+    // aufgeraeumt. Ein per URL uebergebenes Event ist aber ausdruecklich
+    // gewollt und darf nicht mit weggeraeumt werden.
+    if (!requestedEventId) {
+      setSelectedEventId(null);
+    }
     // Mark homepage params as applied so generation can start with correct values.
     setPresetsReady(true);
+    // setStartPoint fehlt bewusst in der Liste: Der Setter stammt aus einem
+    // Hook, der weiter unten aufgerufen wird — im Abhaengigkeits-Array waere das
+    // ein Zugriff vor der Deklaration. Im Effekt-Rumpf ist er zur Laufzeit
+    // laengst zugewiesen, und State-Setter sind ohnehin stabil.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted, searchParams, setInterests]);
 
   useEffect(() => {
@@ -552,6 +585,7 @@ function PlannerPageContent() {
     visibleCities,
     selectedCountryCode,
     selectedCitySlug,
+    startPointFromUrl: Boolean(searchParams.get("startLat") && searchParams.get("startLng")),
   });
 
   const eventModesAvailable = useMemo(
@@ -1349,6 +1383,30 @@ function PlannerPageContent() {
       : null;
   const selectedEventIndex =
     selectedEventId != null ? eventCandidates.findIndex((event) => event.id === selectedEventId) : -1;
+
+  /**
+   * Ein per URL uebergebenes Event laesst sich nicht direkt beim Lesen der
+   * Parameter setzen: `experienceMode` startet als "classic", und der Effekt
+   * weiter unten leert `selectedEventId`, solange dieser Wert gilt. Da
+   * State-Updates asynchron sind, sieht er im selben Durchlauf noch den alten
+   * Modus — der Anker war weg, bevor er wirken konnte.
+   *
+   * Deshalb wird er angewendet, sobald die Kandidatenliste ihn tatsaechlich
+   * enthaelt (sie entsteht erst mit der ersten Plan-Antwort). Das `Ref` sorgt
+   * dafuer, dass es genau einmal passiert — sonst liesse sich das Event nicht
+   * mehr abwaehlen.
+   */
+  const urlEventAppliedRef = useRef(false);
+  useEffect(() => {
+    if (urlEventAppliedRef.current) return;
+    const urlEventId = searchParams.get("eventId");
+    if (!urlEventId) return;
+    if (!eventCandidates.some((event) => event.id === urlEventId)) return;
+
+    urlEventAppliedRef.current = true;
+    setSelectedEventId(urlEventId);
+    setEventPlanningMode("locked");
+  }, [searchParams, eventCandidates]);
 
   useEffect(() => {
     if (experienceMode === "classic") {

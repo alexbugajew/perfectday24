@@ -80,13 +80,23 @@ export default async function EventDetailPage({ params }: { params: Promise<Para
   const url = `${SITE_URL}/events/${city}/${eventId}`;
   const categoryLabel = plannerEventLabel(event.category as PlannerEventCategory);
 
-  // Der Übergabepunkt an den Planner: Stadt, Datum und Event, dazu der Modus,
-  // der die Event-Kandidaten überhaupt lädt.
+  // Der Übergabepunkt an den Planner: Stadt, Datum, Event und der Modus, der
+  // die Event-Kandidaten überhaupt lädt — dazu der Veranstaltungsort als
+  // Startpunkt. Ohne Startpunkt erzeugt der Planner gar keinen Plan, ohne Plan
+  // gibt es keine Event-Kandidaten und damit auch keinen Anker. Wer lieber von
+  // zu Hause startet, ändert es im Planner.
+  const startParams =
+    typeof event.lat === "number" && typeof event.lng === "number"
+      ? `&startLat=${event.lat}&startLng=${event.lng}` +
+        `&startLabel=${encodeURIComponent(event.venue_name ?? event.title)}`
+      : "";
+
   const plannerHref =
     `/planner?citySlug=${encodeURIComponent(city)}` +
     `&planDate=${detail.planDate}` +
     `&eventId=${encodeURIComponent(eventId)}` +
-    `&experienceMode=event_visit`;
+    `&experienceMode=event_visit` +
+    startParams;
 
   return (
     <main className="pd24-page-standard px-4 pb-20 pt-6">

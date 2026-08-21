@@ -13,7 +13,7 @@
 
 import { cache } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { classify } from "@/lib/planner";
+import { classify, localDateKey } from "@/lib/planner";
 import { haversineKm } from "@/lib/planner/travel";
 import type { LocationCategory, LocationRow, PlannerEventRow } from "@/lib/planner/types";
 
@@ -175,7 +175,12 @@ export const loadEventDetail = cache(
         // geplanten Events fehlt es — eine geschätzte Endzeit als Tatsache
         // auszugeben wäre eine Behauptung, die die Quelle nicht deckt.
         endLabel: event.end_at ? timeFmt.format(new Date(endMs)) : null,
-        planDate: new Date(startMs).toISOString().slice(0, 10),
+        // Das lokale Datum der Veranstaltung, nicht das UTC-Datum: Ein Konzert
+        // um 00:00 Ortszeit liegt in UTC noch am Vortag. Der Planner filtert
+        // seine Kandidaten ueber plannerEventIsActive nach dem lokalen Tag —
+        // mit dem UTC-Datum fragt er den falschen Tag ab, findet das Event
+        // nicht und verwirft den uebergebenen Anker wieder.
+        planDate: localDateKey(event.start_at, event.timezone),
       };
 
       if (typeof event.lat !== "number" || typeof event.lng !== "number") {
