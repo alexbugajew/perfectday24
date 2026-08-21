@@ -258,7 +258,10 @@ async function main() {
 
   let totalFetched = 0;
   let totalNormalized = 0;
-  const cleanedSources = new Set<string>();
+  // Quelle+Stadt, die in diesem Lauf geschrieben wurden — danach wird dort
+  // aufgeraeumt.
+  const touchedSources = new Set<string>();
+  const runStartedAt = new Date().toISOString();
   const touchedCities = new Set<string>();
   const failedSources: string[] = [];
 
@@ -531,21 +534,17 @@ async function main() {
     }
 
     const sourceName = prepared[0]?.source;
-    const cleanupKey = sourceName ? `${sourceName}:${config.city_slug}` : null;
-    if (sourceName && cleanupKey && !cleanedSources.has(cleanupKey)) {
-      const { error: deleteError } = await supabase
-        .from("planner_events")
-        .delete()
-        .eq("source", sourceName)
-        .eq("city_slug", config.city_slug);
-
-      if (deleteError) {
-        throw new Error(
-          `[official] ${config.provider}/${config.city_slug}: Vorbereinigung fehlgeschlagen: ${deleteError.message}`
-        );
-      }
-
-      cleanedSources.add(cleanupKey);
+    // Frueher wurde hier alles zu Quelle und Stadt geloescht und anschliessend
+    // neu geschrieben. Das vergab bei jedem Lauf frische UUIDs — und liess damit
+    // jeden geteilten Link auf /events/<stadt>/<eventId> sterben, sobald der
+    // Cron lief. Ausserdem gab es ein Zeitfenster, in dem eine Stadt gar keine
+    // Veranstaltungen hatte.
+    //
+    // Jetzt aktualisiert der Upsert ueber (source, external_id) an Ort und
+    // Stelle; die IDs bleiben. Aufgeraeumt wird nach dem Lauf ueber
+    // last_seen_at — siehe unten.
+    if (sourceName) {
+      touchedSources.add(`${sourceName}::${config.city_slug}`);
     }
 
     for (const batch of chunkItems(prepared, 80)) {
@@ -573,6 +572,30 @@ async function main() {
       if (!continueOnError) {
         throw error;
       }
+    }
+  }
+
+  // Aufraeumen: Was in diesem Lauf nicht mehr geliefert wurde, ist bei der
+  // Quelle verschwunden und kann weg. Alles andere behaelt seine ID.
+  //
+  // Der Vergleich laeuft ueber last_seen_at, das jeder Upsert auf den aktuellen
+  // Lauf setzt. Faellt eine Quelle einmal teilweise aus, verschwinden nur die
+  // fehlenden Zeilen — vorher waeren es alle gewesen.
+  for (const key of touchedSources) {
+    const [sourceName, citySlug] = key.split("::");
+    const { error: cleanupError, count } = await supabase
+      .from("planner_events")
+      .delete({ count: "exact" })
+      .eq("source", sourceName)
+      .eq("city_slug", citySlug)
+      .lt("last_seen_at", runStartedAt);
+
+    if (cleanupError) {
+      console.error(`[official] ${sourceName}/${citySlug}: Aufraeumen fehlgeschlagen: ${cleanupError.message}`);
+      continue;
+    }
+    if (count && count > 0) {
+      console.log(`[official] ${sourceName}/${citySlug}: ${count} verschwundene Events entfernt`);
     }
   }
 
