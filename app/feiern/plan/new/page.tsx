@@ -448,7 +448,7 @@ function PlanNewInner() {
     if (inquiryFailed) nextParams.set("inquiryError", "1");
     if (bookingFailed) nextParams.set("bookingError", "1");
 
-    router.push(`/events/plan/${plan.id}?${nextParams.toString()}`);
+    router.push(`/feiern/plan/${plan.id}?${nextParams.toString()}`);
   }
 
   // ── Derived ───────────────────────────────────────────────────────────────
@@ -481,7 +481,7 @@ function PlanNewInner() {
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <div className="border-b border-[var(--line-subtle)] bg-[var(--bg-surface-warm)] px-4 py-6 sm:px-6">
         <div className="mx-auto max-w-3xl">
-          <Link href="/events" className="mb-4 inline-flex text-sm text-[var(--text-soft-warm)] hover:text-[var(--text-strong)]">
+          <Link href="/feiern" className="mb-4 inline-flex text-sm text-[var(--text-soft-warm)] hover:text-[var(--text-strong)]">
             ← Zurück
           </Link>
           <div className="pd24-kicker-warm">
@@ -553,7 +553,7 @@ function PlanNewInner() {
               Danach zeigen wir dir hier passende Anbieter mit Preisen und Paketen.
             </p>
             <Link
-              href="/events"
+              href="/feiern"
               className="pd24-btn pd24-btn-primary mt-6"
             >
               Zum Event-Planer

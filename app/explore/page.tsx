@@ -1378,7 +1378,7 @@ function ExplorePageContent() {
           <div className="mt-0.5 text-sm font-medium text-[var(--text-strong)]">Hochzeiten, Geburtstage & Firmenfeiern — mit Dienstleister-Suche</div>
         </div>
         <Link
-          href="/events"
+          href="/feiern"
           className="shrink-0 pd24-btn pd24-btn-sm pd24-btn-primary"
         >
           Event planen →

@@ -216,7 +216,7 @@ export default function EventPlanDetailPage() {
     const userId = sessionData.session?.user?.id ?? null;
 
     if (!userId) {
-      router.replace(`/profile?return=${encodeURIComponent(`/events/plan/${id}`)}`);
+      router.replace(`/profile?return=${encodeURIComponent(`/feiern/plan/${id}`)}`);
       return;
     }
 
@@ -601,7 +601,7 @@ export default function EventPlanDetailPage() {
         <p className="text-lg font-medium text-[var(--text-strong)]">Plan nicht gefunden</p>
         <p className="mt-1 text-sm text-[var(--text-muted)]">Der Plan existiert nicht oder gehört zu einem anderen Account.</p>
         <Link
-          href="/events"
+          href="/feiern"
           className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--text-strong)] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
         >
           Zurück zu den Events
@@ -619,7 +619,7 @@ export default function EventPlanDetailPage() {
       {/* Header */}
       <div className="mb-8">
         <Link
-          href="/events"
+          href="/feiern"
           className="mb-4 inline-flex items-center gap-1.5 text-sm text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
         >
           Zurück zu Events
@@ -652,7 +652,7 @@ export default function EventPlanDetailPage() {
 
           <div className="flex shrink-0 gap-2">
             <Link
-              href={`/events/plan/new?${editParams}`}
+              href={`/feiern/plan/new?${editParams}`}
               className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-surface)]"
             >
               Bearbeiten
@@ -1046,7 +1046,7 @@ export default function EventPlanDetailPage() {
             <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] px-6 py-12 text-center">
               <p className="text-sm text-[var(--text-muted)]">Noch keine Leistungen gebucht.</p>
               <Link
-                href={`/events/plan/new?${editParams}`}
+                href={`/feiern/plan/new?${editParams}`}
                 className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
               >
                 Anbieter auswählen
@@ -1144,7 +1144,7 @@ export default function EventPlanDetailPage() {
             <div className="rounded-2xl border border-dashed border-[var(--line-subtle)] px-6 py-12 text-center">
               <p className="text-sm text-[var(--text-muted)]">Noch keine Anfragen versendet.</p>
               <Link
-                href={`/events/plan/new?${editParams}`}
+                href={`/feiern/plan/new?${editParams}`}
                 className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[var(--text-strong)] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
               >
                 Anbieter anfragen
@@ -1425,7 +1425,7 @@ export default function EventPlanDetailPage() {
               ))}
           </div>
           <Link
-            href={`/events/plan/new?${editParams}`}
+            href={`/feiern/plan/new?${editParams}`}
             className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white px-4 py-2 text-sm font-medium text-[var(--text-strong)] shadow-sm transition hover:bg-[var(--bg-surface)]"
           >
             Anbieter ergänzen →

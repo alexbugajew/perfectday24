@@ -221,14 +221,14 @@ function EventCard({
       ) : (
         <div className="mt-4 flex flex-wrap gap-2">
           <Link
-            href={`/events/plan/${plan.id}`}
+            href={`/feiern/plan/${plan.id}`}
             className="inline-flex min-h-9 items-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white transition hover:opacity-90"
           >
             Event öffnen
           </Link>
           {(plan.pending_quotes > 0 || plan.received_quotes > 0) && (
             <Link
-              href={`/events/plan/${plan.id}?tab=offers`}
+              href={`/feiern/plan/${plan.id}?tab=offers`}
               className="pd24-status-success inline-flex min-h-9 items-center rounded-full px-4 text-sm font-medium transition hover:opacity-90"
             >
               Angebote prüfen
@@ -243,7 +243,7 @@ function EventCard({
             </Link>
           )}
           <Link
-            href={`/events?occasion=${plan.occasion_slug}`}
+            href={`/feiern?occasion=${plan.occasion_slug}`}
             className="inline-flex min-h-9 items-center rounded-full border border-[var(--line-subtle)] px-4 text-sm font-medium text-[var(--text-strong)] transition hover:bg-[var(--bg-surface)]"
           >
             Neu planen
@@ -396,7 +396,7 @@ function EventsDashboardContent() {
             </p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
-            <Link href="/events"
+            <Link href="/feiern"
               className="pd24-btn pd24-btn-primary">
               Neues Event planen
             </Link>
@@ -478,7 +478,7 @@ function EventsDashboardContent() {
           <p className="mt-2 text-sm text-[var(--text-muted)]">
             Plane deinen ersten Geburtstag, JGA, Teamtag oder eine Firmenfeier.
           </p>
-          <Link href="/events"
+          <Link href="/feiern"
             className="pd24-btn pd24-btn-primary mt-5">
             Event anlegen →
           </Link>

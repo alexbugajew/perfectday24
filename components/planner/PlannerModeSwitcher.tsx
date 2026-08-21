@@ -50,8 +50,8 @@ const MODES = [
     ),
   },
   {
-    href: "/events",
-    discoverHref: "/events",
+    href: "/feiern",
+    discoverHref: "/feiern",
     label: "Event planen",
     shortLabel: "Event",
     icon: (
