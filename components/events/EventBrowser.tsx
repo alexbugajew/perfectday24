@@ -11,6 +11,7 @@
 import Link from "next/link";
 import type { CityEventListItem } from "@/lib/events/around-event";
 import {
+  categoryAccent,
   EVENT_CATEGORY_FILTERS,
   EVENT_TIME_WINDOWS,
   type EventTimeWindowSlug,
@@ -131,7 +132,8 @@ export function EventDayList({ citySlug, events, emptyHint }: ListProps) {
               <li key={item.id}>
                 <Link
                   href={`/events/${citySlug}/${item.id}`}
-                  className="flex items-baseline gap-4 rounded-[var(--radius-card-sm)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-large)]"
+                  className="flex items-baseline gap-4 rounded-[var(--radius-card-sm)] border border-l-2 border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-3 shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-large)]"
+                  style={{ borderLeftColor: categoryAccent(item.category) }}
                 >
                   <span className="w-12 shrink-0 text-sm tabular-nums text-[var(--text-muted)]">
                     {item.timeLabel}

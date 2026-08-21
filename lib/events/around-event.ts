@@ -63,6 +63,11 @@ export type EventDetail = {
   after: AroundEventSuggestion[];
   /** Warum es keine Vorschläge gibt — für eine ehrliche Anzeige statt leerer Fläche. */
   suggestionsUnavailable: string | null;
+  /**
+   * Bild aus dem Rohsatz der Quelle. Nur Ticketmaster liefert eines; die
+   * Stadtportale nicht. Fehlt es, traegt der Kopf die Kategoriefarbe.
+   */
+  imageUrl: string | null;
 };
 
 function supabaseOrNull() {
@@ -100,6 +105,17 @@ function localHour(iso: string, timezone: string | null | undefined): number {
   }).formatToParts(new Date(iso));
   const hour = parts.find((part) => part.type === "hour")?.value;
   return hour ? Number(hour) : 12;
+}
+
+/**
+ * Der Ingest legt ein normalisiertes `imageUrl` oben in `source_payload` ab.
+ * Nur Ticketmaster fuellt es; alles andere bleibt ohne Bild.
+ */
+function eventImageUrl(event: PlannerEventRow): string | null {
+  const payload = event.source_payload;
+  if (!payload || typeof payload !== "object") return null;
+  const value = (payload as Record<string, unknown>).imageUrl;
+  return typeof value === "string" && value.startsWith("http") ? value : null;
 }
 
 function walkMinutes(distanceKm: number): number {
@@ -186,6 +202,7 @@ export const loadEventDetail = cache(
         // mit dem UTC-Datum fragt er den falschen Tag ab, findet das Event
         // nicht und verwirft den uebergebenen Anker wieder.
         planDate: localDateKey(event.start_at, event.timezone),
+        imageUrl: eventImageUrl(event),
       };
 
       if (typeof event.lat !== "number" || typeof event.lng !== "number") {

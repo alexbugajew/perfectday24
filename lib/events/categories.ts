@@ -149,3 +149,31 @@ export function findTimeWindow(slug: string | undefined): EventTimeWindow {
     EVENT_TIME_WINDOWS.find((entry) => entry.slug === DEFAULT_TIME_WINDOW)!
   );
 }
+
+// ─── Farbliche Identität ─────────────────────────────────────────────────────
+
+/**
+ * Eine Farbe je Kategorie, damit sich Konzert, Ausstellung und Markt auf einen
+ * Blick unterscheiden — in der Liste wie im Kopf der Detailseite.
+ *
+ * Die Werte stammen aus der bestehenden Palette (app/globals.css) statt aus
+ * einem neuen Farbkreis: Die Strecke soll wie PerfectDay24 aussehen und nicht
+ * wie ein zweites Produkt. Kategorien ohne Eintrag fallen auf den ruhigen
+ * Schieferton zurück.
+ */
+const CATEGORY_ACCENTS: Record<string, string> = {
+  concert: "var(--brand-warm-deep)",
+  comedy: "var(--brand-warm)",
+  theater: "var(--brand-creative)",
+  show: "var(--brand-creative)",
+  exhibition: "var(--brand-accent)",
+  market: "var(--state-success)",
+  festival: "var(--brand-warm-deep)",
+  food_event: "var(--state-warning)",
+  fair: "var(--brand-accent-alt)",
+  seasonal: "var(--state-info)",
+};
+
+export function categoryAccent(category: string): string {
+  return CATEGORY_ACCENTS[category] ?? "var(--brand-accent)";
+}
