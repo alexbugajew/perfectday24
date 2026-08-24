@@ -178,7 +178,7 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
       <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{activation.body}</p>
 
       <div className="mt-3 grid gap-2">
-        {contextChips.slice(0, 3).map((chip) => (
+        {contextChips.slice(0, 5).map((chip) => (
           <div
             key={chip.label}
             className="flex min-w-0 items-center justify-between gap-3 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-white px-3 py-2"
@@ -227,7 +227,9 @@ export default function PlannerActivationPanel(props: PlannerActivationPanelProp
         </div>
       ) : null}
 
-      <div className="mt-auto pt-4">
+      {/* Aktionsblock am Kartenboden; die Trennlinie macht den flexiblen
+          Zwischenraum als bewussten Abstand lesbar statt als Leerfläche. */}
+      <div className="mt-auto border-t border-[rgba(68,57,46,0.08)] pt-4">
         {plannedStopsCount > 0 ? (
         <a
           href="#planner-results"

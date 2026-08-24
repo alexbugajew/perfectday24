@@ -2079,7 +2079,9 @@ function PlannerPageContent() {
         ) : null}
 
         <div className="mt-3 flex flex-col gap-3 border-t border-[rgba(68,57,46,0.08)] pt-3 lg:flex-row lg:flex-wrap lg:items-center">
-          <div className="min-w-0 lg:flex-1">
+          {/* shrink-0 statt flex-1: in der schmaleren linken Spalte wurde das
+              Label sonst von der Button-Reihe auf wenige Zeichen gequetscht. */}
+          <div className="min-w-0 shrink-0 lg:mr-auto lg:max-w-[220px]">
             <div className="pd24-meta">
               Dein Plan
             </div>
@@ -2375,7 +2377,9 @@ function PlannerPageContent() {
         />
       </section>
 
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
+      {/* 420px wie die obere rechte Spalte — sonst stehen Panel und Karten-
+          Sidebar mit versetzten Kanten untereinander. */}
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_420px] xl:items-start">
         <aside className="order-2 space-y-4 xl:sticky xl:top-24 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto xl:pl-1">
           <PlannerMapPanel
             routeProfile={routeProfile}
