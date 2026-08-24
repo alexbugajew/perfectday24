@@ -1793,11 +1793,35 @@ function PlannerPageContent() {
   return (
     // pb-40: Platz für den sticky "Route starten"-CTA über der Bottom-Nav (nur mobil)
     <main className={`pd24-page-wide space-y-4 ${plannedStops.length > 0 ? "pb-40 sm:pb-0" : ""}`}>
+      {!mobileSetupOpen && plannedStops.length > 0 ? (
+        // Kompakte Mobile-Summary statt der Setup-Blöcke — "Ändern" klappt sie wieder auf.
+        <div className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 sm:hidden">
+          <div className="min-w-0 truncate text-sm text-[var(--text-strong)]">
+            <span className="font-semibold">{occasionTitle}</span>
+            {cityLabel !== "-" ? <span className="text-[var(--text-muted)]"> · {cityLabel}</span> : null}
+            <span className="text-[var(--text-muted)]">
+              {" · "}
+              {new Date(`${planDate}T12:00:00`).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" })}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setMobileSetupOpen(true)}
+            className="pd24-btn pd24-btn-secondary pd24-btn-sm shrink-0"
+          >
+            Ändern
+          </button>
+        </div>
+      ) : null}
+
       <section
         className={`gap-4 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start ${
           mobileSetupOpen ? "grid" : "hidden sm:grid"
         }`}
       >
+        {/* Linke Spalte: Header + Setup füllen die Höhe neben dem Panel —
+            sonst klafft unter dem kurzen Header eine Leerfläche. */}
+        <div className="min-w-0 space-y-4">
         <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
           <div className="flex flex-col gap-5">
             <div>
@@ -1860,39 +1884,6 @@ function PlannerPageContent() {
           </div>
         </div>
 
-        <PlannerActivationPanel
-          cityLabel={cityLabel}
-          plannerSummaryLine={plannerSummaryLine}
-          startPointLabel={effectiveStartPoint.label || selectedCityFallbackLabel || "-"}
-          routeProfileLabel={`${routeProfileLabel(routeProfile)} | ${planMode}`}
-          plannerLoading={plannerLoading}
-          plannerError={plannerError}
-          hasPlannerData={Boolean(plannerData)}
-          hasValidPlannerOrigin={hasValidPlannerOrigin}
-          citiesLoading={citiesLoading}
-          presetActive={homepagePresetActive}
-          templateLabel={plannerTemplateLoadedLabel}
-          plannedStopsCount={plannedStops.length}
-          resultsCount={results.length}
-          eventCandidatesCount={eventCandidates.length}
-          interestsCount={effectiveInterests.length}
-          expandedRadius={Boolean(expandedText)}
-          relaxedFilters={Boolean(relaxedText)}
-          latestPlanTitle={latestSavedPlanTitle}
-          latestPlanMeta={latestSavedPlanMeta}
-          loadingPlans={loadingPlans}
-          onOpenConfig={() => setShowPlannerConfig(true)}
-          onResumeLatestPlan={() => {
-            if (latestSavedPlan) continueEditingSavedPlan(latestSavedPlan);
-          }}
-          onShareLatestPlan={() => {
-            if (latestSavedPlan) void sharePlan(latestSavedPlan);
-          }}
-          onUseCurrentLocation={useCurrentLocationAsStartPoint}
-          onRerollPlan={rerollPlan}
-        />
-      </section>
-
       {!homepagePresetActive && !effectiveCitySlug && !citiesLoading && (
         <section
           className={`rounded-xl border border-[var(--brand-accent)]/20 bg-[var(--brand-accent-soft)] px-4 py-3 ${
@@ -1905,27 +1896,6 @@ function PlannerPageContent() {
           </div>
         </section>
       )}
-
-      {!mobileSetupOpen && plannedStops.length > 0 ? (
-        // Kompakte Mobile-Summary statt der Setup-Blöcke — "Ändern" klappt sie wieder auf.
-        <div className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] px-3 py-2 sm:hidden">
-          <div className="min-w-0 truncate text-sm text-[var(--text-strong)]">
-            <span className="font-semibold">{occasionTitle}</span>
-            {cityLabel !== "-" ? <span className="text-[var(--text-muted)]"> · {cityLabel}</span> : null}
-            <span className="text-[var(--text-muted)]">
-              {" · "}
-              {new Date(`${planDate}T12:00:00`).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" })}
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={() => setMobileSetupOpen(true)}
-            className="pd24-btn pd24-btn-secondary pd24-btn-sm shrink-0"
-          >
-            Ändern
-          </button>
-        </div>
-      ) : null}
 
       <section
         className={`rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-3 shadow-[var(--shadow-soft)] ${
@@ -2369,6 +2339,40 @@ function PlannerPageContent() {
             ) : null}
           </div>
         </div>
+      </section>
+        </div>
+
+        <PlannerActivationPanel
+          cityLabel={cityLabel}
+          plannerSummaryLine={plannerSummaryLine}
+          startPointLabel={effectiveStartPoint.label || selectedCityFallbackLabel || "-"}
+          routeProfileLabel={`${routeProfileLabel(routeProfile)} | ${planMode}`}
+          plannerLoading={plannerLoading}
+          plannerError={plannerError}
+          hasPlannerData={Boolean(plannerData)}
+          hasValidPlannerOrigin={hasValidPlannerOrigin}
+          citiesLoading={citiesLoading}
+          presetActive={homepagePresetActive}
+          templateLabel={plannerTemplateLoadedLabel}
+          plannedStopsCount={plannedStops.length}
+          resultsCount={results.length}
+          eventCandidatesCount={eventCandidates.length}
+          interestsCount={effectiveInterests.length}
+          expandedRadius={Boolean(expandedText)}
+          relaxedFilters={Boolean(relaxedText)}
+          latestPlanTitle={latestSavedPlanTitle}
+          latestPlanMeta={latestSavedPlanMeta}
+          loadingPlans={loadingPlans}
+          onOpenConfig={() => setShowPlannerConfig(true)}
+          onResumeLatestPlan={() => {
+            if (latestSavedPlan) continueEditingSavedPlan(latestSavedPlan);
+          }}
+          onShareLatestPlan={() => {
+            if (latestSavedPlan) void sharePlan(latestSavedPlan);
+          }}
+          onUseCurrentLocation={useCurrentLocationAsStartPoint}
+          onRerollPlan={rerollPlan}
+        />
       </section>
 
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
