@@ -130,7 +130,9 @@ export async function POST(req: Request) {
         .upsert({ user_id: user.id, stripe_customer_id: stripeCustomerId }, { onConflict: "user_id" });
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+    // Fallback auf den Request-Origin statt localhost — ohne gesetzte Env
+    // landete die Stripe-success_url sonst auf http://localhost:3000.
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? new URL(req.url).origin;
 
     // Testphase nur beim allerersten Abo — wer schon einmal Kunde war,
     // startet direkt bezahlt (verhindert Trial-Hopping).

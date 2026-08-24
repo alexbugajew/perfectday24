@@ -114,7 +114,8 @@ export async function POST(req: Request) {
       }
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+    // Fallback auf den Request-Origin statt localhost (s. user-checkout).
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? new URL(req.url).origin;
 
     const checkoutParams = {
       ...(stripeCustomerId

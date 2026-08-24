@@ -31,7 +31,7 @@ async function getSessionUser() {
   return user;
 }
 
-export async function POST() {
+export async function POST(req: Request) {
   try {
     const user = await getSessionUser();
     if (!user) {
@@ -54,7 +54,8 @@ export async function POST() {
       return NextResponse.json({ error: "Kein Stripe-Kunde vorhanden" }, { status: 400 });
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+    // Fallback auf den Request-Origin statt localhost (s. user-checkout).
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? new URL(req.url).origin;
     const portal = await stripe.billingPortal.sessions.create({
       customer: customerId,
       return_url: `${baseUrl}/profile`,
