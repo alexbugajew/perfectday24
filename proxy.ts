@@ -25,6 +25,10 @@ const PUBLIC_PATH_PREFIXES = [
   // erreichbar sein — inkl. ihrer opengraph-image-Unterpfade.
   "/events/agenda",
   "/p",
+  // Stripe-Webhooks kommen Server-zu-Server und muessen das Preview-Lock
+  // passieren; der Endpoint verifiziert jede Anfrage selbst per Signatur
+  // (STRIPE_WEBHOOK_SECRET) und liefert keine Daten aus.
+  "/api/stripe/webhook",
 ];
 
 /**
