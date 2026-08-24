@@ -70,6 +70,21 @@ export function buildPlanIcs(input: PlanExportInput): string {
       const descriptionParts = [stop.hint, stop.reasons?.[0]].filter(
         (part): part is string => typeof part === "string" && part.trim().length > 0
       );
+      // Ort so konkret wie verfügbar: "Stop-Name, Stadt" lässt sich von
+      // Kalender-Apps geocoden; GEO + Maps-Link liefern die exakte Position.
+      const lat = stop.item?.lat;
+      const lng = stop.item?.lng;
+      const hasCoords = typeof lat === "number" && typeof lng === "number";
+      const locationLabel = [stop.item?.name?.trim(), input.cityLabel]
+        .filter((part): part is string => Boolean(part && part.trim()))
+        .join(", ");
+      const reservationUrl = stop.item?.reservation_url?.trim();
+      if (reservationUrl) {
+        descriptionParts.push(`Reservieren: ${reservationUrl}`);
+      }
+      if (hasCoords) {
+        descriptionParts.push(`Karte: https://www.google.com/maps/search/?api=1&query=${lat},${lng}`);
+      }
       lines.push(
         "BEGIN:VEVENT",
         `UID:pd24-${uidBase}-${stop.index}@perfectday24.de`,
@@ -77,7 +92,8 @@ export function buildPlanIcs(input: PlanExportInput): string {
         `DTSTART:${toIcsUtc(stop.scheduledStartAt as string)}`,
         `DTEND:${toIcsUtc(stop.scheduledEndAt as string)}`,
         `SUMMARY:${escapeIcs(summary)}`,
-        ...(input.cityLabel ? [`LOCATION:${escapeIcs(input.cityLabel)}`] : []),
+        ...(locationLabel ? [`LOCATION:${escapeIcs(locationLabel)}`] : []),
+        ...(hasCoords ? [`GEO:${lat};${lng}`] : []),
         ...(descriptionParts.length > 0
           ? [`DESCRIPTION:${escapeIcs(descriptionParts.join(" — "))}`]
           : []),
@@ -132,7 +148,10 @@ function escapeHtml(value: string) {
  * startet den Druckdialog — dort wählt der Nutzer "Als PDF speichern".
  */
 export function openPlanPrintWindow(input: PlanExportInput) {
-  const printWindow = window.open("", "_blank", "noopener,width=900,height=1100");
+  // Kein "noopener": damit gäbe window.open null zurück und das neue Fenster
+  // bliebe als leeres about:blank stehen — wir brauchen die Referenz zum
+  // Schreiben des Inhalts. Gleiches Origin, Inhalt kommt von uns selbst.
+  const printWindow = window.open("", "_blank", "width=900,height=1100");
   if (!printWindow) return false;
 
   const dateLabel = formatPlanDateLabel(input.planDate);
@@ -155,6 +174,10 @@ export function openPlanPrintWindow(input: PlanExportInput) {
           : "";
       const duration = typeof stop.durationMin === "number" ? `${stop.durationMin} Min vor Ort` : "";
       const metaBits = [travel, duration].filter(Boolean).join(" · ");
+      const reservationUrl = stop.item?.reservation_url?.trim();
+      const reservationLine = reservationUrl
+        ? `<div class="meta">Reservieren: <a href="${escapeHtml(reservationUrl)}">${escapeHtml(reservationUrl)}</a></div>`
+        : "";
       return `
         <li>
           <div class="time">${time}</div>
@@ -162,6 +185,7 @@ export function openPlanPrintWindow(input: PlanExportInput) {
             <div class="name">${i + 1}. ${name}</div>
             ${note ? `<div class="note">${note}</div>` : ""}
             ${metaBits ? `<div class="meta">${metaBits}</div>` : ""}
+            ${reservationLine}
           </div>
         </li>`;
     })
