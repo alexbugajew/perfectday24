@@ -293,9 +293,12 @@ export function formatPlannerTime(value: string | null | undefined) {
   if (!value) return null;
   const date = new Date(value);
   if (!Number.isFinite(date.getTime())) return null;
+  // Auf Europe/Berlin gepinnt: geplante Zeiten meinen die Wanduhr am Ort des
+  // Plans — auch wenn der Browser des Nutzers in einer anderen Zeitzone läuft.
   return date.toLocaleTimeString("de-DE", {
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "Europe/Berlin",
   });
 }
 

@@ -21,6 +21,8 @@
 // - Leer/null Input → true (nicht ausschliessen bei fehlender Info)
 // - Unparseable Segment → im Zweifel true fuer den Slot
 
+import { berlinDayIndex, berlinInstant, berlinMinutesOfDay, berlinToday } from "./berlin-time";
+
 export type OpenAtOptions = {
   /** Puffer in Minuten den die Location vor/nach dem Zeitpunkt geoeffnet sein muss. Default 0. */
   bufferMin?: number;
@@ -187,8 +189,10 @@ export function isOpenAt(
   if (!rules) return true;
 
   const bufferMin = options.bufferMin ?? 0;
-  const dayIdx = at.getDay();
-  const minutesToday = at.getHours() * 60 + at.getMinutes();
+  // Öffnungszeiten-Strings meinen lokale Zeit der (deutschen) Location —
+  // den Instant deshalb als Berliner Wanduhr lesen, nicht in Server-Zeitzone.
+  const dayIdx = berlinDayIndex(at);
+  const minutesToday = berlinMinutesOfDay(at);
   const yesterdayIdx = (dayIdx + 6) % 7;
   const minutesYesterday = minutesToday + 24 * 60;
 
@@ -240,14 +244,13 @@ export function isLikelyOpen(params: {
   // Heuristik ohne konkreten Zielzeitpunkt: pruefen ob die Location zu einem
   // typischen Zeitpunkt der bevorzugten Tageszeit geoeffnet waere. Nutzt den
   // vollen Parser mit einem plausiblen Uhrzeit-Proxy.
-  const now = new Date();
   const targetHour =
     preferredDaytimes.includes("morning") ? 10 :
     preferredDaytimes.includes("midday") ? 13 :
     preferredDaytimes.includes("afternoon") ? 16 :
     preferredDaytimes.includes("evening") ? 20 :
     preferredDaytimes.includes("night") ? 23 : 18;
-  const proxy = new Date(now.getFullYear(), now.getMonth(), now.getDate(), targetHour, 0, 0);
+  const proxy = berlinInstant(berlinToday(), targetHour * 60);
 
   return isOpenAt(openingHoursRaw, proxy, { bufferMin: 30 });
 }

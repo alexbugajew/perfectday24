@@ -39,7 +39,8 @@ function formatClock(iso: string | null | undefined) {
   if (!iso) return null;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return null;
-  return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  // Wie die Planner-Anzeige auf Europe/Berlin gepinnt (Wanduhr am Ort des Plans).
+  return d.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Berlin" });
 }
 
 function formatPlanDateLabel(planDate: string | null) {

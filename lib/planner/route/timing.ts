@@ -1,4 +1,5 @@
 import { ROUTE_BUFFER_FULLDAY_MIN, ROUTE_BUFFER_PARTIALDAY_MIN } from "../constants";
+import { berlinInstant, berlinMinutesOfDay, berlinToday, parseYmd } from "../berlin-time";
 import { classify, hasSubtype } from "../features";
 import type {
   PlanMode,
@@ -286,10 +287,9 @@ export function applyStopSchedule(params: {
   if (stops.length === 0) return stops;
 
   const cloned = stops.map((stop) => ({ ...stop }));
-  const dateSeed = context.planDate
-    ? parseIsoDate(`${context.planDate}T00:00:00`)
-    : new Date();
-  if (!dateSeed) return cloned;
+  // Plan-Tag als Berliner Kalendertag — NICHT über die Server-Zeitzone
+  // konstruieren (Vercel läuft auf UTC, das verschob alle Zeiten um +2h).
+  const planYmd = parseYmd(context.planDate) ?? berlinToday();
 
   const derivedPlanMode: PlanMode =
     context.preferredDaytimes.includes("night") && !context.preferredDaytimes.includes("morning")
@@ -302,19 +302,18 @@ export function applyStopSchedule(params: {
             ? "fullday"
             : "evening";
 
-  const dayBase = new Date(dateSeed.getFullYear(), dateSeed.getMonth(), dateSeed.getDate(), 0, 0, 0, 0);
   const requestedStartMin =
     typeof context.dayStartMin === "number" && Number.isFinite(context.dayStartMin)
       ? Math.max(0, Math.min(23 * 60 + 59, Math.round(context.dayStartMin)))
       : null;
-  const planStart = withMinutes(
-    dayBase,
+  const planStart = berlinInstant(
+    planYmd,
     requestedStartMin ?? planStartMinutes(derivedPlanMode, context.occasion)
   );
   // Minimum sensible start — never earlier than 07:00 for non-event-anchored runs.
   const earliestStartMin = 7 * 60;
   const flooredPlanStart = new Date(
-    Math.max(planStart.getTime(), dayBase.getTime() + earliestStartMin * 60000)
+    Math.max(planStart.getTime(), berlinInstant(planYmd, earliestStartMin).getTime())
   );
 
   const anchorIndex =
@@ -339,7 +338,7 @@ export function applyStopSchedule(params: {
 
       // Backward pass — each pre-anchor stop is scheduled before the event.
       // Floor to 07:00 so we never produce impossible pre-dawn times.
-      const dayFloor = new Date(dayBase.getTime() + earliestStartMin * 60000);
+      const dayFloor = berlinInstant(planYmd, earliestStartMin);
 
       // Pre-check: do all pre-stops fit between dayFloor and the event?
       let requiredMin = 0;
@@ -437,7 +436,7 @@ export function applyStopSchedule(params: {
     const category = classify(last.item);
     if (category !== "restaurant" && category !== "cafe") break;
     const startDate = new Date(last.scheduledStartAt);
-    const startMin = startDate.getHours() * 60 + startDate.getMinutes();
+    const startMin = berlinMinutesOfDay(startDate);
     if (startMin <= FOOD_LATEST_START_MIN && startMin >= earliestStartMin) break;
     capped = capped.slice(0, -1);
   }

@@ -7,6 +7,7 @@
 // zu strenger opening_hours_raw-Bestand), werden die ungefilterten
 // Kandidaten zurueckgegeben — lieber schlechter Timing als leerer Slot.
 
+import { berlinInstant, berlinToday, parseYmd } from "../berlin-time";
 import { isOpenAt } from "../opening-hours";
 import type { PlanMode, PlanningContext, ScoredLocation, SlotDefinition } from "../types";
 
@@ -55,13 +56,9 @@ function slotTypicalDate(
   const dayStartHour = context.dayStartMin ? Math.floor(context.dayStartMin / 60) : 10;
   const hour = slotTypicalHour(slot, mode, dayStartHour);
 
-  // planDate parsen, sonst heute nutzen.
-  let base = new Date();
-  if (context.planDate) {
-    const parsed = new Date(context.planDate + "T00:00:00");
-    if (Number.isFinite(parsed.getTime())) base = parsed;
-  }
-  return new Date(base.getFullYear(), base.getMonth(), base.getDate(), hour, 0, 0);
+  // Wandzeit meint Europe/Berlin — nicht die Server-Zeitzone (Vercel = UTC).
+  const ymd = parseYmd(context.planDate) ?? berlinToday();
+  return berlinInstant(ymd, hour * 60);
 }
 
 /**
