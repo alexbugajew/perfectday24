@@ -4,11 +4,17 @@
 
 import type { PlannedStop } from "@/lib/planner";
 
+/** Stop mit optionalem Bild für die Druckansicht (Planner: aufgelöste
+ *  Stop-Fotos inkl. Fallback; Routen: photo_url des Stops). */
+export type PlanExportStop = PlannedStop & { exportImageUrl?: string | null };
+
 export type PlanExportInput = {
   title: string;
   cityLabel: string | null;
   planDate: string | null; // YYYY-MM-DD
-  stops: PlannedStop[];
+  stops: PlanExportStop[];
+  /** Öffentlicher Link zum Live-Plan (geteilter Plan bzw. Routen-URL). */
+  shareUrl?: string | null;
 };
 
 function pad(value: number) {
@@ -86,6 +92,9 @@ export function buildPlanIcs(input: PlanExportInput): string {
       if (hasCoords) {
         descriptionParts.push(`Karte: https://www.google.com/maps/search/?api=1&query=${lat},${lng}`);
       }
+      if (input.shareUrl) {
+        descriptionParts.push(`Ganzer Plan: ${input.shareUrl}`);
+      }
       lines.push(
         "BEGIN:VEVENT",
         `UID:pd24-${uidBase}-${stop.index}@perfectday24.de`,
@@ -144,19 +153,12 @@ function escapeHtml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
-/**
- * Öffnet eine druckoptimierte Ansicht des Plans in einem neuen Fenster und
- * startet den Druckdialog — dort wählt der Nutzer "Als PDF speichern".
- */
-export function openPlanPrintWindow(input: PlanExportInput) {
-  // Kein "noopener": damit gäbe window.open null zurück und das neue Fenster
-  // bliebe als leeres about:blank stehen — wir brauchen die Referenz zum
-  // Schreiben des Inhalts. Gleiches Origin, Inhalt kommt von uns selbst.
-  const printWindow = window.open("", "_blank", "width=900,height=1100");
-  if (!printWindow) return false;
-
+/** Baut das komplette Druck-HTML — separat testbar. */
+export function buildPlanPrintHtml(input: PlanExportInput): string {
   const dateLabel = formatPlanDateLabel(input.planDate);
-  const metaLine = [input.cityLabel, dateLabel].filter(Boolean).join(" · ");
+  const metaLine = [input.cityLabel, dateLabel, `${input.stops.length} Stops`]
+    .filter(Boolean)
+    .join(" · ");
 
   const rows = input.stops
     .map((stop, i) => {
@@ -175,24 +177,39 @@ export function openPlanPrintWindow(input: PlanExportInput) {
           : "";
       const duration = typeof stop.durationMin === "number" ? `${stop.durationMin} Min vor Ort` : "";
       const metaBits = [travel, duration].filter(Boolean).join(" · ");
-      const reservationUrl = stop.item?.reservation_url?.trim();
-      const reservationLine = reservationUrl
-        ? `<div class="meta">Reservieren: <a href="${escapeHtml(reservationUrl)}">${escapeHtml(reservationUrl)}</a></div>`
+      const lat = stop.item?.lat;
+      const lng = stop.item?.lng;
+      const hasCoords = typeof lat === "number" && typeof lng === "number";
+      const mapsUrl = hasCoords
+        ? `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
+        : null;
+      const reservationUrl = stop.item?.reservation_url?.trim() || null;
+      const links = [
+        mapsUrl ? `<a class="chip" href="${escapeHtml(mapsUrl)}">📍 Navigation</a>` : "",
+        reservationUrl ? `<a class="chip" href="${escapeHtml(reservationUrl)}">Reservieren</a>` : "",
+      ]
+        .filter(Boolean)
+        .join("");
+      const image = stop.exportImageUrl
+        ? `<img class="thumb" src="${escapeHtml(stop.exportImageUrl)}" alt="" />`
         : "";
       return `
         <li>
-          <div class="time">${time}</div>
+          <div class="time"><span class="idx">${i + 1}</span>${time ? `<span class="clock">${time}</span>` : ""}</div>
           <div class="body">
-            <div class="name">${i + 1}. ${name}</div>
+            <div class="name">${name}</div>
             ${note ? `<div class="note">${note}</div>` : ""}
             ${metaBits ? `<div class="meta">${metaBits}</div>` : ""}
-            ${reservationLine}
+            ${links ? `<div class="links">${links}</div>` : ""}
+            ${reservationUrl ? `<div class="url">Reservieren: ${escapeHtml(reservationUrl)}</div>` : ""}
+            ${mapsUrl ? `<div class="url">Navigation: ${escapeHtml(mapsUrl)}</div>` : ""}
           </div>
+          ${image}
         </li>`;
     })
     .join("");
 
-  printWindow.document.write(`<!doctype html>
+  return `<!doctype html>
 <html lang="de">
 <head>
 <meta charset="utf-8" />
@@ -206,14 +223,24 @@ export function openPlanPrintWindow(input: PlanExportInput) {
   .brand-sub { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8a8a8a; }
   h1 { margin-top: 26px; font-size: 26px; letter-spacing: -0.01em; }
   .meta-line { margin-top: 6px; color: #6b6b6b; font-size: 14px; }
+  .share { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #e2ddd2; background: #faf8f3; border-radius: 12px; padding: 8px 14px; font-size: 12px; color: #444; }
+  .share a { color: #171717; font-weight: 600; text-decoration: none; }
   ol { list-style: none; margin-top: 26px; border-top: 1px solid #e5e5e5; }
-  li { display: flex; gap: 18px; padding: 14px 0; border-bottom: 1px solid #ececec; break-inside: avoid; }
-  .time { width: 96px; flex-shrink: 0; font-variant-numeric: tabular-nums; font-weight: 600; font-size: 14px; color: #171717; padding-top: 1px; }
+  li { display: flex; gap: 18px; padding: 16px 0; border-bottom: 1px solid #ececec; break-inside: avoid; align-items: flex-start; }
+  .time { width: 96px; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px; padding-top: 1px; }
+  .idx { width: 24px; height: 24px; border-radius: 8px; background: #171717; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
+  .clock { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 13px; color: #171717; }
+  .body { flex: 1; min-width: 0; }
   .name { font-weight: 600; font-size: 15px; }
   .note { margin-top: 3px; font-size: 13px; color: #555; line-height: 1.45; }
   .meta { margin-top: 4px; font-size: 12px; color: #8a8a8a; }
+  .links { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { display: inline-flex; align-items: center; gap: 4px; border: 1px solid #d9d4c9; border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: #171717; text-decoration: none; }
+  .url { margin-top: 4px; font-size: 10.5px; color: #9a9a9a; word-break: break-all; }
+  .thumb { width: 108px; height: 82px; flex-shrink: 0; object-fit: cover; border-radius: 12px; border: 1px solid #ececec; }
   footer { margin-top: 30px; font-size: 11px; color: #9a9a9a; }
-  @media print { body { padding: 0; } }
+  footer a { color: #6b6b6b; }
+  @media print { body { padding: 0; } .chip { border-color: #bbb; } }
 </style>
 </head>
 <body>
@@ -226,11 +253,50 @@ export function openPlanPrintWindow(input: PlanExportInput) {
   </div>
   <h1>${escapeHtml(input.title)}</h1>
   ${metaLine ? `<div class="meta-line">${escapeHtml(metaLine)}</div>` : ""}
+  ${
+    input.shareUrl
+      ? `<div class="share">Live-Plan öffnen &amp; teilen: <a href="${escapeHtml(input.shareUrl)}">${escapeHtml(input.shareUrl)}</a></div>`
+      : ""
+  }
   <ol>${rows}</ol>
-  <footer>Erstellt mit perfectday24.de</footer>
-  <script>window.addEventListener("load", function () { setTimeout(function () { window.print(); }, 150); });</script>
+  <footer>Erstellt mit perfectday24.de${input.shareUrl ? ` · Live-Version: <a href="${escapeHtml(input.shareUrl)}">${escapeHtml(input.shareUrl)}</a>` : ""}</footer>
+  <script>
+    // Erst drucken, wenn die Stop-Fotos geladen sind (max. 2,5s warten) —
+    // sonst landen leere Bildrahmen im PDF.
+    window.addEventListener("load", function () {
+      var images = Array.prototype.slice.call(document.images);
+      var pending = images.filter(function (img) { return !img.complete; });
+      var done = false;
+      function go() {
+        if (done) return;
+        done = true;
+        setTimeout(function () { window.print(); }, 100);
+      }
+      if (pending.length === 0) { go(); return; }
+      var left = pending.length;
+      pending.forEach(function (img) {
+        img.addEventListener("load", function () { if (--left <= 0) go(); });
+        img.addEventListener("error", function () { if (--left <= 0) go(); });
+      });
+      setTimeout(go, 2500);
+    });
+  </script>
 </body>
-</html>`);
+</html>`;
+}
+
+/**
+ * Öffnet eine druckoptimierte Ansicht des Plans in einem neuen Fenster und
+ * startet den Druckdialog — dort wählt der Nutzer "Als PDF speichern".
+ */
+export function openPlanPrintWindow(input: PlanExportInput) {
+  // Kein "noopener": damit gäbe window.open null zurück und das neue Fenster
+  // bliebe als leeres about:blank stehen — wir brauchen die Referenz zum
+  // Schreiben des Inhalts. Gleiches Origin, Inhalt kommt von uns selbst.
+  const printWindow = window.open("", "_blank", "width=900,height=1100");
+  if (!printWindow) return false;
+
+  printWindow.document.write(buildPlanPrintHtml(input));
   printWindow.document.close();
   return true;
 }
