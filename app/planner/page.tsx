@@ -16,6 +16,7 @@ import {
 } from "@/lib/routes/planner-route-bridge";
 import { writePlannerRunDraft } from "@/lib/routes/planner-run-bridge";
 import { downloadPlanIcs, openPlanPrintWindow } from "@/lib/planner/plan-export";
+import { plannerStopImageUrl } from "./PlannerStopListSection";
 import { usePremiumStatus } from "@/components/premium/usePremiumStatus";
 import UpgradeModal from "@/components/premium/UpgradeModal";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
@@ -944,6 +945,7 @@ function PlannerPageContent() {
     setEditingPlanId,
     savePlan,
     sharePlan,
+    ensurePlanShareUrl,
     sendFinalPlanToFriends,
     openPlanGroupChat,
     resolveEditSuggestion,
@@ -1707,17 +1709,32 @@ function PlannerPageContent() {
 
   // Premium-Export: PDF (Druckansicht) und Kalender (.ics). Free-User sehen
   // das Upgrade-Modal — das ist das beworbene Premium-Feature.
-  function handlePlanExport(kind: "pdf" | "ics") {
+  async function handlePlanExport(kind: "pdf" | "ics") {
     if (plannedStops.length === 0) return;
     if (!isPremium) {
       setShowExportUpgrade(true);
       return;
     }
+    // Share-Link in den Export, wenn der Plan bereits gespeichert ist — kein
+    // stiller Auto-Save nur für den Export. Beim PDF darf vor window.open kein
+    // await liegen (Popup-Blocker), daher dort nur ein schon vorhandener Token;
+    // der ICS-Download verträgt das await und erzeugt den Token bei Bedarf.
+    let shareUrl: string | null =
+      selectedPlan?.share_token
+        ? `${window.location.origin}/p/${selectedPlan.share_token}`
+        : null;
+    if (kind === "ics" && !shareUrl && selectedPlan) {
+      shareUrl = (await ensurePlanShareUrl(selectedPlan)) ?? null;
+    }
     const input = {
       title: plannerPageTitle,
       cityLabel: cityLabel !== "-" ? cityLabel : null,
       planDate: planDate || null,
-      stops: plannedStops,
+      shareUrl,
+      stops: plannedStops.map((stop) => ({
+        ...stop,
+        exportImageUrl: plannerStopImageUrl(stop),
+      })),
     };
     if (kind === "pdf") {
       const opened = openPlanPrintWindow(input);

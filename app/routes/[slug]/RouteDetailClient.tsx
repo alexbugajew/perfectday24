@@ -34,6 +34,11 @@ import {
 import RecommendationReason from "@/components/RecommendationReason";
 import { writePlannerRouteTemplate, writeRouteBuilderDraft } from "@/lib/routes/planner-route-bridge";
 import { readRouteRunProgress } from "@/lib/routes/route-run-progress";
+import { downloadPlanIcs, openPlanPrintWindow } from "@/lib/planner/plan-export";
+import { berlinToday } from "@/lib/planner/berlin-time";
+import { usePremiumStatus } from "@/components/premium/usePremiumStatus";
+import UpgradeModal from "@/components/premium/UpgradeModal";
+import type { PlannedStop } from "@/lib/planner";
 import {
   buildInterestReasonBadges,
   explainInterestMatch,
@@ -1847,6 +1852,53 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
   const creatorProfileHref = creatorHref(creator);
   const cityMap = useMemo(() => buildCityLookupMap(cities), [cities]);
   const routeCityLabel = formatCityWithCountry(route?.city_slug ?? null, cityMap);
+
+  // Premium-Export wie im Planner: Routen tragen keine Uhrzeiten — der
+  // Kalender-Eintrag wird ein Ganztages-Termin mit der Stop-Liste, die
+  // Druckansicht listet die Stops in Reihenfolge (inkl. Reservierungslinks).
+  const { isPremium, usedThisMonth } = usePremiumStatus(userId);
+  const [showExportUpgrade, setShowExportUpgrade] = useState(false);
+
+  function handleRouteExport(kind: "pdf" | "ics") {
+    if (!route || !stops || stops.length === 0) return;
+    if (!isPremium) {
+      setShowExportUpgrade(true);
+      return;
+    }
+    const exportStops = [...stops]
+      .sort((a, b) => a.stop_order - b.stop_order)
+      .map((stop, index) => ({
+        index,
+        label: stop.title || `Stop ${stop.stop_order}`,
+        hint: stop.note ?? "",
+        reasons: [],
+        durationMin: stop.duration_min,
+        travelMinFromPrev: null,
+        item: {
+          id: stop.id,
+          name: stop.title || `Stop ${stop.stop_order}`,
+          type: "route_stop",
+          lat: stop.lat,
+          lng: stop.lng,
+          reservation_url: stop.external_url,
+        },
+        exportImageUrl: stop.photo_url,
+      })) as unknown as PlannedStop[];
+    const today = berlinToday();
+    const input = {
+      title: route.title,
+      cityLabel: routeCityLabel || null,
+      planDate: `${today.year}-${String(today.month).padStart(2, "0")}-${String(today.day).padStart(2, "0")}`,
+      shareUrl: `${window.location.origin}/routes/${route.slug ?? slug}`,
+      stops: exportStops,
+    };
+    if (kind === "pdf") {
+      const opened = openPlanPrintWindow(input);
+      if (!opened) showToast("Bitte Pop-ups für diese Seite erlauben, um das PDF zu erstellen.");
+    } else {
+      downloadPlanIcs(input);
+    }
+  }
   const personalizationMembers = useMemo(
     () => [
       ...(myInterests.length > 0 ? [{ name: "Du", interests: myInterests, isCurrentUser: true }] : []),
@@ -2467,6 +2519,33 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
               Details
             </button>
           </div>
+
+          {/* Export — Premium wie im Planner (PDF-Druckansicht + Kalender) */}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => handleRouteExport("pdf")}
+              title="Route als PDF drucken"
+              className="pd24-btn pd24-btn-sm pd24-btn-secondary"
+            >
+              Als PDF
+            </button>
+            <button
+              type="button"
+              onClick={() => handleRouteExport("ics")}
+              title="Route als Termin in den Kalender übernehmen"
+              className="pd24-btn pd24-btn-sm pd24-btn-secondary"
+            >
+              In Kalender
+            </button>
+          </div>
+
+          <UpgradeModal
+            open={showExportUpgrade}
+            used={usedThisMonth}
+            limit={3}
+            onClose={() => setShowExportUpgrade(false)}
+          />
 
           {routeInfoOpen ? (
             <div id="route-personalization" className="rounded-2xl border border-[var(--line-subtle)] bg-white p-4">

@@ -60,7 +60,7 @@ function firstNestedImageUrl(source: unknown) {
   return null;
 }
 
-function plannerStopImageUrl(stop: PlannedStop) {
+export function plannerStopImageUrl(stop: PlannedStop) {
   const item = stop.item;
   if (!item) return null;
 
