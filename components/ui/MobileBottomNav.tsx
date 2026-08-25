@@ -18,10 +18,10 @@ const NAV_ITEMS = [
         strokeLinejoin="round"
         className="h-5 w-5"
       >
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-        <line x1="16" y1="2" x2="16" y2="6" />
-        <line x1="8" y1="2" x2="8" y2="6" />
-        <line x1="3" y1="10" x2="21" y2="10" />
+        <rect x="3" y="5" width="18" height="16" rx="2" ry="2" />
+        <line x1="16" y1="3" x2="16" y2="7" />
+        <line x1="8" y1="3" x2="8" y2="7" />
+        <line x1="3" y1="10.5" x2="21" y2="10.5" />
       </svg>
     ),
   },
@@ -39,8 +39,10 @@ const NAV_ITEMS = [
         strokeLinejoin="round"
         className="h-5 w-5"
       >
-        <circle cx="12" cy="12" r="10" />
-        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+        <g transform="translate(1.2 1.2) scale(0.9)">
+          <circle cx="12" cy="12" r="10" />
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+        </g>
       </svg>
     ),
   },
@@ -58,7 +60,9 @@ const NAV_ITEMS = [
         strokeLinejoin="round"
         className="h-5 w-5"
       >
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        <g transform="translate(1.2 1.2) scale(0.9)">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </g>
       </svg>
     ),
   },
@@ -76,7 +80,7 @@ const NAV_ITEMS = [
         strokeLinejoin="round"
         className="h-5 w-5"
       >
-        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+        <path d="M20 21l-8-5.5L4 21V5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5z" />
       </svg>
     ),
   },
@@ -119,18 +123,28 @@ export default function MobileBottomNav() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
+                // Der aktive Eintrag hob sich nur durch die Textfarbe und einen
+                // 2px-Strich ab — zu wenig, um auf einen Blick zu zeigen, wo man
+                // steht. Jetzt traegt er zusaetzlich mehr Strichstaerke im Icon.
                 className={`flex flex-col items-center gap-1 py-3 transition-colors ${
-                  active ? "text-[var(--text-strong)]" : "text-[var(--text-soft-warm)]"
+                  active
+                    ? "text-[var(--text-strong)] [&_svg]:stroke-[2.1]"
+                    : "text-[var(--text-soft-warm)]"
                 }`}
               >
                 {/* Active indicator dot */}
                 <span
-                  className={`mb-0.5 h-0.5 w-5 rounded-full transition-all ${
-                    active ? "bg-[var(--brand-warm)]" : "bg-transparent"
+                  aria-hidden
+                  className={`mb-0.5 h-1 rounded-full transition-all ${
+                    active ? "w-6 bg-[var(--brand-warm)]" : "w-5 bg-transparent"
                   }`}
                 />
                 {item.icon}
-                <span className="text-[10px] font-medium leading-none">
+                <span
+                  className={`text-[10px] leading-none ${
+                    active ? "font-semibold" : "font-medium"
+                  }`}
+                >
                   {item.label}
                 </span>
               </Link>
