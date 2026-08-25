@@ -330,22 +330,26 @@ export default async function HomepageScaffoldMinimal() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
+            {/* Mobil fuellen die drei Pillen die Zeile zu gleichen Teilen: Inhalts-
+                breite liess "Planen" schmal und "Entdecken" breit erscheinen und
+                die Gruppe linksbuendig haengen. Ab sm wieder inhaltsbreit, weil
+                dort die vierte Pille dazukommt. */}
+            <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-center">
               <Link
                 href="/planner"
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-3 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)] sm:w-auto sm:px-4"
               >
                 Planen
               </Link>
               <Link
                 href="/explore"
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-3 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)] sm:w-auto sm:px-4"
               >
                 Entdecken
               </Link>
               <Link
                 href="/feiern"
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-4 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)]"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-[var(--line-subtle)] bg-white/82 px-3 py-2 text-sm font-medium text-[var(--text-muted-warm)] transition hover:border-[var(--text-strong)] hover:text-[var(--text-strong)] sm:w-auto sm:px-4"
               >
                 Events
               </Link>
