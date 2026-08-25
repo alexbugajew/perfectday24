@@ -1,46 +1,70 @@
--- Clear the final rls_disabled_in_public ERROR: public.spatial_ref_sys.
+-- rls_disabled_in_public (ERROR) auf public.spatial_ref_sys.
 --
--- spatial_ref_sys is the PostGIS SRID reference table, OWNED by the PostGIS
--- extension — not by the postgres role. So `ALTER TABLE ... ENABLE ROW LEVEL
--- SECURITY` fails with insufficient_privilege (that is why migration
--- 20260709130000 logged a skip for it). It holds only static, public spatial
--- reference definitions — no user data.
+-- STATUS 2026-08-25: NICHT BEHOBEN. Diese Migration kann das Problem nicht
+-- loesen; sie dokumentiert es und meldet den Ist-Zustand. Siehe unten.
 --
--- The lint fires because the table is (a) RLS-disabled and (b) reachable through
--- PostgREST (anon/authenticated hold grants). Since we can't enable RLS, the
--- sanctioned fix is to stop exposing it: revoke the API-role grants. Verified
--- safe — no anon/authenticated code path reads it: no client-side ST_Transform,
--- no rpc('get_locations_nearby') from the browser, and the geo RPCs are
--- SECURITY DEFINER (they run as their owner, which keeps its own access).
+-- Die urspruengliche Fassung dieser Datei nahm an, ein `revoke` als `postgres`
+-- wuerde die anon/authenticated-Grants entfernen. Live verifiziert am
+-- 2026-08-25: das stimmt nicht.
+--
+--   Owner der Tabelle : supabase_admin (PostGIS-Extension)
+--   Grantor der Rechte: supabase_admin
+--   postgres ist NICHT Mitglied von supabase_admin
+--
+-- `REVOKE` entfernt nur, was die ausfuehrende Rolle selbst gewaehrt hat. Wird
+-- sie von einer anderen Rolle ausgefuehrt, ist sie ein No-op MIT ERFOLGSSTATUS
+-- (nur eine Notice, keine exception) — deshalb lief die alte Fassung gruen
+-- durch, ohne irgendetwas zu bewirken. Auch `set role supabase_privileged_role`
+-- aendert daran nichts (getestet).
+--
+-- TATSAECHLICHER IST-ZUSTAND (per REST mit dem oeffentlichen anon-Key geprueft):
+--   GET /rest/v1/spatial_ref_sys -> HTTP 200
+--   anon und authenticated haben SELECT, INSERT, UPDATE, DELETE, TRUNCATE,
+--   REFERENCES, TRIGGER. Ein TRUNCATE legt saemtliche PostGIS-Operationen und
+--   damit die Geo-Suche lahm. Keine Nutzerdaten betroffen; die Tabelle laesst
+--   sich aus jeder PostGIS-Installation wiederherstellen.
+--
+-- LOESUNG: Nur der Supabase-Support kann das. Ticket-Inhalt:
+--   REVOKE ALL ON TABLE public.spatial_ref_sys FROM anon, authenticated;
+--   ALTER TABLE public.spatial_ref_sys ENABLE ROW LEVEL SECURITY;
+--
+-- Diese Migration bricht bewusst NICHT ab, damit `db push` weiter durchlaeuft.
+-- Sie versucht den Fix (falls die Rechtelage sich einmal aendert) und gibt
+-- danach eine WARNING aus, solange das Problem besteht.
 
 begin;
 
 do $$
+declare
+  v_offen int;
 begin
-  -- 1) Preferred: enable RLS (works only if we own the table).
   begin
     execute 'alter table public.spatial_ref_sys enable row level security';
-    raise notice 'spatial_ref_sys: RLS enabled';
-    return;
+    raise notice 'spatial_ref_sys: RLS aktiviert';
   exception when others then
-    raise notice 'spatial_ref_sys: enable RLS not permitted (%); revoking API grants instead', sqlerrm;
+    null; -- erwartet: insufficient_privilege
   end;
 
-  -- 2) Drop it from the PostgREST surface for the API roles.
   begin
     execute 'revoke all on table public.spatial_ref_sys from anon, authenticated';
-    raise notice 'spatial_ref_sys: revoked anon/authenticated grants';
   exception when others then
-    raise notice 'spatial_ref_sys: revoke anon/authenticated failed (%)', sqlerrm;
+    null;
   end;
 
-  -- 3) Belt-and-suspenders: PostGIS may have granted SELECT to PUBLIC.
-  begin
-    execute 'revoke select on table public.spatial_ref_sys from public';
-    raise notice 'spatial_ref_sys: revoked PUBLIC select';
-  exception when others then
-    raise notice 'spatial_ref_sys: revoke PUBLIC not permitted (%); if the lint persists it is a benign PostGIS-ownership edge — accept it or move PostGIS to a dedicated schema', sqlerrm;
-  end;
+  -- Wirkung pruefen, statt Erfolg anzunehmen.
+  select count(*) into v_offen
+  from information_schema.role_table_grants
+  where table_schema = 'public'
+    and table_name  = 'spatial_ref_sys'
+    and grantee in ('anon', 'authenticated');
+
+  if v_offen > 0 then
+    raise warning
+      'spatial_ref_sys: % Grants fuer anon/authenticated weiterhin offen - ueber PostgREST schreibbar. Nur per Supabase-Support behebbar (siehe Kopf dieser Datei).',
+      v_offen;
+  else
+    raise notice 'spatial_ref_sys: keine anon/authenticated-Grants mehr offen';
+  end if;
 end $$;
 
 commit;
