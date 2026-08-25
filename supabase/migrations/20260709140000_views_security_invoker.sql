@@ -27,4 +27,12 @@ alter view if exists public.restaurants_recommended  set (security_invoker = on)
 alter view if exists public.event_vendors_view       set (security_invoker = on);
 alter view if exists public.premium_users_active     set (security_invoker = on);
 
+-- Nachgetragen 2026-08-25: beim Live-Verify gefunden, stand in keiner Migration.
+-- v_shared_plan joint plan_shares x plans OHNE Filter auf is_active/expires_at/
+-- share_id. Mit security_invoker = off waere das bei passenden Grants ein
+-- Vollabzug aller Nutzerplaene. anon bekommt aktuell 401 (permission denied for
+-- table plans), der View wird von keinem Anwendungscode referenziert.
+-- TODO: entweder droppen oder die drei Filter in die Definition aufnehmen.
+alter view if exists public.v_shared_plan            set (security_invoker = on);
+
 commit;
