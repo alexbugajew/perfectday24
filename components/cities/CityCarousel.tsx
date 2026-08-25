@@ -105,6 +105,14 @@ export default function CityCarousel({
               </div>
               <div className="px-3 py-2.5 text-xs text-[var(--text-muted)]">
                 {city.routeCount} {city.routeCount === 1 ? "Route" : "Routen"}
+                {/* Die kuratierten Stadtbilder stehen unter CC BY / CC BY-SA.
+                    Die Namensnennung gehoert deshalb an jede Stelle, an der das
+                    Bild erscheint — nicht nur auf die verlinkte Stadtseite. */}
+                {city.coverCredit ? (
+                  <span className="mt-0.5 block text-[9px] leading-tight text-[var(--text-soft)]">
+                    Foto: {city.coverCredit}
+                  </span>
+                ) : null}
               </div>
             </Link>
           );

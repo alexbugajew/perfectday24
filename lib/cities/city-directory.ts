@@ -21,6 +21,13 @@ export type CityDirectoryEntry = {
   label: string;
   routeCount: number;
   coverUrl: string | null;
+  /**
+   * Nur bei kuratierten Stadt-Covern gesetzt. Die stammen aus Wikimedia
+   * Commons und stehen unter CC BY oder CC BY-SA — die Namensnennung muss
+   * also mit dem Bild mitreisen, nicht nur auf der Zielseite stehen.
+   */
+  coverCredit: string | null;
+  coverSource: string | null;
 };
 
 function supabaseOrNull() {
@@ -79,13 +86,19 @@ export const listCitiesWithRoutes = cache(async (): Promise<CityDirectoryEntry[]
     const slugs = Array.from(counts.keys());
     const { data: cityRows } = await supabase
       .from("cities")
-      .select("slug, editorial_cover_url")
+      .select("slug, editorial_cover_url, editorial_cover_credit, editorial_cover_source")
       .in("slug", slugs);
 
+    type CityCoverRow = {
+      slug: string;
+      editorial_cover_url: string | null;
+      editorial_cover_credit: string | null;
+      editorial_cover_source: string | null;
+    };
     const editorialCoverBySlug = new Map(
-      ((cityRows ?? []) as { slug: string; editorial_cover_url: string | null }[])
+      ((cityRows ?? []) as CityCoverRow[])
         .filter((row) => Boolean(row.editorial_cover_url))
-        .map((row) => [row.slug, row.editorial_cover_url as string] as const)
+        .map((row) => [row.slug, row] as const)
     );
 
     return slugs
@@ -96,7 +109,13 @@ export const listCitiesWithRoutes = cache(async (): Promise<CityDirectoryEntry[]
         // Gleiche Rangfolge wie auf der Stadtseite selbst: Editorial-Cover vor
         // Routen-Cover, damit das Bild in der Übersicht dem entspricht, was der
         // Nutzer nach dem Klick sieht.
-        coverUrl: editorialCoverBySlug.get(slug) ?? routeCoverBySlug.get(slug) ?? null,
+        coverUrl:
+          editorialCoverBySlug.get(slug)?.editorial_cover_url ??
+          routeCoverBySlug.get(slug) ??
+          null,
+        // Routen-Cover tragen keine Angabe zum Urheber — dort bleibt es leer.
+        coverCredit: editorialCoverBySlug.get(slug)?.editorial_cover_credit ?? null,
+        coverSource: editorialCoverBySlug.get(slug)?.editorial_cover_source ?? null,
       }))
       .sort((a, b) => b.routeCount - a.routeCount || a.label.localeCompare(b.label, "de"));
   } catch (error) {

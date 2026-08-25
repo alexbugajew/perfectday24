@@ -77,6 +77,7 @@ type CityCover = {
   editorial_cover_url: string | null;
   editorial_cover_alt: string | null;
   editorial_cover_credit: string | null;
+  editorial_cover_source: string | null;
 };
 
 async function fetchCityData(citySlug: string) {
@@ -108,7 +109,7 @@ async function fetchCityData(citySlug: string) {
       .limit(6),
     supabase
       .from("cities")
-      .select("editorial_cover_url, editorial_cover_alt, editorial_cover_credit")
+      .select("editorial_cover_url, editorial_cover_alt, editorial_cover_credit, editorial_cover_source")
       .eq("slug", citySlug)
       .maybeSingle(),
     supabase
@@ -171,6 +172,7 @@ export default async function CityExplorePage({
   const heroImage = cityCover?.editorial_cover_url ?? coverRoute?.cover_image_url ?? null;
   const heroAlt = cityCover?.editorial_cover_alt ?? cityConfig.label;
   const heroCredit = cityCover?.editorial_cover_credit ?? null;
+  const heroCreditHref = cityCover?.editorial_cover_source ?? null;
   const isEditorialCover = Boolean(cityCover?.editorial_cover_url);
 
   return (
@@ -223,7 +225,19 @@ export default async function CityExplorePage({
               ) : null}
               {heroCredit ? (
                 <span className="absolute bottom-2 right-3 text-[9px] text-white/60">
-                  Foto: {heroCredit}
+                  Foto:{" "}
+                  {heroCreditHref ? (
+                    <a
+                      href={heroCreditHref}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="underline decoration-white/30 underline-offset-2 hover:text-white/80"
+                    >
+                      {heroCredit}
+                    </a>
+                  ) : (
+                    heroCredit
+                  )}
                 </span>
               ) : null}
             </div>
