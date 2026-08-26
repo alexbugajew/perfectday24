@@ -1,3 +1,12 @@
+-- NACHTRAG 2026-08-26: Wert ist jetzt `public, extensions` statt nur `public`.
+-- Der Supabase-Support verlagert PostGIS aus `public` in das `extensions`-Schema
+-- (das ist die einzige unterstuetzte Behebung des spatial_ref_sys-Befunds, siehe
+-- 20260709170000). Danach findet eine Routine mit search_path=public die
+-- st_*-Funktionen nicht mehr und bricht zur Laufzeit. Betroffen laut Support:
+-- get_locations_nearby, get_locations_nearby_full, osm_places_raw_osm2pgsql_valid,
+-- pd24_refresh_restaurants_from_raw, pd24_seed_match_location — angewandt wurde
+-- es auf alle App-Routinen mit search_path=public, als Obermenge.
+--
 -- Fix `function_search_path_mutable` (Supabase linter, WARN) for every app-owned
 -- function/procedure in the public schema. A routine without a fixed search_path
 -- resolves unqualified names via the CALLER's search_path — which a SECURITY
@@ -52,7 +61,7 @@ begin
       )
   loop
     begin
-      execute format('alter routine %s set search_path = public', r.sig);
+      execute format('alter routine %s set search_path = public, extensions', r.sig);
       n_done := n_done + 1;
     exception when others then
       n_skip := n_skip + 1;

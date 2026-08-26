@@ -54,3 +54,9 @@ presentations/
 
 # Brand-Exploration (nicht referenziert, bewusst nicht versioniert)
 public/brand/ventiqa/
+
+# Claude-Code-Arbeitsverzeichnis (Worktrees, lokale Settings) — 132 MB, nie ins Repo
+.claude/
+
+# Lokale Skripte, Dumps und Zwischenstaende der Seed-/Backfill-Wellen
+tmp/
