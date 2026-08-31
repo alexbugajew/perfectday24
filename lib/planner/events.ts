@@ -340,6 +340,53 @@ const EXHIBITION_MARKERS = [
   "retrospektive",
 ];
 
+/**
+ * Gedenk- und Erinnerungsveranstaltungen.
+ *
+ * Diese Marker wirken VOR REFINABLE_CATEGORIES und damit aus jeder Kategorie
+ * heraus — anders als die uebrigen Regeln, die nur aus den Sammel-Eimern
+ * nachklassifizieren. Grund: Die Faelle, die uns aufgefallen sind, lagen
+ * ausgerechnet in `festival` und `seasonal`, also in Kategorien, die sonst
+ * unangetastet bleiben.
+ *
+ * Ziel ist `other`, weil diese Kategorie in keiner Liste von
+ * plannerEventCategoriesForExperienceMode vorkommt. Die Veranstaltung
+ * verschwindet damit vollstaendig aus der automatischen Tagesplanung, statt in
+ * einen anderen Freizeit-Eimer zu wandern.
+ *
+ * WARUM DAS SEIN MUSS
+ * Am 31.08.2026 war die einzige Markt/Festival-Veranstaltung, die der Planner
+ * fuer Hamburg finden konnte, eine Gedenkveranstaltung zur Deportation nach
+ * Minsk 1941 (Kategorie `seasonal`). In Freiburg liegt eine Gedenkveranstaltung
+ * zur Deportation der Freiburger Juden sogar als `festival` vor. Der Planner
+ * haette sie einem Nutzer als "Markt / Festival"-Hoehepunkt seines Ausflugstags
+ * angeboten.
+ *
+ * Lieber ein paar Veranstaltungen zu viel aus der Freizeitplanung nehmen als
+ * eine einzige davon als Festival-Tipp ausspielen. Ein Sommerfest, das
+ * "Gedenkstaette" im Titel traegt, faellt hier ebenfalls heraus — das ist der
+ * bewusst in Kauf genommene Preis.
+ */
+const MEMORIAL_MARKERS = [
+  "gedenk",
+  "deportation",
+  "zwangsarbeit",
+  "holocaust",
+  "shoah",
+  "schoah",
+  "stolperstein",
+  "mahnmal",
+  "volkstrauertag",
+  "pogrom",
+  "konzentrationslager",
+  "kz-gedenk",
+  "euthanasie",
+  "opfer des nationalsozialismus",
+  "trauerfeier",
+  "kriegsgraeber",
+  "kriegsgräber",
+];
+
 const COMEDY_MARKERS = [
   "comedy",
   "kabarett",
@@ -368,6 +415,18 @@ export function refinePlannerEventCategory(input: {
   title?: string | null;
 }): PlannerEventCategory {
   const current = input.category as PlannerEventCategory;
+
+  // Gedenkveranstaltungen zuerst und ohne REFINABLE-Filter: Sie muessen auch
+  // aus `festival` und `seasonal` heraus greifen, sonst laufen genau die
+  // Faelle durch, wegen derer die Regel existiert.
+  const titleForMemorial = (input.title ?? "").toLowerCase();
+  if (
+    titleForMemorial.trim() &&
+    MEMORIAL_MARKERS.some((marker) => titleForMemorial.includes(marker))
+  ) {
+    return "other";
+  }
+
   if (!REFINABLE_CATEGORIES.has(input.category)) return current;
 
   // Bewusst nur der Titel, nicht die Beschreibung. Ein erster Entwurf las auch
@@ -384,6 +443,26 @@ export function refinePlannerEventCategory(input: {
   if (EXHIBITION_MARKERS.some((marker) => haystack.includes(marker))) return "exhibition";
 
   return current;
+}
+
+/**
+ * Ist diese Event-Zeile fuer den Planner ueberhaupt brauchbar?
+ *
+ * Spiegelt isConcreteOfficialFlexEvent() aus route-construction.ts, dort aber
+ * auf Kandidaten-Ebene. Diese Fassung arbeitet auf der DB-Zeile, damit
+ * Pruefskripte die Frage "gibt es hier etwas, das der Planner nehmen wuerde?"
+ * beantworten koennen, ohne den halben Planner zu instanziieren.
+ *
+ * Wer eine der beiden Stellen aendert, muss die andere mitziehen.
+ */
+export function isConcretePlannerEventRow(row: PlannerEventRow): boolean {
+  return (
+    row.kind === "flex_event" &&
+    typeof row.source === "string" &&
+    row.source.length > 0 &&
+    Array.isArray(row.subtypes) &&
+    (row.subtypes as string[]).includes("concrete_event_page")
+  );
 }
 
 export function plannerEventToLocationRow(row: PlannerEventRow): LocationRow {

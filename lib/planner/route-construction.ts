@@ -287,6 +287,8 @@ function experienceSlotBoost(
     : 16;
 }
 
+// Gegenstueck auf DB-Zeilen-Ebene: isConcretePlannerEventRow() in
+// lib/planner/events.ts. Beide Stellen zusammen aendern.
 function isConcreteOfficialFlexEvent(candidate: ScoredLocation) {
   if (classify(candidate) !== "event") return false;
 

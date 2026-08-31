@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import {
   classify,
   generatePlan,
+  isConcretePlannerEventRow,
   localDateKey,
   plannerEventCategoriesForExperienceMode,
   plannerEventIsActive,
@@ -408,6 +409,9 @@ async function loadActiveEventLocations(
 
   return {
     rows: visibleRows,
+    // Zeilen, die der Planner tatsaechlich als konkretes Event akzeptiert.
+    // Die blosse Existenz einer Kategoriezeile sagt darueber nichts aus.
+    usableRows: visibleRows.filter(isConcretePlannerEventRow),
     locations: visibleRows.map(plannerEventToLocationRow),
   };
 }
@@ -479,7 +483,8 @@ function toStopSnapshot(stop: PlannedStop): StopSnapshot {
 function evaluateGuardrails(
   testCase: CoreRegressionCase,
   plannedStops: StopSnapshot[],
-  availableEventCount: number
+  availableEventCount: number,
+  usableEventCount: number
 ): GuardrailResult {
   const failures: string[] = [];
   const skipped: string[] = [];
@@ -522,8 +527,21 @@ function evaluateGuardrails(
   }
 
   if (testCase.experienceMode === "market_festival") {
+    // Geprueft wird gegen die BRAUCHBAREN Events, nicht gegen alle Zeilen der
+    // Kategorie. Vorher genuegte eine beliebige Zeile, damit der Guardrail
+    // scharf wurde — und meldete dann "Markt/Festival liegt nicht vorne",
+    // obwohl der Planner das einzige Angebot zu Recht verworfen hatte.
+    //
+    // Konkret am 31.08.2026: Hamburgs einziges Markt/Festival-Event an dem Tag
+    // war eine Gedenkveranstaltung ohne Endzeit und ohne echten Veranstaltungsort.
+    // Der Planner hat sie verworfen, der Guardrail hat ihn dafuer bestraft.
+    // Die Fehlermeldung zeigte auf den Planner, die Ursache lag in den Daten.
     if (availableEventCount === 0) {
       skipped.push("kein planner_event in DB fuer diese Stadt/Datum — Markt/Festival-Guardrails uebersprungen");
+    } else if (usableEventCount === 0) {
+      skipped.push(
+        `kein konkretes Markt/Festival-Event (${availableEventCount} Kategoriezeile(n), aber keine mit concrete_event_page) — Guardrails uebersprungen`
+      );
     } else {
       const firstFilled = filledStops[0] ?? null;
       if (!firstFilled) {
@@ -590,7 +608,12 @@ async function runCase(
   });
 
   const plannedStops = result.plannedStops.map(toStopSnapshot);
-  const guardrails = evaluateGuardrails(testCase, plannedStops, eventBundle.rows.length);
+  const guardrails = evaluateGuardrails(
+    testCase,
+    plannedStops,
+    eventBundle.rows.length,
+    eventBundle.usableRows.length
+  );
 
   return {
     id: testCase.id,

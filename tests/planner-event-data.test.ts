@@ -3,7 +3,11 @@
 // liefern, bevor sie in Plaene oder Navigation geraten.
 import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
-import { normalizePlannerEventTitle, refinePlannerEventCategory } from "../lib/planner/events";
+import {
+  normalizePlannerEventTitle,
+  plannerEventCategoriesForExperienceMode,
+  refinePlannerEventCategory,
+} from "../lib/planner/events";
 import { plausibleDoorsAt } from "../lib/planner/route/timing";
 
 /**
@@ -102,6 +106,47 @@ describe("refinePlannerEventCategory", () => {
     ];
     for (const [category, title] of cases) {
       assert.equal(refinePlannerEventCategory({ category, title }), "comedy", title);
+    }
+  });
+
+  /**
+   * Alle elf Titel standen am 31.08.2026 so in planner_events. Aufgefallen ist
+   * das, weil der Kernflow Hamburg/tourism/market_festival rot wurde: Das
+   * einzige Markt/Festival-Event des Tages war die Minsk-Gedenkveranstaltung.
+   *
+   * Die Regel greift bewusst aus JEDER Kategorie heraus, nicht nur aus den
+   * Sammel-Eimern — der Freiburger Fall lag als `festival` vor.
+   */
+  it("nimmt Gedenkveranstaltungen aus der Freizeitplanung", () => {
+    const cases: Array<[string, string]> = [
+      ["festival", "Gedenkveranstaltung zum Jahrestag der Deportation der Freiburger Jüdinnen und Juden"],
+      ["seasonal", "„Wie lange werden wir hier sein?“ – Deportationen nach Minsk 1941"],
+      ["fair", "Unter Tage. Unter Zwang. NS-Zwangsarbeit im Ruhrbergbau"],
+      ["community", "Gedenkfeier zum Jahrestag der Pogromnacht"],
+      ["community", "Führung: Auftakt des Terrors. Frühe Konzentrationslager"],
+      ["theater", "Vortrag: Zeitzeugin und Holocaust-Überlebende Eva Weyl berichtet"],
+      ["theater", "Lebendige Stolpersteine"],
+      ["show", "Vortrag: Sterilisation und Euthanasie psychisch kranker Bürger"],
+      ["show", "Gedenke, wo du stehst."],
+      ["market", "Gedenkstunde am Mahnmal"],
+    ];
+    for (const [category, title] of cases) {
+      assert.equal(refinePlannerEventCategory({ category, title }), "other", title);
+    }
+  });
+
+  /**
+   * `other` steht in keiner Liste von plannerEventCategoriesForExperienceMode.
+   * Genau daran haengt die Wirkung der Regel — faellt diese Zusicherung, landen
+   * Gedenkveranstaltungen wieder in Tagesplaenen, ohne dass ein Test anschlaegt.
+   */
+  it("haelt `other` aus allen Erlebnismodi heraus", () => {
+    for (const mode of ["show", "event_visit", "market_festival"]) {
+      assert.equal(
+        plannerEventCategoriesForExperienceMode(mode).includes("other" as never),
+        false,
+        mode
+      );
     }
   });
 
