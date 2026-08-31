@@ -2,7 +2,11 @@
 // PDF-Ansicht (Browser-Druckdialog → "Als PDF speichern").
 // Client-only: nutzt Blob-Downloads bzw. window.open.
 
-import type { PlannedStop } from "@/lib/planner";
+// Relative Importe statt "@/"-Alias: Das Modul läuft auch im kompilierten
+// Test-Dist (tsconfig.scripts.json), und tsc schreibt Aliase nicht um.
+import type { PlannedStop } from "./types";
+import { locationAddressFromSourceRefs } from "./location-address";
+import { safeExternalUrl } from "../security/safe-url";
 
 /** Stop mit optionalem Bild für die Druckansicht (Planner: aufgelöste
  *  Stop-Fotos inkl. Fallback; Routen: photo_url des Stops). */
@@ -77,12 +81,14 @@ export function buildPlanIcs(input: PlanExportInput): string {
       const descriptionParts = [stop.hint, stop.reasons?.[0]].filter(
         (part): part is string => typeof part === "string" && part.trim().length > 0
       );
-      // Ort so konkret wie verfügbar: "Stop-Name, Stadt" lässt sich von
-      // Kalender-Apps geocoden; GEO + Maps-Link liefern die exakte Position.
+      // Ort so konkret wie verfügbar: Straßenadresse (aus dem Backfill in
+      // source_refs, enthält bereits PLZ + Stadt) schlägt "Stop-Name, Stadt";
+      // GEO + Maps-Link liefern zusätzlich die exakte Position.
       const lat = stop.item?.lat;
       const lng = stop.item?.lng;
       const hasCoords = typeof lat === "number" && typeof lng === "number";
-      const locationLabel = [stop.item?.name?.trim(), input.cityLabel]
+      const address = locationAddressFromSourceRefs(stop.item?.source_refs);
+      const locationLabel = [stop.item?.name?.trim(), address ?? input.cityLabel]
         .filter((part): part is string => Boolean(part && part.trim()))
         .join(", ");
       const reservationUrl = stop.item?.reservation_url?.trim();
@@ -180,24 +186,35 @@ export function buildPlanPrintHtml(input: PlanExportInput): string {
       const lat = stop.item?.lat;
       const lng = stop.item?.lng;
       const hasCoords = typeof lat === "number" && typeof lng === "number";
+      const address = locationAddressFromSourceRefs(stop.item?.source_refs);
       const mapsUrl = hasCoords
         ? `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
         : null;
-      const reservationUrl = stop.item?.reservation_url?.trim() || null;
+      // HTML-Escaping allein genügt hier nicht: Es verhindert den Ausbruch aus
+      // dem Attribut, aber nicht `javascript:` als Protokoll. reservation_url
+      // stammt aus OSM-Tags (öffentlich editierbar), deshalb Protokollprüfung.
+      const reservationUrl = safeExternalUrl(stop.item?.reservation_url);
       const links = [
         mapsUrl ? `<a class="chip" href="${escapeHtml(mapsUrl)}">📍 Navigation</a>` : "",
         reservationUrl ? `<a class="chip" href="${escapeHtml(reservationUrl)}">Reservieren</a>` : "",
       ]
         .filter(Boolean)
         .join("");
-      const image = stop.exportImageUrl
-        ? `<img class="thumb" src="${escapeHtml(stop.exportImageUrl)}" alt="" />`
+      // Bilder sind in der Praxis absolute URLs (Supabase-Storage, Unsplash);
+      // seitenrelative Pfade bleiben erlaubt, damit nichts wegfällt.
+      const rawImage = stop.exportImageUrl?.trim() ?? "";
+      const imageUrl = rawImage.startsWith("/")
+        ? rawImage
+        : safeExternalUrl(rawImage);
+      const image = imageUrl
+        ? `<img class="thumb" src="${escapeHtml(imageUrl)}" alt="" />`
         : "";
       return `
         <li>
           <div class="time"><span class="idx">${i + 1}</span>${time ? `<span class="clock">${time}</span>` : ""}</div>
           <div class="body">
             <div class="name">${name}</div>
+            ${address ? `<div class="address">${escapeHtml(address)}</div>` : ""}
             ${note ? `<div class="note">${note}</div>` : ""}
             ${metaBits ? `<div class="meta">${metaBits}</div>` : ""}
             ${links ? `<div class="links">${links}</div>` : ""}
@@ -232,6 +249,7 @@ export function buildPlanPrintHtml(input: PlanExportInput): string {
   .clock { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 13px; color: #171717; }
   .body { flex: 1; min-width: 0; }
   .name { font-weight: 600; font-size: 15px; }
+  .address { margin-top: 2px; font-size: 12.5px; color: #6b6b6b; }
   .note { margin-top: 3px; font-size: 13px; color: #555; line-height: 1.45; }
   .meta { margin-top: 4px; font-size: 12px; color: #8a8a8a; }
   .links { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }

@@ -35,6 +35,7 @@ import RecommendationReason from "@/components/RecommendationReason";
 import { writePlannerRouteTemplate, writeRouteBuilderDraft } from "@/lib/routes/planner-route-bridge";
 import { readRouteRunProgress } from "@/lib/routes/route-run-progress";
 import { downloadPlanIcs, openPlanPrintWindow } from "@/lib/planner/plan-export";
+import { locationAddressFromSourceRefs } from "@/lib/planner/location-address";
 import { berlinToday } from "@/lib/planner/berlin-time";
 import { usePremiumStatus } from "@/components/premium/usePremiumStatus";
 import UpgradeModal from "@/components/premium/UpgradeModal";
@@ -1859,6 +1860,34 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
   const { isPremium, usedThisMonth } = usePremiumStatus(userId);
   const [showExportUpgrade, setShowExportUpgrade] = useState(false);
 
+  // Adressen der verknüpften Locations vorladen: Der PDF-Pfad muss synchron
+  // bis window.open laufen (Popup-Blocker), deshalb kein Fetch im Handler.
+  const [exportAddressMap, setExportAddressMap] = useState<Map<string, string>>(new Map());
+  useEffect(() => {
+    const ids = Array.from(new Set(stops.map((stop) => stop.location_id).filter(Boolean) as string[]));
+    if (ids.length === 0) {
+      setExportAddressMap(new Map());
+      return;
+    }
+    let active = true;
+    void supabase
+      .from("locations")
+      .select("id,source_refs")
+      .in("id", ids)
+      .then(({ data, error }) => {
+        if (!active || error) return;
+        const map = new Map<string, string>();
+        for (const row of ((data as Array<{ id: string; source_refs: unknown }>) ?? [])) {
+          const address = locationAddressFromSourceRefs(row.source_refs);
+          if (address) map.set(row.id, address);
+        }
+        setExportAddressMap(map);
+      });
+    return () => {
+      active = false;
+    };
+  }, [stops]);
+
   function handleRouteExport(kind: "pdf" | "ics") {
     if (!route || !stops || stops.length === 0) return;
     if (!isPremium) {
@@ -1881,6 +1910,10 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
           lat: stop.lat,
           lng: stop.lng,
           reservation_url: stop.external_url,
+          source_refs:
+            stop.location_id && exportAddressMap.has(stop.location_id)
+              ? { address: exportAddressMap.get(stop.location_id) }
+              : null,
         },
         exportImageUrl: stop.photo_url,
       })) as unknown as PlannedStop[];

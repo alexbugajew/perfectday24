@@ -42,10 +42,12 @@
     "scripts/planner-wave2-audit.ts",
     "scripts/planner-top13-event-check.ts",
     "scripts/backfill-duration-defaults.ts",
+    "scripts/backfill-location-addresses.ts",
     "scripts/dedup-plannable-locations.ts",
     "scripts/aggregate-usage-scores.ts",
     "lib/cities/**/*.ts",
     "lib/events/**/*.ts",
-    "lib/planner/**/*.ts"
+    "lib/planner/**/*.ts",
+    "lib/security/**/*.ts"
   ]
 }

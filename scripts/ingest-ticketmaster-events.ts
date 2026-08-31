@@ -8,6 +8,10 @@ import {
   type TicketmasterCityInput,
 } from "../lib/events/ticketmaster";
 import { reconcilePlannerEventQualityForCity } from "../lib/events/quality";
+import {
+  getPlannerRolloutCitiesByStage,
+  type PlannerRolloutStage,
+} from "../lib/cities/rollout";
 
 type CityRow = {
   slug: string;
@@ -157,8 +161,15 @@ async function main() {
   }
 
   const cityArg = parseArg("city");
+  const stageArg = parseArg("stage");
   const fromArg = parseArg("from") ?? new Date().toISOString().slice(0, 10);
-  const toArg = parseArg("to") ?? nextDate(new Date(`${fromArg}T00:00:00Z`), 30);
+  // Relatives Fenster für wiederkehrende Läufe (Cron kennt kein absolutes
+  // --to). Ticketmaster listet Tourneen Monate im Voraus — der 30-Tage-Default
+  // fand in Wave4 nur 6 Events, ein 180-Tage-Fenster 149.
+  const horizonDays = parseArg("horizon-days") ? Number(parseArg("horizon-days")) : null;
+  const toArg =
+    parseArg("to") ??
+    nextDate(new Date(`${fromArg}T00:00:00Z`), horizonDays && horizonDays > 0 ? horizonDays : 30);
   const pageLimit = Math.max(1, Number(parseArg("pages") ?? "3"));
   const delayMs = Math.max(0, Number(parseArg("delay-ms") ?? "250"));
   const continueOnError = parseArg("continue-on-error") !== "false";
@@ -177,6 +188,17 @@ async function main() {
   if (cityArg) {
     const slugs = cityArg.split(",").map((value) => value.trim()).filter(Boolean);
     cityQuery = cityQuery.in("slug", slugs);
+  } else if (stageArg) {
+    // Die Wave-Zuordnung lebt nur in der Rollout-Konfiguration, nicht in der
+    // cities-Tabelle — deshalb hier auflösen. Nur sichtbare Städte: für
+    // versteckte lohnt der API-Kontingent-Verbrauch noch nicht.
+    const stageCities = getPlannerRolloutCitiesByStage(stageArg as PlannerRolloutStage)
+      .filter((city) => city.plannerVisibility === "visible");
+    if (stageCities.length === 0) {
+      throw new Error(`Keine sichtbaren Rollout-Staedte fuer --stage=${stageArg}.`);
+    }
+    console.log(`[ticketmaster] Stage ${stageArg}: ${stageCities.length} sichtbare Staedte.`);
+    cityQuery = cityQuery.in("slug", stageCities.map((city) => city.slug));
   }
 
   const { data: cityRows, error: cityError } = await cityQuery;
