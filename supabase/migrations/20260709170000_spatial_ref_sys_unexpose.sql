@@ -1,7 +1,19 @@
 -- rls_disabled_in_public (ERROR) auf public.spatial_ref_sys.
 --
--- STATUS 2026-08-25: NICHT BEHOBEN. Diese Migration kann das Problem nicht
--- loesen; sie dokumentiert es und meldet den Ist-Zustand. Siehe unten.
+-- STATUS 2026-08-31: BEHOBEN — aber nicht durch diese Datei.
+-- Der Supabase-Support hat die PostGIS-Extension nach `extensions` verlagert.
+-- Damit liegt spatial_ref_sys nicht mehr in `public`, ist ueber die Data API
+-- nicht mehr erreichbar und faellt aus dem Geltungsbereich von Lint 0013.
+-- Verifiziert: postgis -> extensions, GET /rest/v1/spatial_ref_sys -> PGRST205,
+-- extensions.spatial_ref_sys haelt 8500 SRIDs, st_srid() funktioniert.
+-- Voraussetzung dafuer war 20260709150000 (search_path um `extensions`
+-- erweitert), sonst haetten die st_*-Aufrufe der App-Routinen ins Leere gezeigt.
+--
+-- Diese Datei bleibt als Dokumentation der Sackgasse erhalten: die do-Bloecke
+-- unten sind seither wirkungslose No-ops (die Tabelle ist nicht mehr in public),
+-- die Analyse daruntern erklaert, warum der naheliegende Fix nie funktionieren
+-- konnte. Wer sie loeschen will, sollte vorher den Abschnitt zur REVOKE-Falle
+-- gelesen haben.
 --
 -- Die urspruengliche Fassung dieser Datei nahm an, ein `revoke` als `postgres`
 -- wuerde die anon/authenticated-Grants entfernen. Live verifiziert am
