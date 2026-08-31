@@ -137,14 +137,29 @@ async function main() {
   // Bestehende Scores laden, um Stale-Einträge (aus dem Fenster gefallen oder
   // unter die Schwelle gerutscht) auf 0 zurückzusetzen.
   type ScoredRow = { id: string; usage_score: number | null };
-  const scored = await fetchAllRows<ScoredRow>((from, to) =>
-    supabase
-      .from("locations")
-      .select("id,usage_score")
-      .gt("usage_score", 0)
-      .order("id", { ascending: true })
-      .range(from, to)
-  );
+  let scored: ScoredRow[];
+  try {
+    scored = await fetchAllRows<ScoredRow>((from, to) =>
+      supabase
+        .from("locations")
+        .select("id,usage_score")
+        .gt("usage_score", 0)
+        .order("id", { ascending: true })
+        .range(from, to)
+    );
+  } catch (error) {
+    // Ohne den Teilindex (Migration 20260831120000) läuft die Abfrage über
+    // 470k+ Zeilen in den Statement-Timeout — sauber enden statt Cron-Rot.
+    if (error instanceof Error && error.message.includes("57014")) {
+      console.log(
+        "[usage] Statement-Timeout beim Lesen bestehender Scores — Migration " +
+          "20260831120000_locations_usage_score_index.sql im SQL-Editor anwenden. " +
+          "Lauf endet ohne Änderungen."
+      );
+      return;
+    }
+    throw error;
+  }
 
   const updates: Array<{ id: string; usage_score: number }> = [];
   for (const [id, score] of targets) {
