@@ -152,21 +152,31 @@ async function fetchOverpassTags(refs: string[]): Promise<Map<string, Record<str
 
   const query = `[out:json][timeout:180];(${parts});out tags;`;
 
-  // Overpass drosselt gern (429/504) — mit Backoff wiederholen statt abbrechen.
-  for (let attempt = 1; attempt <= 4; attempt++) {
-    // Overpass-Etikette: identifizierbarer User-Agent, sonst 406.
-    const response = await fetch(OVERPASS_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": "PerfectDay24-AddressBackfill/1.0 (https://www.perfectday24.de)",
-        Accept: "application/json",
-      },
-      body: `data=${encodeURIComponent(query)}`,
-    });
+  // Overpass drosselt gern (429/504), und bei Last brechen auch Verbindungen
+  // ab (Connect-Timeout) — beides mit Backoff wiederholen statt abbrechen.
+  for (let attempt = 1; attempt <= 6; attempt++) {
+    let response: Response;
+    try {
+      // Overpass-Etikette: identifizierbarer User-Agent, sonst 406.
+      response = await fetch(OVERPASS_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "User-Agent": "PerfectDay24-AddressBackfill/1.0 (https://www.perfectday24.de)",
+          Accept: "application/json",
+        },
+        body: `data=${encodeURIComponent(query)}`,
+      });
+    } catch (error) {
+      const wait = attempt * 20000;
+      const reason = error instanceof Error ? error.message : String(error);
+      console.log(`[adressen] Overpass nicht erreichbar (${reason}) — warte ${wait / 1000}s (Versuch ${attempt}/6)`);
+      await new Promise((r) => setTimeout(r, wait));
+      continue;
+    }
     if (response.status === 429 || response.status === 504) {
       const wait = attempt * 15000;
-      console.log(`[adressen] Overpass ${response.status} — warte ${wait / 1000}s (Versuch ${attempt}/4)`);
+      console.log(`[adressen] Overpass ${response.status} — warte ${wait / 1000}s (Versuch ${attempt}/6)`);
       await new Promise((r) => setTimeout(r, wait));
       continue;
     }
@@ -182,7 +192,7 @@ async function fetchOverpassTags(refs: string[]): Promise<Map<string, Record<str
     }
     return map;
   }
-  throw new Error("Overpass nach 4 Versuchen weiterhin gedrosselt.");
+  throw new Error("Overpass nach 6 Versuchen weiterhin nicht erreichbar/gedrosselt.");
 }
 
 function buildAddress(tags: Record<string, string>, citySlug: string): string | null {
