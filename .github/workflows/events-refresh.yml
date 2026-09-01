@@ -60,6 +60,13 @@ jobs:
       - name: Refresh Ticketmaster events
         run: npm run events:refresh:ticketmaster
 
+      # Expansion-Städte (Wave4/5): Ticketmaster listet dort wenig, aber
+      # Tourneen mit langem Vorlauf — deshalb 180-Tage-Horizont statt 30.
+      - name: Refresh Ticketmaster expansion (wave4/wave5)
+        run: |
+          npm run events:ingest:ticketmaster:wave4
+          npm run events:ingest:ticketmaster:wave5
+
   official:
     if: >-
       github.event_name == 'workflow_dispatch' &&
