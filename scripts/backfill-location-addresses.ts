@@ -329,21 +329,32 @@ async function main() {
           ((locationRows ?? []) as LocationRefsRow[]).map((row) => [row.id, row.source_refs])
         );
 
+        // Reihenfolge pro Paar: erst locations, dann seeds. Scheitert der
+        // Seed-Write, bleibt address=null und der nächste Lauf holt beides
+        // nach (hasAddressEntry verhindert doppelte Merges) — andersherum
+        // ginge der source_refs-Merge dauerhaft verloren.
+        const writeWithRetry = async (job: () => PromiseLike<{ error: { message: string } | null }>) => {
+          for (let attempt = 1; ; attempt++) {
+            const { error } = await job();
+            if (!error) return;
+            // Transiente Gateway-Fehler kommen als HTML-Seite zurück.
+            const message = error.message.startsWith("<") ? "Gateway-Fehler (HTML-Antwort)" : error.message;
+            if (attempt >= 4) throw new Error(`Adress-Update fehlgeschlagen: ${message}`);
+            const wait = attempt * 8000;
+            console.log(`[adressen] Schreibfehler (${message}) — warte ${wait / 1000}s (Versuch ${attempt}/4)`);
+            await new Promise((r) => setTimeout(r, wait));
+          }
+        };
+
         const CHUNK = 10;
         for (let i = 0; i < updates.length; i += CHUNK) {
           const chunk = updates.slice(i, i + CHUNK);
-          const results = await Promise.all(
-            chunk.flatMap((update) => {
+          await Promise.all(
+            chunk.map(async (update) => {
               const locationId = update.seed.published_location_id as string;
               const currentRefs = refsById.get(locationId);
-              const jobs: PromiseLike<{ error: { message: string } | null }>[] = [
-                supabase
-                  .from("location_manual_seeds")
-                  .update({ address: update.address })
-                  .eq("id", update.seed.id),
-              ];
               if (!hasAddressEntry(currentRefs)) {
-                jobs.push(
+                await writeWithRetry(() =>
                   supabase
                     .from("locations")
                     .update({
@@ -352,14 +363,14 @@ async function main() {
                     .eq("id", locationId)
                 );
               }
-              return jobs;
+              await writeWithRetry(() =>
+                supabase
+                  .from("location_manual_seeds")
+                  .update({ address: update.address })
+                  .eq("id", update.seed.id)
+              );
             })
           );
-          for (const result of results) {
-            if (result?.error) {
-              throw new Error(`Adress-Update fehlgeschlagen: ${result.error.message}`);
-            }
-          }
         }
         written += updates.length;
       } else if (DRY_RUN) {
