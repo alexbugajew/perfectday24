@@ -71,10 +71,18 @@ if (!SUPABASE_URL || !SERVICE_KEY) {
 }
 
 const BATCH_SIZE = Math.max(50, Number(parseArg("batch") ?? "250"));
-const DELAY_MS = Math.max(0, Number(parseArg("delay-ms") ?? "1200"));
+const DELAY_MS = Math.max(0, Number(parseArg("delay-ms") ?? "2500"));
 const LIMIT = parseArg("limit") ? Number(parseArg("limit")) : null;
 const DRY_RUN = process.argv.includes("--dry-run");
-const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
+// Mirror-Rotation: Die Haupt-Instanz sperrt IPs nach Dauerlast komplett
+// (Connect-Timeout, nicht nur 429). Bei Nichterreichbarkeit zum nächsten
+// Endpunkt weiterdrehen — Kumi und private.coffee vertragen Batch-Läufe.
+const OVERPASS_URLS = [
+  "https://overpass-api.de/api/interpreter",
+  "https://overpass.kumi.systems/api/interpreter",
+  "https://overpass.private.coffee/api/interpreter",
+];
+let overpassIndex = 0;
 const SKIP_FILE = resolve(process.cwd(), "tmp/address-backfill-no-addr.json");
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
@@ -152,13 +160,15 @@ async function fetchOverpassTags(refs: string[]): Promise<Map<string, Record<str
 
   const query = `[out:json][timeout:180];(${parts});out tags;`;
 
-  // Overpass drosselt gern (429/504), und bei Last brechen auch Verbindungen
-  // ab (Connect-Timeout) — beides mit Backoff wiederholen statt abbrechen.
+  // Overpass drosselt gern (429/504), und bei Dauerlast sperrt die
+  // Haupt-Instanz Verbindungen komplett (Connect-Timeout). Beides behandeln:
+  // zum nächsten Mirror rotieren, mit wachsendem Backoff wiederholen.
   for (let attempt = 1; attempt <= 6; attempt++) {
+    const endpoint = OVERPASS_URLS[overpassIndex % OVERPASS_URLS.length];
     let response: Response;
     try {
       // Overpass-Etikette: identifizierbarer User-Agent, sonst 406.
-      response = await fetch(OVERPASS_URL, {
+      response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -168,15 +178,21 @@ async function fetchOverpassTags(refs: string[]): Promise<Map<string, Record<str
         body: `data=${encodeURIComponent(query)}`,
       });
     } catch (error) {
-      const wait = attempt * 20000;
+      overpassIndex += 1;
+      const wait = attempt * 10000;
       const reason = error instanceof Error ? error.message : String(error);
-      console.log(`[adressen] Overpass nicht erreichbar (${reason}) — warte ${wait / 1000}s (Versuch ${attempt}/6)`);
+      console.log(
+        `[adressen] ${endpoint} nicht erreichbar (${reason}) — Mirror-Wechsel, warte ${wait / 1000}s (Versuch ${attempt}/6)`
+      );
       await new Promise((r) => setTimeout(r, wait));
       continue;
     }
     if (response.status === 429 || response.status === 504) {
-      const wait = attempt * 15000;
-      console.log(`[adressen] Overpass ${response.status} — warte ${wait / 1000}s (Versuch ${attempt}/6)`);
+      overpassIndex += 1;
+      const wait = attempt * 10000;
+      console.log(
+        `[adressen] ${endpoint} → ${response.status} — Mirror-Wechsel, warte ${wait / 1000}s (Versuch ${attempt}/6)`
+      );
       await new Promise((r) => setTimeout(r, wait));
       continue;
     }
