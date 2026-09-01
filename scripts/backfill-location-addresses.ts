@@ -187,7 +187,7 @@ async function fetchOverpassTags(refs: string[]): Promise<Map<string, Record<str
       await new Promise((r) => setTimeout(r, wait));
       continue;
     }
-    if (response.status === 429 || response.status === 504) {
+    if (response.status === 429 || response.status >= 500) {
       overpassIndex += 1;
       const wait = attempt * 10000;
       console.log(
