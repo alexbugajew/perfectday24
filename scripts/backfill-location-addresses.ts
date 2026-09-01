@@ -223,22 +223,28 @@ function buildAddress(tags: Record<string, string>, citySlug: string): string | 
 
 // Keyset-Pagination statt range(): Geschriebene Seeds fallen aus dem
 // address-is-null-Filter — Offsets würden dadurch Zeilen überspringen,
-// ein id-Cursor bleibt stabil.
+// ein id-Cursor bleibt stabil. Der notes-Filter (node/way/relation) läuft
+// bewusst client-seitig: ein OR aus drei LIKEs über 210k Zeilen kippte
+// serverseitig in den Statement-Timeout.
 async function fetchSeedPage(citySlugs: string[] | null, afterId: string | null, pageSize: number) {
-  let query = supabase
-    .from("location_manual_seeds")
-    .select("id, city_slug, notes, published_location_id")
-    .eq("publish_status", "published")
-    .is("address", null)
-    .not("published_location_id", "is", null)
-    .or("notes.like.node/%,notes.like.way/%,notes.like.relation/%")
-    .order("id", { ascending: true })
-    .limit(pageSize);
-  if (afterId) query = query.gt("id", afterId);
-  if (citySlugs) query = query.in("city_slug", citySlugs);
-  const { data, error } = await query;
-  if (error) throw new Error(`Seeds konnten nicht geladen werden: ${error.message}`);
-  return (data ?? []) as SeedRow[];
+  for (let attempt = 1; ; attempt++) {
+    let query = supabase
+      .from("location_manual_seeds")
+      .select("id, city_slug, notes, published_location_id")
+      .eq("publish_status", "published")
+      .is("address", null)
+      .not("published_location_id", "is", null)
+      .order("id", { ascending: true })
+      .limit(pageSize);
+    if (afterId) query = query.gt("id", afterId);
+    if (citySlugs) query = query.in("city_slug", citySlugs);
+    const { data, error } = await query;
+    if (!error) return (data ?? []) as SeedRow[];
+    if (attempt >= 4) throw new Error(`Seeds konnten nicht geladen werden: ${error.message}`);
+    const wait = attempt * 10000;
+    console.log(`[adressen] Seed-Query fehlgeschlagen (${error.message}) — warte ${wait / 1000}s (Versuch ${attempt}/4)`);
+    await new Promise((r) => setTimeout(r, wait));
+  }
 }
 
 type LocationRefsRow = { id: string; source_refs: unknown };
