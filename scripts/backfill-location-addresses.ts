@@ -163,7 +163,7 @@ async function fetchOverpassTags(refs: string[]): Promise<Map<string, Record<str
   // Overpass drosselt gern (429/504), und bei Dauerlast sperrt die
   // Haupt-Instanz Verbindungen komplett (Connect-Timeout). Beides behandeln:
   // zum nächsten Mirror rotieren, mit wachsendem Backoff wiederholen.
-  for (let attempt = 1; attempt <= 6; attempt++) {
+  for (let attempt = 1; attempt <= 12; attempt++) {
     const endpoint = OVERPASS_URLS[overpassIndex % OVERPASS_URLS.length];
     let response: Response;
     try {
@@ -179,19 +179,19 @@ async function fetchOverpassTags(refs: string[]): Promise<Map<string, Record<str
       });
     } catch (error) {
       overpassIndex += 1;
-      const wait = attempt * 10000;
+      const wait = Math.min(attempt * 20000, 240000);
       const reason = error instanceof Error ? error.message : String(error);
       console.log(
-        `[adressen] ${endpoint} nicht erreichbar (${reason}) — Mirror-Wechsel, warte ${wait / 1000}s (Versuch ${attempt}/6)`
+        `[adressen] ${endpoint} nicht erreichbar (${reason}) — Mirror-Wechsel, warte ${wait / 1000}s (Versuch ${attempt}/12)`
       );
       await new Promise((r) => setTimeout(r, wait));
       continue;
     }
     if (response.status === 429 || response.status >= 500) {
       overpassIndex += 1;
-      const wait = attempt * 10000;
+      const wait = Math.min(attempt * 20000, 240000);
       console.log(
-        `[adressen] ${endpoint} → ${response.status} — Mirror-Wechsel, warte ${wait / 1000}s (Versuch ${attempt}/6)`
+        `[adressen] ${endpoint} → ${response.status} — Mirror-Wechsel, warte ${wait / 1000}s (Versuch ${attempt}/12)`
       );
       await new Promise((r) => setTimeout(r, wait));
       continue;
@@ -208,7 +208,7 @@ async function fetchOverpassTags(refs: string[]): Promise<Map<string, Record<str
     }
     return map;
   }
-  throw new Error("Overpass nach 6 Versuchen weiterhin nicht erreichbar/gedrosselt.");
+  throw new Error("Overpass nach 12 Versuchen weiterhin nicht erreichbar/gedrosselt.");
 }
 
 function buildAddress(tags: Record<string, string>, citySlug: string): string | null {
