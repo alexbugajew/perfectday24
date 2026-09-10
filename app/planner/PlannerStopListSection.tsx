@@ -6,6 +6,7 @@ import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLi
 import type { PlannedStop, RouteProfile } from "@/lib/planner";
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
 import { stopPhotoFallback } from "@/lib/stop-photo-fallback";
+import { locationPhotoFromSourceRefs } from "@/lib/planner/location-photo";
 import {
   eventMetaBadges,
   eventTravelPriorityNote,
@@ -70,6 +71,9 @@ export function plannerStopImageUrl(stop: PlannedStop) {
     stringField(item, "cover_image_url") ??
     stringField(item, "thumbnail_url") ??
     stringField(item, "picture_url") ??
+    // Eigene Fotos aus dem Admin-Upload liegen als photo_url-Eintrag in
+    // source_refs (locations hat keine Foto-Spalte) — vor dem Stock-Fallback.
+    locationPhotoFromSourceRefs((item as Record<string, unknown>).source_refs) ??
     firstNestedImageUrl(item);
 
   if (own) return own;
