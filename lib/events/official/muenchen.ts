@@ -78,7 +78,15 @@ function categoryFromText(text: string): OfficialCityEvent["category"] {
   if (/(festival|fruehlingsfest|frühlingsfest|stadtfest|volksfest|maifest|open air kino|filmfest)/.test(normalized)) {
     return "festival";
   }
-  if (/(food|street food|kulinar|genuss|brunch|dinner|tasting)/.test(normalized)) return "food_event";
+  // Show-Signale schlagen Food-Keywords: "Comedy Dinner Show" ist eine Show
+  // mit Essen, kein Food-Event — als food_event ankerte sie den
+  // Markt/Festival-Modus des Planners auf ein Abend-Kabarett (Fund 10.09.).
+  if (
+    /(food|street food|kulinar|genuss|brunch|dinner|tasting)/.test(normalized) &&
+    !/(show|musical|comedy|kabarett|krimi)/.test(normalized)
+  ) {
+    return "food_event";
+  }
   if (/(konzert|concert|band|orchester|jazz|quartet|philharmonie)/.test(normalized)) return "concert";
   if (/(theater|theatre|oper|schauspiel|ballett|ballet)/.test(normalized)) return "theater";
   if (/(show|musical|comedy|kabarett|circus|cirque|performance)/.test(normalized)) return "show";
