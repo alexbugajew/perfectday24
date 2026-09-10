@@ -7,8 +7,13 @@
 // andere braucht einen Klick. Vor dem Upload wird das Bild per Canvas auf
 // Web-Größe verkleinert — das hält den Request unter dem Vercel-Limit und
 // entfernt nebenbei die EXIF-Daten (GPS bleibt nicht in der Public-URL).
+//
+// State-Disziplin (Review-Befund 10.09.): Alle asynchronen Abläufe lesen den
+// AKTUELLEN Stand über itemsRef statt über eingefrorene Closures — sonst
+// ignoriert der Batch-Upload Korrekturen, die der Admin während des
+// minutenlangen Laufs an der Auswahl macht, oder lädt Items doppelt hoch.
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import exifr from "exifr";
 import {
   autoSelectCandidate,
@@ -61,6 +66,9 @@ async function downscaleToJpeg(file: File): Promise<Blob> {
   canvas.height = height;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas nicht verfügbar");
+  // Weißer Grund statt Schwarz für transparente PNG/WebP-Flächen.
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, width, height);
   ctx.drawImage(bitmap, 0, 0, width, height);
   bitmap.close();
   return await new Promise<Blob>((resolve, reject) => {
@@ -73,21 +81,54 @@ async function downscaleToJpeg(file: File): Promise<Blob> {
 }
 
 export default function FotoUploadClient() {
-  const [items, setItems] = useState<PhotoItem[]>([]);
-  const [citySlug, setCitySlug] = useState("");
-  const [dragActive, setDragActive] = useState(false);
-  const [uploadingAll, setUploadingAll] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  // citySlug zum Zeitpunkt des Kandidaten-Abrufs — State wäre in der
-  // async-Schleife veraltet.
+  // itemsRef spiegelt den State synchron — asynchrone Schleifen (Batch-Upload,
+  // EXIF-Verarbeitung) lesen NUR über die Ref, nie über Closure-Snapshots.
+  const [items, setItemsState] = useState<PhotoItem[]>([]);
+  const itemsRef = useRef<PhotoItem[]>([]);
+  const setItems = useCallback(
+    (updater: PhotoItem[] | ((current: PhotoItem[]) => PhotoItem[])) => {
+      setItemsState((current) => {
+        const next = typeof updater === "function" ? updater(current) : updater;
+        itemsRef.current = next;
+        return next;
+      });
+    },
+    []
+  );
+
+  const [cityText, setCityText] = useState("");
+  const citySlug = useMemo(() => {
+    const trimmed = cityText.trim();
+    if (!trimmed) return "";
+    const match = EVENT_SUPPORTED_CITY_OPTIONS.find(
+      (c) => c.name.toLowerCase() === trimmed.toLowerCase() || c.slug === trimmed
+    );
+    return match ? match.slug : "";
+  }, [cityText]);
   const cityRef = useRef(citySlug);
   cityRef.current = citySlug;
 
-  const patchItem = useCallback((key: string, patch: Partial<PhotoItem>) => {
-    setItems((current) =>
-      current.map((item) => (item.key === key ? { ...item, ...patch } : item))
-    );
+  const [dragActive, setDragActive] = useState(false);
+  const [uploadingAll, setUploadingAll] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Objekt-URLs beim Unmount freigeben (Vorschaubilder halten sonst Speicher).
+  useEffect(() => {
+    return () => {
+      for (const item of itemsRef.current) {
+        URL.revokeObjectURL(item.previewUrl);
+      }
+    };
   }, []);
+
+  const patchItem = useCallback(
+    (key: string, patch: Partial<PhotoItem>) => {
+      setItems((current) =>
+        current.map((item) => (item.key === key ? { ...item, ...patch } : item))
+      );
+    },
+    [setItems]
+  );
 
   const loadCandidates = useCallback(
     async (key: string, gps: { lat: number; lng: number } | null, searchTerm?: string) => {
@@ -112,9 +153,16 @@ export default function FotoUploadClient() {
 
       try {
         const res = await fetch(`/api/admin/location-photos?${params.toString()}`);
-        const data = (await res.json()) as { candidates?: CandidateFromApi[]; error?: string };
-        if (!res.ok || !data.candidates) {
-          throw new Error(data.error ?? `HTTP ${res.status}`);
+        if (res.status === 401 || res.status === 403) {
+          throw new Error("Session abgelaufen — bitte Seite neu laden und anmelden.");
+        }
+        const data = (await res.json().catch(() => null)) as {
+          candidates?: CandidateFromApi[];
+          truncated?: boolean;
+          error?: string;
+        } | null;
+        if (!res.ok || !data?.candidates) {
+          throw new Error(data?.error ?? `HTTP ${res.status}`);
         }
         const usable = data.candidates.filter(
           (candidate): candidate is CandidateFromApi & { lat: number; lng: number } =>
@@ -127,7 +175,9 @@ export default function FotoUploadClient() {
           ...candidate,
           hasOwnPhoto: usable.find((entry) => entry.id === candidate.id)?.hasOwnPhoto ?? false,
         }));
-        const autoId = gps ? autoSelectCandidate(withPhotoFlag) : null;
+        // Abgeschnittene Kandidatenmenge: die nächste Location könnte fehlen —
+        // dann keine Vorauswahl, der Mensch muss hinsehen.
+        const autoId = gps && !data.truncated ? autoSelectCandidate(withPhotoFlag) : null;
         patchItem(key, {
           status: "bereit",
           candidates: withPhotoFlag,
@@ -136,9 +186,11 @@ export default function FotoUploadClient() {
           message:
             withPhotoFlag.length === 0
               ? gps
-                ? "Keine Location im Umkreis von ~700 m gefunden."
+                ? "Keine Location im Umkreis von ~300 m gefunden — Namenssuche versuchen."
                 : "Kein Treffer — anderen Suchbegriff versuchen."
-              : null,
+              : data.truncated
+                ? "Sehr dichte Gegend — Vorschläge unvollständig, bitte manuell bestätigen."
+                : null,
         });
       } catch (error) {
         patchItem(key, {
@@ -152,28 +204,39 @@ export default function FotoUploadClient() {
 
   const addFiles = useCallback(
     async (files: FileList | File[]) => {
-      const accepted = Array.from(files)
-        .filter((file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type))
-        .slice(0, MAX_BATCH);
-
-      const fresh: PhotoItem[] = accepted.map((file) => ({
-        key: itemKey(file),
-        file,
-        previewUrl: URL.createObjectURL(file),
-        gps: null,
-        candidates: [],
-        selectedId: null,
-        autoSelected: false,
-        searchTerm: "",
-        status: "vorbereitet",
-        message: null,
-        routeStopsFilled: 0,
-      }));
-
-      setItems((current) => {
-        const known = new Set(current.map((item) => item.key));
-        return [...current, ...fresh.filter((item) => !known.has(item.key))];
-      });
+      const incoming = Array.from(files);
+      const accepted = incoming.filter((file) =>
+        ["image/jpeg", "image/png", "image/webp"].includes(file.type)
+      );
+      // Dedup gegen den AKTUELLEN Stand, bevor irgendetwas angelegt wird —
+      // sonst setzt ein erneutes Hinzufügen fertige Items zurück.
+      const known = new Set(itemsRef.current.map((item) => item.key));
+      const fresh: PhotoItem[] = [];
+      for (const file of accepted) {
+        if (fresh.length >= MAX_BATCH) break;
+        const key = itemKey(file);
+        if (known.has(key)) continue;
+        known.add(key);
+        fresh.push({
+          key,
+          file,
+          previewUrl: URL.createObjectURL(file),
+          gps: null,
+          candidates: [],
+          selectedId: null,
+          autoSelected: false,
+          searchTerm: "",
+          status: "vorbereitet",
+          message: null,
+          routeStopsFilled: 0,
+        });
+      }
+      const skipped = incoming.length - fresh.length;
+      setItems((current) => [...current, ...fresh]);
+      if (skipped > 0 && fresh.length === 0) {
+        // Alles Duplikate oder nicht unterstützte Typen (z. B. HEIC).
+        return;
+      }
 
       for (const item of fresh) {
         let gps: { lat: number; lng: number } | null = null;
@@ -194,13 +257,16 @@ export default function FotoUploadClient() {
         await loadCandidates(item.key, gps);
       }
     },
-    [loadCandidates, patchItem]
+    [loadCandidates, patchItem, setItems]
   );
 
+  /** Lädt EIN Item hoch — liest den aktuellen Stand über itemsRef. */
   const uploadItem = useCallback(
-    async (item: PhotoItem) => {
-      if (!item.selectedId) return;
-      patchItem(item.key, { status: "lädt-hoch", message: null });
+    async (key: string) => {
+      const item = itemsRef.current.find((candidate) => candidate.key === key);
+      if (!item || !item.selectedId) return;
+      if (item.status !== "bereit" && item.status !== "fehler") return;
+      patchItem(key, { status: "lädt-hoch", message: null });
       try {
         const blob = await downscaleToJpeg(item.file);
         const selected = item.candidates.find((candidate) => candidate.id === item.selectedId);
@@ -214,21 +280,29 @@ export default function FotoUploadClient() {
           body.append("gpsLng", String(item.gps.lng));
         }
         const res = await fetch("/api/admin/location-photos", { method: "POST", body });
-        const data = (await res.json()) as {
+        if (res.status === 401 || res.status === 403) {
+          throw new Error("Session abgelaufen — bitte Seite neu laden und anmelden.");
+        }
+        const data = (await res.json().catch(() => null)) as {
           ok?: boolean;
           error?: string;
           routeStopsFilled?: number;
-        };
-        if (!res.ok || !data.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
-        patchItem(item.key, {
+        } | null;
+        if (!res.ok || !data?.ok) throw new Error(data?.error ?? `HTTP ${res.status}`);
+        patchItem(key, {
           status: "fertig",
           routeStopsFilled: data.routeStopsFilled ?? 0,
           message: null,
         });
       } catch (error) {
-        patchItem(item.key, {
+        patchItem(key, {
           status: "fehler",
-          message: error instanceof Error ? error.message : "Upload fehlgeschlagen.",
+          message:
+            error instanceof Error
+              ? error.name === "InvalidStateError" || /decode|bitmap/i.test(error.message)
+                ? "Bild konnte nicht dekodiert werden (HEIC? Als JPEG exportieren)."
+                : error.message
+              : "Upload fehlgeschlagen.",
         });
       }
     },
@@ -238,16 +312,15 @@ export default function FotoUploadClient() {
   const uploadAllReady = useCallback(async () => {
     setUploadingAll(true);
     try {
-      // Snapshot statt State-Referenz: Uploads laufen nacheinander, damit
-      // 30 parallele Requests nicht das Vercel-Limit oder die DB treffen.
-      let snapshot: PhotoItem[] = [];
-      setItems((current) => {
-        snapshot = current;
-        return current;
-      });
-      for (const item of snapshot) {
-        if (item.status === "bereit" && item.selectedId) {
-          await uploadItem(item);
+      // Schlüssel-Liste einmal ziehen, aber jedes Item zum Upload-Zeitpunkt
+      // FRISCH lesen: Korrekturen während des Laufs zählen, bereits (einzeln)
+      // hochgeladene Items werden übersprungen. Sequenziell, damit 30
+      // parallele Requests nicht Vercel-Limit oder DB treffen.
+      const keys = itemsRef.current.map((item) => item.key);
+      for (const key of keys) {
+        const current = itemsRef.current.find((item) => item.key === key);
+        if (current && current.status === "bereit" && current.selectedId) {
+          await uploadItem(key);
         }
       }
     } finally {
@@ -280,15 +353,14 @@ export default function FotoUploadClient() {
           list="stadt-optionen"
           className="rounded-lg border border-[rgba(68,57,46,0.2)] bg-white px-3 py-1.5 text-sm"
           placeholder="alle Städte"
-          value={EVENT_SUPPORTED_CITY_OPTIONS.find((c) => c.slug === citySlug)?.name ?? citySlug}
-          onChange={(event) => {
-            const value = event.target.value;
-            const match = EVENT_SUPPORTED_CITY_OPTIONS.find(
-              (c) => c.name === value || c.slug === value
-            );
-            setCitySlug(match ? match.slug : value === "" ? "" : citySlug);
-          }}
+          value={cityText}
+          onChange={(event) => setCityText(event.target.value)}
         />
+        {cityText.trim() && !citySlug && (
+          <span className="text-xs text-[var(--text-muted)]">
+            (kein Städte-Treffer — Filter inaktiv)
+          </span>
+        )}
         <datalist id="stadt-optionen">
           {EVENT_SUPPORTED_CITY_OPTIONS.map((city) => (
             <option key={city.slug} value={city.name} />
@@ -420,16 +492,27 @@ export default function FotoUploadClient() {
                 </div>
               )}
 
+              {item.status === "fehler" && item.gps && item.candidates.length === 0 && (
+                <button
+                  type="button"
+                  className="mt-2 rounded-lg border border-[rgba(68,57,46,0.3)] px-3 py-1.5 text-sm"
+                  onClick={() => void loadCandidates(item.key, item.gps, item.searchTerm)}
+                >
+                  Kandidaten erneut suchen
+                </button>
+              )}
+
               {item.status !== "fertig" && item.candidates.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-2">
                   {item.candidates.map((candidate) => (
                     <button
                       key={candidate.id}
                       type="button"
+                      disabled={item.status === "lädt-hoch"}
                       onClick={() =>
                         patchItem(item.key, { selectedId: candidate.id, autoSelected: false })
                       }
-                      className={`rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+                      className={`rounded-full border px-3 py-1.5 text-xs font-medium transition disabled:opacity-50 ${
                         item.selectedId === candidate.id
                           ? "border-[#171717] bg-[#171717] text-white"
                           : "border-[rgba(68,57,46,0.25)] bg-white hover:border-[#171717]"
@@ -444,20 +527,14 @@ export default function FotoUploadClient() {
                 </div>
               )}
 
-              {item.status === "bereit" && item.selectedId && (
+              {(item.status === "bereit" || item.status === "fehler") && item.selectedId && (
                 <button
                   type="button"
-                  className="mt-3 rounded-full bg-[#171717] px-4 py-1.5 text-xs font-semibold text-white"
-                  onClick={() => {
-                    let target: PhotoItem | undefined;
-                    setItems((current) => {
-                      target = current.find((candidate) => candidate.key === item.key);
-                      return current;
-                    });
-                    if (target) void uploadItem(target);
-                  }}
+                  disabled={uploadingAll}
+                  className="mt-3 rounded-full bg-[#171717] px-4 py-1.5 text-xs font-semibold text-white disabled:opacity-40"
+                  onClick={() => void uploadItem(item.key)}
                 >
-                  Dieses Foto hochladen
+                  {item.status === "fehler" ? "Upload erneut versuchen" : "Dieses Foto hochladen"}
                 </button>
               )}
             </div>

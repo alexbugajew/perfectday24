@@ -89,3 +89,52 @@ describe("locationPhotoFromSourceRefs", () => {
     assert.equal(locationPhotoFromSourceRefs({ photo_url: "   " }), null);
   });
 });
+
+describe("photo-refs: mergePhotoEntry / findOwnPhotoEntry", () => {
+  const { mergePhotoEntry, findOwnPhotoEntry, storagePathFromPublicUrl } =
+    require("../lib/admin/photo-refs") as typeof import("../lib/admin/photo-refs");
+
+  const OLD_ENTRY = {
+    photo_url: "https://x.supabase.co/storage/v1/object/public/partner-media/location-photos/abc/1.jpg",
+    photo_source: "owner_upload",
+    media_asset_id: "asset-1",
+    storage_path: "location-photos/abc/1.jpg",
+  };
+  const NEW_ENTRY = { photo_url: "https://neu.jpg", photo_source: "owner_upload", media_asset_id: "asset-2" };
+
+  it("ersetzt den eigenen Eintrag, fremde bleiben stehen", () => {
+    const refs = [{ seed_id: "s" }, { address: "Musterweg 1" }, OLD_ENTRY];
+    const merged = mergePhotoEntry(refs, NEW_ENTRY) as unknown[];
+    assert.equal(merged.length, 3);
+    assert.deepEqual(merged[0], { seed_id: "s" });
+    assert.deepEqual(merged[1], { address: "Musterweg 1" });
+    assert.deepEqual(merged[2], NEW_ENTRY);
+  });
+
+  it("hebt Objektform in ein Array mit beiden Einträgen", () => {
+    const merged = mergePhotoEntry({ eventCategory: "concert" }, NEW_ENTRY) as unknown[];
+    assert.deepEqual(merged, [{ eventCategory: "concert" }, NEW_ENTRY]);
+  });
+
+  it("findet den eigenen Eintrag samt Aufräum-Metadaten", () => {
+    const found = findOwnPhotoEntry([{ seed_id: "s" }, OLD_ENTRY]);
+    assert.deepEqual(found, {
+      photo_url: OLD_ENTRY.photo_url,
+      media_asset_id: "asset-1",
+      storage_path: "location-photos/abc/1.jpg",
+    });
+  });
+
+  it("liefert null ohne eigenen Eintrag", () => {
+    assert.equal(findOwnPhotoEntry([{ seed_id: "s" }, { address: "x" }]), null);
+    assert.equal(findOwnPhotoEntry(null), null);
+  });
+
+  it("leitet den Storage-Pfad aus der Public-URL ab", () => {
+    assert.equal(
+      storagePathFromPublicUrl(OLD_ENTRY.photo_url, "partner-media"),
+      "location-photos/abc/1.jpg"
+    );
+    assert.equal(storagePathFromPublicUrl("https://fremd.example/bild.jpg", "partner-media"), null);
+  });
+});

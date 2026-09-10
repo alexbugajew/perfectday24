@@ -16,6 +16,12 @@ import {
   getSupabaseAdmin,
 } from "@/lib/monetization/admin-server";
 import { locationPhotoFromSourceRefs } from "@/lib/planner/location-photo";
+import {
+  findOwnPhotoEntry,
+  mergePhotoEntry,
+  storagePathFromPublicUrl,
+  type SourceRefEntry,
+} from "@/lib/admin/photo-refs";
 
 export const runtime = "nodejs";
 
@@ -75,10 +81,14 @@ export async function GET(req: Request) {
   const select = "id,name,type,category,city_slug,lat,lng,source_refs";
 
   if (Number.isFinite(lat) && Number.isFinite(lng)) {
-    // ~700 m Bounding-Box; die Feinsortierung nach Distanz macht der Client
+    // ~300 m Bounding-Box; die Feinsortierung nach Distanz macht der Client
     // (lib/admin/photo-matching), damit die DB nur einen Index-Scan braucht.
-    const dLat = 0.0063;
-    const dLng = 0.0063 / Math.max(0.2, Math.cos((lat * Math.PI) / 180));
+    // Limit hoch + truncated-Flag: ohne serverseitige Distanz-Sortierung darf
+    // ein abgeschnittenes Ergebnis nie unbemerkt bleiben — sonst kann die
+    // tatsächlich nächste Location fehlen und die Vorauswahl greift daneben.
+    const LIMIT = 300;
+    const dLat = 0.0027;
+    const dLng = 0.0027 / Math.max(0.2, Math.cos((lat * Math.PI) / 180));
     let query = supabase
       .from("locations")
       .select(select)
@@ -87,13 +97,17 @@ export async function GET(req: Request) {
       .lte("lat", lat + dLat)
       .gte("lng", lng - dLng)
       .lte("lng", lng + dLng)
-      .limit(60);
+      .limit(LIMIT);
     if (city) query = query.eq("city_slug", city);
     const { data, error } = await query;
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
-    return NextResponse.json({ candidates: ((data ?? []) as LocationRow[]).map(candidatePayload) });
+    const rows = (data ?? []) as LocationRow[];
+    return NextResponse.json({
+      candidates: rows.map(candidatePayload),
+      truncated: rows.length >= LIMIT,
+    });
   }
 
   if (q && q.length >= 2) {
@@ -112,29 +126,6 @@ export async function GET(req: Request) {
   }
 
   return NextResponse.json({ error: "lat/lng oder q angeben." }, { status: 400 });
-}
-
-type SourceRefEntry = Record<string, unknown>;
-
-/**
- * Foto-Eintrag ins source_refs-Array mergen. Ein bestehender
- * owner_upload-Eintrag wird ersetzt (erneuter Upload = besseres Foto),
- * fremde Einträge bleiben unangetastet.
- */
-function mergePhotoEntry(refs: unknown, entry: SourceRefEntry): unknown {
-  const isOwnPhotoEntry = (candidate: unknown) =>
-    Boolean(
-      candidate &&
-        typeof candidate === "object" &&
-        (candidate as SourceRefEntry).photo_source === "owner_upload"
-    );
-  if (Array.isArray(refs)) {
-    return [...refs.filter((existing) => !isOwnPhotoEntry(existing)), entry];
-  }
-  if (refs && typeof refs === "object") {
-    return [refs, entry];
-  }
-  return [entry];
 }
 
 export async function POST(req: Request) {
@@ -234,14 +225,26 @@ export async function POST(req: Request) {
     );
   }
 
+  // source_refs FRISCH lesen — der Storage-Upload dauert Sekunden, und ein
+  // parallel laufender Adress-Backfill könnte den Stand von oben inzwischen
+  // verändert haben (Read-Modify-Write-Fenster so klein wie möglich halten).
+  const { data: freshRow } = await supabase
+    .from("locations")
+    .select("source_refs")
+    .eq("id", location.id)
+    .maybeSingle();
+  const currentRefs = (freshRow as { source_refs: unknown } | null)?.source_refs ?? location.source_refs;
+  const previousPhoto = findOwnPhotoEntry(currentRefs);
+
   const photoEntry: SourceRefEntry = {
     photo_url: publicUrl,
     photo_source: "owner_upload",
     media_asset_id: (assetRow as { id: string } | null)?.id ?? null,
+    storage_path: storagePath,
   };
   const { error: refsError } = await supabase
     .from("locations")
-    .update({ source_refs: mergePhotoEntry(location.source_refs, photoEntry) })
+    .update({ source_refs: mergePhotoEntry(currentRefs, photoEntry) })
     .eq("id", location.id);
   if (refsError) {
     return NextResponse.json(
@@ -250,19 +253,46 @@ export async function POST(req: Request) {
     );
   }
 
-  // Routen-Stops derselben Location ohne Foto bekommen es direkt — bestehende
-  // Bilder werden bewusst nicht überschrieben (Kuration bleibt Handarbeit).
+  // Routen-Stops derselben Location: leere Felder füllen, und beim Ersetzen
+  // die alte URL auf die neue umziehen — sonst zeigen Stops das „ersetzte"
+  // Foto weiter. Fremde Fotos bleiben unangetastet (Kuration ist Handarbeit).
   const { data: stopRows, error: stopsError } = await supabase
     .from("user_route_stops")
     .update({ photo_url: publicUrl })
     .eq("location_id", location.id)
     .is("photo_url", null)
     .select("id");
+  let stopsMigrated = 0;
+  if (previousPhoto && previousPhoto.photo_url !== publicUrl) {
+    const { data: migratedRows } = await supabase
+      .from("user_route_stops")
+      .update({ photo_url: publicUrl })
+      .eq("location_id", location.id)
+      .eq("photo_url", previousPhoto.photo_url)
+      .select("id");
+    stopsMigrated = (migratedRows ?? []).length;
+  }
+
+  // Alt-Bestand des ersetzten Fotos aufräumen: Der Bucket ist public — ohne
+  // Löschung bliebe ein „ersetztes" (z. B. falsch zugeordnetes) Foto dauerhaft
+  // öffentlich erreichbar und als freigegebenes Asset im media_assets-Bestand.
+  if (previousPhoto && previousPhoto.photo_url !== publicUrl) {
+    const oldPath =
+      previousPhoto.storage_path ??
+      storagePathFromPublicUrl(previousPhoto.photo_url, STORAGE_BUCKET);
+    if (oldPath && oldPath !== storagePath) {
+      await supabase.storage.from(STORAGE_BUCKET).remove([oldPath]);
+    }
+    if (previousPhoto.media_asset_id) {
+      await supabase.from("media_assets").delete().eq("id", previousPhoto.media_asset_id);
+    }
+  }
 
   return NextResponse.json({
     ok: true,
     photoUrl: publicUrl,
     location: { id: location.id, name: location.name, citySlug: location.city_slug },
-    routeStopsFilled: stopsError ? 0 : (stopRows ?? []).length,
+    routeStopsFilled: (stopsError ? 0 : (stopRows ?? []).length) + stopsMigrated,
+    replacedPrevious: Boolean(previousPhoto && previousPhoto.photo_url !== publicUrl),
   });
 }
