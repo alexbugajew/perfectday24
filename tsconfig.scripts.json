@@ -45,6 +45,7 @@
     "scripts/backfill-location-addresses.ts",
     "scripts/dedup-plannable-locations.ts",
     "scripts/aggregate-usage-scores.ts",
+    "lib/admin/**/*.ts",
     "lib/cities/**/*.ts",
     "lib/events/**/*.ts",
     "lib/planner/**/*.ts",
