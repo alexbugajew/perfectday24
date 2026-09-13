@@ -32,6 +32,8 @@ export const ANALYTICS_EVENTS = {
   signupCompleted: "signup_completed",
   /** Stripe-Checkout gestartet (noch kein Abschluss — der kommt per Webhook). */
   checkoutStarted: "checkout_started",
+  /** Premium-Vormerkung im Vorstart-Modus (Stripe noch nicht live, s. lib/premium/prelaunch.ts). */
+  premiumWaitlisted: "premium_waitlist",
   /** Partner-Interesse: Klick auf einen Akquise-CTA der Partnerseite. */
   partnerLead: "partner_lead",
 } as const;
@@ -59,5 +61,6 @@ export type AnalyticsEventProps = {
     plan: "user_premium" | "partner_basic" | "partner_pro";
     interval?: "month" | "year";
   };
+  premium_waitlist: { interval?: "month" | "year" };
   partner_lead: { surface: string };
 };
