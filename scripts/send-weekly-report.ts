@@ -130,13 +130,18 @@ async function countEventType(sb: SupabaseClient, r: Range, eventType: string): 
 }
 
 async function computeMrrCents(sb: SupabaseClient): Promise<number> {
-  // Aktuelle MRR aus aktiven Partner-Subs. Kein Zeitfenster —
+  // Aktuelle MRR aus zahlenden Partner-Subs. Kein Zeitfenster —
   // Snapshot zum Report-Zeitpunkt.
+  //
+  // NUR "active" zählt: Eine Testphase ("trial") bringt keinen Umsatz, sonst
+  // meldet der Report Phantom-MRR (14.09.: 6 Demo-Trials + 2 Test-Profile
+  // ergaben 894 EUR, obwohl Stripe nie live war). "manual" ist bewusst raus,
+  // bis es einen echten manuell fakturierten Partner gibt — dann hier ergänzen.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data, error } = await (sb as any)
     .from("partner_profiles")
     .select("visibility_tier,billing_status")
-    .in("billing_status", ["active", "trial", "manual"]);
+    .eq("billing_status", "active");
   if (error) {
     console.warn("computeMrrCents:", error.message);
     return 0;
