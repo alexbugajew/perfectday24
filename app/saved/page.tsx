@@ -790,7 +790,30 @@ export default function SavedPage() {
 
   const isEmpty = !isLoading && !hasError && plans.length === 0 && savedRoutes.length === 0 && roadtripRoutes.length === 0 && eventPlans.length === 0;
 
-  if (!mounted) return null;
+  if (!mounted) {
+    // Vor dem Mount stand hier `null` — damit fehlte im SSR-HTML die komplette
+    // Seite samt <h1> (Audit 08/2026, Abschnitt 4). Crawler bewerten genau
+    // dieses HTML, deshalb liefert der Server jetzt den identischen Seitenkopf
+    // wie nach dem Mount; die Inhalte laden anschließend im Browser nach.
+    return (
+      <div className="pd24-page-wide space-y-6">
+        <section className="flex flex-wrap items-center justify-between gap-3">
+          <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-3xl">
+            Meine Pläne
+          </h1>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/planner" className="pd24-btn pd24-btn-sm pd24-btn-primary">
+              Neuen Plan starten
+            </Link>
+            <Link href="/explore" className="pd24-btn pd24-btn-sm pd24-btn-secondary">
+              Entdecken
+            </Link>
+          </div>
+        </section>
+        <p className="text-sm text-[var(--text-muted)]">Gespeicherte Inhalte werden geladen...</p>
+      </div>
+    );
+  }
 
   if (authReady && !userId) {
     return (

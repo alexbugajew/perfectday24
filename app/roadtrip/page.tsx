@@ -707,7 +707,23 @@ function RoadtripPageContent() {
     }
   }
 
-  if (!mounted) return null;
+  if (!mounted) {
+    // Vor dem Mount stand hier `null` — damit fehlte im SSR-HTML die komplette
+    // Seite samt <h1> (Audit 08/2026, Abschnitt 4). Der Server liefert jetzt
+    // denselben Seitenkopf wie nach dem Mount, die Inhalte laden im Browser nach.
+    return (
+      <main className="pd24-page-wide space-y-4">
+        <section className="relative overflow-hidden rounded-xl border border-[var(--line-subtle)] bg-white px-4 py-4 shadow-[var(--shadow-soft)] sm:px-5">
+          <h1 className="text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
+            Von wo nach wo soll’s gehen?
+          </h1>
+          <p className="mt-1.5 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
+            Trag zwei Städte ein, wähle die Tage — wir bauen die Etappen, Hotels und Tagespläne dazu.
+          </p>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="pd24-page-wide space-y-4">

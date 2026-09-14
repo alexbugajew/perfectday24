@@ -8,8 +8,9 @@ import { getReachStats } from "@/lib/reach-stats";
 // Täglich neu bauen: die Städte-Zahl kommt aus lib/reach-stats.
 export const revalidate = 86400;
 
-const partnerOg = "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&h=630&fit=crop&auto=format&q=80";
-
+// Kein eigenes og:image mehr: Die externe Unsplash-URL als Vorschaubild war
+// eine fremde Abhängigkeit (Audit 08/2026, Abschnitt 4). Ohne eigenen Eintrag
+// greift das PD24-Markenbild aus app/opengraph-image.tsx (Dateikonvention).
 export const metadata: Metadata = {
   title: "Partner werden | PerfectDay24 — Sichtbarkeit für Hotels, Locations & Erlebnisse",
   description: "Werde Partner auf PerfectDay24 und erscheine dort, wo Nutzer aktiv planen: Tagesrouten, Roadtrips, Events und Explore. Kostenlos starten, sofort sichtbar.",
@@ -18,13 +19,11 @@ export const metadata: Metadata = {
     description: "Zeige dein Angebot Nutzern, die gerade aktiv einen perfekten Tag, Roadtrip oder Event planen. Über 550 deutsche Groß- und Mittelstädte abgedeckt.",
     type: "website",
     locale: "de_DE",
-    images: [{ url: partnerOg, width: 1200, height: 630, alt: "Restaurant-Atmosphaere — PerfectDay24 Partner" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Partner werden | PerfectDay24",
     description: "Zeige dein Angebot dort, wo Nutzer aktiv planen und buchen. Kostenlos starten.",
-    images: [partnerOg],
   },
 };
 

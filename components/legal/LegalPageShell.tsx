@@ -5,6 +5,9 @@ type LegalPageShellProps = {
   title: string;
   updatedAt: string;
   intro: string;
+  // null blendet das Badge aus: Seiten wie /quellen sind keine
+  // Platzhalter-Rechtstexte und dürfen nicht so wirken.
+  badge?: string | null;
   children: React.ReactNode;
 };
 
@@ -12,6 +15,21 @@ type LegalSectionProps = {
   title: string;
   children: React.ReactNode;
 };
+
+/**
+ * Kennzeichnet eine Pflichtangabe, die noch nicht vorliegt.
+ *
+ * Bewusst laut statt dezent: Ein leeres Feld sieht aus wie eine fertige Seite,
+ * eine sichtbare Luecke nicht. Solange hier etwas steht, darf das Gate nicht
+ * geoeffnet werden.
+ */
+export function Offen({ was }: { was: string }) {
+  return (
+    <span className="inline-flex items-center rounded-md border border-[rgba(185,28,28,0.35)] bg-[rgba(254,226,226,0.75)] px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-[#991b1b]">
+      Fehlt noch: {was}
+    </span>
+  );
+}
 
 export function LegalSection({ title, children }: LegalSectionProps) {
   return (
@@ -28,6 +46,7 @@ export default function LegalPageShell({
   title,
   updatedAt,
   intro,
+  badge = "Platzhalterversion",
   children,
 }: LegalPageShellProps) {
   return (
@@ -52,12 +71,20 @@ export default function LegalPageShell({
           >
             AGB
           </Link>
+          <Link
+            href="/quellen"
+            className="rounded-full border border-[var(--line-subtle)] px-3 py-1 transition hover:border-[var(--brand-accent)] hover:text-[var(--text-strong)]"
+          >
+            Quellen &amp; Lizenzen
+          </Link>
           <ConsentSettingsLink className="rounded-full border border-[var(--line-subtle)] px-3 py-1 transition hover:border-[var(--brand-accent)] hover:text-[var(--text-strong)]" />
         </div>
 
-        <div className="mt-6 inline-flex rounded-full border border-[rgba(202,138,4,0.18)] bg-[rgba(254,249,195,0.7)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#92400e]">
-          Platzhalterversion
-        </div>
+        {badge ? (
+          <div className="mt-6 inline-flex rounded-full border border-[rgba(202,138,4,0.18)] bg-[rgba(254,249,195,0.7)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#92400e]">
+            {badge}
+          </div>
+        ) : null}
 
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-5xl">
           {title}

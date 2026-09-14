@@ -2,10 +2,14 @@ export default function ProfileLoading() {
   return (
     <div className="pd24-page-standard animate-pulse min-h-screen bg-[var(--bg-canvas-warm)]">
       <div className="space-y-6 px-4 py-8 sm:px-6">
-        {/* Header */}
+        {/* Header — echte Überschrift statt Platzhalterbalken: loading.tsx ist
+            das einzige, was vom Profil zuverlässig im SSR-HTML landet; ohne
+            h1 hier hat die Seite für Crawler keine (Audit 08/2026, Abschn. 4). */}
         <div className="space-y-2">
-          <div className="h-3 w-20 rounded-full bg-[var(--bg-panel)]" />
-          <div className="h-8 w-40 rounded-full bg-[var(--bg-panel)]" />
+          <div className="pd24-kicker-warm">Konto</div>
+          <h1 className="text-2xl font-semibold text-[var(--text-strong)] sm:text-3xl">
+            Dein Profil
+          </h1>
           <div className="h-4 w-80 rounded-full bg-[var(--bg-panel)]" />
         </div>
 

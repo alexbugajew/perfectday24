@@ -1137,9 +1137,17 @@ function ExplorePageContent() {
               <div className="inline-flex rounded-full border border-[var(--line-subtle)] bg-white px-3 py-1 pd24-meta">
                 Entdecken
               </div>
-              <h1 className="mt-4 text-2xl font-bold tracking-tight text-[var(--text-strong)] sm:text-3xl">
+              {/* role="heading" statt <h1>: Das echte <h1> liefert der
+                  Suspense-Fallback — nur er landet im Prod-SSR-HTML. Im
+                  Dev-Stream lagen sonst zwei <h1> im Dokument (Audit 08/2026,
+                  Abschn. 4); Semantik bleibt über aria-level erhalten. */}
+              <div
+                role="heading"
+                aria-level={1}
+                className="mt-4 text-2xl font-bold tracking-tight text-[var(--text-strong)] sm:text-3xl"
+              >
                 Finde fertige Tagesrouten, Roadtrips oder Events ohne neu bei null zu planen
-              </h1>
+              </div>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
                 {totalPublic} öffentliche Routen für Tagesausflüge, Date Nights, Familientage und Wochenenden. Wechsle direkt zwischen Tagesplanung, Roadtrips und buchbaren Events.
               </p>

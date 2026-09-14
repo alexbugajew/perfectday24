@@ -1427,7 +1427,23 @@ async function handleDeleteRoute(routeId: string) {
     [coverImageUrl, firstStopPhotoUrl]
   );
 
-  if (!mounted) return null;
+  if (!mounted) {
+    // Vor dem Mount stand hier `null` — damit fehlte im SSR-HTML die komplette
+    // Seite samt <h1> (Audit 08/2026, Abschnitt 4). Der Server liefert jetzt
+    // denselben Seitenkopf wie nach dem Mount, die Inhalte laden im Browser nach.
+    return (
+      <main className="pd24-page-wide px-1 py-4 sm:px-2 space-y-6">
+        <div>
+          <div className="pd24-kicker mb-2">Routenstudio</div>
+          <h1 className="text-4xl font-bold tracking-tight text-[var(--text-strong)]">Routenstudio</h1>
+          <p className="mt-2 max-w-3xl text-[var(--text-muted)]">
+            Hier bearbeitest und veröffentlichst du eigene Routen. Der Bereich ist bewusst als Studio aufgebaut:
+            mit klarer Stop-Reihenfolge, sauberem Startpunkt, Cover und öffentlicher Vorschau.
+          </p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="pd24-page-wide px-1 py-4 sm:px-2 space-y-6">
