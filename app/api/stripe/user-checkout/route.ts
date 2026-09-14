@@ -16,6 +16,7 @@ import {
   USER_PREMIUM_YEARLY_AMOUNT_CENTS,
   USER_PREMIUM_YEARLY_PRICE_ID,
 } from "@/lib/stripe/config";
+import { PREMIUM_PRELAUNCH } from "@/lib/premium/prelaunch";
 
 function getSupabaseAdmin() {
   return createClient(
@@ -83,6 +84,16 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  // Vorstart-Modus: Stripe hängt noch im Testmodus (HRB-Blocker) — ein
+  // Checkout würde echte Nutzer auf die Testkarten-Seite schicken. Das
+  // UpgradeModal zeigt in diesem Modus den Vormerken-Pfad; der Guard hier
+  // schließt den Endpunkt auch gegen direkte Aufrufe.
+  if (PREMIUM_PRELAUNCH) {
+    return NextResponse.json(
+      { error: "Premium startet in Kürze — Vormerkung über das Upgrade-Fenster." },
+      { status: 503 }
+    );
+  }
   try {
     const user = await getSessionUser();
     if (!user) {

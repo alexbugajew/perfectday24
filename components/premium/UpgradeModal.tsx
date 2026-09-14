@@ -3,9 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics/client";
 import { ANALYTICS_EVENTS } from "@/lib/analytics/events";
+import { PREMIUM_PRELAUNCH } from "@/lib/premium/prelaunch";
 
 // Zeigt sich wenn ein Free-User das AI-Plan-Monatslimit erreicht hat.
 // Startet den Stripe-User-Checkout und routet zurück auf /profile.
+// Im Vorstart-Modus (PREMIUM_PRELAUNCH, s. lib/premium/prelaunch.ts) gibt es
+// statt des Checkouts eine kostenlose Vormerkung — Stripe ist bis zur
+// HRB-Eintragung nicht live, und der Testmodus-Checkout wirkte für echte
+// Nutzer wie ein Defekt.
 
 type Props = {
   open: boolean;
@@ -49,6 +54,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [config, setConfig] = useState<CheckoutConfig | null>(null);
   const [billingInterval, setBillingInterval] = useState<"month" | "year">("month");
+  const [vorgemerkt, setVorgemerkt] = useState(false);
 
   // Dialog-A11y: Escape schließt, Tab bleibt im Dialog, Fokus wird beim
   // Öffnen gesetzt und beim Schließen zurückgegeben (Muster PlannerControlsSection).
@@ -101,7 +107,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
   }, [open, onClose]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || PREMIUM_PRELAUNCH) return;
     let cancelled = false;
     void (async () => {
       try {
@@ -119,6 +125,31 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
   }, [open]);
 
   if (!open) return null;
+
+  async function handleVormerken() {
+    trackEvent(ANALYTICS_EVENTS.premiumWaitlisted, { interval: billingInterval });
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/premium/vormerken", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ interval: billingInterval }),
+      });
+      if (res.status === 401) {
+        throw new Error("Bitte melde dich an, um dich vorzumerken.");
+      }
+      const json = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+      if (!res.ok || !json?.ok) {
+        throw new Error(json?.error ?? "Vormerkung fehlgeschlagen. Bitte versuch es erneut.");
+      }
+      setVorgemerkt(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Vormerkung fehlgeschlagen. Bitte versuch es erneut.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function handleUpgrade() {
     trackEvent(ANALYTICS_EVENTS.checkoutStarted, { plan: "user_premium", interval: billingInterval });
@@ -189,7 +220,12 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
 
         <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-6">
           <div className="rounded-xl border border-[rgba(196,137,79,0.32)] bg-[linear-gradient(180deg,rgba(255,249,241,0.85),rgba(255,253,248,0.85))] px-4 py-4">
-            {config?.yearlyAvailable ? (
+            {PREMIUM_PRELAUNCH ? (
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[var(--brand-warm)] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                Startet in Kürze
+              </div>
+            ) : null}
+            {PREMIUM_PRELAUNCH || config?.yearlyAvailable ? (
               <div className="mb-3 grid grid-cols-2 gap-1.5 rounded-full border border-[var(--line-subtle)] bg-white p-1">
                 <button
                   type="button"
@@ -217,23 +253,27 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
             ) : null}
             <div className="flex items-baseline gap-2">
               <span className="text-3xl font-semibold tracking-tight text-[var(--text-strong)]">
-                {billingInterval === "year" && config?.yearlyAvailable
-                  ? formatEuro(config.yearlyAmountCents)
+                {billingInterval === "year" && (PREMIUM_PRELAUNCH || config?.yearlyAvailable)
+                  ? formatEuro(config?.yearlyAmountCents ?? 3999)
                   : formatEuro(config?.monthlyAmountCents ?? 499)}
               </span>
               <span className="text-sm text-[var(--text-muted)]">
-                {billingInterval === "year" && config?.yearlyAvailable ? "/ Jahr" : "/ Monat"}
+                {billingInterval === "year" && (PREMIUM_PRELAUNCH || config?.yearlyAvailable)
+                  ? "/ Jahr"
+                  : "/ Monat"}
               </span>
-              {billingInterval === "year" && config?.yearlyAvailable ? (
+              {billingInterval === "year" && (PREMIUM_PRELAUNCH || config?.yearlyAvailable) ? (
                 <span className="rounded-full bg-[var(--brand-warm)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
                   −33 %
                 </span>
               ) : null}
             </div>
             <div className="mt-1 text-xs text-[var(--text-muted)]">
-              {config?.trialEligible
-                ? `${config.trialDays} Tage kostenlos testen — jederzeit kündbar, erste Abbuchung erst danach.`
-                : "Jederzeit kündbar."}
+              {PREMIUM_PRELAUNCH
+                ? "Merk dich kostenlos und unverbindlich vor — wir benachrichtigen dich zum Start, inklusive 14 Tage Gratis-Test."
+                : config?.trialEligible
+                  ? `${config.trialDays} Tage kostenlos testen — jederzeit kündbar, erste Abbuchung erst danach.`
+                  : "Jederzeit kündbar."}
             </div>
           </div>
 
@@ -258,6 +298,12 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
             </div>
           ) : null}
 
+          {PREMIUM_PRELAUNCH ? (
+            <p className="mt-4 text-[11px] leading-5 text-[var(--text-muted)]">
+              Die Vormerkung ist kostenlos und unverbindlich — es entsteht kein Abo und keine
+              Zahlungspflicht. Zum Start erhältst du eine E-Mail und entscheidest dann.
+            </p>
+          ) : (
           <p className="mt-4 text-[11px] leading-5 text-[var(--text-muted)]">
             Mit dem Kauf akzeptierst du unsere{" "}
             <a href="/agb" target="_blank" rel="noreferrer" className="underline underline-offset-2">AGB</a>{" "}
@@ -266,6 +312,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
             Du stimmst zu, dass die Leistung sofort beginnt; dein Widerrufsrecht erlischt dadurch nicht — du kannst
             innerhalb von 14 Tagen ohne Angabe von Gründen widerrufen und jederzeit zum Laufzeitende kündigen.
           </p>
+          )}
         </div>
 
         <div className="flex items-center justify-between gap-2 border-t border-[var(--line-subtle)] bg-[var(--bg-surface)] px-5 py-3 sm:px-6">
@@ -276,6 +323,25 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
           >
             Später
           </button>
+          {PREMIUM_PRELAUNCH ? (
+            <button
+              type="button"
+              onClick={() => void handleVormerken()}
+              disabled={loading || vorgemerkt}
+              className="pd24-btn pd24-btn-primary active:scale-[0.98]"
+            >
+              {vorgemerkt ? (
+                "✓ Vorgemerkt — wir melden uns"
+              ) : loading ? (
+                <>
+                  <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-white/60 border-t-transparent" />
+                  Einen Moment…
+                </>
+              ) : (
+                "Kostenlos vormerken →"
+              )}
+            </button>
+          ) : (
           <button
             type="button"
             onClick={() => void handleUpgrade()}
@@ -293,6 +359,7 @@ export default function UpgradeModal({ open, used, limit, onClose }: Props) {
               "Premium starten →"
             )}
           </button>
+          )}
         </div>
       </div>
     </div>
