@@ -4,9 +4,14 @@ export default function PlannerLoading() {
       {/* Hero panel */}
       <div className="rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-surface)] p-5 sm:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          {/* Echte Überschrift statt Platzhalterbalken: loading.tsx ist das
+              einzige, was vom Planner zuverlässig im SSR-HTML landet; ohne h1
+              hier hat die Seite für Crawler keine (Audit 08/2026, Abschn. 4). */}
           <div className="max-w-xl space-y-3">
             <div className="h-5 w-36 rounded-full bg-[var(--bg-panel)]" />
-            <div className="h-7 w-64 rounded-full bg-[var(--bg-panel)]" />
+            <h1 className="text-2xl font-semibold leading-tight tracking-tight text-[var(--text-strong)] sm:text-3xl">
+              Tagesplan erstellen
+            </h1>
             <div className="h-4 w-80 rounded-full bg-[var(--bg-panel)]" />
           </div>
           <div className="h-28 w-full max-w-sm rounded-[var(--radius-card)] bg-[var(--bg-panel)] lg:w-80" />

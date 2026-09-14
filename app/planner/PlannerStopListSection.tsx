@@ -241,6 +241,20 @@ export default function PlannerStopListSection({
             {activeVariantReason}
           </p>
         ) : null}
+        {/* Ehrlichkeits-Hinweis (Northstar „Echte Orte"): Event-Anlässe in
+            Städten ohne angebundene Events liefen bisher stillschweigend als
+            normaler Plan — der Nutzer muss erfahren, dass hier (noch) kein
+            Event drinsteckt, statt es im Plan zu suchen. */}
+        {plannerData &&
+        plannerData.context.experienceMode &&
+        plannerData.context.experienceMode !== "classic" &&
+        plannerData.eventCandidates.length === 0 &&
+        !plannedStops.some((stop) => stop.item?.source_primary === "planner_event") ? (
+          <p className="mt-2 max-w-2xl rounded-lg border border-[rgba(196,137,79,0.35)] bg-[rgba(255,249,241,0.8)] px-3 py-2 text-xs leading-5 text-[var(--text-strong)] sm:text-sm">
+            In dieser Stadt sind noch keine Veranstaltungen angebunden — wir haben dir
+            stattdessen einen passenden Tagesplan ohne Event zusammengestellt.
+          </p>
+        ) : null}
       </header>
 
       <ol className="relative space-y-0">
@@ -422,6 +436,22 @@ export default function PlannerStopListSection({
                       {stop.durationMin != null ? (
                         <span className="rounded-full border border-[rgba(68,57,46,0.1)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]">
                           {stop.durationMin} Min
+                        </span>
+                      ) : null}
+                      {/* Ehrlichkeit statt stillem „geöffnet": Ohne hinterlegte
+                          Öffnungszeiten behandelt der Planner den Ort als offen —
+                          das muss der Nutzer sehen, bevor er hinläuft. */}
+                      {stop.item &&
+                      stop.item.source_primary !== "planner_event" &&
+                      !(
+                        typeof stop.item.opening_hours_raw === "string" &&
+                        stop.item.opening_hours_raw.trim().length > 0
+                      ) ? (
+                        <span
+                          className="rounded-full border border-[rgba(68,57,46,0.1)] bg-white px-2 py-0.5 text-[10px] text-[var(--text-muted)]"
+                          title="Für diesen Ort liegen uns keine Öffnungszeiten vor — bitte vor dem Besuch kurz prüfen."
+                        >
+                          Öffnungszeiten unbestätigt
                         </span>
                       ) : null}
                     </div>

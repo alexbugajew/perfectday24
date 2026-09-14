@@ -99,6 +99,25 @@ export async function generateMetadata({
     route.description?.slice(0, 160) ??
     `Entdecke diese kuratierte Tagesroute${citySuffix} auf PerfectDay24 und starte direkt in deinen Plan.`;
 
+  // Das Cover wird direkt als og:image referenziert (Original-JPEG): Vorher
+  // lief es durch die opengraph-image-Konvention und wurde von ImageResponse
+  // als ~1,6-MB-PNG re-encodiert (Audit 08/2026, Abschnitt 4). Die
+  // Konventionsdatei hätte Vorrang vor diesen config-Images — deshalb ist die
+  // generierte PD24-Karte jetzt ein Route-Handler unter `/og` und dient nur
+  // noch Routen ohne Cover als Fallback.
+  const coverImageUrl =
+    route.cover_image_url && /^https?:\/\//i.test(route.cover_image_url)
+      ? route.cover_image_url
+      : null;
+  const ogImage = coverImageUrl
+    ? { url: coverImageUrl, alt: `${route.title ?? "Tagesroute"}${citySuffix}` }
+    : {
+        url: `${siteUrl}/routes/${slug}/og`,
+        width: 1200,
+        height: 630,
+        alt: `Tagesroute${citySuffix} auf PerfectDay24`,
+      };
+
   return {
     title,
     description,
@@ -108,7 +127,7 @@ export async function generateMetadata({
       url: `${siteUrl}/routes/${slug}`,
       type: "article",
       locale: "de_DE",
-      ...(route.cover_image_url ? { images: [{ url: route.cover_image_url }] } : {}),
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",

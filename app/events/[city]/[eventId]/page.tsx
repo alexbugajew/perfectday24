@@ -259,13 +259,16 @@ export default async function EventDetailPage({ params }: { params: Promise<Para
               Tag um dieses Event planen
             </Link>
             {event.ticket_url ? (
+              // Quellen-Attribution: Die Ticketmaster-API-Terms verlangen,
+              // dass Ticketmaster als Quelle erkennbar ist — der Anbietername
+              // gehört deshalb an den Link, nicht nur in dessen Ziel.
               <a
                 href={event.ticket_url}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 className="pd24-btn pd24-btn-secondary"
               >
-                Tickets
+                {event.source === "ticketmaster" ? "Tickets bei Ticketmaster" : "Tickets"}
               </a>
             ) : null}
           </div>

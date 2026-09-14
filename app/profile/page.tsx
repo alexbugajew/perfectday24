@@ -1978,7 +1978,30 @@ function ProfilePageInner() {
 
 export default function ProfilePage() {
   return (
-    <Suspense>
+    <Suspense
+      fallback={
+        <div className="pd24-page-standard min-h-screen bg-[var(--bg-canvas-warm)]">
+          {/* Ersatzansicht = SSR-HTML: Die Profil-Oberfläche ist eine
+              Client-Komponente hinter useSearchParams und wird nicht
+              vorgerendert — ohne Überschrift hier hätte die Seite für Crawler
+              kein <h1> (Audit 08/2026, Abschnitt 4). Texte und Klassen
+              entsprechen dem Kopf, den nicht angemeldete Besucher nach dem
+              Laden sehen. */}
+          <div className="space-y-6">
+            <div>
+              <div className="pd24-kicker-warm">Konto</div>
+              <h1 className="mt-2 text-2xl font-semibold text-[var(--text-strong)] sm:text-3xl">
+                Anmelden
+              </h1>
+              <p className="mt-1 text-sm leading-6 text-[var(--text-muted-warm)]">
+                Melde dich an oder erstelle ein kostenloses Konto.
+              </p>
+              <div className="mt-4 text-sm text-[var(--text-muted-warm)]">Profil wird geladen...</div>
+            </div>
+          </div>
+        </div>
+      }
+    >
       <ProfilePageInner />
     </Suspense>
   );

@@ -23,7 +23,6 @@ const geistMono = Geist_Mono({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.perfectday24.de";
 const siteDescription =
   "Plane deinen nächsten Tag in der Stadt – mit echten Orten, Events und Wegen. Kostenlos, keine Anmeldung nötig.";
-const defaultOgImage = "https://images.unsplash.com/photo-1560969184-10fe8719e047?w=1200&h=630&fit=crop&auto=format&q=80";
 
 // viewport-fit=cover, damit env(safe-area-inset-*) auf iOS echte Werte liefert
 // (MobileBottomNav, Sticky-CTAs und Run-Bars nutzen die Insets bereits).
@@ -37,6 +36,10 @@ export const metadata: Metadata = {
   title: "PerfectDay24 – Deinen Tag planen",
   description: siteDescription,
   metadataBase: new URL(siteUrl),
+  // Kein og:image hier: Das Default-Vorschaubild kommt aus
+  // app/opengraph-image.tsx (Dateikonvention) — eigenes Markenbild statt
+  // externer Unsplash-URL (Audit 08/2026, Abschnitt 4). Twitter/X fällt ohne
+  // eigenes twitter:image automatisch auf og:image zurück.
   openGraph: {
     title: "PerfectDay24 – Deinen Tag planen",
     description: siteDescription,
@@ -44,15 +47,11 @@ export const metadata: Metadata = {
     siteName: "PerfectDay24",
     locale: "de_DE",
     type: "website",
-    images: [
-      { url: defaultOgImage, width: 1200, height: 630, alt: "PerfectDay24 — Deinen Tag planen" },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "PerfectDay24 – Deinen Tag planen",
     description: siteDescription,
-    images: [defaultOgImage],
   },
 };
 

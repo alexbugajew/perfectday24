@@ -777,6 +777,7 @@ export default async function HomepageScaffoldMinimal() {
               <ConsentSettingsLink className="inline-flex min-h-10 items-center text-left hover:text-[var(--text-strong)]" />
               <Link href="/partner" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">Für Anbieter</Link>
               <Link href="/agb" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">AGB</Link>
+              <Link href="/quellen" className="inline-flex min-h-10 items-center hover:text-[var(--text-strong)]">Quellen &amp; Lizenzen</Link>
             </div>
           </div>
         </footer>

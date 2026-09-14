@@ -3,6 +3,12 @@
 // components/roadtrip/HotelAutocomplete.tsx
 // Unterkunfts-Suche per Nominatim (OpenStreetMap) — kostenlos, kein API-Key.
 // Gibt lat/lng der gewählten Unterkunft zurück, damit der Tagesplan vom Hotel startet.
+//
+// Wichtig: Die OSMF-Usage-Policy für Nominatim verbietet Autocomplete
+// ausdrücklich (max. 1 Request/s, keine Anfrage pro Tastendruck). Verstöße
+// riskieren die Sperre der kompletten IP-Range — nach dem Launch würde das
+// alle Nutzer gleichzeitig treffen. Deshalb feuert die Suche hier
+// ausschließlich auf Enter oder den Such-Button, nie beim Tippen.
 
 import { useEffect, useRef, useState } from "react";
 
@@ -44,7 +50,9 @@ export default function HotelAutocomplete({
   const [results, setResults] = useState<NominatimResult[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [loading, setLoading] = useState(false);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Merkt sich eine Suche ohne Treffer — ohne Autocomplete braucht es
+  // sichtbares Feedback, sonst wirkt Enter wie ein Hänger.
+  const [searchedEmpty, setSearchedEmpty] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -67,48 +75,54 @@ export default function HotelAutocomplete({
   function handleInput(q: string) {
     setQuery(q);
 
+    // Kein Auto-Fetch beim Tippen (Nominatim-Policy, s. Kopfkommentar).
+    // Alte Treffer passen nicht mehr zum geänderten Text, also weg damit —
+    // eine neue Suche startet erst wieder explizit per Enter oder Button.
+    setResults([]);
+    setShowDropdown(false);
+    setSearchedEmpty(false);
+
     // Leeren → Hotel-Auswahl zurücksetzen
-    if (!q.trim()) {
+    if (!q.trim() && value) onChange(null);
+  }
+
+  // Explizite Suche — einziger Ort, an dem Nominatim angefragt wird.
+  async function runSearch() {
+    const q = query.trim();
+    if (!q || loading) return;
+
+    setLoading(true);
+    setSearchedEmpty(false);
+    try {
+      const delta = 0.6; // ~66 km Bounding-Box um die Stadt
+      const viewbox = `${cityLng - delta},${cityLat + delta},${cityLng + delta},${cityLat - delta}`;
+
+      const url = new URL("https://nominatim.openstreetmap.org/search");
+      url.searchParams.set("q", q);
+      url.searchParams.set("format", "jsonv2");
+      url.searchParams.set("limit", "7");
+      url.searchParams.set("addressdetails", "0");
+      url.searchParams.set("viewbox", viewbox);
+      url.searchParams.set("bounded", "0"); // Ergebnisse außerhalb der Box erlauben
+
+      const res = await fetch(url.toString(), {
+        headers: {
+          // Nominatim Nutzungsbedingungen: User-Agent mit App-Name + Kontakt
+          "User-Agent": "perfectday24.de/1.0 (hallo@perfectday24.de)",
+        },
+      });
+
+      if (!res.ok) throw new Error(`Nominatim HTTP ${res.status}`);
+      const data = (await res.json()) as NominatimResult[];
+      setResults(data);
+      setShowDropdown(data.length > 0);
+      setSearchedEmpty(data.length === 0);
+    } catch {
       setResults([]);
       setShowDropdown(false);
-      if (value) onChange(null);
-      return;
+    } finally {
+      setLoading(false);
     }
-
-    // Debounce: 400 ms (Nominatim Rate-Limit: 1 req/s)
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(async () => {
-      setLoading(true);
-      try {
-        const delta = 0.6; // ~66 km Bounding-Box um die Stadt
-        const viewbox = `${cityLng - delta},${cityLat + delta},${cityLng + delta},${cityLat - delta}`;
-
-        const url = new URL("https://nominatim.openstreetmap.org/search");
-        url.searchParams.set("q", q);
-        url.searchParams.set("format", "jsonv2");
-        url.searchParams.set("limit", "7");
-        url.searchParams.set("addressdetails", "0");
-        url.searchParams.set("viewbox", viewbox);
-        url.searchParams.set("bounded", "0"); // Ergebnisse außerhalb der Box erlauben
-
-        const res = await fetch(url.toString(), {
-          headers: {
-            // Nominatim Nutzungsbedingungen: User-Agent mit App-Name + Kontakt
-            "User-Agent": "perfectday24.de/1.0 (hallo@perfectday24.de)",
-          },
-        });
-
-        if (!res.ok) throw new Error(`Nominatim HTTP ${res.status}`);
-        const data = (await res.json()) as NominatimResult[];
-        setResults(data);
-        setShowDropdown(data.length > 0);
-      } catch {
-        setResults([]);
-        setShowDropdown(false);
-      } finally {
-        setLoading(false);
-      }
-    }, 420);
   }
 
   function select(result: NominatimResult) {
@@ -133,6 +147,7 @@ export default function HotelAutocomplete({
     onChange(null);
     setResults([]);
     setShowDropdown(false);
+    setSearchedEmpty(false);
     inputRef.current?.focus();
   }
 
@@ -164,12 +179,41 @@ export default function HotelAutocomplete({
           ref={inputRef}
           value={query}
           onChange={(e) => handleInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              // Verhindert den Submit eines umgebenden Formulars
+              e.preventDefault();
+              void runSearch();
+            }
+          }}
           onFocus={() => {
             if (results.length > 0) setShowDropdown(true);
           }}
-          placeholder={`Unterkunft in ${cityLabel} suchen…`}
+          placeholder={`Unterkunft in ${cityLabel} suchen (Enter)…`}
           className="flex-1 min-w-0 bg-transparent text-xs font-medium text-[var(--text-strong)] outline-none placeholder:font-normal placeholder:text-[var(--text-muted)]"
         />
+
+        {/* Such-Button: löst die Nominatim-Anfrage explizit aus (kein Autocomplete) */}
+        {!loading && query.trim() ? (
+          <button
+            type="button"
+            onClick={() => void runSearch()}
+            className="shrink-0 text-[var(--text-muted)] transition hover:text-[var(--text-strong)]"
+            title="Unterkunft suchen"
+            aria-label="Unterkunft suchen"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              className="h-3.5 w-3.5"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        ) : null}
 
         {/* Lade-Spinner */}
         {loading && (
@@ -207,6 +251,11 @@ export default function HotelAutocomplete({
       </div>
 
       {/* ── Feedback-Zeile ────────────────────────────────────────────────── */}
+      {searchedEmpty && !isSelected && (
+        <p className="mt-1 text-[11px] text-[var(--text-muted)]">
+          Keine Unterkunft gefunden — Suchbegriff anpassen und erneut suchen.
+        </p>
+      )}
       {isSelected && (
         <p className="mt-1 flex items-center gap-1 text-[11px] font-medium text-[var(--brand-warm-deep)]">
           <svg

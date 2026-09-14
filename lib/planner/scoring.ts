@@ -249,6 +249,19 @@ function manualBoostScore(candidate: CandidateLocation) {
     : 0;
 }
 
+// Ehrlichkeits-Tie-Break (Northstar „Echte Orte", 13.09.2026): Fehlende
+// Öffnungszeiten gelten in isOpenAt/isLikelyOpen als „geöffnet" — bei sonst
+// gleichwertigen Kandidaten soll der mit hinterlegten Zeiten gewinnen, weil
+// sein „geöffnet" belegt ist statt vermutet. Bewusst klein (+3), damit es
+// Gleichstände bricht, aber keine Qualitätsunterschiede überstimmt.
+function openingInfoBonus(candidate: CandidateLocation) {
+  if (classify(candidate) === "event") return 0;
+  return typeof candidate.opening_hours_raw === "string" &&
+    candidate.opening_hours_raw.trim().length > 0
+    ? 3
+    : 0;
+}
+
 function openingPenalty(context: PlanningContext, candidate: CandidateLocation) {
   return !isLikelyOpen({
     openingHoursRaw: candidate.opening_hours_raw,
@@ -410,6 +423,7 @@ function buildCandidateScore(
     taxonomyBoost(context, candidate) +
     eventExperienceBoost(context, candidate) +
     eventPlanabilityBoost(candidate) +
+    openingInfoBonus(candidate) +
     berlinEditorialAdjustment(candidate);
 
   const distance = routeProfileDistanceBoost(
