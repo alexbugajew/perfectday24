@@ -1,0 +1,1933 @@
+{
+  "version": 1,
+  "createdAt": "2026-09-15",
+  "status": "ready",
+  "scope": "Entdeckungspfade Welle 3 — 15 Städte (6 mit Adressliste + 9 recherchiert)",
+  "importNotes": "Redaktionelle Themen-Entdeckungspfade nach realen, offiziellen Stadt-Pfaden (Recherche 15.09.). Extraktion + adversariale Verifikation je Stadt (Workflow, 32 Agenten): echte Stationen, geokodierbare Adressen, keine Fremdtexte/Fotos. Nur Fakten (Stationsname, Ort, Adresse) aus offiziellen Quellen; Beschreibungen eigenformuliert. Koordinaten per --geocode-missing (Nominatim, auf die Stadt begrenzt). Quellen je Route in sourceUrls. Würzburg (Käppele-Stationsweg) bewusst zurückgestellt: 14 Stationshäuschen auf einer Koordinate + Kirche ab 20.09.2026 fuer ~2,5 Jahre innen geschlossen.",
+  "routes": [
+    {
+      "citySlug": "bielefeld",
+      "slug": "bielefeld-skulpturenpfad-sennestadt",
+      "title": "Skulpturenpfad Sennestadt (Nordrunde)",
+      "description": "Selbst begehbare Nordrunde des Skulpturenpfads in Bielefeld-Sennestadt: rund zehn Kunstwerke im öffentlichen Raum entlang der zentralen Grünzüge – vom Startpunkt an der Hans-Ehrenberg-Schule über Reichowplatz und Sennestadthaus bis zu den Wasserskulpturen am Sennestadt- und Parkteich.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "skulptur"
+      ],
+      "sourceUrls": [
+        "https://www.bielefeld.jetzt/node/1623782",
+        "https://de.wikipedia.org/wiki/Sennestadt",
+        "https://www.nw.de/lokal/bielefeld/mitte/24248700_Was-hinter-den-raetselhaften-Skulpturen-in-Bielefeld-steckt.html",
+        "https://commons.wikimedia.org/wiki/Category:Sculptures_in_Sennestadt"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kugel \"Arcanum rerum\" (Jörg Bochow)",
+          "type": "sculpture",
+          "address": "Elbeallee 75, 33689 Bielefeld",
+          "durationMin": 12,
+          "note": "Rostige, mannshohe Stahlkugel von Jörg Bochow, 2002 direkt vor dem Eingang der Hans-Ehrenberg-Schule aufgestellt und offizieller Startpunkt der Nordrunde. Im Inneren hängt eine Glocke, die beim Anstoßen klingt – Besucher dürfen die Kugel bewusst berühren. Der lateinische Titel bedeutet sinngemäß \"Geheimnis der Dinge\".",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Lust und Last des Wissens (Roland Zigan)",
+          "type": "sculpture",
+          "address": "Elbeallee 70, 33689 Bielefeld",
+          "durationMin": 12,
+          "note": "Steinskulptur von Roland Zigan aus dem Jahr 2001 auf dem Vorplatz der Stadtteilbibliothek, nur wenige Schritte gegenüber der Schule. Ein steinerner Kopf ist zwischen zwei Büchern eingeklemmt und spielt so mit der Freude und der Bürde des Wissens – ein Motiv, das der Standort direkt aufgreift.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Auf der Lichtung (Tony Cragg)",
+          "type": "sculpture",
+          "address": "Reichowplatz, 33689 Bielefeld",
+          "durationMin": 12,
+          "note": "Dreiteilige Bronzearbeit des international renommierten Bildhauers Tony Cragg von 1997 auf dem Reichowplatz. Die geschwungenen, organisch wirkenden Formen zählen zu den bekanntesten Werken des Sennestädter Skulpturenbestands.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Großer Minotauros (Richard Heß)",
+          "type": "sculpture",
+          "address": "Sennestadtring, 33689 Bielefeld",
+          "durationMin": 12,
+          "note": "Figürliche Großplastik von Richard Heß aus dem Jahr 1982 am Sennestadtring. Das Werk greift die antike Sagengestalt des stiergestaltigen Minotaurus auf und kam über die Ausstellungsreihe \"skulptur aktuell\" nach Sennestadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Kosmisches Raumelement (Bernhard Heiliger)",
+          "type": "sculpture",
+          "address": "Lindemann-Platz 3, 33689 Bielefeld",
+          "durationMin": 12,
+          "note": "Abstraktes Metallrelief des Berliner Bildhauers Bernhard Heiliger an der Fassade des Sennestadthauses. Die dynamisch bewegte Arbeit gehört zur bauzeitlichen Kunstausstattung des zentralen Bürger- und Kulturhauses am Lindemann-Platz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Gratwanderung / \"Artisten\" (Hubertus von der Goltz)",
+          "type": "sculpture",
+          "address": "Lindemann-Platz 3, 33689 Bielefeld",
+          "durationMin": 12,
+          "note": "Schmale, balancierende Figuren von Hubertus von der Goltz an exponierter Kante bzw. auf dem Dach des Sennestadthauses. Die Silhouetten scheinen hoch über den Passanten zu balancieren und machen das Motiv der Gratwanderung anschaulich.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Doppelkopf (Eg Witt)",
+          "type": "sculpture",
+          "address": "Lindemann-Platz 3, 33689 Bielefeld",
+          "durationMin": 12,
+          "note": "Skulpturengruppe von Eg Witt am Eingang des Sennestadthauses, zu der Arbeiten mit Titeln wie Doppelkopf, Binnenzickzack und Binnenspirale gehören. Die geometrisch-verspielten Formen begleiten den Zugang zum Gebäude.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Großes Strandstillleben (Peter Sommer)",
+          "type": "sculpture",
+          "address": "Sennestadtteich, 33689 Bielefeld",
+          "durationMin": 12,
+          "note": "Ursprünglich mehrteilige Terrakotta-Gruppe von Peter Sommer aus den Jahren um 1978 bis 1981, die auf dem Sennestadtteich inszeniert ist. Die Figuren zwischen etwa 30 und 155 cm Höhe bilden ein \"Strandstillleben\" auf dem Wasser; Teile wurden wiederholt beschädigt und werden gepflegt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Figura. T. – \"Der Taucher\" (Adolfo Siurana)",
+          "type": "sculpture",
+          "address": "Parkteich, 33689 Bielefeld",
+          "durationMin": 12,
+          "note": "Edelstahlfigur von Adolfo Siurana am Parkteich, die kopfüber auf der Wasseroberfläche zu stehen scheint. Wegen dieser Haltung wird sie von den Sennestädtern liebevoll \"Der Taucher\" genannt und bildet den Abschluss der Runde im zentralen Grünzug.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "hagen",
+      "slug": "hagen-skulpturenrundgang",
+      "title": "Skulpturenrundgang durch Hagen (Skulpturen im öffentlichen Raum)",
+      "description": "Selbst begehbarer Kunstpfad von rund 4 km durch Hagens Zentrum: vom Glasgemälde von Jan Thorn Prikker am Hauptbahnhof über die Fassade des Stadttheaters durch Volks- und Volmepark bis zur „Großen Knienden\" von Margret Dorn-Malin. Teil 1 des mehrteiligen Rundgangs von Kulturraum NRW mit Werken von Milly Steger, Jan Thorn Prikker und weiteren Bildhauern des 20. Jahrhunderts.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "skulptur"
+      ],
+      "sourceUrls": [
+        "https://www.kulturraum.nrw/ausstellung/rundgang-skulpturen-hagen-1.html",
+        "https://de.wikipedia.org/wiki/Liste_von_Kunstwerken_im_%C3%B6ffentlichen_Raum_in_Hagen",
+        "https://skulpturen.kulturraum.nrw/hagen/galerie.html",
+        "https://www.rhgym-hagen.de/impressum"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Jan Thorn Prikker: „Der Künstler als Lehrer für Handel und Gewerbe\" (Hauptbahnhof)",
+          "type": "landmark",
+          "address": "Berliner Platz 1, 58089 Hagen",
+          "durationMin": 15,
+          "note": "Am Ausgang zur Innenstadt empfängt ein großflächiges Glasgemälde von Jan Thorn Prikker aus dem Jahr 1911 die Reisenden. Das Werk gilt als frühes Zeugnis der Hagener Reformkunst und bildet den Auftakt des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Waldemar Wien: „Aufstrebend\"",
+          "type": "sculpture",
+          "address": "Bahnhofstraße, Ecke Graf-von-Galen-Ring, 58095 Hagen",
+          "durationMin": 12,
+          "note": "Auf dem Platz zwischen Bahnhof und Busbahnhof steht die 1968 geschaffene, abstrakte Plastik von Waldemar Wien. Sie markiert den Übergang von der Bahnhofszone in Richtung Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Milly Steger: „Vier stehende weibliche Figuren\" (Stadttheater)",
+          "type": "sculpture",
+          "address": "Elberfelder Straße 65, 58095 Hagen",
+          "durationMin": 12,
+          "note": "An der Fassade des 1911 eröffneten Stadttheaters sind vier weibliche Steinfiguren von Milly Steger angebracht. Steger gehörte zu den ersten Bildhauerinnen, die einen derart prominenten öffentlichen Auftrag im Stadtraum erhielt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Milly Steger: „Sitzender Schmied\" (Volkspark)",
+          "type": "sculpture",
+          "address": "Volkspark Hagen, 58095 Hagen",
+          "durationMin": 12,
+          "note": "Nahe dem Eingang zum Volkspark steht Milly Stegers Bronze „Sitzender Schmied\" von 1913. Sie zeigt die für Steger typische kräftige, kantige Figurenauffassung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Ulrich Westerfrölke: „Vogelschwarm\" (Brunnen im Volkspark)",
+          "type": "fountain",
+          "address": "Volkspark Hagen, 58095 Hagen",
+          "durationMin": 8,
+          "note": "Im Volkspark bildet der Brunnen „Vogelschwarm\" von Ulrich Westerfrölke aus dem Jahr 2001 einen Ruhepunkt. Die Wassergestaltung verbindet Skulptur und Parkatmosphäre.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Heinrich Holthaus: „Sitzender Junge\" (Volkspark)",
+          "type": "sculpture",
+          "address": "Volkspark Hagen, 58095 Hagen",
+          "durationMin": 12,
+          "note": "In der Nähe des Wasserspiels im Volkspark sitzt Heinrich Holthaus' Figur „Sitzender Junge\" von 1957/58. Die ruhige Kinderdarstellung ist typisch für die figürliche Bildhauerei der Nachkriegszeit im öffentlichen Raum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Ursula Querner: „Eselreiter\" (Volkspark)",
+          "type": "sculpture",
+          "address": "Volkspark Hagen, 58095 Hagen",
+          "durationMin": 12,
+          "note": "An der nördlichen Ecke des Volksparks steht Ursula Querners „Eselreiter\" von 1956. Die verspielte Gruppe aus Reiter und Tier ist ein beliebtes Motiv des Parks.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Karel Niestrath: „Mutter mit Kind\" (Volmepark)",
+          "type": "sculpture",
+          "address": "Volmepark, Körnerstraße, 58095 Hagen",
+          "durationMin": 12,
+          "note": "Jenseits der Körnerstraße im Volmepark findet sich Karel Niestraths Gruppe „Mutter mit Kind\" von 1950. Das Motiv steht in der Tradition figürlicher Nachkriegsplastik.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Pjotr Aronowitsch Fischman: „Buttje\"",
+          "type": "sculpture",
+          "address": "Volmepark, Brücke über die Volme, 58095 Hagen",
+          "durationMin": 12,
+          "note": "Auf einer Brücke über die Volme steht die 2005 aufgestellte Figur „Buttje\" von Pjotr Aronowitsch Fischman. Sie begleitet den Weg zwischen den Parkteilen entlang des Flusses.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Ivo Beucker: „Kniende\" (Volmepark)",
+          "type": "sculpture",
+          "address": "Volmepark, 58095 Hagen",
+          "durationMin": 12,
+          "note": "Näher am Flussufer, zwischen den Bäumen des Volmeparks, steht Ivo Beuckers „Kniende\" von 1938. Die stille Aktfigur zählt zu den älteren Arbeiten des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Margret Dorn-Malin: „Die große Kniende\"",
+          "type": "sculpture",
+          "address": "Badstraße, Grünfläche am Ricarda-Huch-Gymnasium, 58095 Hagen",
+          "durationMin": 12,
+          "note": "In der Grünfläche an der Badstraße neben dem Ricarda-Huch-Gymnasium steht Margret Dorn-Malins „Die große Kniende\" von 1929. Sie bildet den Abschluss des ersten Teils des Skulpturenrundgangs.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "regensburg",
+      "slug": "regensburg-juedische-spuren",
+      "title": "Jüdische Spuren in Regensburg",
+      "description": "Ein selbst begehbarer Erinnerungspfad durch die Regensburger Altstadt: von den mittelalterlichen Resten des Judenviertels am Neupfarrplatz über Stolpersteine und die „Judensau\" am Dom bis zur 2019 eröffneten neuen Synagoge und dem jüdischen Friedhof an der Schillerstraße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "juedisches-leben"
+      ],
+      "sourceUrls": [
+        "https://www.regensburg.de/welterbe/projekte/aktuelle-projekte/eu-projekt-rediscover-das-juedische-kulturerbe-in-der-donauregion/stadtplan-digital-juedisches-regensburg",
+        "https://www.kulturreise-ideen.de/religion/juedische-geschichte/Tour-juedische-geschichte-in-regensburg.html",
+        "https://de.wikipedia.org/wiki/J%C3%BCdische_Friedh%C3%B6fe_in_Regensburg",
+        "https://www.regensburg.de/welterbe/projekte/aktuelle-projekte/eu-projekt-rediscover-das-juedische-kulturerbe-in-der-donauregion/kulturfuehrer-juedische-spuren-in-regensburg"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Denkmal „Misrach“ (Dani Karavan) am Neupfarrplatz",
+          "type": "monument",
+          "address": "Neupfarrplatz, 93047 Regensburg",
+          "durationMin": 12,
+          "note": "Der israelische Künstler Dani Karavan schuf 2005 auf den Grundmauern der 1519 zerstörten mittelalterlichen Synagoge das begehbare Bodenmahnmal „Misrach“ (hebräisch für Osten). Die hellen Linien zeichnen den Grundriss des gotischen Gotteshauses nach und erinnern an die bis zur Vertreibung blühende jüdische Gemeinde im Herzen der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "document Neupfarrplatz",
+          "type": "museum",
+          "address": "Neupfarrplatz, 93047 Regensburg",
+          "durationMin": 40,
+          "note": "Unter dem Platz macht das unterirdische „document Neupfarrplatz“ die von 1995 bis 1998 ausgegrabenen Reste des mittelalterlichen Judenviertels mit Synagoge und Wohnkellern sichtbar. Der Ort ist nur im Rahmen von Führungen zugänglich und veranschaulicht die einstige Ausdehnung des bedeutenden jüdischen Quartiers.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Neupfarrkirche",
+          "type": "church",
+          "address": "Pfarrergasse 5, 93047 Regensburg",
+          "durationMin": 15,
+          "note": "Die Neupfarrkirche steht dort, wo nach der Vertreibung der Juden 1519 auf dem Areal des zerstörten Judenviertels zunächst die Wallfahrtskapelle „Zur Schönen Maria“ errichtet wurde. Aus diesem Bau ging später die erste protestantische Kirche Regensburgs hervor – ein sichtbares Zeichen des Bruchs von 1519.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Stolpersteine Untere Bachgasse",
+          "type": "monument",
+          "address": "Untere Bachgasse 12/14, 93047 Regensburg",
+          "durationMin": 12,
+          "note": "In der Unteren Bachgasse erinnern in das Pflaster eingelassene Stolpersteine an jüdische Bewohnerinnen und Bewohner, die in der NS-Zeit verfolgt, vertrieben oder ermordet wurden. Die kleinen Messingtafeln nennen Namen und Schicksal der Menschen, die zuletzt an dieser Adresse lebten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Synagoge Hinter der Grieb",
+          "type": "historic",
+          "address": "Hinter der Grieb 5, 93047 Regensburg",
+          "durationMin": 15,
+          "note": "Eine Gedenktafel am spätgotischen Haus Hinter der Grieb weist darauf hin, dass hier im 18. Jahrhundert eine Synagoge untergebracht war. Solche versteckten Bethäuser bezeugen die Zeit, in der Juden nach der Vertreibung von 1519 nur unter Auflagen wieder in der Stadt leben konnten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Pfarrkirche St. Kassian",
+          "type": "church",
+          "address": "St.-Kassians-Platz 1, 93047 Regensburg",
+          "durationMin": 15,
+          "note": "Die im Kern romanische Pfarrkirche St. Kassian wurde im 18. Jahrhundert barockisiert und mit einem Freskenzyklus ausgestattet, der die Wallfahrt „Zur Schönen Maria“ wiederbeleben sollte. Diese Wallfahrt war unmittelbar aus der Zerstörung des jüdischen Viertels und der Vertreibung der Gemeinde 1519 entstanden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Dom St. Peter – „Judensau“",
+          "type": "church",
+          "address": "Domplatz 1, 93047 Regensburg",
+          "durationMin": 15,
+          "note": "An einer Außenwand des gotischen Doms St. Peter befindet sich eine sogenannte „Judensau“, ein im Mittelalter verbreitetes antijüdisches Schmährelief. Es gilt heute als Zeugnis jahrhundertelanger Judenfeindschaft und wird kritisch eingeordnet und kommentiert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Historisches Museum Regensburg",
+          "type": "museum",
+          "address": "Dachauplatz 2-4, 93047 Regensburg",
+          "durationMin": 40,
+          "note": "Das Historische Museum im ehemaligen Minoritenkloster bewahrt bedeutende Zeugnisse des jüdischen Regensburg, darunter mittelalterliche Grabsteine des 1519 zerstörten Friedhofs. Die Sammlung ordnet die lange Geschichte der Gemeinde in die gesamte Stadtgeschichte ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Jüdisches Gemeindezentrum mit Neuer Synagoge",
+          "type": "building",
+          "address": "Am Brixener Hof 2, 93047 Regensburg",
+          "durationMin": 15,
+          "note": "Am Brixener Hof wurde 2019 das neue jüdische Gemeindezentrum mit Synagoge eröffnet – genau 500 Jahre nach der Vertreibung von 1519. Es steht an der Stelle der 1912 geweihten Synagoge, die während des Novemberpogroms 1938 von den Nationalsozialisten zerstört wurde.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Alter Jüdischer Friedhof Schillerstraße",
+          "type": "historic",
+          "address": "Schillerstraße 29, 93049 Regensburg",
+          "durationMin": 15,
+          "note": "Der 1822 an der Schillerstraße angelegte jüdische Friedhof wurde bis 1999 belegt und steht heute unter Denkmalschutz. Seine Grabsteine dokumentieren rund 150 Jahre Gemeindegeschichte aus der Zeit, als Juden wieder dauerhaft in Regensburg leben durften. Er trat damit an die Stelle des mittelalterlichen Begräbnisplatzes, der 1519 mit dem Judenviertel zerstört worden war.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "pforzheim",
+      "slug": "pforzheim-goldschmiedemeile",
+      "title": "Goldschmiedemeile Pforzheim",
+      "description": "Selbst begehbarer Themen-Rundgang durch Pforzheims Erbe als Goldstadt. Von der physisch installierten Goldschmiedemeile am Waisenhausplatz über das weltbekannte Schmuckmuseum und das Technische Museum bis zu Fabrikvillen und dem Rassler-Denkmal folgt die Route den Spuren der Schmuck- und Uhrenindustrie. Zwölf reale Stationen in geografisch sinnvoller Reihenfolge, überwiegend mit vollständigen Adressen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "kunsthandwerk",
+        "gold"
+      ],
+      "sourceUrls": [
+        "https://www.pforzheim.de/kultur/digitale-angebote/stadtspaziergaenge-digital.html",
+        "http://www.pfenz.de/wiki/Goldschmiedemeile",
+        "https://www.pforzheim.de/en/stadt/stadtgeschichte/historische-stelen/goldschmiedeschulplatz.html",
+        "https://de.wikipedia.org/wiki/Technisches_Museum_der_Pforzheimer_Schmuck-_und_Uhrenindustrie"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Waisenhausplatz",
+          "type": "square",
+          "address": "Waisenhausplatz, 75172 Pforzheim",
+          "durationMin": 15,
+          "note": "Zentraler Platz an der Enz und Standort des Stadttheaters, der als Auftakt der physisch installierten Goldschmiedemeile dient. Vom hier ansetzenden Goldschmiedesteg führt der Weg über den Metzelgraben in Richtung Stadtgarten und Schmuckmuseum. Der Platz verbindet die Innenstadt mit dem historischen Zentrum der Schmuckstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Goldschmiedemeile am Metzelgraben",
+          "type": "monument",
+          "address": "Werderstraße (am Metzelgraben), 75173 Pforzheim",
+          "durationMin": 12,
+          "note": "Entlang der Werderstraße und des Metzelgrabens erinnern zehn Meilensteine an die Geschichte Pforzheims als Goldstadt. Die angelegte Meile informiert über die Schmuck- und Uhrenindustrie und verknüpft Waisenhausplatz, Edelsteinausstellung und Museen zu einem Weg. Der Metzelgraben ist der letzte erhaltene mittelalterliche Stadtbach der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Schmuckmuseum im Reuchlinhaus",
+          "type": "museum",
+          "address": "Jahnstraße 42, 75173 Pforzheim",
+          "durationMin": 40,
+          "note": "Das 1961 errichtete Reuchlinhaus im Stadtgarten beherbergt das weltweit einzigartige Schmuckmuseum mit Exponaten aus fünf Jahrtausenden. Es liegt am Goldschmiedeschulplatz, wo bis zur Zerstörung 1945 die historische Goldschmiedeschule stand. Das Haus gilt als kultureller Mittelpunkt der Goldstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Technisches Museum der Pforzheimer Schmuck- und Uhrenindustrie",
+          "type": "museum",
+          "address": "Bleichstraße 81, 75173 Pforzheim",
+          "durationMin": 40,
+          "note": "Untergebracht im denkmalgeschützten Kollmar & Jourdan-Haus, einer ehemaligen Schmuckfabrik, zeigt das Museum Maschinen und Arbeitstechniken der Pforzheimer Schmuck- und Uhrenherstellung. An historischen Arbeitsplätzen führen erfahrene Fachleute Gold- und Stahlschmieden oder das Kettenmachen vor. Das Gebäude selbst dokumentiert die Blütezeit der Fabrikarchitektur.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Ehemaliges Wohnfabrikhaus Victor Mayer",
+          "type": "building",
+          "address": "Bleichstraße 88, 75173 Pforzheim",
+          "durationMin": 15,
+          "note": "Das Gebäude vereinte, wie in Pforzheim üblich, Wohnräume und Schmuckwerkstätten unter einem Dach und gehörte zur Firma Victor Mayer. Es steht am Beginn einer Reihe erhaltener Wohnfabrikhäuser der Bleichstraße. Die Bauten zeugen von der Zeit, als die Schmuckindustrie das Stadtbild prägte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Wohnfabrikhäuser Bleichstraße",
+          "type": "building",
+          "address": "Bleichstraße 92-106, 75173 Pforzheim",
+          "durationMin": 15,
+          "note": "Die zusammenhängende Häuserzeile zeigt die typische Pforzheimer Mischung aus Wohnung und Werkstatt. In solchen Gebäuden lebten und arbeiteten Fabrikanten und Schmuckhandwerker oft im selben Haus. Der Straßenzug ist ein anschauliches Beispiel der gründerzeitlichen Industriearchitektur.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Villen Bichlerstraße",
+          "type": "building",
+          "address": "Bichlerstraße 6, 75173 Pforzheim",
+          "durationMin": 15,
+          "note": "In der Bichlerstraße stehen repräsentative Villen wohlhabender Schmuckfabrikanten. Ihre Architektur spiegelt den wirtschaftlichen Aufstieg der Goldstadt um 1900 wider. Sie bilden einen Kontrast zu den schlichteren Wohnfabrikhäusern der Umgebung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Fabrikantenvillen im Rodviertel",
+          "type": "building",
+          "address": "Friedenstraße 87, 75173 Pforzheim",
+          "durationMin": 15,
+          "note": "Das Rodviertel entwickelte sich zum bevorzugten Wohnquartier der Fabrikantenfamilien. Rund um die Friedenstraße gruppieren sich großzügige Villen aus der Blütezeit der Schmuckindustrie. Der Rundgang macht hier den gesellschaftlichen Wohlstand der Unternehmerschicht sichtbar.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Ehemaliges Stadthaus Wankel",
+          "type": "building",
+          "address": "Schwarzwaldstraße 9, 75173 Pforzheim",
+          "durationMin": 15,
+          "note": "Das repräsentative Stadthaus reiht sich in die Villen und Wohnhäuser entlang der Schwarzwaldstraße ein. Es gehört zu den Stationen der städtischen Route zu Jugendstil und Art déco in der Goldstadt. Die Fassade dokumentiert den Baustil der Jahrhundertwende.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Ehemaliges Wohnfabrikhaus E. G. Bek",
+          "type": "building",
+          "address": "Schwarzwaldstraße 7, 75173 Pforzheim",
+          "durationMin": 15,
+          "note": "Auch dieses Gebäude verband Wohnung und Schmuckproduktion und gehörte zur Firma E. G. Bek. Es steht in einer Reihe erhaltener Wohnfabrikhäuser der Schwarzwaldstraße. Zusammen bilden sie ein Ensemble aus der Jugendstil- und Art-déco-Zeit.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Industriehaus / Schmuckwelten",
+          "type": "building",
+          "address": "Poststraße 1, 75172 Pforzheim",
+          "durationMin": 15,
+          "note": "Am Standort des 1925 errichteten Industriehauses, einst Messegebäude der Schmuckindustrie, befindet sich heute ein Nachbau mit den Schmuckwelten. Das Haus bündelte Handel und Präsentation der Pforzheimer Schmuckbranche. Es markiert den wirtschaftlichen Kern der Goldstadt nahe der Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Figurengruppe \"Die Rassler\"",
+          "type": "sculpture",
+          "address": "Kiehnlestraße/Poststraße, 75172 Pforzheim",
+          "durationMin": 12,
+          "note": "Die Skulpturengruppe von Fritz Theilmann wurde 1982 an der Ecke Kiehnlestraße/Poststraße aufgestellt. Sie erinnert an die \"Rassler\", Goldschmiede, die früher aus den umliegenden Dörfern zu Fuß nach Pforzheim pendelten und deren genagelte Schuhe auf dem Pflaster rasselten. Das Denkmal bildet den Abschluss des Rundgangs durch die Goldstadt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "trier",
+      "slug": "trier-roemerbauten",
+      "title": "Römer in Trier - UNESCO-Römerbauten-Rundgang",
+      "description": "Ein begehbarer Rundgang durch das römische Trier: die UNESCO-Römerbauten von der Porta Nigra bis zur Römerbrücke, dazu Dom, Liebfrauenkirche und das Rheinische Landesmuseum entlang eines zusammenhängenden Fußwegs vom Norden der Altstadt bis an die Mosel.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "roemer",
+        "unesco"
+      ],
+      "sourceUrls": [
+        "https://www.welterbetour.de/trier-rundgang",
+        "https://www.zentrum-der-antike.de/monumente",
+        "https://www.zentrum-der-antike.de/monumente/barbarathermen",
+        "https://www.trier-info.de/sehenswuerdigkeiten/kaiserthermen"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Porta Nigra",
+          "type": "gate",
+          "address": "Porta-Nigra-Platz, 54290 Trier",
+          "durationMin": 10,
+          "note": "Das um 170 n. Chr. errichtete nördliche Stadttor gilt als das besterhaltene römische Stadttor nördlich der Alpen und ist das Wahrzeichen Triers. Die schweren Sandsteinquader wurden ohne Mörtel verbaut; ihre Erhaltung verdankt die Porta dem Umbau zur Kirche im Mittelalter. Seit 1986 Teil des UNESCO-Welterbes und idealer Startpunkt am Nordrand der Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Stadtmuseum Simeonstift",
+          "type": "museum",
+          "address": "Simeonstraße 60, 54290 Trier",
+          "durationMin": 40,
+          "note": "Direkt an die Porta Nigra angebaut, nutzt das Museum die Gebäude des ehemaligen Simeonstifts aus dem 11. Jahrhundert. Die Sammlung spannt den Bogen über rund 2.000 Jahre Stadtgeschichte von der römischen Antike bis in die Gegenwart. Ein guter Auftakt, um die folgenden Monumente historisch einzuordnen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Hauptmarkt mit St. Gangolf",
+          "type": "square",
+          "address": "Hauptmarkt, 54290 Trier",
+          "durationMin": 15,
+          "note": "Der zentrale Marktplatz bildet seit dem Mittelalter das Herz der Stadt und ist von Bürgerhäusern mehrerer Epochen, dem Marktkreuz und dem Petrusbrunnen umgeben. Über die Häuserzeile ragt der Turm der Marktkirche St. Gangolf. Der Platz verbindet auf dem Weg von der Porta Nigra zum Dom die nördliche mit der östlichen Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Dom St. Peter",
+          "type": "church",
+          "address": "Liebfrauenstraße 12, 54290 Trier",
+          "durationMin": 15,
+          "note": "Die älteste Bischofskirche Deutschlands geht auf einen konstantinischen Kirchenbau des 4. Jahrhunderts zurück, dessen römisches Mauerwerk im Kern bis heute erhalten ist. Über die Jahrhunderte wuchsen romanische, gotische und barocke Bauteile zu einem einzigartigen Ensemble zusammen. Gemeinsam mit der Liebfrauenkirche Teil des UNESCO-Welterbes.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Liebfrauenkirche",
+          "type": "church",
+          "address": "Liebfrauenstraße 2, 54290 Trier",
+          "durationMin": 15,
+          "note": "Unmittelbar an den Dom angebaut, zählt sie zu den frühesten gotischen Kirchen auf deutschem Boden und entstand in der ersten Hälfte des 13. Jahrhunderts. Ihr Grundriss folgt der Form einer zwölfblättrigen Rose. Zusammen mit dem Dom gehört sie zum UNESCO-Welterbe.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Konstantinbasilika",
+          "type": "monument",
+          "address": "Konstantinplatz 10, 54290 Trier",
+          "durationMin": 12,
+          "note": "Die einstige Palastaula (Aula Palatina) Kaiser Konstantins aus dem frühen 4. Jahrhundert ist der größte erhaltene stützenfreie Innenraum der Antike. Der monumentale Backsteinbau beeindruckt durch seine schlichte, gewaltige Halle und dient heute als evangelische Kirche. UNESCO-Welterbe.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Rheinisches Landesmuseum",
+          "type": "museum",
+          "address": "Weimarer Allee 1, 54290 Trier",
+          "durationMin": 40,
+          "note": "Eines der bedeutendsten archäologischen Museen Deutschlands zeigt die römische Geschichte Triers mit Originalfunden. Zu den Höhepunkten zählen die größte Mosaiksammlung nördlich der Alpen, die Neumagener Grabdenkmäler und ein außergewöhnlicher Goldmünzenschatz. Es ergänzt den Rundgang um die beweglichen Zeugnisse der Römerzeit.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Kaiserthermen",
+          "type": "monument",
+          "address": "Weberbach 41, 54290 Trier",
+          "durationMin": 12,
+          "note": "Die um 300 n. Chr. begonnene kaiserliche Badeanlage gehört zu den größten Thermen des Römischen Reiches. Beeindruckend sind die bis zu 19 Meter hohen Mauerreste und das begehbare unterirdische Gangsystem, das einst der Beheizung diente. UNESCO-Welterbe im Süden der Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Amphitheater",
+          "type": "monument",
+          "address": "Olewiger Straße 25, 54295 Trier",
+          "durationMin": 12,
+          "note": "Am Hang des Petrisbergs gelegen, bot die im 2. Jahrhundert errichtete Arena Platz für viele tausend Zuschauer bei Gladiatoren- und Tierkämpfen. Erhalten sind die Ränge und die Kelleranlagen unter der Arena, in denen einst Tiere und Kulissen untergebracht waren. UNESCO-Welterbe und östlichster Punkt des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Thermen am Viehmarkt",
+          "type": "historic",
+          "address": "Viehmarktplatz 2, 54290 Trier",
+          "durationMin": 15,
+          "note": "Unter einem gläsernen Schutzbau am Viehmarktplatz liegen die Fundamente der ältesten Thermen Triers aus dem 1. Jahrhundert, überlagert von mittelalterlichen und barocken Resten. Die Anlage wurde erst bei Bauarbeiten Ende der 1980er Jahre wiederentdeckt und ist seit 1998 zugänglich. Ein Zwischenstopp auf dem Weg zurück in Richtung Mosel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Barbarathermen",
+          "type": "monument",
+          "address": "Südallee 48, 54290 Trier",
+          "durationMin": 12,
+          "note": "Die im 2. Jahrhundert erbaute Anlage war zu ihrer Zeit eine der größten Badeanlagen des gesamten Römischen Reiches. Ein barrierefreier Besuchersteg führt über die freigelegten Grundmauern und Heizkanäle und macht die Ausmaße erlebbar. UNESCO-Welterbe nahe der Mosel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Römerbrücke",
+          "type": "bridge",
+          "address": "Römerbrücke, 54290 Trier",
+          "durationMin": 8,
+          "note": "Die steinernen Pfeiler der Moselbrücke stammen aus dem 2. Jahrhundert und tragen bis heute den Verkehr, was sie zur ältesten noch genutzten Brücke Deutschlands macht. Über den römischen Fundamenten ruhen später erneuerte Bögen. UNESCO-Welterbe und stimmiger Abschluss des Rundgangs am Fluss.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "jena",
+      "slug": "jena-lichtstadt",
+      "title": "Spaziergang „Lichtstadt\" Jena",
+      "description": "Ein selbst begehbarer Themen-Spaziergang durch Jena entlang der Geschichte von Optik und Licht — von modernen Laserlaboren über das älteste Planetarium der Welt bis zu den Wirkungsstätten von Carl Zeiss, Ernst Abbe und Otto Schott.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "wissenschaft",
+        "geschichte",
+        "optik"
+      ],
+      "sourceUrls": [
+        "https://www.physik.uni-jena.de/7805/spaziergang-lichtstadt",
+        "https://de.wikipedia.org/wiki/Ernst-Abbe-Denkmal",
+        "https://en.wikipedia.org/wiki/Zeiss-Planetarium_Jena",
+        "https://www.visit-jena.de/sehen-und-erleben/sehenswuerdigkeiten/jentower/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Helmholtz-Institut Jena",
+          "type": "building",
+          "address": "Fröbelstieg 3, 07743 Jena",
+          "durationMin": 15,
+          "note": "Forschungseinrichtung für Hochleistungslaser und extreme Lichtfelder, getragen von der Universität Jena und dem GSI Helmholtzzentrum. Hier steht unter anderem der Petawatt-Laser POLARIS, mit dem sich geladene Teilchen auf kürzeste Distanz beschleunigen lassen. Der Standort steht für den modernen Teil von Jenas Ruf als Lichtstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Hauptgebäude der Physikalisch-Astronomischen Fakultät",
+          "type": "building",
+          "address": "Max-Wien-Platz 1, 07743 Jena",
+          "durationMin": 15,
+          "note": "Zentraler Sitz der Physik an der Friedrich-Schiller-Universität. In den frühen 1960er Jahren wurden hier erste Jenaer Laser entwickelt und öffentlich vorgeführt. Der Platz erinnert an den Physiker Max Wien, der in Jena zur Hochfrequenztechnik forschte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Zeiss-Planetarium Jena",
+          "type": "building",
+          "address": "Am Planetarium 5, 07743 Jena",
+          "durationMin": 15,
+          "note": "1926 eröffnet, gilt es als das älteste durchgehend betriebene Planetarium der Welt. Der zugehörige Projektionsapparat wurde bei Carl Zeiss in Jena entwickelt und begründete die Bauart des modernen Sternentheaters. Die markante Kuppel liegt am Rand des Botanischen Gartens.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Voigtsches Gartenhaus",
+          "type": "historic",
+          "address": "Zwätzengasse 9, 07743 Jena",
+          "durationMin": 15,
+          "note": "Historisches Gartenhaus, in dem der Physiker Johann Wilhelm Ritter zu Beginn des 19. Jahrhunderts arbeitete. Ihm gelang hier um 1801 der Nachweis der unsichtbaren ultravioletten Strahlung jenseits des sichtbaren Lichts. Der Ort steht damit für die frühe Jenaer Lichtforschung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Universitätshauptgebäude der FSU Jena",
+          "type": "building",
+          "address": "Fürstengraben 1, 07743 Jena",
+          "durationMin": 15,
+          "note": "Das Hauptgebäude der Friedrich-Schiller-Universität steht an der Stelle des früheren Stadtschlosses. Im 17. Jahrhundert richtete der Gelehrte Erhard Weigel hier einen begehbaren Himmelsglobus ein, einen frühen Vorläufer des Planetariums. Das Haus verbindet so die astronomische Tradition Jenas mit der Gegenwart.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Ernst-Abbe-Gedenkstein am ehemaligen Universitätshauptgebäude",
+          "type": "monument",
+          "address": "Fürstengraben 23, 07743 Jena",
+          "durationMin": 12,
+          "note": "An diesem älteren Universitätsstandort erinnert ein Gedenkstein an Ernst Abbe (1840–1905). Der Physiker entwickelte die wissenschaftliche Theorie der Mikroskop-Abbildung und schuf damit die Grundlage für die optische Industrie Jenas. Der Stein trägt die nach ihm benannte Auflösungsformel; Abbe lehrte und forschte über Jahrzehnte an der Universität.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "JenTower",
+          "type": "landmark",
+          "address": "Leutragraben 1, 07743 Jena",
+          "durationMin": 15,
+          "note": "Mit rund 160 Metern das höchste Gebäude Jenas und weithin sichtbares Wahrzeichen der Stadt. Der zylindrische Turm entstand in den 1970er Jahren als Forschungsbau für den VEB Carl Zeiss Jena. In etwa 128 Metern Höhe gibt es eine öffentliche Aussichtsplattform mit Rundblick über die Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Ernst-Abbe-Platz (ehemaliges Zeiss-Hauptwerk)",
+          "type": "square",
+          "address": "Ernst-Abbe-Platz, 07743 Jena",
+          "durationMin": 15,
+          "note": "Der heutige Universitätscampus liegt auf dem Gelände des früheren Zeiss-Hauptwerks. Von hier aus wuchs das Unternehmen Carl Zeiss zum weltweit führenden Hersteller optischer Instrumente. Der weite Platz mit seinen Skulpturen erinnert an die industrielle Blütezeit der Optik in Jena.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Ernst-Abbe-Denkmal",
+          "type": "monument",
+          "address": "Carl-Zeiss-Platz, 07743 Jena",
+          "durationMin": 12,
+          "note": "Ein tempelartiger Gedenkpavillon für Ernst Abbe, entworfen von Henry van de Velde und zwischen 1908 und 1911 errichtet. Im Inneren befinden sich eine Marmorherme von Max Klinger und Bronzereliefs von Constantin Meunier. Das Denkmal steht frei auf dem Platz, direkt gegenüber dem Optischen Museum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Deutsches Optisches Museum",
+          "type": "museum",
+          "address": "Carl-Zeiss-Platz 12, 07743 Jena",
+          "durationMin": 40,
+          "note": "Museum zur Geschichte der Optik mit Instrumenten aus mehreren Jahrhunderten. Es zeigt, wie Jena durch das Zusammenwirken von Carl Zeiss, Ernst Abbe und dem Glaschemiker Otto Schott zum Zentrum der optischen Industrie wurde. Das Haus wird derzeit umfassend saniert und soll wiedereröffnet werden.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-gruenguertel-komische-kunst",
+      "title": "Komische Kunst im GrünGürtel",
+      "description": "Ein begehbarer Auswahl-Rundgang durch den Frankfurter Stadtwald zu den zugänglichsten Objekten der Komischen Kunst im GrünGürtel: Holzfiguren und satirische Skulpturen der Neuen Frankfurter Schule (vor allem F. K. Waechter und Robert Gernhardt) rund um Jacobiweiher, StadtWaldHaus und Tiroler Weiher, ergänzt um Aussichtsturm und traditionsreiche Waldgaststätte. Etwa 10 bis 12 Kilometer entlang des GrünGürtel-Rundwanderwegs von Sachsenhausen bis in die Schwanheimer Wiesen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "natur"
+      ],
+      "sourceUrls": [
+        "https://de.wikipedia.org/wiki/Komische_Kunst_im_Frankfurter_Gr%C3%BCng%C3%BCrtel",
+        "https://www.kunst-im-oeffentlichen-raum-frankfurt.de/de/page247.html",
+        "https://www.regionalpark-rheinmain.de/erlebnis/komische-kunst-im-gruenguertel/",
+        "https://stadtwaldhaus-frankfurt.de/anfahrt/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Goetheturm",
+          "type": "viewpoint",
+          "address": "Sachsenhäuser Landwehrweg, 60598 Frankfurt am Main",
+          "durationMin": 15,
+          "note": "Der vollständig aus Holz gebaute, rund 43 Meter hohe Aussichtsturm steht am nördlichen Rand des Frankfurter Stadtwalds. Nach einem Brand 2017 wurde er wiederaufgebaut; von der Plattform reicht der Blick weit über die Stadt. Am Fuß liegen ein Waldspielpark und eine Gaststätte, was den Turm zu einem guten Startpunkt für den Weg in den Wald macht.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Waldgaststätte Oberschweinstiege",
+          "type": "restaurant",
+          "address": "Oberschweinstiegschneise 65, 60598 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Die traditionsreiche Waldgaststätte an der gleichnamigen Straßenbahn-Endhaltestelle ist seit über hundert Jahren ein bekanntes Ausflugsziel mitten im Stadtwald. Sie bildet den bequemen Einstieg in den Rundgang, denn von hier sind die meisten Kunst-Objekte zu Fuß erreichbar.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Monsterspecht",
+          "type": "sculpture",
+          "address": "Oberschweinstiegschneise, Frankfurter Stadtwald, 60598 Frankfurt am Main",
+          "durationMin": 12,
+          "note": "Das hölzerne Objekt nach einer Zeichnung von F. K. Waechter zeigt einen überdimensionalen Specht und steht an der Oberschweinstiegschneise im Oberwald. Nach einer mutwilligen Zerstörung wurde die Figur 2018 neu aufgestellt und gehört zur Reihe der Komischen Kunst im GrünGürtel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Pinkelbaum",
+          "type": "sculpture",
+          "address": "Jacobiweiher, Frankfurter Stadtwald, 60598 Frankfurt am Main",
+          "durationMin": 12,
+          "note": "Der Pinkelbaum am Ufer des Jacobiweihers geht auf eine Zeichnung F. K. Waechters zurück und verleiht einem Baum menschliche Züge. Der von altem Buchenwald umgebene Weiher zählt zu den beliebtesten Ausflugszielen im Stadtwald; ein Rundweg führt am Ufer an mehreren Objekten der Reihe vorbei.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Eule im Norwegerpulli",
+          "type": "sculpture",
+          "address": "Jacobiweiher (Südufer), Frankfurter Stadtwald, 60598 Frankfurt am Main",
+          "durationMin": 12,
+          "note": "Hoch in einem Baum am Südufer des Jacobiweihers sitzt die Eule im Norwegerpullover, ebenfalls nach einer Vorlage von F. K. Waechter. Sie liegt nur wenige Gehminuten vom Pinkelbaum entfernt am selben Weiher und ist eines der bekanntesten Motive der Reihe.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "StadtWaldHaus",
+          "type": "building",
+          "address": "Isenburger Schneise 100, 60528 Frankfurt am Main",
+          "durationMin": 15,
+          "note": "Das StadtWaldHaus ist ein Wald- und Naturinformationszentrum des städtischen Forstamts mit Ausstellung, Waldladen und Freigelände. Es liegt an der Kuhpfad-/Isenburger Schneise und ist ein guter Rast- und Orientierungspunkt auf dem Weg zwischen Jacobiweiher und Tiroler Weiher.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "König der Eichhörnchen",
+          "type": "sculpture",
+          "address": "Kuhpfadschneise (am StadtWaldHaus), Frankfurter Stadtwald, 60528 Frankfurt am Main",
+          "durationMin": 12,
+          "note": "Unweit des StadtWaldHauses an der Kuhpfadschneise steht der König der Eichhörnchen, ein Holzobjekt der Komischen Kunst nach einer Zeichnung F. K. Waechters. Es ist seit 2007 an diesem Standort zu finden und lässt sich gut mit einem Besuch des Waldhauses verbinden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Jupitersäule mit den Tiroler Tieren",
+          "type": "sculpture",
+          "address": "Tiroler Weiher, Frankfurter Stadtwald, 60528 Frankfurt am Main",
+          "durationMin": 12,
+          "note": "Am Tiroler Weiher im westlichen Stadtwald stehen die Jupitersäule und die sogenannten Tiroler Tiere, satirische Objekte aus dem Umfeld der Neuen Frankfurter Schule (Robert Gernhardt). Der Weiher liegt nahe dem Stadionbad und markiert den Übergang in den weiter südwestlich gelegenen Waldabschnitt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Monsterkinder",
+          "type": "sculpture",
+          "address": "Lichtetalschneise, Schwanheimer Wald, 65934 Frankfurt am Main",
+          "durationMin": 12,
+          "note": "Die Monsterkinder an der Lichtetalschneise sind hölzerne Figuren nach einer Zeichnung F. K. Waechters, versteckt im alten Eichen- und Kiefernwald von Schwanheim. Sie liegen an der ersten Etappe des GrünGürtel-Rundwanderwegs und lassen sich gut auf dem Weg zu den Schwanheimer Wiesen entdecken.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Struwwelpeterbaum",
+          "type": "sculpture",
+          "address": "Diezelschneise, Schwanheimer Wiesen, 65934 Frankfurt am Main",
+          "durationMin": 12,
+          "note": "Der Struwwelpeterbaum an der Diezelschneise in den Schwanheimer Wiesen ist ein Baumobjekt nach F. K. Waechter und spielt auf die berühmte Frankfurter Kinderbuchfigur an. Die weiten Wiesen nahe dem Main bilden den südwestlichen Abschluss des Rundgangs; die Straßenbahnlinie 12 (Endhaltestelle Rheinlandstraße) liegt in der Nähe.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "duesseldorf",
+      "slug": "duesseldorf-flingerpfad",
+      "title": "FlingerPfad (Stadtteil Flingern)",
+      "description": "Selbst begehbarer Auswahl-Rundgang über 16 dauerhaft installierte Info-Stelen des FlingerPfads zur Industrie- und Sozialgeschichte des Düsseldorfer Stadtteils Flingern. Der Weg führt von Flingern-Süd entlang der alten Eisenbahn- und Fabrikachse über den Höherweg bis in den grünen Osten und das Wohnviertel von Flingern-Nord.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "industriekultur"
+      ],
+      "sourceUrls": [
+        "https://www.flingerpfad.de/rundg%C3%A4nge",
+        "https://www.ddorf-aktuell.de/2021/08/18/duesseldorf-erste-stele-des-flingerpfads-der-industriegeschichte-eingeweiht/",
+        "https://www.ddorf-aktuell.de/2024/11/16/flingerpfad-duesseldorf-neue-stele-beschreibt-die-geschichte-der-liebfrauenkirche/",
+        "https://www.ddorf-aktuell.de/2026/04/21/duesseldorf-flingern-die-26-stele-des-flingerpfads-widmet-sich-dem-spitzbunker-und-erinnert-an-den-gasometer"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Arbeiterquartier Kiefernstraße",
+          "type": "building",
+          "address": "Kiefernstraße 1 (Ecke Fichtenstraße), 40233 Düsseldorf",
+          "durationMin": 15,
+          "note": "Die Kiefernstraße entstand als Wohnquartier für die Arbeiterschaft der umliegenden Industriebetriebe. Später wurde die Straße durch Hausbesetzungen und ihre bunt bemalten Fassaden weit über Flingern hinaus bekannt. Die Stele beleuchtet den Wandel vom Werkswohnungsbau zum heutigen alternativen Wohnprojekt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Düsseldorf-Elberfelder Eisenbahn",
+          "type": "historic",
+          "address": "Kiefernstraße 33, 40233 Düsseldorf",
+          "durationMin": 15,
+          "note": "An der unteren Kiefernstraße verlief die Trasse der Düsseldorf-Elberfelder Eisenbahn, die 1838 als erste Eisenbahn Westdeutschlands eröffnet wurde. Sie verband die aufstrebenden Industrieorte des Bergischen Landes mit dem Rhein. Damit legte sie den Grundstein für die spätere Ansiedlung zahlreicher Fabriken in Flingern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Brückenbauer Hein, Lehmann",
+          "type": "historic",
+          "address": "Fichtenstraße 33, 40233 Düsseldorf",
+          "durationMin": 15,
+          "note": "Auf dem Gelände an der Fichtenstraße war die Stahlbaufirma Hein, Lehmann & Co. ansässig, einer der bedeutendsten Brückenbauer der Region. Aus ihren Werkstätten stammen Teile mehrerer Düsseldorfer Rheinbrücken, darunter die Oberkasseler und die Rheinkniebrücke. Heute wird das Areal gewerblich genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Piedboeuf'sche Dampfkesselschmiede im Gleisdreieck",
+          "type": "historic",
+          "address": "Fichtenstraße (Höhe Werdener Straße), 40233 Düsseldorf",
+          "durationMin": 15,
+          "note": "Im sogenannten Gleisdreieck an der Werdener Straße stellte die Piedboeuf'sche Dampfkesselschmiede über Jahrzehnte Dampfkessel her. Der markante Schornstein des Werks prägte lange das Bild des Viertels, bevor der Betrieb 1991 endete. Die Stele erinnert an die schwere Metallverarbeitung, die für Flingerns Industriegeschichte typisch war.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Allgemeiner Konsumverein (Weltkunstzimmer)",
+          "type": "building",
+          "address": "Ronsdorfer Straße 77a, 40233 Düsseldorf",
+          "durationMin": 15,
+          "note": "Die Stele vor dem heutigen Weltkunstzimmer erinnert an den 1897 gegründeten Allgemeinen Konsumverein für Düsseldorf und Umgebung. Die Genossenschaft betrieb zahlreiche Läden und versorgte die Arbeiterfamilien des Viertels mit Nahrungs- und Genussmitteln. Das ehemalige Betriebsgelände wird heute als Kultur- und Atelierstandort genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Spar- und Bauverein / Architekt Fritz Hofmeister",
+          "type": "building",
+          "address": "Ruhrtalstraße 19, 40233 Düsseldorf",
+          "durationMin": 15,
+          "note": "An der Ruhrtalstraße stehen Wohnbauten des Düsseldorfer Spar- und Bauvereins, für die der Architekt Fritz Hofmeister verantwortlich zeichnete. Die Genossenschaft schuf hier bezahlbaren Wohnraum für Arbeiterfamilien und prägte das Erscheinungsbild der Straße. Die Stele würdigt den genossenschaftlichen Wohnungsbau als soziale Errungenschaft der Industriezeit.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Stadtwerke Düsseldorf",
+          "type": "building",
+          "address": "Höherweg 100, 40233 Düsseldorf",
+          "durationMin": 15,
+          "note": "Am Höherweg 100 hat die Stadtwerke Düsseldorf AG ihren Sitz, das einzige Großunternehmen, das seit dem 19. Jahrhundert ohne Unterbrechung in Flingern ansässig ist. Mit dieser Stele wurde der FlingerPfad im Jahr 2021 eröffnet. Sie steht für die durchgehende Bedeutung der Energie- und Versorgungswirtschaft im Stadtteil.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Spitzbunker und Gasometer",
+          "type": "monument",
+          "address": "Höherweg 200, 40233 Düsseldorf",
+          "durationMin": 12,
+          "note": "Hinter der Zufahrt des Entsorgungsbetriebs AWISTA steht ein denkmalgeschützter Spitzbunker aus dem Jahr 1939, gebaut nach der von Leo Winkel entwickelten Bauart. Die Stele erinnert zugleich an das benachbarte frühere Gasometer-Gelände, auf dem sich heute eine Automeile erstreckt. Beide Orte verweisen auf Energieversorgung und Kriegsgeschichte des Viertels.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Schmincke und Losenhausen",
+          "type": "historic",
+          "address": "Schlüterstraße 10 (Stadt-Natur-Park Flingern), 40235 Düsseldorf",
+          "durationMin": 15,
+          "note": "Nahe dem früheren Güterbahnhof erinnert die Stele an zwei Flinger Traditionsunternehmen: den Künstlerfarbenhersteller Schmincke und den Maschinenbauer Losenhausen. Schmincke fertigte hier hochwertige Mal- und Zeichenfarben, bevor die Firma 1974 nach Erkrath umzog. Das Gelände ist heute Teil des Stadt-Natur-Parks Flingern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Untere Ruhrtalbahn und Bahnhof Grafenberg",
+          "type": "park",
+          "address": "Stadt-Natur-Park Flingern, Schlüterstraße, 40235 Düsseldorf",
+          "durationMin": 20,
+          "note": "Im Stadt-Natur-Park erzählt die Stele an der Stelle \"Am Prellbock\" von der Unteren Ruhrtalbahn und dem einstigen Bahnhof Grafenberg. Auf dem Areal des ehemaligen Güterbahnhofs wurden Signalmasten, Gleisreste und Prellböcke bewusst als Erinnerung an die Eisenbahnzeit bewahrt. Der Ort zeigt, wie eng Industrie und Schienenverkehr in Flingern verbunden waren.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Lokomotivfabrik Hohenzollern",
+          "type": "historic",
+          "address": "Neumannstraße 6, 40235 Düsseldorf",
+          "durationMin": 15,
+          "note": "An der Neumannstraße erinnert die Stele an die Actiengesellschaft für Lokomotivbau Hohenzollern, die in Flingern Dampflokomotiven baute. Das Werk zählte zu den großen Maschinenbaubetrieben, die den Stadtteil im Zeitalter der Eisenbahn prägten. Sein Gelände wurde später teilweise mit Wohnungen überbaut.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Wohnungsnot und Hellweg-Bande",
+          "type": "building",
+          "address": "Ecke Hellweg/Bruchstraße, 40235 Düsseldorf",
+          "durationMin": 15,
+          "note": "An der Ecke Hellweg/Bruchstraße thematisiert die Stele die große Wohnungsnot nach dem Ersten Weltkrieg. Ab 1929 entstanden auf einem Grundstück der ehemaligen Hohenzollern AG rund 900 Wohnungen, um die Not zu lindern. Zugleich erinnert der Standort an die sogenannte \"Hellweg-Bande\" und das raue soziale Milieu jener Jahre.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Liebfrauenkirche (St. Mariä Himmelfahrt)",
+          "type": "church",
+          "address": "Ackerstraße (Ecke Degerstraße), 40235 Düsseldorf",
+          "durationMin": 15,
+          "note": "Die Liebfrauenkirche wurde von 1889 bis 1892 nach Plänen von Caspar Clemens Pickel im neugotischen Stil errichtet. Sie war geistlicher und sozialer Mittelpunkt für die stark gewachsene Arbeiterbevölkerung des Viertels. Im Zweiten Weltkrieg schwer beschädigt, wurde die Kirche in den Nachkriegsjahren wieder aufgebaut.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "dresden",
+      "slug": "dresden-kaestner-pfad",
+      "title": "Erich-Kästner-Pfad Dresden (Neustadt)",
+      "description": "Ein selbst begehbarer Literaturpfad durch die Dresdner Neustadt entlang der Lebensorte von Erich Kästner — vom Erich Kästner Museum in der Villa Augustin am Albertplatz über Wohnungen, Schule und Kirche bis zum Geburtshaus an der Königsbrücker Straße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "literatur",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://www.kaestnerhaus-literatur.de/erich-kaestner-pfad-dresden",
+        "https://www.dresden-lese.de/index.php?article_id=255",
+        "https://www.sachsen-erkunden.de/erich-kaestner-viertel-dresden/",
+        "https://de.wikipedia.org/wiki/Freiherrlich_von_Fletchersches_Lehrerseminar"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Villa Augustin – Erich Kästner Museum",
+          "type": "museum",
+          "address": "Antonstraße 1, 01097 Dresden",
+          "durationMin": 40,
+          "note": "Die Villa am Albertplatz gehörte Kästners Onkel Franz Augustin, den der Junge als Kind oft besuchte. Seit 2000 beherbergt das nach dem Krieg wieder aufgebaute Haus das Erich Kästner Museum und ein Literaturhaus. Hier bildet der selbst begehbare Pfad durch die Neustadt seinen Ausgangspunkt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Albertplatz",
+          "type": "square",
+          "address": "Albertplatz, 01097 Dresden",
+          "durationMin": 15,
+          "note": "Der Albertplatz war für den jungen Kästner ein zentraler Ort des Alltags, den er täglich auf dem Schulweg querte und dessen Treiben er von der Gartenmauer der Villa Augustin beobachtete. Heute erinnert am Platz ein Denkmal an den Schriftsteller. Der Platz bildet den geografischen Mittelpunkt des Kästner-Viertels.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Dreikönigskirche",
+          "type": "church",
+          "address": "Hauptstraße 23, 01097 Dresden",
+          "durationMin": 15,
+          "note": "Die Dreikönigskirche an der Hauptstraße war die Gemeindekirche der Familie Kästner. Hier wurde Erich Kästner getauft und später konfirmiert. Sie liegt wenige Schritte südlich des Albertplatzes.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "4. Bürgerschule",
+          "type": "building",
+          "address": "Tieckstraße 14, 01099 Dresden",
+          "durationMin": 15,
+          "note": "In der 4. Bürgerschule an der Tieckstraße in der Inneren Neustadt ging Erich Kästner zur Schule. Das ursprüngliche Schulhaus ist nicht erhalten; an der Adresse befindet sich heute ein berufliches Schulzentrum. Die Station markiert einen der Kindheitsorte im Viertel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Neustädter Turnverein (heute Kulturzentrum Scheune)",
+          "type": "historic",
+          "address": "Alaunstraße 36-40, 01099 Dresden",
+          "durationMin": 15,
+          "note": "Auf diesem Gelände unterhielt der Turnverein für Neu- und Antonstadt bis 1945 Turnhallen und einen Sportplatz. Hier absolvierte der junge Kästner seine ersten Turnübungen. Nach der Zerstörung entstand an gleicher Stelle das heutige Kulturzentrum Scheune.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Blumenladen Stamnitz",
+          "type": "historic",
+          "address": "Louisenstraße 21, 01099 Dresden",
+          "durationMin": 15,
+          "note": "An der Louisenstraße lag der Blumenladen Stamnitz, der als Blumen-Stammnitz bis heute besteht. Kästners Mutter Ida, die als Friseurin auch Brautfrisuren fertigte, kaufte hier den Blumenschmuck. Die Station steht für den Arbeitsalltag der Familie in der Neustadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Wohnhaus Königsbrücker Straße 38",
+          "type": "building",
+          "address": "Königsbrücker Straße 38, 01099 Dresden",
+          "durationMin": 15,
+          "note": "Das Wohn- und Geschäftshaus an der Königsbrücker Straße 38 zählt zu den Adressen, an denen die Familie Kästner in der Neustadt wohnte. Seine gesamte Kindheit und Jugend verbrachte Kästner an dieser Straße.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Wohnhaus Königsbrücker Straße 48",
+          "type": "building",
+          "address": "Königsbrücker Straße 48, 01099 Dresden",
+          "durationMin": 15,
+          "note": "In der Königsbrücker Straße 48 lebte die Familie Kästner bis 1911. Das Haus liegt nur wenige Nummern von seinem Geburtshaus entfernt und gehört zu den nachgewiesenen Wohnadressen der Familie.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Gaststätte Sibyllenort",
+          "type": "historic",
+          "address": "Königsbrücker Straße, Ecke Jordanstraße, 01099 Dresden",
+          "durationMin": 15,
+          "note": "An der Ecke Königsbrücker Straße und Jordanstraße befand sich die Gaststätte Sibyllenort. Hier kaufte der junge Kästner das Bier für das Einstandsfest, mit dem seine Mutter sich als Friseurin selbstständig machte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Geburtshaus Königsbrücker Straße 66",
+          "type": "building",
+          "address": "Königsbrücker Straße 66, 01099 Dresden",
+          "durationMin": 15,
+          "note": "Im vierten Obergeschoss des 1895 erbauten Hauses Königsbrücker Straße 66 wurde Erich Kästner am 23. Februar 1899 geboren. Eine Gedenktafel am Wohn- und Geschäftshaus erinnert an ihn. Es ist der zentrale biografische Ort des Pfades.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Freiherrlich von Fletchersches Lehrerseminar",
+          "type": "building",
+          "address": "Marienallee 5, 01099 Dresden",
+          "durationMin": 15,
+          "note": "Ab 1913 besuchte Kästner das Freiherrlich von Fletchersche Lehrerseminar an der Marienallee in der Albertstadt. Kurz vor Abschluss brach er die Ausbildung zum Volksschullehrer ab. Das nach 1945 wiederaufgebaute Gebäude nutzt heute eine Waldorfschule.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "stuttgart",
+      "slug": "stuttgart-blaustruempflerweg",
+      "title": "Blaustrümpflerweg",
+      "description": "Ausgeschilderter, selbst begehbarer Stäffele-, Aussichts- und Stadtgeschichts-Rundweg (rund 7,5 km) durch den Stuttgarter Süden und Westen. Vom Marienplatz führt er über Karlshöhe und Hasenbergsteige hinauf, nutzt die historische Standseilbahn zum Waldfriedhof und kehrt über den Santiago-de-Chile-Platz mit der Zahnradbahn zum Ausgangspunkt zurück.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "weinberg"
+      ],
+      "sourceUrls": [
+        "https://www.stuttgarter-staeffelestour.de/blaustruempflerweg/",
+        "https://www.wanderwegewelt.de/blog/allgemein/tour-951-stuttgart-auf-dem-blaustruempflerweg/",
+        "https://jungwandern.de/blaustruempflerweg-wandern/",
+        "https://www.vvs.de/en/discover-the-region/all-holiday-destinations/detail/blaustruempflerweg"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Marienplatz",
+          "type": "square",
+          "address": "Marienplatz, 70178 Stuttgart",
+          "durationMin": 15,
+          "note": "Der belebte zentrale Platz im Stuttgarter Süden ist Start und Ziel des Rundwegs und zugleich Talstation der Zahnradbahn \"Zacke\". Mit Cafés, Gastronomie und regelmäßigem Markt bildet er den urbanen Auftakt, bevor der Weg in die umliegenden Hanglagen aufsteigt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Else-Himmelheber-Staffel",
+          "type": "historic",
+          "address": "Else-Himmelheber-Staffel (zwischen Arminstraße und Mörikestraße), 70178 Stuttgart",
+          "durationMin": 15,
+          "note": "Eine der typischen Stuttgarter Stäffele, die vom Marienplatz aus den Hang Richtung Karlshöhe erklimmt. Benannt ist die Treppe nach Else Himmelheber (1905–1944), einer Stuttgarter Widerstandskämpferin gegen den Nationalsozialismus, woran der Aufstieg zugleich erinnert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Städtisches Lapidarium",
+          "type": "museum",
+          "address": "Mörikestraße 24/1, 70178 Stuttgart",
+          "durationMin": 40,
+          "note": "Das Freilichtmuseum in einem terrassierten Gartengrundstück sammelt steinerne Zeugnisse der Stuttgarter Stadtgeschichte: Brunnenfiguren, Skulpturen und Bauteile abgerissener Gebäude. Der Eintritt ist frei, geöffnet ist in den Sommermonaten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Karlshöhe",
+          "type": "park",
+          "address": "Karlshöhe, Humboldtstraße, 70197 Stuttgart",
+          "durationMin": 20,
+          "note": "Der aus einem früheren Steinbruch angelegte Aussichtshügel liegt an der Grenze von Stuttgart-West und -Süd und zählt zu den beliebtesten Grünanlagen der Stadt. Von der Höhe reicht der Blick über den Talkessel bis zum Fernsehturm; ein Biergarten lädt zur Rast.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Athenebrunnen (Pallas-Athene-Brunnen)",
+          "type": "fountain",
+          "address": "Jean-Améry-Weg, Karlshöhe, 70197 Stuttgart",
+          "durationMin": 8,
+          "note": "Der 1911 vom Bildhauer Karl Donndorf geschaffene Brunnen auf der Karlshöhe zeigt die griechische Göttin Athene. Nach Jahren des Stillstands wurde er 2011 restauriert und ist seither wieder in Betrieb; er gilt als kulturhistorisch bedeutender Brunnen Stuttgarts.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Hasenbergsteige",
+          "type": "landmark",
+          "address": "Hasenbergsteige, 70197 Stuttgart",
+          "durationMin": 15,
+          "note": "Die steile Steige führt hinauf in Richtung Hasenberg und ist von repräsentativen Jugendstil- und Gründerzeitvillen gesäumt. Der Anstieg eröffnet auf dem Weg immer wieder Ausblicke über den Stuttgarter Westen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Standseilbahn Stuttgart – Talstation Südheimer Platz",
+          "type": "landmark",
+          "address": "Südheimer Platz / Böblinger Straße, 70199 Stuttgart",
+          "durationMin": 15,
+          "note": "Die historische Standseilbahn von 1929 verbindet den Südheimer Platz in Heslach mit dem höher gelegenen Waldfriedhof. Die denkmalgeschützten Wagen sind mit Teakholz ausgekleidet; die kurze Bergfahrt überwindet rund 85 Höhenmeter.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Waldfriedhof Stuttgart",
+          "type": "park",
+          "address": "Waldfriedhof, 70597 Stuttgart-Degerloch",
+          "durationMin": 20,
+          "note": "Der 1914 eröffnete Waldfriedhof ist der flächengrößte Friedhof Stuttgarts und in den Degerlocher Wald eingebettet. Zwischen den Bäumen liegen die Ehrengräber bekannter Persönlichkeiten wie Theodor Heuss, Robert Bosch und Oskar Schlemmer.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Santiago-de-Chile-Platz",
+          "type": "viewpoint",
+          "address": "Santiago-de-Chile-Platz, 70597 Stuttgart-Degerloch",
+          "durationMin": 15,
+          "note": "Die Aussichtsanlage neben der Haigstkirche bietet einen weiten Panoramablick über den Talkessel bis zum Hauptbahnhof. 2006 wurde der frühere Haigst-Platz nach der chilenischen Hauptstadt benannt; heute stehen dort unter anderem ein Moai von den Osterinseln und eine Büste der Dichterin Gabriela Mistral.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Zahnradbahn Stuttgart (Zacke) – Haltestelle Haigst",
+          "type": "landmark",
+          "address": "Alte Weinsteige (Haltestelle Haigst), 70597 Stuttgart",
+          "durationMin": 15,
+          "note": "An der Station Haigst der 1884 eröffneten Zahnradbahn – im Volksmund \"Zacke\" – endet der Fußweg. Über die Zahnstange bewältigt die Bahn die steile Weinsteige und bringt Wanderer bequem zurück zum Marienplatz, wo sich der Rundweg schließt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "bremen",
+      "slug": "bremen-nagelroute",
+      "title": "Nagelroute Bremen",
+      "description": "Selbst begehbarer Rundgang durch die Bremer Altstadt: Rund 2.000 in den Boden eingelassene Messingnägel führen auf etwa 1,5 Kilometern zu den großen Wahrzeichen zwischen Marktplatz, Weserufer und Schnoor. Start und Ziel liegen an der Ecke Unser Lieben Frauen Kirchhof/Obernstraße; die Reihenfolge folgt einem geschlossenen Fußweg vorbei an UNESCO-Welterbe, Backsteingassen und den berühmten Stadtmusikanten.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.bremen.de/tourismus/erlebnisse/spazieren-wandern/bremer-altstadt-auf-eigene-faust",
+        "https://barrierefrei.bremen.de/tourismus-freizeit/bremen-entdecken/hoer-spaziergang-durch-die-bremer-altstadt",
+        "https://de.wikipedia.org/wiki/Sch%C3%BCtting_(Bremen)",
+        "https://stpetridom.de/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Liebfrauenkirche (Unser Lieben Frauen)",
+          "type": "church",
+          "address": "Unser Lieben Frauen Kirchhof 27, 28195 Bremen",
+          "durationMin": 15,
+          "note": "Nach dem Dom die zweitälteste Kirche Bremens und einst erste Pfarrkirche außerhalb des Dombezirks. Der Backsteinbau steht nordwestlich des Marktplatzes; an der benachbarten Ecke Unser Lieben Frauen Kirchhof/Obernstraße beginnt und endet der genagelte Rundgang.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Bremer Marktplatz",
+          "type": "square",
+          "address": "Am Markt, 28195 Bremen",
+          "durationMin": 15,
+          "note": "Das repräsentative Herz der Altstadt, gesäumt von Rathaus, Roland, Schütting und Bürgerschaft. Der Platz gilt als einer der schönsten Marktplätze Europas; ein in den Boden eingelassenes Hanseatenkreuz markiert seine historische Mitte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Bremer Rathaus",
+          "type": "building",
+          "address": "Am Markt 21, 28195 Bremen",
+          "durationMin": 15,
+          "note": "Das Alte Rathaus aus dem frühen 15. Jahrhundert erhielt um 1610 seine berühmte Fassade der Weserrenaissance. Seit 2004 gehört es gemeinsam mit dem Roland zum UNESCO-Welterbe und ist bis heute Amtssitz von Senat und Bürgermeister.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Bremer Roland",
+          "type": "monument",
+          "address": "Am Markt, 28195 Bremen",
+          "durationMin": 12,
+          "note": "Die über fünf Meter hohe Steinfigur von 1404 steht für die Markt- und Freiheitsrechte der Stadt. Der Roland blickt zum Dom und zählt seit 2004 zusammen mit dem Rathaus zum UNESCO-Welterbe.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Bremische Bürgerschaft",
+          "type": "building",
+          "address": "Am Markt 20, 28195 Bremen",
+          "durationMin": 15,
+          "note": "In diesem modernen Bau von 1966 tagt das Landesparlament der Freien Hansestadt Bremen an der Ostseite des Marktplatzes. Die offene, transparente Architektur setzt bewusst einen Kontrast zu den historischen Nachbargebäuden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Schütting",
+          "type": "historic",
+          "address": "Am Markt 13, 28195 Bremen",
+          "durationMin": 15,
+          "note": "Das Gildehaus der Kaufleute aus dem 16. Jahrhundert steht an der Südseite des Marktes, gegenüber dem Rathaus. Seit 1849 ist es Sitz der Bremer Handelskammer und ein Sinnbild des hanseatischen Handels.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Böttcherstraße",
+          "type": "historic",
+          "address": "Böttcherstraße, 28195 Bremen",
+          "durationMin": 15,
+          "note": "Die nur rund 100 Meter lange Gasse wurde in den 1920er-Jahren vom Kaffeekaufmann Ludwig Roselius im Stil des Backsteinexpressionismus umgestaltet. Sie verbindet den Marktplatz mit der Weser und beherbergt Museen, Handwerk und ein Glockenspiel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "St. Martini Kirche",
+          "type": "church",
+          "address": "Martinikirchhof 3, 28195 Bremen",
+          "durationMin": 15,
+          "note": "Die spätgotische Backsteinkirche direkt an der Weser wurde erstmals 1229 erwähnt. Ihr über 60 Meter hoher, asymmetrisch gesetzter Turm prägt die Uferfront der Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Martinianleger",
+          "type": "landmark",
+          "address": "Schlachte (Martinianleger), 28195 Bremen",
+          "durationMin": 15,
+          "note": "Der Schiffsanleger an der Weser unterhalb der Martinikirche ist Ausgangspunkt für Hafenrundfahrten und Ausflugsschiffe. Von hier reicht der Blick über den Fluss zur gegenüberliegenden Neustadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Schlachte",
+          "type": "landmark",
+          "address": "Schlachte, 28195 Bremen",
+          "durationMin": 15,
+          "note": "Die Uferpromenade entlang der Weser war über Jahrhunderte Bremens erster Hafen und Umschlagplatz. Heute reihen sich hier Gastronomie und Ausflugsschiffe; der Name erinnert an die einst eingeschlagenen Uferpfähle.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Schnoorviertel",
+          "type": "historic",
+          "address": "Schnoor, 28195 Bremen",
+          "durationMin": 15,
+          "note": "Das Schnoorviertel ist das älteste erhaltene Wohnquartier Bremens mit engen Gassen und kleinen Häusern aus dem 15. bis 18. Jahrhundert. Der Name geht auf das Seiler- und Schnurhandwerk zurück; heute prägen Galerien, Handwerk und Cafés die schmalen Wege.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "St. Petri Dom",
+          "type": "church",
+          "address": "Sandstraße 10-12, 28195 Bremen",
+          "durationMin": 15,
+          "note": "Der über 1.200 Jahre alte Dom mit seinen beiden markanten Türmen ist die bedeutendste Kirche der Stadt. Im Bleikeller sind mumifizierte Leichname zu sehen, vom Südturm öffnet sich ein weiter Blick über die Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Bremer Stadtmusikanten",
+          "type": "sculpture",
+          "address": "Schoppensteel 1, 28195 Bremen",
+          "durationMin": 12,
+          "note": "Die Bronzefiguren von Esel, Hund, Katze und Hahn stehen an der Westseite des Rathauses. Sie erinnern an das Grimm'sche Märchen; wer die beiden Vorderbeine des Esels umfasst, dem soll Glück beschieden sein.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "essen",
+      "slug": "essen-kulturpfad",
+      "title": "Essener Kulturpfad",
+      "description": "Ein rund 4 km langer, selbst begehbarer Kulturweg durch Essens Innenstadt und Südviertel: 372 blau leuchtende Glaspflastersteine führen vom Museum Folkwang im Süden bis zur Marktkirche im Norden an den wichtigsten Kunst- und Kulturorten der Stadt vorbei.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kultur",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://de.wikipedia.org/wiki/Essener_Kulturpfad",
+        "https://www.visitessen.de/essentourismus_tourismusinformation/sehenswuerdigkeiten_1/sehenswuerdigkeit_178830.de.jsp",
+        "https://de.wikipedia.org/wiki/Marktkirche_(Essen)",
+        "https://de.wikipedia.org/wiki/Erl%C3%B6serkirche_(Essen)"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Museum Folkwang",
+          "type": "museum",
+          "address": "Museumsplatz 1, 45128 Essen",
+          "durationMin": 40,
+          "note": "Südlicher Ausgangspunkt des Kulturpfads und international bedeutendes Kunstmuseum mit Schwerpunkt auf Malerei des 19. und 20. Jahrhunderts, Fotografie und Grafik. Der lichte Neubau stammt vom Architekten David Chipperfield und wurde 2010 eröffnet. Von hier führt die Reihe blauer Glaspflastersteine Richtung Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Kulturwissenschaftliches Institut Essen (KWI)",
+          "type": "building",
+          "address": "Goethestraße 31, 45128 Essen",
+          "durationMin": 15,
+          "note": "Geisteswissenschaftliches Forschungsinstitut nahe der Folkwang-Brücke, untergebracht in einer historischen Villa. Es arbeitet zu kulturwissenschaftlichen Fragestellungen und bildet eine der südlichen Stationen des Pfads im Übergang vom Museumsviertel zum Südviertel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Erlöserkirche",
+          "type": "church",
+          "address": "Friedrichstraße 17, 45128 Essen",
+          "durationMin": 15,
+          "note": "Evangelische Kirche im Südviertel, 1909 im neuromanischen Stil nach Plänen von Franz Schwechten geweiht und seit 1986 denkmalgeschützt. Neben Gottesdiensten dient sie regelmäßig als Ort für Konzerte und kulturelle Veranstaltungen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Philharmonie Essen (Saalbau)",
+          "type": "theater",
+          "address": "Huyssenallee 53, 45128 Essen",
+          "durationMin": 20,
+          "note": "Konzerthaus im historischen Saalbau am südlichen Rand des Stadtgartens. Nach einer umfassenden Sanierung wurde das Haus 2004 als Philharmonie wiedereröffnet; der Große Saal gilt wegen seiner Akustik als einer der besten Konzertsäle Deutschlands.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Stadtgarten",
+          "type": "park",
+          "address": "Stadtgarten, Huyssenallee, 45128 Essen",
+          "durationMin": 20,
+          "note": "Innerstädtische Parkanlage zwischen Huyssenallee und den Theaterbauten. Entlang des Kulturpfads stehen hier mehrere Kunstwerke im öffentlichen Raum; der Park verbindet den Saalbau mit dem Aalto-Theater und dem Opernplatz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Aalto-Theater",
+          "type": "theater",
+          "address": "Opernplatz 10, 45128 Essen",
+          "durationMin": 20,
+          "note": "Opern- und Balletthaus nach einem Entwurf des finnischen Architekten Alvar Aalto, das erst 1988 und damit lange nach seinem Tod eröffnet wurde. Der geschwungene, helle Bau am Opernplatz zählt zu den markantesten Theaterbauten der Nachkriegsmoderne.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "RWE-Turm",
+          "type": "building",
+          "address": "Opernplatz 1, 45128 Essen",
+          "durationMin": 15,
+          "note": "Rund 127 Meter hohes Bürohochhaus am Opernplatz, 1997 fertiggestellt und lange Zeit das höchste Gebäude Essens. Der schlanke, gläserne Zylinder ist ein weithin sichtbares Wahrzeichen der Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Alte Synagoge (Haus jüdischer Kultur)",
+          "type": "historic",
+          "address": "Edmund-Körner-Platz 1, 45127 Essen",
+          "durationMin": 15,
+          "note": "Einer der größten erhaltenen Synagogenbauten Mitteleuropas, 1913 eingeweiht und in der NS-Zeit 1938 geschändet und ausgebrannt. Heute ist das monumentale Gebäude als „Haus jüdischer Kultur\" ein Lern- und Gedenkort mit Dauerausstellung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Lichtburg",
+          "type": "theater",
+          "address": "Kettwiger Straße 36, 45127 Essen",
+          "durationMin": 20,
+          "note": "Traditionsreiches Filmtheater an der Kettwiger Straße, 1928 eröffnet und mit über 1.200 Plätzen der größte Kinosaal Deutschlands. Der denkmalgeschützte Bau ist bis heute ein bekannter Ort für Filmpremieren.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Grillo-Theater",
+          "type": "theater",
+          "address": "Theaterplatz 11, 45127 Essen",
+          "durationMin": 20,
+          "note": "Ältestes Theatergebäude der Stadt, 1892 eröffnet und benannt nach dem Stifter, dem Industriellen Friedrich Grillo. Es ist heute die Hauptspielstätte des Schauspiels Essen am zentralen Theaterplatz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Essener Dom (Münster)",
+          "type": "church",
+          "address": "Burgplatz 2, 45127 Essen",
+          "durationMin": 15,
+          "note": "Katholische Bischofskirche und Wahrzeichen am Burgplatz mit Ursprüngen im 9. Jahrhundert. Berühmt ist die Goldene Madonna, die als älteste erhaltene vollplastische Marienfigur des Abendlandes gilt; der zugehörige Domschatz zählt zu den bedeutendsten Kirchenschätzen Deutschlands.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Volkshochschule Essen",
+          "type": "building",
+          "address": "Burgplatz 1, 45127 Essen",
+          "durationMin": 15,
+          "note": "Zentrale Weiterbildungseinrichtung der Stadt direkt neben dem Dom am Burgplatz. Als Ort der Bildung und Begegnung steht sie exemplarisch für das kulturelle Leben in der Essener Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Marktkirche",
+          "type": "church",
+          "address": "Markt 2, 45127 Essen",
+          "durationMin": 15,
+          "note": "Nördlicher Endpunkt des Kulturpfads am Markt und älteste evangelische Kirche der Essener Innenstadt. Von hier ging 1563 die Reformation in Essen aus; die ursprünglich romanische, später spätgotische Hallenkirche wurde nach schweren Kriegsschäden wiederaufgebaut.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "erfurt",
+      "slug": "erfurt-luthermeile",
+      "title": "Luthers Stationen: Luthermeile durch Erfurt",
+      "description": "Ein zu Fuß begehbarer Altstadt-Rundgang zu den authentischen Wirkungsstätten Martin Luthers in Erfurt – vom Augustinerkloster, in das er als Mönch eintrat, über die alte Universität, die Krämerbrücke und den Dom bis zur Kaufmannskirche und dem Lutherdenkmal am Anger.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "reformation",
+        "luther"
+      ],
+      "sourceUrls": [
+        "https://www.erfurt-tourismus.de/sehens-wissenswertes/top-themen/luthers-stationen/",
+        "https://www.erfurt.de/ef/de/erleben/besuch/luther/staetten/index.html",
+        "https://www.augustinerkloster.de/lutherstaetten-erfurt-thueringen/",
+        "https://de.wikipedia.org/wiki/Barf%C3%BC%C3%9Ferkirche_(Erfurt)"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Evangelisches Augustinerkloster",
+          "type": "church",
+          "address": "Augustinerstraße 10, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "Hier trat Martin Luther am 17. Juli 1505 in den Bettelorden der Augustiner-Eremiten ein und lebte mehrere Jahre als Mönch. In der Klosterkirche feierte er 1507 seine erste Messe. Die erhaltene Lutherzelle und die Ausstellung machen das Kloster zum zentralen Erinnerungsort seiner Erfurter Jahre.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Georgenburse",
+          "type": "historic",
+          "address": "Augustinerstraße 27, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "In der Georgenburse wohnten im Mittelalter Studenten und Lehrende der Universität Erfurt. Von 1501 bis 1505 lebte hier Martin Luther während seines Studiums. Das erhaltene Gebäude beherbergt heute einen Studien- und Begegnungsort zur Lutherzeit.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Krämerbrücke",
+          "type": "bridge",
+          "address": "Krämerbrücke, 99084 Erfurt",
+          "durationMin": 8,
+          "note": "Die Krämerbrücke ist eine vollständig mit Fachwerkhäusern bebaute und bewohnte Brücke über die Gera und gilt als längste ihrer Art nördlich der Alpen. Zu Luthers Zeit war sie ein belebter Handelsplatz mitten in der Stadt. Der Überlieferung nach soll der Mönch Luther hier um Almosen gebeten haben.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Rathaus am Fischmarkt",
+          "type": "building",
+          "address": "Fischmarkt 1, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "Das neugotische Rathaus am Fischmarkt entstand im 19. Jahrhundert am Ort älterer Vorgängerbauten. In Festsaal und Treppenhaus zeigen großformatige Wandgemälde Szenen der Stadtgeschichte, darunter Darstellungen aus dem Leben Martin Luthers. Der Fischmarkt bildet mit dem Roland-Standbild einen repräsentativen Mittelpunkt der Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Michaeliskirche",
+          "type": "church",
+          "address": "Michaelisstraße 11, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "Die Michaeliskirche war die Kirche der alten Universität und wird deshalb auch Universitätskirche genannt. Am 21. Oktober 1522 predigte Martin Luther hier. Sie liegt im historischen Lateinerviertel gegenüber dem Collegium maius.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Collegium maius (Alte Universität)",
+          "type": "building",
+          "address": "Michaelisstraße 39, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "Das Collegium maius war das Hauptgebäude der 1379 privilegierten alten Universität Erfurt. Hier war Luther von 1501 bis 1505 eingeschrieben und erwarb den Grad des Magister artium. Der im Zweiten Weltkrieg zerstörte Bau wurde rekonstruiert und dient heute der evangelischen Kirche in Mitteldeutschland.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Engelsburg",
+          "type": "building",
+          "address": "Allerheiligenstraße 20/21, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "Die Engelsburg war um 1500 ein Treffpunkt Erfurter Humanisten; hier entstanden Teile der satirischen \"Dunkelmännerbriefe\". 1537 wurde Martin Luther in diesem Haus von seinem Freund, dem Arzt Georg Sturz, behandelt, als er schwer erkrankt auf der Reise von Schmalkalden nach Wittenberg war. Heute wird das Gebäude als studentisches Kulturzentrum genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Andreaskirche",
+          "type": "church",
+          "address": "Andreasstraße 14, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "Die gotische Andreaskirche liegt im malerischen Andreasviertel im Norden der Altstadt. Sie bewahrt das bemalte hölzerne Modell für Luthers Grabplatte auf, das nach einem Cranach-Holzschnitt geschnitzt wurde und als Gussvorlage für die 1548 in Erfurt gegossene bronzene Grabplatte diente; es gilt als ältestes bekanntes Lutherdenkmal. Sie zählt zu den ältesten Pfarrkirchen der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Dom St. Marien",
+          "type": "church",
+          "address": "Domstufen 1, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "Der auf dem Domberg über dem Domplatz thronende Dom St. Marien bildet mit der benachbarten Severikirche das Wahrzeichen Erfurts. Am 3. April 1507 wurde Martin Luther hier zum Priester geweiht. Über die monumentalen Domstufen gelangt man zum spätgotischen Chor mit seinen berühmten Glasfenstern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Barfüßerkirche",
+          "type": "church",
+          "address": "Barfüßerstraße 20, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "Die Barfüßerkirche war die Kirche eines Franziskanerklosters und zählt zu den Meisterwerken der Bettelordensarchitektur. Am 11. Oktober 1529 predigte Martin Luther in dem Gotteshaus. Nach der Zerstörung von 1944 dient der erhaltene Hohe Chor heute als Ausstellungsort mittelalterlicher Kunst.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Kaufmannskirche St. Gregorius",
+          "type": "church",
+          "address": "Anger, 99084 Erfurt",
+          "durationMin": 15,
+          "note": "Die evangelische Kaufmannskirche am Anger ist die einzige Erfurter Stadtkirche mit zwei Türmen und eine der ältesten Pfarrkirchen der Stadt. Am 22. Oktober 1522 predigte Martin Luther hier und trug zur Ausbreitung der Reformation in Erfurt bei. In der Kirche wurden auch die Eltern Johann Sebastian Bachs getraut.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Lutherdenkmal am Anger",
+          "type": "monument",
+          "address": "Anger, 99084 Erfurt",
+          "durationMin": 12,
+          "note": "Das bronzene Lutherdenkmal vor der Kaufmannskirche entstand Ende des 19. Jahrhunderts nach einem Entwurf von Fritz Schaper. Es zeigt den Reformator mit aufgeschlagener Bibel und erinnert an sein Wirken in der Stadt. Der Standort wurde gewählt, weil Luther in der nahen Kaufmannskirche predigte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Stadtmuseum \"Haus zum Stockfisch\"",
+          "type": "museum",
+          "address": "Johannesstraße 169, 99084 Erfurt",
+          "durationMin": 40,
+          "note": "Das Stadtmuseum ist im Renaissance-Bürgerhaus \"Haus zum Stockfisch\" von 1607 untergebracht. Seine Dauerausstellung zur Stadtgeschichte beleuchtet auch die Reformationszeit und Luthers Erfurter Jahre. Das reich verzierte Gebäude zählt zu den schönsten Bürgerhäusern der Stadt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "magdeburg",
+      "slug": "magdeburg-otto-orte",
+      "title": "Otto-Orte – Auf den Spuren der großen Ottos",
+      "description": "Begehbarer Altstadt-Rundgang durch die Ottostadt Magdeburg zu den Wirkungsstätten von Kaiser Otto dem Großen und Otto von Guericke – vom Kaiserdom über Alten Markt und Ratswaageplatz bis zur Lukasklause, mit dem Jahrtausendturm im Elbauenpark als optionalem Ausflug.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "mittelalter"
+      ],
+      "sourceUrls": [
+        "https://www.magdeburg-tourist.de/index.php?ModID=7&FID=557.2722.1&object=tx%7C557.2722.1",
+        "https://www.kulturreise-ideen.de/technik/personen-2/Tour-otto-von-guericke-in-magdeburg.html",
+        "https://www.magdeburg.de/index.php?ModID=7&FID=115.3393.1&object=tx%7C115.3393.1",
+        "https://de.wikipedia.org/wiki/Kaisergrab_im_Magdeburger_Dom"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Magdeburger Dom St. Mauritius und Katharina",
+          "type": "church",
+          "address": "Am Dom 1, 39104 Magdeburg",
+          "durationMin": 15,
+          "note": "Der Magdeburger Dom gilt als die älteste gotische Kathedrale auf deutschem Boden. Im Chor befindet sich das über 1000 Jahre alte Grab Kaiser Ottos des Großen, der hier 973 bestattet wurde. Der Bau ist damit die zentrale Erinnerungsstätte an den Namensgeber der Ottostadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Domplatz",
+          "type": "square",
+          "address": "Domplatz, 39104 Magdeburg",
+          "durationMin": 15,
+          "note": "Der weite Domplatz erstreckt sich nördlich des Doms und war einst Standort einer ottonischen Vorgängerkathedrale. Im Pflaster ist der Grundriss dieses frühmittelalterlichen Baus nachgezeichnet. Der Platz bildet den historischen Auftakt des Rundgangs zu den beiden Ottos.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Fürstenwall",
+          "type": "viewpoint",
+          "address": "Fürstenwall, 39104 Magdeburg",
+          "durationMin": 15,
+          "note": "Der Fürstenwall verläuft als Promenade auf der ehemaligen Stadtbefestigung hoch über der Elbe, unmittelbar östlich des Doms. Er zählt zu den ältesten Promenadenanlagen Deutschlands und eröffnet weite Ausblicke auf den Fluss. Die Anlage verbindet den Dombezirk mit dem Elbufer.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Grüne Zitadelle von Magdeburg (Hundertwasserhaus)",
+          "type": "building",
+          "address": "Breiter Weg 9, 39104 Magdeburg",
+          "durationMin": 15,
+          "note": "Die Grüne Zitadelle ist das letzte von Friedensreich Hundertwasser entworfene Gebäude und wurde 2005 vollendet. Mit begrünten Dächern, unregelmäßigen Fenstern und bunten Fassaden bildet sie einen modernen Kontrast direkt gegenüber dem historischen Domplatz. Sie beherbergt Wohnungen, Läden, ein Hotel und einen begehbaren Innenhof.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Kulturhistorisches Museum Magdeburg",
+          "type": "museum",
+          "address": "Otto-von-Guericke-Straße 68-73, 39104 Magdeburg",
+          "durationMin": 40,
+          "note": "Das Kulturhistorische Museum bewahrt in seinem Kaiser-Otto-Saal das Original des Magdeburger Reiters, das aus konservatorischen Gründen 1961 hierher gebracht wurde. Die Sammlung dokumentiert die Stadtgeschichte von den Ottonen bis in die Gegenwart. Das Haus teilt sich das Gebäude mit dem Museum für Naturkunde.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Kunstmuseum Kloster Unser Lieben Frauen",
+          "type": "historic",
+          "address": "Regierungsstraße 4-6, 39104 Magdeburg",
+          "durationMin": 15,
+          "note": "Das Kloster Unser Lieben Frauen ist das älteste erhaltene Gebäude Magdeburgs und ein bedeutendes Zeugnis romanischer Baukunst. Der ehemalige Klosterkomplex mit Kreuzgang aus dem 11. und 12. Jahrhundert beherbergt heute das städtische Kunstmuseum mit Schwerpunkt auf Skulptur und Gegenwartskunst. Als Bauwerk aus ottonisch geprägter Zeit verbindet es die mittelalterliche Geschichte der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Johanniskirche",
+          "type": "church",
+          "address": "Johannisbergstraße 1, 39104 Magdeburg",
+          "durationMin": 15,
+          "note": "Die Johanniskirche ist die älteste Pfarrkirche Magdeburgs und wurde nach mehrfacher Zerstörung immer wieder aufgebaut. Otto von Guericke nutzte den Kirchturm für physikalische Beobachtungen, im Inneren erinnert ein Denkmal an ihn, und 1524 predigte hier Martin Luther. Heute wird der Bau als Veranstaltungs- und Konzertsaal genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Alter Markt mit Magdeburger Reiter und Altem Rathaus",
+          "type": "square",
+          "address": "Alter Markt, 39104 Magdeburg",
+          "durationMin": 15,
+          "note": "Der Alte Markt ist der zentrale Platz der Altstadt mit dem barocken Alten Rathaus. In seiner Mitte steht eine vergoldete Kopie des Magdeburger Reiters, der um 1240 entstandenen Reiterstandbild-Gruppe, die vermutlich Otto den Großen darstellt. Das Original wird im Kulturhistorischen Museum bewahrt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Otto-von-Guericke-Denkmal",
+          "type": "monument",
+          "address": "Bei der Hauptwache, 39104 Magdeburg",
+          "durationMin": 12,
+          "note": "Nahe dem Alten Markt, bei der Hauptwache, steht das 1907 errichtete Denkmal für Otto von Guericke. Die Figur ehrt den Bürgermeister, Diplomaten und Naturforscher, der von 1646 bis 1676 die Geschicke der Stadt lenkte. Es erinnert an einen der berühmtesten Söhne Magdeburgs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Plastik „Die Magdeburger Halbkugeln“ am Ratswaageplatz",
+          "type": "sculpture",
+          "address": "Ratswaageplatz, 39104 Magdeburg",
+          "durationMin": 12,
+          "note": "Auf dem Ratswaageplatz erinnert eine Plastik an Otto von Guerickes berühmtes Experiment mit den Magdeburger Halbkugeln. Mit zwei luftleer gepumpten Kupferhalbkugeln, die selbst mehrere Pferdegespanne nicht auseinanderziehen konnten, wies er die Kraft des Luftdrucks nach. Die Skulptur greift dieses weltbekannte Vakuum-Experiment auf.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Otto-von-Guericke-Museum in der Lukasklause",
+          "type": "museum",
+          "address": "Schleinufer 1, 39104 Magdeburg",
+          "durationMin": 40,
+          "note": "Die Lukasklause ist ein mittelalterlicher Wehrturm am Rand der erhaltenen Stadtmauer nahe der Elbe. Seit 1995 beherbergt sie das Otto-von-Guericke-Zentrum, das Leben und Forschung des Naturwissenschaftlers dokumentiert. Historische und nachgebaute Experimente laden zum Ausprobieren ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Jahrtausendturm im Elbauenpark",
+          "type": "viewpoint",
+          "address": "Tessenowstraße 7, 39114 Magdeburg",
+          "durationMin": 15,
+          "note": "Der Jahrtausendturm im Elbauenpark ist als optionaler Ausflug jenseits der Elbe erreichbar. Der markante Holzturm zeigt auf mehreren Ebenen die Geschichte der Wissenschaft, darunter auch die Leistungen Otto von Guerickes. Von der oberen Plattform bietet sich ein weiter Blick über den Park und die Stadt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "kiel",
+      "slug": "kiel-matrosenaufstand-1918",
+      "title": "KulturSpuren-Route „Der Matrosenaufstand 1918“",
+      "description": "Selbst begehbarer historischer Rundgang der Stadt Kiel zu den zentralen Schauplätzen des Matrosenaufstands von 1918, dem Auftakt der Novemberrevolution. Die rund 9 km lange Route führt von der Kieler Wik über die Innenstadt bis zum Hauptbahnhof und verbindet elf real benannte Stationen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "zeitgeschichte"
+      ],
+      "sourceUrls": [
+        "https://www.kiel.de/de/kultur_freizeit/kulturspuren/kulturspuren_matrosenaufstand.php",
+        "https://presse.kiel-marketing.de/pressreleases/vor-100-jahren-revolution-ein-historischer-rundgang-durch-kiel-2480594",
+        "https://kurkuhl.de/de/novrev/stadtrundgang_11.html",
+        "https://de.wikipedia.org/wiki/Nordfriedhof_(Kiel)"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wiker Balkon",
+          "type": "viewpoint",
+          "address": "Schleusenpark, Uferstraße, 24106 Kiel",
+          "durationMin": 15,
+          "note": "Die 2012 im Schleusenpark eröffnete Aussichtsplattform bietet einen weiten Blick über den Nord-Ostsee-Kanal und die Holtenauer Schleusen. In der Kieler Wik lagen im November 1918 Einheiten des III. Geschwaders, deren Besatzungen zu den Auslösern des Aufstands gehörten. Der offizielle Rundgang der Stadt Kiel beginnt an diesem Ort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Kasernengelände Arkonastraße",
+          "type": "historic",
+          "address": "Arkonastraße, 24106 Kiel",
+          "durationMin": 15,
+          "note": "Rund um die Arkonastraße lagen die Marinekasernen der Kieler Wik, in denen unter anderem Torpedo- und U-Boot-Divisionen untergebracht waren. Von hier aus schlossen sich zahlreiche Soldaten dem Aufstand an, weshalb das Gelände als eines der Zentren der Erhebung gilt. Mehrere der historischen Kasernengebäude sind bis heute erhalten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Gustav-Garbe-Brücke",
+          "type": "bridge",
+          "address": "Sporthafen Wik (Kiellinie), 24106 Kiel",
+          "durationMin": 8,
+          "note": "Die Brücke am Sporthafen Wik erinnert an Gustav Garbe (1865–1935), eine führende Figur der Kieler Gewerkschaftsbewegung und des Matrosenaufstands. 1930 nach ihm benannt, wurde der Name 1933 durch die Nationalsozialisten entfernt und erst 2016 offiziell wiederhergestellt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Nordfriedhof",
+          "type": "monument",
+          "address": "Westring 481, 24118 Kiel",
+          "durationMin": 12,
+          "note": "Auf Kiels größtem Friedhof, angelegt 1878 auf früherem Schießplatzgelände in Ravensberg, befinden sich zahlreiche Kriegsgräber. Der Rundgang hält hier an den Gräbern der Gefallenen inne und erinnert an die Toten des November 1918.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Marinestation Ostsee",
+          "type": "historic",
+          "address": "Lornsenstraße (Ecke Adolfstraße), 24105 Kiel",
+          "durationMin": 15,
+          "note": "Das Gebäude war Sitz des Marinegouverneurs, der Ende 1918 die höchste Befehlsgewalt in Kiel innehatte. Am 4. November 1918 verhandelten hier Matrosen und Politiker mit der Marineführung; als Aufständische das Gebäude besetzten und die Wachmannschaft entwaffneten, wurde aus der Revolte der Beginn der deutschen Revolution. Heute nutzt die Finanzverwaltung den denkmalgeschützten Bau.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Arrestanstalt / Gedenktafel",
+          "type": "monument",
+          "address": "Feldstraße, 24105 Kiel",
+          "durationMin": 12,
+          "note": "In der Feldstraße stand bis 1964 die Marine-Arrestanstalt, in der inhaftierte Matrosen festgehalten wurden; ihre Freilassung war eine der zentralen Forderungen der Aufständischen. In der Nähe fielen am 3. November 1918 Schüsse auf einen Demonstrationszug, die mehrere Todesopfer forderten. Eine Gedenktafel erinnert heute an diese Ereignisse.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Gewerkschaftshaus",
+          "type": "building",
+          "address": "Legienstraße 22-24, 24103 Kiel",
+          "durationMin": 15,
+          "note": "Im Gewerkschaftshaus liefen während des Aufstands die organisatorischen Fäden zusammen; hier tagten die Kieler Arbeiter- und Soldatenräte. Eine 1978 angebrachte Gedenktafel an der Fassade erinnert an die Rolle des Hauses in der Novemberrevolution.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Kieler Schloss / Schlosshof",
+          "type": "landmark",
+          "address": "Wall 80, 24103 Kiel",
+          "durationMin": 15,
+          "note": "Der Schlosshof war 1918 ein bekannter Versammlungsort, an dem sich Matrosen und Arbeiter zu Räten zusammenfanden. Am 6. November sprach hier Gustav Noske vor einer großen Menge und drängte darauf, die revolutionäre Bewegung wieder einzuhegen. Der historische Bau wurde im Zweiten Weltkrieg zerstört; an seiner Stelle steht heute das moderne Kieler Schloss.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Rathaus Kiel",
+          "type": "building",
+          "address": "Fleethörn 9, 24103 Kiel",
+          "durationMin": 15,
+          "note": "Das 1911 eröffnete Rathaus war Sitz der Stadtverwaltung, mit der die neu gebildeten Arbeiter- und Soldatenräte im November 1918 um die Kontrolle in der Stadt rangen. Sein hoher Turm, dessen Vorbild der Markusturm in Venedig ist, zählt bis heute zu den Wahrzeichen Kiels.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Denkmal „Wik“ im Ratsdienergarten",
+          "type": "sculpture",
+          "address": "Ratsdienergarten (Jensendamm), 24103 Kiel",
+          "durationMin": 12,
+          "note": "Das Revolutionsdenkmal „Wik“ des Bildhauers Hans-Jürgen Breuste wurde 1982 zum Gedenken an den Matrosenaufstand im Ratsdienergarten aufgestellt. Die Skulptur aus schräg gestellten Stahlträgern und Granitsäulen ist vom Drama „Feuer aus den Kesseln“ von Ernst Toller inspiriert. Sie gehört zu den wenigen Denkmälern, die ausdrücklich an die Erhebung von 1918 erinnern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Platz der Kieler Matrosen",
+          "type": "square",
+          "address": "Bahnhofsvorplatz / Sophienblatt, 24103 Kiel",
+          "durationMin": 15,
+          "note": "Der Vorplatz des Kieler Hauptbahnhofs wurde 2011 in „Platz der Kieler Matrosen“ umbenannt und erinnert an die Ereignisse von 1918, als hier Truppen eintrafen und Kämpfe stattfanden. Seit 2013 markiert eine Stele diesen Ort. Der offizielle Rundgang der Stadt Kiel endet an diesem Platz.",
+          "sourceUrls": []
+        }
+      ]
+    }
+  ]
+}
