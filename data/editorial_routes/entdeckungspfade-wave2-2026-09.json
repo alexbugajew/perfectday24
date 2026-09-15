@@ -1,0 +1,1997 @@
+{
+  "version": 1,
+  "createdAt": "2026-09-15",
+  "status": "ready",
+  "scope": "Entdeckungspfade Welle 2 — 11 direkt-baubare Themenpfade + 4 Metropolen (Berlin, Hamburg, Muenchen, Koeln)",
+  "importNotes": "Redaktionelle Themen-Entdeckungspfade nach realen, offiziellen Stadt-Pfaden (Recherche 15.09., 72 Pfade in 78 Staedten). Extraktion + adversariale Verifikation je Stadt (Workflow, 30 Agenten): echte Stationen, geokodierbare Adressen, keine Fremdtexte/Fotos. Nur Fakten (Stationsname, Ort, Adresse) aus offiziellen Quellen; Beschreibungen eigenformuliert. Koordinaten per --geocode-missing (Nominatim, auf die Stadt begrenzt). Quellen je Route in sourceUrls. Metropolen: je EIN kohaerenter zentraler Kernrundgang statt Gesamtnetz.",
+  "routes": [
+    {
+      "citySlug": "bonn",
+      "slug": "bonn-weg-der-demokratie",
+      "title": "Weg der Demokratie",
+      "description": "Selbst begehbarer Geschichtsrundweg durch das ehemalige Bonner Regierungsviertel: In einem Bogen entlang von Rhein und Adenauerallee verbindet die Route die zentralen Schauplätze der bundesrepublikanischen Demokratiegeschichte – vom Haus der Geschichte über die früheren Plenarsäle und Amtssitze von Bundespräsident und Bundeskanzler bis zum Museum Koenig, wo 1948 der Parlamentarische Rat eröffnet wurde. Der kompakte Kernweg ist in rund zwei Stunden zu Fuß machbar.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "demokratie",
+        "politik"
+      ],
+      "sourceUrls": [
+        "https://www.wegderdemokratie.de/fileadmin/bilder/home/weg-der-demokratie-flyer.pdf",
+        "https://www.bonn.de/bonn-erleben/besichtigen-entdecken/weg-der-demokratie.php",
+        "https://www.bonnzimmer.de/artikel/weg-der-demokratie.php",
+        "https://de.wikipedia.org/wiki/Weg_der_Demokratie"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Haus der Geschichte der Bundesrepublik Deutschland",
+          "type": "museum",
+          "address": "Willy-Brandt-Allee 14, 53113 Bonn",
+          "durationMin": 40,
+          "note": "Das Museum zur deutschen Zeitgeschichte seit 1945 ist der offizielle Startpunkt des Rundwegs; im Foyer steht ein Informationsterminal zum Weg der Demokratie. Der Eintritt in die Dauerausstellung ist frei. Von hier aus lässt sich das gesamte ehemalige Regierungsviertel bequem zu Fuß erschließen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "\"Langer Eugen\" / UN-Campus",
+          "type": "building",
+          "address": "Platz der Vereinten Nationen 1, 53113 Bonn",
+          "durationMin": 15,
+          "note": "Das 1969 fertiggestellte Hochhaus diente den Bundestagsabgeordneten als Bürogebäude und wurde zu einem Wahrzeichen der Bundeshauptstadt Bonn. Seit 2006 bildet es den Kern des UN-Campus und beherbergt zahlreiche Organisationen der Vereinten Nationen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Plenarsaal \"Wasserwerk\"",
+          "type": "historic",
+          "address": "Hermann-Ehlers-Straße 29, 53113 Bonn",
+          "durationMin": 15,
+          "note": "Das umgebaute alte Wasserwerk am Rhein diente dem Deutschen Bundestag von 1986 bis 1992 als provisorischer Tagungsort, während nebenan das neue Plenargebäude entstand. In diesem schlichten Saal wurden unter anderem wichtige Weichen zur deutschen Einheit gestellt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Plenarsaal Deutscher Bundestag",
+          "type": "building",
+          "address": "Platz der Vereinten Nationen 2, 53113 Bonn",
+          "durationMin": 15,
+          "note": "Im neu errichteten, gläsernen Parlamentsgebäude tagte der Deutsche Bundestag von 1992 bis zum Umzug nach Berlin 1999. Heute wird der markante Bau am Rhein als World Conference Center Bonn für internationale Kongresse und Konferenzen genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Bundeshaus",
+          "type": "historic",
+          "address": "Görresstraße 15, 53113 Bonn",
+          "durationMin": 15,
+          "note": "In der ehemaligen Aula der Pädagogischen Akademie beriet der Parlamentarische Rat das Grundgesetz und verabschiedete es 1949. Über Jahrzehnte tagten hier anschließend Bundestag und Bundesrat – ein zentraler Ort der jungen Bundesrepublik.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Bundesrat",
+          "type": "historic",
+          "address": "Görresstraße 15, 53113 Bonn (Nordflügel des Bundeshauses)",
+          "durationMin": 15,
+          "note": "Im Nordflügel des Bundeshauses tagte von 1949 bis 2000 der Bundesrat, die Vertretung der Länder im Bund. Nach dem Regierungsumzug blieb die Länderkammer noch ein Jahr länger in Bonn, bevor auch sie nach Berlin wechselte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Museum Koenig",
+          "type": "museum",
+          "address": "Adenauerallee 160, 53113 Bonn",
+          "durationMin": 40,
+          "note": "Im Zoologischen Forschungsmuseum Alexander Koenig fand am 1. September 1948 der Festakt zur Eröffnung des Parlamentarischen Rates statt – der Auftakt der Arbeit am Grundgesetz. Heute ist es ein naturkundliches Museum und zugleich ein Gründungsort der Bundesrepublik.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Villa Hammerschmidt",
+          "type": "building",
+          "address": "Adenauerallee 135, 53113 Bonn",
+          "durationMin": 15,
+          "note": "Die klassizistische Villa aus dem 19. Jahrhundert ist seit 1950 Amtssitz der Bundespräsidenten. Sie dient dem Staatsoberhaupt bis heute als zweiter Amtssitz neben dem Berliner Schloss Bellevue; der zugehörige Park reicht bis an den Rhein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Palais Schaumburg",
+          "type": "building",
+          "address": "Adenauerallee 139, 53113 Bonn",
+          "durationMin": 15,
+          "note": "Das gründerzeitliche Palais wählte Konrad Adenauer 1949 zum ersten Amtssitz des Bundeskanzlers; bis 1976 wurde von hier aus regiert. Es dient dem Bundeskanzleramt bis heute als Bonner Dienstsitz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Kanzlerbungalow",
+          "type": "building",
+          "address": "Adenauerallee 139-141, 53113 Bonn",
+          "durationMin": 15,
+          "note": "Der von Sep Ruf 1964 im modernen Bauhaus-Geist errichtete Flachbau im Park des Palais Schaumburg war bis 1999 Wohn- und Empfangsgebäude der Bundeskanzler. Von Ludwig Erhard bis Helmut Kohl empfingen hier Kanzler Staatsgäste; der denkmalgeschützte Bau ist für Führungen zugänglich.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Bundeskanzleramt",
+          "type": "building",
+          "address": "Dahlmannstraße 4, 53113 Bonn",
+          "durationMin": 15,
+          "note": "Der 1976 bezogene Neubau war bis 1999 Amtssitz der Bundeskanzler von Helmut Schmidt bis Helmut Kohl. Seit dem Regierungsumzug nutzt das Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ) das Gebäude.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Bürobauten \"Tulpenfeld\" / Bundespressekonferenz",
+          "type": "building",
+          "address": "Tulpenfeld 2-10, 53113 Bonn",
+          "durationMin": 15,
+          "note": "Den Bürokomplex Tulpenfeld errichtete eine Versicherung in den 1960er Jahren und vermietete ihn an Bundesbehörden und die Presse. Von 1968 bis 1999 hatte hier die Bundespressekonferenz ihren Sitz, in der Regierungssprecher und Ministerien den Hauptstadtjournalisten Rede und Antwort standen.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "muenster",
+      "slug": "muenster-skulpturenpfad",
+      "title": "Skulpturenpfad Münster – Dauerhafte Werke der Skulptur Projekte",
+      "description": "Ein selbst begehbarer Rundgang zu den bekanntesten dauerhaften Kunstwerken der Skulptur Projekte Münster – von der Kirschensäule in der Altstadt über den Schlossgarten bis zu den Werken rund um den Aasee.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "skulptur"
+      ],
+      "sourceUrls": [
+        "https://www.stadt-muenster.de/tourismus/kunst-kultur/skulpturen",
+        "https://www.stadt-muenster.de/fileadmin/user_upload/stadt-muenster/80_tourismus/pdf/skulpturenfuehrer_2015.pdf",
+        "https://www.azurgold.de/post/m%C3%BCnsters-freilicht-museum-zwischen-aasee-und-altstadt",
+        "https://skulpturen.kulturraum.nrw/muenster/thomas-schuette/kirschensaeule.html"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kirschensäule (Thomas Schütte)",
+          "type": "sculpture",
+          "address": "Harsewinkelplatz, 48143 Münster",
+          "durationMin": 12,
+          "note": "Eine schlanke Sandsteinsäule mit klassischen Architekturelementen, gekrönt von zwei überdimensionalen, signalrot lackierten Kirschen im Pop-Art-Stil. Das Werk entstand für die Skulptur Projekte 1987 und blieb dauerhaft am Harsewinkelplatz mitten in der Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Sketch for a Fountain (Nicole Eisenman)",
+          "type": "fountain",
+          "address": "An der Kreuzschanze (Promenade), 48143 Münster",
+          "durationMin": 8,
+          "note": "Eine Brunnenanlage mit mehreren liegenden und sitzenden Bronze- und Gipsfiguren rund um ein flaches Wasserbecken. Ursprünglich für die Skulptur Projekte 2017 geschaffen, wurde das beliebte Werk nach einer Spendenaktion 2021 dauerhaft an der Kreuzschanze auf der Promenade installiert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Wirbel / Vertebrae (Henry Moore)",
+          "type": "sculpture",
+          "address": "Himmelreichallee 40, 48149 Münster",
+          "durationMin": 12,
+          "note": "Eine abstrakte Bronzeplastik aus organisch geschwungenen, wirbelartigen Elementen auf dem Gelände der Landesbausparkasse an der Himmelreichallee. Das Werk ist typisch für Henry Moores biomorphe, an Knochen und Körper erinnernde Formensprache.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Wasser-Plastik (Heinz Mack)",
+          "type": "sculpture",
+          "address": "Himmelreichallee 40, 48149 Münster",
+          "durationMin": 12,
+          "note": "Eine Metallplastik des ZERO-Mitbegründers Heinz Mack, die mit Wasser, Bewegung und Lichtreflexen arbeitet. Sie steht ebenfalls auf dem parkartigen Gelände der Landesbausparkasse in unmittelbarer Nähe zum Aasee.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "We are still and reflective (Martin Boyce)",
+          "type": "sculpture",
+          "address": "Himmelreichallee (ehemaliges Zoogelände), 48149 Münster",
+          "durationMin": 12,
+          "note": "Eine großflächige Bodenarbeit aus gegossenen Betonplatten auf dem ehemaligen Zoogelände an der Himmelreichallee, nördlich des LBS-Gebäudes. In einige Plattenfugen sind Messingstäbe eingelassen, die aus der Distanz den Werktitel als Schriftzug lesbar machen. Die Arbeit entstand für die Skulptur Projekte 2007 und blieb dauerhaft in Münster.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Giant Pool Balls / Aaseekugeln (Claes Oldenburg)",
+          "type": "sculpture",
+          "address": "Aaseewiesen, nahe Torminbrücke, 48151 Münster",
+          "durationMin": 12,
+          "note": "Drei überdimensionale Betonkugeln, wie zu einem Billardspiel angeordnet, auf den Aaseewiesen nahe der Torminbrücke. Sie gehören zu den bekanntesten und ältesten dauerhaften Werken der Skulptur Projekte aus dem Jahr 1977 und sind ein Wahrzeichen des Aasees.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Weniger wild als andere / Less sauvage than others (Rosemarie Trockel)",
+          "type": "sculpture",
+          "address": "Aasee, nahe Torminbrücke, 48151 Münster",
+          "durationMin": 12,
+          "note": "Zwei hohe, streng in Form geschnittene Eibenhecken bilden eine raumartige Struktur am Ufer des Aasees. Die Arbeit von 2007 spielt mit dem Verhältnis von Natur und Kultur und mit der Grenze zwischen Gartenkunst und Skulptur.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Blickst Du hinauf und liest die Worte... (Ilya Kabakov)",
+          "type": "sculpture",
+          "address": "Aaseewiesen, östlich Kardinal-von-Galen-Ring, 48151 Münster",
+          "durationMin": 12,
+          "note": "Ein hoher Mast mit einer filigranen Antennenkonstruktion, deren Schriftzug sich erst aus einem bestimmten Blickwinkel zu lesbaren Worten fügt. Das Werk des russischen Konzeptkünstlers entstand für die Skulptur Projekte 1997 und steht auf den Aaseewiesen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Pier (Jorge Pardo)",
+          "type": "sculpture",
+          "address": "Nordwestliches Aaseeufer, 48151 Münster",
+          "durationMin": 12,
+          "note": "Ein langer hölzerner Steg, der vom nordwestlichen Aaseeufer ins Wasser führt und in einem pavillonartigen Aufbau endet. Das Werk von 1997 verbindet nutzbares Gebrauchsobjekt und Kunstwerk und lädt zum Verweilen mit Blick über den See ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Ohne Titel (Donald Judd)",
+          "type": "sculpture",
+          "address": "Nordwestliches Aaseeufer, westlich Kardinal-von-Galen-Ring, 48151 Münster",
+          "durationMin": 12,
+          "note": "Zwei große, offene Betonringe am nordwestlichen Aaseeufer, die den Blick auf See und Landschaft wie durch ein Fenster rahmen. Das klare, minimalistische Werk des amerikanischen Künstlers gehört zu den ersten Skulptur Projekten von 1977.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "darmstadt",
+      "slug": "darmstadt-jugendstil-mathildenhoehe",
+      "title": "Jugendstil-Rundgang Mathildenhöhe (UNESCO-Welterbe Künstlerkolonie)",
+      "description": "Selbst begehbarer Rundgang durch das Jugendstil-Ensemble der Mathildenhöhe, seit 2021 UNESCO-Welterbe. Die Route führt vom Plateau mit Russischer Kapelle, Ausstellungsgebäude und Hochzeitsturm über den Platanenhain und den Gartenpavillon zum Museum Künstlerkolonie und weiter zu den Künstlerwohnhäusern am Alexandraweg.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "architektur",
+        "jugendstil",
+        "unesco"
+      ],
+      "sourceUrls": [
+        "https://www.darmstadt-tourismus.de/en/visit/darmstadt-is-culture/art-nouveau-in-darmstadt.html",
+        "https://www.mathildenhoehe.de/welterbestaette/gebaeude",
+        "https://de.wikipedia.org/wiki/Mathildenh%C3%B6he",
+        "https://www.kulturreise-ideen.de/kunst/jugendstil-1/Tour-jugendstil-in-darmstadt.html"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Russische Kapelle (Kirche der Hl. Maria Magdalena)",
+          "type": "church",
+          "address": "Nikolaiweg 18, 64287 Darmstadt",
+          "durationMin": 15,
+          "note": "Die russisch-orthodoxe Kirche der Heiligen Maria Magdalena entstand 1897 bis 1899 für Zar Nikolaus II. und seine aus dem Haus Hessen-Darmstadt stammende Frau Alexandra. Mit ihren vergoldeten Zwiebeltürmen bildet sie den westlichen Auftakt des Mathildenhöhe-Plateaus. Für den Bau wurde eigens Erde aus Russland herangebracht, damit das Gotteshaus auf heimatlichem Boden steht.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Lilienbecken",
+          "type": "fountain",
+          "address": "Nikolaiweg, Mathildenhöhe, 64287 Darmstadt",
+          "durationMin": 8,
+          "note": "Das langgestreckte Wasserbecken auf der oberen Terrasse gehört zur Gartengestaltung, die die Bauten der Mathildenhöhe zu einem Gesamtkunstwerk verbindet. Es gliedert den zentralen Platz vor dem Ausstellungsgebäude und spiegelt bei ruhigem Wasser die umgebende Architektur.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Ausstellungsgebäude Mathildenhöhe",
+          "type": "building",
+          "address": "Olbrichweg 15, 64287 Darmstadt",
+          "durationMin": 15,
+          "note": "Das 1908 von Joseph Maria Olbrich errichtete Ausstellungsgebäude war Schauplatz der großen Kolonie-Ausstellung von 1908 und dient bis heute als Kunsthalle für Wechselausstellungen. Gemeinsam mit dem angebauten Hochzeitsturm bildet es das bauliche Herzstück des Ensembles.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Hochzeitsturm",
+          "type": "landmark",
+          "address": "Olbrichweg 13, 64287 Darmstadt",
+          "durationMin": 15,
+          "note": "Der rund 48 Meter hohe Backsteinturm wurde 1905 bis 1908 nach Plänen von Joseph Maria Olbrich als Geschenk der Stadt zur Vermählung des Großherzogs Ernst Ludwig mit Eleonore errichtet. Sein charakteristisches Dach in Form einer erhobenen Hand mit fünf Fingern machte ihn zum Wahrzeichen Darmstadts. Von der Aussichtsebene reicht der Blick weit über die Stadt bis in den Odenwald.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Platanenhain",
+          "type": "park",
+          "address": "Olbrichweg, Mathildenhöhe, 64287 Darmstadt",
+          "durationMin": 20,
+          "note": "Der schattige Platanenhain wurde 1914 von Bernhard Hoetger mit Reliefpfeilern, Figuren und Brunnen zu einem begehbaren Skulpturengarten ausgestaltet. Der Ort verbindet gewachsene Natur und Bildhauerkunst und gehörte zur letzten großen Ausstellung der Künstlerkolonie 1914.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Gartenpavillon (Schwanentempel)",
+          "type": "monument",
+          "address": "Christiansweg, Mathildenhöhe, 64287 Darmstadt",
+          "durationMin": 12,
+          "note": "Der offene Gartenpavillon, im Volksmund Schwanentempel genannt, entstand zur Ausstellung von 1914 nach einem Entwurf von Albin Müller. Der kleine Säulenbau setzt einen dekorativen Akzent in der Gartenanlage und lädt zum Verweilen ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Ernst-Ludwig-Haus / Museum Künstlerkolonie",
+          "type": "museum",
+          "address": "Olbrichweg 13a, 64287 Darmstadt",
+          "durationMin": 40,
+          "note": "Das 1901 von Joseph Maria Olbrich als gemeinschaftliches Atelierhaus errichtete Ernst-Ludwig-Haus mit seinem tiefen, vergoldeten Rundbogenportal bildet die Mitte des Ensembles. Heute beherbergt es das Museum Künstlerkolonie, das mit Möbeln, Glas, Keramik, Schmuck und Grafik die Geschichte der Kolonie von 1899 bis 1914 erzählt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Haus Deiters",
+          "type": "building",
+          "address": "Mathildenhöhweg 2, 64287 Darmstadt",
+          "durationMin": 15,
+          "note": "Das kleinste der zur Gründungsausstellung 1901 errichteten Wohnhäuser entwarf Joseph Maria Olbrich für Wilhelm Deiters, den geschäftsführenden Direktor der Kolonie. Heute wird das schlichte Haus vom Deutschen Polen-Institut genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Haus Olbrich",
+          "type": "building",
+          "address": "Alexandraweg 28, 64287 Darmstadt",
+          "durationMin": 15,
+          "note": "Joseph Maria Olbrich baute dieses Haus 1901 als eigenes Wohnhaus auf der Mathildenhöhe. Die blau-weiß gegliederte Fassade zeigt beispielhaft, wie Architektur und angewandte Kunst in der Kolonie zusammengeführt wurden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Haus Habich",
+          "type": "building",
+          "address": "Alexandraweg 27, 64287 Darmstadt",
+          "durationMin": 15,
+          "note": "Für den Bildhauer Ludwig Habich entwarf Olbrich 1901 dieses vergleichsweise zurückhaltende Wohnhaus mit angeschlossenem Atelier. Es reiht sich in die Künstlerwohnhäuser am Alexandraweg ein, die zur ersten Ausstellung entstanden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Kleines Haus Glückert",
+          "type": "building",
+          "address": "Alexandraweg 25, 64287 Darmstadt",
+          "durationMin": 15,
+          "note": "Das kleinere der beiden Glückert-Häuser entstand 1901 nach einem Entwurf von Joseph Maria Olbrich. Wie das benachbarte große Haus ging es noch vor der Fertigstellung in den Besitz des Möbelfabrikanten Julius Glückert über.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Großes Haus Glückert",
+          "type": "building",
+          "address": "Alexandraweg 23, 64287 Darmstadt",
+          "durationMin": 15,
+          "note": "Das repräsentative Wohnhaus errichtete Joseph Maria Olbrich 1901 für den Möbelfabrikanten Julius Glückert; es zählt zu den größten Bauten der Ausstellung. Heute hat hier die Deutsche Akademie für Sprache und Dichtung ihren Sitz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Haus Behrens",
+          "type": "building",
+          "address": "Alexandraweg 17, 64287 Darmstadt",
+          "durationMin": 15,
+          "note": "Das Haus Behrens gestaltete der Maler und Architekt Peter Behrens 1901 als sein eigenes Wohnhaus – zugleich sein erstes Bauwerk überhaupt. Vom Äußeren über die Möbel bis zu Geschirr und Textilien entwarf er alles selbst und schuf so ein frühes Gesamtkunstwerk des Jugendstils.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "augsburg",
+      "slug": "augsburg-welterbe-wasser",
+      "title": "UNESCO-Welterbe Wasser-Tour: Augsburgs Altstadt und Lechviertel",
+      "description": "Selbst begehbarer Rundgang zu den Welterbe-Objekten des Augsburger Wassermanagement-Systems in Altstadt und Lechviertel: die drei Prachtbrunnen, historische Trinkwasserwerke, die Lechkanäle und die Wassertürme am Roten Tor. Rund 3,5 km, etwa 1 bis 2 Stunden zu Fuß.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "wasser",
+        "unesco"
+      ],
+      "sourceUrls": [
+        "https://www.augsburg-tourismus.de/de/unesco-welterbe",
+        "https://www.sw-augsburg.de/fileadmin/content/6_pdf_Downloadcenter/2_Wasser/Infos/swa_Wasser-Tour_23.pdf",
+        "https://wassersystem-augsburg.de/sites/default/files/2025-05/sa_welterbe_tourenguide_2025_low.pdf",
+        "https://de.wikipedia.org/wiki/Augsburger_Wassermanagement-System"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Augustusbrunnen",
+          "type": "fountain",
+          "address": "Rathausplatz, 86150 Augsburg",
+          "durationMin": 8,
+          "note": "Der Prachtbrunnen auf dem Rathausplatz wurde 1594 vollendet und ist der aelteste der drei Augsburger Monumentalbrunnen. Die Figur des Stadtgruenders Kaiser Augustus geht auf Modelle des Niederlaenders Hubert Gerhard zurueck; vier Bronzefiguren am Beckenrand verkoerpern die Augsburger Gewaesser Lech, Wertach, Singold und Brunnenbach. Der Brunnen zeigt, wie die Stadt um 1600 ihren Wasserreichtum als Wohlstandssymbol feierte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Stadtmetzg",
+          "type": "historic",
+          "address": "Metzgplatz, 86150 Augsburg",
+          "durationMin": 15,
+          "note": "Das repraesentative Renaissancegebaeude errichtete Stadtbaumeister Elias Holl zwischen 1606 und 1609 als staedtisches Schlacht- und Fleischverkaufshaus. Technisch bemerkenswert war die Nutzung des Kanalwassers: Der Vordere Lech wurde durch das Untergeschoss gefuehrt, um Abfaelle abzuschwemmen und das Gebaeude zu kuehlen, damit das Fleisch laenger frisch blieb. Das Bauwerk gehoert zu den 22 Objekten des Welterbes.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Unteres Brunnenwerk",
+          "type": "historic",
+          "address": "Unterer Graben 1, 86152 Augsburg",
+          "durationMin": 15,
+          "note": "Das Untere Brunnenwerk am noerdlichen Rand des Lechviertels ist Augsburgs zweitgroesstes historisches Trinkwasserwerk und war vom fruehen 16. Jahrhundert bis 1879 in Betrieb. Zum Ensemble gehoeren der Untere Brunnenturm, das Pumpenhaus - heute das Kino Liliom - und die Wasserzufuhr ueber die sogenannte Zirbelnuss-Kanalbruecke. Von hier wurde ueber Jahrhunderte Trinkwasser in hoeher gelegene Stadtteile gehoben.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Lechkanaele im Lechviertel",
+          "type": "landmark",
+          "address": "Lechviertel (Vorderer Lech / Mittlerer Lech), 86150 Augsburg",
+          "durationMin": 15,
+          "note": "Das dichte Netz kuenstlich angelegter Lechkanaele durchzieht vor allem das Lech- und Ulrichsviertel und ist im Stadtrecht bereits 1276 schriftlich belegt. Ueber Jahrhunderte trieb das flieszende Wasser die Raeder zahlreicher Handwerksbetriebe an und lieferte spaeter Kraft fuer Fabriken und Stromerzeugung. Die offen gefuehrten Kanaele praegen bis heute das Strassenbild des Viertels.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Brunnenwerk am Vogeltor",
+          "type": "historic",
+          "address": "Am Vogeltor, 86152 Augsburg",
+          "durationMin": 15,
+          "note": "An der oestlichen Stadtmauer beim Vogeltor entstand ab 1538 ein weiteres Brunnenwerk, das vor allem das tiefer gelegene Lechviertel ueber Jahrhunderte mit Trinkwasser versorgte. Der bis heute erhaltene Wasserturm kam erst spaeter hinzu, als ein aelterer Wehrturm der Stadtbefestigung aufgestockt und zum Wasserturm umgebaut wurde. Die Anlage zaehlt zu den historischen Trinkwasserwerken des Welterbes.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Maximilianmuseum",
+          "type": "museum",
+          "address": "Fuggerplatz 1, 86150 Augsburg",
+          "durationMin": 40,
+          "note": "Das Maximilianmuseum zeigt in seinem ueberdachten Innenhof die originalen Bronzefiguren der drei Prachtbrunnen, waehrend auf der Maximilianstrasse und dem Rathausplatz heute Kopien stehen. Die Sammlung erlaeutert die Augsburger Bronzekunst und die Rolle der Monumentalbrunnen fuer das Selbstverstaendnis der Stadt um 1600. Das Haus liegt zentral zwischen Rathausplatz und Maximilianstrasse und laesst sich gut in den Rundgang einbinden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Merkurbrunnen",
+          "type": "fountain",
+          "address": "Maximilianstrasse (Moritzplatz), 86150 Augsburg",
+          "durationMin": 8,
+          "note": "Der Merkurbrunnen an der Maximilianstrasse nahe dem Moritzplatz wurde um 1599 nach Entwuerfen des Bildhauers Adriaen de Vries in Bronze gegossen. Die Figurengruppe zeigt den Handelsgott Merkur, dem ein Amor die Sandale loest - ein Sinnbild fuer den Wunsch, dass Merkur und damit der bluehende Handel in Augsburg bleiben. Er ist der zweite der drei Monumentalbrunnen des Welterbes.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Herkulesbrunnen",
+          "type": "fountain",
+          "address": "Maximilianstrasse (vor dem Schaezlerpalais), 86150 Augsburg",
+          "durationMin": 8,
+          "note": "Der Herkulesbrunnen am suedlichen Ende der Maximilianstrasse wurde 1602 fertiggestellt und stammt ebenfalls von Adriaen de Vries. Die Hauptfigur zeigt den Helden Herkules im Kampf gegen die vielkoepfige Wasserschlange Hydra, umgeben von Najaden und Tritonen. Als juengster der drei Prachtbrunnen steht er fuer Augsburgs Stolz auf seinen Wasserreichtum und ein ideales Gemeinwesen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Wassertuerme und Wasserwerk am Roten Tor",
+          "type": "historic",
+          "address": "Am Roten Tor 1, 86150 Augsburg",
+          "durationMin": 15,
+          "note": "Das Ensemble am Roten Tor ist das aelteste erhaltene Wasserwerk Mitteleuropas und versorgte Augsburg von 1416 an ueber 460 Jahre lang mit Trinkwasser. Grosser und Kleiner Wasserturm sowie der Kastenturm hoben das Wasser mit wasserradgetriebenen Pumpen in Hochbehaelter, von denen es in die Stadt floss; die hier entwickelte Pumptechnik fand europaweit Beachtung. Heute zeigt das obere Brunnenmeisterhaus eine Dauerausstellung zur historischen Augsburger Wasserkunst, die nach Voranmeldung besichtigt werden kann.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "chemnitz",
+      "slug": "chemnitz-industriekultur",
+      "title": "Spaziergänger-Route Industriekultur Chemnitz",
+      "description": "Selbst begehbarer Stadtrundgang zu elf Zeugnissen der Chemnitzer Industriekultur – von Fabrikantenvillen über Textilfabriken bis zu umgenutzten Industriedenkmalen zwischen Hauptbahnhof und Altchemnitz.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "industriekultur",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://www.outdooractive.com/de/route/stadtrundgang/chemnitz/spaziergaenger-route-industriekultur/25168080/",
+        "https://www.chemnitz.travel/chemnitz-entdecken/industriekultur/industriekultur-tour",
+        "https://www.denkmalschutz.de/denkmal/villa-zimmermann.html",
+        "https://chemnitz-gestern-heute.de/125-jahre-hartmannstrasse-24/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Villa Zimmermann",
+          "type": "building",
+          "address": "Carolastraße 9, 09111 Chemnitz",
+          "durationMin": 15,
+          "note": "Die neugotische Villa ließ Johann von Zimmermann, ein Pionier des deutschen Werkzeugmaschinenbaus, zwischen 1865 und 1867 nahe dem Bahnhofsvorplatz errichten. Sie zählt zu den wertvollsten Beispielen gründerzeitlicher Wohnhausarchitektur in Sachsen und bildet den Auftakt der Route direkt am Hauptbahnhof.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Alte Aktienspinnerei (Universitätsbibliothek)",
+          "type": "building",
+          "address": "Straße der Nationen 33, 09111 Chemnitz",
+          "durationMin": 15,
+          "note": "Der denkmalgeschützte Bau war um die Mitte des 19. Jahrhunderts eine der größten Baumwollspinnereien Sachsens. Nach mehrjähriger Sanierung wurde er 2020 als zentrale Universitätsbibliothek der TU Chemnitz eröffnet und verbindet erhaltene Industriearchitektur mit moderner Nutzung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Ehemalige Neumühle",
+          "type": "building",
+          "address": "Georgstraße 40, 09111 Chemnitz",
+          "durationMin": 15,
+          "note": "Die Neumühle war eine der historischen Mühlen an der Chemnitz und lange ein wichtiger Mehllieferant der Stadt. Aus der im 16. Jahrhundert entstandenen Mühle entwickelte sich später ein Fabrikstandort; heute dient das Gebäude unweit der Georgbrücke als Wohnhaus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Ehemalige Färberei Theodor Haase",
+          "type": "building",
+          "address": "Rochlitzer Straße 19-21, 09111 Chemnitz",
+          "durationMin": 15,
+          "note": "Theodor Haase übernahm 1910 den Färbereibetrieb an der Rochlitzer Straße und baute ihn weiter aus. Das sanierte Industriedenkmal beherbergt heute Büro- und Loftflächen und bleibt ein sichtbares Zeugnis der Chemnitzer Textilfärberei.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Ehemalige Trikotagenfabrik William Janssen",
+          "type": "building",
+          "address": "Schloßstraße 12, 09111 Chemnitz",
+          "durationMin": 15,
+          "note": "Die ehemalige Strumpf- und Trikotagenfabrik William Janssen entstand Ende des 19. Jahrhunderts direkt am Ufer der Chemnitz nahe dem Schloßteich, zwischen Schloß- und Brückenstraße. Nach dem Umbau ab 1999 wird der Backsteinkomplex heute für Wohnen, Büros und Gastronomie genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Verwaltungsgebäude Richard Hartmann (Polizeidirektion)",
+          "type": "building",
+          "address": "Hartmannstraße 24, 09113 Chemnitz",
+          "durationMin": 15,
+          "note": "Das repräsentative Verwaltungsgebäude der Sächsischen Maschinenfabrik Richard Hartmann entstand ab 1896 und wurde in den 1920er Jahren erweitert. Seit den 1930er Jahren nutzt es die Chemnitzer Polizei; heute ist es Sitz der Polizeidirektion Chemnitz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Hartmannfabrik",
+          "type": "building",
+          "address": "Fabrikstraße 11, 09111 Chemnitz",
+          "durationMin": 15,
+          "note": "Die 1864 errichtete Fabrikhalle gehörte zum weltweit erfolgreichen Maschinenbauunternehmen des 'Lokomotivkönigs' Richard Hartmann. Nach langem Leerstand wurde sie 2024 saniert, diente als Besucherzentrum der Kulturhauptstadt Chemnitz 2025 und wird heute als Veranstaltungsort genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Villa Schwalbe",
+          "type": "building",
+          "address": "Fabrikstraße 7, 09111 Chemnitz",
+          "durationMin": 15,
+          "note": "Die gründerzeitliche Villa war das Wohnhaus des Fabrikanten J. S. Schwalbe. Während die zugehörigen Fabrikanlagen 1945 zerstört wurden, blieb das Wohnhaus erhalten und zeugt bis heute vom Wohlstand der Chemnitzer Industriellen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Ehemaliges Umspannwerk Getreidemarkt",
+          "type": "building",
+          "address": "Getreidemarkt 1, 09111 Chemnitz",
+          "durationMin": 15,
+          "note": "Das markante Gebäude am Getreidemarkt entstand um 1909 und versorgte einst die städtische Straßenbahn mit Strom, wobei unterirdische Batterien Energie für Verkehrsspitzen speicherten. Seit 2012 wird das ehemalige Umspannwerk als Jugendherberge genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Eisenbahnviadukt Beckerbrücke",
+          "type": "bridge",
+          "address": "Annaberger Straße, 09120 Chemnitz",
+          "durationMin": 8,
+          "note": "Das Eisenbahnviadukt Beckerbrücke wurde um 1909 fertiggestellt und führt die Bahnstrecke über die Annaberger Straße, die Chemnitz und die Beckerstraße. Die aufwendige Stahlfachwerkkonstruktion gilt als herausragendes technisches Denkmal des Chemnitzer Eisenbahnbaus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Spinnereimaschinenbau Altchemnitz (Schauspielhaus im Spinnbau)",
+          "type": "theater",
+          "address": "Altchemnitzer Straße 27, 09120 Chemnitz",
+          "durationMin": 20,
+          "note": "Der Fabrikkomplex geht auf die 1839 gegründete Sächsische Maschinenfabrik zurück und wurde später zum VEB Spinnereimaschinenbau, kurz 'Spinnbau'. Seit 2022 bespielt das Theater Chemnitz die Hallen mit Schauspiel und Figurentheater; die Station bildet den südlichen Abschluss der Route.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "leverkusen",
+      "slug": "leverkusen-skulpturenweg",
+      "title": "Leverkusener Skulpturenweg – vom Rhein zum Schloss Morsbroich",
+      "description": "Ein selbst begehbarer Themenpfad durch Kunst im öffentlichen Raum: von den großformatigen Objekten im Neulandpark am Rhein über die Skulpturen im Wiesdorfer Zentrum bis nach Alkenrath und Schlebusch zum barocken Schloss Morsbroich mit seinem Kunstmuseum. Aus den 32 dokumentierten Stationen sind hier die 12 markantesten und zentral gelegenen zu einer zusammenhängenden Route von rund 10 km zusammengestellt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "skulptur"
+      ],
+      "sourceUrls": [
+        "https://www.leverkusen-kult-tour.de/touren/leverkusener-skulpturenweg/",
+        "https://www.leverkusen-kult-tour.de/touren/leverkusener-skulpturenweg/wiesdorf/",
+        "https://skulpturen.kulturraum.nrw/leverkusen/alf-lechner/kreisrhythmen.html",
+        "https://skulpturen.kulturraum.nrw/leverkusen/hans-uhlmann/mahnmal.html"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Neulandpark",
+          "type": "park",
+          "address": "Neulandpark, Rheinallee, 51373 Leverkusen",
+          "durationMin": 20,
+          "note": "Der Neulandpark auf dem frueheren Gelaende der Landesgartenschau 2005 liegt direkt am Rhein und bildet den Startpunkt des Skulpturenwegs. Ueber das weitlaeufige Areal verteilt stehen mehrere grossformatige Objekte zeitgenoessischer Bildhauer. Von hier fuehrt die Route in Richtung Wiesdorfer Zentrum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Rheinpforte",
+          "type": "sculpture",
+          "address": "Neulandpark, Rheinallee, 51373 Leverkusen",
+          "durationMin": 12,
+          "note": "Die Rheinpforte von Friedrich Engstenberg entstand 2005 zur Landesgartenschau und bildet am Rheinufer einen torartigen Uebergang in den Park. Gestalterisch nimmt das Werk Bezug auf die Lage der Stadt am Fluss. Es zaehlt zu den juengeren Stationen des Weges.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Windkinetische Plastik „Superman“",
+          "type": "sculpture",
+          "address": "Neulandpark, Rheinallee, 51373 Leverkusen",
+          "durationMin": 12,
+          "note": "Die windkinetische Plastik von Odo Rumpf, im Volksmund „Superman“ genannt, bewegt sich mit dem Wind und wurde 2005 aufgestellt. Rumpf ist ein in Leverkusen geborener Bildhauer, der haeufig mit Industriefundstuecken arbeitet. Die Skulptur steht im offenen Gelaende des Neulandparks.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Fuenf Fahrradfahrer",
+          "type": "sculpture",
+          "address": "Neulandpark, Rheinallee, 51373 Leverkusen",
+          "durationMin": 12,
+          "note": "Die Figurengruppe „Fuenf Fahrradfahrer“ von Peter Nettesheim zeigt stilisierte Radfahrer und steht im Neulandpark. Das Motiv greift den Alltag des Radfahrens auf. Die Station liegt auf dem Weg vom Rheinufer Richtung Wiesdorf.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Velociraptor",
+          "type": "sculpture",
+          "address": "Europaring / Woehlerstrasse, 51373 Leverkusen",
+          "durationMin": 12,
+          "note": "Der „Velociraptor“ von Odo Rumpf ist ein aus Industrieschrott gefertigter Dinosaurier auf einer Verkehrsinsel an der Kreuzung Europaring/Woehlerstrasse im Wiesdorfer Zentrum. Die auffaellige Stahlplastik gehoert zu Rumpfs bekannter Reihe grosser Saurier im Stadtbild. Sie markiert den Uebergang vom Neulandpark ins Wiesdorfer Zentrum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Brunnen",
+          "type": "fountain",
+          "address": "Ecke Woehlerstrasse / Nobelstrasse, 51373 Leverkusen",
+          "durationMin": 8,
+          "note": "Der Brunnen von Eberhard Foest steht an der Ecke Woehlerstrasse/Nobelstrasse im Wiesdorfer Zentrum. Foest hat ueber viele Jahre das Stadtbild Leverkusens mit zahlreichen Arbeiten gepraegt. Das Wasserobjekt ist eine von mehreren Foest-Stationen entlang des Weges.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Verkehrsinsel",
+          "type": "sculpture",
+          "address": "Doenhoffstrasse 2 (vor der Christuskirche), 51373 Leverkusen",
+          "durationMin": 12,
+          "note": "Die Skulptur „Verkehrsinsel“ von Eberhard Foest befindet sich im Bereich vor der Christuskirche in Wiesdorf. Sie ist ein weiteres Beispiel fuer Foests Praesenz im oeffentlichen Raum der Stadt. Die benachbarte Christuskirche dient als gut auffindbarer Orientierungspunkt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Kreisrhythmen",
+          "type": "sculpture",
+          "address": "Friedrich-Ebert-Strasse 41, 51373 Leverkusen",
+          "durationMin": 12,
+          "note": "„Kreisrhythmen“ von Alf Lechner ist eine grosse Stahlskulptur von 1991 auf dem Gelaende einer ehemaligen Volksschule, die heute als Musikschule dient. Lechner zaehlt zu den bekannten deutschen Stahlbildhauern; das Werk spielt mit Kreisformen und Rhythmus. Es steht an der Friedrich-Ebert-Strasse im Zentrum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Mahnmal zum Gedaechtnis des Widerstands im Dritten Reich",
+          "type": "monument",
+          "address": "Alkenrather Strasse / Buergerbuschbach, 51377 Leverkusen",
+          "durationMin": 12,
+          "note": "Das 7,5 Meter hohe Mahnmal von Hans Uhlmann aus Chrom-Nickel-Stahl wurde 1960 errichtet und erinnert an den Widerstand gegen den Nationalsozialismus. Es gilt als eine der ersten abstrakten Gedenkskulpturen dieser Art in Deutschland. Der Standort liegt in einer Gruenanlage im Stadtteil Alkenrath.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Grosse Gruppe",
+          "type": "sculpture",
+          "address": "Garten der Villa Wuppermann, Muelheimer Strasse 14, 51375 Leverkusen",
+          "durationMin": 12,
+          "note": "Die „Grosse Gruppe“ von Max Pohl steht im Garten der Villa Wuppermann in Schlebusch. Die ehemalige Fabrikantenvilla dient heute als Buergerzentrum und bildet einen ruhigen Rahmen fuer die Plastik. Die Station liegt auf dem Weg Richtung Schloss Morsbroich.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Hommage à Johann Sebastian Bach",
+          "type": "sculpture",
+          "address": "Klinikum Leverkusen, Am Gesundheitspark 11, 51375 Leverkusen",
+          "durationMin": 12,
+          "note": "„Hommage à Johann Sebastian Bach“ geht auf einen Entwurf von Henri Nouveau (Henrik Neugeboren) von 1928 zurueck, der vier Takte einer Bach-Fuge raeumlich uebersetzt; die Ausfuehrung erfolgte 1968/70. Die abstrakte Metallplastik steht im Garten des Klinikums in Schlebusch. Sie verbindet Musik und bildende Kunst in geometrischer Form.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Schloss Morsbroich (Museum Morsbroich)",
+          "type": "museum",
+          "address": "Gustav-Heinemann-Strasse 80, 51377 Leverkusen",
+          "durationMin": 40,
+          "note": "Das barocke Schloss Morsbroich beherbergt seit 1951 ein Museum fuer moderne und zeitgenoessische Kunst und bildet den Endpunkt des Skulpturenwegs. Im umgebenden Schlosspark stehen weitere Skulpturen im Freien. Als kulturelles Zentrum Leverkusens ist es der Zielpunkt der Route.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "ingolstadt",
+      "slug": "ingolstadt-festungsrundgang",
+      "title": "Festungsrundgang Ingolstadt – Bayerische Landesfestung",
+      "description": "Selbst begehbarer Themenrundgang (rund 7 km) um die Ingolstädter Altstadt und über den Brückenkopf im Klenzepark: 13 ausgewählte Werke der Bayerischen Landesfestung von der Renaissance bis zum Klassizismus, jeweils mit Infotafel vor Ort.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "festung"
+      ],
+      "sourceUrls": [
+        "https://weg.festungingolstadt.de/",
+        "https://www.armeemuseum.de/de/besuch.html",
+        "https://de.wikipedia.org/wiki/Turm_Triva",
+        "https://www.deutsche-donau.de/wege/festungsrundweg-2762/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Neues Schloss (Bayerisches Armeemuseum)",
+          "type": "museum",
+          "address": "Paradeplatz 4, 85049 Ingolstadt",
+          "durationMin": 40,
+          "note": "Herzog Ludwig der Bärtige ließ das Neue Schloss ab etwa 1418 als wehrhafte Residenz mit bis zu vier Meter dicken Mauern errichten; es zählt zu den bedeutendsten profanen Gotikbauten Deutschlands. Heute beherbergt es das Bayerische Armeemuseum mit seiner Sammlung zur Militärgeschichte. In den Baukomplex wurde das alte Feldkirchener Tor von 1368, das älteste erhaltene Stadttor Ingolstadts, einbezogen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Roßmühle",
+          "type": "historic",
+          "address": "Roßmühle, nahe Neues Schloss (Paradeplatz), 85049 Ingolstadt",
+          "durationMin": 15,
+          "note": "Die Roßmühle entstand im 16. Jahrhundert (um 1566 bis 1569) als von Pferden angetriebene Mühle und sicherte die Versorgung des Neuen Schlosses und der Besatzung in Belagerungszeiten. Als Teil der überlebenswichtigen Infrastruktur der Festung liegt sie unmittelbar beim Schloss. Sie erinnert an die logistische, oft übersehene Seite des Festungsbetriebs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Neues Kreuztor",
+          "type": "gate",
+          "address": "Neues Kreuztor, westliche Altstadt, 85049 Ingolstadt",
+          "durationMin": 10,
+          "note": "Das Neue Kreuztor wurde 1847 als Durchlass durch den Hauptwall der Landesfestung fertiggestellt; die Feldseite gestaltete Leo von Klenze besonders sorgfältig. Über der Durchfahrt sitzt das bayerische Wappen, flankiert von zwei Reiterfiguren, darunter der Festungsbaumeister Daniel Speckle. Die anschließenden Wallanlagen wurden nach dem Zweiten Weltkrieg weitgehend abgetragen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Kavalier Hepp (Stadtmuseum)",
+          "type": "museum",
+          "address": "Auf der Schanz 45, 85049 Ingolstadt",
+          "durationMin": 40,
+          "note": "Der Kavalier Hepp entstand zwischen 1838 und 1843 und ist der letzte der drei erhaltenen großen Kavaliere der Festung; benannt ist er nach dem bayerischen Offizier Kaspar von Hepp. Die dicken Mauern und kleinen Fenster sorgen für ein stabiles Raumklima, weshalb hier seit 1981 das Stadtmuseum mit Stadtarchiv untergebracht ist. Gezeigt wird unter anderem eine Nachbildung des Ingolstädter Stadtmodells von Jakob Sandtner aus den 1570er Jahren.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Harderbastei",
+          "type": "historic",
+          "address": "Oberer Graben 55, 85049 Ingolstadt",
+          "durationMin": 15,
+          "note": "Die Harderbastei gehört zur Renaissancebefestigung, deren Arbeiten ab 1537 begannen und die ab 1549 verteidigungsfähig war; ihr Name geht auf das nördlich gelegene Dorf Hard zurück. 1800 zerstörten französische Truppen große Teile der alten Festung. Der erhaltene Kernbau mit seinem großen Hohlraum wird heute als städtische Galerie für Kunst genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Kavalier Elbracht",
+          "type": "historic",
+          "address": "Elbrachtstraße 20, 85049 Ingolstadt",
+          "durationMin": 15,
+          "note": "Der Kavalier Elbracht wurde in der ersten Hälfte des 19. Jahrhunderts als erhöhte Geschützstellung des ersten Festungsrings gebaut. Solche Kavaliere trugen das Feuer über die vorgelagerten Wälle hinweg und beherrschten das umliegende Gelände. Heute nutzen das Staatliche Bauamt und eine Förderschule das massive Gebäude.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Fronte Rechberg",
+          "type": "historic",
+          "address": "Rechbergstraße 2, 85049 Ingolstadt",
+          "durationMin": 15,
+          "note": "Die Fronte Rechberg wurde ab 1834 als Teil des ersten Rings der königlich-bayerischen Landesfestung im nordöstlichen Glacis angelegt. Sie gilt als einer der besterhaltenen Abschnitte und bewahrt als einzige Fronte ihren ursprünglichen Aufbau mit Torgebäude, Torwärterhaus, Kavaliersbauten, Wall, Graben und Reduit. Damit lässt sich hier das Zusammenspiel der Festungselemente besonders anschaulich nachvollziehen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Neues Feldkirchener Tor und Kavalier Heideck",
+          "type": "gate",
+          "address": "Heydeckstraße, 85049 Ingolstadt",
+          "durationMin": 10,
+          "note": "Das Neue Feldkirchener Tor entstand nach Entwürfen Leo von Klenzes als östlicher Zugang durch den Festungsring und trägt Standbilder der Festungsbaumeister Streiter und Becker. Dahinter erhebt sich der Kavalier Heideck, benannt nach Generalleutnant Carl Wilhelm von Heideck. Tor und Kavalier bildeten gemeinsam einen der Hauptzugänge an der Ostfront der Festung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Glacis",
+          "type": "park",
+          "address": "Glacis (Grüngürtel um die Altstadt), 85049 Ingolstadt",
+          "durationMin": 20,
+          "note": "Das Glacis ist der breite, künstlich freigehaltene Geländestreifen vor den Wällen, der Angreifern jede Deckung nahm und den Verteidigern freies Schussfeld sicherte. Nach dem Ende der militärischen Nutzung wurde der Ring zu einem durchgehenden Grüngürtel umgestaltet, der die Altstadt bis heute umschließt. Er verbindet die einzelnen Festungswerke zu einem zusammenhängenden Spazierweg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Roter Turm",
+          "type": "historic",
+          "address": "Klenzepark, 85049 Ingolstadt",
+          "durationMin": 15,
+          "note": "Der von den Ingolstädtern 'Roter Turm' genannte Bau ist ein Turm der Festungswerke am rechten, südlichen Donauufer und eine der Stationen des offiziellen Festungsrundgangs. In diesem Bereich südlich der Donau wurde zur Landesgartenschau 1992 der Klenzepark angelegt, der die erhaltenen Werke einfasst. Der weithin sichtbare Turm zählt zu den markanten Zeugnissen der Befestigung jenseits des Flusses.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Turm Triva (Bayerisches Polizeimuseum)",
+          "type": "museum",
+          "address": "Turm Triva, Klenzepark, 85049 Ingolstadt",
+          "durationMin": 40,
+          "note": "Der Turm Triva ist eine der beiden ovalen Flankenbatterien des Brückenkopfs und wurde zwischen 1828 und 1841 nach Fassadenentwürfen Leo von Klenzes im klassizistischen Stil errichtet. Zusammen mit dem Reduit und dem Turm Baur schützte er den Donauübergang der Festung. Heute befindet sich in seinem Inneren das Bayerische Polizeimuseum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Reduit Tilly",
+          "type": "monument",
+          "address": "Donaulände 1, 85049 Ingolstadt",
+          "durationMin": 12,
+          "note": "Das Reduit Tilly bildet das Kernwerk des klassizistischen Brückenkopfs und wurde von 1828 bis 1841 nach Plänen von Michael von Streiter und mit Fassaden Leo von Klenzes gebaut; benannt ist es nach dem Feldherrn Johann T'Serclaes von Tilly. Als 'Reduit' war es der letzte Rückzugsort innerhalb des Festungswerks, dessen schwere Geschütze aus Kasematten und vom Dach feuern konnten. Heute zeigt hier das Bayerische Armeemuseum seine Dauerausstellung zum Ersten Weltkrieg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Turm Baur",
+          "type": "historic",
+          "address": "Turm Baur, Klenzepark, 85049 Ingolstadt",
+          "durationMin": 15,
+          "note": "Der Turm Baur ist die westliche der beiden ovalen Flankenbatterien des Brückenkopfs und entstand gemeinsam mit dem Reduit Tilly in den Jahren 1828 bis 1841. Von hier aus ließ sich der Zugang zum zentralen Reduit im Kreuzfeuer verteidigen. Mit Turm Triva und Reduit bildet er das klassizistische Ensemble am Südufer der Donau.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "offenbach-am-main",
+      "slug": "offenbach-industriekultur",
+      "title": "Route der Industriekultur – Lokaler Rundweg Offenbach",
+      "description": "Selbst begehbarer Rundweg durch das Offenbacher Nordend zu zehn Zeugnissen der Leder-, Portefeuille- und Metallwarenindustrie – von der Portefeuillefabrik Rosenthal über die Schriftgießerei Klingspor bis zum Deutschen Ledermuseum an der Frankfurter Straße.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "industriekultur",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://www.offenbach.de/gaeste/fuehrungen-und-routen/route-der-industriekultur/index.php",
+        "https://www.offenbach.de/medien/bindata/of/tourismus_/RDIK_Lokaler-Routenfuehrer-OF_2017.pdf",
+        "https://de.wikipedia.org/wiki/Route_der_Industriekultur_Rhein-Main_Offenbach_am_Main",
+        "https://www.ledermuseum.de/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Portefeuillefabrik Rosenthal",
+          "type": "historic",
+          "address": "Berliner Straße 223, 63067 Offenbach am Main",
+          "durationMin": 15,
+          "note": "Auf dem Gelände einer früheren Gasfabrik entstanden 1911–1913 zwei Portefeuillefabriken; der Bau Rosenthal zeigt eine repräsentative neoklassizistische Fassade, mit der sich erfolgreiche Lederwarenhersteller im Stadtbild präsentierten. Nach dem Produktionsende in der Weltwirtschaftskrise nutzten wechselnde Betriebe das Haus, bevor es 1996 im Stil um 1910 saniert wurde. Portefeuille bezeichnet feine Lederwaren wie Taschen und Etuis.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Metallwarenfabrik Tschatsch",
+          "type": "historic",
+          "address": "Bernardstraße 77a, 63067 Offenbach am Main",
+          "durationMin": 15,
+          "note": "Der schlichte Fabrikbau von 1897 wechselte mehrfach die Nutzung – von einer Schuhfabrik über eine Trikotweberei bis zur VDO Tachometer AG. Ab Mitte der 1950er Jahre fertigte hier die Firma Gebrüder Tschatsch Metallzubehör für die Offenbacher Lederwarenindustrie.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Schriftgießerei Klingspor",
+          "type": "historic",
+          "address": "Ludwigstraße 140, 63067 Offenbach am Main",
+          "durationMin": 15,
+          "note": "Die Brüder Klingspor erwarben 1892 die traditionsreiche Rudhardsche Schriftgießerei und zogen 1897 in Neubauten im Blockinneren an der Ludwigstraße. Unter Karl Klingspor stieg der Betrieb zu einem der führenden deutschen Anbieter moderner Druckschriften auf; aus seinem Nachlass ging der Grundstock des heutigen Klingspor-Museums hervor.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Zigarettenfabrik Hatry",
+          "type": "historic",
+          "address": "Ludwigstraße 112, 63067 Offenbach am Main",
+          "durationMin": 15,
+          "note": "In dem fünfgeschossigen Bau von 1911 stellte eine überwiegend weibliche Belegschaft jährlich rund 200 Millionen Zigaretten der Marke Crevetti her. Nach Aufgabe der Produktion um 1928 wurde das Gebäude zum Wohnhaus umgebaut; seit 1937 befindet sich darin eine Apotheke mit Einrichtung im Stil der Neuen Sachlichkeit.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Portefeuillefabrik Hirschfeld",
+          "type": "historic",
+          "address": "Ludwigstraße 91, 63067 Offenbach am Main",
+          "durationMin": 15,
+          "note": "Die Lederwarenfirma Hirschfeld ließ 1914 einen Fabrikneubau mit neoklassizistischer Fassade errichten, von deren Bauschmuck ein großer Merkurkopf in der Mittelachse erhalten ist. In den 1980er Jahren wurde das Gebäude zu einem Hotel umgebaut.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Portefeuillefabrik Kahn",
+          "type": "historic",
+          "address": "Löwenstraße 6, 63067 Offenbach am Main",
+          "durationMin": 15,
+          "note": "Der Lederwarenbetrieb Rudolf Kahn ergänzte seine Portefeuillefabrik um 1910 durch einen Neubau, dessen Fassade im neoklassizistischen Stil gehalten ist. Das Gebäude steht stellvertretend für die zahlreichen kleineren Lederwarenfabriken, die das Offenbacher Nordend prägten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Lederwarenfabrik Wess",
+          "type": "historic",
+          "address": "Löwenstraße 16, 63067 Offenbach am Main",
+          "durationMin": 15,
+          "note": "Der 1906 mit Klinkerfassade im Stil des späten Historismus errichtete Gewerbebau beherbergte nacheinander mehrere Lederwarenfabriken; in der Durchfahrt sind noch Gleise eines Rollwagens erhalten. Nachdem jüdische Inhaber in der NS-Zeit zur Aufgabe gezwungen worden waren, führte hier die Firma Martin Wess die Produktion fort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Villa Neubecker",
+          "type": "building",
+          "address": "Frankfurter Straße 100, 63067 Offenbach am Main",
+          "durationMin": 15,
+          "note": "Die spätklassizistische Villa von 1844 gehörte später dem Maschinenfabrikanten Carl Neubecker, der auf seinem Werksgelände eine Mineralwasserquelle erschloss und daraus einen Kurbetrieb aufzubauen versuchte. Die denkmalgeschützte Villa wurde nach längerem Leerstand wiederhergestellt, während das umliegende Gelände mit Stadthäusern bebaut wurde.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Deutsches Ledermuseum (Historisches Messelagerhaus)",
+          "type": "museum",
+          "address": "Frankfurter Straße 86, 63067 Offenbach am Main",
+          "durationMin": 40,
+          "note": "Das klassizistische Lagerhaus von 1829–30 diente zunächst dem Warenumschlag zur Zeit der nach Offenbach verlagerten Messen und später als Zolllager. 1936 baute der Architekt Hugo Eberhardt es zum Deutschen Ledermuseum um, das unter anderem die Geschichte der Offenbacher Portefeuille-, Sattler- und Schuhindustrie dokumentiert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Metallwarenfabrik Haege",
+          "type": "historic",
+          "address": "Frankfurter Straße 74, 63067 Offenbach am Main",
+          "durationMin": 15,
+          "note": "Die zweifarbige Klinkerfassade verbirgt eine für ihre Zeit frühe Eisenbetonkonstruktion. Die Firma Haege war ab 1876 als Metalldrückerei tätig, lieferte Offenbachs Lederwarenbetrieben Metallzubehör und nahm später auch Thermoskannen ins Programm. Das Gebäude beherbergt heute Büros und einen Kindergarten.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "goettingen",
+      "slug": "goettingen-wissenschaftspfad",
+      "title": "Weltwissen in Göttingen – auf den Spuren der Quantenphysik und der Nobelpreisträger",
+      "description": "Ein rund fünf Kilometer langer Fußweg durch die Wissenschaftsgeschichte Göttingens: vom Nobel-Rondell am Stadtfriedhof über die historische Sternwarte von Gauß und die Wirkungsstätten der Quantenphysik in der Altstadt bis zu den Sammlungen und Gärten auf dem Nordcampus.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "wissenschaft",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://www.goettingen-tourismus.de/beitrag/goettingen-entdecken-digital-interaktiv-und-jederzeit/",
+        "https://stadt-land-erleben.de/goettingen2/",
+        "https://www.kulturreise-ideen.de/wissenschaft/weltwissen/Tour-weltwissen-in-goettingen.html",
+        "https://www.goettingen-tourismus.de/magazin/stadtfriedhof-goettingen/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Nobel-Rondell am Stadtfriedhof",
+          "type": "monument",
+          "address": "Kasseler Landstraße 1, 37081 Göttingen",
+          "durationMin": 12,
+          "note": "Der Stadtfriedhof ist letzte Ruhestätte zahlreicher Göttinger Nobelpreisträger. Das 2006 zum 125-jährigen Bestehen des Friedhofs angelegte Nobel-Rondell erinnert in kreisförmiger Anordnung an acht hier bestattete Preisträger, darunter Max Planck, Max Born, Otto Hahn und Walther Nernst. Der Grundriss greift Gauß' Konstruktion des regelmäßigen 17-Ecks auf.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Historische Sternwarte",
+          "type": "historic",
+          "address": "Geismar Landstraße 11, 37083 Göttingen",
+          "durationMin": 15,
+          "note": "Die 1816 vollendete Sternwarte war Wirkungs- und Wohnstätte von Carl Friedrich Gauß, der sie als erster Direktor leitete. Von hier aus organisierte er die große Vermessung des Königreichs Hannover. Gemeinsam mit Wilhelm Weber richtete Gauß 1833 die erste elektromagnetische Telegrafenverbindung ein, die bis zum Physikgebäude in der Innenstadt reichte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Institut für Ethnologie mit Ethnologischer Sammlung",
+          "type": "building",
+          "address": "Theaterplatz 15, 37073 Göttingen",
+          "durationMin": 15,
+          "note": "Am Theaterplatz beherbergt das Institut die ethnologische Sammlung der Universität, eine der ältesten ihrer Art in Deutschland. Zum Bestand zählen völkerkundliche Objekte aus der Frühzeit der Georgia Augusta, darunter Stücke von den Pazifikreisen James Cooks. Die Sammlung zeigt den breiten Forschungshorizont der Göttinger Gelehrten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Paulinerkirche (Historisches Gebäude der SUB)",
+          "type": "church",
+          "address": "Papendiek 14, 37073 Göttingen",
+          "durationMin": 15,
+          "note": "Die ehemalige Dominikanerkirche wurde nach der Reformation zum Sitz der Universitätsbibliothek. Über Jahrhunderte lagerte hier das Wissen der Georgia Augusta, die früh als eine der bedeutendsten Forschungsbibliotheken Europas galt. Heute nutzt die Staats- und Universitätsbibliothek den Bau für Ausstellungen und den historischen Bibliothekssaal.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Alter Botanischer Garten",
+          "type": "garden",
+          "address": "Untere Karspüle 2, 37073 Göttingen",
+          "durationMin": 20,
+          "note": "Der 1736 von Albrecht von Haller angelegte Garten war ursprünglich Arznei- und Lehrgarten der jungen Universität. Auf rund fünf Hektar wachsen heute mehrere tausend Pflanzenarten aus aller Welt. Als einer der ältesten botanischen Gärten Deutschlands verband er von Beginn an Forschung und öffentliche Bildung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Zoologisches Museum",
+          "type": "museum",
+          "address": "Berliner Straße 28, 37073 Göttingen",
+          "durationMin": 40,
+          "note": "Das Zoologische Museum bewahrt die umfangreichen Tiersammlungen der Universität, deren Anfänge bis ins 18. Jahrhundert zurückreichen. Präparate, Skelette und Modelle dokumentieren die Vielfalt der Tierwelt und die Geschichte der Göttinger Zoologie. Die Bestände dienen bis heute Forschung und Lehre.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Physicalisches Cabinet",
+          "type": "museum",
+          "address": "Friedrich-Hund-Platz 1, 37077 Göttingen",
+          "durationMin": 40,
+          "note": "Am Eingang der Physik zeigt das Physicalische Cabinet historische Messinstrumente aus der Blütezeit der Göttinger Physik, darunter Geräte zum Gauß-Weber-Telegrafen und Exponate zur Entstehung der Quantenmechanik. In den 1920er Jahren legten Max Born, Werner Heisenberg und Pascual Jordan in Göttingen deren mathematische Grundlagen. Der Ort verbindet damit klassische Experimentalphysik und die Geburt der Quantentheorie.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Institut für Astrophysik",
+          "type": "building",
+          "address": "Friedrich-Hund-Platz 1, 37077 Göttingen",
+          "durationMin": 15,
+          "note": "Auf dem Nordcampus setzt das Institut für Astrophysik die astronomische Tradition fort, die mit Gauß' Sternwarte begann. Erforscht werden hier unter anderem Sterne, Sonne und Galaxien. Der Platz trägt den Namen des Quantenphysikers Friedrich Hund, der lange in Göttingen lehrte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Museum der Göttinger Chemie",
+          "type": "museum",
+          "address": "Tammannstraße 4, 37077 Göttingen",
+          "durationMin": 40,
+          "note": "Das Museum erzählt die Geschichte der Chemie in Göttingen, die mehrere Nobelpreise hervorgebracht hat. Forscher wie Otto Wallach, Walther Nernst und Adolf Windaus prägten das Fach an der Universität. Gezeigt werden historische Apparaturen und Dokumente aus den chemischen Instituten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Geowissenschaftliches Museum",
+          "type": "museum",
+          "address": "Goldschmidtstraße 1, 37077 Göttingen",
+          "durationMin": 40,
+          "note": "Das geowissenschaftliche Museum präsentiert Minerale, Gesteine und Fossilien aus der langen erdwissenschaftlichen Forschung der Universität. Die Sammlungen reichen von Kristallen bis zu Zeugnissen früherer Erdzeitalter. Sie machen die geologische Geschichte anschaulich und ergänzen die Lehre.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Geopark Göttingen",
+          "type": "park",
+          "address": "Goldschmidtstraße 3, 37077 Göttingen",
+          "durationMin": 20,
+          "note": "Der Geopark gehört zum geowissenschaftlichen Bereich des Nordcampus und zeigt Gesteine und erdgeschichtliche Objekte im Freien. Die Steine lassen sich unmittelbar betrachten und im Wortsinn begreifen. Die Anlage macht Geologie unter freiem Himmel erlebbar.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Neuer Botanischer Garten",
+          "type": "garden",
+          "address": "Grisebachstraße 1, 37077 Göttingen",
+          "durationMin": 20,
+          "note": "Der Neue Botanische Garten auf dem Nordcampus ergänzt den historischen Garten in der Innenstadt. In Freilandanlagen und Gewächshäusern werden Pflanzen aus unterschiedlichen Klimazonen kultiviert. Der Garten dient der botanischen Forschung und ist zugleich ein Erholungsort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Forstbotanischer Garten",
+          "type": "garden",
+          "address": "Büsgenweg 2, 37077 Göttingen",
+          "durationMin": 20,
+          "note": "Der Forstbotanische Garten gehört zur forstwissenschaftlichen Fakultät und versammelt als Arboretum Baum- und Gehölzarten aus aller Welt. Er dient der Erforschung von Wäldern und Gehölzen. Weitläufige Wege laden am Ende des Wissenschaftspfades zu einem Spaziergang ein.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "moers",
+      "slug": "moers-geschichtsstationen",
+      "title": "Geschichtsstationen Moers (Moerser Rundgang)",
+      "description": "Selbst begehbarer Rundgang durch die Moerser Altstadt: 14 zentrale Geschichtsstationen und Denkmaltafeln zu Schloss, Festungsstadt, Kirchen und jüdischer Geschichte, kreisförmig vom Altmarkt aus.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.moers.de/tourismus/geschichtsstationen-moers",
+        "https://www.niederrhein-tourismus.de/tour/altstadtbummel-moers-51f9e7f2a2",
+        "https://de.wikivoyage.org/wiki/Moers",
+        "https://de.wikipedia.org/wiki/Schloss_Moers"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Geschichtsstation 01: Altstadt (Altmarkt)",
+          "type": "square",
+          "address": "Altmarkt, 47441 Moers",
+          "durationMin": 15,
+          "note": "Der Altmarkt bildet den historischen Kern der Moerser Altstadt und ist der Startpunkt des Rundgangs (Geschichtsstation 01). Rund um den Platz entstand die mittelalterliche Siedlung, die sich spaeter zur befestigten Stadt entwickelte. Alte Buergerhaeuser und ein Denkmal aus preussischer Zeit praegen das Bild.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Geschichtsstation 03: Evangelische Stadtkirche",
+          "type": "church",
+          "address": "Klosterstraße 5, 47441 Moers",
+          "durationMin": 15,
+          "note": "Die evangelische Stadtkirche geht auf eine 1363 von Graf Dietrich VI. von Moers gestiftete Kapelle nahe der Grafenburg zurueck und zaehlt zu den aeltesten Gotteshaeusern der Stadt. Als reformierte Hauptkirche steht sie fuer die evangelisch-reformierte Praegung der frueheren Grafschaft Moers. Der spaetgotische Bau bestimmt bis heute die Silhouette der Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Geschichtsstation 13: Neumarkt",
+          "type": "square",
+          "address": "Neumarkt, 47441 Moers",
+          "durationMin": 15,
+          "note": "Der Neumarkt entstand dort, wo einst das 'Meer', eine seeartige Erweiterung des Moersbaches, Alt- und Neustadt voneinander trennte. An der Neustrasse stand das Meertor, das letzte erhaltene mittelalterliche Stadttor. Heute ist der Neumarkt ein zentraler Marktplatz mit Wochenmarkt dienstags und freitags.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Denkmaltafel 14: Peschkenhaus",
+          "type": "historic",
+          "address": "Meerstraße 1, 47441 Moers",
+          "durationMin": 15,
+          "note": "Das Peschkenhaus am Neumarkt ist das aelteste erhaltene Buergerhaus der Stadt, errichtet gegen Ende des 15. Jahrhunderts im spaetgotischen Stil. Lange beherbergte es die Staedtische Galerie, heute nutzt es der Kunstverein Peschkenhaus fuer Ausstellungen zeitgenoessischer Kunst. Das denkmalgeschuetzte Haus ist als Denkmaltafel 14 Teil des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Geschichtsstation 18: Rathaus",
+          "type": "building",
+          "address": "Rathausplatz 1, 47441 Moers",
+          "durationMin": 15,
+          "note": "Am Rathausplatz nahe dem Neumarkt steht das Rathaus von Moers, Sitz der Stadtverwaltung. Ein Neubau war bereits vor dem Ersten Weltkrieg geplant, wurde aber erst Mitte des 20. Jahrhunderts verwirklicht; aeltere Rathaeuser standen zuvor an anderer Stelle in der Altstadt. Geschichtsstation 18 erlaeutert die wechselvolle Geschichte der Moerser Rathaeuser.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Geschichtsstation 25: Schlosspark",
+          "type": "park",
+          "address": "Schlosspark, Kastell, 47441 Moers",
+          "durationMin": 20,
+          "note": "Der Schlosspark entstand ab 1836 auf dem ehemaligen Festungsgelaende, nachdem die Moerser Festung im 18. Jahrhundert geschleift worden war. Die Anlage im Stil eines englischen Gartens geht auf den Gartenarchitekten Maximilian Friedrich Weyhe zurueck. Heute laden Park und Rosarium mit altem Baumbestand zum Verweilen ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Geschichtsstation 04: Schloss Moers",
+          "type": "landmark",
+          "address": "Kastell 9, 47441 Moers",
+          "durationMin": 15,
+          "note": "Das Moerser Schloss ist das aelteste bekannte Gebaeude der Stadt und geht auf einen Turm um 1200 zurueck. Vom Sitz der Grafen von Moers wurde es zur Residenz und unter Moritz von Oranien ab 1601 mit Bastionen zur Festung ausgebaut. Die Stadt erwarb Schloss und Park 1905; seit 1908 beherbergt es das Grafschafter Museum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Altes Landratsamt / Kreisständehaus",
+          "type": "museum",
+          "address": "Kastell 5, 47441 Moers",
+          "durationMin": 40,
+          "note": "Das Alte Landratsamt, das fruehere Kreisstaendehaus, ist ein Neorenaissance-Bau von 1898 am Kastell. Nach seiner Sanierung wird es oeffentlich genutzt und beherbergt unter anderem eine Ausstellung des Grafschafter Museums zur Demokratiegeschichte sowie die Volkshochschule. Das Gebaeude steht beispielhaft fuer die bewegte deutsche Demokratiegeschichte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Geschichtsstation 05: Katholische Kirche St. Josef",
+          "type": "church",
+          "address": "Kleine Allee 13, 47441 Moers",
+          "durationMin": 15,
+          "note": "Die neugotische Stadtpfarrkirche St. Josef wurde 1868 bis 1871 als dreischiffige Backsteinbasilika errichtet. Sie steht fuer das Wachsen der katholischen Gemeinde in der lange reformiert gepraegten Stadt. Geschichtsstation 05 widmet sich der Geschichte der katholischen Kirchen in Moers.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Kastellplatz (Moers als Festungsstadt)",
+          "type": "square",
+          "address": "Kastellplatz, 47441 Moers",
+          "durationMin": 15,
+          "note": "Der weitlaeufige Kastellplatz ist der groesste Platz der Innenstadt und liegt im Bereich des einstigen Festungssterns, der das Schloss umgab. Unter Moritz von Oranien wurde Moers ab 1601 nach Plaenen von Simon Stevin zu einer der modernsten Festungen der Region ausgebaut, bevor die Anlagen im 18. Jahrhundert geschleift wurden. Der Platz erinnert an die Bedeutung von Moers als Festungsstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Amtsgericht Moers",
+          "type": "building",
+          "address": "Haagstraße 7, 47441 Moers",
+          "durationMin": 15,
+          "note": "Das Amtsgericht an der Haagstrasse wurde 1913 errichtet und praegt mit seiner Backsteinfassade das Strassenbild. Es steht fuer den Ausbau von Verwaltung und Justiz in der wachsenden Stadt des fruehen 20. Jahrhunderts. Das Gebaeude liegt am Uebergang von der Innenstadt zu den alten Gassen der Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Zwergengasse (Fieselstraße)",
+          "type": "historic",
+          "address": "Fieselstraße, 47441 Moers",
+          "durationMin": 15,
+          "note": "Die Zwergengasse ist ein schmaler mittelalterlicher Loeschgang in der Altstadt. Ihren Namen verdankt sie einem rund 100 Jahre alten Fries mit froehlichen Zwergen, weshalb dieser Teil der Fieselstrasse auch Zwergengasse genannt wird. Der kleine Durchgang zaehlt zu den charmanten Winkeln des alten Moers.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Klompenhaus am Pumpeneck",
+          "type": "building",
+          "address": "Fieselstraße 22/24, 47441 Moers",
+          "durationMin": 15,
+          "note": "Das Klompenhaus ist ein schmales rotes Haus aus dem 17. Jahrhundert am Pumpeneck in der Fieselstrasse. Hier fertigten Handwerker einst die sogenannten Klompen, hoelzerne Schuhe niederrheinischer Tradition, weshalb der Volksmund die Ecke 'Klompenwenkel' nennt. Das Haeuschen bewahrt die Erinnerung an das alte Handwerk der Region.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Synagogenbogen / Juden in Moers (Geschichtsstation 11 und 12)",
+          "type": "monument",
+          "address": "Friedrichstraße 27, 47441 Moers",
+          "durationMin": 12,
+          "note": "Nahe dem Standort der frueheren Moerser Synagoge erinnert der Synagogenbogen an die juedische Gemeinde der Stadt. Der nachgebildete Torbogen traegt die Namen Moerser Opfer der Schoah und ein Psalmzitat. Die Geschichtsstationen 11 und 12 dokumentieren die Geschichte der Juden in Moers; die Synagoge selbst wurde in der Reichspogromnacht 1938 zerstoert.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "luebeck",
+      "slug": "luebeck-literatur-nobelpreise",
+      "title": "Literarischer Rundgang der Nobelpreisträger — Thomas Mann, Günter Grass und Willy Brandt in Lübeck",
+      "description": "Selbst begehbarer Altstadt-Rundgang zu den drei Lübecker Nobelpreisträgern: den Literaten Thomas Mann und Günter Grass sowie dem Friedensnobelpreisträger Willy Brandt. Der Weg verbindet die Schauplätze der \"Buddenbrooks\" mit den beiden Nobelpreis-Museen im Königstraßen-Viertel.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "literatur",
+        "geschichte",
+        "unesco"
+      ],
+      "sourceUrls": [
+        "https://www.kulturreise-ideen.de/literatur/autoren/Tour-thomas-mann-in-luebeck.html",
+        "https://www.luebeck-tourismus.de/kultur/literatur-in-luebeck",
+        "https://de.wikipedia.org/wiki/G%C3%BCnter-Grass-Haus",
+        "https://en.wikipedia.org/wiki/Willy_Brandt_House,_L%C3%BCbeck"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Buddenbrookhaus",
+          "type": "museum",
+          "address": "Mengstraße 4, 23552 Lübeck",
+          "durationMin": 40,
+          "note": "Das klassizistische Kaufmannshaus gab Thomas Manns Familienroman \"Buddenbrooks\" seinen Schauplatz und gehörte tatsächlich den Großeltern der Familie Mann. Heute beherbergt es ein Museum zu Leben und Werk von Heinrich und Thomas Mann. Wegen umfassender Sanierung ist das Haus derzeit geschlossen, bleibt als Startpunkt der Route aber der zentrale literarische Ort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "St. Marien (Marienkirche)",
+          "type": "church",
+          "address": "Marienkirchhof 1, 23552 Lübeck",
+          "durationMin": 15,
+          "note": "Die gewaltige gotische Backsteinkirche am Markt gilt als Mutterkirche der norddeutschen Backsteingotik und war die Taufkirche Thomas Manns. 1942 brannte sie nach Bombenangriffen weitgehend aus; Mann trug später zum Wiederaufbau bei. Sie steht direkt neben dem Buddenbrookhaus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Lübecker Rathaus",
+          "type": "historic",
+          "address": "Breite Straße 62, 23552 Lübeck",
+          "durationMin": 15,
+          "note": "Das mittelalterliche Backsteinrathaus am Markt zählt zu den ältesten und schönsten Deutschlands und ist bis heute Sitz der Stadtverwaltung. Als Zentrum der hanseatischen Kaufmannsmacht verkörpert es die bürgerlich-patrizische Welt, die Thomas Mann in den \"Buddenbrooks\" schildert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Schabbelhaus",
+          "type": "historic",
+          "address": "Mengstraße 48-50, 23552 Lübeck",
+          "durationMin": 15,
+          "note": "Das repräsentative Kaufmannshaus mit seiner typischen Lübecker Diele steht für die patrizische Wohnkultur, die in den \"Buddenbrooks\" beschrieben wird. Der Bau wird heute als gehobenes Restaurant und Veranstaltungshaus genutzt und liegt unweit des Buddenbrookhauses in Richtung Trave.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Theater Lübeck",
+          "type": "theater",
+          "address": "Beckergrube 16, 23552 Lübeck",
+          "durationMin": 20,
+          "note": "Das 1908 eröffnete Stadttheater gilt als eines der wenigen erhaltenen Jugendstil-Theatergebäude Deutschlands. Als kulturelles Zentrum der Stadt gehört es zum bürgerlichen Lübeck der Mann-Zeit und markiert den Übergang der Route in den nördlichen Altstadtteil.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Historische Schiffergesellschaft",
+          "type": "historic",
+          "address": "Breite Straße 2, 23552 Lübeck",
+          "durationMin": 15,
+          "note": "Das 1535 errichtete Zunfthaus der Seefahrer besitzt einen berühmten historischen Saal mit Schiffsmodellen und langen Tischreihen. Es verkörpert die seefahrende Hansekaufmannschaft und wird bis heute als traditionsreiches Restaurant geführt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Burgtor",
+          "type": "gate",
+          "address": "Große Burgstraße 2, 23552 Lübeck",
+          "durationMin": 10,
+          "note": "Das 1444 in spätgotischem Backsteinstil vollendete Burgtor war das nördliche Stadttor der Hansestadt und ist neben dem Holstentor eines von zwei erhaltenen Toren der mittelalterlichen Befestigung. Es bildet den nördlichen Wendepunkt des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Museum Behnhaus Drägerhaus",
+          "type": "museum",
+          "address": "Königstraße 9-11, 23552 Lübeck",
+          "durationMin": 40,
+          "note": "In zwei klassizistischen Bürgerhäusern zeigt das Kunstmuseum Malerei der Romantik und der Moderne, darunter Werke von Edvard Munch und Lübecker Künstlern. Die Räume vermitteln zugleich das Wohnambiente wohlhabender Lübecker Familien des 19. Jahrhunderts.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Günter-Grass-Haus",
+          "type": "museum",
+          "address": "Glockengießerstraße 21, 23552 Lübeck",
+          "durationMin": 40,
+          "note": "Das 2002 eröffnete Museum ist dem Literaturnobelpreisträger Günter Grass als Forum für Literatur und bildende Kunst gewidmet. Es zeigt Manuskripte, Grafiken, Zeichnungen und Skulpturen aus seinem Nachlass und beleuchtet das Zusammenspiel von Schreiben und bildnerischem Werk.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Willy-Brandt-Haus",
+          "type": "museum",
+          "address": "Königstraße 21, 23552 Lübeck",
+          "durationMin": 40,
+          "note": "Museum und Gedenkort für den in Lübeck geborenen Bundeskanzler und Friedensnobelpreisträger Willy Brandt, eröffnet 2007. Die Dauerausstellung zeichnet seinen Weg vom Emigranten zum Kanzler und seine Ostpolitik nach; über einen Museumsgarten ist das Haus mit dem benachbarten Günter-Grass-Haus verbunden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Katharineum",
+          "type": "historic",
+          "address": "Königstraße 27-31, 23552 Lübeck",
+          "durationMin": 15,
+          "note": "Das aus einem mittelalterlichen Franziskanerkloster hervorgegangene humanistische Gymnasium war die Schule von Thomas und Heinrich Mann. Die Schulerfahrungen flossen in Werke wie \"Tonio Kröger\" und die \"Buddenbrooks\" ein; die Station schließt den Rundgang nahe dem Ausgangspunkt am Markt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "berlin-berlin",
+      "slug": "berlin-mauerweg-geschichtsmeile",
+      "title": "Auf den Spuren der Berliner Mauer – zentrale Gedenkorte",
+      "description": "Ein begehbarer Kernrundgang zu den zentralen Gedenkorten der Berliner Mauer: von der Gedenkstätte Bernauer Straße und dem Mauerpark über Brandenburger Tor, Checkpoint Charlie und die Topographie des Terrors bis zur East Side Gallery. Die Route verbindet erhaltene Mauerreste, Ausstellungen und Mahnmale zu einem Weg durch die Geschichte der geteilten Stadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "zeitgeschichte",
+        "mauer"
+      ],
+      "sourceUrls": [
+        "https://www.berlin.de/tourismus/stadtfuehrungen/berliner-mauer/",
+        "https://www.berlin.de/mauer/geschichte/geschichtsmeile/artikel.148616.php",
+        "https://www.kulturreise-ideen.de/geschichte/ddr-geschichte/Tour-gedenkorte-berliner-mauer.html",
+        "https://www.stiftung-berliner-mauer.de/de/node/1756"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Mauerpark",
+          "type": "park",
+          "address": "Mauerpark, Bernauer Straße 63-64, 13355 Berlin",
+          "durationMin": 20,
+          "note": "Der Mauerpark entstand nach 1990 auf dem ehemaligen Todesstreifen der Berliner Mauer zwischen Prenzlauer Berg und Wedding. Am Westrand des Parks steht bis heute ein erhaltenes Teilstück der Hinterlandmauer. Sonntags ist der Park zudem für seinen großen Flohmarkt und die offene Karaoke im Amphitheater bekannt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Gedenkstätte Berliner Mauer",
+          "type": "monument",
+          "address": "Bernauer Straße 111, 13355 Berlin",
+          "durationMin": 12,
+          "note": "Die zentrale Gedenkstätte erstreckt sich über rund 1,4 Kilometer entlang der Bernauer Straße, wo die Mauer einst mitten durch Wohnhäuser und Straßenzüge verlief. Auf dem früheren Grenzstreifen zeigen erhaltene Mauersegmente, ein Wachturm und ein Freiluftgelände den Aufbau der Grenzanlagen. Das Dokumentationszentrum und das Fenster des Gedenkens erinnern an die Todesopfer der Teilung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Ausstellung im Nordbahnhof: Grenz- und Geisterbahnhöfe",
+          "type": "museum",
+          "address": "S-Bahnhof Nordbahnhof, Gartenstraße, 10115 Berlin",
+          "durationMin": 40,
+          "note": "Nach dem Mauerbau lag der Nordbahnhof im Osten und wurde zum abgeriegelten Geisterbahnhof, den West-Berliner Züge ohne Halt durchfuhren. In der Zwischenebene des heutigen S-Bahnhofs dokumentiert eine frei zugängliche Ausstellung die geteilten U- und S-Bahn-Netze und die bewachten Grenzbahnhöfe. Sie zeigt anschaulich, wie die Teilung den Nahverkehr der Stadt zerschnitt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Tränenpalast – Ort der deutschen Teilung",
+          "type": "museum",
+          "address": "Reichstagufer 17, 10117 Berlin",
+          "durationMin": 40,
+          "note": "Die gläserne Halle diente ab 1962 als Ausreisepavillon am Grenzbahnhof Friedrichstraße, wo sich Reisende von ihren Angehörigen im Osten verabschieden mussten. Wegen der vielen tränenreichen Abschiede gab ihr der Volksmund den Namen Tränenpalast. Heute beherbergt das Gebäude eine Dauerausstellung zum Alltag in der geteilten Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Gedenkort Weiße Kreuze",
+          "type": "monument",
+          "address": "Reichstagufer, 10117 Berlin",
+          "durationMin": 12,
+          "note": "Am Spreeufer nahe dem Reichstag erinnern weiße Kreuze an Menschen, die beim Versuch, die Mauer zu überwinden, ums Leben kamen. Das schlichte Mahnmal wurde bereits 1971 von einer Bürgerinitiative gestiftet. Es zählt damit zu den ältesten Gedenkzeichen für die Maueropfer in Berlin.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Brandenburger Tor",
+          "type": "gate",
+          "address": "Pariser Platz, 10117 Berlin",
+          "durationMin": 10,
+          "note": "Das Brandenburger Tor lag von 1961 bis 1989 unmittelbar hinter der Mauer im abgesperrten Grenzgebiet und war weder von Ost noch von West zugänglich. Als klassizistisches Wahrzeichen wurde es zum Sinnbild zuerst der Teilung und später der Wiedervereinigung. Die Maueröffnung am Tor im Dezember 1989 ging um die Welt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Mauerreste am Potsdamer Platz",
+          "type": "square",
+          "address": "Potsdamer Platz, 10785 Berlin",
+          "durationMin": 15,
+          "note": "Der einst pulsierende Potsdamer Platz verödete durch die Mauer zur Brache mitten im Todesstreifen. Nach dem Mauerfall entstand hier ein völlig neues Stadtquartier; einige originale Mauersegmente stehen als Denkzeichen am Rand des Platzes. Sie markieren den früheren Grenzverlauf im Herzen der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Topographie des Terrors (Mauerrest Niederkirchnerstraße)",
+          "type": "museum",
+          "address": "Niederkirchnerstraße 8, 10963 Berlin",
+          "durationMin": 40,
+          "note": "Entlang der Niederkirchnerstraße hat sich eines der längsten erhaltenen Teilstücke der äußeren Grenzmauer erhalten. Es steht auf dem Gelände der früheren Gestapo- und SS-Zentrale, das heute als Dokumentationszentrum Topographie des Terrors die NS-Verbrechen aufarbeitet. So treffen an diesem Ort zwei Schichten deutscher Geschichte unmittelbar aufeinander.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Checkpoint Charlie",
+          "type": "landmark",
+          "address": "Friedrichstraße 43-45, 10117 Berlin",
+          "durationMin": 15,
+          "note": "Checkpoint Charlie war der bekannteste alliierte Grenzübergang zwischen dem sowjetischen und dem amerikanischen Sektor. 1961 standen sich hier sowjetische und US-amerikanische Panzer direkt gegenüber, ein Höhepunkt der Konfrontation im Kalten Krieg. Heute markieren ein nachgebautes Kontrollhäuschen und Informationstafeln den historischen Ort an der Ecke Friedrich-/Zimmerstraße.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Peter-Fechter-Mauermahnmal",
+          "type": "monument",
+          "address": "Zimmerstraße 26-29, 10969 Berlin",
+          "durationMin": 12,
+          "note": "An dieser Stelle der Zimmerstraße verblutete am 17. August 1962 der 18-jährige Peter Fechter, nachdem ihn DDR-Grenzsoldaten bei seiner Flucht angeschossen hatten. Eine Stahlstele erinnert seit 1999 an ihn und seinen Wunsch nach Freiheit. Sein Tod vor den Augen West-Berliner Zeugen wurde zu einem Symbol der Unmenschlichkeit des Grenzregimes.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "East Side Gallery",
+          "type": "monument",
+          "address": "Mühlenstraße 3-100, 10243 Berlin",
+          "durationMin": 12,
+          "note": "Die East Side Gallery ist mit rund 1,3 Kilometern das längste erhaltene Teilstück der Berliner Mauer und verläuft entlang der Mühlenstraße an der Spree. Kurz nach dem Mauerfall bemalten Künstlerinnen und Künstler aus aller Welt die Ostseite der einstigen Hinterlandmauer. Die Freiluftgalerie ist heute ein denkmalgeschütztes Mahnmal und ein internationaler Anziehungspunkt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "hamburg-hamburg",
+      "slug": "hamburg-hummel-bummel",
+      "title": "Hummel-Bummel (Hamburger Neustadt)",
+      "description": "Selbst begehbarer Themenrundgang entlang der roten Bodenlinie durch die Hamburger Neustadt: Stadt- und Kulturgeschichte des ältesten Hamburger Quartiers zwischen Michel, Großneumarkt und Fleetinsel. Aus den rund 33 offiziellen Stationen sind hier 13 zentrale, gut auffindbare Orte zu einer sinnvollen Fußgänger-Runde zusammengestellt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://grossneumarkt-fleetinsel.de/wp-content/uploads/2019/06/HummelBummel.pdf",
+        "https://grossneumarkt-fleetinsel.de/hummel-bummel/",
+        "https://www.hamburg-magazin.de/artikel/ungef%C3%BChrter-stadtrundgang-der-hummel-bummel",
+        "https://de.wikipedia.org/wiki/Komponistenquartier_Hamburg"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "St. Michaeliskirche (\"Der Michel\")",
+          "type": "church",
+          "address": "Englische Planke 1, 20459 Hamburg",
+          "durationMin": 15,
+          "note": "Die barocke Hauptkirche St. Michaelis ist das bekannteste Wahrzeichen Hamburgs und dem Erzengel Michael geweiht. Ihr rund 132 Meter hoher Turm traegt eine Aussichtsplattform mit weitem Rundblick ueber Stadt und Hafen. Der Michel ist einer der offiziellen Startpunkte des Hummel-Bummel und der natuerliche Auftakt der Runde.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "KomponistenQuartier (Peterstraße)",
+          "type": "museum",
+          "address": "Peterstraße 29-39, 20355 Hamburg",
+          "durationMin": 40,
+          "note": "An der Peterstraße reihen sich im Stil des alten Hamburg rekonstruierte Buergerhaeuser, die das historische Straßenbild der Neustadt wieder aufgreifen. In ihnen liegt das KomponistenQuartier mit Museen zu Komponisten mit Hamburg-Bezug, darunter Telemann, C. P. E. Bach, Johannes Brahms sowie Fanny und Felix Mendelssohn. Die Station erinnert an die musikalische Tradition des Viertels.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Museum für Hamburgische Geschichte",
+          "type": "museum",
+          "address": "Holstenwall 24, 20355 Hamburg",
+          "durationMin": 40,
+          "note": "Das Museum fuer Hamburgische Geschichte am Holstenwall zeigt die Entwicklung der Stadt von den Anfaengen bis in die Gegenwart. Der markante Backsteinbau am Rand von Planten un Blomen wurde vom Architekten Fritz Schumacher entworfen. Das Museum gehoert zu den Initiatoren des Rundgangs und ist zugleich einer seiner offiziellen Startpunkte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Hummelbrunnen am Rademachergang",
+          "type": "fountain",
+          "address": "Rademachergang / Breiter Gang, 20355 Hamburg",
+          "durationMin": 8,
+          "note": "Der Hummelbrunnen erinnert an den Wassertraeger Johann Wilhelm Bentz, im Volksmund \"Hans Hummel\", der als Hamburger Stadtoriginal galt. Auf ihn geht der Gruß \"Hummel, Hummel - Mors, Mors\" zurueck, der dem Rundgang seinen Namen gibt. Das Brunnendenkmal schuf der Bildhauer Richard Kuoehl im Jahr 1938.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Ehemalige Hauptsynagoge Kohlhöfen",
+          "type": "historic",
+          "address": "Kohlhöfen 17/18, 20355 Hamburg",
+          "durationMin": 15,
+          "note": "An den Kohlhoefen stand die 1857 bis 1859 nach Plaenen des Architekten Albert Rosengarten errichtete Hauptsynagoge der Deutsch-Israelitischen Gemeinde. Sie war eines der bedeutendsten juedischen Gotteshaeuser der Neustadt und ging in der NS-Zeit verloren. Der Ort verweist auf die einst lebendige juedische Gemeinde des Quartiers.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Tempel-Ruine Poolstraße",
+          "type": "historic",
+          "address": "Poolstraße 12-13, 20355 Hamburg",
+          "durationMin": 15,
+          "note": "In einem Hinterhof der Poolstraße haben sich Reste des Israelitischen Tempels erhalten, einer fruehen liberalen Reformsynagoge des 19. Jahrhunderts. Der Hamburger Tempelverband zaehlte zu den ersten Gemeinden, die einen reformierten juedischen Gottesdienst pflegten. Die Ruine gehoert heute zu den wenigen sichtbaren Zeugnissen juedischen Lebens in der Neustadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Großneumarkt",
+          "type": "square",
+          "address": "Großneumarkt, 20459 Hamburg",
+          "durationMin": 15,
+          "note": "Der Großneumarkt ist der zentrale Platz der Neustadt und seit jeher ihr geselliger Mittelpunkt. Historisch diente er unter anderem als \"Musikerboerse\", an der Musiker fuer Auftritte engagiert wurden. Heute saeumen Cafes, Restaurants und ein Wochenmarkt den von Buergerhaeusern umstandenen Platz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Cotton Club",
+          "type": "historic",
+          "address": "Alter Steinweg 10, 20459 Hamburg",
+          "durationMin": 15,
+          "note": "Der Cotton Club im Keller am Alter Steinweg gilt als aeltester Jazzclub Hamburgs und besteht seit 1959. Bis heute wird hier regelmaeßig Live-Jazz gespielt. Der Club steht fuer die Musikszene, die das Quartier rund um den Großneumarkt seit Jahrzehnten praegt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Paradieshof",
+          "type": "building",
+          "address": "Alter Steinweg 11, 20459 Hamburg",
+          "durationMin": 15,
+          "note": "Der Paradieshof am Alter Steinweg ist ein historischer Wohnhof, wie er fuer die einst dicht bebaute alte Neustadt typisch war. Solche Hoefe und Terrassen boten hinter den Straßenfronten zusaetzlichen Wohnraum. Er vermittelt einen Eindruck vom frueheren Alltagsleben im Viertel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Ellerntorsbrücke",
+          "type": "bridge",
+          "address": "Ellerntorsbrücke, 20459 Hamburg",
+          "durationMin": 8,
+          "note": "Die Ellerntorsbruecke fuehrt ueber das Fleet am westlichen Rand der historischen Innenstadt. Ihr Name erinnert an das fruehere Ellerntor, eines der alten Stadttore in den ehemaligen Wallanlagen Hamburgs. Hier verlief einst die befestigte Grenze der Stadt zum Umland.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Admiralitätstraße",
+          "type": "historic",
+          "address": "Admiralitätstraße, 20459 Hamburg",
+          "durationMin": 15,
+          "note": "Die Admiralitaetstraße traegt ihren Namen nach dem Arsenal der hamburgischen Admiralitaet, das hier zu Beginn des 18. Jahrhunderts errichtet wurde. Die Admiralitaet verwaltete damals das Konvoi- und Wehrwesen der Seestadt. Die Straße verlaeuft entlang der Fleete im alten Hafenrand der Neustadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Michaelisbrücke",
+          "type": "bridge",
+          "address": "Michaelisbrücke, 20459 Hamburg",
+          "durationMin": 8,
+          "note": "Die Michaelisbruecke ueberquert das Fleet und gibt den Blick auf die unmittelbar am Wasser stehenden Speichergebaeude frei. Sie zeigt das fuer die Neustadt typische Nebeneinander von Wohn- und Lagerhaeusern am Kanal. Die Bruecke liegt nur wenige Schritte vom Kleinen Michel entfernt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "St. Ansgar (Kleiner Michel)",
+          "type": "church",
+          "address": "Michaelisstraße 5, 20459 Hamburg",
+          "durationMin": 15,
+          "note": "Die katholische Kirche St. Ansgar wird \"Kleiner Michel\" genannt - als Gegenstueck zum großen St. Michaelis. Sie ist seit dem fruehen 19. Jahrhundert die katholische Gemeindekirche der Hamburger Innenstadt. Der heutige Bau entstand nach den Zerstoerungen des Zweiten Weltkriegs neu und bildet den Abschluss der Runde nahe dem Ausgangspunkt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-kulturgeschichtspfad",
+      "title": "Kulturgeschichtlicher Altstadt-Rundgang München",
+      "description": "Selbst begehbarer Rundgang durch die Stadt- und Kulturgeschichte der Münchner Altstadt: von den mittelalterlichen Stadttoren und Kirchen über den zivilen Kern am Marienplatz bis zum königlichen Residenzviertel und dem Hofgarten.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "kultur"
+      ],
+      "sourceUrls": [
+        "https://stadt.muenchen.de/infos/kulturgeschichtspfade.html",
+        "https://de.wikipedia.org/wiki/Liste_der_Kulturgeschichtspfade_in_M%C3%BCnchen",
+        "https://de.wikipedia.org/wiki/Theatinerkirche_(M%C3%BCnchen)",
+        "https://en.wikipedia.org/wiki/Heilig-Geist-Kirche,_Munich"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Sendlinger Tor",
+          "type": "gate",
+          "address": "Sendlinger-Tor-Platz, 80336 München",
+          "durationMin": 10,
+          "note": "Das Sendlinger Tor ist eines von drei erhaltenen Stadttoren der zweiten Münchner Stadtbefestigung und markiert seit dem 14. Jahrhundert den südlichen Zugang zur Altstadt. Über die Jahrhunderte wurde es mehrfach umgebaut; der große mittlere Torbogen entstand bei einer Umgestaltung Anfang des 20. Jahrhunderts. Heute ist der Sendlinger-Tor-Platz ein belebter Ausgangspunkt in die Fußgängerzone.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Asamkirche (St. Johann Nepomuk)",
+          "type": "church",
+          "address": "Sendlinger Straße 32, 80331 München",
+          "durationMin": 15,
+          "note": "Die Asamkirche wurde zwischen 1733 und 1746 von den Brüdern Cosmas Damian und Egid Quirin Asam als private Stiftung neben ihrem Wohnhaus errichtet. Auf schmalem Grundstück entstand ein überaus reich ausgestatteter Raum, der als eines der Hauptwerke des süddeutschen Spätbarocks und Rokokos gilt. Weil die Brüder ohne Vorgaben eines Bauherrn planen konnten, ist der Innenraum bis ins kleinste Detail durchgestaltet.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Peterskirche (Alter Peter)",
+          "type": "church",
+          "address": "Rindermarkt 1, 80331 München",
+          "durationMin": 15,
+          "note": "Die Peterskirche, von den Münchnern „Alter Peter\" genannt, ist die älteste Pfarrkirche der Stadt und reicht in ihren Ursprüngen bis in die Zeit der Stadtgründung zurück. Das Bauwerk vereint gotische, barocke und Rokoko-Elemente aus verschiedenen Bauphasen. Der Kirchturm ist über zahlreiche Stufen begehbar und bietet einen weiten Blick über die Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Viktualienmarkt",
+          "type": "square",
+          "address": "Viktualienmarkt 3, 80331 München",
+          "durationMin": 15,
+          "note": "Der Viktualienmarkt ist Münchens bekanntester Lebensmittelmarkt und besteht an diesem Ort seit 1807, als der wachsende Marktbetrieb vom Marienplatz hierher verlegt wurde. Rund um einen Maibaum und einen Biergarten reihen sich Stände für Obst, Gemüse, Blumen, Fisch und regionale Spezialitäten. Er gilt als kulinarisches Zentrum der Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Heilig-Geist-Kirche",
+          "type": "church",
+          "address": "Prälat-Miller-Weg 3, 80331 München",
+          "durationMin": 15,
+          "note": "Die Heilig-Geist-Kirche am Rand des Viktualienmarkts gilt als älteste Hallenkirche Münchens und geht auf ein mittelalterliches Heilig-Geist-Spital zurück. Nach dem Abbruch des Spitals im 19. Jahrhundert blieb die Kirche erhalten und wurde später barock überformt. Sie verbindet damit die Geschichte von Armenfürsorge und Stadtpfarrei an einem Ort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Altes Rathaus",
+          "type": "historic",
+          "address": "Marienplatz 15, 80331 München",
+          "durationMin": 15,
+          "note": "Das Alte Rathaus schließt den Marienplatz nach Osten ab und diente über Jahrhunderte als Sitz des Münchner Stadtrats. Sein spätgotischer Festsaal geht auf das 15. Jahrhundert zurück; der Bau wurde später mehrfach verändert und nach den Kriegszerstörungen wieder aufgebaut. Im Turm ist heute ein Spielzeugmuseum untergebracht.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Marienplatz mit Mariensäule",
+          "type": "square",
+          "address": "Marienplatz, 80331 München",
+          "durationMin": 15,
+          "note": "Der Marienplatz ist der zentrale Platz und historische Hauptmarkt Münchens und seit dem Mittelalter Schauplatz von Märkten, Festen und öffentlichem Leben. In seiner Mitte steht die Mariensäule, die 1638 als Dank für das Ende der schwedischen Besetzung im Dreißigjährigen Krieg errichtet wurde. Von hier gehen die wichtigsten Achsen der Altstadt aus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Neues Rathaus",
+          "type": "building",
+          "address": "Marienplatz 8, 80331 München",
+          "durationMin": 15,
+          "note": "Das Neue Rathaus wurde zwischen 1867 und 1908 im Stil der Neugotik errichtet und ist bis heute Sitz des Oberbürgermeisters und der Stadtverwaltung. Seine reich gegliederte Fassade prägt die Nordseite des Marienplatzes. Im Turm läuft täglich das Glockenspiel mit seinen sich drehenden Figuren.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Frauenkirche (Dom zu Unserer Lieben Frau)",
+          "type": "church",
+          "address": "Frauenplatz 12, 80331 München",
+          "durationMin": 15,
+          "note": "Der Dom zu Unserer Lieben Frau, kurz Frauenkirche, ist die Kathedrale des Erzbistums München und Freising und wurde ab 1468 als spätgotischer Backsteinbau errichtet. Ihre beiden Türme mit den charakteristischen welschen Hauben sind ein weithin sichtbares Wahrzeichen der Stadt. Der hohe, schlichte Innenraum zählt zu den bedeutendsten Kirchenräumen Süddeutschlands.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Nationaltheater (Bayerische Staatsoper)",
+          "type": "theater",
+          "address": "Max-Joseph-Platz 2, 80539 München",
+          "durationMin": 20,
+          "note": "Das Nationaltheater am Max-Joseph-Platz wurde 1818 als klassizistischer Bau eröffnet und ist die Spielstätte der Bayerischen Staatsoper. Nach einem Brand und nach den Zerstörungen des Zweiten Weltkriegs wurde es jeweils originalgetreu wiederaufgebaut. Sein Säulenportikus bildet einen markanten Abschluss des Platzes vor der Residenz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Residenz München",
+          "type": "historic",
+          "address": "Residenzstraße 1, 80333 München",
+          "durationMin": 15,
+          "note": "Die Münchner Residenz war vom 14. Jahrhundert bis 1918 Stadtschloss und Regierungssitz der Wittelsbacher Herzöge, Kurfürsten und Könige. Über Jahrhunderte gewachsen, vereint die Anlage Höfe, Prunkräume und Sammlungen aus Renaissance, Barock, Rokoko und Klassizismus. Heute ist sie als Museum eines der bedeutendsten Schlossensembles Europas.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Feldherrnhalle",
+          "type": "monument",
+          "address": "Odeonsplatz, 80539 München",
+          "durationMin": 12,
+          "note": "Die Feldherrnhalle am südlichen Ende der Residenzstraße wurde zwischen 1841 und 1844 nach dem Vorbild der Loggia dei Lanzi in Florenz errichtet und ehrte ursprünglich bayerische Heerführer. Der offene Säulenbau schließt den Odeonsplatz nach Süden ab. Historisch ist der Ort auch mit dem gescheiterten Hitlerputsch von 1923 verbunden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Theatinerkirche (St. Kajetan)",
+          "type": "church",
+          "address": "Theatinerstraße 22, 80333 München",
+          "durationMin": 15,
+          "note": "Die Theatinerkirche St. Kajetan wurde 1675 als Hof- und Klosterkirche geweiht und zählt zu den bedeutendsten Barockbauten Münchens. Ihre gelbe Fassade und die mächtige Kuppel prägen das Bild des Odeonsplatzes. In der Fürstengruft ruhen zahlreiche Mitglieder des Hauses Wittelsbach.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Hofgarten",
+          "type": "garden",
+          "address": "Hofgartenstraße, 80539 München",
+          "durationMin": 20,
+          "note": "Der Hofgarten wurde ab 1613 im Stil eines Renaissancegartens neben der Residenz angelegt und ist bis heute öffentlich zugänglich. In seiner Mitte steht der zwölfeckige Dianatempel, von dem die geometrisch angelegten Wege sternförmig ausgehen. Der Garten verbindet Residenz und Odeonsplatz mit dem nördlich anschließenden Stadtraum.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "koeln",
+      "slug": "koeln-via-culturalis",
+      "title": "Via Culturalis – Kölns Kulturachse",
+      "description": "Begehbare Kulturachse der Kölner Innenstadt vom Kölner Dom im Norden bis zur romanischen Kirche St. Maria im Kapitol im Süden. Auf rund 800 Metern reihen sich Museen, Kirchen, das Historische Rathaus und archäologische Orte aus rund 2000 Jahren Stadtgeschichte entlang eines zusammenhängenden Fußwegs aneinander.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kultur",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://www.viaculturalis.cologne/",
+        "https://www.viaculturalis.cologne/orte",
+        "https://www.citynews-koeln.de/via-culturalis-in-koeln-stadt-kultur-und-2000-jahre-geschichte-_id73278.html",
+        "https://www.koelntourismus.de/kunst-kultur/sehenswuerdigkeiten/detail/alt-st-alban"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kölner Dom",
+          "type": "church",
+          "address": "Domkloster 4, 50667 Köln",
+          "durationMin": 15,
+          "note": "Die gotische Kathedrale ist das Wahrzeichen der Stadt und bildet den nördlichen Auftakt der Via Culturalis. Der Bau begann 1248 und wurde erst 1880 vollendet; er gehört zum UNESCO-Weltkulturerbe. Im Inneren wird der Dreikönigenschrein mit den verehrten Gebeinen der Heiligen Drei Könige aufbewahrt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Römisch-Germanisches Museum",
+          "type": "museum",
+          "address": "Roncalliplatz 4, 50667 Köln",
+          "durationMin": 40,
+          "note": "Das Museum an der Südseite des Doms bewahrt Funde aus dem römischen und fränkischen Köln, darunter das großflächige Dionysos-Mosaik, das an seinem originalen Fundort liegt. Der Bau steht über den Resten einer römischen Stadtvilla. Wegen einer Sanierung ist das Gebäude derzeit geschlossen und ein Teil der Sammlung ausgelagert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "DOMFORUM",
+          "type": "building",
+          "address": "Domkloster 3, 50667 Köln",
+          "durationMin": 15,
+          "note": "Gegenüber dem Westportal des Doms gelegen, ist das DOMFORUM die zentrale Besucher- und Informationsstelle der katholischen Kirche in Köln. Es organisiert Führungen, Ausstellungen und Veranstaltungen rund um die Kathedrale. Der Ort dient zugleich als ruhiger Anlaufpunkt direkt an der belebten Domplatte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Historisches Rathaus",
+          "type": "historic",
+          "address": "Rathausplatz 2, 50667 Köln",
+          "durationMin": 15,
+          "note": "Das Historische Rathaus zählt zu den ältesten durchgehend genutzten Rathäusern Deutschlands, seine Ursprünge reichen ins Mittelalter zurück. Markant sind der spätgotische Ratsturm mit über hundert Steinfiguren und die vorgelagerte Renaissance-Laube. Es steht am Rathausplatz im Kern der Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "MiQua – LVR-Jüdisches Museum im Archäologischen Quartier",
+          "type": "museum",
+          "address": "Rathausplatz, 50667 Köln",
+          "durationMin": 40,
+          "note": "Am Rathausplatz entsteht mit dem MiQua ein Museum, das das mittelalterliche jüdische Viertel mit Synagoge und Ritualbad sowie den römischen Statthalterpalast (Praetorium) im Untergrund erlebbar macht. Ein langer Rundgang führt durch die rund 6000 Quadratmeter großen Ausgrabungen. Das Haus befindet sich noch im Bau bzw. vor der Eröffnung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Gülichplatz mit Fastnachtsbrunnen",
+          "type": "square",
+          "address": "Gülichplatz, 50667 Köln",
+          "durationMin": 15,
+          "note": "Der kleine Platz zwischen Rathaus und Wallraf-Richartz-Museum trägt den Fastnachtsbrunnen von Georg Grasegger aus dem Jahr 1913, der zahlreiche Figuren des Kölner Karnevals zeigt. Sein Name erinnert an den Kaufmann und Aufständischen Nikolaus Gülich, dessen Haus 1686 hier geschleift wurde. Der Platz verbindet die Rathausseite mit der Museumszeile an den Obenmarspforten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Duftmuseum im Farina-Haus",
+          "type": "museum",
+          "address": "Obenmarspforten 21, 50667 Köln",
+          "durationMin": 40,
+          "note": "Das Museum an den Obenmarspforten erzählt die Geschichte des Eau de Cologne. Hier gründete Johann Maria Farina 1709 die älteste bis heute bestehende Parfümfabrik der Welt. Die historischen Räume können nur im Rahmen einer Führung besichtigt werden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Wallraf-Richartz-Museum & Fondation Corboud",
+          "type": "museum",
+          "address": "Obenmarspforten 40, 50667 Köln",
+          "durationMin": 40,
+          "note": "Das älteste Museum Kölns zeigt europäische Malerei vom Mittelalter bis ins 19. Jahrhundert, darunter eine bedeutende Sammlung mittelalterlicher Tafelbilder und Werke des Impressionismus aus der Fondation Corboud. Es geht auf die Stiftung des Sammlers Ferdinand Franz Wallraf zurück. Der heutige Bau steht nahe dem Rathaus an den Obenmarspforten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Gürzenich",
+          "type": "building",
+          "address": "Martinstraße 29, 50667 Köln",
+          "durationMin": 15,
+          "note": "Der Gürzenich ist seit dem 15. Jahrhundert Kölns großer Fest- und Tanzsaal und wird bis heute für Konzerte, Bälle und Karnevalssitzungen genutzt. Der spätgotische Bau wurde nach den Zerstörungen des Zweiten Weltkriegs wieder aufgebaut. Sein Name geht auf die Kölner Patrizierfamilie von Gürzenich zurück.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Alt St. Alban",
+          "type": "monument",
+          "address": "Quatermarkt 4, 50667 Köln",
+          "durationMin": 12,
+          "note": "Die Ruine der im Krieg zerstörten Kirche dient seit 1959 als Gedenkstätte für die Toten beider Weltkriege. Im Innenraum steht eine Nachbildung von Käthe Kollwitz' Skulptur der trauernden Eltern, ausgeführt von den Mataré-Schülern Joseph Beuys und Erwin Heerich. Die Anlage liegt am Quatermarkt unmittelbar neben dem Gürzenich.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "St. Maria im Kapitol",
+          "type": "church",
+          "address": "Kasinostraße 6, 50676 Köln",
+          "durationMin": 15,
+          "note": "St. Maria im Kapitol ist die größte der romanischen Kirchen Kölns und bildet den südlichen Abschluss der Via Culturalis. Die im 11. Jahrhundert geweihte Kirche steht auf den Fundamenten eines römischen Tempels auf dem einstigen Kapitolshügel. Berühmt sind die reich geschnitzten hölzernen Türflügel aus ottonischer Zeit.",
+          "sourceUrls": []
+        }
+      ]
+    }
+  ]
+}
