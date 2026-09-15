@@ -1,0 +1,944 @@
+{
+  "version": 1,
+  "createdAt": "2026-09-15",
+  "status": "ready",
+  "scope": "Entdeckungspfade Welle 1 — 6 Städte (Leipzig, Mainz, Aachen, Nürnberg, Hannover, Wiesbaden)",
+  "importNotes": "Redaktionelle Themen-Entdeckungspfade nach realen, offiziellen Stadt-Pfaden (Recherche 15.09.). Nur Fakten (Stationsname, Ort, Adresse) aus offiziellen Quellen; Beschreibungen eigenformuliert; KEINE Fremdtexte/Fotos. Koordinaten per --geocode-missing (Nominatim, auf Stadt begrenzt). Quellen je Route in sourceUrls.",
+  "routes": [
+    {
+      "citySlug": "leipzig",
+      "slug": "leipzig-notenspur",
+      "title": "Leipziger Notenspur",
+      "description": "Ein rund fünf Kilometer langer Rundweg durch die Leipziger Innenstadt, der Wohn-, Wirkungs- und Aufführungsorte von Bach, Mendelssohn, Schumann, Grieg und Wagner miteinander verbindet. Ein geschwungenes Edelstahlband im Pflaster führt von Station zu Station und macht 300 Jahre Musikgeschichte an den Originalschauplätzen erlebbar.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "musik",
+        "notenspur"
+      ],
+      "sourceUrls": [
+        "https://www.notenspur-leipzig.de/notenrouten/notenspur/karte-stationen",
+        "https://www.leipzig.de/kultur-und-freizeit/kultur/kunst-im-oeffentlichen-raum/kultur-stadtrouten/leipziger-notenspur",
+        "https://de.wikipedia.org/wiki/Leipziger_Notenspur"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Neues Gewandhaus",
+          "type": "building",
+          "address": "Augustusplatz 8, 04109 Leipzig",
+          "durationMin": 15,
+          "note": "Konzerthaus des weltberühmten Gewandhausorchesters und Ausgangspunkt der Notenspur, das die lebendige Orchestertradition der Stadt verkörpert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Mendelssohn-Haus",
+          "type": "museum",
+          "address": "Goldschmidtstraße 12, 04103 Leipzig",
+          "durationMin": 40,
+          "note": "Letzte Wohn- und Sterbewohnung von Felix Mendelssohn Bartholdy, heute Museum mit original erhaltenen Wohnräumen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Grieg-Begegnungsstätte",
+          "type": "museum",
+          "address": "Talstraße 10, 04103 Leipzig",
+          "durationMin": 40,
+          "note": "Räume im ehemaligen Peters-Gebäude, in denen der norwegische Komponist Edvard Grieg bei seinen Leipzig-Aufenthalten verkehrte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Grassi Museum für Musikinstrumente",
+          "type": "museum",
+          "address": "Johannisplatz 5-11, 04103 Leipzig",
+          "durationMin": 40,
+          "note": "Beherbergt eine der bedeutendsten Sammlungen historischer Musikinstrumente Europas.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Schumann-Haus",
+          "type": "museum",
+          "address": "Inselstraße 18, 04103 Leipzig",
+          "durationMin": 40,
+          "note": "Erste gemeinsame Wohnung von Robert und Clara Schumann, in der zentrale Werke entstanden, heute Museum und Begegnungsort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Grafisches Viertel – Musikverlage (Notenwand)",
+          "type": "monument",
+          "address": "Grafisches Viertel, Leipzig",
+          "durationMin": 12,
+          "note": "Station im einstigen Zentrum des Notendrucks, die an die weltbekannten Leipziger Musikverlage wie Breitkopf & Härtel und Peters erinnert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Wagner-Denkmal",
+          "type": "monument",
+          "address": "Am Schwanenteich, 04109 Leipzig",
+          "durationMin": 12,
+          "note": "Denkmal für den in Leipzig geborenen Komponisten Richard Wagner unweit der Oper.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Oper Leipzig",
+          "type": "building",
+          "address": "Augustusplatz 12, 04109 Leipzig",
+          "durationMin": 15,
+          "note": "Traditionsreiches Opernhaus am Augustusplatz mit einer bis ins 17. Jahrhundert zurückreichenden Bühnengeschichte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Alte Nikolaischule",
+          "type": "historic",
+          "address": "Nikolaikirchhof 2, 04109 Leipzig",
+          "durationMin": 15,
+          "note": "Ältestes Schulgebäude der Stadt, das unter anderem Richard Wagner als Schüler besuchte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Nikolaikirche",
+          "type": "church",
+          "address": "Nikolaikirchhof 3, 04109 Leipzig",
+          "durationMin": 15,
+          "note": "Bedeutende Stadtkirche, an der Johann Sebastian Bach zahlreiche Kantaten und seine Johannes-Passion zur Aufführung brachte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Altes Rathaus",
+          "type": "building",
+          "address": "Markt 1, 04109 Leipzig",
+          "durationMin": 15,
+          "note": "Renaissancebau am Markt, in dessen Stadtmuseum das einzige zu Lebzeiten entstandene Bildnis Johann Sebastian Bachs bewahrt wird.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Museum der bildenden Künste – Beethoven",
+          "type": "museum",
+          "address": "Katharinenstraße 10, 04109 Leipzig",
+          "durationMin": 40,
+          "note": "Kunstmuseum, dessen Sammlung mit Max Klingers monumentaler Beethoven-Skulptur einen musikbezogenen Höhepunkt setzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Zum Arabischen Coffe Baum",
+          "type": "historic",
+          "address": "Kleine Fleischergasse 4, 04109 Leipzig",
+          "durationMin": 15,
+          "note": "Eines der ältesten Kaffeehäuser Europas, in dem Musiker wie Robert Schumann und seine Freunde verkehrten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Thomaskirche",
+          "type": "church",
+          "address": "Thomaskirchhof 18, 04109 Leipzig",
+          "durationMin": 15,
+          "note": "Langjährige Wirkungsstätte von Thomaskantor Johann Sebastian Bach und Ruhestätte seiner Gebeine, Heimat des Thomanerchors.",
+          "sourceUrls": []
+        },
+        {
+          "order": 15,
+          "title": "Bach-Museum",
+          "type": "museum",
+          "address": "Thomaskirchhof 15/16, 04109 Leipzig",
+          "durationMin": 40,
+          "note": "Museum gegenüber der Thomaskirche, das Leben und Werk der Musikerfamilie Bach dokumentiert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 16,
+          "title": "Standort Geburtshaus von Clara Wieck",
+          "type": "historic",
+          "durationMin": 15,
+          "note": "Erinnerungsort am Geburtsort der Pianistin und Komponistin Clara Wieck, der späteren Clara Schumann.",
+          "sourceUrls": []
+        },
+        {
+          "order": 17,
+          "title": "Paulinum – Aula und Universitätskirche St. Pauli",
+          "type": "church",
+          "address": "Augustusplatz 10, 04109 Leipzig",
+          "durationMin": 15,
+          "note": "Aula und Kirche der Universität, deren Vorgängerbau eng mit Bachs Universitätsmusik verbunden ist.",
+          "sourceUrls": []
+        },
+        {
+          "order": 18,
+          "title": "MDR Würfel – Orchester und Chöre des MDR",
+          "type": "building",
+          "address": "Augustusplatz, 04109 Leipzig",
+          "durationMin": 15,
+          "note": "Sitz der Klangkörper des Mitteldeutschen Rundfunks und Endpunkt der Notenspur, der die Leipziger Musiktradition in die Gegenwart führt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "mainz",
+      "slug": "mainz-gutenberg-pfad",
+      "title": "Gutenberg-Pfad Mainz",
+      "description": "Der Gutenberg-Pfad führt in elf Stationen durch die Mainzer Altstadt zu den Lebens- und Wirkungsorten von Johannes Gutenberg, dem Erfinder des Buchdrucks mit beweglichen Lettern. Vom Gutenberg-Museum über Denkmäler, Höfe und Kirchen zeichnet der Rundgang das spätmittelalterliche Mainz aus Sicht des großen Erfinders nach.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "gutenberg",
+        "buchdruck",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://www.mainz.de/angebote-entdecken/kultur/gutenberg-druckkunst/gutenberg/gutenberg-pfad",
+        "https://www.mainz.de/gutenberg-pfad",
+        "https://www.rlp-tourismus.com/de/geschichten/11x-gutenberg-finde-deins-in-mainz",
+        "https://www.mainz.de/angebote-entdecken/zu-gast-in-mainz/sehenswertes/st.christoph",
+        "https://www.kulturreise-ideen.de/literatur/buch-druck/Tour-johannes-gutenberg-in-mainz.html"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Gutenberg-Museum",
+          "type": "museum",
+          "address": "Liebfrauenplatz 5, 55116 Mainz",
+          "durationMin": 40,
+          "note": "Start und Ziel des Pfads; als eines der ältesten Druckmuseen der Welt zeigt es Gutenbergs Erfindung und originale Bibeln.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Lettern-Denkmal",
+          "type": "monument",
+          "address": "Liebfrauenplatz, 55116 Mainz",
+          "durationMin": 12,
+          "note": "Mehrere Sandsteinquader auf dem Liebfrauenplatz erinnern an die serielle Herstellung gegossener Bleilettern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Domkreuzgang",
+          "type": "church",
+          "address": "Domkreuzgang, Markt, 55116 Mainz",
+          "durationMin": 15,
+          "note": "Der um 1400 entstandene Kreuzgang des Mainzer Doms zählt zu den wenigen erhaltenen Bauzeugen aus Gutenbergs Lebenszeit.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Haus zum Korb",
+          "type": "building",
+          "address": "Am Brand 6, 55116 Mainz",
+          "durationMin": 15,
+          "note": "Spätgotische Bausubstanz im heutigen Einkaufszentrum Am Brand zeigt, wie Mainz zu Gutenbergs Zeit gebaut wurde.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Druckhaus im Haus zum Humbrecht",
+          "type": "historic",
+          "address": "Schusterstraße 22, 55116 Mainz",
+          "durationMin": 15,
+          "note": "An dieser Stelle soll Gutenberg seine Druckerwerkstatt betrieben und die 42-zeilige Bibel gedruckt haben.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Gutenberg-Denkmal",
+          "type": "monument",
+          "address": "Gutenbergplatz, 55116 Mainz",
+          "durationMin": 12,
+          "note": "Die Bronzestatue auf dem Gutenbergplatz vor dem Staatstheater ehrt den Erfinder des Buchdrucks.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Letzte Ruhestätte (ehem. Franziskanerkirche)",
+          "type": "historic",
+          "address": "Alte Universitätsstraße, 55116 Mainz",
+          "durationMin": 15,
+          "note": "Am Ort der ehemaligen Franziskanerkirche wurde Gutenberg bestattet; sein Grab ist heute nicht mehr erhalten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Hof zum Gutenberg",
+          "type": "historic",
+          "address": "Christofsstraße 2, 55116 Mainz",
+          "durationMin": 15,
+          "note": "Der namensgebende Familienhof der Gensfleisch zum Gutenberg markiert das Umfeld von Gutenbergs Herkunft.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Kirche St. Christoph",
+          "type": "church",
+          "address": "Kirche St. Christoph, Christofsstraße, 55116 Mainz",
+          "durationMin": 15,
+          "note": "Die im Zweiten Weltkrieg zerstörte und als Mahnmal erhaltene Kirche gilt als Gutenbergs Pfarr- und mutmaßliche Taufkirche.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Taufstein in St. Christoph (Station 9a)",
+          "type": "historic",
+          "address": "Kirche St. Christoph, Christofsstraße, 55116 Mainz",
+          "durationMin": 15,
+          "note": "Das erhaltene Taufbecken aus Gutenbergs Zeit soll an seine vermutete Taufe in St. Christoph erinnern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Algesheimer Hof",
+          "type": "historic",
+          "address": "Hintere Christofsgasse 3, 55116 Mainz",
+          "durationMin": 15,
+          "note": "In diesem Hof verbrachte Gutenberg als Hofmann des Erzbischofs seine letzten Lebensjahre.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "aachen",
+      "slug": "aachen-route-charlemagne",
+      "title": "Route Charlemagne Aachen",
+      "description": "Die Route Charlemagne verbindet die bedeutendsten historischen Orte der Aachener Innenstadt zu einem Rundgang durch das Erbe Karls des Großen sowie die europäische und städtische Geschichte. Vom zentralen Centre Charlemagne führt der Weg zu Rathaus, Dom und weiteren Stationen, die jeweils ein eigenes Leitthema von Macht bis Wissenschaft erzählen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "karl-der-grosse"
+      ],
+      "sourceUrls": [
+        "https://route-charlemagne.eu/en/stationen/",
+        "https://de.wikipedia.org/wiki/Route_Charlemagne_(Aachen)",
+        "https://www.route-charlemagne.eu"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Centre Charlemagne",
+          "type": "museum",
+          "address": "Katschhof 1, 52062 Aachen",
+          "durationMin": 40,
+          "note": "Das zentrale Stadtmuseum am Katschhof bündelt die Aachener Geschichte von der Römerzeit über Karl den Großen bis heute und bildet Auftakt und Infostelle der Route.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Aachener Rathaus",
+          "type": "historic",
+          "address": "Markt 39, 52062 Aachen",
+          "durationMin": 15,
+          "note": "Das gotische Rathaus steht auf den Fundamenten der karolingischen Königshalle und erzählt zum Leitthema Macht von der Krönungstradition der deutschen Könige.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Aachener Dom",
+          "type": "church",
+          "address": "Domhof 1, 52062 Aachen",
+          "durationMin": 15,
+          "note": "Der Dom mit dem karolingischen Oktogon ist Grabkirche Karls des Großen und seit 1978 UNESCO-Welterbe; er steht für das Leitthema Religion.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Grashaus",
+          "type": "historic",
+          "address": "Fischmarkt 3, 52062 Aachen",
+          "durationMin": 15,
+          "note": "Das mittelalterliche Grashaus, Aachens ältestes Rathaus, steht für das Leitthema Europa und beherbergt heute das Europäische Klassenzimmer.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Elisenbrunnen",
+          "type": "monument",
+          "address": "Friedrich-Wilhelm-Platz 13, 52062 Aachen",
+          "durationMin": 12,
+          "note": "Die klassizistische Brunnenhalle mit ihren Trinkbrunnen erinnert an Aachens Tradition als Kur- und Bäderstadt und steht für das Leitthema Badekultur.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Couven-Museum",
+          "type": "museum",
+          "address": "Hühnermarkt 17, 52062 Aachen",
+          "durationMin": 40,
+          "note": "Das Wohnkultur-Museum zeigt bürgerliche Interieurs des 18. und 19. Jahrhunderts und veranschaulicht das Leitthema Lebenskultur.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Internationales Zeitungsmuseum",
+          "type": "museum",
+          "address": "Pontstraße 13, 52062 Aachen",
+          "durationMin": 40,
+          "note": "Im historischen Haus an der Pontstraße dokumentiert das Museum die Geschichte der Presse und steht für das Leitthema Medien.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "SuperC",
+          "type": "building",
+          "address": "Templergraben 57, 52062 Aachen",
+          "durationMin": 15,
+          "note": "Das markante Hörsaal- und Servicegebäude der RWTH bildet den Abschluss der Route und steht für das Leitthema Wissenschaft.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "nuernberg",
+      "slug": "nuernberg-historische-meile",
+      "title": "Historische Meile Nürnberg",
+      "description": "Die Historische Meile führt auf markierten Wegen – erkennbar am schwarzen H auf rotem Grund – vom Hauptbahnhof quer durch die Nürnberger Altstadt bis an die Pegnitz. Entlang der Route reihen sich die bedeutendsten Bau- und Geschichtsdenkmäler der einstigen Reichsstadt, von der Stadtmauer über die großen Kirchen bis hinauf zur Kaiserburg.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://de.wikipedia.org/wiki/Historische_Meile_N%C3%BCrnberg",
+        "https://tourismus.nuernberg.de/stadtfuehrung/auf-eigene-faust/",
+        "https://phototravellers.de/nuernberg-historische-meile/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Stadtbefestigung / Frauentorturm",
+          "type": "landmark",
+          "address": "Frauentorturm, Königstraße, 90402 Nürnberg",
+          "durationMin": 15,
+          "note": "Der wuchtige Rundturm am Königstor markiert den Auftakt der mittelalterlichen Stadtmauer, die die Altstadt bis heute fast vollständig umschließt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Marthakirche",
+          "type": "church",
+          "address": "Königstraße 79, 90402 Nürnberg",
+          "durationMin": 15,
+          "note": "Die schlichte gotische Hallenkirche an der Königstraße ist vor allem für ihre farbigen mittelalterlichen Glasfenster bekannt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Mauthalle",
+          "type": "building",
+          "address": "Hallplatz 2, 90402 Nürnberg",
+          "durationMin": 15,
+          "note": "Der mächtige Bau mit dem steilen, mehrfach gegaubten Satteldach diente der Reichsstadt einst als Kornspeicher und Zollstation.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Lorenzkirche",
+          "type": "church",
+          "address": "Lorenzer Platz 1, 90402 Nürnberg",
+          "durationMin": 15,
+          "note": "Die zweitürmige gotische Stadtkirche birgt Meisterwerke wie den Engelsgruß von Veit Stoß und das steinerne Sakramentshaus von Adam Kraft.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Nassauer Haus",
+          "type": "building",
+          "address": "Karolinenstraße 2, 90402 Nürnberg",
+          "durationMin": 15,
+          "note": "Das mittelalterliche Wohnturmhaus gegenüber der Lorenzkirche zählt zu den letzten erhaltenen Geschlechtertürmen der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Heilig-Geist-Spital",
+          "type": "historic",
+          "address": "Spitalgasse 16, 90403 Nürnberg",
+          "durationMin": 15,
+          "note": "Der teils über die Pegnitz gebaute Spitalkomplex mit seinen Arkaden liefert eines der meistfotografierten Stadtbilder Nürnbergs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Frauenkirche",
+          "type": "church",
+          "address": "Hauptmarkt 14, 90403 Nürnberg",
+          "durationMin": 15,
+          "note": "An der Ostseite des Hauptmarkts steht die gotische Kirche mit dem Männleinlaufen, dem täglichen Figurenspiel ihrer Kunstuhr.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Hauptmarkt",
+          "type": "square",
+          "address": "Hauptmarkt, 90403 Nürnberg",
+          "durationMin": 15,
+          "note": "Der zentrale Platz der Altstadt bündelt mehrere Stationen und ist alljährlich Schauplatz des Christkindlesmarkts.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Schöner Brunnen",
+          "type": "monument",
+          "address": "Hauptmarkt, 90403 Nürnberg",
+          "durationMin": 12,
+          "note": "Der rund vierzig Meter hohe, reich verzierte gotische Brunnen in Form einer Kirchturmspitze trägt im Gitter den legendären goldenen Ring.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Altes Rathaus",
+          "type": "building",
+          "address": "Rathausplatz 2, 90403 Nürnberg",
+          "durationMin": 15,
+          "note": "Der repräsentative Rathausbau verbirgt in seinem Untergeschoss die mittelalterlichen Lochgefängnisse.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Stadtmuseum Fembohaus",
+          "type": "museum",
+          "address": "Burgstraße 15, 90403 Nürnberg",
+          "durationMin": 40,
+          "note": "Das einzige erhaltene große Kaufmannshaus der Spätrenaissance beherbergt heute das Museum zur Geschichte Nürnbergs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Kaiserburg",
+          "type": "landmark",
+          "address": "Burg 17, 90403 Nürnberg",
+          "durationMin": 15,
+          "note": "Die weithin sichtbare Burganlage über der Altstadt war jahrhundertelang Aufenthaltsort der römisch-deutschen Kaiser und Könige.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Pilatushaus",
+          "type": "building",
+          "address": "Bergstraße 19, 90403 Nürnberg",
+          "durationMin": 15,
+          "note": "Das spätgotische Fachwerk-Eckhaus am Fuß der Burg gilt als eines der prächtigsten Bürgerhäuser der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Tiergärtnertor",
+          "type": "historic",
+          "address": "Tiergärtnertorplatz, 90403 Nürnberg",
+          "durationMin": 15,
+          "note": "Am malerischen Platz vor dem alten Stadttor gruppieren sich Fachwerkhäuser dicht an die Burgmauern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 15,
+          "title": "Albrecht-Dürer-Haus",
+          "type": "museum",
+          "address": "Albrecht-Dürer-Straße 39, 90403 Nürnberg",
+          "durationMin": 40,
+          "note": "Im Wohn- und Arbeitshaus des Malers wird Leben und Werk Albrecht Dürers in originalen Räumen erlebbar.",
+          "sourceUrls": []
+        },
+        {
+          "order": 16,
+          "title": "Sebalduskirche",
+          "type": "church",
+          "address": "Sebalduskirche, Nürnberg",
+          "durationMin": 15,
+          "note": "Die älteste Pfarrkirche der Altstadt bewahrt das bronzene Sebaldusgrab von Peter Vischer und seinen Söhnen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 17,
+          "title": "Weißgerbergasse",
+          "type": "historic",
+          "address": "Weißgerbergasse, 90403 Nürnberg",
+          "durationMin": 15,
+          "note": "Die kopfsteingepflasterte Gasse zeigt mit ihren dicht gereihten Fachwerkhäusern das einstige Gerberviertel in seltener Geschlossenheit.",
+          "sourceUrls": []
+        },
+        {
+          "order": 18,
+          "title": "Weinstadel und Henkersteg",
+          "type": "landmark",
+          "address": "Am Trödelmarkt, 90403 Nürnberg",
+          "durationMin": 15,
+          "note": "Der riesige Fachwerk-Weinstadel und der überdachte Holzsteg über die Pegnitz bilden das idyllische Flussensemble am Ende des Rundgangs.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "hannover",
+      "slug": "hannover-roter-faden",
+      "title": "Der Rote Faden Hannover",
+      "description": "Der Rote Faden ist ein selbstgefuehrter Altstadt-Rundgang, der auf rund 4,2 Kilometern einer roten Linie im Pflaster durch Hannovers Innenstadt folgt. Die Runde beginnt und endet am Hauptbahnhof und verbindet die grossen Sehenswuerdigkeiten von der Oper ueber das Neue Rathaus und die Nanas bis in die historische Altstadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://de.wikipedia.org/wiki/Roter_Faden_(Hannover)",
+        "https://www.hannover.de/Leben-in-der-Region-Hannover/Soziales/Menschen-mit-Behinderung/Freizeit/Der-Rote-Faden-Hannover",
+        "https://www.visit-hannover.com/Kultur-Sehensw%C3%BCrdigkeiten/Stadttouren/Der-Rote-Faden-Hannover"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Touristeninformation am Ernst-August-Platz",
+          "type": "building",
+          "address": "Ernst-August-Platz 8, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Startpunkt des Rundgangs gegenueber dem Hauptbahnhof, wo die rote Bodenlinie beginnt und das Begleitheft erhaeltlich ist.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Opernhaus Hannover",
+          "type": "building",
+          "address": "Opernplatz 1, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Klassizistischer Theaterbau von Georg Ludwig Friedrich Laves und einer der repraesentativsten Kulturbauten der Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Aegidienkirche",
+          "type": "church",
+          "address": "Aegidienkirchhof, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Als Kriegsruine bewusst erhaltene gotische Kirche, die heute als Mahnmal fuer die Opfer von Krieg und Gewalt dient.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Neues Rathaus",
+          "type": "building",
+          "address": "Trammplatz 2, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Monumentaler Prachtbau von 1913 mit dem bekannten Bogenaufzug in der Kuppel und weitem Blick ueber die Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Museum August Kestner",
+          "type": "museum",
+          "address": "Trammplatz 3, 30159 Hannover",
+          "durationMin": 40,
+          "note": "Museum fuer angewandte Kunst und Antike mit aegyptischer Sammlung, direkt neben dem Neuen Rathaus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Waterloosaeule",
+          "type": "monument",
+          "address": "Waterlooplatz, 30169 Hannover",
+          "durationMin": 12,
+          "note": "Hohe Siegessaeule zur Erinnerung an die Schlacht von Waterloo, deren Aussichtsplattform ueber eine Wendeltreppe erreichbar ist.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Beginenturm am Hohen Ufer",
+          "type": "historic",
+          "address": "Am Hohen Ufer, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Erhaltener Wehrturm der einstigen Stadtbefestigung an der Leine, benannt nach der benachbarten Beginengemeinschaft.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Nanas von Niki de Saint Phalle",
+          "type": "sculpture",
+          "address": "Leibnizufer, 30169 Hannover",
+          "durationMin": 12,
+          "note": "Drei bunte, fuellige Frauenfiguren am Leibnizufer, die als Wahrzeichen moderner Kunst im oeffentlichen Raum gelten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Kreuzkirche",
+          "type": "church",
+          "address": "Kreuzkirchhof 3, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Spaetgotische Altstadtkirche mit wertvollem Fluegelaltar aus der Cranach-Werkstatt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Ballhof",
+          "type": "historic",
+          "address": "Ballhofplatz 5, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Historisches Fachwerkgebaeude aus dem 17. Jahrhundert, urspruenglich fuer Ballspiele errichtet und heute Spielstaette.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Historisches Museum Hannover",
+          "type": "museum",
+          "address": "Pferdestrasse 6, 30159 Hannover",
+          "durationMin": 40,
+          "note": "Stadtgeschichtliches Museum am Hohen Ufer, das die Entwicklung Hannovers von der Burg bis zur Grossstadt zeigt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Leineschloss (Niedersaechsischer Landtag)",
+          "type": "building",
+          "address": "Hannah-Arendt-Platz 1, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Ehemalige Residenz der Welfen an der Leine, die heute den Niedersaechsischen Landtag beherbergt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Leibnizhaus am Holzmarkt",
+          "type": "historic",
+          "address": "Holzmarkt 5, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Rekonstruierte Renaissance-Fassade des Wohnhauses des Universalgelehrten Gottfried Wilhelm Leibniz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Marktkirche",
+          "type": "church",
+          "address": "Hanns-Lilje-Platz 2, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Backsteingotische Hauptkirche der Altstadt mit markantem Turm, eines der Wahrzeichen Hannovers.",
+          "sourceUrls": []
+        },
+        {
+          "order": 15,
+          "title": "Altes Rathaus",
+          "type": "historic",
+          "address": "Karmarschstrasse 42, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Spaetgotisches Backsteingebaeude am Markt mit reich verzierter Fassade, das aelteste Rathaus der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 16,
+          "title": "Markthalle",
+          "type": "building",
+          "address": "Karmarschstrasse 49, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Ueberdachte Markthalle mit zahlreichen Staenden, im Volksmund 'Bauch von Hannover' genannt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 17,
+          "title": "Kroepcke",
+          "type": "square",
+          "address": "Kroepcke, 30159 Hannover",
+          "durationMin": 15,
+          "note": "Zentraler Treffpunkt und Verkehrsknoten im Herzen der City mit der bekannten Kroepcke-Uhr.",
+          "sourceUrls": []
+        },
+        {
+          "order": 18,
+          "title": "Ernst-August-Denkmal am Hauptbahnhof",
+          "type": "monument",
+          "address": "Ernst-August-Platz, 30159 Hannover",
+          "durationMin": 12,
+          "note": "Reiterstandbild von Koenig Ernst August vor dem Hauptbahnhof, beliebter Treffpunkt und Endpunkt des Rundgangs.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "wiesbaden",
+      "slug": "wiesbaden-jugendstil-pfad",
+      "title": "Jugendstil-Pfad Wiesbaden",
+      "description": "Der Jugendstil-Pfad verbindet vierzehn Bauwerke, Kunstwerke und Orte, an denen sich die Jugendstil- und Bäderarchitektur Wiesbadens ablesen lässt. Vom Theatergebäude Wartburg über Thermen, Kirche und Museen bis zu Villen und Friedhofsbauten zeichnet er die Blütezeit der Kurstadt um 1900 nach.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "architektur",
+        "jugendstil"
+      ],
+      "sourceUrls": [
+        "https://museum-wiesbaden.de/jugendstil-pfad",
+        "https://www.jugendstilpfad.de",
+        "https://www.wiesbaden.de/pressemitteilungen/pressereferat/2025/august/250814-Jugendstil-Pfad"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wartburg",
+          "type": "building",
+          "address": "Schwalbacher Straße 51, 65183 Wiesbaden",
+          "durationMin": 15,
+          "note": "Spielstätte des Hessischen Staatstheaters mit reich gegliederter Sandsteinfassade und figürlichem Relieffries aus der Zeit um 1906.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Pressehaus",
+          "type": "building",
+          "address": "Langgasse 21, 65183 Wiesbaden",
+          "durationMin": 15,
+          "note": "Ehemaliges Zeitungsgebäude des Wiesbadener Kuriers, dessen roter Sandsteinbau mit Bronzeadlern und Figurenschmuck den Übergang zum Jugendstil zeigt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Kaiser-Friedrich-Therme",
+          "type": "building",
+          "address": "Langgasse 38-40, 65183 Wiesbaden",
+          "durationMin": 15,
+          "note": "Historisches Thermalbad mit keramischer Wandverkleidung, Majoliken und figürlichen Reliefs im Jugendstil.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Ehemaliges Palast Hotel",
+          "type": "building",
+          "address": "Kranzplatz 5-6, 65183 Wiesbaden",
+          "durationMin": 15,
+          "note": "Ehemaliges Grandhotel am Kranzplatz mit sechsgeschossiger Jugendstilfassade und markanter Kuppel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Drei-Lilien-Quelle",
+          "type": "monument",
+          "address": "An der Drei-Lilien-Quelle, 65183 Wiesbaden",
+          "durationMin": 12,
+          "note": "Historische Brunnenkammer einer Wiesbadener Thermalquelle, ausgekleidet mit farbigen Jugendstilkacheln.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Muschelsaal im Kurhaus",
+          "type": "historic",
+          "address": "Kurhausplatz 1, 65189 Wiesbaden",
+          "durationMin": 15,
+          "note": "Festlicher Gartensaal des Kurhauses mit muschelförmigem Stuckdekor und wandfüllenden Fresken.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "sam - Stadtmuseum am Markt",
+          "type": "museum",
+          "address": "Marktplatz 3, 65183 Wiesbaden",
+          "durationMin": 40,
+          "note": "Stadtmuseum mit einer Abteilung zum Wiesbadener Alltag und Kunstgewerbe der Jugendstilzeit.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Jugendstilsammlung F. W. Neess im Museum Wiesbaden",
+          "type": "museum",
+          "address": "Friedrich-Ebert-Allee 2, 65185 Wiesbaden",
+          "durationMin": 40,
+          "note": "Umfangreiche Jugendstil-Sammlung mit über 500 Objekten von Möbeln über Glas bis Malerei im Museum Wiesbaden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Lutherkirche",
+          "type": "church",
+          "address": "Sartoriusstraße 16, 65187 Wiesbaden",
+          "durationMin": 15,
+          "note": "Evangelische Kirche, deren Innenraum als Gesamtkunstwerk mit Glasfenstern, Mosaiken und Fresken gestaltet ist.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Jugendstilvilla Etagenlandhaus",
+          "type": "building",
+          "address": "Dambachtal 20, 65193 Wiesbaden",
+          "durationMin": 15,
+          "note": "Wohnhaus aus der Zeit um 1901 mit Fassadenschmuck und Blumenfries von Hans Christiansen (Privathaus, nur von außen).",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Weißes Haus",
+          "type": "building",
+          "address": "Bingertstraße 10, 65191 Wiesbaden",
+          "durationMin": 15,
+          "note": "Eines der frühesten reinen Jugendstilwohnhäuser Deutschlands mit plastischem Figurenschmuck an der Fassade (Privathaus, nur von außen).",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Trauerhalle Südfriedhof",
+          "type": "building",
+          "address": "Siegfriedring 25, 65189 Wiesbaden",
+          "durationMin": 15,
+          "note": "Monumentale Trauerhalle von 1911 mit Kuppel und Marmorausstattung im Jugendstil.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Jugendstil-Grabmale Nordfriedhof",
+          "type": "monument",
+          "address": "Hellkundweg 83, 65193 Wiesbaden",
+          "durationMin": 12,
+          "note": "Historischer Friedhof mit Grabmälern und Skulpturen namhafter Jugendstil-Bildhauer.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Sektkellerei Schloss Henkell",
+          "type": "building",
+          "address": "Biebricher Allee 142, 65187 Wiesbaden",
+          "durationMin": 15,
+          "note": "Repräsentativer Firmensitz der Sektkellerei mit dem ausgemalten Blauen Salon im Jugendstil.",
+          "sourceUrls": []
+        }
+      ]
+    }
+  ]
+}
