@@ -1,0 +1,170 @@
+{
+  "version": 1,
+  "createdAt": "2026-09-15",
+  "status": "ready",
+  "scope": "Marburg — Grimm-Dich-Pfad (Märchen-Rundgang durch die Oberstadt)",
+  "importNotes": "Redaktionelle Route nach dem offiziellen Grimm-Dich-Pfad der Marburg Stadt und Land Tourismus GmbH (Hessischer Tourismuspreis 2009). Stationsnamen, Orte und Adressen sind Fakten aus dem öffentlichen Faltblatt; Beschreibungen sind eigenformuliert. KEINE Märchentexte oder Fotos aus dem Faltblatt übernommen (urheberrechtlich geschützt: Fotos Georg Kronenberg, Karte Dr. Lutz Münzer). Koordinaten per --geocode-missing (Nominatim, auf Marburg begrenzt).",
+  "routes": [
+    {
+      "citySlug": "marburg",
+      "slug": "marburg-grimm-dich-pfad",
+      "title": "Grimm-Dich-Pfad: Märchen-Rundgang durch Marburgs Oberstadt",
+      "description": "Auf den Spuren der Brüder Grimm durch die Marburger Oberstadt: Der preisgekrönte Grimm-Dich-Pfad verbindet 15 Märchen- und Erinnerungsstationen zu einem stimmungsvollen Altstadt-Rundgang — vom Froschkönig über Rotkäppchen und Hänsel & Gretel bis zu den Wohnhäusern, in denen Jacob und Wilhelm Grimm während ihrer Studienzeit lebten.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "maerchen",
+        "grimm",
+        "family",
+        "tourism",
+        "editorial"
+      ],
+      "sourceUrls": [
+        "https://www.marburg-tourismus.de/GDP",
+        "https://www.marburg-tourismus.de/maerchen",
+        "https://www.lialo.com/de/tour/k01z"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Von dem Fischer und seiner Frau",
+          "type": "landmark",
+          "address": "Alter Botanischer Garten, Pilgrimstein, 35037 Marburg",
+          "durationMin": 20,
+          "note": "Auftakt am Teich im Alten Botanischen Garten: Ein bronzener Fisch erinnert an das Märchen vom Fischer, dem seine Frau immer mehr abverlangt.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 2,
+          "title": "Der Wolf und die sieben jungen Geißlein",
+          "type": "landmark",
+          "address": "Steinweg, 35037 Marburg",
+          "durationMin": 15,
+          "note": "An der Mauer am Steinweg blicken Büsten von Wolf und Geißlein herab — die zweite Station des Pfades mitten in der Oberstadt.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 3,
+          "title": "Froschkönig",
+          "type": "landmark",
+          "address": "Neustadt, 35037 Marburg",
+          "durationMin": 15,
+          "note": "Ein Frosch an der Wasserscheide in der Neustadt markiert die Station zum Froschkönig — Wasser, das sich hier in zwei Richtungen teilt.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 4,
+          "title": "Krieger'sche Leihbibliothek",
+          "type": "landmark",
+          "address": "Reitgasse 7, 35037 Marburg",
+          "durationMin": 15,
+          "note": "Hier lag einst die Lesegesellschaft, in der die Brüder Grimm Bücher entliehen (heute Buchhandlung Lehmanns).",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 5,
+          "title": "Sterntaler",
+          "type": "landmark",
+          "address": "Universitätskirche, Kornmarkt, 35037 Marburg",
+          "durationMin": 15,
+          "note": "Am Kornmarkt an der Universitätskirche greift ein Lichtkunstwerk das Märchen vom Sterntaler auf.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 6,
+          "title": "Das tapfere Schneiderlein",
+          "type": "square",
+          "address": "Markt 7, 35037 Marburg",
+          "durationMin": 20,
+          "note": "Am lebendigen Marktplatz erinnern sieben Fliegen an das tapfere Schneiderlein — „Siebene auf einen Streich“.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 7,
+          "title": "Haus der Romantik",
+          "type": "museum",
+          "address": "Markt 16, 35037 Marburg",
+          "durationMin": 40,
+          "note": "Ausstellungshaus zur Marburger Romantik — ideal für eine längere Pause und Hintergrund zur Zeit der Grimms.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 8,
+          "title": "Rotkäppchen und der Wolf",
+          "type": "landmark",
+          "address": "Schlosssteig, 35037 Marburg",
+          "durationMin": 15,
+          "note": "Auf dem Weg zum Schloss: ein Korb mit Weinflasche und Brot am Weinlädele — Rotkäppchens Gang durch den Wald.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 9,
+          "title": "Schneewittchen",
+          "type": "landmark",
+          "address": "Landgraf-Philipp-Straße, 35037 Marburg",
+          "durationMin": 15,
+          "note": "In die Schlossbergmauer eingelassen: ein Spiegel zum Märchen von Schneewittchen — „Spieglein, Spieglein an der Wand“.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 10,
+          "title": "Aschenputtel",
+          "type": "viewpoint",
+          "address": "Am Weinberg, 35037 Marburg",
+          "durationMin": 20,
+          "note": "Am Weinberg unterhalb der Schlossmauer steht ein roter Pumps für Aschenputtel — dazu ein weiter Blick über die Stadt.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 11,
+          "title": "Zitat von Jakob Grimm",
+          "type": "landmark",
+          "address": "Ludwig-Bickell-Treppe, 35037 Marburg",
+          "durationMin": 10,
+          "note": "An der Ludwig-Bickell-Treppe ist ein Zitat von Jakob Grimm angebracht — ein ruhiger Moment auf dem Rückweg in die Altstadt.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 12,
+          "title": "Wohnhaus Prof. Carl von Savigny",
+          "type": "landmark",
+          "address": "Ritterstraße 15, 35037 Marburg",
+          "durationMin": 10,
+          "note": "Im Forsthof stand das Wohnhaus von Prof. Carl von Savigny, dem prägenden Lehrer der Brüder Grimm in Marburg.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 13,
+          "title": "Hänsel und Gretel",
+          "type": "landmark",
+          "address": "Rübenstein 9, 35037 Marburg",
+          "durationMin": 15,
+          "note": "Am Giebel des Hauses Rübenstein 9 findet sich das Lebkuchenhaus zu Hänsel und Gretel, nahe dem Lutherischen Pfarrhof.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 14,
+          "title": "Historischer Stadtplan",
+          "type": "landmark",
+          "address": "Rübenstein 1, 35037 Marburg",
+          "durationMin": 10,
+          "note": "Ein historischer Stadtplan aus der Studienzeit der Grimms — gegenüber dem Haus, in dem Jacob und Wilhelm 1803–06 wohnten.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        },
+        {
+          "order": 15,
+          "title": "Wohnhaus von Jakob Grimm",
+          "type": "landmark",
+          "address": "Barfüßerstraße 35, 35037 Marburg",
+          "durationMin": 15,
+          "note": "Abschluss am Wohnhaus, in dem Jakob Grimm 1802–03 lebte — Endpunkt des Rundgangs auf den Spuren der Märchensammler.",
+          "sourceUrls": ["https://www.marburg-tourismus.de/GDP"]
+        }
+      ]
+    }
+  ]
+}
