@@ -1,0 +1,3440 @@
+{
+  "version": 1,
+  "createdAt": "2026-09-15",
+  "status": "ready",
+  "scope": "Entdeckungspfade Welle 4 — 25 Rest-Städte mit recherchierten Themenpfaden",
+  "importNotes": "Redaktionelle Themen-Entdeckungspfade nach realen, offiziellen Stadt-Pfaden (Recherche 15.09.). Extraktion + adversariale Verifikation je Stadt (Workflow, 54 Agenten): echte Stationen, geokodierbare Adressen, keine Fremdtexte/Fotos. Nur Fakten (Stationsname, Ort, Adresse) aus offiziellen Quellen; Beschreibungen eigenformuliert. Koordinaten per --geocode-missing (Nominatim, auf die Stadt begrenzt). Quellen je Route in sourceUrls. Bottrop (Halde-Haniel-Kreuzweg) zurückgestellt: alle Stationen auf einem Haldenberg = Koordinaten-Cluster, faktisch ein Ausflugsziel. Remscheid: Extraktion fehlgeschlagen, wird nachgeholt.",
+  "routes": [
+    {
+      "citySlug": "mannheim",
+      "slug": "mannheim-skulpturenmeile",
+      "title": "Skulpturenmeile Mannheim",
+      "description": "Frei begehbarer Skulpturenweg entlang der Augustaanlage: von den Museen am Europaplatz (Technoseum, Planetarium) über moderne Plastiken der internationalen Bildhauerei und den Mannheimer Kunstverein bis zur Kunsthalle und zum Wasserturm am Friedrichsplatz. Seit 1994 sind hier mehr als 60 Werke im öffentlichen Raum entstanden; der Rundgang ist Teil der Kulturmeile Mannheim.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "skulptur"
+      ],
+      "sourceUrls": [
+        "https://de.wikipedia.org/wiki/Skulpturenmeile_Mannheim",
+        "https://de.wikipedia.org/wiki/Augustaanlage",
+        "https://commons.wikimedia.org/wiki/Category:Skulpturenmeile_Mannheim",
+        "https://www.nussbaum.de/entdecken/ausflugsziele/kunstmeile-mannheim-593/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Technoseum",
+          "type": "museum",
+          "address": "Museumsstraße 1, 68165 Mannheim",
+          "durationMin": 40,
+          "note": "Das Technoseum, das Landesmuseum für Technik und Arbeit, bildet den östlichen Auftakt der Kulturmeile nahe dem Europaplatz. Von hier zieht sich die 1994 begonnene Skulpturenmeile mit über 60 modernen Werken entlang der Augustaanlage in Richtung Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Spring Rain (Mark di Suvero)",
+          "type": "sculpture",
+          "address": "vor dem Technoseum, Museumsstraße 1, 68165 Mannheim",
+          "durationMin": 12,
+          "note": "Die Stahlträger-Plastik 'Spring Rain' des US-amerikanischen Bildhauers Mark di Suvero entstand 1992 und steht vor dem Technoseum. Sie zählt zu den markanten Auftaktwerken der Skulpturenmeile am östlichen Ende der Route.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Planetarium Mannheim",
+          "type": "building",
+          "address": "Wilhelm-Varnholt-Allee 1 (Europaplatz), 68165 Mannheim",
+          "durationMin": 15,
+          "note": "Das Planetarium mit seiner charakteristischen Kuppel liegt am Europaplatz und markiert das östliche Ende der Augustaanlage. Der Platz ist Ausgangspunkt des frei begehbaren Skulpturenwegs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Die Große Mannheimerin (Franz Bernhard)",
+          "type": "sculpture",
+          "address": "Europaplatz / am Planetarium, 68165 Mannheim",
+          "durationMin": 12,
+          "note": "Die rund 13 Meter hohe Figur 'Die Große Mannheimerin', auch 'Der tanzende Riese' genannt, schuf Franz Bernhard 1993. Sie steht am Planetarium und gilt als Wahrzeichen und Auftakt der Skulpturenmeile.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Dynamisches Rechteck (Günter Wagner)",
+          "type": "sculpture",
+          "address": "Augustaanlage, 68165 Mannheim",
+          "durationMin": 12,
+          "note": "'Dynamisches Rechteck' von Günter Wagner (1994) ist eine Plastik aus Cortenstahl entlang der Augustaanlage. Das Werk gehört zur seit 1994 gewachsenen Sammlung der Skulpturenmeile.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Eisenspiel für Mannheim (Robert Schad)",
+          "type": "sculpture",
+          "address": "Augustaanlage, 68165 Mannheim",
+          "durationMin": 12,
+          "note": "Robert Schads 'Eisenspiel für Mannheim' (1993) ist eine bewegt wirkende Skulptur aus verschweißten Vierkant-Eisenstäben. Sie reiht sich in die Werke entlang der Augustaanlage ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Ohne Titel / Turm (Hans Nagel)",
+          "type": "sculpture",
+          "address": "Augustaanlage, 68165 Mannheim",
+          "durationMin": 12,
+          "note": "Die turmartige Plastik von Hans Nagel aus dem Jahr 1972 zählt zu den älteren Werken der Sammlung. Sie steht als abstrakte Skulptur entlang der Augustaanlage.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Himmelskugel (Mo Edoga)",
+          "type": "sculpture",
+          "address": "Augustaanlage, 68165 Mannheim",
+          "durationMin": 12,
+          "note": "Mo Edogas 'Himmelskugel' ist eine aus Treibholz gefügte Skulptur am Weg. Sie zeigt die materielle Bandbreite der auf der Meile vertretenen Bildhauerei jenseits von Stahl und Stein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Mannheimer Kunstverein",
+          "type": "museum",
+          "address": "Augustaanlage 58, 68165 Mannheim",
+          "durationMin": 40,
+          "note": "Der 1833 gegründete Mannheimer Kunstverein residiert seit 1966 in einem eigens errichteten Ausstellungsbau an der Augustaanlage. Das Haus ist ein zentraler Halt der Kulturmeile und zeigt wechselnde Ausstellungen zeitgenössischer Kunst.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Gestütztes Gefüge (Reinhard Scherer)",
+          "type": "sculpture",
+          "address": "vor dem Mannheimer Kunstverein, Augustaanlage 58, 68165 Mannheim",
+          "durationMin": 12,
+          "note": "Reinhard Scherers Eisenplastik 'Gestütztes Gefüge' (1992) steht unmittelbar vor dem Mannheimer Kunstverein. Sie gehört zu den fest verorteten Werken der Skulpturenmeile.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Luftbrunnen (André Volten)",
+          "type": "sculpture",
+          "address": "am Rosengarten, Rosengartenplatz 2, 68161 Mannheim",
+          "durationMin": 12,
+          "note": "Der 'Luftbrunnen' des niederländischen Bildhauers André Volten (1973/74) besteht aus mehreren senkrechten Edelstahlrohren und steht beim Kongresszentrum Rosengarten. Das Werk verbindet Skulptur und Platzgestaltung im öffentlichen Raum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Kongresszentrum Rosengarten",
+          "type": "building",
+          "address": "Rosengartenplatz 2, 68161 Mannheim",
+          "durationMin": 15,
+          "note": "Der Rosengarten am gleichnamigen Platz ist Mannheims bedeutender Kongress- und Veranstaltungsbau. Er liegt an der Kulturmeile im Übergang von der Augustaanlage zum Friedrichsplatz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Mannheimer Wasserturm (Friedrichsplatz)",
+          "type": "monument",
+          "address": "Friedrichsplatz, 68161 Mannheim",
+          "durationMin": 12,
+          "note": "Der 1889 errichtete Wasserturm ist das Wahrzeichen Mannheims und steht auf dem Friedrichsplatz mit seinen weitläufigen Jugendstil-Anlagen. Der Platz bildet das westliche Ende der Augustaanlage und den Übergang zur Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Kunsthalle Mannheim",
+          "type": "museum",
+          "address": "Friedrichsplatz 4, 68165 Mannheim",
+          "durationMin": 40,
+          "note": "Die Kunsthalle Mannheim am Friedrichsplatz zählt zu den renommierten deutschen Museen der Moderne. Zu ihr gehört ein eigener Skulpturengarten, der die Themen der Skulpturenmeile im Innenhof fortführt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 15,
+          "title": "Reiss-Engelhorn-Museen",
+          "type": "museum",
+          "address": "Museum Weltkulturen D5, 68159 Mannheim",
+          "durationMin": 40,
+          "note": "Die Reiss-Engelhorn-Museen in den Quadraten bilden den westlichen Abschluss der Kulturmeile. Der Museumsverbund zeigt Sammlungen zu Archäologie, Weltkulturen, Fotografie und Kunstgeschichte.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "duisburg",
+      "slug": "duisburg-brunnenmeile",
+      "title": "Brunnenmeile Duisburg",
+      "description": "Rund ein Kilometer langer, frei begehbarer Skulpturen- und Brunnenweg entlang der Fußgängerzone Königstraße und in die angrenzende Altstadt. Von der IHK bis zum Mercatorbrunnen reihen sich moderne Wasserplastiken – darunter der berühmte Lifesaver von Niki de Saint Phalle und Jean Tinguely – und historische Brunnen aneinander. Die Meile entstand ab 1983 im Zuge des Umbaus der Königstraße und wurde 1993 vervollständigt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "brunnen"
+      ],
+      "sourceUrls": [
+        "https://de.wikipedia.org/wiki/Brunnenmeile_Duisburg",
+        "https://de.wikipedia.org/wiki/Liste_von_Kunstwerken_im_%C3%B6ffentlichen_Raum_in_Duisburg",
+        "https://lehmbruckmuseum.de/museum-english/art-in-public-spaces/the-fountain-route/",
+        "http://www.bz-duisburg.de/DU_historisch_heute/Brunnenmeile%20koenigstrasse.htm"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "IHK-Brunnen (Ankerbrunnen)",
+          "type": "fountain",
+          "address": "Mercatorstraße 22-24, 47051 Duisburg (vor dem IHK-Gebäude)",
+          "durationMin": 8,
+          "note": "Der sogenannte Ankerbrunnen entstand 1958 nach einem Entwurf des Bildhauers Zoltán Székessy und steht an der Ecke Mercatorstraße/Friedrich-Wilhelm-Straße vor dem Gebäude der Industrie- und Handelskammer. Die Anker-Motive verweisen auf die Bedeutung Duisburgs als Binnenhafen- und Handelsstadt. Er zählt zu den älteren, historischen Brunnen der Innenstadt und bildet einen guten Ausgangspunkt am Südostrand der Brunnenmeile.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "André Volten – Ohne Titel",
+          "type": "fountain",
+          "address": "Königstraße/Averdunkplatz, 47051 Duisburg",
+          "durationMin": 8,
+          "note": "Die abstrakte Edelstahl-Brunnenplastik von André Volten steht im östlichen Abschnitt der Fußgängerzone am Averdunkplatz und markiert seit 1983 den Auftakt der modernen Brunnenmeile. Wegen ihrer streng geometrischen, kubischen Form trägt sie im Volksmund den Spitznamen Waschmaschine. Volten gilt als bedeutender Vertreter der konstruktiv-konkreten Kunst der Niederlande.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Otmar Alt – Wassermühle",
+          "type": "fountain",
+          "address": "Königstraße/Hohe Straße, 47051 Duisburg",
+          "durationMin": 8,
+          "note": "Die farbenfrohe Bronzeplastik Wassermühle schuf der für seine verspielte, comicartige Formensprache bekannte Künstler Otmar Alt im Jahr 1986. Sie steht auf der Königstraße an der Kreuzung zur Hohen Straße und verbindet fließendes Wasser mit fantasievollen Figuren. Die Arbeit setzt einen bewusst heiteren Kontrast zu den strengeren Skulpturen der Meile.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Ulf Hegewald – Stadtbild",
+          "type": "fountain",
+          "address": "Königstraße/Claubergstraße, 47051 Duisburg",
+          "durationMin": 8,
+          "note": "Stadtbild von Ulf Hegewald entstand zwischen 1991 und 1993 aus rotbrauner Keramik und Beton und steht auf der Königstraße nahe der Claubergstraße. Die reliefartige Gestaltung nimmt Motive der Stadt und ihrer Architektur auf. Das Werk gehört zu den Brunnen, die im Zuge des Umbaus der Fußgängerzone nach dem Bau des Stadtbahntunnels aufgestellt wurden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Lifesaver (Niki de Saint Phalle / Jean Tinguely)",
+          "type": "fountain",
+          "address": "Königstraße (Ecke Düsseldorfer Straße/Am Burgacker), 47051 Duisburg",
+          "durationMin": 8,
+          "note": "Der Lifesaver ist das bekannteste Werk der Brunnenmeile und entstand aus der Zusammenarbeit von Niki de Saint Phalle und Jean Tinguely. Die über sieben Meter hohe, bunte Figurengruppe aus Polyester und Stahl verbindet Saint Phalles typische runde Nana-Formen mit Tinguelys beweglicher Maschinenkunst und Wasserfontänen. Sie steht auf der Königstraße an der Ecke Düsseldorfer Straße/Am Burgacker.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Friedrich Werthmann – Mercator-Kugel (Hommage à Mercator)",
+          "type": "sculpture",
+          "address": "Kuhlenwall (Kuhlenwall-Karree), Ecke Gutenbergstraße, 47051 Duisburg",
+          "durationMin": 12,
+          "note": "Die aus vielen dreieckigen Stahlsegmenten geschweißte, etwa vier Meter große Kugel schuf Friedrich Werthmann 1965 als Hommage an den in Duisburg wirkenden Kartografen Gerhard Mercator. Ursprünglich stand sie als Brunnen auf der Königstraße; 2012 wurde sie an ihren heutigen Standort am neu gestalteten Kuhlenwall-Karree nahe Mercators einstigem Wohnort versetzt. Die durchbrochene, dynamische Form spielt auf Erdkugel und Bewegung an.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Thomas Virnich – Schiffsmasken",
+          "type": "fountain",
+          "address": "Königstraße/Kuhtor, 47051 Duisburg",
+          "durationMin": 8,
+          "note": "Die Schiffsmasken von Thomas Virnich stehen am westlichen Ende der Königstraße nahe dem Kuhtor und wurden zwischen 1991 und 1993 aus Stahl und Backstein geschaffen. Die maskenhaften Formen spielen auf die Schifffahrts- und Hafengeschichte Duisburgs an. Das Werk markiert den Übergang von der Einkaufsmeile zur Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Wasa Marjanov – Skulptur für Duisburg",
+          "type": "fountain",
+          "address": "Friedrich-Wilhelm-Platz, 47051 Duisburg",
+          "durationMin": 8,
+          "note": "Wasa Marjanov schuf 1992 diese Wasserskulptur aus Edelstahl, die auf dem Friedrich-Wilhelm-Platz etwas abseits der Königstraße steht. Zylinder, Kegel, Terrassen und Stufen bilden zusammen mit dem Wasser ein abwechslungsreiches Spiel aus Formen und Bewegung. Sie zählt zu den sieben Hauptwerken der Brunnenmeile.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Tritonbrunnen",
+          "type": "fountain",
+          "address": "Münzstraße, 47051 Duisburg (Altstadt)",
+          "durationMin": 8,
+          "note": "Der Tritonbrunnen steht in der Altstadt an der Münzstraße und gehört zu den historischen Brunnen der Innenstadt. Das Motiv des Meeresgottes Triton mit Delfinen greift ein klassisches Brunnenthema auf. Er ergänzt die moderne Brunnenmeile um ein älteres, figürliches Beispiel Duisburger Brunnenkunst.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Mercatorbrunnen",
+          "type": "fountain",
+          "address": "Burgplatz, 47051 Duisburg (Altstadt)",
+          "durationMin": 8,
+          "note": "Der Mercatorbrunnen von 1878 steht am Burgplatz in der Altstadt und wurde nach einem Entwurf von Hermann Schülke vom Düsseldorfer Bildhauer Joseph Reiss aus Sandstein ausgeführt. Auf dem historistischen Aufbau mit vier Säulen und Delfinen thront eine rund 2,5 Meter hohe Figur des Kartografen Gerhard Mercator. Nahe Rathaus und Salvatorkirche bildet er einen repräsentativen Abschluss des Rundgangs.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "bochum",
+      "slug": "bochum-bergbauwanderweg",
+      "title": "Bergbauwanderweg Bochum-Süd (GeoPark Ruhr)",
+      "description": "Ein selbst begehbarer, mit Schlägel und Eisen markierter Themenweg durch den Bochumer Süden rund um Stiepel. Er verbindet Zeugnisse des frühen Steinkohlenbergbaus vom Lottental über den Kemnader See und den Leinpfad an der Ruhr bis zum ältesten erhaltenen Malakowturm des Ruhrgebiets. Diese Auswahl bündelt die wichtigsten benannten Stationen zu einem zusammenhängenden Fußweg.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "industriekultur",
+        "bergbau",
+        "natur"
+      ],
+      "sourceUrls": [
+        "https://www.ruhrgebiet-industriekultur.de/bergbauwanderweg-bochum-sued/",
+        "https://de.wikipedia.org/wiki/Bergbauwanderweg_Bochum-S%C3%BCd",
+        "https://www.bochum.de/Lottental---Stausee---Stiepel---Raupendahl",
+        "https://de.wikipedia.org/wiki/Zeche_Brockhauser_Tiefbau"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zeche Glücksburg – Maschinenhaus Schacht Anna",
+          "type": "building",
+          "address": "Eichenweg 17, 44799 Bochum",
+          "durationMin": 15,
+          "note": "Das denkmalgeschützte Maschinenhaus von 1855/56 gehörte zum Schacht Anna der Zeche Glücksburg und markiert am Eichenweg den Ausgangspunkt des Rundwegs. Der Bau aus Ruhrsandstein wird heute zu Wohnzwecken genutzt und zählt zu den ältesten erhaltenen Bergbauzeugnissen im Bochumer Süden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Zeche Glücksburg – Stollenbetrieb",
+          "type": "historic",
+          "address": "Im Lottental, 44797 Bochum",
+          "durationMin": 15,
+          "note": "Im Lottental erinnert die Station an den frühen Stollenbergbau der Zeche Glücksburg, die hier schon im 18. Jahrhundert oberflächennahe Steinkohle abbaute. Über in den Hang getriebene Stollen wurden die Flöze erschlossen, bevor später der Tiefbau folgte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Zeche Julius Philipp Erbstolln",
+          "type": "historic",
+          "address": "Im Lottental, 44797 Bochum",
+          "durationMin": 15,
+          "note": "Die Station markiert den Julius-Philipp-Erbstolln, einen frühen Stollen im Lottental. Erbstollen wie dieser wurden angelegt, um Grubenwasser abzuleiten und die geförderte Kohle talwärts in Richtung Ruhr zu befördern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Zeche Klosterbusch",
+          "type": "historic",
+          "address": "Im Lottental, 44797 Bochum",
+          "durationMin": 15,
+          "note": "Die Zeche Klosterbusch baute im Lottental Steinkohle ab und gilt als einer der zentralen Einstiegspunkte des Wegs. Von hier lässt sich der Weg auch verkürzt in Richtung Kemnader See begehen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Stollenbetrieb Hagensieperbank",
+          "type": "historic",
+          "address": "Im Lottental, 44797 Bochum",
+          "durationMin": 15,
+          "note": "Der Stollenbetrieb Hagensieperbank steht für den kleinteiligen Stollenbergbau, der die Hänge des Lottentals durchzog. Die Station ordnet die Anlage in die Entwicklung des Reviers vom Stollen- zum Tiefbau ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Zeche Vereinigte Gibraltar Erbstollen",
+          "type": "historic",
+          "address": "Am Kemnader See, 44797 Bochum-Stiepel",
+          "durationMin": 15,
+          "note": "Am Ufer des Kemnader Sees liegt die Zeche Vereinigte Gibraltar Erbstollen, deren Stollenmundloch bis heute erhalten ist. Der ab 1830 rund zwei Kilometer weit vorgetriebene Erbstollen transportierte Kohle zur Ruhr und entwässerte die Grubenbaue; die Zeche wurde 1883 stillgelegt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Kohlenniederlage der Stollenzeche Schiffsruder",
+          "type": "historic",
+          "address": "Leinpfad an der Ruhr (Höhe Kemnader Brücke), 44797 Bochum",
+          "durationMin": 15,
+          "note": "Am Leinpfad nahe der Kemnader Brücke lag die Kohlenniederlage der Stollenzeche Schiffsruder. Von solchen Niederlagen wurde die Kohle auf Ruhrnachen verladen, die den Fluss als frühe Transportader nutzten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Blankensteiner Ruhrschleuse",
+          "type": "historic",
+          "address": "An der Ruhr bei der Kosterbrücke, 44797 Bochum-Stiepel",
+          "durationMin": 15,
+          "note": "Die Schleuse bei Blankenstein entstand im 18. Jahrhundert für die schiffbar gemachte Ruhr, über die Kohle aus dem südlichen Revier abtransportiert wurde. Sie zeugt vom Ausbau des Flusses zur wichtigsten Wasserstraße des frühen Kohlenhandels.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Zeche Vereinigte Pfingstblume (Zechenhaus)",
+          "type": "building",
+          "address": "Brockhauser Straße 126, 44797 Bochum",
+          "durationMin": 15,
+          "note": "Das 1857 errichtete Zechenhaus der Zeche Vereinigte Pfingstblume steht an der Brockhauser Straße zwischen Dorfkirche und Kosterbrücke. Nach der Stilllegung der Zeche verfiel es und wurde ab 2004 vom Stiepeler Verein für Heimatforschung restauriert; heute dient es dem Verein als Begegnungsstätte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Stiepeler Dorfkirche",
+          "type": "church",
+          "address": "Brockhauser Straße 72a, 44797 Bochum",
+          "durationMin": 15,
+          "note": "Die Stiepeler Dorfkirche geht auf eine Gründung von 1008 zurück und zählt zu den ältesten erhaltenen Bauwerken Bochums. Sie liegt direkt am Wegverlauf und bildet den historischen Ortskern des alten Dorfs Stiepel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Malakowturm der Zeche Brockhauser Tiefbau",
+          "type": "monument",
+          "address": "Am Bliestollen, 44797 Bochum-Sundern",
+          "durationMin": 12,
+          "note": "Der 1874/75 errichtete Malakowturm der Zeche Brockhauser Tiefbau ist der einzige erhaltene Malakowturm dieser Bauart im Ruhrgebiet, mit Eckquaderung aus Ruhrsandstein. Über den massiven Turm wurde der Förderschacht bedient; er steht seit 1979 unter Denkmalschutz und erhielt 2015 ein neues Dach.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "wuppertal",
+      "slug": "wuppertal-skulpturenrundgang",
+      "title": "Skulpturen-Rundgang Wuppertal-Elberfeld",
+      "description": "Ein selbst begehbarer Rundgang durch das Zentrum von Elberfeld entlang fest installierter Skulpturen im öffentlichen Raum. Die Route folgt dem \"Skulpturenpark Johannisberg\", der ab 1997 zwischen dem Von der Heydt-Museum und dem Johannisberg entstand, und verbindet moderne Plastik von Tony Cragg, Bernar Venet oder Ulrich Rückriem mit älteren Werken wie dem Bökelbrunnen und dem Else-Lasker-Schüler-Denkmal.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "skulptur"
+      ],
+      "sourceUrls": [
+        "https://nrw-skulptur.net/route/skulpturen-rundgang-wuppertal-elberfeld/",
+        "https://de.wikipedia.org/wiki/Skulpturenpark_Johannisberg",
+        "https://skulpturen.kulturraum.nrw/wuppertal/tony-cragg/zufuhr.html",
+        "https://nrw-skulptur.net/skulptur/meinwaerts-denkmal-fuer-else-lasker-schueler/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Von der Heydt-Museum",
+          "type": "museum",
+          "address": "Turmhof 8, 42103 Wuppertal",
+          "durationMin": 40,
+          "note": "Das Von der Heydt-Museum ist das große Kunstmuseum Elberfelds und bildet den Ausgangspunkt des Skulpturenwegs. Es zeigt Malerei und Plastik vom 17. Jahrhundert bis in die Gegenwart. Gemeinsam mit der Stadtsparkasse gab es ab 1997 den Anstoß zum Skulpturenpark Johannisberg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Early Forms (Tony Cragg)",
+          "type": "sculpture",
+          "address": "Von der Heydt-Platz / Turmhof, 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "Direkt an der Freitreppe des Museums stehen seit 1991 zwei Bronzearbeiten des in Wuppertal lebenden Bildhauers Tony Cragg. Die zweiteilige Arbeit greift alltägliche Gefäßformen wie Amphore, Dose und Flasche auf und übersetzt sie in monumentale Plastik.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "\"Meinwärts\" – Denkmal für Else Lasker-Schüler",
+          "type": "monument",
+          "address": "Herzogstraße / Ecke Kasinostraße, 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "Das Denkmal erinnert an die in Elberfeld geborene Dichterin Else Lasker-Schüler. Stephan Huber gestaltete es 1989 aus zwei einander gegenüberstehenden Granitstelen, in die aus zehntausenden Glassteinen das Porträt der Schriftstellerin eingelegt ist. Der Titel bezieht sich auf ihren Gedichttitel \"Meinwärts\".",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Ein neuer erfolgreicher Tag (Guillaume Bijl)",
+          "type": "sculpture",
+          "address": "Kasinostraße / Herzogstraße, 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "Die etwa zwei Meter hohe Bronzefigur des belgischen Künstlers Guillaume Bijl steht seit 2008 in der Elberfelder Fußgängerzone. Sie zeigt einen Mann im Anzug auf einem steinverkleideten Sockel und kommentiert mit leiser Ironie den Geschäftsalltag der Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Elastisch – Schwebend (Claus Bury)",
+          "type": "sculpture",
+          "address": "Südstraße 19-29, 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "Die Arbeit von Claus Bury aus dem Jahr 2001 besteht aus Lärchenholz und erstreckt sich über gut zwölf Meter Länge. Sie gehört zu den Werken, die eigens für den Skulpturenpark Johannisberg angeschafft wurden, und markiert den Beginn des Anstiegs über die Südstraße.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Pythagoras (Fritz Bernuth)",
+          "type": "sculpture",
+          "address": "Am Johannisberg / Ecke Südstraße, 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "Die 1964 vom Wuppertaler Bildhauer Fritz Bernuth geschaffene Bronze veranschaulicht den Satz des Pythagoras räumlich und zeigt dazu eine stilisierte Eule als antikes Sinnbild der Weisheit. Ursprünglich an der Stadthalle aufgestellt, steht sie seit Ende der 1960er Jahre an der Ecke Am Johannisberg/Südstraße.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Zufuhr (Tony Cragg)",
+          "type": "sculpture",
+          "address": "Südstraße / Johannisberg, 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "\"Zufuhr\" ist eine großformatige Bronzeplastik von Tony Cragg aus dem Jahr 1996. Das mehrere Meter hohe Werk stapelt gefäßartige Formen übereinander und steht an der Südstraße nahe dem Aufgang zum Johannisberg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Bökelbrunnen (Erich Cleff)",
+          "type": "fountain",
+          "address": "Johannisberg (Treppe zur Bahnhofstraße), 42103 Wuppertal",
+          "durationMin": 8,
+          "note": "Der Bökelbrunnen von Erich Cleff zeigt einen Jungen, der zwei Tauben in den Händen hält. Der ursprüngliche Brunnen von 1920 wurde im Krieg zerstört; Cleff schuf 1961 die heutige Fassung mit Granitbecken neu. Sie steht am Johannisberg an der Treppe zur Bahnhofstraße.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Die himmlischen Stürze (Frank Breidenbruch / A. R. Penck)",
+          "type": "sculpture",
+          "address": "Johannisberg (vor dem Parkhaus), 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "Die mehrteilige Skulpturengruppe aus Carrara-Marmor entstand in den 1990er Jahren; an ihr waren Frank Breidenbruch und A. R. Penck beteiligt. Die tonnenschwere, über mehrere Meter reichende Arbeit steht am Johannisberg vor dem Parkhaus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Rondo (Alf Lechner)",
+          "type": "sculpture",
+          "address": "Johannisberg 40, 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "\"Rondo\" des Bildhauers Alf Lechner entstand 1998/99 aus gewalztem und geschnittenem Cortenstahl. Die massive Arbeit wurde für den Skulpturenpark gestiftet und steht vor der Historischen Stadthalle auf dem Johannisberg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Anröchter Dolomit (Ulrich Rückriem)",
+          "type": "sculpture",
+          "address": "Johannisberg 40 (Stadthallengarten), 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "Für diese Arbeit zersägte Ulrich Rückriem einen Block aus Anröchter Dolomit in mehrere Teile und setzte ihn wieder zur ursprünglichen Form zusammen. Die minimalistische Skulptur wurde vom Kunst- und Museumsverein gestiftet und steht im Garten der Historischen Stadthalle.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "229,5° Arc x 5 (Bernar Venet)",
+          "type": "sculpture",
+          "address": "Johannisberg 40 (Stadthallengarten), 42103 Wuppertal",
+          "durationMin": 12,
+          "note": "Der französische Künstler Bernar Venet formte mit diesem Werk einen großen, gebogenen Stahlbogen aus fünf Segmenten. Die Arbeit kam im Jahr 2000 in den Stadthallengarten am Johannisberg und bildet den Abschluss des Rundgangs.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "braunschweig",
+      "slug": "braunschweig-blik-wege",
+      "title": "Kraheweg – Auf den Spuren von Peter Joseph Krahe",
+      "description": "Der Kraheweg ist ein fest eingerichteter, selbst begehbarer Themenrundweg der Stadt Braunschweig rund um die historischen Wallanlagen. Er verbindet zwölf Bauten und Anlagen des Klassizisten Peter Joseph Krahe, der die aufgelassenen Festungswälle im frühen 19. Jahrhundert in öffentliche Promenaden umgestaltete. Der Rundgang ist rund neun Kilometer lang und schließt zwei Abstecher ein – zur Grabstätte Krahes und zum Portikus im Bürgerpark.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "architektur",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://www.braunschweig.de/tourismus/ueber-braunschweig/sehenswuerdigkeiten/blik/rundgaenge/rundgang_kraheweg.php",
+        "https://www.braunschweig.de/leben/freizeit_sport/routen/KML_Kraheweg.zip",
+        "https://de.wikipedia.org/wiki/Peter_Joseph_Krahe",
+        "https://de.wikipedia.org/wiki/L%C3%B6wenwall"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Villa Salve Hospes",
+          "type": "building",
+          "address": "Lessingplatz 12, 38100 Braunschweig",
+          "durationMin": 15,
+          "note": "Die fruehklassizistische Villa entstand zwischen 1805 und 1808 nach Entwurf von Peter Joseph Krahe und gilt als sein architektonisches Hauptwerk. Sie steht am damals neu angelegten Augusttor und beherbergt heute den Kunstverein Braunschweig. Am Gebaeude erinnert die BLIK-Persoenlichkeitentafel an Krahe.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Portikus im Buergerpark",
+          "type": "monument",
+          "address": "Portikus im Buergerpark (nahe Drachenbruecke), 38100 Braunschweig",
+          "durationMin": 12,
+          "note": "Die dorische Saeulenhalle diente urspruenglich als Torwache am Augusttor und entstand um 1804 bis 1807. 1896 versetzte man sie in den Buergerpark, wo sie seither als malerischer Staffagebau steht. Sie bildet einen der beiden offiziellen Abstecher des Rundwegs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Vaterlaendisches Denkmal (Obelisk) auf dem Loewenwall",
+          "type": "monument",
+          "address": "Loewenwall, 38100 Braunschweig",
+          "durationMin": 12,
+          "note": "Der gusseiserne Obelisk in der Mitte des Loewenwalls wurde 1823 eingeweiht und erinnert an zwei in den Kriegen gegen Napoleon gefallene Braunschweiger Herzoege. Am Sockel stehen vier gusseiserne Loewen nach Vorbildern von Johann Gottfried Schadow sowie zwei Wasserbecken mit Springbrunnen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Loewenwall (ehemaliger Monumentplatz)",
+          "type": "square",
+          "address": "Loewenwall, 38100 Braunschweig",
+          "durationMin": 15,
+          "note": "Den ovalen Platz gestaltete Krahe zwischen 1812 und 1820 als Teil der Augusttor-Promenade; bis 1904 hiess er Monumentplatz. Er ist von Rosskastanien gerahmt und zaehlt zu den Hoehepunkten seiner Umwandlung der Wallanlagen in oeffentliche Gruenraeume.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Dom- und Magnifriedhof (Grabstaette Krahes)",
+          "type": "monument",
+          "address": "Dom- und Magnifriedhof, Ottmerstrasse, 38102 Braunschweig",
+          "durationMin": 12,
+          "note": "Auf dem Dom- und Magnifriedhof liegt heute die Grabstaette Peter Joseph Krahes, der 1840 in Braunschweig starb. Sein Grabmal wurde 1972 hierher versetzt. Der Friedhof ist der zweite offizielle Abstecher des Rundwegs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Torhaeuser Steintor",
+          "type": "gate",
+          "address": "Helmstedter Strasse 1, 38102 Braunschweig",
+          "durationMin": 10,
+          "note": "Am Steintor errichtete Krahe ein Paar klassizistischer Torhaeuser, das den Uebergang vom Wallring in die Ausfallstrasse markierte. Eines der beiden Gebaeude beherbergt heute das Museum fuer Photographie.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Herzoglicher Park (Theater- und Museumpark)",
+          "type": "park",
+          "address": "Am Theater / Museumstrasse, 38100 Braunschweig",
+          "durationMin": 20,
+          "note": "Dieser Abschnitt der Wallpromenade grenzt an das fruehere herzogliche Viertel und liegt heute zwischen Staatstheater und Landesmuseum. Er zeigt, wie Krahe die aufgegebenen Befestigungen in zusammenhaengende Parkflaechen verwandelte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Torhaeuser Fallersleber Tor",
+          "type": "gate",
+          "address": "Humboldtstrasse 2, 38106 Braunschweig",
+          "durationMin": 10,
+          "note": "Auch am Fallersleber Tor setzte Krahe ein Paar Torhaeuser, das den Stadteingang am noerdlichen Wallring kennzeichnete. Die gleichfoermige klassizistische Gestaltung verband die verschiedenen Tore des Rings zu einem einheitlichen Bild.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Torhaeuser Wendentor",
+          "type": "gate",
+          "address": "Wendentorwall 1, 38100 Braunschweig",
+          "durationMin": 10,
+          "note": "Die beiden Torhaeuser am Wendentor gehoeren zu Krahes System klassizistischer Torbauten, das die Kreuzungen von Wallring und Ausfallstrassen ordnete. Sie markieren den noerdlichen Zugang zur Innenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Villa von Amsberg",
+          "type": "building",
+          "address": "Friedrich-Wilhelm-Platz 3, 38100 Braunschweig",
+          "durationMin": 15,
+          "note": "Die klassizistische Wohnvilla entstand 1827 nach Krahes Entwurf an der Wallpromenade. Sie steht beispielhaft fuer die vornehmen Privathaeuser, die den neuen Ring saeumten, und schliesst den Rundgang zurueck Richtung Villa Salve Hospes.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "moenchengladbach",
+      "slug": "moenchengladbach-skulpturenmeile",
+      "title": "Skulpturenmeile Mönchengladbach",
+      "description": "Rund 5,7 km langer, frei zugänglicher Skulpturen-Rundweg durch die Mönchengladbacher Innenstadt: vom Geroweiher über den Abteiberg mit Münster und Museum bis in den Bunten Garten und über die Sandradstraße zurück. Die 2002 zur EUROGA 2002plus entstandene Route verbindet moderne Kunst im öffentlichen Raum mit den historischen Wahrzeichen der Stadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "skulptur"
+      ],
+      "sourceUrls": [
+        "https://www.moenchengladbach.de/skulpturenmeile1",
+        "https://deinmg.de/2020/09/04/skulpturenmeile_tour/",
+        "https://skulpturen.kulturraum.nrw/moenchengladbach/galerie.html",
+        "https://deinmg.de/project/skulpturenmeile/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "„Die Frau\" – Georg Ettl (Geroweiher)",
+          "type": "sculpture",
+          "address": "Geropark, Geroweiher, 41061 Mönchengladbach",
+          "durationMin": 12,
+          "note": "Am Geroweiher, dem Teich unterhalb des Abteibergs, beginnt der Rundgang. Die stilisierte Frauenfigur von Georg Ettl steht für dessen reduzierte, flächige Formensprache und markiert den südlichen Auftakt der Skulpturenmeile.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Münster St. Vitus mit „Wasserspeier\" (Thomas Virnich)",
+          "type": "church",
+          "address": "Abteistraße 41, 41061 Mönchengladbach",
+          "durationMin": 15,
+          "note": "Das romanische Münster St. Vitus auf dem Abteiberg geht auf die 974 gegründete Benediktinerabtei zurück und ist seit 1974 päpstliche Basilica minor. An der Kirche findet sich mit dem „Wasserspeier\" ein moderner Beitrag von Thomas Virnich, der die historische Bauplastik zeitgenössisch weiterdenkt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Museum Abteiberg mit „Pointes et Courbes\" (Alexander Calder)",
+          "type": "museum",
+          "address": "Abteistraße 27, 41061 Mönchengladbach",
+          "durationMin": 40,
+          "note": "Das von Hans Hollein entworfene Museum Abteiberg gilt als Schlüsselbau der Postmoderne und sammelt Kunst seit 1960. Vor dem Haus steht mit „Pointes et Courbes\" eine Stahlplastik von Alexander Calder, einem der einflussreichsten Vertreter der abstrakten Skulptur.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "„Turmbau zu Babel\" – Thomas Virnich (Rathaus Abtei)",
+          "type": "historic",
+          "address": "Rathaus Abtei, Abteistraße, 41061 Mönchengladbach",
+          "durationMin": 15,
+          "note": "Vor dem historischen Rathaus Abtei auf dem Abteiberg steht Thomas Virnichs „Turmbau zu Babel\". Die verschachtelte Plastik greift das biblische Motiv des unvollendeten Turms auf und setzt einen bewusst gebrochenen Akzent im mittelalterlichen Stadtkern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "„Brunnen\" am Alten Markt – Erwin Heerich",
+          "type": "fountain",
+          "address": "Alter Markt, 41061 Mönchengladbach",
+          "durationMin": 8,
+          "note": "Auf dem Alten Markt, dem historischen Zentrum am Fuß des Abteibergs, steht ein Brunnen von Erwin Heerich. Der Bildhauer war für seine streng geometrischen, aus einfachen Grundkörpern entwickelten Arbeiten bekannt, was sich auch in der klaren Form dieses Brunnens zeigt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "„Denkmal für Hans Jonas\" – Hans Karl Burgeff (Hans-Jonas-Park)",
+          "type": "monument",
+          "address": "Hans-Jonas-Park, Abteistraße, 41061 Mönchengladbach",
+          "durationMin": 12,
+          "note": "Der Hans-Jonas-Park verbindet den Abteiberg mit dem nördlich anschließenden Stadtkern. Die Bronze von Hans Karl Burgeff zeigt den 1903 in Mönchengladbach geborenen Philosophen Hans Jonas in energischer Schrittstellung und erinnert an den Denker der „Verantwortung\" für das technische Zeitalter.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "„Stehende\" – Eugène Dodeigne (Konrad-Adenauer-Platz)",
+          "type": "sculpture",
+          "address": "Konrad-Adenauer-Platz, 41061 Mönchengladbach",
+          "durationMin": 12,
+          "note": "Am Konrad-Adenauer-Platz nahe der Stadtbibliothek stehen mehrere Werke der Meile beieinander. Die „Stehende\" des französisch-belgischen Bildhauers Eugène Dodeigne ist eine grob aus Stein gehauene Figur, deren raue Oberfläche den Menschen archaisch und zugleich verletzlich erscheinen lässt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "„Eva II\" – Gerhard Marcks (Konrad-Adenauer-Platz)",
+          "type": "sculpture",
+          "address": "Konrad-Adenauer-Platz, 41061 Mönchengladbach",
+          "durationMin": 12,
+          "note": "Unweit davon steht „Eva II\" von Gerhard Marcks, einem der bedeutendsten deutschen Bildhauer des 20. Jahrhunderts und früheren Bauhaus-Meister. Die Bronzefigur führt die klassische Aktdarstellung in klarer, moderner Formgebung fort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "„Chorbild\" – Beate Selzer (Stadtbibliothek)",
+          "type": "sculpture",
+          "address": "Hilde-Sherman-Zander-Straße 6, 41061 Mönchengladbach",
+          "durationMin": 12,
+          "note": "An der Stadtbibliothek am Adenauerplatz befindet sich „Chorbild\" von Beate Selzer. Die Arbeit reiht mehrere Figuren zu einer Gruppe und spielt auf gemeinschaftliches Singen und das Miteinander an.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "„Lichtstele\" – Heinz Mack (Bunter Garten)",
+          "type": "sculpture",
+          "address": "Bunter Garten, Hohenzollernstraße, 41061 Mönchengladbach",
+          "durationMin": 12,
+          "note": "Im Bunten Garten hinter der Kaiser-Friedrich-Halle ragt mit rund 14,5 Metern Heinz Macks „Lichtstele\" empor, das höchste Werk der Meile. Reflektierende Metallflächen brechen das Licht und lassen die Stahlstele im Sinne der von Mack mitbegründeten ZERO-Bewegung lebendig wirken.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "„Schwebende Pyramide\" – Günther Zins (Bunter Garten)",
+          "type": "sculpture",
+          "address": "Bunter Garten, Hohenzollernstraße, 41061 Mönchengladbach",
+          "durationMin": 12,
+          "note": "Ebenfalls im Bunten Garten steht die „Schwebende Pyramide\" von Günther Zins. Die filigrane Stahlkonstruktion spielt mit Balance und Leichtigkeit, sodass der geometrische Körper über dem Boden zu schweben scheint.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "„Passion\" – Werner Jacobs (Bunter Garten)",
+          "type": "sculpture",
+          "address": "Bunter Garten, Hohenzollernstraße, 41061 Mönchengladbach",
+          "durationMin": 12,
+          "note": "„Passion\" von Werner Jacobs besteht aus sieben aufgereihten Stelen und ist im Bunten Garten aufgestellt. Zahl und Reihung verweisen auf die Leidensgeschichte und geben dem Werk einen ruhigen, rhythmischen Charakter.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "„Harmonia Sanitatis\" – Heinz Mack (Sandradstraße)",
+          "type": "sculpture",
+          "address": "Sandradstraße, 41061 Mönchengladbach",
+          "durationMin": 12,
+          "note": "Auf dem Rückweg Richtung Innenstadt steht an der Sandradstraße, am Areal des früheren Maria-Hilf-Krankenhauses, Heinz Macks „Harmonia Sanitatis\" von 2002. Das Werk sollte die körperliche und seelische Gesundheit der Patienten sinnbildlich in Einklang bringen.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "oberhausen",
+      "slug": "oberhausen-industriekultur",
+      "title": "Route der Industriekultur – Oberhausen: Industrie macht Stadt",
+      "description": "Ein fußläufiger Industriekultur-Rundgang durch Oberhausen: vom Hauptbahnhof und dem LVR-Industriemuseum über die historische Innenstadt und die Bauten der Gutehoffnungshütte bis zur Neuen Mitte mit Gasometer und CentrO, mit grünem Abschluss am Schloss Oberhausen, Kaisergarten und der Rehberger-Brücke.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "industriekultur",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://de.wikivoyage.org/wiki/Route_der_Industriekultur_%E2%80%93_Oberhausen:_Industrie_macht_Stadt",
+        "https://de.wikipedia.org/wiki/Route_der_Industriekultur_%E2%80%93_Oberhausen:_Industrie_macht_Stadt",
+        "https://rheinische-industriekultur.com/seiten/objekte/orte/oberhausen/oberhausen.html",
+        "https://www.route-industriekultur.ruhr/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Oberhausen Hauptbahnhof",
+          "type": "historic",
+          "address": "Willy-Brandt-Platz 1, 46045 Oberhausen",
+          "durationMin": 15,
+          "note": "Der Hauptbahnhof entstand dort, wo sich frueh mehrere Eisenbahnlinien kreuzten und den Kern der jungen Industriestadt bildeten. Das heutige, denkmalgeschuetzte Empfangsgebaeude im Stil der 1930er Jahre markiert bis heute den zentralen Verkehrsknoten und ist ein guter Ausgangspunkt fuer den Rundgang.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "LVR-Industriemuseum Zinkfabrik Altenberg",
+          "type": "museum",
+          "address": "Hansastraße 20, 46049 Oberhausen",
+          "durationMin": 40,
+          "note": "In der erhaltenen ehemaligen Zinkfabrik direkt neben dem Hauptbahnhof hat das LVR-Industriemuseum seinen zentralen Standort. Ausstellungen zur Schwerindustrie und zur Zinkverhuettung zeigen, wie stark die Region von Bergbau und Metallverarbeitung gepraegt wurde.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Bert-Brecht-Haus am Altmarkt",
+          "type": "building",
+          "address": "Langemarkstraße 19-21, 46045 Oberhausen",
+          "durationMin": 15,
+          "note": "Das Bert-Brecht-Haus nahe dem Altmarkt war urspruenglich ein Kaufhaus und steht fuer das buergerliche Zentrum, das mit der Industrie rasch wuchs. Heute beherbergt es Bildungs- und Kultureinrichtungen der Stadt, darunter die Stadtbibliothek.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Friedensplatz",
+          "type": "square",
+          "address": "Friedensplatz, 46045 Oberhausen",
+          "durationMin": 15,
+          "note": "Der Friedensplatz ist einer der zentralen Plaetze der Innenstadt und liegt nahe dem Rathaus. Er zeigt, wie die schnell wachsende Industriestadt repraesentative oeffentliche Raeume anlegte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Rathaus Oberhausen",
+          "type": "building",
+          "address": "Schwartzstraße 72, 46045 Oberhausen",
+          "durationMin": 15,
+          "note": "Das monumentale Backsteinrathaus von 1930 entstand, als mehrere zuvor getrennte Gemeinden zur Grossstadt Oberhausen zusammenwuchsen. Es steht fuer das neue staedtische Selbstbewusstsein der Industriemetropole.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Grillopark",
+          "type": "park",
+          "address": "Grillopark, Schwartzstraße, 46045 Oberhausen",
+          "durationMin": 20,
+          "note": "Der Grillopark nahe dem Rathaus erinnert an die Industriellenfamilie Grillo und zaehlt zu den aeltesten oeffentlichen Gruenanlagen der Stadt. Er bot der wachsenden Arbeiterbevoelkerung einen fruehen Erholungsraum mitten im Zentrum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Turbinenhalle",
+          "type": "building",
+          "address": "Im Lipperfeld 23, 46047 Oberhausen",
+          "durationMin": 15,
+          "note": "Die Turbinenhalle ist eine erhaltene Werkshalle aus der Zeit der Gutehoffnungshuette und zeugt vom industriellen Maschinenbau am Ort. Heute dient der weite Hallenraum als Veranstaltungs- und Konzertort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Hauptverwaltung der Gutehoffnungshütte",
+          "type": "building",
+          "address": "Essener Straße, 46047 Oberhausen",
+          "durationMin": 15,
+          "note": "Das im 19. Jahrhundert errichtete Centralbuero war die Verwaltungszentrale der Gutehoffnungshuette, des Montankonzerns, der Oberhausen wirtschaftlich dominierte. Von hier aus wurde ein weitverzweigtes Industrieimperium gesteuert; heute wird das Gebaeude anderweitig genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "LVR-Industriemuseum Peter-Behrens-Bau",
+          "type": "museum",
+          "address": "Essener Straße 80, 46047 Oberhausen",
+          "durationMin": 40,
+          "note": "Das fruehere Hauptlagerhaus der Gutehoffnungshuette wurde in den 1920er Jahren nach Entwuerfen von Peter Behrens gebaut und gilt als Ikone der Industriearchitektur. Heute nutzt es das LVR-Industriemuseum als Ausstellungs- und Depotstandort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Gasometer Oberhausen",
+          "type": "monument",
+          "address": "Arenastraße 11, 46047 Oberhausen",
+          "durationMin": 12,
+          "note": "Der rund 117 Meter hohe Gasometer speicherte einst Gichtgas der Huetten und ist heute das Wahrzeichen Oberhausens. Als einer der aussergewoehnlichsten Ausstellungsraeume Europas zeigt er grosse Installationen und bietet vom Dach einen weiten Blick ueber das Revier.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "CentrO / Neue Mitte",
+          "type": "landmark",
+          "address": "Centroallee 1000, 46047 Oberhausen",
+          "durationMin": 15,
+          "note": "Auf dem Gelaende des frueheren GHH-Huettenwerks entstand in den 1990er Jahren die Neue Mitte mit dem grossen Einkaufs- und Freizeitzentrum CentrO. Der Ort zeigt beispielhaft den Strukturwandel von der Schwerindustrie zur Dienstleistungs- und Freizeitwirtschaft.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Ludwiggalerie Schloss Oberhausen",
+          "type": "museum",
+          "address": "Konrad-Adenauer-Allee 46, 46049 Oberhausen",
+          "durationMin": 40,
+          "note": "Das klassizistische Schloss Oberhausen beherbergt die Ludwiggalerie mit wechselnden Ausstellungen zu Kunst, Fotografie und Populaerkultur. Der Bau erinnert an die Zeit vor der Industrialisierung und bildet einen Kontrast zu den umliegenden Werksanlagen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Kaisergarten",
+          "type": "park",
+          "address": "Kaisergarten, Konrad-Adenauer-Allee, 46049 Oberhausen",
+          "durationMin": 20,
+          "note": "Der Kaisergarten rund um das Schloss ist Oberhausens aeltester Park und verbindet weite Gruenflaechen am Rhein-Herne-Kanal mit einem kleinen Tiergehege. Fuer die Arbeiterschaft war er ein wichtiger Naherholungsort.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Rehberger-Brücke – Slinky springs to fame",
+          "type": "bridge",
+          "address": "Rehberger-Brücke über den Rhein-Herne-Kanal, Kaisergarten, 46049 Oberhausen",
+          "durationMin": 8,
+          "note": "Die von Tobias Rehberger gestaltete Fussgaengerbruecke ueberspannt den Rhein-Herne-Kanal als bunte Spirale aus hunderten Aluminiumboegen. Sie verbindet den Kaisergarten mit dem Emscher Landschaftspark und ist selbst ein begehbares Kunstwerk und Aussichtspunkt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "potsdam",
+      "slug": "potsdam-geheimdienststadt",
+      "title": "Geschichtspfad Sowjetische Geheimdienststadt „Militärstädtchen Nr. 7“",
+      "description": "Selbst begehbarer Geschichtspfad durch das ehemalige sowjetische Geheimdienstareal „Militärstädtchen Nr. 7“ in der Nauener Vorstadt zwischen Neuem Garten und Pfingstberg. Rund 2,5 km entlang von Villen, dem KGB-Gefängnis, Denkmalresten und Sicherungsanlagen der einstigen „Verbotenen Stadt“ des KGB. Startpunkt ist das Bronzemodell im Hof der Gedenkstätte Leistikowstraße; unterwegs erschließen Infotafeln mit QR-Codes die Geschichte des Ortes.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "zeitgeschichte"
+      ],
+      "sourceUrls": [
+        "https://www.leistikowstrasse-sbg.de/ausstellungen/online-ausstellungen/online-ausstellung-sowjetische-geheimdienststadt-militaerstaedtchen-nr-7/",
+        "https://de.wikipedia.org/wiki/Milit%C3%A4rst%C3%A4dtchen_Nr._7",
+        "https://www.reiseland-brandenburg.de/poi/potsdam/historische-baudenkmaeler-und-staetten/geschichtspfad-sowjetische-geheimdienststadt-militaerstaedtchen-nr-7/",
+        "https://www.leistikowstrasse-sbg.de/ausstellungen/online-ausstellungen/denkmalensemble/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zentrales Untersuchungsgefängnis – Gedenkstätte Leistikowstraße",
+          "type": "museum",
+          "address": "Leistikowstraße 1, 14469 Potsdam",
+          "durationMin": 40,
+          "note": "Das frühere Pfarrhaus diente dem sowjetischen Geheimdienst ab 1945 als zentrales Untersuchungsgefängnis der Spionageabwehr; in den Kellerzellen sind rund 1.500 Ritzinschriften von Häftlingen dokumentiert. Heute befindet sich hier die Gedenk- und Begegnungsstätte Leistikowstraße. Im Hof steht ein maßstabsgetreues Bronzemodell des Militärstädtchens, das den Rundgang eröffnet.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Gefängniskomplex – Ermittlungsabteilung",
+          "type": "building",
+          "address": "Leistikowstraße 2–3, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "Die unmittelbar benachbarten Häuser gehörten zum abgeriegelten Haftkomplex und wurden vermutlich von der Ermittlungsabteilung genutzt. Zusätzliche Mauern und ein etwa drei Meter hoher Bretterzaun nach dem Vorbild sowjetischer Lager schotteten den Bereich vollständig ab.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Wachhaus der Gefängniswachen (Villa Große Weinmeisterstraße 17)",
+          "type": "building",
+          "address": "Große Weinmeisterstraße 17, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "Diese Villa diente als Unterkunft für die Wachmannschaften des benachbarten Untersuchungsgefängnisses. Zusammen mit den Gefängnisgebäuden bildete sie einen eigens gesicherten Riegel innerhalb der Sperrzone.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Deutschlandzentrale der Militärspionageabwehr – Kaiserin-Augusta-Stift",
+          "type": "building",
+          "address": "Am Neuen Garten 30–32, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "Im ehemaligen Kaiserin-Augusta-Stift, einem früheren Mädchenpensionat, lag das Stabsquartier der sowjetischen Militärspionageabwehr. Von hier aus wurde die Deutschlandzentrale dieses Geheimdienstzweigs gesteuert; heute dient der Bau als Wohnhaus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Sitzungssaal Sowjetischer Militärtribunale",
+          "type": "building",
+          "address": "Am Neuen Garten 30–32, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "In der Kapelle des Kaiserin-Augusta-Stifts tagten sowjetische Militärtribunale. Hier wurden Urteile über Gefangene der Spionageabwehr gefällt, die häufig eine langjährige Lagerhaft in der Sowjetunion bedeuteten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Villa Fischbach – Kindergarten der sowjetischen Streitkräfte",
+          "type": "building",
+          "address": "Puschkinallee 5, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "In der Villa Fischbach an der Puschkinallee war der Kindergarten der sowjetischen Streitkräfte untergebracht. Das Gebäude liegt am südlichen Rand des Areals und zeigt, dass die abgeschottete Geheimdienststadt eine eigene zivile Infrastruktur für die Familien der Offiziere besaß.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Mirbachwäldchen – ehemaliger Sport- und Festplatz",
+          "type": "park",
+          "address": "Mirbachwäldchen, Am Neuen Garten, 14469 Potsdam",
+          "durationMin": 20,
+          "note": "Die von Peter Joseph Lenné gestaltete Grünfläche zwischen Pfingstberg und Neuem Garten wurde vom Geheimdienst gerodet und in einen Sport- und Festplatz verwandelt. Nach dem Abzug der Truppen 1994 baute man die Sportanlagen zurück und stellte die historische Wegeführung wieder her.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Denkmalensemble „Großer Vaterländischer Krieg“",
+          "type": "monument",
+          "address": "Gelände des ehemaligen Militärstädtchens Nr. 7, Große Weinmeisterstraße, 14469 Potsdam",
+          "durationMin": 12,
+          "note": "Auf dem Areal erinnerte ein Denkmal an die im Zweiten Weltkrieg gefallenen Angehörigen der Militärspionageabwehr, gestaltet als stilisierte ewige Flamme mit dem KGB-Emblem „Schild und Schwert“. Beim Abzug 1994 fehlten Teile; die Reste wurden später wieder zusammengetragen und dokumentiert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Villa Schlieffen – Schießbunker",
+          "type": "building",
+          "address": "Große Weinmeisterstraße 44, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "Die 1945 von der Roten Armee beschlagnahmte Villa Schlieffen wurde teilweise zu einem Schießbunker umgebaut. Ab 2014 sicherte man das Gebäude denkmalgerecht im Originalzustand und legte dabei den historischen Zugangsweg wieder frei.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Lepsiushaus – Militärkasse",
+          "type": "building",
+          "address": "Große Weinmeisterstraße 45, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "Das Lepsiushaus nutzte die sowjetische Armee bis Anfang der 1990er Jahre als Militärkasse. Es gehört zu den Villen der Nauener Vorstadt, die für die Dienstzwecke des Militärstädtchens vereinnahmt wurden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Villa Quandt – KGB-Auslandsgeheimdienst",
+          "type": "building",
+          "address": "Große Weinmeisterstraße 46/47, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "Die Villa Quandt fiel 1945 an den sowjetischen Auslandsgeheimdienst und später an den KGB. Erhalten blieb unter anderem eine Offizierssauna mit Tauchbecken, die den Alltag der stationierten Militärs veranschaulicht.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Villa Finckenstein",
+          "type": "building",
+          "address": "Große Weinmeisterstraße 61, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "Die Villa Finckenstein gehörte bis 1949 einer Bank und wurde ab 1950 von den sowjetischen Besatzungstruppen genutzt. Sie liegt am nördlichen Abschnitt der Großen Weinmeisterstraße in Richtung Pfingstberg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Kasernengelände unterhalb des Pfingstberges",
+          "type": "historic",
+          "address": "Große Weinmeisterstraße, unterhalb des Pfingstbergs, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "Unterhalb des Pfingstberges lag der Kasernenteil des Militärstädtchens, getrennt vom Wohn- und Dienstbereich. Rund 350 Soldaten eines KGB-Wachbataillons sicherten das gesamte Gelände mit zwölf Wachtürmen und einer Betonmauer.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Schloss Belvedere auf dem Pfingstberg",
+          "type": "viewpoint",
+          "address": "Auf dem Pfingstberg, 14469 Potsdam",
+          "durationMin": 15,
+          "note": "Das Schloss Belvedere auf dem Pfingstberg bildet den nördlichen Abschluss der Runde und bietet vom Aussichtsbau einen weiten Blick über die Nauener Vorstadt und das Gelände der einstigen Sperrzone. Der Pfingstberg lag am nördlichen Rand des abgeschotteten Areals; das Belvedere ist ein redaktionell ergänzter Aussichtspunkt und nicht Teil des offiziellen Tafelpfads.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "hamm",
+      "slug": "hamm-stadtgeschichte-stelen",
+      "title": "Historischer Stadtrundgang Hamm (Stelen zur Stadtgeschichte)",
+      "description": "Selbst begehbarer Rundgang durch die Innenstadt (Bezirk Mitte) entlang der fest installierten Stelen zur Stadtgeschichte, einem Gemeinschaftsprojekt der Stadt Hamm und des Hammer Geschichtsvereins. Elf zentrale Stationen führen vom Bahnhofsquartier über den Marktplatz mit Pauluskirche und Stunikenhaus bis zu den historischen Ringanlagen am Ostring. An jeder Stele erschließen QR-Codes weiterführende Informationen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.hamm.de/stadtarchiv/stadtgeschichte/stelen-zur-stadtgeschichte/standorte-in-den-bezirken",
+        "https://www.hammwiki.info/wiki/Stelen_zur_Stadtgeschichte",
+        "https://www.hamm.de/tourismus-neu/sehenswertes/sehenswuerdigkeiten/historische-innenstadt/stunikenhaus",
+        "https://www.hammwiki.info/wiki/Otto-Krafft-Platz"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bahnhofsvorplatz",
+          "type": "square",
+          "address": "Willy-Brandt-Platz, 59065 Hamm",
+          "durationMin": 15,
+          "note": "Der Vorplatz des Hammer Hauptbahnhofs ist seit jeher das Verkehrs- und Eingangstor der Stadt und wurde um 2000/2001 neu gestaltet. Die Stele zeichnet nach, wie sich der Bahnhofsbereich vom Gruenderzeit-Knotenpunkt zum heutigen Stadtquartier gewandelt hat. Als zentraler Ankunftsort ist der Platz ein logischer Startpunkt des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Volkshochschule im Heinrich-von-Kleist-Forum",
+          "type": "building",
+          "address": "Platz der Deutschen Einheit 1, 59065 Hamm",
+          "durationMin": 15,
+          "note": "Das 2010 eroeffnete Heinrich-von-Kleist-Forum am Platz der Deutschen Einheit buendelt Volkshochschule, Stadtbuecherei und Hochschulnutzung unter einem Dach, unmittelbar neben Bahnhof und Fussgaengerzone. Die Stele wuerdigt die lange Tradition der Erwachsenenbildung in Hamm und den Gedanken, Bildung allen zugaenglich zu machen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Viktoriaplatz",
+          "type": "square",
+          "address": "Viktoriaplatz, 59067 Hamm",
+          "durationMin": 15,
+          "note": "Der Viktoriaplatz im westlichen Teil der Innenstadt wurde um 1890 angelegt und diente ab 1894 als Marktplatz mit geschlossener Randbebauung. Heute ist er ein neu gestalteter Quartiersplatz; die beidseitig beschriftete Stele erlaeutert seine Rolle in der Stadtentwicklung des Hammer Westens.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Gedenkstaette Alte Synagoge",
+          "type": "monument",
+          "address": "Martin-Luther-Strasse, 59065 Hamm",
+          "durationMin": 12,
+          "note": "An der Martin-Luther-Strasse stand die 1868 eingeweihte Synagoge mit juedischer Schule, die in der Pogromnacht 1938 zerstoert wurde. Seit 2003 erinnert hier eine Gedenkstaette auf den Fundamenten des Gebaeudes an das juedische Leben in Hamm und dessen Vernichtung. Die Stele ordnet den Ort geschichtlich ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Pauluskirche (Grosse Kirche)",
+          "type": "church",
+          "address": "Marktplatz 16, 59065 Hamm",
+          "durationMin": 15,
+          "note": "Die Pauluskirche am Marktplatz ist das aelteste Baudenkmal Hamms und geht in Teilen auf ueber 700 Jahre zurueck; bis 1912 hiess sie Grosse Kirche beziehungsweise St.-Georgs-Kirche. Nach dem Stadtbrand von 1741 und den Luftangriffen 1944 wurde sie mehrfach wiederaufgebaut. Die Stelen an diesem Standort behandeln die Kirche selbst und die Reformation in Hamm.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Freimaurerloge Hamm (Johannisloge)",
+          "type": "building",
+          "address": "Gutenbergstrasse / Koenigstrasse, 59065 Hamm",
+          "durationMin": 15,
+          "note": "An der Ecke Gutenbergstrasse/Koenigstrasse informiert die 2016 aufgestellte Stele ueber die Geschichte der Freimaurerei in Hamm. Sie beleuchtet Gruendung und Wirken der oertlichen Loge als Teil des buergerlichen Vereinslebens der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Stunikenhaus",
+          "type": "historic",
+          "address": "Antonistrasse 10, 59065 Hamm",
+          "durationMin": 15,
+          "note": "Das barocke Stunikenhaus wurde vom Kaufmann Johann Bernhard Stuniken nach dem Vorbild norddeutscher Kaufmannshaeuser errichtet und ueberstand sowohl die Stadtbraende des 18. Jahrhunderts als auch die Zerstoerungen des Zweiten Weltkriegs. Es zaehlt zu den wenigen erhaltenen Barockbauten der Stadt und beherbergt heute kulturelle Einrichtungen. Die zugehoerige Stele wurde 2024 aufgestellt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Musikpavillon",
+          "type": "monument",
+          "address": "Ostring (Ringanlagen), 59065 Hamm",
+          "durationMin": 12,
+          "note": "Der Musikpavillon in den Ringanlagen am Ostring bildet zusammen mit Baerenbrunnen und Gruenflaeche das denkmalgeschuetzte Gartendenkmal Ostring. Die 2014 anlaesslich des Ringfests errichtete Stele gehoert zu den ersten des Projekts und erzaehlt von der Ring-Gruenanlage als Ort der Erholung und Begegnung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Baerenbrunnen",
+          "type": "fountain",
+          "address": "Otto-Krafft-Platz, 59065 Hamm",
+          "durationMin": 8,
+          "note": "Der 1914 errichtete Baerenbrunnen westlich des Otto-Krafft-Platzes zeigt auf achteckigem Stufensockel eine Brunnenschale mit wasserspeienden Baerenfiguren. Er entstand im Zuge der Umgestaltung der Ringanlagen und steht seit 1986 unter Denkmalschutz. Die Stele erlaeutert Herkunft und Gestaltung des Brunnens.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Otto-Krafft-Platz",
+          "type": "square",
+          "address": "Otto-Krafft-Platz, 59065 Hamm",
+          "durationMin": 15,
+          "note": "Der 1913 im Zuge der Ahse-Verlegung entstandene Platz ist nach dem Stadtbaurat Otto Krafft (1879-1916) benannt, der die Verlegung des Flusses aus der Innenstadt leitete. Alte Kastanien und ein Gedenkstein praegen den Platz zwischen Ostring und Hesslerstrasse. Die Stele zaehlt zu den drei ersten des Projekts von 2014.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Oberlandesgericht Hamm",
+          "type": "building",
+          "address": "Hesslerstrasse 53, 59065 Hamm",
+          "durationMin": 15,
+          "note": "Das Oberlandesgericht an der Hesslerstrasse ist eines der groessten Oberlandesgerichte Deutschlands; der heutige Gebaeudekomplex entstand ab 1955. Die 2021 aufgestellte Stele erinnert an die lange Justizgeschichte Hamms und die Bedeutung des Gerichts fuer die Stadt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "oldenburg",
+      "slug": "oldenburg-horst-janssen",
+      "title": "Auf den Spuren von Horst Janssen",
+      "description": "Selbst begehbarer Personen-Pfad zu den Oldenburger Lebensstationen des Zeichners und Grafikers Horst Janssen (1929–1995): vom nach ihm benannten Museum über Orte der offiziellen Würdigung, sein Kindheitshaus in der Lerchenstraße, seine Schulen bis hin zu seinem Grab auf dem Gertrudenfriedhof. Ein Weg durch den Norden der Stadt, der Leben und Erinnerungswelt des Künstlers verbindet.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "literatur"
+      ],
+      "sourceUrls": [
+        "https://www.horst-janssen-museum.de/horst-janssen/leben",
+        "https://www.horst-janssen-museum.de/horst-janssen/hoergaenge",
+        "https://www.schwarzaufweiss.de/deutschland/oldenburg-reisefuehrer/horst-janssen-museum.htm",
+        "https://de.wikipedia.org/wiki/Gertrudenfriedhof_(Oldenburg)"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Horst-Janssen-Museum",
+          "type": "museum",
+          "address": "Am Stadtmuseum 4-8, 26121 Oldenburg",
+          "durationMin": 40,
+          "note": "Das im Jahr 2000 eröffnete Museum ist dem in Oldenburg aufgewachsenen Zeichner und Grafiker Horst Janssen gewidmet und bewahrt einen großen Teil seines Werks. Als Auftakt des Rundgangs ordnet es Leben und Schaffen des Künstlers ein. Von hier lassen sich seine Oldenburger Lebensstationen zu Fuß erschließen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Kulturzentrum PFL",
+          "type": "building",
+          "address": "Peterstraße 3, 26121 Oldenburg",
+          "durationMin": 15,
+          "note": "Der klassizistische Bau, ein früheres Krankenhaus (Peter Friedrich Ludwigs Hospital), dient heute als städtisches Kulturzentrum. Hier wurde Horst Janssen 1992 die Ehrenbürgerwürde der Stadt Oldenburg verliehen. Die Station steht damit für die späte offizielle Anerkennung des Künstlers in seiner Heimatstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Landesbibliothek Oldenburg",
+          "type": "building",
+          "address": "Pferdemarkt 15, 26121 Oldenburg",
+          "durationMin": 15,
+          "note": "Die Landesbibliothek am Pferdemarkt gilt als klassischer Ausgangspunkt der Spurensuche zu Horst Janssen und bewahrt Schriften und Materialien zu seinem Leben und Werk. Von hier führt der Weg in Richtung der nördlichen Kindheits- und Schulorte. Der Bau markiert den Übergang vom Zentrum zu Janssens Wohnvierteln.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Grundschule Röwekamp",
+          "type": "building",
+          "address": "Gertrudenstraße 25, 26121 Oldenburg",
+          "durationMin": 15,
+          "note": "Die Grundschule Röwekamp im Stadtteil Bürgerfelde gehört zu den Schulen, die Horst Janssen in Oldenburg besuchte. Sie liegt nördlich des Zentrums, unweit seiner Kindheitswege. Die Station steht für die frühen Bildungsjahre des Künstlers in seiner Heimatstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Ehemaliges Café Bohlmann",
+          "type": "historic",
+          "address": "Nadorster Straße 34, 26121 Oldenburg",
+          "durationMin": 15,
+          "note": "An der Nadorster Straße 34 befand sich das heute nicht mehr bestehende Café Bohlmann, das zu den mit Janssens Oldenburger Zeit verbundenen Orten gezählt wird. Die Adresse liegt am Weg zwischen Innenstadt und den nördlichen Kindheitsorten. Vom ursprünglichen Lokal ist an der Stelle nichts erhalten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Heiligengeisttorschule",
+          "type": "building",
+          "address": "Ehnernstraße 8, 26121 Oldenburg",
+          "durationMin": 15,
+          "note": "Zu Janssens Schulen in Oldenburg zählte die Heiligengeisttorschule. Die Grundschule dieses Namens hat heute hier ihren Sitz; vor dem Schulgebäude spielt einer der beiden Hörgänge des Museums zur Kindheit des Künstlers. Die Schulzeit prägte Janssens spätere Erinnerungen an die Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Lerchenstraße 14 – Kindheitshaus („Hundehütte“)",
+          "type": "historic",
+          "address": "Lerchenstraße 14, 26121 Oldenburg",
+          "durationMin": 15,
+          "note": "In der Lerchenstraße 14 lebte Horst Janssen als Kind bei den Eltern seiner Mutter in einem typischen kleinen Oldenburger Giebelhaus, im Volksmund „Hundehütte“ genannt. Dieser Ort blieb für ihn zeitlebens ein zentraler Bezugspunkt seiner Kindheit. Das Haus zählt zu den wichtigsten Lebensstationen des Künstlers in der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Grab Horst Janssen – Gertrudenfriedhof",
+          "type": "monument",
+          "address": "Gertrudenfriedhof, Kirchhofstraße, 26121 Oldenburg",
+          "durationMin": 12,
+          "note": "Auf dem historischen Gertrudenfriedhof nördlich der Innenstadt, zwischen Nadorster Straße und Alexanderstraße, wurde Horst Janssen 1995 beigesetzt. Sein Grab liegt im hinteren Teil des Friedhofs, auf dem auch weitere bekannte Oldenburger Persönlichkeiten ruhen. Die Station bildet den Abschluss des Personen-Pfads.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "muelheim-an-der-ruhr",
+      "slug": "muelheim-historischer-stadtrundgang",
+      "title": "Historischer Stadtrundgang Mülheim an der Ruhr",
+      "description": "Selbst begehbarer historischer Stadtrundgang durch die Mülheimer Altstadt: vom Kirchenhügel mit Petrikirche über den historischen Stadtkern und das Ruhrufer bis zum karolingischen Schloß Broich und zur Camera Obscura im MüGa-Park.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.muelheim-ruhr.de/cms/wegbeschreibung_.html",
+        "https://de.wikipedia.org/wiki/Liste_der_Baudenkm%C3%A4ler_in_M%C3%BClheim_an_der_Ruhr-Altstadt_I",
+        "https://de.wikipedia.org/wiki/Liste_der_Baudenkm%C3%A4ler_in_M%C3%BClheim_an_der_Ruhr-Broich",
+        "https://de.wikipedia.org/wiki/Schloss_Broich"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Evangelische Petrikirche",
+          "type": "church",
+          "address": "Pastor-Barnstein-Platz 1, 45468 Mülheim an der Ruhr",
+          "durationMin": 15,
+          "note": "Die evangelische Petrikirche auf dem Kirchenhügel ist das älteste Kirchengebäude der Stadt und vereint romanische, gotische und neugotische Bauteile. Ihr wuchtiger Turm überragt die Altstadt und markiert den historischen Ausgangspunkt des Rundgangs. Die Ursprünge der Pfarrkirche reichen bis ins Mittelalter zurück.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Katholische Kirche St. Mariä Geburt",
+          "type": "church",
+          "address": "Althofstraße 1-5, 45468 Mülheim an der Ruhr",
+          "durationMin": 15,
+          "note": "Die katholische Pfarrkirche St. Mariä Geburt steht unweit der Petrikirche am Kirchenhügel und ist als Baudenkmal eingetragen. Gemeinsam prägen die evangelische und die katholische Kirche das historische kirchliche Zentrum der Mülheimer Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Tersteegenhaus",
+          "type": "historic",
+          "address": "Teinerstraße 1, 45468 Mülheim an der Ruhr",
+          "durationMin": 15,
+          "note": "Das Tersteegenhaus in der Teinerstraße erinnert an den in Mülheim wirkenden Mystiker und Kirchenlieddichter Gerhard Tersteegen (1697-1769). Das historische Fachwerkhaus zählt zu den ältesten erhaltenen Wohnbauten der Altstadt und beherbergte die stadtgeschichtliche Sammlung; wegen Baufälligkeit ist es seit 2018 gesperrt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Friedenstreppe",
+          "type": "historic",
+          "address": "Friedenstreppe, Kirchenhügel, 45468 Mülheim an der Ruhr",
+          "durationMin": 15,
+          "note": "Die Friedenstreppe führt unmittelbar neben der Petrikirche vom Kirchenhügel hinab in die Innenstadt. Der historische Treppenweg verbindet den alten Kirchbezirk auf dem Hügel mit dem tiefer gelegenen Stadtkern und ist eine feste Wegmarke des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Museum Alte Post (Kunstmuseum) / MedienHaus",
+          "type": "museum",
+          "address": "Synagogenplatz 1, 45468 Mülheim an der Ruhr",
+          "durationMin": 40,
+          "note": "Das Kunstmuseum in der Alten Post residiert im denkmalgeschützten Gebäude der früheren Hauptpost am Synagogenplatz, wo auch das MedienHaus untergebracht ist. Sammlungsschwerpunkt ist der deutsche Expressionismus mit Werken von Beckmann, Feininger, Kirchner, Nolde, Marc und Macke. Nach mehrjähriger Sanierung wurde das Haus 2024 wiedereröffnet.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Historisches Rathaus",
+          "type": "building",
+          "address": "Am Rathaus 1, 45468 Mülheim an der Ruhr",
+          "durationMin": 15,
+          "note": "Das Historische Rathaus am Rathausmarkt prägt seit seiner Eröffnung 1915 das Stadtbild. Der repräsentative Bau mit seinem markanten Turm bildet das bürgerliche Zentrum der Innenstadt; im Rathausturm ist ein kleines Büromuseum eingerichtet.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Wasserbahnhof auf der Schleuseninsel",
+          "type": "building",
+          "address": "Alte Schleuse 1, 45468 Mülheim an der Ruhr",
+          "durationMin": 15,
+          "note": "Der Wasserbahnhof liegt idyllisch auf der Schleuseninsel in der Ruhr und ist Anlege- und Ausgangspunkt der Ausflugsschiffe der Weißen Flotte. Die zugehörige Schleuse geht auf das Jahr 1780 zurück und ermöglichte einst den Kohletransport flussaufwärts; nach dem Bau des Kahlenbergwehres stieg der Ruhrpegel 1927 deutlich an.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Skulptur \"Lebensfreude\" am Ruhrufer",
+          "type": "sculpture",
+          "address": "Gerbersteg (Ruhrufer), 45479 Mülheim an der Ruhr",
+          "durationMin": 12,
+          "note": "Am Ruhrufer nahe dem Übergang zum Schlossbezirk steht die Skulptur \"Lebensfreude\", eine Wegmarke des Rundgangs zwischen Innenstadt und Schloß Broich. Der Standort direkt am Fluss gibt den Blick über die Ruhr zur Schlossanlage frei.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Schloß Broich",
+          "type": "historic",
+          "address": "Am Schloß Broich 28, 45479 Mülheim an der Ruhr",
+          "durationMin": 15,
+          "note": "Schloß Broich geht auf eine Befestigung des Winters 883/884 zurück und gilt in Teilen als der älteste erhaltene frühmittelalterliche Wehrbau der späten Karolingerzeit nördlich der Alpen. Die Anlage liegt auf einem Geländesporn über der Ruhr an einer alten Furt und gilt als Keimzelle der Stadt. Im Hochschloß befindet sich heute das Historische Museum des Mülheimer Geschichtsvereins.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Camera Obscura im Wasserturm (MüGa-Park)",
+          "type": "museum",
+          "address": "Am Schloß Broich 42, 45479 Mülheim an der Ruhr",
+          "durationMin": 40,
+          "note": "Die Camera Obscura im ehemaligen Wasserturm am Rand des MüGa-Parks zählt zu den größten begehbaren Lochkameras der Welt. Im Inneren wird ein Live-Bild der Umgebung auf eine Projektionsfläche geworfen; zugleich beherbergt der Turm ein Museum zur Vorgeschichte des Films.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "osnabrueck",
+      "slug": "osnabrueck-remarque-spuren",
+      "title": "Auf Remarques Spuren durch Osnabrück",
+      "description": "Selbst begehbarer Literatur- und Personenpfad des Erich Maria Remarque-Friedenszentrums: real verortete Stationen zu Leben und Werk des Schriftstellers als rund 5 km langer Rundweg durch die Osnabrücker Altstadt und über den Gertrudenberg. Start und Ziel am Markt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "literatur",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://www.remarque.de/de/online-angebote/zum-mitmachen/",
+        "https://www.google.com/maps/d/viewer?mid=1f9NhCtM78Mn0BUKmPaGLX-mPkhpYA3-K",
+        "https://kukuk.de/project/auf-remarques-spuren-durch-osnabrueck/",
+        "https://de.wikipedia.org/wiki/Domschule_Osnabr%C3%BCck"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Erich Maria Remarque-Friedenszentrum",
+          "type": "museum",
+          "address": "Markt 6, 49074 Osnabrück",
+          "durationMin": 40,
+          "note": "Das Erich Maria Remarque-Friedenszentrum ist Ausgangs- und Endpunkt des Rundgangs und beherbergt die weltweit größte Sammlung zu Leben und Werk des Schriftstellers. In der Dauerausstellung werden seine Kriegs- und Exilerfahrungen sowie sein Einsatz für den Frieden dokumentiert. Das Zentrum liegt direkt am historischen Markt im Herzen der Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Marktplatz mit Rathaus und Marienkirche",
+          "type": "square",
+          "address": "Markt, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "Der Marktplatz mit dem Rathaus des Westfälischen Friedens und der gotischen Marienkirche bildet das historische Zentrum Osnabrücks. In diesem Ensemble wurde 1648 der Westfälische Friede mitverkündet. Der Platz taucht als Schauplatz in mehreren Romanen Remarques auf.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Hakenstraße 3",
+          "type": "historic",
+          "address": "Hakenstraße 3, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "In diesem Haus wohnte die Familie Remark von 1918 bis 1935 und damit während wichtiger junger Jahre des Schriftstellers in Osnabrück. Die Adresse gehört zu den zahlreichen Wohnorten, die die Familie in der Stadt bezog. Sie liegt nur wenige Schritte südlich des Marktes.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Stadttheater (Theater am Domhof)",
+          "type": "theater",
+          "address": "Domhof 10/11, 49074 Osnabrück",
+          "durationMin": 20,
+          "note": "Das Theater am Domhof ist ein Jugendstilbau von 1909 und die Hauptspielstätte des Theaters Osnabrück. Der junge Remarque besuchte hier um 1920/21 Aufführungen und verfasste Theaterkritiken. Das Gebäude zählt zu den markanten Kulturbauten der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Herrenteichstraße 16",
+          "type": "historic",
+          "address": "Herrenteichstraße 16, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "An dieser Adresse lebte die Familie Remark in den Jahren 1903 bis 1904. Sie steht beispielhaft für die vielen Umzüge der Familie innerhalb Osnabrücks. Die Straße liegt östlich des Marktes nahe dem Dom.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Dom St. Petrus mit Kreuzgang",
+          "type": "church",
+          "address": "Domhof, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "Der Dom St. Petrus mit seinem Kreuzgang prägt das Bild der Altstadt und vereint romanische und gotische Bauformen. Dom und Kreuzgang dienen in mehreren Romanen Remarques als literarischer Schauplatz. Das Bauwerk gehört zum ältesten Kern der Bischofsstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Große Domsfreiheit",
+          "type": "square",
+          "address": "Große Domsfreiheit, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "Der Platz Große Domsfreiheit liegt unmittelbar neben dem Dom. Er wird in Remarques Roman »Die Nacht von Lissabon« erwähnt. Die Umgebung zählt zum historischen Domviertel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Kleine Domsfreiheit 23a (Katholisches Lehrerseminar)",
+          "type": "historic",
+          "address": "Kleine Domsfreiheit 23a, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "Hier befand sich das Katholische Lehrerseminar, das Remarque von 1916 bis 1919 besuchte. In dieser Zeit setzte er seine Ausbildung zum Volksschullehrer fort. Das Gebäude liegt im Domviertel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Domschule",
+          "type": "historic",
+          "address": "Herrenteichswall, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "Die Domschule war die Volksschule, die Remarque als Kind von 1904 bis 1908 besuchte. Das historische Schulgebäude wurde 1891 am Herrenteichswall eröffnet. Es liegt östlich des Doms.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Erich-Maria-Remarque-Ring",
+          "type": "landmark",
+          "address": "Erich-Maria-Remarque-Ring, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "Diese Straße wurde 1971 nach dem berühmtesten Sohn der Stadt benannt. Sie erinnert dauerhaft an Erich Maria Remarque im öffentlichen Raum Osnabrücks. In der Nähe liegt heute ein Schulzentrum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Liebigstraße 31",
+          "type": "historic",
+          "address": "Liebigstraße 31, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "In diesem Haus wohnte Friedrich Hörstemeier, ein Maler und Mentor, der den jungen Remarque an Kunst und Literatur heranführte. Um Hörstemeier bildete sich ein Kreis kunstinteressierter junger Leute. Der Ort gilt als wichtige Station für Remarques künstlerische Prägung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Klosterstraße 7",
+          "type": "historic",
+          "address": "Klosterstraße 7, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "Die Familie Remark lebte hier von 1905 bis 1907. Auch diese Adresse zeugt von den häufigen Wohnungswechseln der Familie. Die Straße führt in Richtung Gertrudenberg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Gertrudenstraße 17",
+          "type": "historic",
+          "address": "Gertrudenstraße 17, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "An dieser Adresse wohnte die Familie in den Jahren 1904 bis 1905. Sie liegt am Fuß des Gertrudenbergs nördlich der Altstadt. Der kurze Aufenthalt reiht sich in die Kette der Osnabrücker Wohnorte ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Ehemalige Hebammenlehranstalt (Geburtsort)",
+          "type": "historic",
+          "address": "Klosterstraße (Gertrudenberg), 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "In der ehemaligen Hebammenlehranstalt am Gertrudenberg wurde Erich Maria Remarque am 22. Juni 1898 als Erich Paul Remark geboren. Der Ort markiert den Beginn seiner Osnabrücker Biografie. Er liegt am Anstieg zum Gertrudenberg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 15,
+          "title": "Gertrudenkirche",
+          "type": "church",
+          "address": "Gertrudenring 19, 49088 Osnabrück",
+          "durationMin": 15,
+          "note": "In der Gertrudenkirche auf dem Gertrudenberg versah Remarque 1920/21 kurzzeitig den Organistendienst. Vom Gertrudenberg eröffnet sich zudem ein weiter Blick über die Altstadt. Die Kirche bildet den höchsten Punkt des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 16,
+          "title": "Herrenteichswall und Pernickelmühle",
+          "type": "historic",
+          "address": "Herrenteichswall, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "Der Herrenteichswall mit der Pernickelmühle war ein beliebter Erholungsort am Rand der Altstadt. Remarque griff diese Gegend in mehreren Romanen auf. Die Wallanlage lädt bis heute zum Spazieren ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 17,
+          "title": "Turmstraße 25",
+          "type": "historic",
+          "address": "Turmstraße 25, 49074 Osnabrück",
+          "durationMin": 15,
+          "note": "Hier befand sich die Königliche Präparanden-Anstalt, die Remarque von 1912 bis 1915 zur Vorbereitung auf den Lehrerberuf besuchte. Die Einrichtung war eine Vorstufe zum Lehrerseminar. Von hier ist es nur ein kurzer Weg zurück zum Markt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "paderborn",
+      "slug": "paderborn-stadtrundgang",
+      "title": "Historischer Stadtrundgang Paderborn",
+      "description": "Selbst begehbarer Themenrundgang durch die Paderborner Altstadt (rund 3 km) entlang der wichtigsten Zeugnisse von über 1.200 Jahren Stadtgeschichte: vom Marienplatz über Abdinghofkirche, Paderquellgebiet, Dom, Bartholomäuskapelle und Kaiserpfalz bis zum historischen Rathaus im Stil der Weserrenaissance. Start an der Tourist-Information am Marienplatz, Ende am Rathaus.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.teutoburgerwald.de/natur/in-der-natur/tour/historischer-stadtrundgang-paderborn",
+        "https://www.paderborn.de/tourismus-kultur/museen-galerien/stadtmuseum.php",
+        "https://www.lwl-kaiserpfalz-paderborn.de/de/besuch/",
+        "https://de.wikipedia.org/wiki/Busdorfkirche"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Marienplatz mit Mariensäule",
+          "type": "square",
+          "address": "Marienplatz, 33098 Paderborn",
+          "durationMin": 15,
+          "note": "Zentraler Platz der Altstadt und Ausgangspunkt des Rundgangs, an dem sich die Tourist-Information befindet. In der Mitte erhebt sich die barocke Mariensäule als Platzwahrzeichen. Von hier führt der Weg in das historische Zentrum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Abdinghofkirche",
+          "type": "church",
+          "address": "Am Abdinghof 9, 33098 Paderborn",
+          "durationMin": 15,
+          "note": "Ehemalige Klosterkirche des um 1015 von Bischof Meinwerk gegründeten Benediktinerklosters Abdinghof mit charakteristischer romanischer Doppelturmfassade. Heute wird sie als evangelische Pfarrkirche genutzt. Sie liegt erhöht über dem Quellgebiet der Pader.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Stadtmuseum Paderborn",
+          "type": "museum",
+          "address": "Am Abdinghof 11, 33098 Paderborn",
+          "durationMin": 40,
+          "note": "Das städtische Museum in den ehemaligen Wirtschaftsgebäuden des Abdinghofklosters zeigt die Geschichte der Stadt. Die Ausstellungen behandeln Stadtentwicklung, Alltagskultur und regionale Kunst. Es liegt unmittelbar neben der Abdinghofkirche.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Paderquellgebiet",
+          "type": "park",
+          "address": "Paderquellgebiet, 33098 Paderborn",
+          "durationMin": 20,
+          "note": "Grünanlage im Herzen der Stadt, in der rund 200 Quellen der Pader zutage treten, dem kürzesten Fluss Deutschlands. Diese Quellen gaben Paderborn seinen Namen. Der Park verbindet den Abdinghofbereich mit dem Dombezirk.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Neptunbrunnen am Marktplatz",
+          "type": "fountain",
+          "address": "Marktplatz, 33098 Paderborn",
+          "durationMin": 8,
+          "note": "Brunnen mit der Figur des Meeresgottes Neptun auf dem zentralen Marktplatz der Altstadt. Der von Bürgerhäusern gesäumte Platz dient als Treffpunkt und Übergang zwischen Rathaus und Dombereich. Er markiert einen belebten Knotenpunkt des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Gaukirche St. Ulrich",
+          "type": "church",
+          "address": "Markt 12, 33098 Paderborn",
+          "durationMin": 15,
+          "note": "Romanische Hallenkirche aus dem 12. Jahrhundert und eine der ältesten Pfarrkirchen der Stadt. Der Name verweist auf ihre frühere Funktion als Kirche des umliegenden Gaus. Sie steht nahe dem Markt und dem Dom.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Hoher Dom zu Paderborn",
+          "type": "church",
+          "address": "Domplatz, 33098 Paderborn",
+          "durationMin": 15,
+          "note": "Die Bischofskirche St. Maria, St. Liborius und St. Kilian prägt mit ihrem hohen Westturm die Silhouette der Stadt und vereint romanische und gotische Bauformen. In der Krypta, einer der größten Deutschlands, ruhen die Reliquien des heiligen Liborius. Der Dom ist das geistliche Zentrum des Erzbistums.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Erzbischöfliches Diözesanmuseum",
+          "type": "museum",
+          "address": "Markt 17, 33098 Paderborn",
+          "durationMin": 40,
+          "note": "Das älteste Diözesanmuseum im deutschsprachigen Raum zeigt sakrale Kunst aus über tausend Jahren und die Schätze der Domschatzkammer. Es steht direkt neben dem Dom. Zu den bekanntesten Werken zählt die romanische Imad-Madonna.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Bartholomäuskapelle",
+          "type": "church",
+          "address": "Domplatz 3, 33098 Paderborn",
+          "durationMin": 15,
+          "note": "Um 1017 geweihte Kapelle an der Nordseite des Doms, die als älteste Hallenkirche nördlich der Alpen gilt. Griechische Bauleute errichteten den kleinen Saalbau, der für seine besondere Akustik bekannt ist. Sie gehörte einst zum Bereich der Kaiserpfalz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Museum in der Kaiserpfalz",
+          "type": "museum",
+          "address": "Am Ikenberg 2, 33098 Paderborn",
+          "durationMin": 40,
+          "note": "Das Museum steht an der Stelle der karolingischen und ottonischen Königspfalz, deren Fundamente hier ausgegraben und teils rekonstruiert wurden. Gezeigt werden Funde zur Pfalz und zur frühen Stadtgeschichte. In Paderborn hielt Karl der Große 777 eine Reichsversammlung ab.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Busdorfkirche",
+          "type": "church",
+          "address": "Am Busdorf 6-8, 33098 Paderborn",
+          "durationMin": 15,
+          "note": "Ab 1036 auf Stiftung des Bischofs Meinwerk als Nachbildung der Grabeskirche in Jerusalem errichtet. Erhalten ist unter anderem ein bemerkenswerter romanischer Kreuzgang. Sie liegt östlich des Doms und zeugt von mittelalterlicher Pilgerkultur.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Marktkirche (ehem. Jesuitenkirche)",
+          "type": "church",
+          "address": "Kamp 4, 33098 Paderborn",
+          "durationMin": 15,
+          "note": "Barocke Kirche St. Franz Xaver, Ende des 17. Jahrhunderts für den Paderborner Jesuitenorden errichtet. Die markante zweitürmige Fassade und die reiche Barockausstattung prägen den Bau. Sie steht am Kamp unweit des Marktes.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Historisches Rathaus Paderborn",
+          "type": "building",
+          "address": "Rathausplatz 1, 33098 Paderborn",
+          "durationMin": 15,
+          "note": "Das im frühen 17. Jahrhundert im Stil der Weserrenaissance errichtete Rathaus mit seinen drei markanten Ziergiebeln ist ein Wahrzeichen der Stadt. Die reich gegliederte Schaufassade zählt zu den bedeutendsten Beispielen dieser Bauweise in Westfalen. Es bildet den Abschluss des Rundgangs.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "heidelberg",
+      "slug": "heidelberg-us-amerikaner-spuren",
+      "title": "US-Amerikaner in Heidelberg – Spuren der deutsch-amerikanischen Geschichte",
+      "description": "Selbst begehbarer Themen-Rundgang zur deutsch-amerikanischen Geschichte Heidelbergs: von Mark Twains Altstadt über Orte der Nachkriegs-Verständigung bis zu den ehemaligen US-Kasernen in der Südstadt. Der Kern folgt der offiziellen MeinHD-App-Route „US-Amerikaner in Heidelberg\" und verbindet Altstadt und Südstadt zu einem zusammenhängenden Fußweg.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "zeitgeschichte"
+      ],
+      "sourceUrls": [
+        "https://www.heidelberg.de/HD/Presse/16_01_2023+auf+den+spuren+der+stadtgeschichte_+gefuehrte+rundgaenge+in+der+_meinhd_-app+verfuegbar.html",
+        "https://de.wikipedia.org/wiki/Deutsch-Amerikanisches_Institut_Heidelberg",
+        "https://de.wikipedia.org/wiki/Mark-Twain-Village",
+        "https://de.wikipedia.org/wiki/Cave_54"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Alte Brücke (Karl-Theodor-Brücke)",
+          "type": "bridge",
+          "address": "Alte Brücke, 69117 Heidelberg",
+          "durationMin": 8,
+          "note": "Startpunkt des Rundgangs an der klassizistischen Neckarbrücke von 1788. Hier beginnt die literarische Verbindung in die USA: Mark Twain hielt sich 1878 in Heidelberg auf und schilderte Stadt und Schlossblick in seinem 1880 erschienenen Reisebericht „A Tramp Abroad\", der Heidelberg bei amerikanischen Lesern bekannt machte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Cave 54",
+          "type": "landmark",
+          "address": "Krämergasse 2, 69117 Heidelberg",
+          "durationMin": 15,
+          "note": "Jazzkeller in der Krämergasse, 1954 von Heidelberger Studenten gegründet und einer der ältesten Studenten-Jazzclubs Deutschlands. In der Nachkriegszeit ein Treffpunkt, über den amerikanische Musik- und Popkultur nach Heidelberg fand. Nur wenige Gehminuten von der Alten Brücke nahe der Heiliggeistkirche.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Collegium Academicum (Carolinum)",
+          "type": "building",
+          "address": "Seminarstraße 2, 69117 Heidelberg",
+          "durationMin": 15,
+          "note": "1945 gegründet und als selbstverwaltetes Studentenwohnheim Teil des amerikanischen Re-Education-Programms, das jungen Deutschen nach dem Krieg demokratische Selbstverwaltung vermitteln sollte. Untergebracht war es im barocken Carolinum in der Seminarstraße, das die US-Militärverwaltung dafür freigab; die Studierenden wohnten dort bis 1978. Heute nutzt die Universität Heidelberg das Gebäude.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Hauptstraße",
+          "type": "landmark",
+          "address": "Hauptstraße, 69117 Heidelberg",
+          "durationMin": 15,
+          "note": "Die rund 1,6 Kilometer lange Fußgängerzone war eine zentrale Bühne der amerikanischen Präsenz. In der Hauptstraße eröffnete 1946 das erste „Amerika-Haus\" mit öffentlicher Bibliothek, bevor es 1951 in die Sofienstraße umzog. Über Jahrzehnte prägten US-Soldaten, Geschäfte und Kultur den Alltag entlang der Straße.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Hotel Europäischer Hof",
+          "type": "building",
+          "address": "Friedrich-Ebert-Anlage 1, 69117 Heidelberg",
+          "durationMin": 15,
+          "note": "Das 1865 eröffnete Grandhotel am westlichen Rand der Altstadt nahe dem Bismarckplatz nennt der Rundgang als einen der Orte deutsch-amerikanischer Verständigung in der Nachbesatzungszeit. Es diente über die Jahre als gesellschaftlicher Treffpunkt und beherbergte zahlreiche internationale und amerikanische Gäste.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Deutsch-Amerikanisches Institut (DAI) / ehem. Amerika-Haus",
+          "type": "building",
+          "address": "Sofienstraße 12, 69115 Heidelberg",
+          "durationMin": 15,
+          "note": "Das Amerika-Haus mit öffentlicher Bibliothek ging aus dem US-amerikanischen Informationsprogramm der Nachkriegszeit hervor und eröffnete 1946 zunächst in der Hauptstraße. 1951 zog es an den heutigen Standort in der Sofienstraße 12; Anfang der 1960er Jahre wurde daraus das Deutsch-Amerikanische Institut. Seither ist das Haus ein fester Ort deutsch-amerikanischer Kulturarbeit mit Bibliothek, Sprachkursen und Veranstaltungen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Campbell Barracks",
+          "type": "historic",
+          "address": "Römerstraße, 69126 Heidelberg",
+          "durationMin": 15,
+          "note": "Die Kaserne an der Römerstraße entstand Ende der 1930er Jahre als „Großdeutschland-Kaserne\" und wurde 1945 von der US-Armee übernommen. Von 1948 bis 2013 lag hier das Hauptquartier der US-Landstreitkräfte in Europa (USAREUR); das markante Torhaus schirmte das Areal zur Römerstraße ab. Seit 2013 wird das Gelände zu einem zivilen Stadtquartier umgebaut.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Mark Twain Center für transatlantische Beziehungen",
+          "type": "museum",
+          "address": "Römerstraße 162, 69126 Heidelberg",
+          "durationMin": 40,
+          "note": "Das Museum im ehemaligen Kommandanturbereich der Campbell Barracks dokumentiert die deutsch-amerikanische Geschichte Heidelbergs. Es ist nach Mark Twain benannt und seit Ende 2018 in Teilbetrieb; geöffnet ist mittwochs bis sonntags, der Eintritt ist frei.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Mark-Twain-Village",
+          "type": "historic",
+          "address": "Mark-Twain-Village, Südstadt, 69126 Heidelberg",
+          "durationMin": 15,
+          "note": "Die Wohnsiedlung unmittelbar neben den Campbell Barracks bot ab den 1950er Jahren Hunderte Wohnungen für US-Soldaten und ihre Familien und erhielt 1958 ihren Namen nach dem Schriftsteller. Zur Infrastruktur gehörten Läden, Kapelle und Schulen; nach dem Abzug der US-Armee 2013 wird das Areal zu einem zivilen Wohnquartier umgebaut.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "neuss",
+      "slug": "neuss-historischer-stadtrundgang",
+      "title": "Historischer Stadtrundgang Neuss",
+      "description": "Selbst begehbarer Rundgang durch die Neusser Altstadt: von der Römersiedlung Novaesium bis ins Mittelalter. Die 15 Stationen bilden einen zusammenhängenden Fußweg vom Markt über den Münsterplatz und die Reste der Stadtbefestigung bis zum Obertor.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.neuss-marketing.de/wp-content/uploads/2020/06/Neuss-Erkunden-2019-komplett.pdf",
+        "https://www.neuss.de/kultur/stadtgeschichte/neuss-historisch/blutturm",
+        "https://www.neuss.de/kultur/stadtgeschichte/neuss-historisch/marienberg",
+        "https://de.wikipedia.org/wiki/Windm%C3%BChlenturm_(Neuss)"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rathaus Neuss",
+          "type": "building",
+          "address": "Markt 2, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Ausgangspunkt des Rundgangs am zentralen Markt. Das heutige Gebäude entstand 1954 als Nachfolger des 1944 im Luftangriff zerstörten barocken Vorgängerbaus. An der Fassade prangt das Neusser Stadtwappen, das die Stadt nach der erfolgreichen Abwehr der Belagerung durch Karl den Kühnen 1475 um den kaiserlichen Doppeladler ergänzen durfte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Marktbrunnen",
+          "type": "fountain",
+          "address": "Markt, 41460 Neuss",
+          "durationMin": 8,
+          "note": "Der 1984 von Elmar Hillebrand geschaffene Brunnen wurde der Stadt zur 2000-Jahr-Feier gestiftet. Acht Bronzereliefs an der achteckigen Säule zeigen Etappen der Neusser Geschichte von der Römerzeit bis zum Wiederaufbau. Bekrönt wird er von einem Standbild des Landgrafen Hermann von Hessen, des Verteidigers der Stadt gegen Karl den Kühnen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "RomaNEum",
+          "type": "historic",
+          "address": "Brückstraße 1, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Der moderne Bildungskomplex beherbergt Volkshochschule, Musikschule und ein Regionalzentrum der Fernuniversität Hagen. Im Innenhof und in den Kellern sind römische Fundamente und mittelalterliches Mauerwerk sichtbar, die an das Militärlager Novaesium und ein späteres Kloster an dieser Stelle erinnern.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Zeughaus",
+          "type": "building",
+          "address": "Freithof, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Der Bau am Freithof war ursprünglich die 1637 errichtete Kirche eines Franziskanerklosters. Nach der Säkularisierung nutzte ihn ein preußisches Landwehrbataillon als Waffenlager, woher der heutige Name stammt. Heute finden hier Konzerte, Empfänge und Brauchtumsveranstaltungen statt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Quirinusmünster",
+          "type": "church",
+          "address": "Münsterplatz 23, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Das spätromanische Münster ist das Wahrzeichen von Neuss; der Grundstein wurde 1209 gelegt, die Vollendung erfolgte um 1240. Die barocke Kuppel mit der Figur des heiligen Quirinus prägt die Stadtsilhouette, im Inneren ruht der Quirinusschrein. 2009 verlieh Papst Benedikt XVI. der Kirche den Ehrentitel einer Basilica minor.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Vogthaus",
+          "type": "building",
+          "address": "Münsterplatz 10, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Das 1597 erbaute \"Haus zu den Heiligen Drei Königen\" war im Mittelalter Amtssitz des Vogts, des Vertreters des Kölner Erzbischofs. Im Giebel erklingt seit 1975 mehrmals täglich das Schützenglockenspiel, dessen bewegliche Figuren die Korps des Neusser Schützenregiments abbilden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Kloster Marienberg",
+          "type": "church",
+          "address": "Glockhammer 58, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Das Kloster wurde 1439 gegründet; heute nutzen die Gebäude eine katholische Mädchenschule. Die spätgotische Klosterkapelle diente ab 1805 der neu gegründeten evangelischen Gemeinde als erstes Gotteshaus, bis diese eine eigene Kirche erhielt. Ihr schlanker Dachreiter gehört unverkennbar zum Neusser Stadtbild.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Stadtmauer am Rheintor",
+          "type": "historic",
+          "address": "Rheinstraße, 41460 Neuss",
+          "durationMin": 15,
+          "note": "An der Rheinstraße ist ein teils erhaltener, teils rekonstruierter Abschnitt der mittelalterlichen Stadtmauer zu sehen. Ein den Gehweg überspannender Bogen und ein Bronzerelief erinnern an das nahe gelegene, längst verschwundene Rheintor, eines der einstigen Stadttore.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Sebastianuskirche",
+          "type": "church",
+          "address": "Niederstraße 65, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Die Kirche wurde ab 1718 als Klosterkirche eines benachbarten Franziskanerkonvents errichtet. Sie liegt am Verlauf der alten Römerstraße, die von Köln über Neuss nach Xanten führte, und wird heute von einer jungen Ordensgemeinschaft betreut.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Hamtorplatz",
+          "type": "square",
+          "address": "Hamtorplatz, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Der Platz markiert den Standort des ehemaligen Hamtors, eines der früheren Neusser Stadttore. Erhaltene Stützbögen der Stadtbefestigung, eine niedrige Rekonstruktion der Torflanke und ein Modell veranschaulichen die einstige Wehranlage; zusätzlich steht hier ein Grenadierdenkmal.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Kaiserliche Post (Kulturforum Alte Post)",
+          "type": "building",
+          "address": "Neustraße 28, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Das repräsentative Gebäude von 1879 war bis in die 1980er Jahre das Neusser Hauptpostamt. Nach sorgfältiger Restaurierung beherbergt es heute das \"Kulturforum Alte Post\" mit Angeboten für Kunst und Kultur.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Blutturm",
+          "type": "historic",
+          "address": "Promenadenstraße, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Der aus Basalt und Tuff errichtete Halbrundturm zählt zu den letzten erhaltenen Resten der mittelalterlichen Stadtbefestigung. Im Mittelalter diente er unter anderem als Gefängnis und Folterstätte; sein Name verweist auf diese düstere Nutzung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Windmühlenturm",
+          "type": "historic",
+          "address": "Mühlenstraße 61, 41460 Neuss",
+          "durationMin": 15,
+          "note": "Der Turm war an die mittelalterliche Stadtmauer gebaut und wurde bis Mitte des 19. Jahrhunderts als Windmühle genutzt, ehe man ihn zum Wasserturm umbaute. Bekannt ist er auch dafür, dass der berüchtigte Räuberhauptmann Mathias Weber hier eingesperrt war und 1796 spektakulär entkam.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Clemens Sels Museum Neuss",
+          "type": "museum",
+          "address": "Am Obertor 2a, 41460 Neuss",
+          "durationMin": 40,
+          "note": "Das im heutigen Bau seit 1975 bestehende Mehrspartenhaus legt seinen Schwerpunkt auf Kunst und ist international besonders für seine Sammlung des Symbolismus bekannt. Es ist über einen die Straße überspannenden Gang direkt mit dem benachbarten Obertor verbunden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 15,
+          "title": "Obertor",
+          "type": "gate",
+          "address": "Am Obertor, 41460 Neuss",
+          "durationMin": 10,
+          "note": "Das mächtige, von zwei Rundtürmen flankierte Stadttor stammt aus dem 13. Jahrhundert. Es ist das einzige erhaltene von ursprünglich sechs Neusser Stadttoren und zeugt mit seiner beachtlichen Größe von der Bedeutung und dem Selbstbewusstsein der mittelalterlichen Stadt.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "heilbronn",
+      "slug": "heilbronn-weinpanoramaweg",
+      "title": "Weinpanoramaweg am Wartberg",
+      "description": "Begehbarer Themen-Rundweg über den Heilbronner Wartberg: ein rund sechs Kilometer langes Freilichtmuseum zum Weinbau mit 24 Infostationen, historischer Baumkelter, Aussichtsturm und weiten Panoramablicken über Stadt, Neckartal und Weinsberger Tal.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "natur",
+        "weinberg"
+      ],
+      "sourceUrls": [
+        "https://www.heilbronn.de/tourismus/wein/heilbronner-weinwege/wein-panorama-weg.html",
+        "https://wir-fuer-heilbronn.com/projekte/weinpanorama-heilbronn",
+        "https://www.heilbronnerland.de/tour/wein-panorama-weg-heilbronn-weinlehrpfad",
+        "https://www.mein-heilbronn.org/kernstadt/natur-umgebung/wartberg"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Heilbronner Baumkelter (Adolf-Heinrich-Baumkelter)",
+          "type": "historic",
+          "address": "Riedstraße 29, 74076 Heilbronn",
+          "durationMin": 15,
+          "note": "Offizieller Startpunkt des rund sechs Kilometer langen Weinpanoramawegs am Fuß des Wartbergs. Eine Baumkelter ist eine historische Presse aus einem mächtigen Baumstamm, mit der früher die Trauben ausgepresst wurden, und erinnert hier an die alte Heilbronner Weinbautradition.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Fassküferwerkstatt",
+          "type": "museum",
+          "address": "Weinpanoramaweg am Wartberg, 74076 Heilbronn",
+          "durationMin": 40,
+          "note": "In das Freilichtmuseum eingebunden ist die nachgebildete Werkstatt eines Fassküfers. Sie zeigt historische Werkzeuge und Ausstellungsstücke rund um das Handwerk des Fassbaus, das für Lagerung und Ausbau des Weins über Jahrhunderte unverzichtbar war.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Martin-Heinrich-Wengerthäusle",
+          "type": "wine_bar",
+          "address": "Weinpanoramaweg am Wartberg, 74076 Heilbronn",
+          "durationMin": 30,
+          "note": "Ein typisches Heilbronner Wengerthäusle mitten in den Reben. Von April bis Oktober schenken hier Heilbronner Weingärtner abwechselnd ihre Weine aus und reichen dazu klassisches Vesper wie Winzerwurst, Käse und Brezeln.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Weinberg-Trockenmauern",
+          "type": "landmark",
+          "address": "Weinpanoramaweg am Wartberg, 74076 Heilbronn",
+          "durationMin": 15,
+          "note": "Entlang des Aufstiegs säumen alte Trockenmauern die Weinbergterrassen. Ohne Mörtel geschichtet, stützen sie die steilen Hänge und bilden zugleich einen wärmeliebenden Lebensraum für Eidechsen, Insekten und Trockenrasenpflanzen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Skulpturenlehrpfad",
+          "type": "sculpture",
+          "address": "Weinpanoramaweg am Wartberg, 74076 Heilbronn",
+          "durationMin": 12,
+          "note": "In den botanischen Lehrpfad ist ein Skulpturenpfad eingebunden. Zwischen den Rebzeilen begleiten Kunstwerke den Weg und verbinden das Thema Wein mit Natur und zeitgenössischer Kunst.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Panoramatafel \"Stadt im Grünen\"",
+          "type": "viewpoint",
+          "address": "Weinpanoramaweg am Wartberg, 74076 Heilbronn",
+          "durationMin": 15,
+          "note": "Von diesem Aussichtspunkt öffnet sich der Blick weit über Heilbronn im Neckartal. Eine Panoramatafel ordnet die Sicht auf Stadt, Fluss und die umgebenden Weinberge und erläutert, warum Heilbronn als grüne Stadt am Wasser gilt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Wartberg-Turm",
+          "type": "landmark",
+          "address": "Wartberg, 74076 Heilbronn",
+          "durationMin": 15,
+          "note": "Der Wartbergturm steht auf dem rund 308 Meter hohen Gipfel und geht auf einen mittelalterlichen Wachturm zurück. Von der frei zugänglichen Plattform reicht der Rundblick über Stadt und Neckartal; auf dem Dach sitzt die Lichtskulptur „Sonnenstrahl für Heilbronn\" von Jan van Munster, die nachts rot und blau leuchtet.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Höhenrestaurant Wartberg",
+          "type": "restaurant",
+          "address": "Wartberg 1, 74076 Heilbronn",
+          "durationMin": 60,
+          "note": "Direkt neben dem Turm liegt das Höhenrestaurant Wartberg, dessen Gaststätte bis ins 18. Jahrhundert zurückreicht. Von der Terrasse blickt man über das Neckartal und das Weinsberger Tal, die Küche ist regional-schwäbisch geprägt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Stadtwald-Station \"Traubeneichen und Vogelwelt\"",
+          "type": "park",
+          "address": "Wartberg, 74076 Heilbronn",
+          "durationMin": 20,
+          "note": "Am Übergang von den Reben in den Heilbronner Stadtwald erläutern Tafeln die Baumwelt aus Traubeneichen und Sommerlinden sowie die Vogelarten des Waldes. Die Station zeigt, wie eng Weinberg und Wald am Wartberg ineinandergreifen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Schilfsandstein-Steinbruch (Geologiestation)",
+          "type": "landmark",
+          "address": "Wartberg, 74076 Heilbronn",
+          "durationMin": 15,
+          "note": "An einem alten Steinbruch wird die Geologie des Wartbergs sichtbar. Der hier gewonnene Schilfsandstein prägt Böden und Bauwerke der Region, und die freiliegenden Felswände sind zugleich Lebensraum für spezialisierte Pflanzen und Tiere.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Aussichtsplattform \"Lemppruhe\" (Weinsberger Tal)",
+          "type": "viewpoint",
+          "address": "Wartberg, 74076 Heilbronn",
+          "durationMin": 15,
+          "note": "Die Aussichtsplattform „Lemppruhe\" gibt den Blick nach Osten ins Weinsberger Tal frei. Sie bildet den ruhigen Gegenpol zum Stadtpanorama und rundet den Rundweg über den Wartberg ab.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "fuerth",
+      "slug": "fuerth-lauschtour",
+      "title": "Stadtspaziergang Fürth (Lauschtour)",
+      "description": "Rund 2,7 km langer, selbst begehbarer Altstadt-Rundgang durch Fürth: von der ersten deutschen Eisenbahn über die Gründerzeit-Prachtstraßen bis zum jüdischen Erbe des einstigen \"Fränkischen Jerusalem\". Start am Centaurenbrunnen vor dem Hauptbahnhof, Ziel am Grünen Markt im Zentrum.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.infranken.de/lk/fuerth/stadtspaziergaenge-lauschtour-app-fuehrt-durch-fuerth-art-5204642",
+        "https://www.tourismus-fuerth.com/experience-enjoy/guided-city-tours/lauschtour-fuerth",
+        "https://www.fuerthwiki.de/wiki/index.php/Rathaus",
+        "https://de.wikipedia.org/wiki/Ludwigseisenbahn"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Centaurenbrunnen",
+          "type": "fountain",
+          "address": "Bahnhofplatz, 90762 Fürth",
+          "durationMin": 8,
+          "note": "Der bronzene Centaurenbrunnen aus der Zeit um 1890 steht auf dem Bahnhofplatz vor dem Fürther Hauptbahnhof. Er erinnert an die erste deutsche Eisenbahn zwischen Nürnberg und Fürth und ist der Startpunkt des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Stadtmuseum Fürth",
+          "type": "museum",
+          "address": "Ottostraße 2, 90762 Fürth",
+          "durationMin": 40,
+          "note": "Das Stadtmuseum ist in der früheren Ottoschule untergebracht, einem spätklassizistischen Schulbau des 19. Jahrhunderts. Zu den bekannten ehemaligen Schülern zählt der Schriftsteller Jakob Wassermann. Gezeigt wird die Stadtgeschichte Fürths mit Schwerpunkt auf Sozial- und Wirtschaftsgeschichte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Hornschuchpromenade",
+          "type": "historic",
+          "address": "Hornschuchpromenade, 90762 Fürth",
+          "durationMin": 15,
+          "note": "Die Hornschuchpromenade ist eine der beiden Gründerzeit-Prachtstraßen Fürths mit repräsentativen Fassaden aus Historismus und Jugendstil, entstanden zwischen 1883 und 1904. Benannt ist sie nach dem Textilfabrikanten und Stifter Christian Heinrich Hornschuch.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Königswarterstraße",
+          "type": "historic",
+          "address": "Königswarterstraße, 90762 Fürth",
+          "durationMin": 15,
+          "note": "Parallel zur Hornschuchpromenade verläuft die ebenso prunkvolle Königswarterstraße, benannt nach dem jüdischen Mäzen Wilhelm Königswarter. Die repräsentative Straßenachse mit begrüntem Mittelstreifen entstand im Zuge des Gründerzeit-Ausbaus entlang der einstigen Ludwigsbahn-Trasse.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Fürther Freiheit (ehemaliger Ludwigsbahnhof)",
+          "type": "square",
+          "address": "Fürther Freiheit, 90762 Fürth",
+          "durationMin": 15,
+          "note": "Hier stand der Fürther Endbahnhof der Bayerischen Ludwigseisenbahn, die am 7. Dezember 1835 als erste dampfbetriebene Eisenbahn Deutschlands eröffnet wurde. Der alte Bahnhof wurde 1938 abgerissen; heute ist die Fürther Freiheit ein großer zentraler Platz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Stadttheater Fürth",
+          "type": "theater",
+          "address": "Königstraße 116, 90762 Fürth",
+          "durationMin": 20,
+          "note": "Das Stadttheater wurde 1902 eröffnet und von den bekannten Theaterarchitekten Fellner und Helmer im neobarocken Stil errichtet. Der aufwendig gestaltete Bau zählt zu den architektonischen Höhepunkten der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Stadtpark Fürth",
+          "type": "park",
+          "address": "Stadtpark Fürth, 90762 Fürth",
+          "durationMin": 20,
+          "note": "Der Stadtpark erstreckt sich nördlich der Königstraße hinter dem Theater als landschaftlich gestaltete Grünanlage bis zum Ufer der Pegnitz. Rosengarten und geschwungene Wegeführung machen ihn zur grünen Ruhezone mitten in der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Rathaus Fürth",
+          "type": "building",
+          "address": "Königstraße 88, 90762 Fürth",
+          "durationMin": 15,
+          "note": "Das zwischen 1840 und 1850 errichtete Rathaus ist mit seinem rund 55 Meter hohen Turm das höchste Gebäude der Innenstadt. Der Turm ist dem Palazzo Vecchio in Florenz nachempfunden und wird zu besonderen Anlässen festlich beleuchtet.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Jüdisches Museum Franken",
+          "type": "museum",
+          "address": "Königstraße 89, 90762 Fürth",
+          "durationMin": 40,
+          "note": "Gegenüber dem Rathaus dokumentiert das Jüdische Museum Franken in einem barocken Wohnhaus die Geschichte jüdischen Lebens in der Region. Fürth galt über Jahrhunderte als bedeutendes Zentrum und wurde als 'Fränkisches Jerusalem' bezeichnet.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Synagogenmahnmal",
+          "type": "monument",
+          "address": "Geleitsgasse, 90762 Fürth",
+          "durationMin": 12,
+          "note": "In der Geleitsgasse erinnert das 1986 errichtete Synagogendenkmal des Künstlers Kunihiko Kato an den in der NS-Zeit vernichteten Israelitischen Schulhof, das jahrhundertelange Zentrum der jüdischen Gemeinde. Flammenformen stehen für das ewige Licht und die Menora; eine Inschrift zitiert Verse aus Psalm 79.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Gustavstraße",
+          "type": "historic",
+          "address": "Gustavstraße, 90762 Fürth",
+          "durationMin": 15,
+          "note": "Die Gustavstraße im Kern der Altstadt ist von historischen Fachwerk- und Barockhäusern gesäumt und markiert die Keimzelle der Stadt. Heute ist sie als Kneipen- und Ausgehviertel Fürths bekannt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Kirche St. Michael",
+          "type": "church",
+          "address": "Kirchenplatz 4, 90762 Fürth",
+          "durationMin": 15,
+          "note": "St. Michael ist die älteste erhaltene Kirche Fürths und gilt als Ausgangspunkt der Stadtgeschichte. Die gotische Hallenkirche steht mitten in der Altstadt am Kirchenplatz, unweit der Gustavstraße.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Alter Jüdischer Friedhof",
+          "type": "historic",
+          "address": "Weiherstraße, 90762 Fürth",
+          "durationMin": 15,
+          "note": "Der 1607 angelegte alte jüdische Friedhof umfasst rund 1,7 Hektar und ist von einer hohen Sandsteinmauer umgeben. Er zeugt von der einst großen und einflussreichen jüdischen Gemeinde Fürths; das Gelände ist der Totenruhe wegen nicht öffentlich zugänglich und nur von außen zu sehen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Grüner Markt",
+          "type": "square",
+          "address": "Grüner Markt, 90762 Fürth",
+          "durationMin": 15,
+          "note": "Der Grüne Markt ist der zentrale, belebte Marktplatz nahe dem Rathaus und traditioneller Handelsort der Innenstadt. Hier endet der Rundgang mitten im lebendigen Zentrum Fürths.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "ulm",
+      "slug": "ulm-festungsweg",
+      "title": "Festungsweg Ulm/Neu-Ulm: Rundgang durch die Bundesfestung",
+      "description": "Ein selbst begehbarer Rundgang entlang der erhaltenen Bauwerke der Bundesfestung Ulm/Neu-Ulm — von der Wilhelmsburg über Stadttore, Bastionen und Donautürme beidseits der Donau. Zwölf zentrale, fußläufig verbundene Stationen des offiziellen Festungswegs, zu einem kohärenten Rundweg durch die Glacis-Grünanlagen zusammengestellt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "festung"
+      ],
+      "sourceUrls": [
+        "https://tourismus.ulm.de/de/entdecken/sehen-und-erleben/sehenswuerdigkeiten/bundesfestung/festungsweg-ulm-neu-ulm",
+        "https://de.wikipedia.org/wiki/Bundesfestung_Ulm",
+        "https://www.thomas-haas.eu/ulm-donau/entlang-des-festungsweges/",
+        "https://viagolla.com/festungsweg-ulm-das-wanderhighlight/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wilhelmsburg",
+          "type": "historic",
+          "address": "Prittwitzstraße 100, 89075 Ulm",
+          "durationMin": 15,
+          "note": "Die Wilhelmsburg auf dem Michelsberg ist die mächtige Zitadelle der Bundesfestung und der offizielle Ausgangspunkt des Festungswegs. Ein zentraler Infopunkt gibt hier einen Überblick über Aufbau und Geschichte des gesamten Festungsrings. Von der erhöhten Lage reicht der Blick weit über Ulm und das Donautal.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Kienlesbergbastion (Werk X)",
+          "type": "historic",
+          "address": "Beim Alten Fritz 1, 89075 Ulm",
+          "durationMin": 15,
+          "note": "Die Kienlesbergbastion (Werk X) liegt am Fuß des Michelsbergs und markiert eine der westlichen Einfahrten in die Stadt. Das nahezu vollständig erhaltene Werk beeindruckt mit tiefen Gräben, Wällen und einer markanten Doppelkaponniere. Es entstand in den 1840er-Jahren zur Sicherung des Blautals und der Front Richtung Wilhelmsburg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Blaubeurer Tor (Werk VI)",
+          "type": "gate",
+          "address": "Blaubeurer Ring 1, 89077 Ulm",
+          "durationMin": 10,
+          "note": "Vom Blaubeurer Tor (Werk VI), neben dem Ehinger Tor dem zweiten Hauptzugang der Westfront, sind heute vor allem die Escarpenmauer und die Blaudurchlässe erhalten. Sie liegen an der stark befahrenen Verkehrsachse am Blaubeurer Ring; eine Wiederherstellung der Toranlage ist geplant. Das Werk verband die benachbarten Wallabschnitte der westlichen Hauptumwallung.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Ehinger Tor (Werk II)",
+          "type": "gate",
+          "address": "Ehinger-Tor-Platz, 89073 Ulm",
+          "durationMin": 10,
+          "note": "Das Ehinger Tor (Werk II) war eines der großen Stadttore der westlichen Festungsfront. Von der ursprünglich dreiteiligen Toranlage sind heute vor allem das innere Tor und die Torpfeiler erhalten. Der Ort ist inzwischen ein zentraler Verkehrsknoten mit großem Bus- und Straßenbahnhalt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Oberer Donauturm (Weißer Turm, Werk XXVIII)",
+          "type": "landmark",
+          "address": "Ziegelländeweg 3, 89077 Ulm",
+          "durationMin": 15,
+          "note": "Der Obere Donauturm, wegen seines hellen Mauerwerks auch Weißer Turm genannt, bildete den westlichen Abschluss der Hauptumwallung am rechten Donauufer. Als Geschützturm überwachte er den Fluss- und Uferbereich flussaufwärts. Er steht unmittelbar an der Donau unterhalb der oberen Stadtkehle.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Memminger Tor (Halbbastion 9)",
+          "type": "gate",
+          "address": "Bootshausstraße, 89231 Neu-Ulm",
+          "durationMin": 10,
+          "note": "Das Memminger Tor (Halbbastion 9) ist eines der wenigen in ursprünglicher Form erhaltenen Tore auf der Neu-Ulmer Seite. Die Durchfahrt führt bis heute durch den alten Festungswall nahe dem Jahnufer und der Bootshausstraße. Das Werk entstand um 1844 bis 1850 als westlicher Zugang der Neu-Ulmer Fronten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Glacispark Neu-Ulm",
+          "type": "park",
+          "address": "Glacis-Park, 89231 Neu-Ulm",
+          "durationMin": 20,
+          "note": "Der Glacispark erstreckt sich über das einstige Schussfeld (Glacis) der Neu-Ulmer Festungsfront, das aus militärischen Gründen frei von Bebauung bleiben musste. Heute ist die weitläufige Grünanlage ein zentraler Stadtpark mit Wiesen, altem Baumbestand und einer Freilichtbühne. Der Festungsweg verläuft über weite Strecken durch solche ehemaligen Glacisflächen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Caponniere 4",
+          "type": "historic",
+          "address": "Theodor-von-Hildebrandt-Platz, 89231 Neu-Ulm",
+          "durationMin": 15,
+          "note": "Die Caponniere 4 gehört zu den am besten erhaltenen Festungsbauten Neu-Ulms und liegt nur wenige Schritte hinter dem Bahnhof am Rand des Glacisparks. Das Werk wurde aufwendig restauriert und dient heute als Ort für Konzerte, Ausstellungen und kulturelle Veranstaltungen. Ursprünglich sicherte es als Flankierungsbau den Festungsgraben.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Unterer Donauturm (Roter Turm, Werk XXV)",
+          "type": "landmark",
+          "address": "Valckenburgufer 25, 89073 Ulm",
+          "durationMin": 15,
+          "note": "Der Untere Donauturm wird wegen seiner roten Ziegel auch Roter Turm genannt und steht unmittelbar am Ulmer Donauufer. Als Geschützturm kontrollierte er den Schiffsverkehr flussabwärts und den Übergang zwischen den Donaubastionen. Heute wird das Bauwerk von einer Jugend- und Kulturinitiative genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Untere Donaubastion (Werk XXIV)",
+          "type": "historic",
+          "address": "Valckenburgufer 21, 89073 Ulm",
+          "durationMin": 15,
+          "note": "Die Untere Donaubastion (Werk XXIV) sicherte die östliche Donaufront der Ulmer Hauptumwallung. Erhalten ist vor allem das mächtige Reduit, das heute unter anderem eine Schule, eine Außenstelle des Stadtarchivs und ein Medienzentrum beherbergt. Die Bastion entstand zwischen 1845 und 1855 und konnte einst über tausend Mann aufnehmen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Obere Gaisenbergbastion (Werk XIX)",
+          "type": "historic",
+          "address": "Prittwitzstraße 44, 89075 Ulm",
+          "durationMin": 15,
+          "note": "Die Obere Gaisenbergbastion (Werk XIX) war ein Kernwerk der östlichen Bergfront der Bundesfestung. Erhalten ist das Reduit, in dem heute ein Verlag untergebracht ist, während Wall und gedeckter Weg als öffentlicher Pfad begehbar sind. Das begrünte Gelände oberhalb der Stadt führt zurück zur nahen Wilhelmsburg und schließt den Rundgang.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "bremerhaven",
+      "slug": "bremerhaven-historische-meile",
+      "title": "Historische Meile Geestemünde",
+      "description": "Selbst begehbarer Rundgang durch den Bremerhavener Stadtteil Geestemünde: Entlang der offiziellen \"Historischen Meile\" erläutern fest installierte Infotafeln historische Gebäude und Hafenanlagen. Die Route führt von der ehemaligen Bahnhofsanlage an der Klußmannstraße über Kanaldrehbrücke, Kirchen, Schulen und den Wasserturm bis zur Georgstraße und erzählt Hafen-, Stadt- und Architekturgeschichte vom 19. Jahrhundert bis in die Moderne.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "maritim"
+      ],
+      "sourceUrls": [
+        "https://geestemuende.de/historische-meile/",
+        "https://de.wikipedia.org/wiki/Drehbr%C3%BCcke_%C3%BCber_den_Geestem%C3%BCnder_Hauptkanal",
+        "https://de.wikipedia.org/wiki/Wasserturm_Geestem%C3%BCnde",
+        "https://de.wikipedia.org/wiki/Wilhelm-Raabe-Schule_(Bremerhaven)"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "BBU – ehemaliger Bahnhof Geestemünde",
+          "type": "historic",
+          "address": "Klußmannstraße 5, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Das Backsteingebäude war der erste Bahnhof Geestemündes, an dem 1862 die eingleisige Geestebahn eröffnet wurde. Nach dem Bau des Hauptbahnhofs 1914 diente es dem Güterverkehr; seit 1991 nutzt es die Bremerhavener Beschäftigungsgesellschaft Unterweser (BBU). Hier beginnt der offizielle Rundgang.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Ehemaliges Kaiserliches Postamt (heute Polizeirevier)",
+          "type": "building",
+          "address": "Klußmannstraße, Ecke Arndtstraße, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Das Haus wurde 1899 als Kaiserliches Postamt im gleichen Stil wie das gegenüberliegende Rathaus errichtet. Nach 1933 nutzte die Stadt Wesermünde es für verschiedene Behörden; seit 1961 ist hier das Polizeirevier Geestemünde untergebracht.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Ehemaliges Hauptzollamt Geestemünde",
+          "type": "building",
+          "address": "Klußmannstraße, Ecke Kaistraße, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Der Bau entstand 1907/1908 als Königlich Preußisches Hauptzollamt Geestemünde und war lange Zentrale mehrerer Zollverwaltungen im Elbe-Weser-Raum. Seit 1978 denkmalgeschützt, wurde der Neorenaissance-Bau 2007 zu Eigentumswohnungen umgebaut.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Schuchmann-Villa",
+          "type": "building",
+          "address": "Bartelstraße 1, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Die Villa wurde 1922 vom Architekten Jäger für den Reeder Heinrich Schuchmann als Wohnhaus direkt am Kanal errichtet, im Stil des Neoklassizismus. Später war sie Sitz von See-Berufsgenossenschaft und See-Sozialversicherung; seit 2014 nutzt die Reederei F. Laeisz das denkmalgeschützte Haus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Kanaldrehbrücke Klußmannstraße",
+          "type": "bridge",
+          "address": "Klußmannstraße (über den Geestemünder Hauptkanal), 27570 Bremerhaven",
+          "durationMin": 8,
+          "note": "Die 1860/61 nach Plänen von Heinrich Adolf Buchholz gebaute Drehbrücke verband den Geestemünder Markt mit dem Bahnhof. Sie gilt als älteste noch funktionierende Drehbrücke Deutschlands und steht seit 2010 unter Denkmalschutz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "IHK – ehemalige Handelskammer Geestemünde",
+          "type": "building",
+          "address": "Friedrich-Ebert-Straße 6, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Das Gebäude wurde 1909 nach Entwurf des Stadtbaumeisters Karl von Zobel für die 1867 gegründete Industrie- und Handelskammer errichtet. Zeitweise beherbergte es auch das Morgenstern-Museum und ein städtisches Nahrungsmitteluntersuchungsamt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Wilhelm-Raabe-Schule",
+          "type": "building",
+          "address": "Friedrich-Ebert-Straße 10, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Die Schule wurde 1906–1908 von Karl von Zobel als Reform-Gymnasium der Stadt Geestemünde erbaut und verbindet Reformstil mit Historismus- und Jugendstilelementen. Drei Medaillons über dem Eingang stehen für Schifffahrt/Handel, Wissenschaft und Technik; seit 2010 steht das Haus unter Denkmalschutz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Holzhafen (Grünanlage)",
+          "type": "park",
+          "address": "Grünanlage Holzhafen, Geestemünde, 27570 Bremerhaven",
+          "durationMin": 20,
+          "note": "Der 1877 fertiggestellte Holzhafen war um 1880 Zentrum des Holzhandels und der Holzverarbeitung, unter anderem der Firma Kühlken. Nach einem Großbrand 1934 wurde das Becken verkleinert und in die heutige Parkanlage mit Wohnbebauung umgewandelt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Christuskirche",
+          "type": "church",
+          "address": "Schillerstraße 1, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Die neugotische Backsteinkirche wurde 1872–1875 nach Plänen von Conrad Wilhelm Hase gebaut, weil die Marienkirche zu wenig Platz bot. Der Turmhelm musste bereits 1880 wegen mangelhaften Mörtels erneuert werden; seit 2002 steht die Kirche unter Denkmalschutz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Bürgerpark Geestemünde",
+          "type": "park",
+          "address": "Bismarckstraße, 27570 Bremerhaven",
+          "durationMin": 20,
+          "note": "Der Park geht auf den 1899 gegründeten Geestemünder Waldverein zurück und wurde 1908 nach einem Plan des Gartenbauingenieurs Adolf Hoff eröffnet. Er verbindet einen regelmäßig gestalteten Eingangsbereich mit landschaftlicher Peripherie und steht seit 2009 unter Denkmalschutz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Hauptbahnhof Bremerhaven",
+          "type": "building",
+          "address": "Bremerhaven Hauptbahnhof, Friedrich-Ebert-Straße, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Der Bahnhof wurde 1914 als Hauptbahnhof \"Geestemünde – Bremerhaven\" eröffnet und 1924 in \"Wesermünde – Bremerhaven\" umbenannt. Von 2009 bis 2011 wurde die Bahnhofshalle originalgetreu saniert; das Gebäude steht seit 2012 unter Denkmalschutz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Humboldtschule",
+          "type": "building",
+          "address": "Schillerstraße 89, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Die Schule wurde 1928–1930 nach Plänen von Stadtbaurat Wilhelm Kunz errichtet und mit Klinkern verkleidet – ein Beispiel des norddeutschen Backsteinexpressionismus und des Neuen Bauens. Sie war als vorbildliche moderne Volksschule geplant und wird bis heute schulisch genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Marienkirche",
+          "type": "church",
+          "address": "An der Mühle 12, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Die Marienkirche ist der älteste Sakralbau des Stadtteils; eine Kapelle in Geestendorf ist 1420 urkundlich belegt, die Ursprünge reichen vermutlich ins 13. Jahrhundert zurück. Conrad Wilhelm Hase gestaltete den Bau 1872–1875 neugotisch um. Im September 1944 brannte die Kirche aus und wurde 1954 in vereinfachter Form wiedergeweiht; seit 1977 steht sie unter Denkmalschutz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Wasserturm Geestemünde",
+          "type": "landmark",
+          "address": "An der Mühle 33, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Der Wasserturm wurde 1891 nach Plänen von Walter Pfeffer am damals höchsten Punkt des Neuen Marktes als runder Backsteinbau mit Kegeldach errichtet, angelehnt an den Turmtyp von Otto Intze. Seit 1984 steht er unter Denkmalschutz; heute wird er gastronomisch genutzt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 15,
+          "title": "Hirsch-Apotheke",
+          "type": "building",
+          "address": "Georgstraße 44, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Die Apotheke geht auf eine Konzession von 1856 zurück; der Bau der Hirsch-Apotheke wurde 1896 genehmigt. Das denkmalgeschützte Haus blieb im Krieg weitgehend verschont und beherbergte ab 1902 auch Arztpraxen; bis 2008 wurde die Apotheke in vierter Generation geführt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 16,
+          "title": "Ehemalige Städtische Sparkasse",
+          "type": "building",
+          "address": "Georgstraße 21–23, 27570 Bremerhaven",
+          "durationMin": 15,
+          "note": "Das Gebäude wurde 1905 als Bankhaus der Geestemünder Handelsbank errichtet und ab 1924 von der Städtischen Sparkasse Wesermünde bzw. später Bremerhaven genutzt. Es war eines der wenigen Häuser, die die Bombennacht 1944 unbeschadet überstanden; seit 1985 dient es als Restaurant und bildet den Endpunkt des Rundgangs.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "erlangen",
+      "slug": "erlangen-er1900",
+      "title": "er1900 – Erlangens Stadtgeschichte um 1900",
+      "description": "Der reale, selbst begehbare Rundgang »er1900« (Projekt »Erlangen sichtbar – unsichtbar«) folgt 17 ebenerdig in den Boden eingelassenen Edelstahlplatten mit QR-Codes und zeigt Gebäude, Denkmäler und Orte aus der Zeit des Kaiserreichs – vom Zentrum der Altstadt bis hinaus in die Oststadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.er1900.de/",
+        "https://www.er1900.de/stationen.html",
+        "https://de.wikipedia.org/wiki/Reiniger,_Gebbert_%26_Schall",
+        "https://nominatim.openstreetmap.org/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kriegerdenkmal",
+          "type": "monument",
+          "address": "Martin-Luther-Platz, 91054 Erlangen",
+          "durationMin": 12,
+          "note": "Das 1890 enthüllte Denkmal erinnerte an die im Deutsch-Französischen Krieg 1870/71 gefallenen Erlanger und wurde zu einem zentralen Ort nationalistischer Kundgebungen der Kaiserzeit. Bekrönt von einem bayerischen Löwen, trug es Reichsadler und die Inschrift »Gott mit uns«. 1952 als Verkehrshindernis abgebrochen, wurde der steinerne Löwe 2003 an gleicher Stelle wieder aufgestellt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Erich-Haus",
+          "type": "building",
+          "address": "Theaterplatz 22, 91054 Erlangen",
+          "durationMin": 15,
+          "note": "Die wohlhabende Brauerfamilie Erich ließ dieses repräsentative Wohn- und Geschäftshaus 1886/87 im Neurenaissance-Stil errichten; es gilt als eines der repräsentativsten Wohnhäuser der Erlanger Kaiserzeit. Die Erich-Brauerei wurde zur größten Exportbrauerei der Stadt und 1893 auf der Weltausstellung in Chicago ausgezeichnet. 1910 nächtigte der spätere König Ludwig III. hier.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Elfenbeinkammfabrik Bücking",
+          "type": "building",
+          "address": "Wasserturmstraße 14, 91054 Erlangen",
+          "durationMin": 15,
+          "note": "Johann Georg Bücking gründete hier 1838 die erste industrielle Elfenbeinkammfabrik Deutschlands und führte den Betrieb als erstes Erlanger Unternehmen von der handwerklichen zur maschinellen Fertigung. 1845 lief hier die erste Dampfmaschine der Stadt, und die Kämme mit dem Markenzeichen »Elefant« gingen weltweit in den Export. Um 1910 stellte die Firma auf Kunststoffkämme um.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Henninger-Reifbräu AG",
+          "type": "building",
+          "address": "Hauptstraße 55, 91054 Erlangen",
+          "durationMin": 15,
+          "note": "An dieser Stelle stand eine der größten Erlanger Exportbrauereien, die sich seit den 1870er Jahren zur industriellen Großbrauerei mit Dampfmaschinen und Kühlwaggons entwickelte. 1906 fusionierte sie mit der Reifbrauerei; der Braubetrieb endete 1974, danach entstand auf dem Gelände der Altstadtmarkt. Teile der historischen Fassade blieben erhalten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Bahnhof",
+          "type": "building",
+          "address": "Bahnhofplatz 1, 91054 Erlangen",
+          "durationMin": 15,
+          "note": "Der 1843/44 errichtete Bahnhof markiert den Anschluss Erlangens an die Ludwig-Süd-Nord-Bahn, deren erstes Teilstück Nürnberg–Bamberg 1844 eröffnete. Der Bahnanschluss ermöglichte den Aufschwung der Brauereien und die Ansiedlung neuer Industrie. Ab 1868 wurde das schlichte Sandsteingebäude auf zwei Geschosse mit Arkadenloggia erweitert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Hauptpost",
+          "type": "building",
+          "address": "Hugenottenplatz 1, 91054 Erlangen",
+          "durationMin": 15,
+          "note": "Das 1897/98 errichtete Postamt ist ein monumentaler neubarocker Prachtbau der wilhelminischen Zeit, der dem wachsenden Post-, Telegrafen- und Telefonverkehr Rechnung trug. Auf dem Dach befand sich ein Einführungsturm für die Leitungen. Der Bau war einer der ersten großen Eingriffe in das barocke Ensemble der Erlanger Neustadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Ansbacher Haus",
+          "type": "building",
+          "address": "Nürnberger Straße 8, 91052 Erlangen",
+          "durationMin": 15,
+          "note": "Das 1898 zum 100. Stiftungsfest übergebene Verbindungshaus des Corps Onoldia zeigt mit seinem burgartigen Neurenaissance-Bau das Selbstbewusstsein studentischer Korporationen im Kaiserreich. Damals gehörten rund 60 bis 70 Prozent der Erlanger Studenten solchen Verbindungen an. Im Haus lagen Kneipe, Konventsräume, Festsaal und Kegelstube.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Kollegienhaus",
+          "type": "building",
+          "address": "Universitätsstraße 15, 91054 Erlangen",
+          "durationMin": 15,
+          "note": "Der neubarocke Bau am Ostrand des Schlossgartens entstand 1886–89 als repräsentatives Hauptgebäude der Universität mit vierzehn Hörsälen, Senatssaal und Aula. Er markiert die erste große Ausbauphase, als die Studentenzahl auf knapp 1000 gestiegen war. Zu Beginn des Ersten Weltkriegs diente das Haus als Reservelazarett.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Gefallenendenkmal der Universität",
+          "type": "monument",
+          "address": "Schlossgarten, 91054 Erlangen",
+          "durationMin": 12,
+          "note": "Das 1930 im Schlossgarten enthüllte Denkmal des Bildhauers Eduard Beyrer zeigte einen gefesselten Krieger und richtete sich mit dem Spruch »Allen Gewalten zum Trutz sich erhalten!« gegen den Versailler Vertrag. 1946 ordnete die amerikanische Militärregierung den Abbruch der Statue an. Erhalten blieben Podest und acht Seitensteine mit 384 Namen der Gefallenen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Konsumgenossenschaft",
+          "type": "historic",
+          "address": "Bohlenplatz 22, 91054 Erlangen",
+          "durationMin": 15,
+          "note": "Am Bohlenplatz stand das erste eigenständige Bauwerk der Erlanger Arbeiterbewegung: 1906 errichtete die 1901 gegründete Konsumgenossenschaft hier ein Jugendstilhaus mit Dampfbäckerei, Laden und Kontor. Bis 1914 zählte die Selbsthilfeorganisation über 2500 Mitglieder und produzierte eigene Lebensmittel. Das 1997 abgerissene Gebäude wird durch erhaltene Fassadenelemente in Erinnerung gehalten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Logenhaus",
+          "type": "building",
+          "address": "Universitätsstraße 25, 91054 Erlangen",
+          "durationMin": 15,
+          "note": "Das 1889/90 im Stil des Historismus errichtete Haus ist Sitz der Freimaurerloge »Libanon zu den drei Cedern«, die bereits 1757 gegründet wurde. Der Sandsteinbau trägt am Giebel den Wahlspruch »Wahrheit Recht Menschenliebe«. 1933 von den Nationalsozialisten aufgelöst, wurde das Gebäude 1950 zurückgegeben und dient bis heute der Loge.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Kaiser-Wilhelm-Denkmal",
+          "type": "monument",
+          "address": "Lorlebergplatz, 91054 Erlangen",
+          "durationMin": 12,
+          "note": "Auf dem heutigen Lorlebergplatz, damals Kaiser-Wilhelm-Platz, stand ab 1897 ein elf Meter hoher Obelisk mit vier Bronzemedaillons zu Ehren Kaiser Wilhelms I. und der Reichsgründung – das zweite Wilhelm-Denkmal Bayerns. 1942 wurden die Medaillons für Kriegsmaterial eingeschmolzen. 1946 wurde das verfallene Denkmal abgebrochen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "König Otto",
+          "type": "building",
+          "address": "Henkestraße 56, 91054 Erlangen",
+          "durationMin": 15,
+          "note": "Das 1889 erbaute Gasthaus im Arbeiterviertel Stubenloh war ein zentraler Treffpunkt der Erlanger Arbeiterbewegung. 1892 wurde hier der Ortsverein des Deutschen Metallarbeiter-Verbandes, des Vorläufers der IG Metall, gegründet, ein Jahr später das lokale Gewerkschaftskartell. Nach der Schließung der Gastwirtschaft im Jahr 2000 dient das Gebäude heute als Hotel.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Bahnhof Zollhaus",
+          "type": "historic",
+          "address": "Luitpoldstraße 31a, 91052 Erlangen",
+          "durationMin": 15,
+          "note": "Hier hielt die 1886 eröffnete Sekundärbahn nach Gräfenberg, im Volksmund »Seku« genannt; das Zollhaus war neben dem Hauptbahnhof ihre einzige Haltestelle im Stadtgebiet. Der Verlauf der rund 29 Kilometer langen Strecke prägte die spätere Ringstraße. 1963 wurde der Verkehr eingestellt, 1967 der Fachwerkbau abgebrochen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 15,
+          "title": "Reiniger, Gebbert & Schall",
+          "type": "building",
+          "address": "Gebbertstraße 1, 91052 Erlangen",
+          "durationMin": 15,
+          "note": "Die 1886 gegründete Firma fertigte in dem ab 1893 errichteten Backsteinkomplex elektrotechnische und medizinische Geräte und leistete Pionierarbeit in der Röntgentechnik. Zu Kriegsbeginn 1914 beschäftigte sie über 670 Menschen; 1925 übernahm Siemens & Halske das Unternehmen. Heute beherbergen die denkmalgeschützten Bauten das Stadtarchiv und das Siemens MedMuseum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 16,
+          "title": "Artilleriekaserne",
+          "type": "building",
+          "address": "Carl-Thiersch-Straße 9, 91052 Erlangen",
+          "durationMin": 15,
+          "note": "Die 1900 errichtete Kaserne des 10. Feldartillerie-Regiments umfasste mehr als ein Dutzend Backsteingebäude mit Mannschaftsquartieren, Reithallen und Ställen. Mit rund 2200 Soldaten bei knapp 25.000 Einwohnern war die Garnison ein bedeutender Wirtschaftsfaktor und prägte die Entwicklung der Oststadt. Seit 2001 nutzt die Universität die sanierten Bauten als Röthelheim-Campus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 17,
+          "title": "Denkmal für die Gefallenen des 10. Feldartillerie-Regiments",
+          "type": "monument",
+          "address": "Carl-Thiersch-Straße 9, 91052 Erlangen",
+          "durationMin": 12,
+          "note": "Im Hof der ehemaligen Artilleriekaserne steht das 1922 enthüllte Kriegerdenkmal für die Gefallenen des 10. Feldartillerie-Regiments, gestaltet als stehender Kanonier mit Stahlhelm. Die Stadt hatte eine Aufstellung in der Innenstadt abgelehnt, um militaristische Symbole aus dem öffentlichen Raum fernzuhalten. In der Weimarer Zeit und der NS-Ära wurde das Denkmal zum Ort nationalistischer Kundgebungen.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "recklinghausen",
+      "slug": "recklinghausen-altstadtrundgang",
+      "title": "Altstadtrundgang Recklinghausen zu Fuß",
+      "description": "Ausgeschilderter, selbst begehbarer Altstadtrundgang durch die historische „gute Stube\" Recklinghausens: rund 2,6 km entlang der zentralen Sehenswürdigkeiten der alten Hansestadt – von Rathaus, Gymnasial- und Gastkirche über die barocke Engelsburg und die Propsteikirche St. Peter bis zu den ältesten Fachwerkhäusern an der Kunibertstraße. Der Weg folgt der offiziell beschilderten Route „Recklinghausen zu Fuß\" durch die fünf Altstadtquartiere.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://recklinghausen-tourismus.de/altstadt-die-gute-stube-des-ruhrgebiets/altstadtrundgang/",
+        "https://geschichte-recklinghausen.de/projekte/projekt-stadterkundungen/",
+        "https://www.ich-geh-wandern.de/altstadtrunde-recklinghausen-ruhrgebiet",
+        "https://de.wikipedia.org/wiki/St._Peter_(Recklinghausen)"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rathaus",
+          "type": "building",
+          "address": "Rathausplatz 3, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Das repräsentative Rathaus entstand zwischen 1898 und 1908 im Stil der deutschen Renaissance nach Plänen von Otto Müller-Jena. Der markante Turm mit Uhr prägt das Stadtbild und bildet den Auftakt des Rundgangs. 2020 wurde es von den Bürgern zum schönsten Rathaus Nordrhein-Westfalens gewählt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Brunnen „Bürger tragen ihre Stadt\"",
+          "type": "fountain",
+          "address": "Rathausplatz, 45657 Recklinghausen",
+          "durationMin": 8,
+          "note": "Auf dem Vorplatz des Rathauses steht dieser Brunnen mit dem Titel „Bürger tragen ihre Stadt\". Er greift das bürgerschaftliche Selbstverständnis Recklinghausens auf und liegt direkt am Ausgangspunkt des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Alte Apotheke",
+          "type": "historic",
+          "address": "Breite Straße 14, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Die Alte Apotheke an der Breite Straße wird seit 1873 von derselben Familie geführt und zählt zu den traditionsreichen Geschäften der Innenstadt. Sie steht für die lange Handels- und Bürgergeschichte der Fußgängerzone.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Baumstammbrunnen",
+          "type": "fountain",
+          "address": "Paulsörter, 45657 Recklinghausen",
+          "durationMin": 8,
+          "note": "Der Baumstammbrunnen am Paulsörter ist ein Brunnen in der Altstadt, der seinen Namen seiner Gestaltung verdankt. Er markiert einen kleinen Halt im Gassengeflecht des historischen Zentrums.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Gymnasialkirche",
+          "type": "church",
+          "address": "Heilige-Geist-Straße 18, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Die Gymnasialkirche an der Heilige-Geist-Straße wurde zwischen 1658 und 1670 als Franziskanerkirche errichtet. Seit 1839 gehört sie zum Gymnasium Petrinum, dessen heutiges Hauptgebäude 1911 im Stil der Neorenaissance daneben entstand.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Gastkirche",
+          "type": "church",
+          "address": "Heilige-Geist-Straße 7a, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Die Gastkirche gehörte zu einem Armen-Gasthaus, das 1403 erstmals als „Heilige-Geist-Haus\" urkundlich erwähnt wurde; die Kirche selbst wird 1423 genannt. Sie erinnert daran, dass die Stadt ihre älteste Sozialeinrichtung bewusst mitten ins Zentrum stellte – bewahrt im Straßennamen Heilige-Geist-Straße.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Engelsburg",
+          "type": "historic",
+          "address": "Augustinessenstraße 10, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Die barocke Engelsburg wurde 1701 als herrschaftlicher Hof errichtet und beherbergt heute ein Hotel. Ihr Name und der der Augustinessenstraße gehen auf ein früheres Kloster der Augustinerinnen zurück; das Gebäude grenzt an den letzten erhaltenen Rest der mittelalterlichen Stadtmauer.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Historische Stadtmauer",
+          "type": "monument",
+          "address": "Augustinessenstraße, 45657 Recklinghausen",
+          "durationMin": 12,
+          "note": "Nahe der Engelsburg hat sich der einzige größere Rest der mittelalterlichen Stadtbefestigung erhalten. Die Mauer zeugt von der einst vollständig ummauerten Altstadt und schließt unmittelbar an die Engelsburg an.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Willy-Brandt-Haus",
+          "type": "building",
+          "address": "Herzogswall 17, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Das Willy-Brandt-Haus am Herzogswall trägt den Namen des früheren Bundeskanzlers Willy Brandt und beherbergt heute die Volkshochschule Recklinghausen. Das repräsentative Gebäude reiht sich in die Bauten am Wallring rund um die Altstadt ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Kirkeby-Skulptur",
+          "type": "sculpture",
+          "address": "Herzogswall, 45657 Recklinghausen",
+          "durationMin": 12,
+          "note": "Am Herzogswall steht eine Skulptur des dänischen Künstlers Per Kirkeby. Das Werk setzt einen zeitgenössischen Akzent zwischen den historischen Stationen des Rundgangs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Lohtor-Friedhof",
+          "type": "historic",
+          "address": "Lohtor, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Der alte Friedhof am Lohtor ist eine historische Grünanlage am Rand der Altstadt, benannt nach einem früheren Stadttor. Er bildet einen ruhigen Abschnitt auf dem Weg zurück Richtung Zentrum.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Ikonen-Museum",
+          "type": "museum",
+          "address": "Kirchplatz 2a, 45657 Recklinghausen",
+          "durationMin": 40,
+          "note": "Das 1956 gegründete Ikonen-Museum am Kirchplatz zeigt orthodoxe Kunst und gilt als eine der bedeutendsten Sammlungen dieser Art in Westeuropa. Es liegt mitten in der Altstadt, gegenüber dem Turm der Propsteikirche St. Peter.",
+          "sourceUrls": []
+        },
+        {
+          "order": 13,
+          "title": "Propsteikirche St. Peter",
+          "type": "church",
+          "address": "Kirchplatz 4, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "St. Peter ist das älteste sakrale Bauwerk der Stadt; die spätromanische Halle geht auf einen Bau von 1247 zurück. Nach dem Stadtbrand von 1500 kam ein spätgotisches Querhaus hinzu, seit 1931 ist die Kirche Propsteikirche.",
+          "sourceUrls": []
+        },
+        {
+          "order": 14,
+          "title": "Altstadtmarkt",
+          "type": "square",
+          "address": "Markt, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Der Markt bildet seit Jahrhunderten den Mittelpunkt der Altstadt. Rund um den Platz gruppieren sich Propsteikirche, altes Rathaus und historische Bürgerhäuser.",
+          "sourceUrls": []
+        },
+        {
+          "order": 15,
+          "title": "Kaufmannshaus Verstege",
+          "type": "historic",
+          "address": "Kunibertistraße 14, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Das Kaufmannshaus Verstege entstand 1558 als dreigeschossiges Fachwerkhaus und ist das zweitälteste Bürgerhaus der Altstadt. Seine Lage an der alten Handelsstraße nach Dortmund machte es zum bevorzugten Wohnsitz wohlhabender Kaufleute.",
+          "sourceUrls": []
+        },
+        {
+          "order": 16,
+          "title": "Gravemanns Hof",
+          "type": "historic",
+          "address": "Kunibertistraße 16, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Der Gravemanns Hof wurde 1522 errichtet und gilt als ältestes erhaltenes Profangebäude Recklinghausens. Das Fachwerkhaus entstand beim Wiederaufbau nach dem großen Stadtbrand von 1500.",
+          "sourceUrls": []
+        },
+        {
+          "order": 17,
+          "title": "Stadtglocken am Alten Rathaus",
+          "type": "historic",
+          "address": "Markt (Altes Rathaus), 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Am Alten Rathaus am Markt erklingt mehrmals täglich ein Glockenspiel. Der Bau gehört zum historischen Ensemble rund um den Marktplatz im Herzen der Altstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 18,
+          "title": "Alte Vikarie",
+          "type": "historic",
+          "address": "Herrenstraße 17, 45657 Recklinghausen",
+          "durationMin": 15,
+          "note": "Die Alte Vikarie an der Herrenstraße ist ein historisches, mit Schiefer verkleidetes Gebäude nahe der Propsteikirche. Sie zählt zu den kleinen Baudenkmälern, die den Charakter der Herrenstraße prägen, und beschließt den Rundgang.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "koblenz",
+      "slug": "koblenz-rheinkulturpfad",
+      "title": "Rheinkulturpfad Koblenz",
+      "description": "Offizieller Themenpfad der Stadt Koblenz (seit 2006): rund 3 km am rechten Rheinufer mit zwölf Bronzetafeln auf Basaltsockeln zur Fluss- und Schifffahrtsgeschichte. Der Pfad ist fest installiert und jederzeit selbst begehbar. Hier als zusammenhaengende Fussroute von Sued nach Nord aufbereitet: vom Pfaffendorfer Ufer stromabwaerts durch Ehrenbreitstein bis zum Rhein-Museum, mit dem Deutschen Eck als bekanntem Ankerpunkt am Zusammenfluss.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kultur",
+        "geschichte"
+      ],
+      "sourceUrls": [
+        "https://www.koblenz.de/leben-in-koblenz/freizeit/wanderpark/rheinkulturpfad/",
+        "https://www.ehrenbreitstein.de/rheinkulturpfad/",
+        "https://de.wikipedia.org/wiki/Rhein-Museum_Koblenz",
+        "https://de.wikipedia.org/wiki/Deutsches_Eck"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Sicherheitshäuser",
+          "type": "historic",
+          "address": "Rheinuferweg Koblenz-Pfaffendorf (südlicher Uferabschnitt, stromaufwärts), 56076 Koblenz",
+          "durationMin": 15,
+          "note": "Historische Wahrschau- und Sicherheitsstationen warnten die Rheinschiffer früher vor Gefahrenstellen und regelten den Verkehr an engen Passagen. Die Tafel am südlichen Pfaffendorfer Ufer erläutert dieses frühe Sicherheitssystem der Binnenschifffahrt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Betonnung und Schifffahrtszeichen",
+          "type": "historic",
+          "address": "Rheinuferweg Koblenz-Pfaffendorf (oberhalb Pfaffendorf-Mitte), 56076 Koblenz",
+          "durationMin": 15,
+          "note": "Die Station behandelt Tonnen, Baken und Fahrrinnenzeichen, mit denen die schiffbare Rinne im Rhein markiert wird. Sie zeigt, wie die Wasserstraße für Frachtschiffe sicher befahrbar gehalten wird.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Ritter, Burgen und Touristen",
+          "type": "historic",
+          "address": "Rheinuferweg Koblenz-Pfaffendorf (oberhalb Pfaffendorf-Mitte), 56076 Koblenz",
+          "durationMin": 15,
+          "note": "Diese Tafel widmet sich den Burgen am Mittelrhein und der Rheinromantik, die seit dem 19. Jahrhundert Reisende anzieht. Sie verbindet die mittelalterliche Burgengeschichte mit den Anfängen des Rheintourismus.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Wasserstraße Rhein",
+          "type": "viewpoint",
+          "address": "Rheinuferweg Koblenz-Pfaffendorf, stromaufwärts der Pfaffendorfer Brücke, 56076 Koblenz",
+          "durationMin": 15,
+          "note": "Der Rhein zählt zu den meistbefahrenen Wasserstraßen Europas; die Station erklärt seine Bedeutung als Transport- und Handelsweg. Vom Uferabschnitt oberhalb der Pfaffendorfer Brücke fällt der Blick auf den regen Schiffsverkehr.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Rheinausbau",
+          "type": "historic",
+          "address": "vor DIEHLs Hotel, Rheinsteigufer 1, 56077 Koblenz",
+          "durationMin": 15,
+          "note": "Vor DIEHLs Hotel erläutert die Tafel den technischen Ausbau des Flusses, etwa Buhnen, Uferbefestigungen und Regulierungen, die den Rhein durchgängig schiffbar machten. Diese Eingriffe veränderten Strömung und Flussbett nachhaltig.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Schifffahrt",
+          "type": "historic",
+          "address": "Fähranleger Ehrenbreitstein, Rheinsteigufer, 56077 Koblenz",
+          "durationMin": 15,
+          "note": "Am Ehrenbreitsteiner Fähranleger geht es um Antrieb und Technik der Rheinschiffe, von der Schiffsschraube bis zu modernen Frachtern. Die Fährverbindung zwischen Ehrenbreitstein und der Koblenzer Altstadt besteht hier bis heute.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Pegelhäuschen",
+          "type": "historic",
+          "address": "Rheinsteigufer, 56077 Koblenz-Ehrenbreitstein (gegenüber dem Pegelhaus am Konrad-Adenauer-Ufer)",
+          "durationMin": 15,
+          "note": "Die Station liegt gegenüber dem historischen Pegelhaus am Koblenzer Ufer, das früher den Wasserstand des Rheins ablas. Pegelstände sind für Schifffahrt und Hochwasserschutz bis heute entscheidend.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Schiffe aus dem 17. Jahrhundert",
+          "type": "historic",
+          "address": "Rheinsteigufer (Schiffsanlegestelle), 56077 Koblenz-Ehrenbreitstein",
+          "durationMin": 15,
+          "note": "An der Schiffsanlegestelle erklärt die Tafel Bau und Nutzung der Rheinschiffe des 17. Jahrhunderts. Sie gibt Einblick in Handel und Warentransport der frühen Neuzeit auf dem Fluss.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Rheinübergänge",
+          "type": "historic",
+          "address": "Rheinsteigufer (Schiffsanlegestelle), 56077 Koblenz-Ehrenbreitstein",
+          "durationMin": 15,
+          "note": "Die Station behandelt die Geschichte der Rheinquerungen bei Koblenz, von Fähren über Schiffsbrücken bis zu festen Brücken. Sie zeigt, wie beide Ufer über die Jahrhunderte miteinander verbunden wurden.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "Anker",
+          "type": "monument",
+          "address": "Rheinsteigufer, 56077 Koblenz-Ehrenbreitstein",
+          "durationMin": 12,
+          "note": "Die Tafel widmet sich Ankern und ihrer Rolle beim Festmachen und Manövrieren von Schiffen. Sie erläutert verschiedene Ankertypen der Rhein- und Binnenschifffahrt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "Bunkerboote und Versorgung",
+          "type": "historic",
+          "address": "Rheinsteigufer (am Steiger/Bunkerboot), 56077 Koblenz-Ehrenbreitstein",
+          "durationMin": 15,
+          "note": "Am Steiger informiert die Station über Bunkerboote, die Frachtschiffe auf dem Rhein mit Treibstoff und Vorräten versorgen. So bleiben die Schiffe ohne Landgang einsatzbereit.",
+          "sourceUrls": []
+        },
+        {
+          "order": 12,
+          "title": "Verladekran von der Lahn",
+          "type": "monument",
+          "address": "Rhein-Museum, Charlottenstraße 53a, 56077 Koblenz",
+          "durationMin": 12,
+          "note": "Beim Rhein-Museum bildet ein historischer hölzerner Verladekran, der ursprünglich an der Lahn im Einsatz war, den namensgebenden Auftakt des offiziellen Pfades. Das benachbarte Rhein-Museum vertieft die Kultur- und Naturgeschichte des Flusses.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "bergisch-gladbach",
+      "slug": "bergisch-gladbach-lyrikpfad",
+      "title": "Historischer Rundgang Bergisch Gladbach – Stadt- und Papiergeschichte",
+      "description": "Ein zu Fuß begehbarer Rundgang durch die Stadtmitte von Bergisch Gladbach und entlang der Strunde: vom zentralen Konrad-Adenauer-Platz mit Rathaus und Villa Zanders über die historischen Kirchen bis zur Zanders-Papierfabrik Gohrsmühle und zum Papiermuseum Alte Dombach. Der Weg erzählt die Stadt- und Industriegeschichte der vom Papier geprägten Stadt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "literatur",
+        "natur"
+      ],
+      "sourceUrls": [
+        "https://www.bergischgladbach.de/lyrikpfad.aspx",
+        "https://de.wikipedia.org/wiki/Papiermuseum_Alte_Dombach",
+        "https://de.wikipedia.org/wiki/Zanders_Papierfabrik",
+        "https://de.wikipedia.org/wiki/St._Laurentius_(Bergisch_Gladbach)"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zanders Papierfabrik Gohrsmühle",
+          "type": "historic",
+          "address": "An der Gohrsmühle, 51465 Bergisch Gladbach",
+          "durationMin": 15,
+          "note": "Auf dem Gelände der Gohrsmühle, die schon 1596 als Mühle bestand, gründete die Familie Zanders 1829 ihre Papierfabrik. Über fast zwei Jahrhunderte war Zanders der größte Arbeitgeber und wirtschaftliche Motor der Stadt, bis das Werk 2021 schloss. Das rund 36 Hektar große Areal an der Strunde wird heute zu einem neuen Stadtquartier entwickelt; mehrere Bauten stehen unter Denkmalschutz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Konrad-Adenauer-Platz",
+          "type": "square",
+          "address": "Konrad-Adenauer-Platz, 51465 Bergisch Gladbach",
+          "durationMin": 15,
+          "note": "Der Konrad-Adenauer-Platz ist der zentrale Platz der Stadtmitte und das Verwaltungs- und Kulturzentrum von Bergisch Gladbach. Rund um den Platz gruppieren sich das historische Rathaus, die Pfarrkirche St. Laurentius, das Kunstmuseum Villa Zanders und das Bürgerhaus Bergischer Löwe. Er bildet damit das räumliche Herzstück des Rundgangs durch die Stadt- und Papiergeschichte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Historisches Rathaus",
+          "type": "historic",
+          "address": "Konrad-Adenauer-Platz 1, 51465 Bergisch Gladbach",
+          "durationMin": 15,
+          "note": "Das historische Rathaus wurde 1856 eröffnet und steht seither unter Denkmalschutz. Es ist bis heute Sitz der Stadtverwaltung und eines der prägenden Baudenkmäler im Zentrum. Der repräsentative Bau steht für den Aufstieg Gladbachs zur Industriestadt im 19. Jahrhundert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Katholische Pfarrkirche St. Laurentius",
+          "type": "church",
+          "address": "Konrad-Adenauer-Platz 3, 51465 Bergisch Gladbach",
+          "durationMin": 15,
+          "note": "St. Laurentius wurde bereits 1282 erstmals als Pfarrkirche erwähnt und gehört zu den ältesten kirchlichen Wurzeln der Stadt. Die heutige neoromanische Basilika entstand in mehreren Bauabschnitten zwischen 1845 und 1907 und steht unter Denkmalschutz. Sie markiert den historischen Ortskern von Gladbach.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Kunstmuseum Villa Zanders",
+          "type": "museum",
+          "address": "Konrad-Adenauer-Platz 8, 51465 Bergisch Gladbach",
+          "durationMin": 40,
+          "note": "Die Villa wurde 1873/74 für die Papierfabrikanten-Familie Zanders errichtet, deren Werke die Stadt über Generationen prägten. Seit 1992 beherbergt sie das städtische Kunstmuseum, das unter anderem eine Sammlung zur \"Kunst aus Papier\" aufbaut und so an die industrielle Tradition anknüpft. Das Gebäude verbindet bürgerliche Wohnkultur mit der Papiergeschichte der Stadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Bürgerhaus Bergischer Löwe",
+          "type": "building",
+          "address": "Konrad-Adenauer-Platz, 51465 Bergisch Gladbach",
+          "durationMin": 15,
+          "note": "Das Bürgerhaus Bergischer Löwe ist das zentrale Veranstaltungs- und Kulturhaus der Stadt. Sein Vorgänger, das Gasthaus Kolter, entstand um 1850; 1903 wurde das Haus umgebaut und erweitert. Heute ist es fester Bestandteil des kulturellen Lebens am Konrad-Adenauer-Platz.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Gnadenkirche",
+          "type": "church",
+          "address": "Hauptstraße 256, 51465 Bergisch Gladbach",
+          "durationMin": 15,
+          "note": "Die Gnadenkirche ist die evangelische Hauptkirche im Zentrum von Bergisch Gladbach und liegt an der Hauptstraße, der zentralen Geschäftsstraße der Stadtmitte. Als evangelisches Gotteshaus spiegelt sie die konfessionelle Vielfalt der wachsenden Industriestadt wider. Sie liegt nur wenige Schritte vom Konrad-Adenauer-Platz entfernt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Papiermuseum Alte Dombach",
+          "type": "museum",
+          "address": "Alte Dombach, 51465 Bergisch Gladbach",
+          "durationMin": 40,
+          "note": "Das Papiermuseum Alte Dombach ist ein Standort des LVR-Industriemuseums und liegt im Strundetal am östlichen Rand von Bergisch Gladbach, wo die gleichmäßige Wasserführung der Strunde einst die Papierherstellung ermöglichte. In der ehemaligen Papiermühle werden Mühlrad, Lumpenstampfwerk und historische Papiermaschinen vorgeführt. Das Museum bildet den thematischen Abschluss des Weges und ist zugleich Endpunkt des Lyrikpfads an der Strunde.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "salzgitter",
+      "slug": "salzgitter-skulpturenweg",
+      "title": "Skulpturenweg Salzgitter-Bad — Europäische Straße des Friedens",
+      "description": "Selbst begehbarer Kunstpfad am Südrand von Salzgitter-Bad, entstanden zwischen 1999 und 2018 als deutscher Abschnitt der Europäischen Straße des Friedens (Otto Freundlichs Idee einer Kunststraße Paris–Moskau). Zehn Stahlskulpturen internationaler Bildhauer verteilen sich in drei Gruppen auf einer rund 8 km langen Rundtour: drei am Thermalsolbad, zwei im Greifpark und fünf am Rand des Golfplatzes Mahner Berg. Kurator des Projekts war Prof. Gerd Winner.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "kunst",
+        "skulptur"
+      ],
+      "sourceUrls": [
+        "https://de.wikipedia.org/wiki/Skulpturenweg_Salzgitter-Bad",
+        "https://die-region.de/leben-freizeit/ausfluege/aktiv-in-der-region-unterwegs/touren-detailseite/tour/skulpturenweg-salzgitter-bad/",
+        "https://www.outdooractive.com/de/kunst/braunschweiger-land/skulpturenweg-salzgitter-bad-europaeische-strasse-des-friedens/26984230/"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Thermalsolbad Salzgitter-Bad (Start & Übersichtstafel)",
+          "type": "building",
+          "address": "Parkallee 3, 38259 Salzgitter",
+          "durationMin": 15,
+          "note": "Offizieller Ausgangspunkt der Rundtour: Direkt vor dem Eingang des Thermalsolbades steht eine Übersichtstafel, die alle zehn Stationen des Skulpturenwegs verortet. Kostenfreie Parkplätze an der Parkallee und eine Einkehrmöglichkeit machen den Ort zum praktischen Start- und Zielpunkt der rund 8 km langen Runde.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "„Der Kuss\" – Menashe Kadishman",
+          "type": "sculpture",
+          "address": "Wiese am Thermalsolbad, Parkallee 3, 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Stahlskulptur des israelischen Bildhauers Menashe Kadishman aus dem Jahr 1999, die auf der Wiese unmittelbar rechts des Thermalsolbad-Eingangs steht. Sie ist meist die erste Skulptur der Runde und gehört zur Gruppe der drei Werke rund um das Thermalsolbad.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "„Kopf\" – Franz Bernhard",
+          "type": "sculpture",
+          "address": "Kurwald am Thermalsolbad, Parkallee, 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Stahlplastik von Franz Bernhard aus dem Jahr 2002, die etwas abseits auf einer Wiese im Wald unterhalb des Thermalsolbades steht und aus der Nähe betrachtet werden kann. Sie zählt zur Werkgruppe am Thermalsolbad.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "„Shadow Dimensions\" – Hiromi Akiyama",
+          "type": "sculpture",
+          "address": "Waldrand am Thermalsolbad, Parkallee, 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Stahlskulptur von Hiromi Akiyama aus dem Jahr 2002 am Wegesrand im Wald nahe dem Thermalsolbad. Gemeinsam mit „Der Kuss\" und „Kopf\" bildet sie die erste der drei Skulpturengruppen des Weges.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "„Kubus Offen\" – Leo Kornbrust",
+          "type": "sculpture",
+          "address": "Greifpark (Kurpark am Greif), an der Bismarckstraße, 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Stahlarbeit von Leo Kornbrust aus dem Jahr 2000, die man gleich am Eingang des Greifparks findet, nachdem man von der Thermalsolbad-Seite die Bismarckstraße überquert hat. Sie eröffnet die zweite, im Greifpark gelegene Werkgruppe des Skulpturenwegs.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "„Glacier\" – James Reineking",
+          "type": "sculpture",
+          "address": "Greifpark, Nordostende an der Bismarckstraße, 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Stahlskulptur des Bildhauers James Reineking aus dem Jahr 2000 am nordöstlichen Ende des Greifparks, direkt an der Bismarckstraße Richtung Innenstadt. Sie ist die zweite der beiden im Park stehenden Arbeiten.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "„Opus Magnum\" – Ulrich Rückriem",
+          "type": "sculpture",
+          "address": "Golfplatz Mahner Berg (nahe Clubhaus), Zufahrt Friedrich-Ebert-Straße, 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Werk des Minimalisten Ulrich Rückriem aus dem Jahr 2009, das nahe dem Clubhaus des Golfplatzes Mahner Berg steht und über den Fußweg an der Driving Range erreichbar ist. Es leitet die fünf Skulpturen umfassende Gruppe am Mahner Berg ein.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "„Sonne, Mond und Himmel\" – Jean-Robert Ipoustéguy",
+          "type": "sculpture",
+          "address": "Golfplatz Mahner Berg (östlich des Clubhauses), 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Stahlskulptur des französischen Bildhauers Jean-Robert Ipoustéguy aus dem Jahr 1999, die östlich des Clubhauses zwischen Golfplatz und Pferdehof mit weitem Ausblick steht. Sie gehört zur Gruppe der fünf Werke am Mahner Berg.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "„Auf Ab Auf\" – Alf Lechner",
+          "type": "sculpture",
+          "address": "Golfplatz Mahner Berg, Wanderweg Richtung Liebenburg, 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Stahlskulptur des auf Stahl spezialisierten Bildhauers Alf Lechner (2005/2006), die am Rand des Golfplatzes auf dem Wanderweg in Richtung Liebenburg steht. Auf dem Rückweg zum Thermalsolbad ist sie eine der ersten Stationen dieser letzten Gruppe.",
+          "sourceUrls": []
+        },
+        {
+          "order": 10,
+          "title": "„Jakobsleiter\" – Gerd Winner",
+          "type": "sculpture",
+          "address": "Golfplatz Mahner Berg, Wanderweg oberhalb des Platzes, 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Stahlarbeit des Kurators Prof. Gerd Winner aus dem Jahr 2000, die am Wanderweg oberhalb des Golfplatzes steht. Winner hat den Skulpturenweg als Kurator begleitet und zwei der zehn Werke selbst beigesteuert.",
+          "sourceUrls": []
+        },
+        {
+          "order": 11,
+          "title": "„Schwerter zu Pflugscharen\" – Gerd Winner",
+          "type": "sculpture",
+          "address": "Golfplatz Mahner Berg, kleiner Wanderweg abseits der „Jakobsleiter\", 38259 Salzgitter",
+          "durationMin": 12,
+          "note": "Jüngste Station des Weges (2018), ebenfalls von Prof. Gerd Winner: Der Titel greift das biblische Friedensmotiv „Schwerter zu Pflugscharen\" auf und verweist damit unmittelbar auf das Leitthema der Europäischen Straße des Friedens. Sie liegt an einem kleinen Wanderweg abseits der „Jakobsleiter\" und bildet den Abschluss der Skulpturengruppe am Mahner Berg.",
+          "sourceUrls": []
+        }
+      ]
+    },
+    {
+      "citySlug": "siegen",
+      "slug": "siegen-historischer-stadtrundgang",
+      "title": "Historischer Stadtrundgang Siegen",
+      "description": "Ein selbst begehbarer Rundgang durch die Siegener Oberstadt: neun offizielle Stationen führen vom Bergmanns- und Hüttenmann-Denkmal über Kirchen, Schlösser und Museen bis hinauf zum Oberen Schloss mit der Rubens-Sammlung und schließlich in die Altstadt. Der Weg erzählt rund 800 Jahre Stadtgeschichte zwischen Bergbau, Nassauer Fürsten und Gegenwartskunst.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "culture",
+        "sightseeing",
+        "walking-tour",
+        "tourism",
+        "editorial",
+        "geschichte",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.siegen.de/kultur-tourismus/historischer-stadtrundgang/",
+        "https://de.wikipedia.org/wiki/Henner_und_Frieder",
+        "https://de.wikipedia.org/wiki/Marienkirche_(Siegen)",
+        "https://www.siegerlandmuseum.de/de/kontakt"
+      ],
+      "sourceType": "official_city",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bergmann und Hüttenmann (\"Henner & Frieder\")",
+          "type": "monument",
+          "address": "Oberstadtbrücke, 57072 Siegen",
+          "durationMin": 12,
+          "note": "Die beiden überlebensgroßen Bronzefiguren stellen einen Bergmann und einen Hüttenmann dar und erinnern an die jahrhundertelange Tradition von Erzbergbau und Eisenverhüttung im Siegerland. Bildhauer Friedrich Reusch schuf sie 1902; nach mehreren Standortwechseln stehen sie heute am Kopf der Oberstadtbrücke und gelten als beliebtes Wahrzeichen der Region.",
+          "sourceUrls": []
+        },
+        {
+          "order": 2,
+          "title": "Martinikirche und Stadtmauer",
+          "type": "church",
+          "address": "Grabenstraße 27, 57072 Siegen",
+          "durationMin": 15,
+          "note": "Die evangelische Martinikirche gilt als ältestes Gotteshaus Siegens; ein Vorgängerbau reicht weit ins Mittelalter zurück, ihre heutige Gestalt stammt im Kern aus dem 16. Jahrhundert. Direkt unterhalb markiert ein erhaltener Abschnitt der mittelalterlichen Stadtbefestigung den früheren Zugang zur Oberstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 3,
+          "title": "Unteres Schloss und Fürstengruft",
+          "type": "building",
+          "address": "Unteres Schloss, 57072 Siegen",
+          "durationMin": 15,
+          "note": "Das barocke Untere Schloss wurde ab 1669 als Residenz der evangelischen Linie des Hauses Nassau-Siegen errichtet und wird heute überwiegend von der Universität Siegen genutzt. In seiner Fürstengruft ruhen Fürst Johann Moritz und weitere Familienmitglieder; die Gruft ist nach umfassender Restaurierung wieder für Besucher zugänglich.",
+          "sourceUrls": []
+        },
+        {
+          "order": 4,
+          "title": "Museum für Gegenwartskunst",
+          "type": "museum",
+          "address": "Unteres Schloss 1, 57072 Siegen",
+          "durationMin": 40,
+          "note": "Das Museum für Gegenwartskunst zeigt Malerei, Fotografie sowie Video- und Rauminstallationen von der klassischen Moderne bis in die Gegenwart. Eng verbunden ist es mit dem Rubenspreis der Stadt Siegen, dessen Preisträger-Sammlung hier zu sehen ist; das Haus liegt unmittelbar am Unteren Schloss.",
+          "sourceUrls": []
+        },
+        {
+          "order": 5,
+          "title": "Marienkirche und Pfarrer-Ochse-Platz",
+          "type": "church",
+          "address": "Löhrstraße, 57072 Siegen",
+          "durationMin": 15,
+          "note": "Die katholische Marienkirche wurde im frühen 18. Jahrhundert von den Jesuiten errichtet und ist der einzige erhaltene barocke Sakralbau der Stadt. Der angrenzende Pfarrer-Ochse-Platz erinnert an den Siegener Geistlichen Wilhelm Ochse, der über Jahrzehnte als Pfarrer an St. Marien wirkte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 6,
+          "title": "Nikolaikirche und Rathaus",
+          "type": "church",
+          "address": "Markt, 57072 Siegen",
+          "durationMin": 15,
+          "note": "Die Nikolaikirche aus dem 13. Jahrhundert ist wegen ihres seltenen sechseckigen Hallengrundrisses eine architektonische Besonderheit und war einst Grablege der Grafen von Nassau. Gleich nebenan liegt am Markt das historische Rathaus, dessen Ursprünge bis ins 16. Jahrhundert zurückreichen.",
+          "sourceUrls": []
+        },
+        {
+          "order": 7,
+          "title": "Das Krönchen — Wahrzeichen der Stadt Siegen",
+          "type": "landmark",
+          "address": "Nikolaikirche, Markt, 57072 Siegen",
+          "durationMin": 15,
+          "note": "Das vergoldete Krönchen auf dem Turm der Nikolaikirche ist das Wahrzeichen Siegens. Die über zwei Meter durchmessende Krone geht auf eine Stiftung des Fürsten Johann Moritz von Nassau-Siegen im 17. Jahrhundert zurück und gab der Stadt den Beinamen Krönchenstadt.",
+          "sourceUrls": []
+        },
+        {
+          "order": 8,
+          "title": "Oberes Schloss und Siegerlandmuseum",
+          "type": "museum",
+          "address": "Oberes Schloss 2, 57072 Siegen",
+          "durationMin": 40,
+          "note": "Das Obere Schloss auf dem Siegberg war Sitz der katholischen Linie des Hauses Nassau-Siegen und beherbergt seit 1905 das Siegerlandmuseum. Zu dessen Höhepunkten zählen mehrere Originalgemälde des in Siegen geborenen Malers Peter Paul Rubens sowie Ausstellungen zur Regional- und Bergbaugeschichte.",
+          "sourceUrls": []
+        },
+        {
+          "order": 9,
+          "title": "Siegener Altstadt",
+          "type": "historic",
+          "address": "Altstadt (Oberstadt), 57072 Siegen",
+          "durationMin": 15,
+          "note": "Die Siegener Altstadt auf dem Siegberg mit ihren engen Gassen, Fachwerkhäusern und Treppenwegen bildet den historischen Kern der Stadt. Nach den Zerstörungen des Zweiten Weltkriegs wurde das Quartier wieder aufgebaut und lädt heute mit Geschäften und Gastronomie zum Verweilen ein.",
+          "sourceUrls": []
+        }
+      ]
+    }
+  ]
+}
