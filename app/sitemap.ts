@@ -21,6 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url("/", 1.0, "daily"),
     url("/explore", 0.9, "daily"),
     url("/planner", 0.9, "daily"),
+    url("/entdeckungsrouten", 0.85, "weekly"),
     url("/partner", 0.7, "monthly"),
   ];
 

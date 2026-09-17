@@ -110,6 +110,11 @@ const nextConfig: NextConfig = {
       { source: "/events/dashboard", destination: "/feiern/dashboard", permanent: true },
       { source: "/events/plan/new", destination: "/feiern/plan/new", permanent: true },
       { source: "/events/plan/:id", destination: "/feiern/plan/:id", permanent: true },
+      // Merkbare Anmelde-/Registrier-URLs fuer CTAs und Marketing. Die Auth-UI
+      // lebt auf /profile (zeigt ausgeloggt die Anmeldung); permanent: false,
+      // weil das ein reiner App-Alias ist, kein dauerhafter SEO-Umzug.
+      { source: "/anmelden", destination: "/profile", permanent: false },
+      { source: "/registrieren", destination: "/profile", permanent: false },
     ];
   },
   async rewrites() {

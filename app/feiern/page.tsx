@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import Image from "next/image";
+import { getInviteTheme } from "@/lib/events/occasion-theme";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -527,6 +527,7 @@ export default function EventsPage() {
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4">
                   {OCCASIONS.map((occ) => {
                     const selected = form.occasionSlug === occ.slug;
+                    const theme = getInviteTheme(occ.slug);
                     return (
                       <button
                         key={occ.slug}
@@ -540,13 +541,16 @@ export default function EventsPage() {
                         )}
                         style={{ height: 160 }}
                       >
-                        {/* Foto */}
-                        <Image
-                          src={`/feiern/occasion-${occ.slug}.png`}
-                          alt={occ.label}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
+                        {/* Anlass-Farbwelt statt Foto: die frueher referenzierten
+                            /feiern/occasion-*.png existierten nie (404, kaputte
+                            Kacheln). Der Akzent-Verlauf je Anlass ist bewusst
+                            bild-los und haelt weissen Text ueber dem Overlay lesbar. */}
+                        <div
+                          aria-hidden
+                          className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
+                          style={{
+                            background: `linear-gradient(140deg, ${theme.accent} 0%, ${theme.accent} 42%, rgba(0,0,0,0.34) 100%)`,
+                          }}
                         />
                         {/* Gradient-Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
