@@ -2,12 +2,44 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
 import PlannerModeSwitcher from "@/components/planner/PlannerModeSwitcher";
 
 export default function MainNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Auth-Zustand nur, um den Account-Bereich richtig zu beschriften: ausgeloggte
+  // Besucher (der Normalfall bei neuem Traffic) brauchen einen sichtbaren
+  // "Anmelden"-Knopf, eingeloggte das Profil-Icon. "unknown" bis die Session
+  // geladen ist — dann zeigen wir das neutrale Profil-Icon, damit Eingeloggte nie
+  // faelschlich "Anmelden" aufblitzen sehen.
+  const [authState, setAuthState] = useState<"unknown" | "in" | "out">("unknown");
+  useEffect(() => {
+    let active = true;
+    const resolve = (
+      session: Awaited<ReturnType<typeof supabase.auth.getSession>>["data"]["session"]
+    ) => {
+      if (!active) return;
+      const user = session?.user;
+      const anon = Boolean((user as { is_anonymous?: boolean } | undefined)?.is_anonymous);
+      setAuthState(user && !anon ? "in" : "out");
+    };
+    supabase.auth
+      .getSession()
+      .then(({ data }) => resolve(data.session))
+      .catch(() => {
+        if (active) setAuthState("out");
+      });
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) =>
+      resolve(session)
+    );
+    return () => {
+      active = false;
+      listener.subscription.unsubscribe();
+    };
+  }, []);
 
   const hideOnMarketingPages =
     pathname === "/" ||
@@ -103,6 +135,7 @@ export default function MainNav() {
         >
           <Link href="/planner"  className={linkClass("/planner")}>Planen</Link>
           <Link href="/explore"  className={linkClass("/explore")}>Entdecken</Link>
+          <Link href="/entdeckungsrouten" className={linkClass("/entdeckungsrouten")}>Entdeckungspfade</Link>
           <Link href="/events"   className={linkClass("/events")}>Events</Link>
           <Link href="/saved"    className={linkClass("/saved")}>Meine Pläne</Link>
         </div>
@@ -138,20 +171,29 @@ export default function MainNav() {
           >
             {isPartnerSurface ? "Partner-Dashboard" : "Partner werden"}
           </Link>
-          <Link
-            href="/profile"
-            aria-label="Profil"
-            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition ${
-              isActive("/profile")
-                ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white shadow-sm"
-                : "border-[var(--line-subtle)] bg-white text-[var(--text-muted)] hover:border-[rgba(23,23,23,0.25)] hover:text-[var(--text-strong)]"
-            }`}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-          </Link>
+          {authState === "out" ? (
+            <Link
+              href="/anmelden"
+              className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-full bg-[var(--text-strong)] px-4 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
+            >
+              Anmelden
+            </Link>
+          ) : (
+            <Link
+              href="/profile"
+              aria-label="Profil"
+              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition ${
+                isActive("/profile")
+                  ? "border-[var(--text-strong)] bg-[var(--text-strong)] text-white shadow-sm"
+                  : "border-[var(--line-subtle)] bg-white text-[var(--text-muted)] hover:border-[rgba(23,23,23,0.25)] hover:text-[var(--text-strong)]"
+              }`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </Link>
+          )}
         </div>
       </div>
 
@@ -161,9 +203,14 @@ export default function MainNav() {
           <nav className="flex flex-col gap-1">
             <Link href="/planner"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/planner") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Planen</Link>
             <Link href="/explore"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/explore") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Entdecken</Link>
+            <Link href="/entdeckungsrouten" onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/entdeckungsrouten") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Entdeckungspfade</Link>
             <Link href="/events"   onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/events") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Events</Link>
             <Link href="/saved"    onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/saved") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Meine Pläne</Link>
-            <Link href="/profile"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/profile") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Profil</Link>
+            {authState === "out" ? (
+              <Link href="/anmelden" onClick={() => setMobileOpen(false)} className="rounded-2xl bg-[var(--text-strong)] px-4 py-3 text-sm font-medium text-white transition hover:opacity-90">Anmelden</Link>
+            ) : (
+              <Link href="/profile"  onClick={() => setMobileOpen(false)} className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive("/profile") ? "bg-[var(--text-strong)] text-white" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-strong)]"}`}>Profil</Link>
+            )}
             <div className="my-1 border-t border-[var(--line-subtle)]" />
             <Link
               href={isPartnerSurface ? "/partner/dashboard" : "/partner"}
