@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
 import {
   DISCOVERY_ROUTES,
@@ -68,13 +69,18 @@ function RouteCard({ route, cover }: { route: DiscoveryRoute; cover: string | nu
       className="group flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--line-subtle)] bg-[var(--bg-panel-strong)] transition hover:border-[var(--line-strong)] hover:shadow-[0_12px_30px_rgba(15,23,42,0.08)]"
     >
       <div className="relative aspect-[1200/630] w-full overflow-hidden bg-[var(--bg-canvas-warm)]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {/*
+          next/image statt <img>: die echten Cover kommen als Wikimedia-/Openverse-
+          Originale (teils >2,5 MB) und wurden vorher ungenutzt in ~380px-Kacheln
+          heruntergerechnet. next/image verkleinert auf die Anzeigegroesse, liefert
+          WebP/AVIF, cached und lazy-loadet. `sizes` spiegelt das 1/2/3-Spalten-Raster.
+        */}
+        <Image
           src={thumb}
           alt={`${route.title} – ${route.city}`}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition duration-300 group-hover:scale-[1.03]"
         />
       </div>
       <div className="flex flex-1 flex-col p-4">
