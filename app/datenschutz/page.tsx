@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import LegalPageShell, { LegalSection } from "@/components/legal/LegalPageShell";
+import LegalPageShell, { LegalSection, Offen } from "@/components/legal/LegalPageShell";
+import { ANBIETER, DATENSCHUTZ_AUFSICHT, FIRMA_ANZEIGE, istOffen } from "@/lib/legal/anbieter";
 
 export const metadata: Metadata = {
   title: "Datenschutz | PerfectDay24",
@@ -32,19 +33,21 @@ export default function DatenschutzPage() {
   return (
     <LegalPageShell
       title="Datenschutzerklärung"
-      updatedAt="21. April 2026"
+      updatedAt="31. August 2026"
       intro="Diese Datenschutzerklärung informiert Sie darüber, welche personenbezogenen Daten wir bei der Nutzung von PerfectDay24 verarbeiten, zu welchen Zwecken dies geschieht, auf welcher Rechtsgrundlage wir dies tun und welche Rechte Ihnen zustehen."
     >
       <LegalSection title="Vor Veröffentlichung ergänzen und prüfen">
+        <p>
+          Die folgenden Punkte sind noch offen. Erledigte Punkte wurden entfernt: Verantwortlicher,
+          Aufsichtsbehörde, Hosting-Provider und das Consent-Management sind eingetragen.
+        </p>
         <BulletList
           items={[
-            "Rechtlicher Verantwortlicher, ladungsfähige Anschrift, E-Mail-Adresse und ggf. Vertretungsberechtigte ergänzen.",
-            "Sofern ein Datenschutzbeauftragter bestellt ist: Kontaktdaten ergänzen.",
-            "Hosting-Provider, Serverstandorte und konkrete Aufbewahrungsfristen für Server-Logs ergänzen.",
-            "Prüfen, ob für nicht technisch erforderliche Tracking-/Attributionsfunktionen bereits ein wirksames Consent-Management eingesetzt wird.",
-            "Prüfen, welche Aufbewahrungsfristen intern für Nutzerkonten, Pläne, Chats, Social-Daten und Affiliate-/Attributionsdaten verbindlich gelten.",
-            "Prüfen, auf welcher vertraglichen Grundlage internationale Datentransfers mit OpenAI und weiteren Anbietern abgesichert sind.",
-            "Zuständige Datenschutzaufsichtsbehörde des Verantwortlichen ergänzen.",
+            "Datenschutz-Kontaktadresse (E-Mail) eintragen — siehe Abschnitt 1.",
+            "Ladungsfähige Anschriften der Auftragsverarbeiter Vercel und Supabase aus den jeweiligen Auftragsverarbeitungsverträgen übernehmen.",
+            "Aufbewahrungsfrist für Server-Logs bei Vercel konkretisieren.",
+            "Verbindliche Löschfristen für Attributions- und Monetarisierungsdaten intern festlegen und in Abschnitt 24 eintragen.",
+            "Abgeschlossene Auftragsverarbeitungsverträge und Standardvertragsklauseln für Vercel, Supabase, Resend und OpenAI ablegen und dokumentieren.",
           ]}
         />
       </LegalSection>
@@ -63,16 +66,18 @@ export default function DatenschutzPage() {
         <p>Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:</p>
         <AddressBlock
           lines={[
-            "[Rechtlicher Name / Unternehmen]",
-            "[Anschrift]",
-            "[PLZ Ort]",
-            "[Land]",
-            "E-Mail: [Datenschutz-/Kontakt-E-Mail]",
-            "Telefon: [optional]",
+            FIRMA_ANZEIGE,
+            ANBIETER.strasse,
+            ANBIETER.plzOrt,
+            ANBIETER.land,
+            istOffen(ANBIETER.email) ? "E-Mail: —" : `E-Mail: ${ANBIETER.email}`,
           ]}
         />
-        <p>Sofern ein Datenschutzbeauftragter bestellt ist, ist dieser erreichbar unter:</p>
-        <p>[Name / Funktion, Anschrift oder E-Mail des Datenschutzbeauftragten]</p>
+        {istOffen(ANBIETER.email) ? <Offen was="Datenschutz-Kontaktadresse" /> : null}
+        <p>
+          Ein Datenschutzbeauftragter ist nicht bestellt. Eine Bestellpflicht besteht für uns
+          derzeit nicht; Anfragen zum Datenschutz richten Sie bitte an die oben genannte Adresse.
+        </p>
       </LegalSection>
 
       <LegalSection title="2. Begriffsbestimmung und Rechtsgrundlagen">
@@ -105,19 +110,52 @@ export default function DatenschutzPage() {
           IP-Adresse, Datum und Uhrzeit des Zugriffs, angeforderte Inhalte, Informationen zum Browser
           und Betriebssystem sowie Referrer-Informationen gehören.
         </p>
-        <p>Die konkrete Ausgestaltung richtet sich nach dem eingesetzten Hosting-Provider:</p>
-        <BulletList
-          items={[
-            "Hosting-Provider: [bitte ergänzen]",
-            "Serverstandort(e): [bitte ergänzen]",
-            "Aufbewahrungsfrist für Logdaten: [bitte ergänzen]",
-          ]}
-        />
         <p>
           Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes
           Interesse liegt in der sicheren, stabilen und performanten Bereitstellung unseres
           Online-Angebots.
         </p>
+      </LegalSection>
+
+      <LegalSection title="3a. Hosting und Auslieferung (Vercel)">
+        <p>
+          <strong>perfectday24</strong> wird bei <strong>Vercel</strong> gehostet (Vercel Inc.,
+          Vereinigte Staaten von Amerika). Vercel betreibt für uns die Server, das Content Delivery
+          Network und die Ausführungsumgebung der Anwendung. Sämtliche Aufrufe unserer Website
+          laufen technisch über diese Infrastruktur, weshalb dabei zwangsläufig die oben genannten
+          Verbindungsdaten anfallen.
+        </p>
+        <Offen was="ladungsfähige Anschrift von Vercel (aus dem Auftragsverarbeitungsvertrag übernehmen)" />
+        <p>Im Rahmen des Hostings können insbesondere verarbeitet werden:</p>
+        <BulletList
+          items={[
+            "IP-Adresse des aufrufenden Endgeräts",
+            "Datum, Uhrzeit und Zeitzone des Zugriffs",
+            "angeforderte URL, HTTP-Statuscode und übertragene Datenmenge",
+            "Browser-, Geräte- und Betriebssysteminformationen (User-Agent) sowie Referrer",
+            "technische Protokolldaten zur Fehlersuche, Missbrauchserkennung und Lastverteilung",
+          ]}
+        />
+        <p>
+          Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in
+          einer sicheren, ausfallsicheren und performanten Bereitstellung unseres Angebots. Vercel
+          ist für uns Auftragsverarbeiter im Sinne von Art. 28 DSGVO; wir haben mit Vercel einen
+          entsprechenden Auftragsverarbeitungsvertrag geschlossen.
+        </p>
+        <p>
+          Vercel hat seinen Sitz in den USA und betreibt weltweit Rechenzentren. Eine Verarbeitung
+          personenbezogener Daten in den USA bzw. eine Übermittlung dorthin kann daher nicht
+          ausgeschlossen werden. Diese Übermittlung erfolgt auf Grundlage der von der Europäischen
+          Kommission erlassenen Standardvertragsklauseln nach Art. 46 Abs. 2 lit. c DSGVO, ergänzt
+          um die von Vercel zugesagten technischen und organisatorischen Maßnahmen. Näheres regelt
+          der mit Vercel geschlossene Auftragsverarbeitungsvertrag.
+        </p>
+        <p>
+          Wir setzen zudem die von Vercel bereitgestellten Schutzfunktionen gegen Überlastung und
+          automatisierte Angriffe ein. Die dabei anfallenden Protokolldaten werden ausschließlich zu
+          Sicherheits- und Stabilitätszwecken verarbeitet und nicht zur Profilbildung genutzt.
+        </p>
+        <Offen was="Aufbewahrungsfrist für Server-Logs (aus der Vercel-Konfiguration bzw. dem AVV übernehmen)" />
       </LegalSection>
 
       <LegalSection title="4. Browser-Speicher, lokale Einstellungen und technisch erforderliche Endgerätezugriffe">
@@ -142,9 +180,24 @@ export default function DatenschutzPage() {
           technisch erforderliche Endgerätezugriffe.
         </p>
         <p>
-          Soweit nicht technisch erforderliche Tracking- oder Attributionskennungen eingesetzt werden,
-          sollte dies nur auf Basis einer wirksamen Einwilligung erfolgen. Vor dem Produktivgang ist
-          daher zu prüfen, ob für diese Verarbeitungen ein passendes Consent-Management aktiv ist.
+          Die in der letzten Aufzählungszeile genannten Kennungen für Monetarisierungs- und
+          Attributionsfunktionen sind <strong>nicht</strong> technisch erforderlich. Sie werden
+          deshalb erst gesetzt, nachdem Sie im Einwilligungsbanner ausdrücklich zugestimmt haben.
+          Rechtsgrundlage ist insoweit Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO in
+          Verbindung mit § 25 Abs. 1 TDDDG.
+        </p>
+        <p>
+          Ihre Entscheidung können Sie jederzeit mit Wirkung für die Zukunft ändern oder widerrufen —
+          über den Punkt <strong>„Cookie-Einstellungen“</strong> in der Fußzeile, auf den
+          Rechtsseiten sowie in Ihrem Profil. Widerrufen Sie die Einwilligung oder lehnen Sie ab,
+          werden die betroffenen Kennungen unverzüglich aus dem Browser-Speicher Ihres Endgeräts
+          gelöscht.
+        </p>
+        <p>
+          Unabhängig davon können Sie unter <strong>Profil → Lokal gespeicherte Daten</strong> alle
+          auf Ihrem Gerät abgelegten Angaben löschen, also auch den zuletzt verwendeten Startpunkt
+          und offene Gruppen-Einladungen. Das ist insbesondere auf gemeinsam genutzten Geräten
+          sinnvoll.
         </p>
       </LegalSection>
 
@@ -491,16 +544,12 @@ export default function DatenschutzPage() {
           Grundlage von Art. 6 Abs. 1 lit. b DSGVO.
         </p>
         <p>
-          Anbieter, Anschrift, Region und gegebenenfalls eingesetzte Unterauftragsverarbeiter sind vor
-          Veröffentlichung dieser Datenschutzerklärung konkret zu ergänzen:
+          Anbieter ist <strong>Supabase, Inc.</strong> (Vereinigte Staaten von Amerika). Supabase ist
+          für uns Auftragsverarbeiter nach Art. 28 DSGVO. Soweit dabei eine Übermittlung in die USA
+          nicht ausgeschlossen werden kann, erfolgt sie auf Grundlage der Standardvertragsklauseln
+          nach Art. 46 Abs. 2 lit. c DSGVO.
         </p>
-        <BulletList
-          items={[
-            "Anbieter: [bitte ergänzen]",
-            "Anschrift: [bitte ergänzen]",
-            "Region / Serverstandort: [bitte ergänzen]",
-          ]}
-        />
+        <Offen was="ladungsfähige Anschrift und gebuchte Datenbank-Region von Supabase (aus dem Auftragsverarbeitungsvertrag übernehmen)" />
       </LegalSection>
 
       <LegalSection title="20. Versand von Transaktions-E-Mails (Resend)">
@@ -549,8 +598,9 @@ export default function DatenschutzPage() {
         />
         <p>
           Ein Personenbezug wird dabei nicht hergestellt; ein Rückschluss auf einzelne Personen ist
-          uns nicht möglich. Da kein Zugriff auf Informationen in Ihrem Endgerät erfolgt, ist eine
-          Einwilligung nach § 25 Abs. 1 TTDSG nicht erforderlich. Rechtsgrundlage ist unser
+          uns nicht möglich. Da weder Informationen auf Ihrem Endgerät gespeichert noch aus ihm
+          ausgelesen werden, greift die Ausnahme des § 25 Abs. 2 Nr. 2 TDDDG; eine Einwilligung ist
+          für die Reichweitenmessung daher nicht erforderlich. Rechtsgrundlage ist unser
           berechtigtes Interesse an einer datensparsamen statistischen Auswertung und an der
           bedarfsgerechten Weiterentwicklung unseres Angebots nach Art. 6 Abs. 1 lit. f DSGVO.
         </p>
@@ -560,7 +610,7 @@ export default function DatenschutzPage() {
         <p>Empfänger Ihrer Daten können insbesondere sein:</p>
         <BulletList
           items={[
-            "Hosting-Provider",
+            "Vercel als Hosting- und Content-Delivery-Dienstleister",
             "Supabase als Infrastruktur- und Datenbankdienstleister",
             "Resend als E-Mail-Versanddienstleister",
             "Plausible Analytics als Anbieter der cookielosen Reichweitenmessung (EU)",
@@ -583,9 +633,22 @@ export default function DatenschutzPage() {
           unter Beachtung der gesetzlichen Voraussetzungen.
         </p>
         <p>
-          Dies kann insbesondere durch Angemessenheitsbeschlüsse oder geeignete Garantien wie
-          Standardvertragsklauseln erfolgen, soweit erforderlich. Die konkret eingesetzten
-          Transfermechanismen sollten vor Livegang dokumentiert und hier ergänzt werden.
+          Konkret betrifft dies derzeit folgende Dienste und Mechanismen:
+        </p>
+        <BulletList
+          items={[
+            "Vercel (Hosting, USA): Standardvertragsklauseln nach Art. 46 Abs. 2 lit. c DSGVO.",
+            "Supabase (Datenbank, Authentifizierung, Speicher, USA): Standardvertragsklauseln nach Art. 46 Abs. 2 lit. c DSGVO.",
+            "Resend (Transaktions-E-Mails, USA): Versand über Infrastruktur in der EU (Region Irland), ergänzend Standardvertragsklauseln.",
+            "OpenAI (KI-Textfunktion, USA): Standardvertragsklauseln nach Art. 46 Abs. 2 lit. c DSGVO.",
+            "Plausible Analytics (Reichweitenmessung): Verarbeitung ausschließlich auf Servern in der EU, keine Drittlandübermittlung.",
+          ]}
+        />
+        <p>
+          Trotz dieser Garantien lässt sich nicht vollständig ausschließen, dass Behörden in den
+          Vereinigten Staaten auf Grundlage dortiger Rechtsvorschriften auf Daten zugreifen. Ein mit
+          dem europäischen Recht vergleichbares Schutzniveau und wirksame Rechtsbehelfe können
+          insoweit nicht in jedem Fall gewährleistet werden.
         </p>
       </LegalSection>
 
@@ -600,7 +663,8 @@ export default function DatenschutzPage() {
             "Kontodaten speichern wir für die Dauer des Bestehens Ihres Nutzerkontos.",
             "Profil-, Plan-, Routen-, Gruppen- und Chat-Daten speichern wir grundsätzlich so lange, bis Sie Inhalte löschen oder Ihr Konto entfernt wird, soweit keine gesetzlichen Pflichten entgegenstehen.",
             "Öffentlich freigegebene Inhalte und Share-Daten bleiben sichtbar, solange die zugrunde liegenden Inhalte bzw. Freigaben bestehen.",
-            "Lokale Browser-Speicherungen verbleiben grundsätzlich auf Ihrem Endgerät, bis Sie diese löschen oder sie durch Ihren Browser entfernt werden.",
+            "Lokale Browser-Speicherungen verbleiben grundsätzlich auf Ihrem Endgerät, bis Sie diese löschen oder sie durch Ihren Browser entfernt werden. Über „Cookie-Einstellungen“ und „Lokal gespeicherte Daten“ im Profil können Sie sie jederzeit selbst entfernen.",
+            "Server-Logs unseres Hosting-Dienstleisters werden nur für den zur Fehlersuche und Missbrauchserkennung erforderlichen Zeitraum vorgehalten.",
             "Attributions- und Monetarisierungsdaten sollten vor Veröffentlichung mit konkreten Lösch- bzw. Prüffristen hinterlegt werden.",
           ]}
         />
@@ -631,8 +695,17 @@ export default function DatenschutzPage() {
           Sie haben außerdem das Recht, sich bei einer Datenschutzaufsichtsbehörde über die
           Verarbeitung Ihrer personenbezogenen Daten durch uns zu beschweren.
         </p>
-        <p>Zuständige Aufsichtsbehörde:</p>
-        <p>[bitte zuständige Landesdatenschutzbehörde des Verantwortlichen ergänzen]</p>
+        <p>Zuständige Aufsichtsbehörde ist wegen unseres Sitzes in Hessen:</p>
+        <AddressBlock
+          lines={[
+            DATENSCHUTZ_AUFSICHT.name,
+            DATENSCHUTZ_AUFSICHT.strasse,
+            DATENSCHUTZ_AUFSICHT.plzOrt,
+            `Telefon: ${DATENSCHUTZ_AUFSICHT.telefon}`,
+            `E-Mail: ${DATENSCHUTZ_AUFSICHT.email}`,
+            DATENSCHUTZ_AUFSICHT.web,
+          ]}
+        />
       </LegalSection>
 
       <LegalSection title="27. Pflicht zur Bereitstellung von Daten">
