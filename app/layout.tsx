@@ -67,6 +67,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="overflow-x-clip bg-[var(--bg-canvas)] text-[var(--text-strong)]">
+        {/*
+          Impact.com Site-Verifizierung (Affiliate-Partnerkonto). Impact verlangt
+          das nicht-standardmaessige `value`-Attribut statt `content` und liest
+          es beim Crawl der Startseite. React 19 hebt diesen <meta>-Tag in den
+          <head>; als any gespreadet, weil `value` nicht im Meta-Attributtyp steht.
+        */}
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <meta {...({ name: "impact-site-verification", value: "1a0db38b-dbaa-4665-9310-bd7359b65fb2" } as any)} />
         <MainNav />
         <div className="w-full min-w-0 overflow-x-clip px-4 py-6 pb-24 sm:pb-6 sm:px-6 lg:px-8">{children}</div>
         <FloatingChat />
