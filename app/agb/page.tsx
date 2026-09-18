@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import LegalPageShell, { LegalSection } from "@/components/legal/LegalPageShell";
+import LegalPageShell, { LegalSection, Offen } from "@/components/legal/LegalPageShell";
+import { ANBIETER, FIRMA_ANZEIGE, istOffen } from "@/lib/legal/anbieter";
 
 export const metadata: Metadata = {
   title: "AGB | PerfectDay24",
@@ -51,14 +52,17 @@ export default function AgbPage() {
       <LegalSection title="Vor Veröffentlichung zwingend ausfüllen">
         <BulletList
           items={[
-            "Firma: [Rechtlicher Unternehmensname / Rechtsform]",
-            "Anschrift: [Straße, Hausnummer, PLZ, Ort, Land]",
-            "Vertretungsberechtigte Person: [Geschäftsführer/in]",
-            "E-Mail: [E-Mail-Adresse]",
-            "Telefon: [optional]",
-            "Handelsregister: [Amtsgericht / HRB, sobald vorhanden]",
-            "USt-IdNr.: [falls vorhanden]",
-            "Sitz / Gerichtsstand für Unternehmer: [Ort]",
+            `Firma: ${FIRMA_ANZEIGE}`,
+            `Anschrift: ${ANBIETER.strasse}, ${ANBIETER.plzOrt}, ${ANBIETER.land}`,
+            istOffen(ANBIETER.vertretenDurch)
+              ? "Vertretungsberechtigte Person: —"
+              : `Vertretungsberechtigte Person: ${ANBIETER.vertretenDurch}`,
+            istOffen(ANBIETER.email) ? "E-Mail: —" : `E-Mail: ${ANBIETER.email}`,
+            istOffen(ANBIETER.registernummer)
+              ? `Handelsregister: ${ANBIETER.registergericht}, HRB —`
+              : `Handelsregister: ${ANBIETER.registergericht}, ${ANBIETER.registernummer}`,
+            istOffen(ANBIETER.ustIdNr) ? "USt-IdNr.: —" : `USt-IdNr.: ${ANBIETER.ustIdNr}`,
+            `Sitz / Gerichtsstand für Unternehmer: ${ANBIETER.plzOrt}`,
           ]}
         />
       </LegalSection>
@@ -79,8 +83,19 @@ export default function AgbPage() {
           items={[
             <>
               Diese Allgemeinen Geschäftsbedingungen gelten für die Nutzung der von
-              <strong> [Rechtlicher Unternehmensname / Rechtsform]</strong>, <strong>[Anschrift]</strong>,
-              vertreten durch <strong>[Geschäftsführer/in]</strong> (nachfolgend
+              <strong> {FIRMA_ANZEIGE}</strong>,{" "}
+              <strong>
+                {ANBIETER.strasse}, {ANBIETER.plzOrt}
+              </strong>
+              , vertreten durch{" "}
+              <strong>
+                {istOffen(ANBIETER.vertretenDurch) ? (
+                  <Offen was="Name der Geschäftsführung" />
+                ) : (
+                  ANBIETER.vertretenDurch
+                )}
+              </strong>{" "}
+              (nachfolgend
               <strong> &quot;PerfectDay24&quot;</strong> oder <strong>&quot;wir&quot;</strong>),
               angebotenen Website, Web-App und sonstigen digitalen Dienste unter der Marke
               PerfectDay24.
@@ -285,7 +300,7 @@ export default function AgbPage() {
               Ist der Nutzer Kaufmann, juristische Person des öffentlichen Rechts oder
               öffentlich-rechtliches Sondervermögen, ist ausschließlicher Gerichtsstand für alle
               Streitigkeiten aus oder im Zusammenhang mit diesem Vertragsverhältnis der Sitz von
-              PerfectDay24, derzeit <strong>[Ort]</strong>.
+              PerfectDay24, derzeit <strong>{ANBIETER.plzOrt}</strong>.
             </>,
           ]}
         />
