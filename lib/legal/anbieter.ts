@@ -56,7 +56,7 @@ export const ANBIETER = {
    * § 5 DDG ohnehin nicht ins Impressum.
    */
   vertretenDurch: "Alex Bugajew",
-  email: "perfectday24@gmail.com",
+  email: "info@perfectday24.de",
 
   /** Ebsdorfergrund gehört zum Registerbezirk des Amtsgerichts Marburg. */
   registergericht: "Amtsgericht Marburg",
