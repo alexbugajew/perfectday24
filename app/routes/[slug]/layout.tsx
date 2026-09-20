@@ -105,8 +105,26 @@ export async function generateMetadata({
   // Konventionsdatei hätte Vorrang vor diesen config-Images — deshalb ist die
   // generierte PD24-Karte jetzt ein Route-Handler unter `/og` und dient nur
   // noch Routen ohne Cover als Fallback.
+  // Als og:image kommt nur ein SELBST gehostetes Cover in Frage (Supabase):
+  // Rohe Wikimedia-URLs blockieren den Facebook-Crawler (403 auf
+  // facebookexternalhit) und liefern zig-MB-Originale ueber Facebooks Limit -
+  // die Vorschau bleibt bildlos. Zudem duerfen Wikimedia-Bilder laut Projekt-
+  // regel nur auf der Website stehen, nicht im Social-Kontext. Fuer Fremd-/
+  // Wikimedia-Cover faellt og:image daher auf die generierte PD24-Karte (`/og`)
+  // zurueck (eigenes Asset, eigene Domain, ~135 KB). Das On-Page-Hero nutzt
+  // weiter das Original ueber next/image (kein FB-Problem).
+  const supabaseHost = (() => {
+    try {
+      return new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").host;
+    } catch {
+      return "";
+    }
+  })();
   const coverImageUrl =
-    route.cover_image_url && /^https?:\/\//i.test(route.cover_image_url)
+    route.cover_image_url &&
+    /^https?:\/\//i.test(route.cover_image_url) &&
+    supabaseHost.length > 0 &&
+    route.cover_image_url.includes(supabaseHost)
       ? route.cover_image_url
       : null;
   const ogImage = coverImageUrl
