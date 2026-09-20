@@ -600,6 +600,10 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
 
   const [authReady, setAuthReady] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
+  // Anonyme Gast-Sessions (signInAnonymously) sollen den Stop-Swipe nicht sehen:
+  // die Alternativen sind ein Anreiz, sich zu registrieren. Nur echte Konten
+  // (nicht is_anonymous) gelten als registriert.
+  const [isRegistered, setIsRegistered] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
 
   const [route, setRoute] = useState<UserRouteRow | null>(initial.route);
@@ -931,7 +935,9 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
   }
 
   useEffect(() => {
-    if (!route?.city_slug || effectivePersonalizationInterests.length === 0 || stops.length === 0) {
+    // Der Stop-Swipe ist registrierten Konten vorbehalten (Anreiz zur Anmeldung);
+    // fuer Gaeste ohne Konto werden gar keine Alternativen geladen.
+    if (!isRegistered || !route?.city_slug || effectivePersonalizationInterests.length === 0 || stops.length === 0) {
       setInlineSwapCandidates({});
       setInlineSwapIndex({});
       return;
@@ -1017,7 +1023,7 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
     return () => {
       active = false;
     };
-  }, [route?.city_slug, stops, effectivePersonalizationInterests, groupMemberCount]);
+  }, [isRegistered, route?.city_slug, stops, effectivePersonalizationInterests, groupMemberCount]);
 
   useEffect(() => {
     let active = true;
@@ -1067,17 +1073,20 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
         if (sErr) console.error("getSession error:", sErr);
         if (!active) return;
         setUserId(s.session?.user?.id ?? null);
+        setIsRegistered(Boolean(s.session?.user) && !s.session?.user?.is_anonymous);
         setAuthReady(true);
       } catch (e) {
         console.error("Auth init error:", e);
         if (!active) return;
         setUserId(null);
+        setIsRegistered(false);
         setAuthReady(true);
       }
     })();
 
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setUserId(session?.user?.id ?? null);
+      setIsRegistered(Boolean(session?.user) && !session?.user?.is_anonymous);
       setAuthReady(true);
     });
 
@@ -1098,6 +1107,7 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
       }
 
       setUserId(data.user?.id ?? null);
+      setIsRegistered(false);
       setAuthReady(true);
       showToast("Gastzugang aktiviert.");
     } finally {
@@ -2892,7 +2902,22 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
                     </p>
                   ) : null}
 
-                  {reasonTextForKind(personalizationKind) ? (
+                  {adjustable && authReady && !isRegistered ? (
+                    // Der Alternativen-Swipe ist ein Registrierungs-Anreiz: Gaeste
+                    // sehen statt der Personalisierung eine Einladung, ein Konto anzulegen.
+                    <div className="mt-2 flex flex-col gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs leading-5 text-amber-900 sm:flex-row sm:items-center sm:justify-between">
+                      <span>
+                        <span aria-hidden className="mr-1">🔓</span>
+                        Mit einem kostenlosen Konto tauschst du diesen Stop gegen zu dir passende Alternativen aus.
+                      </span>
+                      <Link
+                        href="/registrieren"
+                        className="shrink-0 rounded-full bg-amber-900 px-3 py-1.5 text-center font-medium text-white transition hover:bg-amber-950"
+                      >
+                        Kostenlos registrieren
+                      </Link>
+                    </div>
+                  ) : reasonTextForKind(personalizationKind) ? (
                     <div className="border-t border-[var(--line-subtle)] pt-2 text-xs leading-5 text-[var(--text-muted)]">
                       {reasonTextForKind(personalizationKind)}
                     </div>
