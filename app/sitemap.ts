@@ -78,7 +78,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .eq("visibility", "public")
         .not("slug", "is", null)
         .order("updated_at", { ascending: false })
-        .limit(500);
+        // Deckel hochgezogen: Mit den Familien-Tagesrouten liegen wir ueber 500
+        // oeffentlichen Routen; bei 500 fielen die aeltesten aus der Sitemap.
+        .limit(5000);
 
       routePages = (routes ?? []).map((r) => ({
         url: `${SITE_URL}/routes/${r.slug}`,

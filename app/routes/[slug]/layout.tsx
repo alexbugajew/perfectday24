@@ -121,6 +121,11 @@ export async function generateMetadata({
   return {
     title,
     description,
+    // Self-Canonical auf die www-Variante: Ohne ihn meldet die Search Console
+    // Routen als "Duplikat – nicht als kanonisch festgelegt" (apex/www, Parameter).
+    alternates: {
+      canonical: `${siteUrl}/routes/${slug}`,
+    },
     openGraph: {
       title,
       description,
