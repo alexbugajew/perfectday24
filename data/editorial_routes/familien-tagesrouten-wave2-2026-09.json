@@ -1,0 +1,3627 @@
+{
+  "version": 1,
+  "createdAt": "2026-09-20",
+  "status": "ready",
+  "scope": "Familien-Tagesrouten Welle 2 — 56 Ausflugsziele (matched cities)",
+  "importNotes": "Familien-Tagesrouten (Hauptziel + food-like Einkehr fuer Swipe + Kombi-Stops). Reale, 2026 geoeffnete Orte mit Adresse; Recherche + adversariales Verify je Ort; Food-Klassifikation gelintet gegen Laufzeit-Regex. Koordinaten per --geocode-missing.",
+  "routes": [
+    {
+      "citySlug": "heilbronn",
+      "slug": "heilbronn-familien-experimenta-entdeckertag",
+      "title": "Familientag: experimenta & Talentgarten",
+      "description": "An Deutschlands größtem Science Center wird Wissen zum Anfassen: Kinder tüfteln, experimentieren und staunen den ganzen Vormittag über Hunderte Mitmachstationen. Nach der Stärkung im hauseigenen Restaurant geht es hinaus zum kostenlosen Wasserspielplatz und weiter an den Neckar, wo Sandstrand und Klettergerüste den Tag ausklingen lassen. So verbindet dieser Familientag Forschergeist drinnen mit Toben und Planschen draußen.",
+      "tags": [
+        "family",
+        "editorial",
+        "wissenschaft",
+        "mitmachen",
+        "spielplatz"
+      ],
+      "sourceUrls": [
+        "https://www.experimenta.science/besuchen/oeffnungszeiten-eintrittspreise/",
+        "https://www.heilbronn.de/shop-und-gastrofinder/adresse/restaurant-in-der-experimenta.html",
+        "https://www.heilbronnerland.de/poi/strandspielplatz-im-neckaruferpark",
+        "https://www.heilbronn.de/tourismus/kultur/sehenswertes/neckarbogen.html"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "experimenta - Das Science Center",
+          "type": "science",
+          "address": "Experimenta-Platz 1, 74072 Heilbronn",
+          "durationMin": 180,
+          "note": "Deutschlands größtes Science Center mit vier Themenwelten, Sternwarte und 3D-Science-Dome. An Hunderten Mitmachstationen dürfen Kinder selbst drehen, tüfteln und ausprobieren - anfassen ist hier ausdrücklich erwünscht. Ein ganzer Entdeckertag, der auch bei Regen begeistert.",
+          "sourceUrls": [
+            "https://www.experimenta.science/besuchen/oeffnungszeiten-eintrittspreise/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant in der experimenta",
+          "type": "restaurant",
+          "address": "Experimenta-Platz 1, 74072 Heilbronn",
+          "durationMin": 60,
+          "note": "Im hauseigenen Restaurant der experimenta gibt es Self-Service mit großer Auswahl, sodass niemand lange warten muss. Kinderfreundliche Portionen, viel Platz und eine sonnige Terrasse machen die Mittagspause für Familien unkompliziert.",
+          "sourceUrls": [
+            "https://www.heilbronn.de/shop-und-gastrofinder/adresse/restaurant-in-der-experimenta.html",
+            "https://www.experimenta.science/besuchen/oeffnungszeiten-eintrittspreise/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Talentgarten & Wasserspielplatz",
+          "type": "activity",
+          "address": "Experimenta-Platz 1, 74072 Heilbronn",
+          "durationMin": 45,
+          "note": "Direkt neben dem Gebäude laden Talentgarten und Wasserspielplatz zum Toben ein - frei zugänglich und kostenlos. An Wasserpumpen und kleinen Kanälen dürfen Kinder stauen und planschen, dazwischen gibt es Klettergeräte und Mitmach-Stationen zum Ausprobieren. Perfekt, um vor oder nach dem Rundgang Bewegung zu tanken.",
+          "sourceUrls": [
+            "https://www.mamilade.de/baden-wuerttemberg/heilbronn/ausflugstipps/spielplaetze/talentgarten-und-wasserspielplatz-heilbronn",
+            "https://www.experimenta.science/besuchen/oeffnungszeiten-eintrittspreise/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Strandspielplatz im Neckaruferpark",
+          "type": "park",
+          "address": "Am Neckaruferpark, 74076 Heilbronn",
+          "durationMin": 60,
+          "note": "Ein paar Minuten weiter liegt der Strandspielplatz im Neckaruferpark: klettern, in Hängematten schaukeln und im flachen Wasser am Sandufer planschen. Die weitläufige Grünanlage direkt am Fluss bietet Familien viel Raum, um den Tag entspannt ausklingen zu lassen.",
+          "sourceUrls": [
+            "https://www.heilbronnerland.de/poi/strandspielplatz-im-neckaruferpark",
+            "https://www.heilbronn.de/tourismus/kultur/sehenswertes/neckarbogen.html"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "mannheim",
+      "slug": "mannheim-familien-technik-luisenpark",
+      "title": "Familientag: TECHNOSEUM & Luisenpark",
+      "description": "Ein rundum gelungener Familientag in Mannheim: Am Vormittag wird im TECHNOSEUM Technik zum Anfassen – mit vielen Experimentierstationen und live vorgeführten historischen Maschinen. Nach einer Stärkung im Museumsrestaurant geht es zum Jugendstil-Wasserturm am Friedrichsplatz und weiter in den Luisenpark mit Gondoletta-Booten, Spielplätzen und Tieren – ein abwechslungsreicher Tag für Klein und Groß.",
+      "tags": [
+        "family",
+        "editorial",
+        "technik",
+        "park",
+        "wissenschaft"
+      ],
+      "sourceUrls": [
+        "https://www.technoseum.de/",
+        "https://www.luisenpark.de/",
+        "https://de.wikipedia.org/wiki/Wasserturm_(Mannheim)"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "TECHNOSEUM",
+          "type": "science",
+          "address": "Museumsstraße 1, 68165 Mannheim",
+          "durationMin": 150,
+          "note": "Im TECHNOSEUM wird Technik zum Anfassen: An vielen Experimentierstationen erzeugen Kinder selbst Strom, drehen an Zahnrädern und staunen über Maschinen aus 200 Jahren Industriegeschichte. Bei täglichen Vorführungen erwachen historische Maschinen ratternd und zischend zum Leben – große Augen für kleine Technikfans.",
+          "sourceUrls": [
+            "https://www.technoseum.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Arbeiterkneipe im TECHNOSEUM",
+          "type": "restaurant",
+          "address": "Museumsstraße 1, 68165 Mannheim",
+          "durationMin": 75,
+          "note": "Gleich im Museum lädt die \"Arbeiterkneipe\" zur Mittagspause: Das Restaurant im historischen Ambiente serviert Klassiker wie Würstchen mit Kartoffelsalat, dazu für zwischendurch Kaffee und Kuchen. Kurze Wege, kein Umsteigen – die kleinen Entdecker sitzen im Nu wieder am Tisch.",
+          "sourceUrls": [
+            "https://www.technoseum.de/besuch/gastronomie/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wasserturm am Friedrichsplatz",
+          "type": "landmark",
+          "address": "Friedrichsplatz, 68165 Mannheim",
+          "durationMin": 45,
+          "note": "Das Jugendstil-Wahrzeichen von Mannheim thront über dem Friedrichsplatz, umgeben von Rosengärten, Arkaden und Springbrunnen. Bei gutem Wetter tanzen die Wasserspiele in der Sonne, breite Wege und Rasenflächen laden zum Verschnaufen ein – ein schöner Zwischenstopp, an dem Kinder nach Herzenslust herumtoben können.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Wasserturm_(Mannheim)"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Luisenpark",
+          "type": "park",
+          "address": "Theodor-Heuss-Anlage 2, 68165 Mannheim",
+          "durationMin": 150,
+          "note": "Der Luisenpark zählt zu den schönsten Parks Deutschlands: Mit der Gondoletta gleiten Familien über die Teiche, dazu locken Themen-Spielplätze, ein Streichelgehege und exotische Tiere. Große Wiesen und schattige Wege laden zum Toben und Ausklingen des Tages ein.",
+          "sourceUrls": [
+            "https://www.luisenpark.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "karlsruhe",
+      "slug": "karlsruhe-familien-zoo-naturkunde",
+      "title": "Familientag: Zoo Karlsruhe & Naturkundemuseum",
+      "description": "Ein rundum tierischer Familientag in Karlsruhe: Der Zoologische Stadtgarten verbindet Tierpark und Parkidyll mit Gondoletta-Bootsfahrten, danach lockt eine kinderfreundliche Einkehr direkt am Südeingang. Am Nachmittag geht es ins Naturkundemuseum mit lebendem Vivarium und in den Schlossgarten mit seiner kleinen Bahn – kurze Wege, große Kinderaugen.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "natur",
+        "museum"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-karlsruhe.de/",
+        "https://www.smnk.de/",
+        "https://www.vbk.info/fahrzeuge/schlossgartenbahn.html",
+        "https://marche-restaurants.de/de/unsere-standorte/exo-karlsruhe"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoologischer Stadtgarten Karlsruhe",
+          "type": "zoo",
+          "address": "Ettlinger Straße 6, 76137 Karlsruhe",
+          "durationMin": 180,
+          "note": "Der Zoologische Stadtgarten verbindet Tierpark und Parklandschaft: Auf schattigen Wegen entdecken Kinder Elefanten, Schneeleoparden, Pinguine und Seelöwen. Ein Höhepunkt ist die Fahrt mit den Gondoletta-Booten über die Parkseen, dazu laden Streichelgehege und Spielplätze zum Toben ein.",
+          "sourceUrls": [
+            "https://www.zoo-karlsruhe.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "EXO Restaurant im Zoologischen Stadtgarten",
+          "type": "restaurant",
+          "address": "Ettlinger Straße 4c, 76137 Karlsruhe",
+          "durationMin": 75,
+          "note": "Das EXO Restaurant liegt direkt am Südeingang des Zoos und setzt auf frische Marktküche zum Selbstzusammenstellen. Für Familien ideal: kinderfreundliche Portionen, hausgemachte Pasta, Salate sowie Kuchen und frisch gepresste Säfte.",
+          "sourceUrls": [
+            "https://marche-restaurants.de/de/unsere-standorte/exo-karlsruhe"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Staatliches Museum für Naturkunde Karlsruhe",
+          "type": "museum",
+          "address": "Erbprinzenstraße 13, 76133 Karlsruhe",
+          "durationMin": 90,
+          "note": "Nur eine kurze Tramfahrt weiter zeigt das Naturkundemuseum sein beliebtes Vivarium mit zahlreichen Aquarien voller tropischer Fische, dazu lebende Schlangen und Echsen. In naturgetreuen Dioramen bestaunen Kinder heimische und exotische Tiere – ein spannender Innen-Stopp, der auch bei Regen begeistert.",
+          "sourceUrls": [
+            "https://www.smnk.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Schlossgarten mit Schlossgartenbahn",
+          "type": "park",
+          "address": "Schlossbezirk 10, 76131 Karlsruhe",
+          "durationMin": 75,
+          "note": "Hinter dem Karlsruher Schloss dreht die kleine Schlossgartenbahn ihre Runden über weite Wiesen und an alten Baumriesen vorbei – in der Saison von Karfreitag bis Allerheiligen, an Sonn- und Feiertagen oft sogar mit einer Dampflok. Gleich daneben lädt ein großer Spielplatz mit Kletternetz und Wasserspiel zum Ausklang ein.",
+          "sourceUrls": [
+            "https://www.vbk.info/fahrzeuge/schlossgartenbahn.html"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "guenzburg",
+      "slug": "guenzburg-familien-legoland-baumeister",
+      "title": "Familientag: LEGOLAND Deutschland & Brauereigasthof zur Münz",
+      "description": "Der große LEGOLAND-Tag für die ganze Familie: erst Achterbahnen, Shows und Millionen LEGO-Steine im Freizeitpark, dann eine gemütliche Einkehr am historischen Marktplatz und zum Ausklang Klettern und Toben auf dem Spielplatz im Klingelpark. So kommen kleine und große Baumeister an einem Tag voll auf ihre Kosten.",
+      "tags": [
+        "family",
+        "editorial",
+        "themenpark",
+        "lego",
+        "spielplatz"
+      ],
+      "sourceUrls": [
+        "https://www.legoland.de/",
+        "https://www.guenzburg-tourismus.de/erkunden/fuer-kinder/",
+        "http://hotel-muenz-guenzburg.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "LEGOLAND Deutschland Resort",
+          "type": "activity",
+          "address": "LEGOLAND-Allee 1, 89312 Günzburg",
+          "durationMin": 360,
+          "note": "Der große Familien-Freizeitpark aus Millionen LEGO-Steinen: über 60 Attraktionen, Shows und Fahrgeschäfte für alle Altersstufen. Im MINILAND stehen ganze Städte in Miniatur, und mutige Baumeister drehen ihre Runden in Achterbahnen und Wasserfahrten.",
+          "sourceUrls": [
+            "https://www.legoland.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Brauereigasthof zur Münz",
+          "type": "restaurant",
+          "address": "Marktplatz 25, 89312 Günzburg",
+          "durationMin": 75,
+          "note": "Traditioneller Brauereigasthof im historischen Brauereigebäude von 1586 am Marktplatz: Das familienfreundliche Restaurant serviert regionale Küche, dazu gibt es gemütliche Gewölbestuben und im Sommer einen schattigen Biergarten. Ideal für eine deftige Stärkung nach dem Parktag.",
+          "sourceUrls": [
+            "http://hotel-muenz-guenzburg.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Spielplatz im Klingelpark",
+          "type": "park",
+          "address": "Albert-Höfer-Straße, 89312 Günzburg",
+          "durationMin": 45,
+          "note": "Großer Spielplatz im grünen Klingelpark mit Klettergerüsten, Rutschen und Schaukeln unter alten Bäumen, nur wenige Gehminuten vom Stadtkern Günzburgs entfernt. Hier können die Kinder nach dem Parktag noch einmal richtig herumtoben und Energie loswerden, bevor es nach Hause geht.",
+          "sourceUrls": [
+            "https://www.guenzburg-tourismus.de/erkunden/fuer-kinder/spielplaetze/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "erding",
+      "slug": "erding-familien-therme-wasserspass",
+      "title": "Familientag: Therme Erding, Bauernhaus-Café & Stadtpark",
+      "description": "Ein rundum gelungener Familientag in Erding: Erst geht es in die riesige Therme Erding mit Wellenbecken, Palmen und über 25 Rutschen, wo schon die Kleinsten in flachem Wasser planschen. Danach lockt eine gemütliche Einkehr mit hausgemachtem Kuchen, bevor Wasserspielplatz und Streichelgehege im Stadtpark sowie Minigolf am Kronthaler Weiher den Nachmittag füllen. Alle Stationen liegen in Erding und lassen sich bequem an einem Tag verbinden.",
+      "tags": [
+        "family",
+        "editorial",
+        "therme",
+        "wasserspass",
+        "kinder",
+        "bayern"
+      ],
+      "sourceUrls": [
+        "https://www.therme-erding.de/",
+        "https://www.erding.de/stadtpark",
+        "https://www.erding.de/kronthaler-weiher"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Therme Erding",
+          "type": "activity",
+          "address": "Thermenallee 1-5, 85435 Erding",
+          "durationMin": 240,
+          "note": "Das große Highlight zum Auftakt: Europas riesige Thermenwelt mit tropischer Palmenlandschaft, warmem Thermalwasser, Wellenbecken und dem Rutschenparadies Galaxy mit über 25 Riesenrutschen. Für Familien gibt es eigene Kinderbereiche mit flachem Wasser, sodass schon die Kleinsten sicher planschen können. Badesachen und genug Zeit einpacken, hier vergeht schnell ein halber Tag.",
+          "sourceUrls": [
+            "https://www.therme-erding.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café im Bauernhausmuseum",
+          "type": "cafe",
+          "address": "Taufkirchener Str. 26, 85435 Erding",
+          "durationMin": 60,
+          "note": "Die perfekte Einkehr für die Familie: Das gemütliche Café im Bauernhausmuseum serviert hausgemachte Kuchen und regionale Schmankerl in historischen Höfen mit großem Garten zum Toben. Geöffnet an Wochenenden und Feiertagen (Saison etwa Ostern bis Ende Oktober), ideal für einen entspannten Nachmittag nach dem Baden. Wer lieber woanders einkehrt, findet in der Erdinger Altstadt weitere kinderfreundliche Lokale.",
+          "sourceUrls": [
+            "https://cafe-bauernhausmuseum-erding.de/",
+            "https://www.landkreis-erding.de/buerger-verwaltung/kultur-bildung-sport/bauernhausmuseum-und-bauernmarkt/cafe-im-bauernhausmuseum/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Stadtpark Erding",
+          "type": "park",
+          "address": "Von-Grainger-Weg, 85435 Erding",
+          "durationMin": 90,
+          "note": "Direkt in Erding wartet der Stadtpark mit einem großen Wasserspielplatz und einem kostenlosen Tiergehege. Im Streichelgehege dürfen Kinder Ziegen und weitere zutrauliche Tiere ganz aus der Nähe erleben. Schattige Spielgeräte, weite Wiesen und ein kleiner Bach zum Planschen machen den Park zum idealen Ausklang - der Eintritt ist frei.",
+          "sourceUrls": [
+            "https://www.erding.de/stadtpark"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Minigolf & Pit-Pat am Kronthaler Weiher",
+          "type": "activity",
+          "address": "An der Melkstatt 13, 85435 Erding",
+          "durationMin": 75,
+          "note": "Zum Abschluss geht es an den Kronthaler Weiher am Nordrand von Erding: Auf der familienfreundlichen Minigolf- und Pit-Pat-Anlage können schon kleine Kinder mitspielen. Rundherum laden zwei Spielplätze, weite Liegewiesen und der Badeweiher zum Verweilen ein. Von Mitte März bis Ende Oktober bei schönem Wetter täglich geöffnet.",
+          "sourceUrls": [
+            "https://www.minigolf-erding.de/",
+            "https://www.erding.de/kronthaler-weiher"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "potsdam",
+      "slug": "potsdam-familien-kletterwald-telegrafenberg",
+      "title": "Familientag: Kletterwald AbenteuerPark & Telegrafenberg",
+      "description": "Ein Aktivtag auf dem Potsdamer Telegrafenberg, an dem Kinder und Eltern gemeinsam durch die Baumwipfel klettern. Nach dem großen Kletterwald wartet eine gemütliche Einkehr mitten im Wald, dazu der weltberühmte Einsteinturm und ein entspannter Ausklang im Landschaftspark Babelsberg. Kurze Wege auf dem Berg, viel frische Luft und Abenteuer für jedes Alter.",
+      "tags": [
+        "family",
+        "editorial",
+        "klettern",
+        "outdoor",
+        "wissenschaft"
+      ],
+      "sourceUrls": [
+        "https://www.kletterpark.info/kletterwald/",
+        "https://www.potsdamtourismus.de/poi/kletterwald-im-abenteuerpark-potsdam"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Kletterwald im AbenteuerPark Potsdam",
+          "type": "activity",
+          "address": "Albert-Einstein-Straße 49, 14473 Potsdam",
+          "durationMin": 150,
+          "note": "Der große Kletterwald auf dem Telegrafenberg bietet zwölf Parcours in Höhen von 1 bis 12 Metern – vom Kinderkurs knapp über dem Boden bis zur 200 Meter langen Seilrutsche. Kinder ab etwa sechs Jahren klettern gesichert durch den Mischwald, während Eltern mitgehen oder von unten anfeuern.",
+          "sourceUrls": [
+            "https://www.kletterpark.info/kletterwald/",
+            "https://www.potsdamtourismus.de/poi/kletterwald-im-abenteuerpark-potsdam"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Freundlich",
+          "type": "cafe",
+          "address": "Telegrafenberg A34, 14473 Potsdam",
+          "durationMin": 60,
+          "note": "Nur wenige Schritte vom Kletterwald entfernt liegt das Café Freundlich mitten im Wald, in einem der historischen Häuser des Telegrafenbergs. Frische Sandwiches, hausgebackener Kuchen und ein wechselnder Mittagstisch stärken die kleinen Kletterer, die grüne Terrasse lädt zum Verschnaufen ein.",
+          "sourceUrls": [
+            "https://cafe-freundlich.de/",
+            "https://www.potsdamtourismus.de/gastro/cafe-freundlich"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Einsteinturm auf dem Telegrafenberg",
+          "type": "science",
+          "address": "Telegrafenberg A27, 14473 Potsdam",
+          "durationMin": 45,
+          "note": "Gleich nebenan steht der Einsteinturm, ein weltberühmtes Sonnenobservatorium mit geschwungener, ausdrucksstarker Form. Im Wissenschaftspark erkunden Familien historische Teleskope und lernen, wie Forscher hier den Himmel beobachten – ein spannender Kontrast zum Klettern und ideal für neugierige Kinder.",
+          "sourceUrls": [
+            "https://www.potsdamtourismus.de/poi/einsteinturm-auf-dem-telegrafenberg"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Park Babelsberg",
+          "type": "park",
+          "address": "Park Babelsberg 10, 14482 Potsdam",
+          "durationMin": 90,
+          "note": "Zum Ausklang lohnt der weitläufige Landschaftspark Babelsberg an der Havel mit verschlungenen Wegen, weiten Wiesen und Blick aufs Wasser. Familien spazieren zum Flatowturm, entdecken versteckte Brücken und lassen den Tag am Ufer gemütlich ausklingen.",
+          "sourceUrls": [
+            "https://www.spsg.de/en/palaces-gardens/object/babelsberg-park",
+            "https://www.potsdam.de/de/park-babelsberg"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "potsdam",
+      "slug": "potsdam-familien-nano-experimente",
+      "title": "Familientag: NANO Science Center & Freundschaftsinsel",
+      "description": "Ein Tag voller Neugier mitten in Potsdam: Im NANO Science Center forschen Kinder an vielen Mitmachstationen, direkt nebenan lockt die grüne Freundschaftsinsel mit Wasserspielplatz und weiten Gärten. Dazwischen wartet eine gemütliche Pause und zum Abschluss Kino-Magie im Filmmuseum — kurze Wege, viel Abwechslung und für jedes Wetter etwas dabei.",
+      "tags": [
+        "family",
+        "editorial",
+        "wissenschaft",
+        "mitmachmuseum",
+        "park",
+        "potsdam"
+      ],
+      "sourceUrls": [
+        "https://nano-potsdam.de/",
+        "https://www.potsdamtourismus.de/gastro/et-cetera-cafe-im-bildungsforum-potsdam",
+        "https://www.potsdam.de/de/content/freundschaftsinsel-2",
+        "https://www.filmmuseum-potsdam.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "NANO Science Center (ehemals Extavium)",
+          "type": "science",
+          "address": "Am Kanal 57, 14467 Potsdam",
+          "durationMin": 120,
+          "note": "An vielen Mitmachstationen dürfen Kinder selbst forschen, kurbeln und Experimente starten. Sie lassen Nebel wirbeln, testen Kräfte und erleben Physik zum Anfassen mit allen Sinnen. Ein idealer Start in den Familientag, drinnen und wetterunabhängig.",
+          "sourceUrls": [
+            "https://nano-potsdam.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Et cetera - Café im Bildungsforum",
+          "type": "cafe",
+          "address": "Am Kanal 47, 14467 Potsdam",
+          "durationMin": 60,
+          "note": "Nur wenige Schritte weiter lädt das Café Et cetera im Bildungsforum zur Pause. Das verspielt eingerichtete Café hat eine gemütliche Leseecke, hausgemachte Kuchen, Muffins und täglich wechselnde Suppen — passend für kleine und große Forscher. Kinderstühle stehen bereit, und die Bücherei nebenan lädt zum Stöbern ein.",
+          "sourceUrls": [
+            "https://www.potsdamtourismus.de/gastro/et-cetera-cafe-im-bildungsforum-potsdam"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Freundschaftsinsel",
+          "type": "park",
+          "address": "Lange Brücke, 14467 Potsdam",
+          "durationMin": 90,
+          "note": "Direkt neben dem Science Center liegt die grüne Freundschaftsinsel zwischen den Havelarmen. Der Wasserspielplatz und die weiten Wiesen sind frei zugänglich, ringsum blühen die berühmten Staudengärten von Karl Foerster. Ein perfekter Ort zum Toben und Auspowern nach dem Forschen.",
+          "sourceUrls": [
+            "https://www.potsdam.de/de/content/freundschaftsinsel-2"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Filmmuseum Potsdam",
+          "type": "museum",
+          "address": "Breite Straße 1A, 14467 Potsdam",
+          "durationMin": 90,
+          "note": "Zum Abschluss zeigt das Filmmuseum Potsdam, wie Kino entsteht. Kinder schlüpfen in Kostüme, vertonen Trickfilme selbst und staunen über echte Requisiten aus den Babelsberger Studios. Das Mitmachprogramm und das Kinderkino machen den Nachmittag zum Erlebnis.",
+          "sourceUrls": [
+            "https://www.filmmuseum-potsdam.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "eberswalde",
+      "slug": "eberswalde-familien-zoo-wasserfall",
+      "title": "Familientag: Zoo Eberswalde & Forstbotanischer Garten",
+      "description": "Ein rundum entspannter Familientag in Eberswalde: Der weitläufige Zoo am Wasserfall begeistert mit Tieren aus aller Welt, breiten Wegen und einem großen Spielplatz. Nach der Mittagspause in der Zoogaststätte geht es weiter zum kostenlosen Forstbotanischen Garten mit seinen riesigen alten Bäumen – viel frische Luft und kurze Wege, die auch kleine Kinderbeine gut schaffen.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "natur",
+        "brandenburg"
+      ],
+      "sourceType": "official_venue",
+      "sourceUrls": [
+        "https://zoo.eberswalde.de/",
+        "https://tourismus-eberswalde.de/entdecken-und-erleben/eberswalde-fuer/familien/zoo-eberswalde/"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Eberswalde",
+          "type": "zoo",
+          "address": "Am Wasserfall 1, 16225 Eberswalde",
+          "durationMin": 180,
+          "note": "Der Zoo Eberswalde liegt am Hang rund um einen kleinen Wasserfall und zeigt auf weitläufigem Gelände viele Tiere aus aller Welt. Breite Wege, ein Streichelgehege und ein großer Spielplatz machen den Rundgang für Kinder leicht – für einen halben Tag ideal.",
+          "sourceUrls": [
+            "https://zoo.eberswalde.de/",
+            "https://tourismus-eberswalde.de/entdecken-und-erleben/eberswalde-fuer/familien/zoo-eberswalde/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Zoogaststätte im Zoo Eberswalde",
+          "type": "restaurant",
+          "address": "Am Wasserfall 1, 16225 Eberswalde",
+          "durationMin": 60,
+          "note": "Direkt im Zoo gelegen: In der Zoogaststätte gibt es im gemütlichen Restaurant und auf der großen Terrasse Currywurst, Nudelgerichte, Kuchen und Eis – unkompliziert und familienfreundlich. In der Hauptsaison von April bis Oktober täglich geöffnet, ideal für die Mittagspause zwischen den Gehegen.",
+          "sourceUrls": [
+            "https://www.reiseland-brandenburg.de/poi/barnimer-land/gastronomie/zoogaststaette-im-zoologischen-garten-eberswalde/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Forstbotanischer Garten Eberswalde",
+          "type": "park",
+          "address": "Am Zainhammer 5, 16225 Eberswalde",
+          "durationMin": 75,
+          "note": "Nur wenige Gehminuten vom Zoo entfernt liegt dieser weitläufige Garten voller riesiger, teils sehr alter Bäume aus vielen Ländern, mit Teichen und schattigen Pfaden. Der Eintritt ist frei, und Kinder können zwischen den mächtigen Stämmen herumstreifen – ein ruhiger Ausklang nach dem Zoo.",
+          "sourceUrls": [
+            "https://tourismus-eberswalde.de/entdecken-und-erleben/natur-und-aktiv/naturerlebnisse/forst-botanischer-garten/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "cottbus",
+      "slug": "cottbus-familien-tierpark",
+      "title": "Familientag: Tierpark Cottbus & Spreeauenpark",
+      "description": "Ein rundum entspannter Familientag im grünen Süden von Cottbus: Erst geht es zu den vielen Tieren des Tierparks mit Streichelgehege und Spielplatz, dann zur Stärkung ins Tierpark-Restaurant direkt am Eingang. Zum Ausklang laden der unmittelbar benachbarte Spreeauenpark und der berühmte Fürst-Pückler-Park Branitz zum Toben und Spazieren ein. Kurze Wege, viel Natur und Programm für jedes Alter.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "tierpark",
+        "park",
+        "natur"
+      ],
+      "sourceType": "official_venue",
+      "sourceUrls": [
+        "https://www.tierparkcottbus.de/de/",
+        "https://www.tierparkrestaurant-cottbus.de/",
+        "https://cottbus.de/veranstaltungsorte/spreeauenpark/",
+        "https://www.pueckler-museum.de/"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tierpark Cottbus",
+          "type": "zoo",
+          "address": "Kiekebuscher Straße 5, 03042 Cottbus",
+          "durationMin": 180,
+          "note": "Mehr als 1.000 Tiere leben im weitläufigen Landschaftstierpark an der Spree - dem größten Tierpark Brandenburgs. Im Kontaktgehege dürfen Kinder Ziegen und Schafe streicheln, dazu gibt es heimische und exotische Arten zu entdecken sowie einen großen Spielplatz. Ein ruhiger, tierreicher Start in den Familientag mit viel Platz zum Toben.",
+          "sourceUrls": [
+            "https://www.tierparkcottbus.de/de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Tierpark-Restaurant Cottbus",
+          "type": "restaurant",
+          "address": "Kiekebuscher Straße 5, 03042 Cottbus",
+          "durationMin": 60,
+          "note": "Das familienfreundliche Restaurant direkt am Tierpark-Eingang hat täglich ab 10:30 Uhr geöffnet und serviert Kinderteller, hausgemachte Pommes und Eis. Auf der großen Sonnenterrasse mit 150 Plätzen stärkt sich die ganze Familie, bevor der Nachmittag weitergeht.",
+          "sourceUrls": [
+            "https://www.tierparkrestaurant-cottbus.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Spreeauenpark Cottbus",
+          "type": "park",
+          "address": "Vorparkstraße 3, 03042 Cottbus",
+          "durationMin": 90,
+          "note": "Gleich neben dem Tierpark lädt der große Auenpark an der Spree zum Weiterziehen ein. Abenteuerspielplätze, weite Wiesen und Wasserspielflächen bringen Kinder in Bewegung, dazu Themengärten und im Sommer viele Familienfeste. Ideal, um den Tag im Grünen ausklingen zu lassen.",
+          "sourceUrls": [
+            "https://cottbus.de/veranstaltungsorte/spreeauenpark/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Fürst-Pückler-Park Branitz",
+          "type": "park",
+          "address": "Robinienweg 5, 03042 Cottbus",
+          "durationMin": 90,
+          "note": "Der berühmte Landschaftspark des Fürsten Pückler mit seiner grünen Seepyramide und weiten Wasserläufen ist frei zugänglich und lädt zum Spazieren, Enten-Beobachten und Picknicken ein. Große Wiesen, alte Baumriesen und verschlungene Wege machen den Ausklang zum Erlebnis für Groß und Klein.",
+          "sourceUrls": [
+            "https://www.pueckler-museum.de/",
+            "https://cottbus-tourismus.de/de/winter/cottbus-entdecken/gruenes-cottbus/artikel-park-und-schloss-branitz.html"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "giessen",
+      "slug": "giessen-familien-mathematikum",
+      "title": "Familientag: Mathematikum, Café Kurt Geißner & Botanischer Garten",
+      "description": "Ein rundum gelungener Familientag in Gießen: Vormittags knobeln, bauen und experimentieren die Kinder im Mathematikum, dem ersten mathematischen Mitmach-Museum Deutschlands, das direkt am Bahnhof liegt. Danach lockt eine gemütliche Kaffeepause mit Kuchen im traditionsreichen Konditorei-Café Kurt Geißner, bevor der Botanische Garten und der weitläufige Stadtpark am Schwanenteich Platz zum Toben und Durchatmen bieten. Wissen zum Anfassen und viel grüne Natur an einem einzigen Tag.",
+      "tags": [
+        "family",
+        "editorial",
+        "science",
+        "museum",
+        "explore-family",
+        "mathematikum"
+      ],
+      "sourceUrls": [
+        "https://www.mathematikum.de/",
+        "https://www.giessen.de/botanischer-garten",
+        "https://giessen-entdecken.de/locations/konditorei-cafe-kurt-geissner/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Mathematikum",
+          "type": "science",
+          "address": "Liebigstraße 8, 35390 Gießen",
+          "durationMin": 150,
+          "note": "Deutschlands erstes mathematisches Mitmach-Museum, direkt am Bahnhof: Kinder lösen an über 170 Stationen Knobelaufgaben, formen riesige Seifenhäute, bauen eine Brücke ganz ohne Nagel und legen sich unter einen leuchtenden Spiegel-Turm. Für die Kleinen ab 3 Jahren gibt es das eigene Mini-Mathematikum. Ein ganzer Vormittag zum Anfassen und Ausprobieren.",
+          "sourceUrls": [
+            "https://www.mathematikum.de/besucherinfos/oeffnungszeiten",
+            "https://www.mathematikum.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Konditorei & Café Kurt Geißner",
+          "type": "cafe",
+          "address": "Plockstraße 9, 35390 Gießen",
+          "durationMin": 75,
+          "note": "Die perfekte Einkehr nach dem Knobeln: das traditionsreiche Konditorei-Café Kurt Geißner mitten in der Innenstadt, nur einen kurzen Spaziergang vom Mathematikum entfernt. Die preisgekrönten Konditoren zaubern Kuchen und Torten, dazu gibt es Kakao für die Kinder und einen ruhigen Platz für die Eltern. Wer lieber woanders einkehrt, kann von hier zu anderen Gießener Lokalen durchwechseln.",
+          "sourceUrls": [
+            "https://giessen-entdecken.de/locations/konditorei-cafe-kurt-geissner/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Botanischer Garten der Universität",
+          "type": "park",
+          "address": "Senckenbergstraße 6, 35390 Gießen",
+          "durationMin": 60,
+          "note": "Mitten in Gießen liegt einer der ältesten Botanischen Gärten Deutschlands, schon 1609 angelegt: knapp vier Hektar mit Teich, Enten, alten Bäumen und tropischen Gewächshäusern. Zwei Eingänge (Sonnenstraße und Senckenbergstraße) führen hinein, der Eintritt ist frei; geöffnet in der Gartensaison von Mitte März bis Ende Oktober. Ideal, um zwischen den Stationen Luft zu schnappen und exotische Pflanzen zu entdecken.",
+          "sourceUrls": [
+            "https://www.giessen.de/botanischer-garten",
+            "https://giessen-entdecken.de/locations/botanischer-garten/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Stadtpark Wieseckaue & Schwanenteich",
+          "type": "park",
+          "address": "Ringallee, 35390 Gießen",
+          "durationMin": 90,
+          "note": "Zum Ausklang der große Stadtpark im Nordosten: weite Wiesen entlang der Wieseck, ein großer Spielplatz mit Rutschen, Schaukeln und Klettergerüst sowie der Schwanenteich, an dem Kinder Enten und Schwäne beobachten. Viel Platz zum Toben, Picknicken und den Tag entspannt ausklingen zu lassen.",
+          "sourceUrls": [
+            "https://giessen-entdecken.de/locations/wieseckaue/",
+            "https://de.wikipedia.org/wiki/Schwanenteich_(Gie%C3%9Fen)"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "hofheim-am-taunus",
+      "slug": "hofheim-am-taunus-familien-therme-meisterturm",
+      "title": "Familientag: Rhein-Main-Therme, Altstadt-Café & Meisterturm",
+      "description": "Ein rundum gelungener Familientag in Hofheim am Taunus: Erst planschen, rutschen und schwimmen in der Rhein-Main-Therme mit ihren warmen Becken und Riesenrutschen, dann eine gemütliche Einkehr und ein Abstecher ins kleine Stadtmuseum in der charmanten Altstadt. Zum Abschluss geht es hinauf zum Meisterturm, wo die Kinder 173 Stufen erklimmen und mit einem Weitblick bis nach Frankfurt belohnt werden. Baden, Altstadt-Bummel und ein kleines Turm-Abenteuer an einem Tag.",
+      "tags": [
+        "family",
+        "editorial",
+        "therme",
+        "schwimmbad",
+        "aussichtsturm",
+        "altstadt"
+      ],
+      "sourceType": "official_venue",
+      "sourceUrls": [
+        "https://www.rhein-main-therme.de/",
+        "https://www.cafe-tass-hofheim.de/",
+        "https://stadtmuseum.hofheim.de/",
+        "https://www.meisterturm.de/"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Rhein-Main-Therme",
+          "type": "activity",
+          "address": "Niederhofheimer Straße 67, 65719 Hofheim am Taunus",
+          "durationMin": 180,
+          "note": "Der große Wasserspaß zum Auftakt: warme Erlebnisbecken, ein flaches Kleinkindbecken zum Planschen und mehrere Riesenrutschen sorgen für Action. Im Sommer locken zusätzlich der Sport- und Freibadbereich zum Toben. Für Kinder gibt es ermäßigte Tarife.",
+          "sourceUrls": [
+            "https://www.rhein-main-therme.de/",
+            "https://www.rhein-main-therme.de/informationen.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Tass",
+          "type": "cafe",
+          "address": "Burgstraße 13, 65719 Hofheim am Taunus",
+          "durationMin": 60,
+          "note": "Die perfekte Stärkung nach dem Baden: Das gemütliche Café Tass mitten in der charmanten Altstadt serviert seit fast 30 Jahren Frühstück, hausgemachten Kuchen und kleine Gerichte. Auf der großzügigen Terrasse am Platz sitzt die ganze Familie gemütlich zusammen, während die Eltern in Ruhe einen Kaffee trinken. Wer lieber woanders einkehrt, findet in der Altstadt weitere kinderfreundliche Lokale.",
+          "sourceUrls": [
+            "https://www.cafe-tass-hofheim.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Stadtmuseum Hofheim (Kellerei)",
+          "type": "museum",
+          "address": "Burgstraße 11, 65719 Hofheim am Taunus",
+          "durationMin": 60,
+          "note": "Nur wenige Schritte von der Einkehr entfernt steht die historische Kellerei, ein stattliches Amtsgebäude von 1717 mitten in der Altstadt. Heute ist hier das Stadtmuseum Hofheim untergebracht: Kinder entdecken Mitmach-Ausstellungen und Geschichten aus der Stadtgeschichte, während ringsum der ruhige Kellereiplatz zum Verweilen einlädt.",
+          "sourceUrls": [
+            "https://stadtmuseum.hofheim.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Meisterturm",
+          "type": "landmark",
+          "address": "Meisterturm 1, 65719 Hofheim am Taunus",
+          "durationMin": 75,
+          "note": "Krönung des Tages: Der rund 35 Meter hohe Aussichtsturm auf dem bewaldeten Kapellenberg. Wer die 173 Stufen der Wendeltreppe erklimmt, blickt oben über ganz Hofheim, das Rhein-Main-Gebiet bis nach Frankfurt und die Höhen des Taunus. Der Turm ist ganzjährig frei zugänglich; der Waldweg hinauf ist selbst ein schöner Spaziergang für die ganze Familie.",
+          "sourceUrls": [
+            "https://www.meisterturm.de/der-meisterturm/",
+            "https://www.regionalpark-rheinmain.de/portfolio-item/meisterturm-hofheim/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "guestrow",
+      "slug": "guestrow-familien-wildpark-inselsee",
+      "title": "Familientag: Wildpark-MV Güstrow & Kurhaus am Inselsee",
+      "description": "Dieser Familientag verbindet die weitläufigen Waldgehege des Wildpark-MV mit einer gemütlichen Einkehr direkt am Inselsee und einem Bummel durch die historische Güstrower Altstadt. Kinder erleben heimische Wildtiere hautnah, toben im großen Renaissance-Schlosspark und staunen im Dom über den weltberühmten Schwebenden. Ein abwechslungsreicher Tag zwischen Natur, Genuss und Kultur, ideal für Groß und Klein.",
+      "tags": [
+        "family",
+        "editorial",
+        "wildpark",
+        "natur",
+        "altstadt",
+        "tiere"
+      ],
+      "sourceUrls": [
+        "https://www.wildpark-mv.de/",
+        "https://kurhaus-guestrow.de/",
+        "https://www.guestrow-tourismus.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wildpark-MV Güstrow",
+          "type": "zoo",
+          "address": "Primerburg, 18273 Güstrow",
+          "durationMin": 180,
+          "note": "Der Wildpark-MV zeigt heimische Waldtiere wie Wolfsrudel, Luchse, Fischotter und Rothirsche auf weitläufigen Naturgehegen. Über Holzstege und einen Aussichtsturm entdecken Kinder die Tiere hautnah, dazu gibt es Fütterungen und einen großen Naturspielplatz zum Austoben.",
+          "sourceUrls": [
+            "https://www.wildpark-mv.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant Schröders im Kurhaus am Inselsee",
+          "type": "restaurant",
+          "address": "Heidberg 1, 18273 Güstrow",
+          "durationMin": 75,
+          "note": "Das Restaurant Schröders im Kurhaus am Inselsee serviert regionale und saisonale Küche direkt am Seeufer, mit Gartenterrasse und Blick über den Inselsee. Familien finden hier eine entspannte Mittagsrast, kindgerechte Gerichte und hausgemachten Kuchen zur Stärkung zwischen Wildpark und Altstadt.",
+          "sourceUrls": [
+            "https://kurhaus-guestrow.de/essen-trinken/restaurant-im-kurhaus.html",
+            "https://kurhaus-guestrow.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Schlosspark Güstrow",
+          "type": "park",
+          "address": "Franz-Parr-Platz 1, 18273 Güstrow",
+          "durationMin": 60,
+          "note": "Der Schlosspark Güstrow ist als seltener Renaissancegarten angelegt und mit 4,5 Hektar die größte Grünanlage der Stadt. Während das Schloss saniert wird, bleibt der Park frei zugänglich: Familien schlendern über die symmetrischen Wege, entdecken Hecken und Wasserläufe und finden weite Rasenflächen zum Toben und Picknicken.",
+          "sourceUrls": [
+            "https://www.mv-schloesser.de/de/location/schloss-guestrow/",
+            "https://www.guestrow-tourismus.de/attraktion/schloss-guestrow/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Güstrower Dom",
+          "type": "landmark",
+          "address": "Philipp-Brandin-Straße 5, 18273 Güstrow",
+          "durationMin": 30,
+          "note": "Der Güstrower Dom aus dem 13. Jahrhundert beherbergt die weltberühmte Bronzeplastik Der Schwebende, einen schwebenden Engel unter dem hohen Gewölbe. Kinder staunen über die geheimnisvolle Figur und die alten Grabmäler aus der Renaissance, ein kurzer und eindrucksvoller Abschluss des Familientags.",
+          "sourceUrls": [
+            "https://dom-guestrow.de/",
+            "https://www.guestrow-tourismus.de/attraktion/dom/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "wismar",
+      "slug": "wismar-familien-technikmuseum",
+      "title": "Familientag: phanTECHNIKUM & Alter Hafen",
+      "description": "Ein rundum gelungener Familientag im Westen Wismars: Im phanTECHNIKUM wird Technikgeschichte auf 3.500 Quadratmetern zum großen Mitmach-Abenteuer, direkt nebenan warten Streicheltiere, Spielplatz und Seilbahn im Tierpark. Nach einer gemütlichen Café-Pause in der Altstadt klingt der Tag am maritimen Alten Hafen bei der historischen Poeler Kogge aus.",
+      "tags": [
+        "family",
+        "editorial",
+        "museum",
+        "technik",
+        "hafen",
+        "mecklenburg-vorpommern"
+      ],
+      "sourceUrls": [
+        "https://www.phantechnikum.de/",
+        "https://www.tierpark-wismar.de/",
+        "https://cafe-gluecklich-wismar.de/",
+        "https://www.poeler-kogge.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "phanTECHNIKUM Technisches Landesmuseum M-V",
+          "type": "science",
+          "address": "Zum Festplatz 3, 23966 Wismar",
+          "durationMin": 150,
+          "note": "Auf rund 3.500 Quadratmetern entdecken Familien die Technikgeschichte des Landes, gegliedert nach Feuer, Wasser, Luft und Erde. An vielen Mitmachstationen dürfen Kinder Knöpfe drücken, Hebel bewegen und selbst experimentieren – Technik zum Anfassen für kleine Forscherinnen und Forscher.",
+          "sourceUrls": [
+            "https://www.phantechnikum.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Tierpark Wismar",
+          "type": "zoo",
+          "address": "Zum Festplatz 30, 23966 Wismar",
+          "durationMin": 90,
+          "note": "Gleich nebenan wartet der liebevoll gestaltete Tierpark: Im Streichelgehege lassen sich Ziegen und Schafe hautnah erleben, dazu locken ein großer Abenteuerspielplatz, eine Kindereisenbahn und eine Seilbahngondel. So können sich die Kinder nach dem Museum an der frischen Luft richtig austoben.",
+          "sourceUrls": [
+            "https://www.tierpark-wismar.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Café Glücklich",
+          "type": "cafe",
+          "address": "Schweinsbrücke 7, 23966 Wismar",
+          "durationMin": 60,
+          "note": "Eine gemütliche Verschnaufpause im Herzen der Altstadt: Das Café Glücklich verwöhnt kleine und große Gäste mit hausgemachten Kuchen und warmem Kakao in familiärer Atmosphäre – ideal, um zwischen den Stationen neue Kraft zu tanken.",
+          "sourceUrls": [
+            "https://cafe-gluecklich-wismar.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Alter Hafen mit Poeler Kogge Wissemara",
+          "type": "landmark",
+          "address": "Alter Hafen 12, 23966 Wismar",
+          "durationMin": 45,
+          "note": "Zum Ausklang führt der Weg an den maritimen Alten Hafen: Hier liegt die Poeler Kogge Wissemara, ein originalgetreuer Nachbau eines mittelalterlichen Hansekahns, den Familien an Bord erkunden können. Fischkutter, Möwen und Salzluft runden den stimmungsvollen Hafenbummel ab.",
+          "sourceUrls": [
+            "https://www.poeler-kogge.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "wismar",
+      "slug": "wismar-familien-wonnemar-wasserspass",
+      "title": "Familientag in Wismar: WONNEMAR, phanTECHNIKUM & Tierpark",
+      "description": "Der WONNEMAR-Wasserspaß am Westhafen ist das Herzstück dieses Familientags in Wismar: Wellenbecken, Rutschenturm und ein eigenes Wonni-Land für die Kleinen. Zur Mittagszeit lockt ein familienfreundliches Restaurant in der historischen Altstadt, am Nachmittag warten das technische Mitmach-Museum phanTECHNIKUM und der Tierpark mit Streichelgehege ganz in der Nähe. So kommen Wasserspaß, Entdeckerdrang und Tierliebe an einem Tag zusammen - und für jedes Wetter ist etwas dabei.",
+      "tags": [
+        "family",
+        "editorial",
+        "erlebnisbad",
+        "wasserspass",
+        "tierpark",
+        "technikmuseum"
+      ],
+      "sourceUrls": [
+        "https://www.wonnemar.de/wismar/",
+        "https://www.brauhaus-wismar.de/",
+        "https://tlm-mv.de/",
+        "https://www.tierpark-wismar.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "WONNEMAR Wismar (Erlebnisbad)",
+          "type": "activity",
+          "address": "Bürgermeister-Haupt-Straße 38, 23966 Wismar",
+          "durationMin": 180,
+          "note": "Der Familientag beginnt im WONNEMAR, dem großen Erlebnisbad am Westhafen. Das Wonni-Land ist eigens für Kinder gemacht, dazu locken ein Wellenbecken, mehrere Rutschen und viel Platz zum Planschen. Für die Kleinsten gibt es flaches, warmes Wasser, für Mutige die schnellen Bahnen im Rutschenturm.",
+          "sourceUrls": [
+            "https://www.wonnemar.de/wismar/",
+            "https://www.wonnemar.de/wismar/anfahrt/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Brauhaus am Lohberg (Restaurant)",
+          "type": "restaurant",
+          "address": "Kleine Hohe Straße 15, 23966 Wismar",
+          "durationMin": 75,
+          "note": "Zur Mittagszeit geht es die wenigen Minuten in die historische Altstadt zum Brauhaus am Lohberg, einem gemütlichen Familien-Restaurant über drei Etagen. Auf der Karte stehen bodenständige Mecklenburger Gerichte und frischer Fisch, und auch für die kleinen Gäste findet sich etwas - ideal, um nach dem Planschen wieder Kraft zu tanken.",
+          "sourceUrls": [
+            "https://www.brauhaus-wismar.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "phanTECHNIKUM Wismar",
+          "type": "science",
+          "address": "Zum Festplatz 3, 23966 Wismar",
+          "durationMin": 120,
+          "note": "Frisch gestärkt wird es im phanTECHNIKUM, dem Technischen Landesmuseum, spannend: An vielen Mitmachstationen dreht sich alles um die vier Elemente Feuer, Wasser, Luft und Erde. Bei den Laborvorführungen zischt und blitzt es, und Groß wie Klein dürfen selbst ausprobieren - auch bei Regenwetter ein Volltreffer.",
+          "sourceUrls": [
+            "https://tlm-mv.de/",
+            "https://www.auf-nach-mv.de/reiseziele/a-phantechnikum-wismar"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Tierpark Wismar",
+          "type": "zoo",
+          "address": "Zum Festplatz 30, 23966 Wismar",
+          "durationMin": 90,
+          "note": "Zum Abschluss lockt der Tierpark Wismar ganz in der Nähe. Im großen Streichelgehege dürfen Kinder Ziegen, Schafe und Damwild ganz aus der Nähe erleben. Dazu leben hier viele heimische und exotische Tiere, es gibt schattige Wege, Spielplätze und jede Menge Platz zum Toben.",
+          "sourceUrls": [
+            "https://www.tierpark-wismar.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "schwerin",
+      "slug": "schwerin-familien-zoo-strand",
+      "title": "Familientag: Zoo Schwerin & Strandperle Zippendorf",
+      "description": "Ein rundum gelungener Familientag am Schweriner See: Erst gibt es im Zoo Schwerin Giraffen, Löwen und Pinguine zum Staunen, danach lockt der größte Sandstrand der Stadt zum Buddeln und Planschen. Zum Abschluss kehrt die Familie in der Strandperle direkt am Wasser ein - mit Seeblick, Terrasse und Pommes für die Kleinen.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "strand",
+        "tiere",
+        "see"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-schwerin.de/",
+        "https://strandperlezippendorf.de/",
+        "https://www.mecklenburg-schwerin.de/erleben/familie-und-kinder/bade-und-strandurlaub/zippendorfer-strand-in-schwerin/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Schwerin",
+          "type": "zoo",
+          "address": "Waldschulweg 1, 19061 Schwerin",
+          "durationMin": 180,
+          "note": "Rund 1.700 Tiere aus etwa 190 Arten leben auf 25 Hektar mitten im Wald: Giraffen, Löwen und Humboldtpinguine lassen sich hier ganz nah beobachten. Weitläufige Wege, ein großer Spielplatz und das Streichelgehege machen den Zoo zum idealen Start in den Familientag.",
+          "sourceUrls": [
+            "https://www.zoo-schwerin.de/",
+            "https://www.zoo-schwerin.de/oeffnungszeiten-preise"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Zippendorfer Strand",
+          "type": "nature",
+          "address": "Am Strand 14, 19063 Schwerin",
+          "durationMin": 90,
+          "note": "Der größte Sandstrand der Stadt fällt flach in den Schweriner See ab, ideal für kleine Wasserratten. Kinder buddeln im Sand, bauen Sandburgen und toben auf dem Spielplatz an der Promenade, während der weite Blick über den See für echtes Urlaubsgefühl sorgt.",
+          "sourceUrls": [
+            "https://www.mecklenburg-schwerin.de/erleben/familie-und-kinder/bade-und-strandurlaub/zippendorfer-strand-in-schwerin/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Strandperle Zippendorf",
+          "type": "restaurant",
+          "address": "Am Strand 14, 19063 Schwerin",
+          "durationMin": 75,
+          "note": "Direkt am Zippendorfer Strand serviert das Restaurant Strandperle norddeutsche und internationale Gerichte mit Seeblick. Große Terrasse, Pommes für die Kinder und ein entspannter Platz am Wasser lassen den Familientag gemütlich ausklingen.",
+          "sourceUrls": [
+            "https://strandperlezippendorf.de/",
+            "https://www.schwerin.de/kultur-tourismus/erlebnisse-in-schwerin/gastronomie/strandperle-zippendorf/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "cuxhaven",
+      "slug": "cuxhaven-familien-wattwanderung",
+      "title": "Familientag: Wattwanderung ab Sahlenburg & Wattenkieker",
+      "description": "Bei Ebbe wird der Meeresboden zum größten Abenteuerspielplatz der Nordsee: Auf einer geführten Wattwanderung ab Cuxhaven-Sahlenburg entdecken Familien Wattwürmer, Muscheln und Krebse im UNESCO-Weltnaturerbe. Danach wärmt eine gemütliche Einkehr direkt am Strand, das kostenlose Nationalpark-Zentrum erklärt das Watt zum Anfassen, und der weite Wernerwald sorgt für einen grünen Ausklang. Kurze Wege, viel frische Seeluft und große Kinderaugen.",
+      "tags": [
+        "family",
+        "editorial",
+        "nature",
+        "wattenmeer",
+        "nordsee"
+      ],
+      "sourceType": "official_venue",
+      "sourceUrls": [
+        "https://www.nordseeheilbad-cuxhaven.de/entdecken/mitmachen/wattwanderungen",
+        "https://www.nationalpark-wattenmeer.de/besuchen/infozentren/unesco-weltnaturerbe-wattenmeer-besucherzentrum-cuxhaven/",
+        "https://wattenkieker.de/"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wattwanderung ins Weltnaturerbe ab Sahlenburg",
+          "type": "nature",
+          "address": "Am Sahlenburger Strand, 27476 Cuxhaven-Sahlenburg (nur geführte Touren)",
+          "durationMin": 150,
+          "note": "Bei Ebbe fällt das Meer trocken und gibt den Meeresboden frei: Auf einer geführten Tour ab Sahlenburg stapfen Familien durch den weichen Schlick und entdecken Wattwürmer, Muscheln und winzige Krebse. Die zertifizierten Wattführer erklären kindgerecht, warum das Weltnaturerbe der Nordsee so einzigartig ist. Gummistiefel und wetterfeste Kleidung einpacken; ins Watt geht es nur mit Führung.",
+          "sourceUrls": [
+            "https://www.nordseeheilbad-cuxhaven.de/entdecken/mitmachen/wattwanderungen",
+            "https://www.wattwandernneuwerk.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Wattenkieker – Hotel, Restaurant und Café",
+          "type": "restaurant",
+          "address": "Am Sahlenburger Strand 27, 27476 Cuxhaven-Sahlenburg",
+          "durationMin": 75,
+          "note": "Nur wenige Schritte vom Watt entfernt liegt der Wattenkieker direkt am Strand. Das familiengeführte Restaurant mit Café serviert frischen Fisch, Kaiserschmarrn und kleine Portionen für Kinder; von der Terrasse blickt man aufs Weltnaturerbe. Drinnen wärmt an kühlen Tagen der Kakao, während draußen der Sand zum Buddeln lockt. Die Öffnungszeiten sind saisonal, daher vorab prüfen.",
+          "sourceUrls": [
+            "https://wattenkieker.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Nationalpark-Zentrum Wattenmeer",
+          "type": "museum",
+          "address": "Nordheimstraße 200, 27476 Cuxhaven-Sahlenburg",
+          "durationMin": 90,
+          "note": "Nach dem Watt geht es ins kostenlose Besucherzentrum gleich in Sahlenburg: In großen Aquarien schwimmen Schollen, Krebse und Seesterne aus der Nordsee, und an Mitmach-Stationen begreifen Kinder, wie Ebbe und Flut das Weltnaturerbe formen. Ein riesiges Skelett und ein Blick durchs Fernrohr auf die Vögel im Watt runden den Rundgang ab.",
+          "sourceUrls": [
+            "https://www.nationalpark-wattenmeer.de/besuchen/infozentren/unesco-weltnaturerbe-wattenmeer-besucherzentrum-cuxhaven/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Wernerwald – Küstenwald am Meer",
+          "type": "nature",
+          "address": "Am Lohmsmoor, 27476 Cuxhaven-Sahlenburg",
+          "durationMin": 75,
+          "note": "Zum Ausklang lockt der Wernerwald direkt hinterm Deich: ein weiter Küstenwald aus Kiefern und Birken mit weichen Sandwegen, Heideflächen und Dünen. Kinder sammeln Zapfen, klettern über Wurzeln und halten Ausschau nach Eichhörnchen. Die kurzen, kinderwagentauglichen Wege führen vom Strand mitten in den Wald – ein ruhiger, grüner Abschluss des Nordseetags.",
+          "sourceUrls": [
+            "https://www.nordseeheilbad-cuxhaven.de/entdecken/kuestenheiden-wernerwald"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "walsrode",
+      "slug": "walsrode-familien-vogelpark",
+      "title": "Familientag: Weltvogelpark Walsrode & Klostersee",
+      "description": "Ein Tag voller Federn und frischer Luft: Im größten Vogelpark der Welt erleben Familien rund 4.000 Vögel aus aller Welt, spektakuläre Flugvorführungen und mehrere große Spielplätze. Nach einer gemütlichen Mittagspause im familiengeführten Forellenhof runden der idyllische Klostersee mit weiten Wiesen und das historische Kloster den Ausflug ab. Kurze Wege, viel Natur und Programm für jedes Alter machen Walsrode zum perfekten Familienziel.",
+      "tags": [
+        "family",
+        "editorial",
+        "vogelpark",
+        "natur",
+        "tiere",
+        "lueneburger-heide"
+      ],
+      "sourceUrls": [
+        "https://www.weltvogelpark.de/",
+        "https://klosterwalsrode.de/",
+        "https://www.forellenhof.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Weltvogelpark Walsrode",
+          "type": "zoo",
+          "address": "Am Vogelpark, 29664 Walsrode",
+          "durationMin": 240,
+          "note": "Der größte Vogelpark der Welt zeigt rund 4.000 Vögel aus allen Kontinenten – von winzigen Kolibris über Papageien bis zu stolzen Kranichen. Bei den täglichen Flugvorführungen ziehen Adler und Geier dicht über die Köpfe der Gäste. Fünf große Spielplätze, ein Streichelgehege und viel Platz zum Toben machen den Tag für Kinder rundum spannend.",
+          "sourceUrls": [
+            "https://www.weltvogelpark.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Ringhotel Forellenhof",
+          "type": "restaurant",
+          "address": "Hünzingen 3, 29664 Walsrode",
+          "durationMin": 75,
+          "note": "Familiengeführtes Restaurant im Ringhotel Forellenhof, nur wenige Kilometer nördlich des Vogelparks. Die regionale Küche bietet frische Forelle und viele familienfreundliche Gerichte; der ländliche Hof mit Teich lädt zur entspannten Mittagspause ein.",
+          "sourceUrls": [
+            "https://www.forellenhof.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Klostersee Walsrode",
+          "type": "park",
+          "address": "Kirchplatz, 29664 Walsrode",
+          "durationMin": 60,
+          "note": "Mitten in der Stadt, gleich neben dem Kloster, liegt der idyllische Klostersee mit weiten Wiesen und einem Rundweg ums Wasser. Enten und Schwäne ziehen ihre Bahnen, dazwischen bleibt viel Platz zum Herumtollen – ideal, um nach dem Vogelpark die Beine auszustrecken und die Tiere am Ufer zu beobachten.",
+          "sourceUrls": [
+            "https://www.heideurlaub.de/lueneburger_heide_info/ausflugsziele/klostersee-walsrode-lueneburger-heide.html",
+            "https://de.wikipedia.org/wiki/Walsrode"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Kloster Walsrode",
+          "type": "landmark",
+          "address": "Kirchplatz 2, 29664 Walsrode",
+          "durationMin": 40,
+          "note": "Das ehrwürdige Kloster Walsrode, gegründet im Jahr 986, zählt zu den ältesten Klöstern Norddeutschlands. Auf dem frei zugänglichen Gelände entdecken Familien alte Backsteingebäude, die Klosterkirche und einen ruhigen Klostergarten – eine kurze Zeitreise in längst vergangene Zeiten zum Abschluss des Tages.",
+          "sourceUrls": [
+            "https://klosterwalsrode.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "osnabrueck",
+      "slug": "osnabrueck-familien-zoo-schoelerberg",
+      "title": "Familientag: Zoo Osnabrück & Museum am Schölerberg",
+      "description": "Ein rundum gelungener Familientag auf dem Osnabrücker Schölerberg: Erst geht es zu den rund 2.200 Tieren im Zoo Osnabrück, danach folgt eine gemütliche Verschnaufpause mit Kakao und Kuchen. Zum Abschluss lockt das Museum am Schölerberg mit Planetarium und Naturkunde zum Anfassen. Kurze Wege, viel Abwechslung und großes Staunen für Klein und Groß.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "tiere",
+        "museum",
+        "kinder"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-osnabrueck.de/",
+        "https://www.museum-am-schoelerberg.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Osnabrück",
+          "type": "zoo",
+          "address": "Klaus-Strick-Weg 12, 49082 Osnabrück",
+          "durationMin": 240,
+          "note": "Rund 2.200 Tiere von Löwen und Tigern über Elefanten und Giraffen bis zu frechen Erdmännchen warten hier auf große und kleine Entdecker. Ein besonderes Highlight ist der berühmte unterirdische Zoo, in dem heimische Tiere in ihren Erdbauten beobachtet werden - ein ganzer Tag voller Staunen und kurzer Wege.",
+          "sourceUrls": [
+            "https://www.zoo-osnabrueck.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Amani",
+          "type": "cafe",
+          "address": "Iburger Straße 229, 49082 Osnabrück",
+          "durationMin": 45,
+          "note": "Nach dem Rundgang durch den Zoo lädt dieses gemütliche Café - eine kleine Bäckerei nur wenige Minuten entfernt - zur Stärkung ein: ofenfrische Backwaren, warmer Kakao für die Kinder und herzhafte Snacks. Barrierefrei, mit Platz für die ganze Familie und kurzem Weg zurück zum Schölerberg für den Museumsbesuch.",
+          "sourceUrls": [
+            "https://www.tripadvisor.com/Restaurant_Review-g187354-d27299397-Reviews-Cafe_Amani-Osnabruck_Lower_Saxony.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Museum am Schölerberg",
+          "type": "museum",
+          "address": "Klaus-Strick-Weg 10, 49082 Osnabrück",
+          "durationMin": 90,
+          "note": "Direkt neben dem Zoo entführt das Naturkundemuseum die Familie auf eine Zeitreise durch die Erdgeschichte - von Fossilien bis zum tropischen Regenwald. Im Planetarium geht es unter dem künstlichen Sternenhimmel auf eine 360-Grad-Reise durch das Weltall. Vieles gibt es zum Anfassen und Staunen - ideal für neugierige Kinder.",
+          "sourceUrls": [
+            "https://www.museum-am-schoelerberg.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "soltau",
+      "slug": "soltau-familien-heidepark",
+      "title": "Familientag: Heide Park & Böhme-Familienpark",
+      "description": "Ein Familientag rund um Soltau in der Lüneburger Heide: Erst geht es in den Heide Park, Norddeutschlands größten Freizeitpark mit Achterbahnen, Karussells und dem bunten Peppa Pig Land. Danach lockt eine gemütliche italienische Einkehr, bevor der kostenlose Böhme-Familienpark zum Toben und das familiengeführte Spielmuseum zum Staunen einladen. Große Abenteuer und kurze Wege für Klein und Groß.",
+      "tags": [
+        "family",
+        "editorial",
+        "freizeitpark",
+        "achterbahn",
+        "heide"
+      ],
+      "sourceUrls": [
+        "https://www.heide-park.de/",
+        "https://www.soltau-touristik.de/",
+        "https://www.spielmuseum-soltau.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Heide Park Resort",
+          "type": "activity",
+          "address": "Heide Park 1, 29614 Soltau",
+          "durationMin": 300,
+          "note": "Der größte Freizeitpark Norddeutschlands liegt mitten in der Heidelandschaft und hat für jedes Alter etwas: sanfte Karussells und das bunte Peppa Pig Land für die Kleinen, rasante Achterbahnen für Mutige sowie Shows mit Seelöwen und Papageien. Mindestens einen ganzen Tag einplanen, dann bleibt Zeit für Wasserbahnen, Spielbereiche und den weitläufigen Themenpark.",
+          "sourceUrls": [
+            "https://www.heide-park.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Don Camillo Ristorante & Pizzeria",
+          "type": "restaurant",
+          "address": "Hagen 9, 29614 Soltau",
+          "durationMin": 75,
+          "note": "Wenige Fahrminuten vom Heide Park entfernt, mitten in Soltau am Heiratsbrunnen, liegt dieses gemütliche italienische Restaurant der Familie Martinez. Knusprige Pizza, hausgemachte Pasta und eine freundliche Terrasse machen es zur idealen Einkehr für Familien nach einem langen Parktag, und für die kleinen Gäste gibt es passende Portionen.",
+          "sourceUrls": [
+            "https://doncamilloesandrone.de/",
+            "https://www.soltau-touristik.de/detail/id=5ff84cf9b4dc7458417f9727"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Böhme-Familienpark",
+          "type": "park",
+          "address": "Bornemannstraße 7, 29614 Soltau",
+          "durationMin": 90,
+          "note": "Mitten in Soltau lädt der frei zugängliche Böhme-Familienpark zum Toben und Verschnaufen ein: mehrere Erlebnisspielplätze, ein Wasserspielplatz und Sportgeräte verteilen sich zwischen Wiesen und Uferwegen, während die Böhme ruhig hindurchfließt. Der Eintritt ist kostenlos und die Wege sind kinderwagentauglich, perfekt zum entspannten Ausklang.",
+          "sourceUrls": [
+            "https://www.soltau-touristik.de/detail/id=5ff84da1b4dc7458417f9b5f"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Spielmuseum Soltau",
+          "type": "museum",
+          "address": "Poststraße 7, 29614 Soltau",
+          "durationMin": 75,
+          "note": "Das familiengeführte Spielmuseum zeigt eine Spielzeugsammlung von Weltrang: Puppenstuben, Blechspielzeug, Modelleisenbahnen und Zinnfiguren aus mehreren Jahrhunderten. In zwei historischen Häusern an der Poststraße kommen kleine und große Sammlerherzen ins Staunen, ein schöner Programmpunkt auch bei Regenwetter.",
+          "sourceUrls": [
+            "https://www.spielmuseum-soltau.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "wolfsburg",
+      "slug": "wolfsburg-familien-phaeno-autostadt",
+      "title": "Familientag: phaeno Science Center & Autostadt Wolfsburg",
+      "description": "Wolfsburg ist ein Paradies für neugierige Familien: Im phaeno wird Naturwissenschaft zum großen Mitmach-Abenteuer, gleich nebenan lockt die Autostadt mit Rutschen, Autotürmen und weitläufigem Park. Zwischendurch stärkt eine gemütliche Einkehr, und unter der Planetariumskuppel reist die ganze Familie zu den Sternen. Kurze Wege, großes Staunen — ein rundum gelungener Erlebnistag.",
+      "tags": [
+        "family",
+        "editorial",
+        "wissenschaft",
+        "autostadt",
+        "indoor"
+      ],
+      "sourceUrls": [
+        "https://www.phaeno.de/",
+        "https://celona.de/cafe-bar-celona-wolfsburg",
+        "https://www.autostadt.de/",
+        "https://www.planetarium-wolfsburg.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "phaeno Science Center Wolfsburg",
+          "type": "science",
+          "address": "Willy-Brandt-Platz 1, 38440 Wolfsburg",
+          "durationMin": 180,
+          "note": "Über 350 Mitmach-Stationen laden zum Ausprobieren ein: Kinder erzeugen Blitze, wirbeln einen Feuertornado und staunen über optische Täuschungen. Das kühne Gebäude der Architektin Zaha Hadid ist selbst ein großes Erlebnis. Ein ganzer Vormittag zum Anfassen, Forschen und Entdecken.",
+          "sourceUrls": [
+            "https://www.phaeno.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café & Bar Celona",
+          "type": "cafe",
+          "address": "Porschestraße 32, 38440 Wolfsburg",
+          "durationMin": 60,
+          "note": "Ein kurzer Spaziergang durch die Fußgängerzone führt vom phaeno zum Café Celona an der Porschestraße. Das Café und Restaurant serviert hausgemachten Kuchen, Frühstück und warme Gerichte in entspannter, familienfreundlicher Atmosphäre. Eine gemütliche Einkehr mitten in der Innenstadt.",
+          "sourceUrls": [
+            "https://celona.de/cafe-bar-celona-wolfsburg"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Autostadt Wolfsburg",
+          "type": "activity",
+          "address": "Stadtbrücke, 38440 Wolfsburg",
+          "durationMin": 150,
+          "note": "Gleich über die Brücke vom phaeno liegt die Autostadt: ein weitläufiger Park mit Lagune, gläsernen Autotürmen und dem Mobiversum, einer Indoor-Erlebniswelt für Familien. Kinder klettern, rutschen die Riesenrutsche hinab und entdecken im ZeitHaus historische Fahrzeuge. Für Kinder unter 6 Jahren ist der Eintritt frei.",
+          "sourceUrls": [
+            "https://www.autostadt.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Planetarium Wolfsburg",
+          "type": "science",
+          "address": "Uhlandweg 2, 38440 Wolfsburg",
+          "durationMin": 60,
+          "note": "Das moderne Planetarium Wolfsburg zaubert unzählige Sterne an die große Kuppel. In bequemen Sesseln reist die ganze Familie durch Galaxien, zu fernen Planeten und schwarzen Löchern. Spezielle Kinderprogramme erklären den Sternenhimmel spannend und altersgerecht.",
+          "sourceUrls": [
+            "https://www.planetarium-wolfsburg.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "gelsenkirchen",
+      "slug": "gelsenkirchen-familien-zoom-erlebniswelt",
+      "title": "Familientag: ZOOM Erlebniswelt & Berger See",
+      "description": "Die ZOOM Erlebniswelt schickt Familien an einem Tag über drei Kontinente: von Alaska über Afrika bis Asien, mit Booten über weite Wasserlandschaften und Tieren zum Greifen nah. Gleich nebenan lädt das Wasserschloss Berge zur gemütlichen Einkehr, bevor der Berger See mit Spielplatz, Wiesen und Bootsverleih den Tag entspannt ausklingen lässt. Kurze Wege, viel Natur und große Kinderaugen – ein rundum gelungener Ausflug im Ruhrgebiet.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "natur",
+        "see",
+        "ruhrgebiet"
+      ],
+      "sourceType": "official_venue",
+      "sourceUrls": [
+        "https://www.zoom-erlebniswelt.de/",
+        "https://www.schloss-berge.de/",
+        "https://www.gelsenkirchen.de/de/freizeit/ausfluege_und_sehenswuerdigkeiten/parks_und_halden/berger_anlagen.aspx"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "ZOOM Erlebniswelt",
+          "type": "zoo",
+          "address": "Bleckstraße 64, 45889 Gelsenkirchen",
+          "durationMin": 240,
+          "note": "Drei Kontinente an einem Tag: In den Themenwelten Alaska, Afrika und Asien wandern Familien vom Polarmeer bis in die Savanne. Kinder staunen über Löwen, Giraffen und Orang-Utans, fahren mit dem Boot über die weitläufige Wasserlandschaft und beobachten Seelöwen durch große Unterwasserscheiben. Für den ausgedehnten Rundgang ruhig einen halben Tag einplanen.",
+          "sourceUrls": [
+            "https://www.zoom-erlebniswelt.de/",
+            "https://www.zoom-erlebniswelt.de/oeffnungszeiten/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant Schloss Berge",
+          "type": "restaurant",
+          "address": "Adenauerallee 103, 45894 Gelsenkirchen",
+          "durationMin": 75,
+          "note": "Nur wenige Minuten vom Zoo entfernt lädt das Restaurant im Wasserschloss Berge zur Pause ein. Vom Saal und der Terrasse blicken Familien über den Schlosspark und den Berger See; die saisonale Küche und die hauseigene Patisserie mit Kuchen machen die Einkehr für Groß und Klein gemütlich.",
+          "sourceUrls": [
+            "https://www.schloss-berge.de/restaurant.php",
+            "https://arenapark.gelsenkirchen.de/de/Gastronomie/Schloss_Berge/index.asp"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Berger See & Berger Anlagen",
+          "type": "park",
+          "address": "Adenauerallee, 45894 Gelsenkirchen",
+          "durationMin": 90,
+          "note": "Direkt gegenüber vom Schloss lädt der Berger See zum Ausklang ein: ein Uferweg führt rund um das Wasser, dazu ein großer Spielplatz mit Schnullerbaum, weite Wiesen zum Toben und im Sommer ein Bootsverleih. Ein entspannter, kostenloser Abschluss eines langen Erlebnistags an der frischen Luft.",
+          "sourceUrls": [
+            "https://www.gelsenkirchen.de/de/freizeit/ausfluege_und_sehenswuerdigkeiten/parks_und_halden/berger_anlagen.aspx"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "attendorn",
+      "slug": "attendorn-familien-tropfsteinhoehle-biggesee",
+      "title": "Familientag: Atta-Höhle & Biggesee",
+      "description": "Erst geht es tief in den Berg: Die Atta-Höhle in Attendorn zählt zu den schönsten Tropfsteinhöhlen Deutschlands und verzaubert schon die Kleinsten mit glitzernden Tropfsteinen. Danach wartet der Biggesee mit einer Kuchenpause am Wasser, einer gemütlichen Schifffahrt und grandiosem Weitblick von der Plattform Biggeblick. Ein abwechslungsreicher Tag zwischen Höhle, See und Panorama – ideal für Familien mit Kindern jeden Alters.",
+      "tags": [
+        "family",
+        "editorial",
+        "hoehle",
+        "biggesee",
+        "sauerland",
+        "natur"
+      ],
+      "sourceUrls": [
+        "https://www.atta-hoehle.de/",
+        "https://www.attendorn.de/Stadtinfo-Tourismus/Tourismus/Ausflugsziele/Biggeblick/",
+        "https://biggesee.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Atta-Höhle",
+          "type": "nature",
+          "address": "Finnentroper Straße 39, 57439 Attendorn",
+          "durationMin": 90,
+          "note": "Deutschlands wohl schönste Tropfsteinhöhle: Auf gut gesicherten Wegen staunt ihr über glitzernde Tropfsteine, hohe Säulen und weite Hallen tief im Berg. Es sind konstante 9 Grad – an heißen Tagen eine herrliche Abkühlung, also unbedingt Jacken einpacken. Für den Nachwuchs gibt es ein eigenes Entdecker-Programm und eine günstige Familienkarte.",
+          "sourceUrls": [
+            "https://www.atta-hoehle.de/ihr-besuch/preise-oeffnungszeiten",
+            "https://www.atta-hoehle.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Leuchtturm am Biggesee",
+          "type": "cafe",
+          "address": "Am Biggedamm 9, 57439 Attendorn",
+          "durationMin": 60,
+          "note": "Direkt am Biggedamm gelegen, ist dieses Café die perfekte Pause nach der Höhle: große Sonnenterrasse mit weitem Seeblick, frisch gebackene Kuchen und Eisbecher für die Kinder. Kinderwagen und Hochstühle sind selbstverständlich, und der Schiffsanleger liegt gleich nebenan.",
+          "sourceUrls": [
+            "https://www.attendorn.de/Quicknavigation/Kontakt/Leuchtturm-am-Biggesee.php?ModID=9&FID=2422.470.1",
+            "https://www.biggesee-listersee.com/de/neusta-gastro/leuchtturm-am-biggesee"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Personenschifffahrt Biggesee",
+          "type": "activity",
+          "address": "Am Biggedamm 9, 57439 Attendorn",
+          "durationMin": 90,
+          "note": "Vom Anleger an der Staumauer sticht ihr mit dem Ausflugsschiff in See: Rund anderthalb Stunden geht es gemütlich über den weiten Biggesee, vorbei an grünen Ufern und stillen Buchten. Ein Platz am Fenster ist bei den Kindern heiß begehrt – Ferngläser mitnehmen und unterwegs die Segelboote zählen.",
+          "sourceUrls": [
+            "https://biggesee.de/",
+            "https://www.biggesee-listersee.com/de/neusta-pois/personenschifffahrt-biggesee"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Aussichtsplattform Biggeblick",
+          "type": "landmark",
+          "address": "Waldenburger Bucht 11, 57439 Attendorn",
+          "durationMin": 75,
+          "note": "Hoch über dem See thront die moderne Plattform rund 90 Meter über dem Wasser und schenkt euch einen Rundumblick auf den Biggesee, die Gilberginsel und die Burgruine Waldenburg. Der Aufstieg führt über einen rund 800 Meter langen Waldpfad bergauf – gutes Schuhwerk für die Kinder mitbringen, oben lohnt jeder Höhenmeter. Am Abend leuchtet der Ring der Plattform sogar in Blau.",
+          "sourceUrls": [
+            "https://www.attendorn.de/Stadtinfo-Tourismus/Tourismus/Ausflugsziele/Biggeblick/",
+            "https://www.sauerland-seen.de/de/neusta-pois/aussichtsplattform-biggeblick"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "bruehl",
+      "slug": "bruehl-familien-phantasialand-welterbe",
+      "title": "Familientag: Phantasialand & Schloss Augustusburg",
+      "description": "Ein Familientag in Brühl bei Köln, der Nervenkitzel und Kultur verbindet: Am Vormittag geht es ins Phantasialand mit seinen fantastischen Themenwelten und rasanten Achterbahnen. Danach lockt eine gemütliche Einkehr im Ort, bevor das UNESCO-Welterbe Schloss Augustusburg mit prunkvollem Treppenhaus und dem weitläufigen Schlosspark den Tag krönt. Kurze Wege, große Augen.",
+      "tags": [
+        "family",
+        "editorial",
+        "freizeitpark",
+        "welterbe",
+        "schloss"
+      ],
+      "sourceUrls": [
+        "https://www.phantasialand.de/",
+        "https://www.schlossbruehl.de/",
+        "https://balthasar-neumann.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Phantasialand",
+          "type": "activity",
+          "address": "Berggeiststraße 31-41, 50321 Brühl",
+          "durationMin": 300,
+          "note": "Der preisgekrönte Freizeitpark bei Köln entführt Familien in fantastische Themenwelten: von der Steilstrecke Taron in Klugheim über sanfte Wasserfahrten bis zum verwunschenen Berlin um 1900. Kleinere Kinder freuen sich über liebevoll gestaltete Karussells und Shows, größere über rasante Achterbahnen. Feste Schuhe und etwas Zeit einplanen, der Park ist groß.",
+          "sourceUrls": [
+            "https://www.phantasialand.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Balthasar Neumann – Restaurant & Gästehaus",
+          "type": "restaurant",
+          "address": "Janshofpassage 1, 50321 Brühl",
+          "durationMin": 75,
+          "note": "Nur wenige Minuten vom Phantasialand entfernt liegt dieses gemütliche Restaurant mitten in Brühl. Die Küche ist mediterran-regional, es gibt auch fleischlose Gerichte und eine entspannte Atmosphäre für Familien; Kinder essen bei Mama und Papa mit, und auch Hunde sind willkommen. Eine gute Adresse, um nach dem Trubel im Park in Ruhe zu essen.",
+          "sourceUrls": [
+            "https://balthasar-neumann.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Schloss Augustusburg – UNESCO-Welterbe",
+          "type": "castle",
+          "address": "Schlossstraße 6, 50321 Brühl",
+          "durationMin": 75,
+          "note": "Das prächtige Rokoko-Schloss der Kölner Kurfürsten gehört seit 1984 zum UNESCO-Welterbe. Herzstück ist das prunkvolle Treppenhaus, das Kinder mit Stuck, Marmor und Deckenmalerei zum Staunen bringt. Ringsum liegen die streng geschnittenen Gärten im französischen Stil – ein Ausflug in eine andere Zeit. Von März bis November geöffnet, montags Ruhetag.",
+          "sourceUrls": [
+            "https://www.schlossbruehl.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Schlosspark Brühl",
+          "type": "park",
+          "address": "Schlossstraße 6, 50321 Brühl",
+          "durationMin": 60,
+          "note": "Gleich hinter dem Schloss erstreckt sich der weitläufige Schlossgarten – kunstvoll angelegte Broderie-Beete, Springbrunnen und schattige Alleen, dahinter ein englischer Landschaftsgarten. Der Eintritt ist frei, die breiten Wege sind kinderwagentauglich, und auf den Wiesen lässt sich herrlich herumtoben.",
+          "sourceUrls": [
+            "https://www.schlossbruehl.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "mettmann",
+      "slug": "mettmann-familien-neandertaler-steinzeit",
+      "title": "Familientag: Neanderthal Museum & Eiszeit-Wildgehege",
+      "description": "Ein kompletter Familientag rund um den berühmten Neandertaler: erst auf Zeitreise durch das preisgekrönte Neanderthal Museum, dann eine gemütliche Pause mit Blick ins Tal. Danach geht es hinaus in die Natur zu Wisenten und Auerochsen im kostenlosen Wildgehege und hinauf auf den Erlebnisturm an der originalen Fundstelle. Steinzeit zum Anfassen, viel frische Luft und kurze Wege – ideal für neugierige Kinder.",
+      "tags": [
+        "family",
+        "editorial",
+        "steinzeit",
+        "museum",
+        "natur",
+        "tiere"
+      ],
+      "sourceType": "official_venue",
+      "sourceUrls": [
+        "https://neanderthal.de/de/dein-besuch",
+        "https://neanderthal.de/de/unser-museum/erlebniswelt-neandertal/eiszeitliches-wildgehege",
+        "https://neanderthal.de/de/unser-museum/erlebniswelt-neandertal/fundstelle-erlebnisturm"
+      ],
+      "stops": [
+        {
+          "order": 1,
+          "title": "Neanderthal Museum",
+          "type": "museum",
+          "address": "Talstraße 300, 40822 Mettmann",
+          "durationMin": 120,
+          "note": "Der weltberühmte Neandertaler wurde nur wenige Schritte von hier entdeckt. Im preisgekrönten Museum reist ihr auf einem Rundgang durch vier Millionen Jahre Menschheitsgeschichte, vorbei an lebensnahen Figuren und Mitmach-Stationen zum Anfassen. Eine Kinderspur mit Rätseln und ein Audioguide halten auch die Kleinen bei Laune.",
+          "sourceUrls": [
+            "https://neanderthal.de/de/dein-besuch",
+            "https://www.mettmann.de/web/kunst-kultur/neanderthal-museum/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Museumscafé Neandertal",
+          "type": "cafe",
+          "address": "Talstraße 300, 40822 Mettmann",
+          "durationMin": 45,
+          "note": "Direkt am Ausgang der Ausstellung wartet das gemütliche Museumscafé mit Dachterrasse und Blick ins grüne Neandertal. Hier stärkt sich die ganze Familie bei Kakao, Kuchen, belegten Brötchen und kleinen Snacks. Ein entspanntes Café mit viel Platz für müde Kinderbeine – die ideale Pause mitten im Familientag.",
+          "sourceUrls": [
+            "https://neanderthal.de/de/sonstige/gastronomie"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Eiszeitliches Wildgehege Neandertal",
+          "type": "nature",
+          "address": "Talstraße 300, 40822 Mettmann",
+          "durationMin": 90,
+          "note": "Auf einem weitläufigen Waldgelände streifen echte Wisente, urige Auerochsen und wilde Tarpan-Pferde umher – nachgezüchtete Eiszeit-Tiere, die ihr aus der Ferne staunend beobachten könnt. Der Rundweg mit kleinen Brücken und Treppen ist kostenlos und frei zugänglich, perfekt zum Toben und Entdecken für große und kleine Forscher.",
+          "sourceUrls": [
+            "https://neanderthal.de/de/unser-museum/erlebniswelt-neandertal/eiszeitliches-wildgehege",
+            "https://www.kreis-mettmann.de/Kreisverwaltung/Dienstleistungen/Eiszeitliches-Wildgehege-Neandertal.php?FID=3718.546.1"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Fundstelle & Erlebnisturm Höhlenblick",
+          "type": "landmark",
+          "address": "Talstraße 300, 40822 Mettmann",
+          "durationMin": 40,
+          "note": "Nur rund 400 Meter vom Museum entfernt liegt der Ort, an dem 1856 der berühmte Neandertaler gefunden wurde. Der 22 Meter hohe Erlebnisturm Höhlenblick trägt oben einen riesigen, stark vergrößerten Nachbau der Schädeldecke und schenkt euch einen weiten Rundblick über das grüne Tal. Auf dem kurzen Weg folgt ihr den Spuren der Steinzeit – spannend für neugierige Kinder.",
+          "sourceUrls": [
+            "https://neanderthal.de/de/unser-museum/erlebniswelt-neandertal/fundstelle-erlebnisturm"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "bochum",
+      "slug": "bochum-familien-bergbaumuseum-planetarium",
+      "title": "Familientag: Bergbau-Museum, Café-Pause & Planetarium",
+      "description": "Ein kompletter Familientag in Bochum rund um die Industriekultur des Ruhrgebiets: Erst geht es im Deutschen Bergbau-Museum mit dem Förderkorb hinab in ein echtes Anschauungsbergwerk unter dem markanten Fördergerüst. Nach einer gemütlichen Café-Pause an der Castroper Straße endet der Tag unter dem Sternenhimmel des Zeiss-Planetariums. Die drei kindgerechten Stationen lassen sich bequem an einem Tag verbinden.",
+      "tags": [
+        "family",
+        "editorial",
+        "museum",
+        "science",
+        "industriekultur",
+        "ruhrgebiet"
+      ],
+      "sourceUrls": [
+        "https://www.bergbaumuseum.de/",
+        "https://www.bochum.de/Zeiss-Planetarium",
+        "https://www.tante-yurgans.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Deutsches Bergbau-Museum Bochum",
+          "type": "museum",
+          "address": "Am Bergbaumuseum 28, 44791 Bochum",
+          "durationMin": 180,
+          "note": "Der Höhepunkt für Kinder: Mit dem Förderkorb geht es hinunter ins originalgetreue Anschauungsbergwerk mit echten Maschinen und engen Stollen. Über der Anlage ragt das weithin bekannte Fördergerüst als Wahrzeichen des Museums empor. Interaktive Stationen und ein eigener Kinderpfad machen den Bergbau zum Mitmachen.",
+          "sourceUrls": [
+            "https://www.bergbaumuseum.de/",
+            "https://www.bochum-tourismus.de/bochum-entdecken/wissens-und-industriekultur/deutsches-bergbau-museum.html"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Tante Yurgan's Café",
+          "type": "cafe",
+          "address": "Castroper Straße 79, 44791 Bochum",
+          "durationMin": 60,
+          "note": "Gemütliche Einkehr direkt auf dem Weg: Das Café Tante Yurgan's an der Castroper Straße serviert Frühstück bis in den Nachmittag, dazu hausgemachten Kuchen und Eis - perfekt für eine Pause mit Kindern zwischen Museum und Planetarium. Wer lieber woanders einkehrt, kann von hier zu anderen Bochumer Lokalen durchwechseln.",
+          "sourceUrls": [
+            "https://www.tante-yurgans.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Zeiss Planetarium Bochum",
+          "type": "science",
+          "address": "Castroper Straße 67, 44777 Bochum",
+          "durationMin": 75,
+          "note": "Zum Abschluss unter den Sternenhimmel: Im großen Kuppelsaal reisen Familien durch das Weltall, vorbei an Planeten und fernen Galaxien. Spezielle Kinderprogramme erklären den Sternenhimmel altersgerecht und lassen kleine Weltraumfans staunen. Vom Bergbau-Museum sind es rund 15 Gehminuten zu Fuß oder eine kurze Tramfahrt bis zum Planetarium.",
+          "sourceUrls": [
+            "https://www.bochum.de/Zeiss-Planetarium",
+            "https://www.bochum-tourismus.de/bochum-entdecken/wissens-und-industriekultur/zeiss-planetarium-bochum.html"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "luedenscheid",
+      "slug": "luedenscheid-familien-phaenomenta",
+      "title": "Familientag: PHÄNOMENTA Lüdenscheid, Café Extrablatt & Stadtpark",
+      "description": "Ein rundum gelungener Familientag in Lüdenscheid: Im Mitmachmuseum PHÄNOMENTA werden Physik und Technik an rund 200 Stationen zum Anfassen zum großen Erlebnis, danach lockt eine entspannte Einkehr direkt am Rathausplatz. Am Nachmittag geht es an die frische Luft in den Stadtpark oder ins Familienbad Nattenberg – Toben, Rutschen und Planschen inklusive. Drinnen wie draußen, wetterfest und für Kinder jeden Alters spannend.",
+      "tags": [
+        "family",
+        "editorial",
+        "science",
+        "museum",
+        "sauerland",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.phaenomenta-luedenscheid.de/",
+        "https://cafe-extrablatt.de/standorte/details/cafe-extrablatt-luedenscheid",
+        "https://www.familienbad-nattenberg.de/",
+        "https://spielplatznet.de/spielplatz/58419/L%C3%BCdenscheid/Stadtpark"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "PHÄNOMENTA Lüdenscheid",
+          "type": "science",
+          "address": "Phänomenta-Weg 1, 58507 Lüdenscheid",
+          "durationMin": 150,
+          "note": "Der Auftakt für den Familientag: Auf rund 4000 Quadratmetern warten etwa 200 Mitmach-Stationen zum Anfassen, Ausprobieren und Staunen — Physik, Technik und Mathematik werden hier zum Spiel. Kinder drehen, kurbeln und experimentieren selbst, der große Turm im Zentrum ist ein Höhepunkt für sich. Drinnen und wetterunabhängig, ideal für den Vormittag mit Kindern.",
+          "sourceUrls": [
+            "https://www.phaenomenta-luedenscheid.de/",
+            "https://www.phaenomenta-luedenscheid.de/besuch/oeffnungszeiten/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Extrablatt Lüdenscheid",
+          "type": "cafe",
+          "address": "Rathausplatz 2, 58507 Lüdenscheid",
+          "durationMin": 75,
+          "note": "Mittagspause im großzügigen Café und Restaurant Extrablatt direkt am Rathausplatz: entspannte Atmosphäre, eine große Karte mit Gerichten für kleine und große Gäste und ein schöner Biergarten. Besonders familienfreundlich, mit Hochstühlen und viel Platz für den Nachwuchs. Von hier sind es nur wenige Minuten zu Fuß zurück in die Innenstadt.",
+          "sourceUrls": [
+            "https://cafe-extrablatt.de/standorte/details/cafe-extrablatt-luedenscheid"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Stadtpark Lüdenscheid",
+          "type": "park",
+          "address": "Bayernstraße 27, 58509 Lüdenscheid",
+          "durationMin": 60,
+          "note": "Zeit zum Auspowern nach dem Museum: Der Stadtpark ist eine große, zentrale Grünanlage mit altem Baumbestand und Wegen zum Spazieren. Der Spielplatz bietet Sandkasten, Rutsche, Schaukel und Wippe für Kinder von drei bis zwölf Jahren — viel Platz zum Toben an der frischen Luft.",
+          "sourceUrls": [
+            "https://freizeitmonster.de/aktivitaeten/orte/stadtpark-luedenscheid-210155/",
+            "https://spielplatznet.de/spielplatz/58419/L%C3%BCdenscheid/Stadtpark"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Familienbad Nattenberg",
+          "type": "activity",
+          "address": "Talstraße 59, 58515 Lüdenscheid",
+          "durationMin": 90,
+          "note": "Der perfekte Ausklang für Wasserratten: Das Familienbad Nattenberg vereint Frei- und Hallenbad, sodass Planschen und Schwimmen bei jedem Wetter möglich sind. Flaches Kinderbecken, Rutsche und viel Liegefläche laden zum Entspannen ein — eine tolle Alternative zum Stadtpark. Günstige Tageskarten; Badesachen einpacken.",
+          "sourceUrls": [
+            "https://www.familienbad-nattenberg.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "duesseldorf",
+      "slug": "duesseldorf-familien-aquazoo",
+      "title": "Familientag: Aquazoo Löbbecke Museum & Japanischer Garten",
+      "description": "Ein Tag für neugierige Familien rund um den Düsseldorfer Nordpark: Erst tauchen die Kinder im Aquazoo Löbbecke Museum durch tropische Riffe, vorbei an Haien, Pinguinen und Krokodilen. Danach geht es hinaus ins Grüne zum stillen Japanischen Garten und, wer mag, mit der U-Bahn weiter zur mächtigen Kaiserpfalz am Rhein. Kurze Wege, viel Abwechslung und vieles davon wetterfest oder kostenlos.",
+      "tags": [
+        "family",
+        "editorial",
+        "aquarium",
+        "nordpark",
+        "natur"
+      ],
+      "sourceUrls": [
+        "https://aquazoo-duesseldorf.de/",
+        "https://www.duesseldorf.de/stadtgruen/park/nordpark",
+        "https://www.nordpark.cafe/",
+        "https://www.kaiserpfalz-kaiserswerth.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Aquazoo Löbbecke Museum",
+          "type": "aquarium",
+          "address": "Kaiserswerther Straße 380, 40474 Düsseldorf",
+          "durationMin": 150,
+          "note": "Über 570 Tierarten vom tropischen Riff-Aquarium bis in den Regenwald: Haie, Brillenpinguine und Krokodile lassen sich hier ganz aus der Nähe beobachten. An vielen Becken führen Trittstufen nach oben, dazu gibt es Klappen und Mitmach-Stationen zum Ausprobieren. Ein voller Vormittag drinnen, komplett wetterunabhängig.",
+          "sourceUrls": [
+            "https://aquazoo-duesseldorf.de/",
+            "https://aquazoo-duesseldorf.de/besuchen"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Nordpark Café",
+          "type": "cafe",
+          "address": "Kaiserswerther Straße 390a, 40474 Düsseldorf",
+          "durationMin": 60,
+          "note": "Gleich hinter dem Aquazoo liegt dieses Café und Restaurant mitten im Grünen. Auf der Karte stehen Kuchen und warme Gerichte, viele davon mediterran, dazu im Sommer eine weitläufige Terrasse zum Draußensitzen. Kindgerechte Portionen und kurze Wege machen die Mittagspause entspannt. Geöffnet Dienstag bis Sonntag ab 12 Uhr.",
+          "sourceUrls": [
+            "https://www.nordpark.cafe/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Japanischer Garten im Nordpark",
+          "type": "park",
+          "address": "Kaiserswerther Straße 390, 40474 Düsseldorf",
+          "durationMin": 40,
+          "note": "Ein stiller Teichgarten in der nordwestlichen Ecke des Nordparks: bunte Koi-Fische, geschwungene Brücken, Steinlaternen und japanische Ahorne. Der Zutritt ist frei. Gleich nebenan warten großer Spielplatz und Wasserspiele, wo die Kinder nach dem ruhigen Rundgang wieder richtig toben können.",
+          "sourceUrls": [
+            "https://www.duesseldorf.de/stadtgruen/park/nordpark/japanischer-garten",
+            "https://www.duesseldorf.de/stadtgruen/park/nordpark"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Kaiserpfalz Kaiserswerth",
+          "type": "castle",
+          "address": "Burgallee, 40489 Düsseldorf",
+          "durationMin": 60,
+          "note": "Mächtige Mauern einer über 800 Jahre alten Kaiserburg direkt am Rhein. Von Frühjahr bis Herbst täglich von 10 bis 18 Uhr geöffnet; Tafeln auf Deutsch und Englisch erzählen ihre Geschichte. Ringsum liegt eine Wiese mit Bänken zum Picknicken, ideal für den entspannten Ausklang. Mit der U79 bis Klemensplatz und einem kurzen Fußweg vom Nordpark aus zu erreichen.",
+          "sourceUrls": [
+            "https://www.nrw-stiftung.de/entdecken/heimat-touren/kaiserpfalz-in-duesseldorf-kaiserswerth.html",
+            "https://www.kaiserpfalz-kaiserswerth.de/lage-und-erreichbarkeit/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "bottrop",
+      "slug": "bottrop-familien-tetraeder-halde",
+      "title": "Familientag: Tetraeder Bottrop & Museumszentrum Quadrat",
+      "description": "Bottrop von oben: Der frei zugängliche Tetraeder auf der Halde Beckstraße ist ein echtes Abenteuer für Kinder — über schwankende Stege geht es hinauf zu einem weiten Blick über das ganze Ruhrgebiet. Nach einer Stärkung direkt am Fuß der Halde warten das Mammut-Skelett in der Eiszeithalle des Museumszentrums Quadrat und der große Revierpark Vonderort mit Spielplatz und Pumptrack. Ein abwechslungsreicher Familientag zwischen Industriekultur, Museum und Bewegung.",
+      "tags": [
+        "family",
+        "editorial",
+        "aussicht",
+        "industriekultur",
+        "museum"
+      ],
+      "sourceUrls": [
+        "https://www.bottrop.de/freizeit-tourismus/sehenswert/Tetraeder.php",
+        "https://quadrat.bottrop.de/museen-und-park/architektur.php",
+        "https://www.bottrop.de/sport/offene-sportangebote/revierpark-vonderort/index.php",
+        "https://www.revierpark-vonderort.de/kontakt/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tetraeder Bottrop",
+          "type": "landmark",
+          "address": "Beckstraße, 46238 Bottrop",
+          "durationMin": 90,
+          "note": "Das Wahrzeichen Bottrops thront auf der rund 90 Meter hohen Halde Beckstraße: eine stählerne Pyramide, deren Plattformen über Treppen frei zugänglich sind. Wer die schwankenden Stege erklimmt, blickt weit über das ganze Ruhrgebiet. Festes Schuhwerk mitnehmen, der Aufstieg über die Halde lohnt sich für die ganze Familie.",
+          "sourceUrls": [
+            "https://www.bottrop.de/freizeit-tourismus/sehenswert/Tetraeder.php"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Imbiss am Tetraeder",
+          "type": "restaurant",
+          "address": "Beckstraße 57a, 46238 Bottrop",
+          "durationMin": 45,
+          "note": "Direkt am Fuß der Halde liegt dieses familienfreundliche Restaurant. Nach dem Aufstieg schmecken hier Currywurst, Pommes und kühle Getränke, während die Kinder noch einmal hinauf zur Pyramide schauen. Ein unkomplizierter Stopp mit kurzen Wegen — ideal für hungrige Ausflügler.",
+          "sourceUrls": [
+            "https://www.speisekarte.de/bottrop/restaurant/imbiss_am_tetraeder"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Museumszentrum Quadrat mit Eiszeithalle",
+          "type": "museum",
+          "address": "Anni-Albers-Platz 1, 46236 Bottrop",
+          "durationMin": 90,
+          "note": "Im Museumszentrum Quadrat staunen Kinder in der Eiszeithalle über ein echtes Mammut-Skelett und die berühmte Bottroper Fährtenplatte mit versteinerten Tierspuren. Nebenan zeigt das Josef Albers Museum farbenfrohe Kunst. Rundherum lädt der weitläufige Stadtgarten mit Teich und Spielwiese zum Auslaufen ein.",
+          "sourceUrls": [
+            "https://quadrat.bottrop.de/museen-und-park/architektur.php"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Revierpark Vonderort",
+          "type": "park",
+          "address": "Bottroper Straße 322, 46117 Oberhausen",
+          "durationMin": 90,
+          "note": "Zum Ausklang toben Familien im weitläufigen Revierpark: Der Bewegungshügel bietet gleich zwei Pumptracks für Große und Kleine, dazu einen Kletterwald für Kinder, einen Parcours-Platz und mehrere Spielplätze — die ganze Anlage ist kostenlos und für alle zugänglich. Kilometerlange Rundwege durch Wiesen und Baumgruppen laden zum Spazieren und Radeln ein.",
+          "sourceUrls": [
+            "https://www.bottrop.de/sport/offene-sportangebote/revierpark-vonderort/index.php",
+            "https://www.revierpark-vonderort.de/kontakt/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "pirmasens",
+      "slug": "pirmasens-familien-dynamikum",
+      "title": "Familientag: Dynamikum & Strecktalpark",
+      "description": "Erst forschen, dann toben: Im Dynamikum drehen Kinder an über 160 Mitmach-Stationen und begreifen Naturwissenschaft mit allen Sinnen. Nach einer Stärkung im integrativen Café Carpe Diem geht es in den direkt benachbarten Strecktalpark mit Wasserspielplatz, weiten Wiesen und Experimentierstationen unter freiem Himmel. Ein Tag, der drinnen wie draußen funktioniert – auch wenn das Wetter mal nicht mitspielt.",
+      "tags": [
+        "family",
+        "editorial",
+        "science",
+        "mitmachmuseum",
+        "park",
+        "pfalz"
+      ],
+      "sourceUrls": [
+        "https://dynamikum.de/",
+        "https://www.pirmasens.de/leben-in-ps/kultur/museen-und-ausstellungen/dynamikum-science-center/",
+        "https://www.pfalz.de/de/sehenswuerdigkeit/strecktalpark",
+        "https://www.ghg-pfalzblick.de/wir-ueber-uns/unsere-standorte/cafe-carpe-diem"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Dynamikum Science Center",
+          "type": "science",
+          "address": "Fröhnstraße 8, 66954 Pirmasens",
+          "durationMin": 150,
+          "note": "Über 160 Mitmach-Stationen zum Ausprobieren: Kinder drehen an Rädern, testen ihre Reaktion und jagen Seifenblasen durch die Luft. Ein ganzer Vormittag für kleine Forscher – und bei Regen der perfekte Plan.",
+          "sourceUrls": [
+            "https://dynamikum.de/",
+            "https://www.pirmasens.de/leben-in-ps/kultur/museen-und-ausstellungen/dynamikum-science-center/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Carpe Diem",
+          "type": "cafe",
+          "address": "Volksgartenstraße 5, 66953 Pirmasens",
+          "durationMin": 60,
+          "note": "Im integrativen Café Carpe Diem stärkt sich die Familie mit hausgemachtem Kuchen, frischem Frühstück und Kakao. Hier arbeiten Menschen mit und ohne Behinderung zusammen – herzlich, entspannt und mit fairen Preisen.",
+          "sourceUrls": [
+            "https://www.ghg-pfalzblick.de/wir-ueber-uns/unsere-standorte/cafe-carpe-diem"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Strecktalpark",
+          "type": "park",
+          "address": "Fröhnstraße 18, 66954 Pirmasens",
+          "durationMin": 120,
+          "note": "Direkt neben dem Dynamikum lädt der weitläufige Landschaftspark zum Toben ein: Wasserspielplatz zum Matschen, weite Wiesen, eine Fläche zum Inlinern und Skaten und viele Experimentierstationen unter freiem Himmel. Hier lassen die Kinder nach dem Forschen so richtig die Energie raus.",
+          "sourceUrls": [
+            "https://www.pfalz.de/de/sehenswuerdigkeit/strecktalpark",
+            "https://www.pirmasens.de/leben-in-ps/gesellschaft-freizeit-sport/parks-im-stadtgebiet/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "hassloch",
+      "slug": "hassloch-familien-holiday-park",
+      "title": "Familientag: Holiday Park & Vogelpark Haßloch",
+      "description": "Der Holiday Park in Haßloch - heute auch als Plopsaland Deutschland bekannt - ist ein Freizeitparadies für die ganze Familie: preisgekrönte Achterbahnen für Mutige und liebevolle Fahrgeschäfte für die Kleinsten sorgen für einen Tag voller Abenteuer. Eine süße Pause in einer echten Konditorei und der kostenlose Vogelpark runden den Ausflug entspannt ab - ein rundum gelungener Familientag in der Vorderpfalz.",
+      "tags": [
+        "family",
+        "editorial",
+        "freizeitpark",
+        "tiere",
+        "pfalz"
+      ],
+      "sourceUrls": [
+        "https://www.holidaypark.de/",
+        "https://vogelpark-hassloch.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Holiday Park",
+          "type": "activity",
+          "address": "Holiday-Park-Straße 1-5, 67454 Haßloch",
+          "durationMin": 300,
+          "note": "Der große Freizeitpark - heute auch als Plopsaland Deutschland bekannt - ist das Herzstück des Familientages: Dutzende Fahrgeschäfte reichen von sanften Karussells und dem Wickieland für die Kleinen bis zur berühmten Achterbahn Expedition GeForce für Mutige. Plant ruhig den halben oder ganzen Tag ein, denn zwischen den Attraktionen laden Spielplätze und bunte Shows immer wieder zum Verschnaufen ein.",
+          "sourceUrls": [
+            "https://www.holidaypark.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Konditorei Hess Eismanufaktur",
+          "type": "cafe",
+          "address": "Langgasse 70, 67454 Haßloch",
+          "durationMin": 60,
+          "note": "Nach dem Trubel im Park gönnt sich die Familie eine süße Pause in diesem gemütlichen Café mitten in Haßloch. Hausgemachte Kuchen, Torten und selbst hergestelltes Eis machen große und kleine Naschkatzen glücklich - eine barrierefreie Adresse für den entspannten Ausklang.",
+          "sourceUrls": [
+            "https://cafe-konditorei-hess-eismanufaktur.eatbu.com/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Vogelpark Haßloch",
+          "type": "zoo",
+          "address": "Rennbahnstraße 161, 67454 Haßloch",
+          "durationMin": 90,
+          "note": "Nur wenige Gehminuten vom Holiday Park entfernt liegt der liebevoll gepflegte Vogelpark - und der Eintritt ist kostenlos. Viele heimische und exotische Vogelarten gibt es hier zu bestaunen, dazu viel Platz zum Spazieren und Entdecken. Ein ruhiger, tierisch schöner Ausklang für den Familientag, bei dem die Kinder noch einmal auf Entdeckungstour gehen können.",
+          "sourceUrls": [
+            "https://vogelpark-hassloch.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "neuwied",
+      "slug": "neuwied-familien-zoo-abtei",
+      "title": "Familientag: Zoo Neuwied & Abtei Rommersdorf",
+      "description": "Ein tierisch schöner Familientag im Westerwald: Im Zoo Neuwied warten Löwen, Erdmännchen und ein Streichelgehege, dazu ein großer Spielplatz zum Austoben. Nach der Mittagspause mit Blick über die Tieranlagen geht es in die über 900 Jahre alte Abtei Rommersdorf mit weitläufigem Klostergarten. Ein Tag, der Tiererlebnis, Stärkung und Geschichte kindgerecht verbindet.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "tiere",
+        "kultur"
+      ],
+      "sourceUrls": [
+        "https://www.zooneuwied.de",
+        "https://zooneuwied.de/planen/oeffnungszeiten-und-preise/",
+        "https://www.abtei-rommersdorf.de/abtei_rommersdorf/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Neuwied",
+          "type": "zoo",
+          "address": "Waldstraße 160, 56566 Neuwied",
+          "durationMin": 210,
+          "note": "Der tierische Start in den Tag: Auf dem weitläufigen Zoogelände leben Löwen, Pinguine, Erdmännchen und viele weitere Tiere. Im Streichelgehege dürfen Kinder Ziegen füttern, und der große Spielplatz lädt zum Toben ein. Plant etwa drei bis vier Stunden ein, dann bleibt für jedes Gehege genug Zeit.",
+          "sourceUrls": [
+            "https://www.zooneuwied.de",
+            "https://zooneuwied.de/planen/oeffnungszeiten-und-preise/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Zoo-Restaurant Neuwied",
+          "type": "restaurant",
+          "address": "Waldstraße 160, 56566 Neuwied",
+          "durationMin": 60,
+          "note": "Mittagspause mitten im Zoo: Das im Januar 2026 neu eröffnete Restaurant der Familie Aslani serviert Klassiker wie Pommes, Bratwurst und Schnitzel, dazu Bowls und eine Salatbar. Es gibt Hochstühle für die Kleinen und eine Dachterrasse mit Blick über die Tieranlagen. Danach sind alle wieder gestärkt für die zweite Runde.",
+          "sourceUrls": [
+            "https://zooneuwied.de/planen/zoo-restaurant/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Abtei Rommersdorf",
+          "type": "landmark",
+          "address": "Stiftsstraße 2, 56566 Neuwied",
+          "durationMin": 75,
+          "note": "Nur wenige Minuten vom Zoo entfernt wartet die über 900 Jahre alte Klosteranlage aus dem Jahr 1117. Familien schlendern durch den weitläufigen Klostergarten, entdecken den mittelalterlichen Kreuzgang und die alten Fliesenböden. Ein ruhiger, grüner Abschluss zum Herumtollen und Staunen, bei dem auch die Kleinen viel zu gucken haben.",
+          "sourceUrls": [
+            "https://www.abtei-rommersdorf.de/abtei_rommersdorf/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "landau-in-der-pfalz",
+      "slug": "landau-in-der-pfalz-familien-zootag",
+      "title": "Familientag: Zoo Landau & Goethepark",
+      "description": "Ein rundum entspannter Familientag in der Südpfalz: Vormittags warten im liebevoll gestalteten Zoo Landau Erdmännchen, Pinguine, Seelöwen, Sibirische Tiger und viele weitere Tiere auf kurzen, kinderwagentauglichen Wegen. Nach einer gemütlichen Einkehr direkt vor Ort tobt sich der Nachwuchs zum Abschluss im grünen Goethepark auf einem der schönsten Spielplätze der Stadt aus. Kurze Wege, viel Natur und Programm für jedes Alter machen den Tag ideal für Familien.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "tiere",
+        "natur",
+        "spielplatz"
+      ],
+      "sourceUrls": [
+        "https://zoo-landau.de/",
+        "https://zoo-landau.de/service/gastronomie-im-zoo-landau-immer-lecker-immer-guenstig",
+        "https://www.landau.de/Leben-Wohnen/Freizeit/Zoo/",
+        "https://www.landau-tourismus.de/landau-mit-kindern/spielplaetze/infosystem/Spielplatz-im-Goethepark-2_Landau-in-der-Pfalz/infosystem.html"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Landau in der Pfalz",
+          "type": "zoo",
+          "address": "Hindenburgstraße 12, 76829 Landau in der Pfalz",
+          "durationMin": 150,
+          "note": "Rund 750 Tiere in über 100 Arten leben hier auf naturnahen Anlagen: Sibirische Tiger, Erdmännchen, Pinguine, Seelöwen, Kamele und Flamingos. Der kompakte Rundweg ist auch mit Kinderwagen gut zu schaffen; mitten im Zoo lädt ein Spielplatz die Kinder zu einer kleinen Pause ein.",
+          "sourceUrls": [
+            "https://zoo-landau.de/",
+            "https://www.landau.de/Leben-Wohnen/Freizeit/Zoo/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Erdmännl - Gastro im Zoo",
+          "type": "restaurant",
+          "address": "Hindenburgstraße 12, 76829 Landau in der Pfalz",
+          "durationMin": 60,
+          "note": "Das familienfreundliche Restaurant Erdmännl liegt direkt im Zoo und ist ideal für eine Mittagspause zwischen den Tieren. Für die Eltern gibt es Pfälzer Klassiker, für die Kleinen Kindergerichte wie Nudeln, Pommes oder Würstchen.",
+          "sourceUrls": [
+            "https://zoo-landau.de/service/gastronomie-im-zoo-landau-immer-lecker-immer-guenstig"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Goethepark mit Spielplatz Mini-max",
+          "type": "park",
+          "address": "Zweibrücker Straße, 76829 Landau in der Pfalz",
+          "durationMin": 60,
+          "note": "Nur einen kurzen Spaziergang vom Zoo entfernt liegt der grüne Goethepark. Auf dem teils eingezäunten Spielplatz gibt es Klettergerät mit Rutsche, eine Doppelschaukel, ein Federtier und einen großen Sandkasten; auf der weiten Wiese bleibt Platz zum Toben, Picknicken und Drachensteigen.",
+          "sourceUrls": [
+            "https://www.landau-tourismus.de/landau-mit-kindern/spielplaetze/infosystem/Spielplatz-im-Goethepark-2_Landau-in-der-Pfalz/infosystem.html",
+            "https://www.spielplatztreff.de/spielplatz/mini-max-im-goethepark-in-landau-in-der-pfalz_6050"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "idar-oberstein",
+      "slug": "idar-oberstein-familien-edelsteinminen",
+      "title": "Familientag: Edelsteinminen Steinkaulenberg & Weiherschleife",
+      "description": "Ein Familientag rund um funkelnde Edelsteine in Idar-Oberstein: Erst geht es mit Helm in Europas einziges öffentlich zugängliches Edelstein-Schaubergwerk tief in den Steinkaulenberg, wo Kinder im Camp selbst nach Schätzen schürfen dürfen. Nach einer gemütlichen Pause mit weitem Blick über die Hügel zeigt die Historische Weiherschleife, wie aus rohen Steinen an alten Wasserrädern glitzernde Schmucksteine werden. Beide Edelstein-Stationen liegen dicht beieinander und haben von März bis November die gleiche Saison, ideal für einen entspannten Tag mit Kindern.",
+      "tags": [
+        "family",
+        "editorial",
+        "edelsteine",
+        "bergwerk",
+        "hunsrueck",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.edelsteinland.de/de/sehenswert/alle-sehenswuerdigkeiten/edelsteinminen-im-steinkaulenberg.html",
+        "https://www.weiherschleife-steinkaulenbergwerk.de/",
+        "https://www.berghotel-kristall.com/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Historische Edelsteinminen Steinkaulenberg",
+          "type": "mine",
+          "address": "Steinkaulenberg, 55743 Idar-Oberstein",
+          "durationMin": 120,
+          "note": "Europas einziges öffentlich zugängliches Edelstein-Schaubergwerk: Auf einem rund 400 Meter langen, treppenlosen Weg geht es sanft tief in den Berg, wo echte Achate und Bergkristalle im Fels funkeln. Im Freien dürfen Kinder am Kinderschürfplatz mit Helm, Hammer und Schaufel nach eigenen Schätzen schürfen. Saison 15. März bis 15. November, täglich 10 bis 17 Uhr (letzte Führung 16 Uhr); Karten am besten vorab online sichern.",
+          "sourceUrls": [
+            "https://www.edelsteinland.de/de/sehenswert/alle-sehenswuerdigkeiten/edelsteinminen-im-steinkaulenberg.html",
+            "https://www.weiherschleife-steinkaulenbergwerk.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Berghotel Kristall",
+          "type": "cafe",
+          "address": "Wiesenstraße 50, 55743 Idar-Oberstein",
+          "durationMin": 60,
+          "note": "Gemütliche Einkehr kurz nach dem Bergwerk: Das familien- und hundefreundliche Berghotel liegt nur gut anderthalb Kilometer entfernt und lädt im Café-Bistro und auf der sonnigen Terrasse zu einer Pause mit Kuchen und weitem Blick über die Hügel. Wer lieber woanders essen möchte, wechselt von hier bequem zu anderen Lokalen und Restaurants in Idar-Oberstein.",
+          "sourceUrls": [
+            "https://www.berghotel-kristall.com/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Historische Weiherschleife",
+          "type": "activity",
+          "address": "Tiefensteiner Straße 87, 55743 Idar-Oberstein",
+          "durationMin": 75,
+          "note": "Perfekt zum Thema des Tages: An historischen, wasserradgetriebenen Schleifsteinen wird gezeigt, wie aus rohen Steinen funkelnde Edelsteine werden. Kinder schürfen am eigenen Schürfplatz nach Mineralien und drehen mit dem Tretboot eine Runde auf dem Weiher. Gleiche Saison wie das Bergwerk: 15. März bis 15. November, Besuch nur mit Führung, bitte vorab anmelden.",
+          "sourceUrls": [
+            "https://www.weiherschleife-steinkaulenbergwerk.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "merzig",
+      "slug": "merzig-familien-wolfspark",
+      "title": "Familientag: Wolfspark Werner Freund & Baumwipfelpfad Saarschleife",
+      "description": "In Merzig wird der Familientag zum Abenteuer: Im Wolfspark Werner Freund streifen echte Wölfe durch weitläufige Gehege, und bei kostenlosen Führungen kommen schon kleine Entdecker den Rudeln ganz nah. Danach locken eine gemütliche Einkehr mit Spielplatz und der schwindelerregende Baumwipfelpfad hoch über der Saarschleife. Ein Tag voller Tiere, Natur und großer Ausblicke – und der Höhepunkt kostet nicht einmal Eintritt.",
+      "tags": [
+        "family",
+        "editorial",
+        "tiere",
+        "natur",
+        "outdoor",
+        "aussicht"
+      ],
+      "sourceUrls": [
+        "https://www.merzig.de/",
+        "https://www.baumwipfelpfad-saarschleife.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wolfspark Werner Freund",
+          "type": "zoo",
+          "address": "Waldstraße 204, 66663 Merzig",
+          "durationMin": 90,
+          "note": "Auf rund acht Hektar leben etwa 20 Wölfe in mehreren Rudeln. Der Eintritt ist frei, und bei den kostenlosen Führungen kommen Kinder den Tieren ganz nah. Ein spannender Auftakt in den Tag, der echte Gänsehaut macht.",
+          "sourceUrls": [
+            "https://www.merzig.de/",
+            "https://de.wikipedia.org/wiki/Wolfspark_Werner_Freund"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café im Garten der Sinne",
+          "type": "cafe",
+          "address": "Ellerweg 11, 66663 Merzig",
+          "durationMin": 60,
+          "note": "Nur einen Katzensprung vom Wolfspark lädt das Café des Garten der Sinne mit Terrasse zur Mittagspause. Während die Großen Kuchen und herzhafte Snacks genießen, toben die Kleinen nebenan auf dem Spielplatz mit Kletterturm und Nestschaukel.",
+          "sourceUrls": [
+            "https://www.merzig.de/",
+            "https://de.wikipedia.org/wiki/Garten_der_Sinne_(Merzig)"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Baumwipfelpfad Saarschleife",
+          "type": "activity",
+          "address": "Cloefstraße 100, 66693 Mettlach-Orscholz",
+          "durationMin": 120,
+          "note": "Der sanft ansteigende Holzpfad führt hinauf in die Baumkronen hoch über der berühmten Saarschleife. Oben warten ein Aussichtsturm mit weitem Blick und Kinderstationen mit Rutsche und Lernspielen – ein staunender Abschluss des Familientages.",
+          "sourceUrls": [
+            "https://www.baumwipfelpfad-saarschleife.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "homburg",
+      "slug": "homburg-familien-schlossberghoehlen",
+      "title": "Familientag: Schlossberghöhlen & Ruine Hohenburg",
+      "description": "Unter dem Homburger Schlossberg verbergen sich die größten Buntsandsteinhöhlen Europas – ein kühles, rot leuchtendes Labyrinth, das Kinder zum Staunen bringt. Oben lockt die Ruine Hohenburg mit weitem Blick, und im Römermuseum Schwarzenacker wird die Antike zum Anfassen lebendig. Ein abwechslungsreicher Familientag zwischen Untergrund, Ritterburg und Römerzeit.",
+      "tags": [
+        "family",
+        "editorial",
+        "caves",
+        "history",
+        "kids",
+        "museum"
+      ],
+      "sourceUrls": [
+        "https://www.roemermuseum-schwarzenacker.de/",
+        "https://www.homburg.de/leben-in-homburg/touristisches/sehenswertes/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Schlossberghöhlen Homburg",
+          "type": "landmark",
+          "address": "Schlossberg-Höhen-Straße 1, 66424 Homburg",
+          "durationMin": 75,
+          "note": "Die Schlossberghöhlen sind die größten Buntsandsteinhöhlen Europas: Über zwölf Etagen ziehen sich leuchtend rote Sandsteingänge und weite Kammern durch den Schlossberg. Bei einer Führung staunen Kinder über die kühlen Gänge – ganzjährig rund zehn Grad, also unbedingt eine Jacke mitnehmen – und die glühend roten Wände. Ein unterirdisches Abenteuer, das große und kleine Entdecker gleichermaßen fesselt.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Schlossberghöhlen",
+            "https://www.homburg.de/leben-in-homburg/touristisches/sehenswertes/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Ruine Hohenburg",
+          "type": "castle",
+          "address": "Schlossberg-Höhen-Straße 1, 66424 Homburg",
+          "durationMin": 45,
+          "note": "Direkt über den Höhlen thront die Ruine Hohenburg, die einst der Stadt ihren Namen gab. Die frei zugängliche Schlossruine lädt zum Klettern über altes Gemäuer und Türme ein, und von oben schweift der Blick weit über Homburg und das Tal. Ein luftiger Kontrast nach dem Untergrund, bei dem kleine Ritter und Burgfräulein viel zu entdecken haben.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Homburg"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Café Zauberlehrling",
+          "type": "cafe",
+          "address": "Talstraße 38, 66424 Homburg",
+          "durationMin": 60,
+          "note": "Mitten in Homburg, im Saar-Pfalz-Center an der Talstraße, lädt das Café Zauberlehrling zur gemütlichen Pause ein. Bei Kuchen, Kakao und einer kleinen Stärkung tanken Familien nach Höhlen und Burg wieder Kraft – kinderfreundlich, mit Hochstühlen und einer kleinen Kinderkarte.",
+          "sourceUrls": [
+            "https://www.cafe-zauberlehrling.de/",
+            "https://www.openstreetmap.org/node/3428953393"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Römermuseum Schwarzenacker",
+          "type": "museum",
+          "address": "Homburger Straße 38, 66424 Homburg",
+          "durationMin": 90,
+          "note": "Im Freilichtmuseum Römermuseum Schwarzenacker wird die Antike lebendig: Familien wandeln durch nachgebaute römische Häuser, über ein Forum und durch den weitläufigen Garten am Edelhaus. Kinder erfahren beim Rundgang, wie die Römer wohnten, handelten und spielten – bei den Römertagen sogar mit echten Legionären zum Anfassen.",
+          "sourceUrls": [
+            "https://www.roemermuseum-schwarzenacker.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "voelklingen",
+      "slug": "voelklingen-familien-ferrodrom-stahl",
+      "title": "Familientag: Ferrodrom Völklinger Hütte & Warndtweiher",
+      "description": "Dieser Familientag verbindet Technik zum Anfassen mit einer süßen Pause und viel frischer Luft. Im Ferrodrom des Weltkulturerbes Völklinger Hütte erforschen Kinder spielerisch die Welt von Eisen und Stahl, bevor es zur Pfarrkirche St. Eligius und an den Warndtweiher geht. So wird aus Industriekultur, Geschichte und Natur ein abwechslungsreicher Tag für Groß und Klein.",
+      "tags": [
+        "family",
+        "editorial",
+        "industriekultur",
+        "unesco",
+        "natur",
+        "kinder"
+      ],
+      "sourceUrls": [
+        "https://www.voelklinger-huette.org/",
+        "https://www.voelklingen.de/tourismus/sehenswuerdigkeiten/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Ferrodrom im Weltkulturerbe Völklinger Hütte",
+          "type": "science",
+          "address": "Rathausstraße 75-79, 66333 Völklingen",
+          "durationMin": 150,
+          "note": "Im Ferrodrom wird Technik zum Mitmachen: An rund 100 Stationen erforschen Kinder spielerisch, wie aus Feuer, Wasser und Wind einst Eisen und Stahl entstanden. Große Hebel, Zahnräder und Experimente laden zum Ausprobieren ein, während die riesige Gebläsehalle und der Aufstieg zur Aussichtsplattform der alten Hochöfen die ganze Familie staunen lässt.",
+          "sourceUrls": [
+            "https://www.voelklinger-huette.org/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Eiscafé Ritual",
+          "type": "cafe",
+          "address": "Citypromenade, 66333 Völklingen",
+          "durationMin": 45,
+          "note": "Nur wenige Gehminuten von der Hütte entfernt liegt an der Citypromenade das Eiscafé Ritual - der perfekte Stopp für eine süße Pause. Im familienfreundlichen Café gibt es hausgemachtes Eis in vielen Sorten, dazu Kuchen und warme Getränke, damit alle nach dem Entdecken wieder Kraft tanken.",
+          "sourceUrls": [
+            "https://www.voelklingen.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Pfarrkirche St. Eligius",
+          "type": "landmark",
+          "address": "Citypromenade, 66333 Völklingen",
+          "durationMin": 25,
+          "note": "Der heilige Eligius ist der Schutzpatron der Metallhandwerker - kein Zufall, dass die prächtige, über hundert Jahre alte Pfarrkirche direkt im Zentrum an die Blütezeit der Hütte erinnert. Familien können kurz innehalten, die bunten Fenster und den hohen Turm bestaunen und den Kindern erzählen, wie eng Kirche und Stahlwerk hier verbunden waren.",
+          "sourceUrls": [
+            "https://www.voelklingen.de/tourismus/sehenswuerdigkeiten/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Warndtweiher",
+          "type": "nature",
+          "address": "Am Warndtweiher, 66333 Völklingen",
+          "durationMin": 90,
+          "note": "Zum Abschluss tauscht die Familie Industriekultur gegen Natur: Der Warndtweiher im Lauterbacher Wald lädt zu einer entspannten Runde ums Wasser ein. Auf breiten, gut ausgebauten Wegen lassen sich Enten und Libellen beobachten, die Kinder können am Ufer Steine flitschen und im Grünen herumtoben - ein ruhiger Ausklang nach dem lebhaften Vormittag.",
+          "sourceUrls": [
+            "https://www.voelklingen.de/tourismus/sehenswuerdigkeiten/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "homburg",
+      "slug": "homburg-familien-kletterabenteuer",
+      "title": "Familientag: Fun Forest AbenteuerPark & Schlossberghöhlen",
+      "description": "Ein Tag voller Bewegung und Entdeckung im Homburger Osten: Erst klettern Groß und Klein durch die Parcours des Fun Forest AbenteuerPark am Brückweiher, dann geht es zur Stärkung ins Blockhaus gleich nebenan. Am Nachmittag führt der Weg unter die Erde in die farbigen Schlossberghöhlen, die größten künstlichen Sandsteinhöhlen Europas. Klettern, Schlemmen und Staunen liegen so nah beieinander, dass auch kleine Beine gut mitkommen.",
+      "tags": [
+        "family",
+        "editorial",
+        "abenteuer",
+        "outdoor",
+        "hoehlen",
+        "klettern"
+      ],
+      "sourceUrls": [
+        "https://homburg.funforest.de/",
+        "https://www.homburger-schlossberghoehlen.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Fun Forest AbenteuerPark Homburg",
+          "type": "activity",
+          "address": "Kleinottweilerstraße 148, 66424 Homburg",
+          "durationMin": 150,
+          "note": "Der Kletterwald am Brückweiher bietet einen eigenen Kinderparcours und gestaffelte Routen bis in luftige Höhe. Die Kleinen klettern niedrig und gut gesichert, Größere wagen die lange Seilrutsche - ein Start in den Tag voller Bewegung, Mut und frischer Waldluft. Feste Gurte und ein durchgehendes Sicherungssystem geben Halt.",
+          "sourceUrls": [
+            "https://homburg.funforest.de/",
+            "https://homburg.funforest.de/anfahrt/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Metaxa - Das Blockhaus",
+          "type": "restaurant",
+          "address": "Kleinottweilerstraße 150, 66424 Homburg",
+          "durationMin": 75,
+          "note": "Direkt neben dem Kletterwald lädt das Blockhaus Metaxa mit Restaurant und schattigem Biergarten zur Stärkung ein. Griechische Küche, dazu Pommes und Eis für die Kinder und eine große Terrasse am Wasser - perfekt, um nach dem Klettern gemeinsam durchzuatmen, bevor es weitergeht.",
+          "sourceUrls": [
+            "https://www.openstreetmap.org/#map=19/49.36279/7.30881"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Schlossberghöhlen Homburg",
+          "type": "mine",
+          "address": "Schlossberg-Höhen-Straße 1, 66424 Homburg",
+          "durationMin": 60,
+          "note": "Die größten farbigen Sandsteinhöhlen Europas liegen mitten im Schlossberg - ein kühles Labyrinth aus Gängen und Kammern, das Kinder mit Taschenlampe erkunden. Von Februar bis November täglich zugänglich, im Sommer bis 17 Uhr. Eine kleine Schatzsuche durch die Gänge macht den unterirdischen Ausklang des Tages spannend.",
+          "sourceUrls": [
+            "https://www.homburger-schlossberghoehlen.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "saarbruecken",
+      "slug": "saarbruecken-familien-calypso-badetag",
+      "title": "Familientag: Calypso Erlebnisbad & Deutsch-Französischer Garten",
+      "description": "Erst planschen, rutschen und schwimmen im Calypso, dann hausgemachte Torten im Traditions-Café und zum Abschluss Gondelbahn, Tretboote und weite Spielwiesen im Deutsch-Französischen Garten. Wasserspaß und frische Luft liegen im Deutschmühlental dicht beieinander, sodass Familien ohne lange Wege durch den Tag kommen. Ideal für Kinder jeden Alters.",
+      "tags": [
+        "family",
+        "editorial",
+        "erlebnisbad",
+        "schwimmen",
+        "park",
+        "outdoor"
+      ],
+      "sourceUrls": [
+        "https://www.erlebnisbad-calypso.de/",
+        "https://www.cafe-lolo.de/",
+        "https://www.saarbruecken.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Calypso Bade- und Saunawelt",
+          "type": "activity",
+          "address": "Deutschmühlental 7, 66117 Saarbrücken",
+          "durationMin": 150,
+          "note": "Der Familientag startet im Erlebnisbad Calypso: Die Kinder planschen im Cally KinderLand und im Calypso AbenteuerLand, flitzen die Rutschen hinunter und schwimmen im großen Becken. Warmes Wasser, flache Kinderbereiche und viel Platz zum Schwimmen sorgen für einen entspannten Start in den Tag.",
+          "sourceUrls": [
+            "https://www.erlebnisbad-calypso.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Konditorei Café Lolo",
+          "type": "cafe",
+          "address": "Heuduckstraße 67, 66117 Saarbrücken",
+          "durationMin": 45,
+          "note": "Nach dem Schwimmen lockt das Traditions-Café Lolo, die gute Konditorei in Alt-Saarbrücken. Hausgemachte Torten, der berühmte Butterkuchen und ein Eis machen kleine und große Gäste glücklich – alles ganz in der Nähe des Calypso. Dienstags bis sonntags geöffnet, montags Ruhetag.",
+          "sourceUrls": [
+            "https://www.cafe-lolo.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Deutsch-Französischer Garten",
+          "type": "park",
+          "address": "Deutschmühlental, 66117 Saarbrücken",
+          "durationMin": 120,
+          "note": "Gleich neben dem Calypso lädt der weitläufige Deutsch-Französische Garten zum Toben ein. Eine Gondelbahn schwebt über die Anlage, die Parkeisenbahn dreht gemütlich ihre Runden und auf dem Deutschmühlenweiher warten Tretboote. Große Spielwiesen, die Wasserorgel und schattige Wege laden zum Verweilen ein – und der Eintritt ist frei.",
+          "sourceUrls": [
+            "https://www.saarbruecken.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "leipzig",
+      "slug": "leipzig-familien-zoo-rosental",
+      "title": "Familientag: Zoo Leipzig & Rosental",
+      "description": "Ein rundum gelungener Familientag im grünen Nordwesten Leipzigs: Erst geht es in den artenreichen Zoo Leipzig mit Tropenhalle, Menschenaffen und weiter Savanne, dann lockt eine gemütliche Einkehr in Gohlis. Gleich nebenan warten die riesige Wiese und der Aussichtsturm im Rosental sowie das zierliche Gohliser Schlösschen mit seinem Garten – kurze Wege, große Entdeckerfreude für die ganze Familie.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "natur",
+        "park"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-leipzig.de/",
+        "https://www.gosenschenke.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Leipzig",
+          "type": "zoo",
+          "address": "Pfaffendorfer Straße 29, 04105 Leipzig",
+          "durationMin": 210,
+          "note": "Der Zoo Leipzig gilt als einer der artenreichsten Tierparks Europas. In der Tropenhalle Gondwanaland staunen Kinder unter Palmen über Affen und bunte Vögel, in Pongoland leben die Menschenaffen, und in der weiten Kiwara-Savanne grasen Giraffen und Zebras neben Löwen. Für den Rundgang durch sechs Themenwelten ruhig einen halben Tag einplanen.",
+          "sourceUrls": [
+            "https://www.zoo-leipzig.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Gosenschenke Ohne Bedenken",
+          "type": "restaurant",
+          "address": "Menckestraße 5, 04155 Leipzig",
+          "durationMin": 75,
+          "note": "Das traditionsreiche Restaurant und Wirtshaus liegt in Gohlis, nur einen kurzen Weg vom Zoo entfernt. Im weitläufigen Biergarten unter alten Bäumen finden Familien viel Platz, dazu regionale Küche und die typische Leipziger Gose. Geöffnet von Mittwoch bis Sonntag – ein gemütlicher Ort zum Einkehren nach dem Zoobesuch.",
+          "sourceUrls": [
+            "https://www.gosenschenke.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Rosental mit Aussichtsturm",
+          "type": "park",
+          "address": "Rosental, 04105 Leipzig",
+          "durationMin": 90,
+          "note": "Gleich hinter dem Zoo beginnt das weite Rosental mit seiner riesigen Wiese zum Toben und Drachensteigen. Ein Spielplatz sorgt für Abwechslung, und der frei zugängliche Aussichtsturm schenkt einen weiten Blick über den Auwald bis zur Innenstadt. Der Park ist kostenlos und lädt zum Verschnaufen ein.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Rosental_(Leipzig)"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Gohliser Schlösschen",
+          "type": "landmark",
+          "address": "Menckestraße 23, 04155 Leipzig",
+          "durationMin": 60,
+          "note": "Nur wenige Schritte weiter steht das Gohliser Schlösschen, ein zierliches Rokoko-Anwesen aus dem 18. Jahrhundert. Der Garten im Rokokostil mit Springbrunnen und Figuren lädt zum gemütlichen Bummeln ein, und im Innenhof gibt es oft kleine Konzerte. Ein ruhiger, festlicher Ausklang des Familientags.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Gohliser_Schl%C3%B6sschen"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "goerlitz",
+      "slug": "goerlitz-familien-tierpark-naturkunde",
+      "title": "Familientag: Naturschutz-Tierpark Görlitz & Senckenberg-Naturkundemuseum",
+      "description": "Ein tierischer Familientag in Görlitz: Am Vormittag geht es in den Naturschutz-Tierpark mit rund 500 Tieren, dem einzigen tibetischen Dorf Europas und einem Oberlausitzer Bauernhof zum Streicheln. Nach der Mittagspause am Tierpark-Café führt der Nachmittag ins Senckenberg-Naturkundemuseum, wo Kinder lebende Tiere und den tropischen Regenwald entdecken. Zwei starke Natur- und Tiererlebnisse an einem Tag, ideal für neugierige Familien.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "nature",
+        "museum",
+        "oberlausitz"
+      ],
+      "sourceUrls": [
+        "https://www.tierpark-goerlitz.de/",
+        "https://www.goerlitz.de/Senckenberg-Goerlitz.html"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Naturschutz-Tierpark Görlitz",
+          "type": "zoo",
+          "address": "Zittauer Straße 43, 02826 Görlitz",
+          "durationMin": 180,
+          "note": "Rund 500 Tiere in naturnah gestalteten Gehegen: Die Kinder streifen durch das einzige tibetische Dorf Europas, streicheln Ziegen und Schafe im Oberlausitzer Bauernhof und toben auf mehreren Themenspielplätzen. Viele Gehege sind frei zugänglich, sodass die Tiere ganz nah zu erleben sind. Perfekter Start in den Tag, wenn die Tiere noch munter sind.",
+          "sourceUrls": [
+            "https://www.tierpark-goerlitz.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Futterkiste (Tierpark-Café)",
+          "type": "cafe",
+          "address": "Zittauer Straße 43, 02826 Görlitz",
+          "durationMin": 60,
+          "note": "Direkt auf dem Gelände liegt das Café Futterkiste, ein familienfreundlicher Imbiss mit Besucherterrasse und Sonnendeck über dem Tierpark. Es gibt warme Mahlzeiten, Snacks, Eis und Kuchen, dazu kleine Portionen für die jüngsten Gäste. Wer lieber woanders einkehrt, wechselt von hier zu anderen Görlitzer Lokalen.",
+          "sourceUrls": [
+            "https://www.tierpark-goerlitz.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Senckenberg Museum für Naturkunde Görlitz",
+          "type": "museum",
+          "address": "Am Museum 1, 02826 Görlitz",
+          "durationMin": 90,
+          "note": "Zum Abschluss geht es ins Naturkundemuseum am Marienplatz: Im Lebendtierbereich beobachten Kinder einheimische und exotische Tiere, daneben führt eine Ausstellung mitten durch den tropischen Regenwald. Spezielle Kinderprogramme wie die Nature Scouts machen Forschung zum Anfassen lebendig und runden den Tiertag ab.",
+          "sourceUrls": [
+            "https://www.goerlitz.de/Senckenberg-Goerlitz.html"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "chemnitz",
+      "slug": "chemnitz-familien-wildgatter-oberrabenstein",
+      "title": "Familientag: Wildgatter Oberrabenstein & Burg Rabenstein",
+      "description": "Ein Tag für die ganze Familie im grünen Westen von Chemnitz: Im Wildgatter Oberrabenstein streifen Kinder auf 35 Hektar Wald an den Gehegen heimischer Tiere entlang, von Luchsen bis zu Wisenten. Danach lockt eine gemütliche Einkehr an den Felsendomen mit Biergarten und Schaubergwerk, bevor die kleinste mittelalterliche Burg Sachsens den Ausflug krönt. Kurze Wege, viel Natur und Tiere zum Staunen machen den Familientag rundum entspannt.",
+      "tags": [
+        "family",
+        "editorial",
+        "tiere",
+        "natur",
+        "wald",
+        "burg"
+      ],
+      "sourceUrls": [
+        "https://www.tierpark-chemnitz.de/wildgatter/",
+        "https://www.felsendome.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wildgatter Oberrabenstein",
+          "type": "nature",
+          "address": "Thomas-Müntzer-Höhe 13, 09117 Chemnitz",
+          "durationMin": 120,
+          "note": "Auf 35 Hektar Wald streifen Familien am Gehege-Rundweg entlang und entdecken heimische Tiere: Luchse, Wölfe, Wisente, Damwild und Eulen. Von den Aussichtskanzeln kommen schon die Kleinsten den Tieren ganz nah. Der Naturlehrpfad wird zur Entdeckungstour, und zwischen den Bäumen bleibt viel Platz zum Toben.",
+          "sourceUrls": [
+            "https://www.tierpark-chemnitz.de/wildgatter/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant & Biergarten Felsendome Rabenstein",
+          "type": "restaurant",
+          "address": "Weg nach dem Kalkwerk 4, 09117 Chemnitz",
+          "durationMin": 75,
+          "note": "Nur wenige Minuten vom Wildgatter lädt das Restaurant an den Felsendomen zur Mittagspause: eine deftige Küche und ein schattiger Biergarten mit großem Außengelände, wo Kinder nach dem Essen herumtollen. Wer mag, steigt danach ins unterirdische Schaubergwerk hinab und staunt über Tropfsteine und Grotten.",
+          "sourceUrls": [
+            "https://www.felsendome.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Burg Rabenstein",
+          "type": "castle",
+          "address": "Oberfrohnaer Straße 147, 09117 Chemnitz",
+          "durationMin": 60,
+          "note": "Zum Abschluss geht es hoch auf den Burgfelsen zur kleinsten mittelalterlichen Burg Sachsens. Kinder klettern durch das alte Gemäuer, steigen auf den Bergfried und blicken weit über den Rabensteiner Wald. Das kleine Burgmuseum zeigt die Ritterzeit zum Anfassen und macht Geschichte für die ganze Familie lebendig.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Burg_Rabenstein_(Chemnitz)"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "leipzig",
+      "slug": "leipzig-familien-belantis-neuseenland",
+      "title": "Familientag: BELANTIS Freizeitpark & Leipziger Neuseenland",
+      "description": "Ein rundum gelungener Familientag im Leipziger Neuseenland südlich der Stadt: Vormittags wartet der größte Familien-Freizeitpark Mitteldeutschlands mit sanften Fahrgeschäften und bunten Themenwelten schon für Kinder ab drei Jahren. Danach lockt eine entspannte Einkehr am Hafen des Cospudener Sees, bevor der Tag an der Uferpromenade des nahen Zwenkauer Sees mit Sandstrand und Schiffsanleger ausklingt. Drei Stationen im Neuseenland, alle nur wenige Fahrminuten voneinander entfernt und ideal für Familien mit Kindern jeden Alters.",
+      "tags": [
+        "family",
+        "editorial",
+        "freizeitpark",
+        "leipziger-neuseenland",
+        "sachsen",
+        "explore-family"
+      ],
+      "sourceUrls": [
+        "https://www.belantis.de/",
+        "https://www.leipzigseen.de/cospudener-see",
+        "https://www.leipzigseen.de/zwenkauer-see"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "BELANTIS Freizeitpark",
+          "type": "activity",
+          "address": "Zur Weißen Mark 1, 04249 Leipzig",
+          "durationMin": 300,
+          "note": "Der große Auftakt: BELANTIS ist der größte Familien-Freizeitpark Mitteldeutschlands mit Attraktionen schon ab drei Jahren. Sanfte Karussells, Achterbahnen und Wasserfahrten sowie fantasievolle Themenwelten von der ägyptischen Pyramide bis zur Ritterburg sorgen für einen ganzen Vormittag voller Abenteuer. Plant genug Zeit ein, hier steckt ein kompletter Parktag drin.",
+          "sourceUrls": [
+            "https://www.belantis.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Pier 1 am Cospudener See",
+          "type": "restaurant",
+          "address": "Hafenstraße 23, 04416 Markkleeberg",
+          "durationMin": 75,
+          "note": "Perfekte Mittagspause nach dem Parkbesuch: Am lebhaften Hafen Zöbigker auf der Ostseite des Cospudener Sees reihen sich rund um das Pier 1 familienfreundliche Restaurants und Cafés mit weitem Blick über das Wasser. Drinnen und draußen ist reichlich Platz für die ganze Familie, und wer möchte, wechselt über die Swipe-Alternativen zu einem anderen Lokal am See.",
+          "sourceUrls": [
+            "https://www.leipzigseen.de/cospudener-see"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Kap Zwenkau am Zwenkauer See",
+          "type": "landmark",
+          "address": "Hafenstraße 1, 04442 Zwenkau",
+          "durationMin": 90,
+          "note": "Zum Ausklang nur wenige Minuten weiter: Am Kap Zwenkau, dem lebendigen Hafen des Zwenkauer Sees, laden Uferpromenade, Yachthafen und weite Grünanlagen zum Bummeln ein. Am flachen Sandstrand toben die Kinder, und vom Anleger legt ein Ausflugsschiff zur großen Runde über den See ab. Ein ruhiger, luftiger Abschluss eines langen Familientags.",
+          "sourceUrls": [
+            "https://www.leipzigseen.de/zwenkauer-see"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "bautzen",
+      "slug": "bautzen-familien-saurierpark-irrgarten",
+      "title": "Familientag: Saurierpark Kleinwelka & Irrgarten",
+      "description": "Ein Familientag zwischen Urzeit-Riesen: Im Saurierpark Kleinwelka stapfen über 200 lebensgroße Dinosaurier durch den Wald, dazu locken Kletterurwald, Forschercamp und Planetenspielplatz. Nach einer Stärkung mitten im Park geht es gleich nebenan in den riesigen Heckenirrgarten, wo sich Groß und Klein bei Rätseln und Kletterhindernissen fröhlich verläuft. Alles liegt fußläufig beieinander in Kleinwelka – ein kompletter Tag voller Staunen und Bewegung ohne lange Wege.",
+      "tags": [
+        "family",
+        "editorial",
+        "dinosaurier",
+        "freizeitpark",
+        "outdoor"
+      ],
+      "sourceUrls": [
+        "https://www.saurierpark.de/",
+        "https://www.irrgarten-kleinwelka.de/",
+        "https://www.saurierpark.de/besucherinformationen/gastronomie"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Saurierpark Kleinwelka",
+          "type": "activity",
+          "address": "Saurierpark 1, 02625 Bautzen OT Kleinwelka",
+          "durationMin": 180,
+          "note": "Über 200 lebensgroße Dinosaurier verteilen sich mitten im Wald – vom winzigen Compsognathus bis zum gewaltigen Seismosaurus. Die Kinder klettern durch den Kletterurwald, graben im Forschercamp nach Knochen und tauchen im Mitoseum in die Entwicklung des Lebens ein. Ein ganzer Vormittag voller Staunen und Bewegung zum Anfassen und Entdecken. Geöffnet von Ende März bis Anfang November, täglich 10 bis 18 Uhr.",
+          "sourceUrls": [
+            "https://www.saurierpark.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Raumstation im Saurierpark",
+          "type": "restaurant",
+          "address": "Saurierpark 1, 02625 Bautzen OT Kleinwelka",
+          "durationMin": 60,
+          "note": "Mitten im Park am Planetenspielplatz liegt die Raumstation, das Restaurant des Saurierparks. Hier gibt es warme Mittagsgerichte, Kuchen, Eis und Getränke, während die Kinder direkt nebenan toben können. Die ideale Mittagspause, um für den zweiten Teil des Tages Kraft zu tanken.",
+          "sourceUrls": [
+            "https://www.saurierpark.de/besucherinformationen/gastronomie"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Irrgarten Kleinwelka",
+          "type": "activity",
+          "address": "Saurierpark 2, 02625 Bautzen OT Kleinwelka",
+          "durationMin": 90,
+          "note": "Gleich nebenan wartet das nächste Abenteuer: Im riesigen Heckenirrgarten mit tausenden Wegvarianten verläuft sich die ganze Familie fröhlich auf der Suche nach dem Ausgang. Dazu kommen ein Abenteuerlabyrinth mit wackeligen Brücken und Kletterhindernissen sowie ein Rätsellabyrinth zum Knobeln. Wer findet als Erster den Weg ins Ziel? Geöffnet an Wochenenden, in den Ferien und an Feiertagen von April bis Anfang November.",
+          "sourceUrls": [
+            "https://www.irrgarten-kleinwelka.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "dresden",
+      "slug": "dresden-familien-welt-der-sinne",
+      "title": "Familientag: Kindermuseum Welt der Sinne & Zoo im Großen Garten",
+      "description": "Dieser Familientag verbindet Kopf, Bauch und Herz mitten in Dresden: Vormittags erforschen die Kinder im Kindermuseum „Welt der Sinne\" spielerisch ihren eigenen Körper – ein wettersicherer Start drinnen. Danach lockt eine gemütliche Einkehr direkt am Carolasee mit Spielplatz und Wasserblick, zum Abschluss geht es in den Zoo am Rand des Großen Gartens. Die drei Stationen liegen rund um den Großen Garten und sind über schöne Parkwege bequem zu Fuß verbunden.",
+      "tags": [
+        "family",
+        "editorial",
+        "museum",
+        "zoo",
+        "kindermuseum",
+        "grosser-garten"
+      ],
+      "sourceUrls": [
+        "https://www.dhmd.de/",
+        "https://www.zoo-dresden.de/",
+        "https://www.carolaschloesschen.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Deutsches Hygiene-Museum: Kindermuseum Welt der Sinne",
+          "type": "museum",
+          "address": "Lingnerplatz 1, 01069 Dresden",
+          "durationMin": 120,
+          "note": "Im Kindermuseum „Welt der Sinne\" dürfen Kinder von 5 bis 12 Jahren alles anfassen, hören und ausprobieren: An über 40 Mitmach-Stationen entdecken sie spielerisch, wie der eigene Körper funktioniert. Ein idealer, wettersicherer Start in den Familientag – hier wird drinnen geforscht und gestaunt.",
+          "sourceUrls": [
+            "https://www.dhmd.de/besuch/",
+            "https://www.dhmd.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Carolaschlösschen am Carolasee",
+          "type": "restaurant",
+          "address": "Querallee 7, 01219 Dresden",
+          "durationMin": 75,
+          "note": "Direkt am Carolasee im Großen Garten gelegen, ist dieses familienfreundliche Restaurant der perfekte Mittagsstopp: kindgerechte Gerichte, eine große Terrasse am Wasser und ein Spielplatz gleich nebenan. Während die Eltern in Ruhe essen, können die Kinder toben oder die Enten am See beobachten.",
+          "sourceUrls": [
+            "https://www.carolaschloesschen.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Zoo Dresden im Großen Garten",
+          "type": "zoo",
+          "address": "Tiergartenstraße 1, 01219 Dresden",
+          "durationMin": 150,
+          "note": "Der Zoo Dresden liegt am Südrand des Großen Gartens und zeigt rund 1.500 Tiere – von Elefanten und Giraffen bis zu den beliebten Zwergflusspferden. Großzügige Anlagen, ein Streichelgehege und ein großer Spielplatz machen den Nachmittag für Kinder zum Höhepunkt und runden den Familientag im Grünen ab.",
+          "sourceUrls": [
+            "https://www.zoo-dresden.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "magdeburg",
+      "slug": "magdeburg-familien-zoo-und-see",
+      "title": "Familientag: Zoo Magdeburg, AFRICAMBO Lodge & Elbauenpark",
+      "description": "Ein rundum gelungener Familientag in Magdeburg: Erst geht es zu den über 700 Tieren im Zoo Magdeburg mit zwei Spielplätzen und der beliebten Tierpflege Live, dann folgt eine gemütliche Mittagspause im afrikanisch gestalteten Restaurant AFRICAMBO Lodge mit Blick auf die Savannenanlage. Am Nachmittag laden der Neustädter See mit Liegewiesen und Uferwegen sowie der Elbauenpark mit Jahrtausendturm, Sommerrodelbahn und Schmetterlingshaus zum Toben ein.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "outdoor",
+        "explore-family",
+        "sachsen-anhalt"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-magdeburg.de/",
+        "https://www.elbauenpark.de/",
+        "https://de.wikipedia.org/wiki/Neust%C3%A4dter_See_(Magdeburg)"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Magdeburg",
+          "type": "zoo",
+          "address": "Zooallee 1, 39124 Magdeburg",
+          "durationMin": 180,
+          "note": "Hauptziel des Tages: über 700 Tiere in 177 Arten, von Löwen und Giraffen im weitläufigen AFRICAMBO-Areal bis zu Erdmännchen und Roten Pandas. Zwei Zoospielplätze, Kinderwagen zum Ausleihen und die beliebte Tierpflege Live begeistern schon die Kleinsten. Täglich von 9 bis 18 Uhr geöffnet.",
+          "sourceUrls": [
+            "https://www.zoo-magdeburg.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "AFRICAMBO Lodge",
+          "type": "restaurant",
+          "address": "Zooallee 1, 39124 Magdeburg",
+          "durationMin": 60,
+          "note": "Die perfekte Mittagspause mitten im Zoo: Das afrikanisch gestaltete Restaurant AFRICAMBO Lodge serviert familientaugliche Gerichte mit Blick auf die Savannenanlage, dazu gibt es Hochstühle und Kindergerichte. Wer lieber woanders einkehren möchte, wechselt von hier aus zu anderen Lokalen der Stadt.",
+          "sourceUrls": [
+            "https://www.zoo-magdeburg.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Neustädter See",
+          "type": "nature",
+          "address": "Neustädter See, 39126 Magdeburg",
+          "durationMin": 75,
+          "note": "Abkühlung nach dem Zoo: Der Neustädter See im Norden von Magdeburg ist ein beliebtes Naherholungsgebiet mit Badestelle, flachem Ufer und großen Liegewiesen. Uferwege laden zum Spaziergang mit dem Bollerwagen ein, im Sommer können Familien hier planschen und ein Picknick machen.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Neust%C3%A4dter_See_(Magdeburg)"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Elbauenpark",
+          "type": "park",
+          "address": "Tessenowstraße 5a, 39114 Magdeburg",
+          "durationMin": 150,
+          "note": "Großer Familienpark zum Abschluss: Im Elbauenpark warten der 60 Meter hohe Jahrtausendturm mit Aussichtsplattform, eine 400 Meter lange Sommerrodelbahn, das Schmetterlingshaus mit rund 200 Faltern, ein Kletterpark, die Seilrutsche ElbauenZip und viele Spielplätze wie das Piratenschiff Elbine. Ein ganzer Nachmittag voller Bewegung und Entdeckungen für Kinder.",
+          "sourceUrls": [
+            "https://www.elbauenpark.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "halle",
+      "slug": "halle-familien-bergzoo",
+      "title": "Familientag: Bergzoo Halle & Burg Giebichenstein",
+      "description": "Ein rundum gelungener Familientag im Norden von Halle: Erst geht es in den Bergzoo auf dem Reilsberg mit rund 1700 Tieren, Spielplätzen und herrlichem Blick über das Saaletal, danach lockt eine gemütliche Pause an der Saale. Zum Abschluss erklimmen große und kleine Entdecker die Burg Giebichenstein und toben auf der grünen Peißnitzinsel – kurze Wege, viel Abwechslung, ein Tag voller Höhepunkte.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "tiere",
+        "burg",
+        "natur"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-halle.de",
+        "https://de.wikipedia.org/wiki/Burg_Giebichenstein",
+        "https://peissnitzhaus.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Halle (Bergzoo)",
+          "type": "zoo",
+          "address": "Reilstraße 57, 06114 Halle (Saale)",
+          "durationMin": 180,
+          "note": "Der Bergzoo liegt auf dem 130 Meter hohen Reilsberg und zeigt rund 1700 Tiere aus aller Welt. Kinder beobachten Humboldt-Pinguine, Seelöwen bei der Fütterung und Rote Pandas, klettern über die Spielplätze und genießen von der Anhöhe den weiten Blick über das Saaletal. Am besten für die erste Tageshälfte einplanen – das weitläufige Gelände hat viel zu entdecken.",
+          "sourceUrls": [
+            "https://www.zoo-halle.de",
+            "https://www.zoo-halle.de/de/besucher-info/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Krug zum grünen Kranze",
+          "type": "restaurant",
+          "address": "Talstraße 37, 06120 Halle (Saale)",
+          "durationMin": 75,
+          "note": "Das historische Ausflugslokal an der Saale in Kröllwitz liegt nur wenige Minuten mit dem Auto vom Zoo entfernt. Das Restaurant verwöhnt Familien mit regionaler Küche und hat einen weitläufigen Biergarten direkt am Flussufer, wo die Kinder nach dem Zoobesuch Platz zum Spielen finden. Eine gemütliche Mittagspause zwischen Tierwelt und Ritterburg.",
+          "sourceUrls": [
+            "https://www.openstreetmap.org/search?query=Krug%20zum%20gr%C3%BCnen%20Kranze%2C%20Talstra%C3%9Fe%2037%2C%20Halle"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Burg Giebichenstein (Oberburg)",
+          "type": "castle",
+          "address": "Seebener Straße 1, 06114 Halle (Saale)",
+          "durationMin": 45,
+          "note": "Die mittelalterliche Burgruine thront auf einem Felsen hoch über der Saale. Familien erklimmen den alten Turm und haben einen weiten Blick über Fluss und Stadt, während Kinder im Burghof zwischen den dicken Mauern auf Entdeckungstour gehen. Ein kurzer, lohnender Stopp mit viel Ritterromantik.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Burg_Giebichenstein"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Peißnitzinsel",
+          "type": "park",
+          "address": "Peißnitzinsel 4, 06108 Halle (Saale)",
+          "durationMin": 90,
+          "note": "Die grüne Saale-Insel ist Halles beliebtestes Familienrevier: Mit dem kleinen Peißnitzexpress geht es im Kreis über die Insel, dazu locken drei große Spielplätze samt dem Baschkirischen Spielplatz mit riesigen Holzfiguren. Weite Wiesen zum Toben und schattige Uferwege runden den Familientag entspannt ab.",
+          "sourceUrls": [
+            "https://peissnitzhaus.de/",
+            "https://de.wikipedia.org/wiki/Peißnitzinsel"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "wernigerode",
+      "slug": "wernigerode-familien-wildpark-schloss",
+      "title": "Familientag: Wildpark Christianental & Schloss Wernigerode",
+      "description": "Ein abwechslungsreicher Familientag in Wernigerode am Harz: Zuerst geht es in den kostenlosen Wildpark Christianental, wo Kinder heimischen Tieren in einem grünen Waldtal ganz nah kommen. Nach einer gemütlichen Einkehr auf dem Armeleuteberg locken das märchenhafte Schloss hoch über der Fachwerkstadt und der Miniaturenpark Kleiner Harz mit Spielplätzen und Modellbahnen — kurze Wege, große Augen.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "natur",
+        "harz",
+        "schloss"
+      ],
+      "sourceUrls": [
+        "https://www.wildpark-christianental.de/",
+        "https://www.armeleuteberg.de/",
+        "https://www.schloss-wernigerode.de/",
+        "https://www.buerger-und-miniaturenpark-wr.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wildpark Christianental",
+          "type": "zoo",
+          "address": "Christianental 11, 38855 Wernigerode",
+          "durationMin": 120,
+          "note": "In einem bewaldeten Seitental südlich der Altstadt liegt dieser regional bekannte Tierpark. In weitläufigen Gehegen zwischen zwei Teichen leben hier unter anderem Rehe, Damwild, Luchse, Füchse, Ziegen, Esel und Eulen. Im Streichelgehege kommen Kinder den Ziegen ganz nah, und ein Spielplatz sowie schattige Wege am Bach machen den Rundgang schon für die Kleinsten leicht. Der Eintritt ist frei.",
+          "sourceUrls": [
+            "https://www.wildpark-christianental.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Waldgasthaus Armeleuteberg",
+          "type": "restaurant",
+          "address": "Armeleuteberg 1, 38855 Wernigerode",
+          "durationMin": 75,
+          "note": "Nur eine kurze Fahrt oder einen Waldspaziergang vom Christianental entfernt liegt dieses Waldgasthaus auf dem Armeleuteberg. Das Restaurant serviert regionale Harzer Küche und hausgemachten Kuchen, veranstaltet Kinderfeste und heißt Familien mit Terrasse und viel Platz zum Toben herzlich willkommen.",
+          "sourceUrls": [
+            "https://www.armeleuteberg.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Schloss Wernigerode",
+          "type": "castle",
+          "address": "Am Schloß 1, 38855 Wernigerode",
+          "durationMin": 90,
+          "note": "Hoch über der Stadt thront das märchenhafte Schloss Wernigerode mit zahlreichen original eingerichteten Räumen. Familien folgen dem Rundweg zur Schule der magischen Tiere oder entdecken Drehorte aus dem Film Das kleine Gespenst. Von den Terrassen reicht der Blick weit über die Fachwerkstadt und die Harzberge.",
+          "sourceUrls": [
+            "https://www.schloss-wernigerode.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Miniaturenpark Kleiner Harz",
+          "type": "park",
+          "address": "Dornbergsweg 27, 38855 Wernigerode",
+          "durationMin": 90,
+          "note": "Zum Abschluss geht es in den Miniaturenpark Kleiner Harz: Über 70 Harzer Bauwerke stehen hier als originalgetreue Modelle im Kleinformat, dazu drehen kleine Modellbahnen ihre Runden. Der weitläufige Park ringsum bietet Spielplätze, Ponys, Minigolf und Kletterfelsen — genug Platz, damit Kinder den Tag richtig austoben.",
+          "sourceUrls": [
+            "https://www.buerger-und-miniaturenpark-wr.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "magdeburg",
+      "slug": "magdeburg-familien-elbauenpark-jahrtausendturm",
+      "title": "Familientag: Elbauenpark mit Jahrtausendturm & Herrenkrugpark",
+      "description": "Ein rundum gelungener Familientag am Ostufer der Elbe: Im Elbauenpark erklimmt ihr den 60 Meter hohen Jahrtausendturm, die größte Holz-Leimbinder-Konstruktion der Welt, saust die Sommerrodelbahn hinab und staunt im tropischen Schmetterlingshaus. Nach einer gemütlichen Einkehr geht es zum Ausklang durch den weitläufigen Herrenkrugpark mit seinen Wiesen und alten Alleen direkt am Fluss. Die drei Stationen liegen dicht beieinander und lassen sich bequem an einem Tag verbinden.",
+      "tags": [
+        "family",
+        "editorial",
+        "park",
+        "outdoor",
+        "aussicht"
+      ],
+      "sourceUrls": [
+        "https://www.elbauenpark.de/",
+        "https://hotel-magdeburg.dorint.com/",
+        "https://www.magdeburg-tourist.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Elbauenpark mit Jahrtausendturm & Sommerrodelbahn",
+          "type": "park",
+          "address": "Tessenowstraße 5a, 39114 Magdeburg",
+          "durationMin": 180,
+          "note": "Das Herzstück des Familientags: Im weitläufigen Elbauenpark klettern die Kinder auf den rund 60 Meter hohen Jahrtausendturm, die größte Holz-Leimbinder-Konstruktion der Welt, und entdecken drinnen etwa 250 Experimente und Mitmach-Stationen zu 6000 Jahren Technik und Wissenschaft. Danach saust die ganze Familie die Sommerrodelbahn ins Tal, staunt im tropisch-warmen Schmetterlingshaus und tobt auf den großen Spielplätzen. Hauptsaison ist von April bis Oktober, Ruhetag der Attraktionen ist meist montags.",
+          "sourceUrls": [
+            "https://www.elbauenpark.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Parkrestaurant DIE SAISON (Dorint Herrenkrug)",
+          "type": "restaurant",
+          "address": "Herrenkrug 3, 39114 Magdeburg",
+          "durationMin": 75,
+          "note": "Die perfekte Einkehr zwischen Elbauenpark und Herrenkrugpark: Das Parkrestaurant DIE SAISON im Dorint Herrenkrug Parkhotel serviert regionale Küche mit Wintergarten und großer Sommerterrasse, dazu gibt es einen schattigen Biergarten und viel Platz zum Auslaufen für die Kinder. Wer lieber woanders einkehrt, wechselt per Swipe zu anderen Magdeburger Restaurants und Cafés.",
+          "sourceUrls": [
+            "https://hotel-magdeburg.dorint.com/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Herrenkrugpark",
+          "type": "nature",
+          "address": "Herrenkrug, 39114 Magdeburg",
+          "durationMin": 90,
+          "note": "Nur ein paar Schritte weiter liegt der weitläufige Herrenkrugpark, einer der ältesten Landschaftsgärten Sachsen-Anhalts. Auf großen Wiesen ist viel Platz zum Picknicken und Drachensteigen, schattige Alleen und mächtige alte Bäume laden zum Bummeln ein, und über den Herrenkrugsteg reicht der Blick weit über die Elbe. Frei zugänglich und ideal zum Ausklang eines langen Familientags.",
+          "sourceUrls": [
+            "https://www.magdeburg-tourist.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "magdeburg",
+      "slug": "magdeburg-familien-technik-tropen",
+      "title": "Familientag: Technikmuseum & Gruson-Gewächshäuser",
+      "description": "Ein abwechslungsreicher Familientag im Süden Magdeburgs: Vormittags entdecken Kinder im Technikmuseum echte Maschinen, Fahrzeuge und einen historischen Flugzeug-Nachbau zum Anfassen und Staunen. Nach der Mittagspause im Biergarten direkt an der Elbe geht es weiter in die tropischen Gruson-Gewächshäuser mit Palmen, Kakteen und exotischen Tieren – zum Ausklang lädt der historische Klosterbergegarten am Ufer zum Toben ein.",
+      "tags": [
+        "family",
+        "editorial",
+        "museum",
+        "nature",
+        "explore-family",
+        "sachsen-anhalt"
+      ],
+      "sourceUrls": [
+        "https://www.technikmuseum-magdeburg.de/",
+        "https://www.gruson-gewaechshaeuser.de/",
+        "https://www.mueckenwirt.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Technikmuseum Magdeburg",
+          "type": "museum",
+          "address": "Dodendorfer Straße 65, 39112 Magdeburg",
+          "durationMin": 120,
+          "note": "Der Auftakt für kleine und große Technikfans: Auf rund 2.000 Quadratmetern warten echte Maschinen, historische Fahrzeuge, alte Werkzeuge und sogar ein Nachbau von Hans Grades Flugzeug aus dem Jahr 1908. Vieles lässt sich aus nächster Nähe bestaunen, dazu kommt eine nachgebaute Pilotrakete von 1933 aus der Stadt – ideal, um Kinder für Mechanik und Erfindergeist zu begeistern.",
+          "sourceUrls": [
+            "https://www.technikmuseum-magdeburg.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Mückenwirt",
+          "type": "restaurant",
+          "address": "An der Elbe 14, 39104 Magdeburg",
+          "durationMin": 75,
+          "note": "Mittagspause direkt an der Elbe: Der traditionsreiche Mückenwirt ist ein familiäres Ausflugs-Restaurant mit weitläufigem Biergarten und Blick aufs Wasser. Während die Großen regionale Küche genießen, können die Kinder auf der Wiese am Ufer toben. Wer lieber anderswo einkehrt, wechselt von hier bequem zu weiteren Lokalen in der Nähe.",
+          "sourceUrls": [
+            "https://www.mueckenwirt.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Gruson-Gewächshäuser",
+          "type": "nature",
+          "address": "Schönebecker Straße 129 b, 39104 Magdeburg",
+          "durationMin": 90,
+          "note": "Tropen mitten in der Stadt: In den historischen Schaugewächshäusern wachsen Palmen, Kakteen und Orchideen aus aller Welt unter Glas. An den Terrarien und Aquarien drücken kleine Forscher die Nase platt und beobachten Kaimane, Pfeilgiftfrösche und Schlangen. Für Kinder gibt es einen Entdecker-Rucksack und eine eigene Botanikschule – ein warmer, farbenfroher Ausklang.",
+          "sourceUrls": [
+            "https://www.gruson-gewaechshaeuser.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Klosterbergegarten",
+          "type": "park",
+          "address": "Schönebecker Straße 129, 39104 Magdeburg",
+          "durationMin": 45,
+          "note": "Zum Ausklang laufen sich alle noch einmal die Füße frei: Der Klosterbergegarten ist nach dem Düsseldorfer Hofgarten die zweitälteste kommunale Gartenanlage Deutschlands und zieht sich weitläufig am Elbufer entlang. Große Wiesen laden zum Toben, Drachensteigen und Picknicken ein, schattige Alleen führen zum Wasser. Ein ruhiger, grüner Abschluss direkt neben den Schaugewächshäusern.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Klosterbergegarten"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "halle",
+      "slug": "halle-familien-maya-mare-saale-inseln",
+      "title": "Familientag: Maya Mare & Saale-Inseln",
+      "description": "Erst ausgiebig planschen im Erlebnisbad Maya Mare, dann hinaus in die Natur: Dieser Familientag verbindet breite Rutschen und ein Wellenbecken mit einem gemütlichen Café auf der Peißnitzinsel und Spaziergängen über die grünen Saale-Inseln. Wasserratten, kleine Naturentdecker und alle, die zwischendurch eine Pause brauchen, kommen an einem Tag voll auf ihre Kosten.",
+      "tags": [
+        "family",
+        "editorial",
+        "schwimmbad",
+        "natur",
+        "saale",
+        "stadtpark"
+      ],
+      "sourceUrls": [
+        "https://www.maya-mare.de/",
+        "https://peissnitzhaus.de/gastronomie/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Erlebnisbad Maya Mare",
+          "type": "activity",
+          "address": "Am Wasserwerk 1, 06132 Halle (Saale)",
+          "durationMin": 180,
+          "note": "Der Familientag startet mit Badespaß pur: ein Wellenbecken, breite Rutschen und ein flacher Kinderbereich zum Planschen lassen kleine und große Wasserratten strahlen. Ein Vormittag im warmen Wasser, der garantiert müde und glücklich macht.",
+          "sourceUrls": [
+            "https://www.maya-mare.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Rabeninsel",
+          "type": "nature",
+          "address": "Rabeninselbrücke (Böllberger Weg), 06128 Halle (Saale)",
+          "durationMin": 75,
+          "note": "Nicht weit vom Bad lockt die Rabeninsel, ein Naturschutzgebiet mitten in der Saale. Über die Brücke geht es in einen uralten Auwald mit mächtigen Eichen – mit etwas Glück entdecken Kinder Eisvögel und Rotmilane. Ein ruhiger Spaziergang auf naturbelassenen Wegen, ideal zum Auspowern nach dem vielen Wasser.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Rabeninsel"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Peißnitzhaus",
+          "type": "cafe",
+          "address": "Peißnitzinsel 4, 06108 Halle (Saale)",
+          "durationMin": 60,
+          "note": "Nach dem Waldspaziergang geht es zur Stärkung auf die Peißnitzinsel: Das familienfreundliche Café im Peißnitzhaus serviert Kuchen, Eis und kleine Gerichte – drinnen gemütlich oder draußen im Grünen mit Blick auf die Saale. Während die Kinder zwischen den Bäumen toben, genießen die Großen in Ruhe ihre Pause.",
+          "sourceUrls": [
+            "https://peissnitzhaus.de/gastronomie/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Peißnitzinsel – Stadtpark & Spielplatz",
+          "type": "park",
+          "address": "Peißnitzinsel, 06108 Halle (Saale)",
+          "durationMin": 60,
+          "note": "Auf derselben Insel liegt Halles grüne Spielwiese: die Peißnitzinsel mit weitläufigen Wiesen, schattigen Alleen und einem großen Spielplatz. Hier können Kinder Drachen steigen lassen, Ball spielen und toben, während der Tag am Wasser gemütlich ausklingt.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Pei%C3%9Fnitz"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "flensburg",
+      "slug": "flensburg-familien-phaenomenta",
+      "title": "Familientag: PHÄNOMENTA & Café Isa",
+      "description": "Ein Tag voller Neugier im Herzen von Flensburg: In der PHÄNOMENTA experimentieren große und kleine Entdecker an über 150 Mitmach-Stationen, bevor hausgemachtes Eis im Café Isa wartet. Danach lockt das Nordertor als Fotomotiv und die Museumswerft am Hafen zum Mitmachen – kurze Wege, viel zum Staunen und für jedes Alter etwas dabei.",
+      "tags": [
+        "family",
+        "editorial",
+        "science",
+        "hafen",
+        "flensburg"
+      ],
+      "sourceUrls": [
+        "http://www.phaenomenta-flensburg.de/",
+        "https://cafe-isa.de/",
+        "https://www.museumswerft.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "PHÄNOMENTA Flensburg",
+          "type": "science",
+          "address": "Norderstraße 157-163, 24939 Flensburg",
+          "durationMin": 150,
+          "note": "Über 150 Stationen zum Anfassen und Ausprobieren: Kinder drehen an Zahnrädern, erzeugen Blitze und staunen über Spiegeltricks. Ein riesiger Erlebnis-Ort, an dem Naturwissenschaft zum Spielplatz wird – hier vergeht der Vormittag wie im Flug.",
+          "sourceUrls": [
+            "http://www.phaenomenta-flensburg.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Isa",
+          "type": "cafe",
+          "address": "Norderstraße 77, 24939 Flensburg",
+          "durationMin": 60,
+          "note": "Gemütliches Café mitten in der Norderstraße mit hausgemachtem Eis, warmen Waffeln und wechselndem Kuchen. Perfekt für eine süße Pause mit Kindern – täglich von 10 bis 18 Uhr geöffnet, morgens gibt es auch Frühstück.",
+          "sourceUrls": [
+            "https://cafe-isa.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Nordertor",
+          "type": "landmark",
+          "address": "Norderstraße 138, 24939 Flensburg",
+          "durationMin": 15,
+          "note": "Das rote Backsteintor von 1595 ist das Wahrzeichen Flensburgs und eines der beliebtesten Fotomotive der Stadt. Ein kurzer Stopp direkt an der Norderstraße – toll für ein Familienfoto und kleine Geschichten über die alte Stadtbefestigung.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Nordertor"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Museumswerft Flensburg",
+          "type": "activity",
+          "address": "Schiffbrücke 44, 24939 Flensburg",
+          "durationMin": 75,
+          "note": "Am historischen Hafen liegt die Museumswerft, wo alte Holzsegler wieder flottgemacht werden. Kinder dürfen beim Bootsbau selbst mit anpacken, Werkzeuge ausprobieren und die großen Schiffe bestaunen – gelebtes Handwerk zum Mitmachen direkt am Wasser.",
+          "sourceUrls": [
+            "https://www.museumswerft.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "kiel",
+      "slug": "kiel-familien-hochseilgarten-falckenstein",
+      "title": "Familientag: Hochseilgarten High Spirits & Falckensteiner Strand",
+      "description": "Erst hoch hinaus im Kletterwald High Spirits, dann barfuß durch den Sand am längsten Strand Kiels: Dieser Familientag verbindet den Nervenkitzel in den Bäumen mit einem entspannten Nachmittag an der Kieler Förde. Eine Café-Pause mit Meerblick und der Blick hinüber zum Marine-Ehrenmal Laboe machen den Ausflug für Groß und Klein rund.",
+      "tags": [
+        "family",
+        "editorial",
+        "klettern",
+        "strand",
+        "outdoor",
+        "abenteuer"
+      ],
+      "sourceUrls": [
+        "https://www.hochseilgarten-kiel.de/",
+        "https://www.deichperle-kiel.de/",
+        "https://deutscher-marinebund.de/marine-ehrenmal-u-995/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Hochseilgarten High Spirits Kiel",
+          "type": "activity",
+          "address": "Falckensteiner Strand 15, 24159 Kiel",
+          "durationMin": 150,
+          "note": "Der Kletterpark High Spirits liegt im Wald direkt oberhalb des Strandes. Kinder starten im niedrigen Kinderparcours, Eltern sichern mit. Gut sitzende Gurte und geschultes Personal machen den Einstieg leicht. Klettern, balancieren und mutig sein von Baum zu Baum - ein Abenteuer hoch über dem Boden.",
+          "sourceUrls": [
+            "https://www.hochseilgarten-kiel.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Deichperle",
+          "type": "cafe",
+          "address": "Deichweg 24, 24159 Kiel",
+          "durationMin": 60,
+          "note": "Das Café Deichperle liegt direkt am Falckensteiner Strand im alten Leuchtturmwärterhaus, mit Terrasse und Blick auf die Förde. Hausgemachte Kuchen, Waffeln und warme Snacks laden zur Pause ein - entspannt, mit Sand unter den Füßen und Zeit für die ganze Familie.",
+          "sourceUrls": [
+            "https://www.deichperle-kiel.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Falckensteiner Strand",
+          "type": "nature",
+          "address": "Falckensteiner Strand, 24159 Kiel",
+          "durationMin": 90,
+          "note": "Kiels längster Sandstrand mit breiten Dünen, flachem Wasser und Spielplatz - Sandburgen bauen, Muscheln suchen und im flachen Wasser planschen. Der Strand ist kostenfrei, im Sommer bewacht und gut für kleine Kinder geeignet. Von hier seht ihr das Marine-Ehrenmal über die Förde.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Falckensteiner_Strand"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Marine-Ehrenmal Laboe & U-995",
+          "type": "landmark",
+          "address": "Strandstraße 92, 24235 Laboe",
+          "durationMin": 90,
+          "note": "Der hohe Turm über der Förde: mit Aufzug oder über 341 Stufen hinauf zur Aussichtsplattform, weiter Blick über Kiel und Ostsee. Direkt daneben lässt sich das echte U-Boot U-995 erkunden - schmale Gänge, Periskop und Technik zum Staunen.",
+          "sourceUrls": [
+            "https://deutscher-marinebund.de/marine-ehrenmal-u-995/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "erfurt",
+      "slug": "erfurt-familien-zootag",
+      "title": "Familientag: Thüringer Zoopark & egapark Erfurt",
+      "description": "Ein tierisch schöner Familientag in Erfurt: Am Vormittag geht es in den weitläufigen Thüringer Zoopark mit Elefanten, Löwen und großen Spielplätzen, mittags wartet herzhafte Thüringer Küche direkt an der Krämerbrücke. Am Nachmittag toben die Kinder auf Thüringens größtem Spielplatz im egapark und staunen über tropische Schmetterlinge im Danakil. So verbindet der Tag Tiere, Altstadtcharme und jede Menge Auslauf für Groß und Klein.",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "tiere",
+        "spielplatz",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://zoopark-erfurt.de/",
+        "https://www.egapark-erfurt.de/",
+        "https://feuerkugel-erfurt.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Thüringer Zoopark Erfurt",
+          "type": "zoo",
+          "address": "Am Zoopark 1, 99087 Erfurt",
+          "durationMin": 210,
+          "note": "Einer der größten Zoos Deutschlands: Elefanten, Löwen und Geparden leben auf weitläufigen Anlagen, im Streichelgehege dürfen Kinder Ziegen streicheln, und die vielen Spielplätze laden zum Toben ein.",
+          "sourceUrls": [
+            "https://zoopark-erfurt.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Gasthaus Feuerkugel",
+          "type": "restaurant",
+          "address": "Michaelisstraße 4, 99084 Erfurt",
+          "durationMin": 75,
+          "note": "Gemütliches Restaurant an der Krämerbrücke: Hier gibt es herzhafte Thüringer Landküche mit Klößen und Bratwurst, dazu ein historisches Ambiente und viel Platz für die ganze Familie.",
+          "sourceUrls": [
+            "https://feuerkugel-erfurt.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Krämerbrücke",
+          "type": "landmark",
+          "address": "Krämerbrücke, 99084 Erfurt",
+          "durationMin": 45,
+          "note": "Die längste durchgehend bewohnte Brücke Europas: Auf dem mittelalterlichen Steg reihen sich kleine Läden mit Schokolade und Kunsthandwerk, ein kurzer Bummel, bei dem Kinder in jedem Winkel Neues entdecken.",
+          "sourceUrls": [
+            "https://de.wikipedia.org/wiki/Kr%C3%A4merbr%C3%BCcke"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "egapark Erfurt",
+          "type": "park",
+          "address": "Gothaer Straße 38, 99094 Erfurt",
+          "durationMin": 150,
+          "note": "Thüringens größter Spielplatz und das Tropenhaus Danakil unter einem Dach: Kinder klettern, planschen an den Wasserspielen und staunen im Urwaldhaus über bunte Schmetterlinge; dazu laden 20 Themengärten zum Durchstreifen ein.",
+          "sourceUrls": [
+            "https://www.egapark-erfurt.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "jena",
+      "slug": "jena-familien-imaginata-planetarium",
+      "title": "Familientag: Imaginata & Zeiss-Planetarium Jena",
+      "description": "Ein Entdeckertag im Norden und Zentrum von Jena: In der Imaginata wird Naturwissenschaft zum Mitmachen, im Zeiss-Planetarium reisen Familien unter der großen Kuppel zu den Sternen, und der Botanische Garten lädt zum grünen Ausklang. Kurze Wege, viel zum Staunen und Anfassen – ideal für neugierige Kinder jeden Alters.",
+      "tags": [
+        "family",
+        "editorial",
+        "wissenschaft",
+        "planetarium",
+        "natur"
+      ],
+      "sourceUrls": [
+        "https://www.imaginata.de/",
+        "https://www.planetarium-jena.de/",
+        "https://www.botanischergarten.uni-jena.de/",
+        "https://gruenowski.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Imaginata Jena",
+          "type": "science",
+          "address": "Löbstedter Straße 67, 07749 Jena",
+          "durationMin": 120,
+          "note": "In den alten Zeiss-Hallen lädt die Imaginata zum Ausprobieren ein: Rund um den Stationenpark erkunden Kinder Licht, Schall, Optik und Wahrnehmung an vielen Mitmach-Stationen. Hier wird Naturwissenschaft zum Anfassen und Selbermachen – ein neugieriger Start in den Familientag.",
+          "sourceUrls": [
+            "https://www.imaginata.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Grünowski im Paradies",
+          "type": "restaurant",
+          "address": "Schillergäßchen 5, 07745 Jena",
+          "durationMin": 75,
+          "note": "Direkt am Paradiespark liegt das Café und Restaurant Grünowski mitten im Grünen. Auf der großen Terrasse unter Bäumen stärken sich Familien mit Kuchen, Flammkuchen und frischer Küche, und die Kinder haben ringsum Platz zum Spielen. Eine entspannte Einkehr zwischen den Entdecker-Stationen des Tages.",
+          "sourceUrls": [
+            "https://gruenowski.de/",
+            "https://gruenowski.de/kontakt/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Zeiss-Planetarium Jena",
+          "type": "science",
+          "address": "Am Planetarium 5, 07743 Jena",
+          "durationMin": 75,
+          "note": "Das Zeiss-Planetarium Jena ist das älteste noch arbeitende Planetarium der Welt. Unter der großen Kuppel reisen Familien zu Sternen und Planeten – eigene Kindershows wie ‚Die Olchis' nehmen schon die Jüngsten mit auf eine Reise durch das Weltall. Die Karten sichert man am besten vorab.",
+          "sourceUrls": [
+            "https://www.planetarium-jena.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Botanischer Garten der Universität Jena",
+          "type": "garden",
+          "address": "Fürstengraben 26, 07743 Jena",
+          "durationMin": 90,
+          "note": "Der Botanische Garten der Universität Jena zählt zu den ältesten Deutschlands. Auf kurzen Wegen entdecken Familien Teiche, Themenbeete und tropische Gewächshäuser mit Palmen und Kakteen. Für Kinder gibt es eine Familienkarte, die Kleinsten kommen frei hinein – ein grüner, ruhiger Ausklang des Tages.",
+          "sourceUrls": [
+            "https://www.botanischergarten.uni-jena.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "sonneberg",
+      "slug": "sonneberg-familien-spielzeug-und-sterne",
+      "title": "Familientag: Deutsches Spielzeugmuseum & Sternwarte Sonneberg",
+      "description": "Sonneberg war einmal die \"Weltspielzeugstadt\" - und im ältesten Spielzeugmuseum Deutschlands staunen Kinder über 100.000 Puppen, Teddys und ganze Miniaturwelten. Nach einer Kuchenpause im Zentrum führt der Tag hinauf zur Sternwarte, wo der Nachwuchs durch echte Teleskope blickt und das Sonnensystem durchwandert. Nostalgie zum Anfassen und Weltall-Staunen an einem Tag - perfekt für neugierige Familien.",
+      "tags": [
+        "family",
+        "editorial",
+        "museum",
+        "spielzeug",
+        "astronomie",
+        "indoor"
+      ],
+      "sourceUrls": [
+        "https://www.spielzeugmuseum-sonneberg.de/",
+        "https://www.astronomiemuseum.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Deutsches Spielzeugmuseum",
+          "type": "museum",
+          "address": "Beethovenstraße 10, 96515 Sonneberg",
+          "durationMin": 90,
+          "note": "Das älteste Spielzeugmuseum Deutschlands zeigt rund 100.000 Objekte - von historischen Puppen bis zur großen Schauwand der Thüringer Kirmes. Spielinseln und Mitmach-Stationen halten schon die Kleinsten bei Laune.",
+          "sourceUrls": [
+            "https://www.spielzeugmuseum-sonneberg.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Stadtcafé Sonneberg",
+          "type": "cafe",
+          "address": "Ernststraße 1, 96515 Sonneberg",
+          "durationMin": 45,
+          "note": "Nur wenige Gehminuten vom Museum lädt dieses gemütliche Café im Zentrum zur Pause ein - mit hausgebackenem Kuchen, Eisbechern und Kakao kommen kleine und große Gäste zur Ruhe.",
+          "sourceUrls": [
+            "https://www.openstreetmap.org/search?query=Stadtcaf%C3%A9%2C%20Ernststra%C3%9Fe%201%2C%20Sonneberg"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Astronomiemuseum der Sternwarte Sonneberg",
+          "type": "science",
+          "address": "Sternwartestraße 32, 96515 Sonneberg",
+          "durationMin": 75,
+          "note": "Oberhalb der Stadt wartet 'Thüringens Tor zum Universum': Familien wandern durch das Sonnensystem, entdecken Sternbilder und blicken durch echte Teleskope. Eine eigene Kinderabteilung macht die Sterne zum Anfassen.",
+          "sourceUrls": [
+            "https://www.astronomiemuseum.de/",
+            "https://www.astronomiemuseum.de/kontakt/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    },
+    {
+      "citySlug": "erfurt",
+      "slug": "erfurt-familien-egapark-abenteuer",
+      "title": "Familientag: egapark Erfurt & Zitadelle Petersberg",
+      "description": "Der egapark Erfurt verbindet Thüringens größten Spielplatz, exotische Tiere im Danakil-Urwaldhaus und einen Streichelbauernhof zu einem Familienabenteuer unter freiem Himmel. Nach einer Stärkung im nahen Espach Café geht es weiter in die Altstadt zur mächtigen Zitadelle Petersberg mit ihrem weiten Rundblick und den geheimnisvollen Horchgängen. Ein abwechslungsreicher Tag, an dem Toben, Staunen und Entdecken zusammenkommen.",
+      "tags": [
+        "family",
+        "editorial",
+        "egapark",
+        "natur",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.egapark-erfurt.de/",
+        "https://www.espachcafe.de/",
+        "https://petersberg-erfurt.de/",
+        "https://www.erfurt-tourismus.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "egapark Erfurt",
+          "type": "park",
+          "address": "Gothaer Straße 38, 99094 Erfurt",
+          "durationMin": 180,
+          "note": "Der egapark ist ein riesiger Blumen- und Erlebnispark auf dem Cyriaksberg. Kinder toben auf Thüringens größtem Spielplatz, streicheln Esel und Ziegen am Kinderbauernhof und staunen im Danakil-Wüsten- und Urwaldhaus über Schmetterlinge, Leguane und tropische Vögel. Vom Aussichtsturm reicht der Blick weit über die Stadt, hier vergeht ein halber Tag wie im Flug.",
+          "sourceUrls": [
+            "https://www.egapark-erfurt.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Espach Café",
+          "type": "cafe",
+          "address": "Alfred-Hess-Straße 36a, 99094 Erfurt",
+          "durationMin": 60,
+          "note": "Nur wenige Minuten vom egapark entfernt lädt das familienfreundliche Espach Café zur Stärkung ein. Das Restaurant serviert regionale Küche, hausgebackenen Kuchen und Kindergerichte; Hochstuhl und Wickeltisch stehen bereit. Ein gemütlicher Stopp, an dem sich große und kleine Gäste erholen und neue Kraft tanken.",
+          "sourceUrls": [
+            "https://www.espachcafe.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Zitadelle Petersberg",
+          "type": "castle",
+          "address": "Petersberg 3, 99084 Erfurt",
+          "durationMin": 90,
+          "note": "Hoch über der Altstadt thront die mächtige Festung Petersberg aus dem 17. Jahrhundert, eine der größten erhaltenen Stadtfestungen Europas. Familien freuen sich über den weiten Rundblick über Erfurt, erkunden bei Führungen die geheimnisvollen unterirdischen Horchgänge und haben viel Platz zum Herumlaufen. Start ist das Besucherzentrum mit kindgerechten Informationen.",
+          "sourceUrls": [
+            "https://www.erfurt-tourismus.de/",
+            "https://petersberg-erfurt.de/besucherzentrum/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Krämerbrücke",
+          "type": "landmark",
+          "address": "Krämerbrücke 15, 99084 Erfurt",
+          "durationMin": 45,
+          "note": "Zum Abschluss geht es zur Krämerbrücke, der längsten durchgehend bewohnten Häuserbrücke Europas. Über 500 Jahre alte Fachwerkhäuser reihen sich aneinander; in kleinen Läden gibt es Kunsthandwerk, Bonbons und Spielzeug zu entdecken. Kinder lieben es, durch die verwinkelte Brücke zu bummeln und den Blick auf den Fluss Gera zu erhaschen.",
+          "sourceUrls": [
+            "https://www.erfurt-tourismus.de/"
+          ]
+        }
+      ],
+      "creatorType": "editorial",
+      "visibility": "public"
+    }
+  ]
+}

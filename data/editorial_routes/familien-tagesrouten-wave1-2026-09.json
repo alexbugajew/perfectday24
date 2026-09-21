@@ -1,0 +1,906 @@
+{
+  "version": 1,
+  "createdAt": "2026-09-20",
+  "status": "ready",
+  "scope": "Familien-Tagesrouten Welle 1 — 15 Ausflugsziele (Hauptziel + Einkehr + Kombi-Stop)",
+  "importNotes": "Familien-Tagesrouten: Hauptziel + food-like Einkehr (aktiviert die Swipe-Alternativen-Mechanik) + familienfreundliche Kombi-Stops. Reale, 2026 geoeffnete Orte mit Adresse; Beschreibungen eigenformuliert; keine Fremdtexte/Fotos. Koordinaten per --geocode-missing (Nominatim). Food-Klassifikation gelintet gegen die Laufzeit-Regex.",
+  "routes": [
+    {
+      "citySlug": "garmisch-partenkirchen",
+      "slug": "garmisch-partenkirchen-familien-klamm-schanze",
+      "title": "Familientag: Partnachklamm & Olympiaschanze",
+      "description": "Die Partnachklamm zählt zu den spektakulärsten Schluchten der Alpen: tosendes Wasser, Tunnel und Stege begeistern schon die Kleinsten. Nach der Wanderung wärmt eine zünftige Einkehr, und die frei zugängliche Olympia-Sprungschanze krönt den Tag mit weitem Blick ins Tal.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "nature",
+        "hiking",
+        "mountains"
+      ],
+      "sourceUrls": [
+        "https://www.partnachklamm.de/de",
+        "https://www.gapa-tourismus.de/de/Sommer/Ausfl%C3%BCge/Sehensw%C3%BCrdigkeiten/Olympia%20Sprungschanze"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Partnachklamm",
+          "type": "nature",
+          "address": "Karl-und-Martin-Neuner-Platz 1, 82467 Garmisch-Partenkirchen",
+          "durationMin": 120,
+          "note": "Vom Olympia-Skistadion führt der Weg in die enge Schlucht: Auf Stegen und durch beleuchtete Tunnel geht es dicht am tosenden Wasser der Partnach entlang. Festes Schuhwerk und eine Regenjacke einpacken, dann staunen Kinder über Gischt und Felswände.",
+          "sourceUrls": [
+            "https://www.partnachklamm.de/de"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Gasthof Partnachklamm",
+          "type": "restaurant",
+          "address": "Wildenau 3a, 82467 Garmisch-Partenkirchen",
+          "durationMin": 75,
+          "note": "Direkt am Ausgang der Klamm liegt dieses urige Restaurant mit Bergblick und Terrasse. Die bayerische Küche und kinderfreundliche Portionen machen es zur idealen Einkehr für Familien nach der Wanderung.",
+          "sourceUrls": [
+            "https://www.speisekarte.de/garmisch-partenkirchen/restaurant/gasthof_partnachklamm"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Große Olympiaschanze",
+          "type": "activity",
+          "address": "Karl-und-Martin-Neuner-Platz 1, 82467 Garmisch-Partenkirchen",
+          "durationMin": 60,
+          "note": "Die frei zugängliche Sprungschanze von 1936 ist ein echtes Wahrzeichen. Über einen Themenweg mit Schautafeln geht es zur Aussichtsplattform, von der Familien den Blick über das Werdenfelser Land und die umliegenden Gipfel genießen.",
+          "sourceUrls": [
+            "https://www.gapa-tourismus.de/de/Sommer/Ausfl%C3%BCge/Sehensw%C3%BCrdigkeiten/Olympia%20Sprungschanze"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenchen",
+      "slug": "muenchen-familien-tierpark-isar",
+      "title": "Familientag: Tierpark Hellabrunn & Flaucher",
+      "description": "Der Tierpark Hellabrunn ist als Geo-Zoo nach Kontinenten gegliedert und begeistert mit Elefanten, Pinguinen und einem großen Streichelzoo. Direkt nebenan laden die Isarauen am Flaucher zum Toben, Steineflitschen und Picknicken ein – ein rundum entspannter Familientag im Münchner Süden.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "nature",
+        "park"
+      ],
+      "sourceUrls": [
+        "https://www.hellabrunn.de/",
+        "https://www.muenchen.travel/pois/sport-freizeit/flaucher"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tierpark Hellabrunn",
+          "type": "zoo",
+          "address": "Tierparkstraße 30, 81543 München",
+          "durationMin": 150,
+          "note": "Als erster Geo-Zoo der Welt zeigt Hellabrunn seine Tiere nach Kontinenten geordnet – von Elefanten und Giraffen bis zu Pinguinen und Gorillas. Ein Streichelzoo, weitläufige Anlagen und schattige Wege machen den Rundgang auch mit kleinen Kindern entspannt.",
+          "sourceUrls": [
+            "https://www.hellabrunn.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant Flamingo",
+          "type": "restaurant",
+          "address": "Siebenbrunner Straße 7, 81543 München",
+          "durationMin": 75,
+          "note": "Das familienfreundliche Restaurant Flamingo liegt am Isar-Eingang des Tierparks, mit Terrassenblick auf die Flamingos. Hausgemachte Pasta, knusprige Pizza und eine eigene Kinderkarte sorgen dafür, dass auch die Kleinsten satt werden.",
+          "sourceUrls": [
+            "https://marche-restaurants.de/en/standort/flamingo-munich-zoo-hellabrunn/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Flaucher – Isarauen",
+          "type": "nature",
+          "address": "Isarauen 8, 81379 München",
+          "durationMin": 90,
+          "note": "Gleich hinter dem Tierpark beginnen die renaturierten Isarauen: Kiesbänke zum Steinesuchen, seichte Flussarme zum Planschen und ein großer Abenteuerspielplatz. Hier lassen Familien den Tag naturnah und kostenlos ausklingen.",
+          "sourceUrls": [
+            "https://www.muenchen.travel/pois/sport-freizeit/flaucher"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "nuernberg",
+      "slug": "nuernberg-familien-tiergarten-valznerweiher",
+      "title": "Familientag: Tiergarten Nürnberg & Valznerweiher",
+      "description": "Der Tiergarten Nürnberg liegt als weitläufiger Landschaftszoo im Reichswald – mit Delfinlagune, Eisbären und großzügigen Freianlagen. Gleich nebenan lädt der Valznerweiher mit Waldspielplatz, Walderlebnispfad und schattigen Uferwegen zum gemütlichen Ausklang eines Familientags ein.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "nature",
+        "forest"
+      ],
+      "sourceUrls": [
+        "https://tiergarten.nuernberg.de/",
+        "https://www.frankenkids.de/veranstaltungsort/spielplatz-valznerweiherstrasse-nuernberg/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Tiergarten Nürnberg",
+          "type": "zoo",
+          "address": "Am Tiergarten 30, 90480 Nürnberg",
+          "durationMin": 150,
+          "note": "Der Landschaftszoo am Schmausenbuck zeigt seine Tiere in weiten, naturnahen Gehegen zwischen Sandstein und Kiefern. Höhepunkte für Kinder sind die Delfinlagune, das Manati-Haus mit tropischer Lagune und die Raubtiere hinter breiten Sichtfenstern.",
+          "sourceUrls": [
+            "https://tiergarten.nuernberg.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Tiergartenrestaurant Waldschänke",
+          "type": "restaurant",
+          "address": "Am Tiergarten 8, 90480 Nürnberg",
+          "durationMin": 75,
+          "note": "Nürnbergs höchstgelegenes Restaurant liegt idyllisch im Tiergarten und kocht zu rund 90 Prozent in Bio-Qualität. Ein giftfreier Kinderspielplatz und wettergeschützte Pagoden machen die Waldschänke zur perfekten Einkehr für Familien.",
+          "sourceUrls": [
+            "https://tourismus.nuernberg.de/erleben/familie/tiergarten/location/tiergartenrestaurant-waldschaenke/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Valznerweiher",
+          "type": "nature",
+          "address": "Valznerweiherstraße 111, 90480 Nürnberg",
+          "durationMin": 90,
+          "note": "Nur wenige Gehminuten südlich des Tiergartens liegt der Valznerweiher am Rand des Reichswaldes. Ein rund zwei Kilometer langer Walderlebnispfad, ein großer Waldspielplatz und schattige Uferwege laden Familien zum entspannten Ausklang ein.",
+          "sourceUrls": [
+            "https://www.frankenkids.de/veranstaltungsort/spielplatz-valznerweiherstrasse-nuernberg/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "stuttgart",
+      "slug": "stuttgart-familien-wilhelma-rosenstein",
+      "title": "Familientag: Wilhelma & Schloss Rosenstein",
+      "description": "Ein rundum gelungener Familientag in Stuttgart-Bad Cannstatt: erst die weltberühmte Wilhelma mit Tieren und tropischen Pflanzen, dann eine gemütliche Einkehr am Kurpark. Zum Abschluss geht es ins Naturkundemuseum Schloss Rosenstein, umgeben vom grünen Rosensteinpark – kurze Wege, große Augen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "natur",
+        "museum"
+      ],
+      "sourceUrls": [
+        "https://www.wilhelma.de/",
+        "https://www.kursaal-cannstatt.de/home/",
+        "https://www.naturkundemuseum-bw.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Wilhelma – Zoologisch-Botanischer Garten",
+          "type": "zoo",
+          "address": "Wilhelma 13, 70376 Stuttgart",
+          "durationMin": 150,
+          "note": "Der Zoologisch-Botanische Garten vereint exotische Tiere und prächtige Pflanzenwelten. Kinder staunen über Menschenaffen, Elefanten und bunte Fische im Aquarium – ein ganzer Vormittag voller Entdeckungen.",
+          "sourceUrls": [
+            "https://www.wilhelma.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant Kursaal Cannstatt",
+          "type": "restaurant",
+          "address": "Königsplatz 1, 70372 Stuttgart",
+          "durationMin": 75,
+          "note": "Das Restaurant Kursaal am Kurpark ist ein Klassiker für Familien: eigene Kinderkarte, Malutensilien, Hochstühle und ein großer Augustiner-Biergarten mit altem Baumbestand, direkt neben einer Minigolfanlage.",
+          "sourceUrls": [
+            "https://www.kursaal-cannstatt.de/home/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Museum Schloss Rosenstein",
+          "type": "museum",
+          "address": "Rosenstein 14, 70191 Stuttgart",
+          "durationMin": 90,
+          "note": "Im Schloss Rosenstein zeigt das Naturkundemuseum riesige Tierpräparate, darunter ein 13 Meter langes Walskelett. Ringsherum lädt der weitläufige Rosensteinpark mit Wiesen und Spielplatz zum Toben ein.",
+          "sourceUrls": [
+            "https://www.naturkundemuseum-bw.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "konstanz",
+      "slug": "konstanz-familien-sealife-hafen",
+      "title": "Familientag: SEA LIFE Konstanz & Hafenpromenade",
+      "description": "Wasser, Staunen und Seeluft: Der Tag beginnt in der Unterwasserwelt von SEA LIFE Konstanz, direkt am Bodensee-Hafen. Danach lockt die Hafenpromenade mit Stadtgarten und der frechen Imperia – ein entspannter Familientag am See mit kurzen Wegen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "aquarium",
+        "bodensee",
+        "hafen"
+      ],
+      "sourceUrls": [
+        "https://www.visitsealife.com/konstanz/",
+        "https://hafenhalle.com/",
+        "https://www.konstanz-info.com/attraktionen/imperia-6d97be7535"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "SEA LIFE Konstanz",
+          "type": "aquarium",
+          "address": "Hafenstraße 9, 78462 Konstanz",
+          "durationMin": 90,
+          "note": "Auf dem Rundgang durch die Unterwasserwelt entdecken Kinder Haie, Rochen und heimische Bodensee-Fische. Anschaulich erzählt von der Quelle bis zum tropischen Ozean – spannend für Klein und Groß.",
+          "sourceUrls": [
+            "https://www.visitsealife.com/konstanz/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Hafenhalle",
+          "type": "restaurant",
+          "address": "Hafenstraße 10, 78462 Konstanz",
+          "durationMin": 75,
+          "note": "Das Restaurant Hafenhalle liegt direkt neben dem Aquarium am Yachthafen. Familien mögen den schattigen Kastanien-Biergarten mit Seeblick, die Hochstühle und die entspannte Atmosphäre.",
+          "sourceUrls": [
+            "https://hafenhalle.com/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Stadtgarten Konstanz",
+          "type": "park",
+          "address": "Stadtgarten, 78462 Konstanz",
+          "durationMin": 75,
+          "note": "Direkt am Seeufer lädt der Stadtgarten zum Verschnaufen ein: viel Grün, ein Spielplatz und der weite Blick über den Bodensee bis zu den Alpen. Ideal für eine Pause zwischendurch.",
+          "sourceUrls": [
+            "https://www.konstanz-info.com/attraktionen/stadtgarten-konstanz-a7def307b5"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Imperia-Statue am Hafen",
+          "type": "landmark",
+          "address": "Hafenstraße, 78462 Konstanz",
+          "durationMin": 60,
+          "note": "Am Hafeneingang dreht sich die neun Meter hohe Imperia langsam um die eigene Achse – das freche Wahrzeichen von Konstanz. Ein toller Foto-Stopp, dazu der Blick auf die ein- und auslaufenden Fähren.",
+          "sourceUrls": [
+            "https://www.konstanz-info.com/attraktionen/imperia-6d97be7535"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "frankfurt-am-main",
+      "slug": "frankfurt-am-main-familien-zoo-parks",
+      "title": "Familientag: Zoo Frankfurt & Günthersburgpark",
+      "description": "Tiere und Grünflächen an einem Tag: Der große Zoo Frankfurt im Ostend bietet von Menschenaffen bis Exotarium reichlich zum Staunen. Danach toben die Kinder im Günthersburgpark, bevor der Chinesische Garten im Bethmannpark für einen ruhigen Ausklang sorgt.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "park",
+        "garten"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-frankfurt.de/",
+        "http://www.cafe-bohne.info/",
+        "https://frankfurt.de/themen/umwelt-und-gruen/orte/parks/parks-von-a-bis-z/bethmannpark"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Frankfurt",
+          "type": "zoo",
+          "address": "Bernhard-Grzimek-Allee 1, 60316 Frankfurt am Main",
+          "durationMin": 150,
+          "note": "Rund 4.500 Tiere leben mitten in der Stadt. Kinder lieben das nachtaktive Grzimekhaus und das Exotarium mit Reptilien und Fischen – im weitläufigen Zoo Frankfurt vergeht ein Vormittag im Flug.",
+          "sourceUrls": [
+            "https://www.zoo-frankfurt.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Café Bohne am Zoo",
+          "type": "cafe",
+          "address": "Pfingstweidstraße 9b, 60316 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Das Café Bohne liegt direkt am Zoo und ist an 365 Tagen geöffnet. Familien starten hier mit reichhaltigem Frühstück oder gönnen sich Kuchen im gemütlichen Außenbereich.",
+          "sourceUrls": [
+            "http://www.cafe-bohne.info/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Günthersburgpark",
+          "type": "park",
+          "address": "Weidenbornstraße 53, 60389 Frankfurt am Main",
+          "durationMin": 90,
+          "note": "Der Günthersburgpark in Bornheim ist ein Paradies für Familien: ein großer Spielplatz, im Sommer sprudelnde Wasserspiel-Figuren und viel Wiese zum Herumtoben und Entspannen.",
+          "sourceUrls": [
+            "https://frankfurt.de/themen/umwelt-und-gruen/aktivitaeten/spielen/wasserspielplaetze/wasserspielanlage-im-guenthersburgpark"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Chinesischer Garten im Bethmannpark",
+          "type": "garden",
+          "address": "Friedberger Landstraße 8, 60316 Frankfurt am Main",
+          "durationMin": 60,
+          "note": "Hinter weißen Mauern versteckt sich der Chinesische Garten – eine ruhige Oase mit Teich, kleinen Brücken und Pavillon. Ein schöner, stiller Ausklang nach dem Trubel des Tages.",
+          "sourceUrls": [
+            "https://frankfurt.de/themen/umwelt-und-gruen/orte/parks/parks-von-a-bis-z/bethmannpark"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "kassel",
+      "slug": "kassel-familien-bergpark-herkules",
+      "title": "Familientag: Bergpark Wilhelmshöhe & Café Jérôme",
+      "description": "Der Bergpark Wilhelmshöhe ist UNESCO-Welterbe und ein Riesenspielplatz für die ganze Familie: oben thront der Herkules, die Wasserspiele stürzen ins Tal, und dazwischen lockt die märchenhafte Löwenburg. Ein Tag zum Staunen, Klettern und Entdecken.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "natur",
+        "welterbe",
+        "wandern"
+      ],
+      "sourceUrls": [
+        "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/index.php",
+        "https://www.museum-kassel.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Bergpark Wilhelmshöhe mit Herkules und Wasserspielen",
+          "type": "park",
+          "address": "Schlosspark 1, 34131 Kassel",
+          "durationMin": 180,
+          "note": "Vom Herkules oben reicht der Blick über ganz Kassel. An Spieltagen stürzen die Wasserspiele nachmittags über Kaskaden und Teiche ins Tal – Kinder laufen begeistert mit dem Wasser bergab. Festes Schuhwerk mitnehmen, die Wege sind steil.",
+          "sourceUrls": [
+            "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/index.php"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Löwenburg im Bergpark",
+          "type": "castle",
+          "address": "Schlosspark 9, 34131 Kassel",
+          "durationMin": 75,
+          "note": "Die Löwenburg wirkt wie eine echte Ritterburg, ist aber ein romantisches Lustschloss aus dem 18. Jahrhundert. Bei der Führung tauchen Kinder in Rüstungen, Turnierhof und Burggarten ein; für Jugendliche bis 18 ist der Eintritt frei.",
+          "sourceUrls": [
+            "https://www.kassel.de/buerger/kunst_und_kultur/parks_und_gaerten/wilhelmshoehe/sehenswertes/loewenburg.php"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Café Jérôme im Schloss Wilhelmshöhe",
+          "type": "restaurant",
+          "address": "Schlosspark 1, 34131 Kassel",
+          "durationMin": 60,
+          "note": "Zum Ausklang wartet das Café Jérôme direkt im Schloss Wilhelmshöhe – ein gemütliches Café mit hausgebackenem Kuchen, das man auch ohne Museumsticket besuchen kann. Perfekt, um müde Familienbeine bei Kakao und Kuchen auszuruhen.",
+          "sourceUrls": [
+            "https://www.cafe-jerome.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bremen",
+      "slug": "bremen-familien-universum-botanika",
+      "title": "Familientag: Universum Bremen & botanika",
+      "description": "Zwei Entdeckerwelten an einem Tag: Im Universum Bremen wird Naturwissenschaft zum Anfassen, gleich nebenan tauchen Familien in der botanika durch Regenwald, Schmetterlingshaus und Gibbon-Anlage. Dazwischen eine ruhige Stärkung – ein Tag voller Aha-Momente.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "wissenschaft",
+        "natur",
+        "indoor"
+      ],
+      "sourceUrls": [
+        "https://universum-bremen.de/",
+        "https://www.botanika-bremen.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Universum Bremen",
+          "type": "science",
+          "address": "Wiener Straße 1a, 28359 Bremen",
+          "durationMin": 180,
+          "note": "Im silbern schimmernden Wal wird Wissenschaft zum Mitmachen: An über 250 Stationen erzeugen Kinder Erdbeben, jagen Blitze und erkunden Mensch, Erde und Kosmos. Ein Vormittag reicht kaum, um alles auszuprobieren.",
+          "sourceUrls": [
+            "https://universum-bremen.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant KUBUS im Universum",
+          "type": "restaurant",
+          "address": "Wiener Straße 1a, 28359 Bremen",
+          "durationMin": 60,
+          "note": "Direkt am Universum liegt das Restaurant KUBUS im rostroten Ausstellungswürfel – barrierefrei, mit wechselnden Tagesgerichten, Suppen, Salaten und einer Terrasse. Ideal für eine entspannte Mittagspause mit Kindern.",
+          "sourceUrls": [
+            "https://universum-bremen.de/restaurant-kubus/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "botanika – Grünes Science Center im Rhododendron-Park",
+          "type": "nature_center",
+          "address": "Deliusweg 40, 28359 Bremen",
+          "durationMin": 120,
+          "note": "Nur wenige Gehminuten weiter beginnt die Reise durch Regenwald und asiatische Landschaften. Im Schmetterlingshaus flattert es um die Nasen, Gibbons turnen durch die Anlage, und im Entdeckerzentrum lösen Kinder kleine Rätsel. Der Rhododendron-Park ringsum lädt zum freien Auslaufen.",
+          "sourceUrls": [
+            "https://www.botanika-bremen.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "bremerhaven",
+      "slug": "bremerhaven-familien-klimahaus-havenwelten",
+      "title": "Familientag: Klimahaus Bremerhaven & Zoo am Meer",
+      "description": "In den Havenwelten liegt alles dicht beieinander: Das Klimahaus schickt Familien entlang des 8. Längengrads einmal um die Welt, der Zoo am Meer zeigt Eisbären und Robben hinter Glas, und das Auswandererhaus erzählt große Lebensgeschichten. Ein voller Erlebnistag am Wasser.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "wissenschaft",
+        "tiere",
+        "indoor"
+      ],
+      "sourceUrls": [
+        "https://www.klimahaus-bremerhaven.de/",
+        "https://zoo-am-meer-bremerhaven.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Klimahaus Bremerhaven 8° Ost",
+          "type": "science",
+          "address": "Am Längengrad 8, 27568 Bremerhaven",
+          "durationMin": 210,
+          "note": "Entlang des 8. Längengrads reisen Familien durch neun Orte der Erde – von der Sahara-Hitze bis zur antarktischen Kälte, alles zum Fühlen, Hören und Staunen. Für die Weltreise mindestens drei Stunden einplanen.",
+          "sourceUrls": [
+            "https://www.klimahaus-bremerhaven.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Restaurant Längengrad im Klimahaus",
+          "type": "restaurant",
+          "address": "Am Längengrad 8, 27568 Bremerhaven",
+          "durationMin": 60,
+          "note": "Gleich im Haus liegt das Restaurant Längengrad mit Blick über die Havenwelten – frisch, saisonal und nachhaltig, mit Fisch aus der Region. Eine ruhige Café-Pause mitten auf der Weltreise.",
+          "sourceUrls": [
+            "https://www.klimahaus-bremerhaven.de/gastronomie/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Zoo am Meer Bremerhaven",
+          "type": "zoo",
+          "address": "H.-H.-Meier-Straße 7, 27568 Bremerhaven",
+          "durationMin": 120,
+          "note": "Nur ein kurzer Deichspaziergang trennt das Klimahaus vom Zoo am Meer. Direkt an der Weser beobachten Kinder Pumas, Robben, Pinguine und Seehunde – viele davon durch große Unterwasserscheiben. Kompakt genug für müde Kinderbeine.",
+          "sourceUrls": [
+            "https://zoo-am-meer-bremerhaven.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Deutsches Auswandererhaus",
+          "type": "museum",
+          "address": "Columbusstraße 65, 27568 Bremerhaven",
+          "durationMin": 120,
+          "note": "Wer noch Kraft hat, erlebt im Auswandererhaus Geschichte zum Anfassen: Jede Besucherin und jeder Besucher bekommt eine echte Auswandererbiografie und begleitet sie über den Nachbau der Kaje bis nach Übersee. Packend erzählt, auch für ältere Kinder.",
+          "sourceUrls": [
+            "https://dah-bremerhaven.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "hannover",
+      "slug": "hannover-familien-zoo-eilenriede",
+      "title": "Familientag: Erlebnis-Zoo Hannover & Waldstation Eilenriede",
+      "description": "Ein Tag voller Tiere und Natur im grünen Herzen Hannovers: Erst durch die Erlebniswelten des Zoos, dann eine Stärkung am Hoftörchen und zum Ausklang Waldabenteuer in der Eilenriede. Kurze Wege und viel für Kinder.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "natur",
+        "wald"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-hannover.de/",
+        "https://www.hoflokal.de/",
+        "https://www.hannover.de/Kultur-Freizeit/Naherholung/Raus-in-die-Natur/Naturlernorte/Waldstation-Eilenriede"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Erlebnis-Zoo Hannover",
+          "type": "zoo",
+          "address": "Adenauerallee 3, 30175 Hannover",
+          "durationMin": 210,
+          "note": "Sieben thematische Erlebniswelten wie Yukon Bay und Sambesi lassen Kinder Elefanten, Robben und Pinguine ganz nah erleben. Bootsfahrt und Streichelgehege machen den Auftakt zum Höhepunkt des Tages.",
+          "sourceUrls": [
+            "https://www.zoo-hannover.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Hoflokal am Erlebnis-Zoo Hannover",
+          "type": "restaurant",
+          "address": "Adenauerallee 1, 30175 Hannover",
+          "durationMin": 75,
+          "note": "Das Restaurant Hoflokal liegt direkt am Zoo-Törchen und kocht saisonal-regional; auch ohne Zooticket erreichbar, mit Hofterrasse und ruhigen Ecken für Familien.",
+          "sourceUrls": [
+            "https://www.hoflokal.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Waldstation Eilenriede",
+          "type": "nature",
+          "address": "Kleestraße 81, 30625 Hannover",
+          "durationMin": 90,
+          "note": "Mitten im Stadtwald erkunden Kinder Teiche, Tiergehege und einen Walderlebnisturm; der Eintritt ist frei und die Wege sind kinderwagentauglich.",
+          "sourceUrls": [
+            "https://www.hannover.de/Kultur-Freizeit/Naherholung/Raus-in-die-Natur/Naturlernorte/Waldstation-Eilenriede"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "goslar",
+      "slug": "goslar-familien-welterbe-harz",
+      "title": "Familientag: Weltkulturerbe Rammelsberg & Kaiserpfalz Goslar",
+      "description": "Bergbau zum Anfassen und Kaisergeschichte an einem Tag: Der Grubenzug fährt in den Rammelsberg, danach geht es in die Kaiserstadt Goslar mit ihrer weltberühmten Altstadt. Historie, die Kinder wirklich begreifen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "bergbau",
+        "unesco",
+        "harz",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.rammelsberg.de/",
+        "https://www.casino-rammelsberg.de/",
+        "https://kaiserpfalz.goslar.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Weltkulturerbe Rammelsberg – Museum & Besucherbergwerk",
+          "type": "mine",
+          "address": "Bergtal 19, 38640 Goslar",
+          "durationMin": 150,
+          "note": "Mit dem Grubenzug in den Berg und über Erlebnispfade durch tausend Jahre Erzabbau: Helm auf, Taschenlampe an, das Besucherbergwerk begeistert schon Grundschulkinder.",
+          "sourceUrls": [
+            "https://www.rammelsberg.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Casino Rammelsberg",
+          "type": "restaurant",
+          "address": "Bergtal 19, 38640 Goslar",
+          "durationMin": 75,
+          "note": "Das Café und Restaurant Casino liegt direkt auf dem Museumsgelände und bietet Harzer Gerichte sowie laktose- und glutenfreie Optionen für Familien — kurze Wege nach der Grubentour.",
+          "sourceUrls": [
+            "https://www.casino-rammelsberg.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Kaiserpfalz Goslar",
+          "type": "museum",
+          "address": "Kaiserbleek 6, 38640 Goslar",
+          "durationMin": 75,
+          "note": "Die tausendjährige Kaiserpfalz zeigt riesige Kaiserbilder und einen Thronsaal; Kinder und Jugendliche bis 17 Jahre haben freien Eintritt, dazu gibt es eine günstige Familienkarte.",
+          "sourceUrls": [
+            "https://kaiserpfalz.goslar.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Glocken- und Figurenspiel am Markt",
+          "type": "landmark",
+          "address": "Markt 6, 38640 Goslar",
+          "durationMin": 30,
+          "note": "Viermal täglich um 9, 12, 15 und 18 Uhr ziehen bronzene Bergmannsfiguren über dem Marktplatz vorbei und erzählen die Rammelsberger Erzgeschichte — kostenlos und ein schöner Tagesausklang.",
+          "sourceUrls": [
+            "https://www.goslar.de/tourismus/geschichte-erleben/rund-um-den-markt/35-glocken-und-figurenspiel-am-markt"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "rostock",
+      "slug": "rostock-familien-zoo-natur",
+      "title": "Familientag: Zoo Rostock, Polarium & Botanischer Garten",
+      "description": "Der größte Zoo an der deutschen Ostseeküste füllt den Vormittag mit Menschenaffen und Polartieren, danach lädt der nahe Universitäts-Garten zum ruhigen Ausklang. Ein Familientag zwischen Tropen und Teichen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "ostsee",
+        "natur"
+      ],
+      "sourceUrls": [
+        "https://www.zoo-rostock.de/",
+        "https://www.garten.uni-rostock.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Zoo Rostock mit Polarium & Tropenhalle",
+          "type": "zoo",
+          "address": "Barnstorfer Ring 1, 18059 Rostock",
+          "durationMin": 240,
+          "note": "Der größte Zoo an der deutschen Ostseeküste: In der Tropenhalle leben Menschenaffen, das Polarium zeigt Pinguine, Robben und Seehunde. Ein ganzer Tag voller Tierbegegnungen für die Familie.",
+          "sourceUrls": [
+            "https://www.zoo-rostock.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Darwineum-Restaurant",
+          "type": "restaurant",
+          "address": "Barnstorfer Ring 1, 18059 Rostock",
+          "durationMin": 75,
+          "note": "Das Restaurant im Darwineum hat eine Terrasse mit Blick auf die Orang-Utans und Lemuren, ist ganzjährig geöffnet und bietet von herzhaft bis süß für kleine und große Gäste.",
+          "sourceUrls": [
+            "https://www.zoo-rostock.de/en/gastronomy.html"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Botanischer Garten der Universität Rostock",
+          "type": "park",
+          "address": "Schwaansche Str. 2, 18055 Rostock",
+          "durationMin": 75,
+          "note": "Nur wenige Minuten vom Zoo entfernt lädt der 7,8 Hektar große Universitätsgarten mit Teichen, Themenbeeten und Gewächshäusern zum freien Bummeln ein — ruhiger Ausklang eines langen Tierparktags.",
+          "sourceUrls": [
+            "https://www.garten.uni-rostock.de/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "stralsund",
+      "slug": "stralsund-familien-meereswelt",
+      "title": "Familientag: OZEANEUM & Stralsunder Altstadt",
+      "description": "Ein Familientag rund um die Stralsunder Hafeninsel: erst eintauchen in die Unterwasserwelten des OZEANEUMs, dann maritim einkehren und zum Abschluss hoch hinauf auf den Turm der St. Marienkirche. Kurze Wege und große Aha-Momente für Klein und Groß.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "aquarium",
+        "natur",
+        "altstadt"
+      ],
+      "sourceUrls": [
+        "https://www.deutsches-meeresmuseum.de/museen/ozeaneum/",
+        "https://www.stralsundtourismus.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "OZEANEUM Stralsund",
+          "type": "aquarium",
+          "address": "Hafenstraße 11, 18439 Stralsund",
+          "durationMin": 150,
+          "note": "Das OZEANEUM entführt Familien in die Unterwasserwelten von Ostsee, Nordsee und Nordatlantik. Highlights sind das riesige Schwarmfisch-Becken, die lebenden Humboldt-Pinguine auf dem Dach und die Halle mit lebensgroßen Walmodellen. Ein voller Erlebnistag für kleine und große Meeresfreunde.",
+          "sourceUrls": [
+            "https://www.deutsches-meeresmuseum.de/museen/ozeaneum/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Hiddenseer Hafenrestaurant",
+          "type": "restaurant",
+          "address": "Hafenstraße 12b, 18439 Stralsund",
+          "durationMin": 75,
+          "note": "Nur wenige Schritte vom OZEANEUM entfernt liegt dieses Restaurant in einem denkmalgeschützten Speicher von 1889 direkt am Hafen. Von der Terrasse blicken Familien auf die Rügenbrücke, während frischer Fisch und kindgerechte Gerichte serviert werden.",
+          "sourceUrls": [
+            "https://hiddenseer-hafenrestaurant.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "St. Marienkirche Stralsund",
+          "type": "viewpoint",
+          "address": "Marienstraße 16, 18439 Stralsund",
+          "durationMin": 60,
+          "note": "Die St. Marienkirche ist ein Meisterwerk der Backsteingotik. Gut 300 Stufen führen hinauf zur Aussichtsplattform in rund 90 Metern Höhe — bei klarer Sicht reicht der Blick bis nach Rügen und Hiddensee. Für Kinder ein kleines Abenteuer mit großem Ausblick.",
+          "sourceUrls": [
+            "https://www.st-mariengemeinde-stralsund.de/kirchturm/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "muenster",
+      "slug": "muenster-familien-zoo-aasee",
+      "title": "Familientag: Allwetterzoo & Aasee-Entdeckungen",
+      "description": "Rund um den Aasee liegt Münsters schönstes Ausflugsrevier dicht beieinander. Vom Allwetterzoo geht es zur Stärkung ans Wasser und weiter ins Naturkundemuseum mit Planetarium sowie ins Freilichtdorf Mühlenhof. Ein abwechslungsreicher Tag für die ganze Familie mit kurzen Wegen.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "zoo",
+        "natur",
+        "aasee"
+      ],
+      "sourceUrls": [
+        "https://www.allwetterzoo.de/",
+        "https://www.stadt-muenster.de/tourismus/sehenswertes/aasee"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Allwetterzoo Münster",
+          "type": "zoo",
+          "address": "Sentruper Straße 315, 48161 Münster",
+          "durationMin": 180,
+          "note": "Der Allwetterzoo Münster begeistert bei jedem Wetter: Viele Gehege und Tierhäuser sind über überdachte Wege verbunden. Familien erleben Elefanten, Pinguine, das Affenhaus und den Streichelbereich für die Kleinen — dazu Spielplätze und weitläufige Grünflächen zum Toben.",
+          "sourceUrls": [
+            "https://www.allwetterzoo.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Zum Himmelreich",
+          "type": "restaurant",
+          "address": "Annette-Allee 9, 48149 Münster",
+          "durationMin": 75,
+          "note": "Traditionsreiches Café und Restaurant direkt am Aasee, nur einen kurzen Spaziergang vom Zoo entfernt. Im Biergarten mit Blick aufs Wasser gibt es westfälische Küche, Kaffee und Kuchen sowie kleine Portionen für Kinder.",
+          "sourceUrls": [
+            "https://www.zum-himmelreich.de/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "LWL-Museum für Naturkunde mit Planetarium",
+          "type": "museum",
+          "address": "Sentruper Straße 285, 48161 Münster",
+          "durationMin": 90,
+          "note": "Gleich neben dem Zoo zeigt das LWL-Museum für Naturkunde die Geschichte des Lebens — von Dinosaurier-Skeletten bis zu heimischen Tieren. Im angeschlossenen Planetarium reisen Familien unter einer riesigen Kuppel durch das Weltall.",
+          "sourceUrls": [
+            "https://www.lwl-naturkundemuseum-muenster.de/de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Mühlenhof-Freilichtmuseum Münster",
+          "type": "open_air_museum",
+          "address": "Theo-Breider-Weg 1, 48149 Münster",
+          "durationMin": 75,
+          "note": "Das Mühlenhof-Freilichtmuseum am Aasee ist ein ganzes Dorf aus alten Bauernhäusern, Werkstätten und einer echten Bockwindmühle. Kinder entdecken hier, wie das Landleben früher aussah, und toben über die weitläufigen Wiesen.",
+          "sourceUrls": [
+            "https://www.muehlenhof-muenster.org/"
+          ]
+        }
+      ]
+    },
+    {
+      "citySlug": "speyer",
+      "slug": "speyer-familien-technik-wasser",
+      "title": "Familientag: Technik Museum Speyer & SEA LIFE",
+      "description": "Speyer verbindet große Technik und Weltgeschichte auf engstem Raum. Der Tag startet zwischen Flugzeugen und Lokomotiven im Technik Museum, taucht danach im SEA LIFE ab und klingt in der Altstadt beim Historischen Museum der Pfalz nahe dem tausendjährigen Kaiserdom aus.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "editorial",
+        "technik",
+        "aquarium",
+        "museum"
+      ],
+      "sourceUrls": [
+        "https://speyer.technik-museum.de/",
+        "https://www.visitspeyer.de/"
+      ],
+      "sourceType": "official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Technik Museum Speyer",
+          "type": "museum",
+          "address": "Am Technik Museum 1, 67346 Speyer",
+          "durationMin": 150,
+          "note": "Im Technik Museum Speyer bestaunen Familien echte Flugzeuge, Lokomotiven, ein U-Boot und Raumfahrt zum Anfassen. Ein Höhepunkt ist die riesige Boeing 747 in luftiger Höhe, durch die man sogar hindurchsteigen kann, dazu das IMAX-Kino mit großer Kuppel.",
+          "sourceUrls": [
+            "https://speyer.technik-museum.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "SEA LIFE Speyer",
+          "type": "aquarium",
+          "address": "Im Hafenbecken 5, 67346 Speyer",
+          "durationMin": 75,
+          "note": "Im SEA LIFE Speyer wandern Familien durch farbenfrohe Unterwasserwelten von Rhein und Ozean. Höhepunkt ist der gläserne Tunnel, durch den Rochen und kleine Haie über die Köpfe der Kinder hinweggleiten.",
+          "sourceUrls": [
+            "https://www.visitsealife.com/speyer/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wirtshaus am Dom",
+          "type": "restaurant",
+          "address": "Maximilianstraße 96, 67346 Speyer",
+          "durationMin": 75,
+          "note": "Rustikales Restaurant mitten in der Altstadt mit direktem Blick auf den Kaiserdom. Bei bayerisch-pfälzischer Küche und kindgerechten Portionen legen Familien nach dem Vormittag eine gemütliche Pause ein.",
+          "sourceUrls": [
+            "https://wirtshaus-speyer.de/"
+          ]
+        },
+        {
+          "order": 4,
+          "title": "Historisches Museum der Pfalz",
+          "type": "museum",
+          "address": "Domplatz 4, 67346 Speyer",
+          "durationMin": 75,
+          "note": "Direkt am Kaiserdom lädt das Historische Museum der Pfalz mit seinem Jungen Museum zum Mitmachen ein: Kinder erkunden Ritter, Kelten und Geschichte zum Anfassen. Wer mag, wirft davor noch einen Blick auf den mächtigen Dom nebenan.",
+          "sourceUrls": [
+            "https://museum.speyer.de/"
+          ]
+        }
+      ]
+    }
+  ]
+}
