@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "createdAt": "2026-09-20",
+  "status": "ready",
+  "scope": "Familien-Tagesrouten Pilot — Drachenschlucht Eisenach (Hauptziel + Einkehr + Kombi-Stop)",
+  "importNotes": "Pilot fuer das Familien-Tagesrouten-Format: Naturerlebnis als Hauptziel, eine Einkehr auf dem Weg (food-like, damit die bestehende Swipe-Alternativen-Mechanik der Routen-Detailseite greift und Besucher zwischen Eisenacher Lokalen wechseln koennen) und ein familienfreundlicher Kombi-Stop. Nur Fakten (Name, Adresse) aus offiziellen Quellen; Beschreibungen eigenformuliert; keine Fremdtexte/Fotos. Koordinaten per --geocode-missing (Nominatim, auf Eisenach begrenzt). Einkehr traegt bewusst das Wort 'Restaurant' im Text, damit isFoodLikeStop auch ohne verknuepfte Location greift.",
+  "routes": [
+    {
+      "citySlug": "eisenach",
+      "slug": "eisenach-familien-drachenschlucht-wartburg",
+      "title": "Familientag: Drachenschlucht, Waldeinkehr & Wartburg",
+      "description": "Ein kompletter Familientag in Eisenach: erst das Abenteuer durch die enge, moosgruene Drachenschlucht auf schmalen Holzstegen, dann eine gemuetliche Einkehr im Waldgasthof mit Biergarten und zum Abschluss die 1000 Jahre alte Wartburg hoch ueber der Stadt. Alle drei Stationen liegen auf einem zusammenhaengenden Wander-Loop im Thueringer Wald und lassen sich an einem Tag verbinden.",
+      "creatorType": "editorial",
+      "visibility": "public",
+      "tags": [
+        "family",
+        "nature",
+        "hiking",
+        "outdoor",
+        "explore-family",
+        "editorial",
+        "thueringen",
+        "drachenschlucht"
+      ],
+      "sourceUrls": [
+        "https://www.eisenach.info/en/wanderung-drachenschlucht",
+        "https://www.drachenschlucht-eisenach.de/",
+        "https://saengerwiese-eisenach.de/gasthaus/",
+        "https://www.wartburg.de/"
+      ],
+      "sourceType": "official_city+official_venue",
+      "stops": [
+        {
+          "order": 1,
+          "title": "Drachenschlucht (Start Mariental)",
+          "type": "nature",
+          "address": "Mariental, 99817 Eisenach",
+          "durationMin": 120,
+          "note": "Der Hoehepunkt fuer die Kinder: auf schmalen Holzstegen geht es durch die teils nur 65 cm breite, moosgruene Felsspalte, direkt darunter plaetschert der Bach. Ganzjaehrig frei zugaenglich, festes Schuhwerk noetig, nicht kinderwagentauglich.",
+          "sourceUrls": [
+            "https://www.eisenach.info/en/wanderung-drachenschlucht",
+            "https://www.drachenschlucht-eisenach.de/"
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Waldgasthof Saengerwiese",
+          "type": "restaurant",
+          "address": "Saengerwiese 1, 99817 Eisenach",
+          "durationMin": 75,
+          "note": "Die ideale Einkehr auf halbem Weg: rustikales Restaurant mit grossem Biergarten mitten im Wald, regionale Kueche und Platz fuer die ganze Familie. Wer lieber woanders einkehrt, kann hier zu anderen Eisenacher Lokalen durchwechseln.",
+          "sourceUrls": [
+            "https://saengerwiese-eisenach.de/gasthaus/"
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Wartburg",
+          "type": "castle",
+          "address": "Auf der Wartburg 1, 99817 Eisenach",
+          "durationMin": 120,
+          "note": "Kroenung des Tages: die UNESCO-Welterbe-Burg hoch ueber Eisenach mit Familienfuehrungen fuer Kinder und weitem Blick ueber den Thueringer Wald. Vom Ende des Loops gut zu erreichen.",
+          "sourceUrls": [
+            "https://www.wartburg.de/"
+          ]
+        }
+      ]
+    }
+  ]
+}
