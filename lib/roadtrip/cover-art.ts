@@ -23,6 +23,16 @@ const FALLBACK_COVER_ART: RoadtripCoverArt = {
 };
 
 const COVER_ART_BY_SLUG: Record<string, RoadtripCoverArt> = {
+  "allgaeu-wellness-jga": {
+    icon: "Spa",
+    eyebrow: "Allgaeu · Spa & Gipfel",
+    scene: "Sauna, Berge und Cocktails — Maedelszeit",
+    accent: "#c0567e",
+    backgroundImage:
+      "linear-gradient(135deg, rgba(154, 56, 96, 0.94) 0%, rgba(47, 39, 57, 0.9) 52%, rgba(95, 139, 92, 0.78) 100%)",
+    orbImage:
+      "radial-gradient(circle at 18% 20%, rgba(255,255,255,0.24), transparent 0 24%), radial-gradient(circle at 84% 16%, rgba(224,126,158,0.3), transparent 0 20%), radial-gradient(circle at 74% 78%, rgba(157,193,145,0.22), transparent 0 24%)",
+  },
   "hanse-sea-city-loop": {
     icon: "Harbour",
     eyebrow: "Nordsee & Hansestaedte",
