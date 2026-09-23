@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import JsonLd from "@/components/seo/JsonLd";
 import { eventJsonLd, SITE_URL } from "@/lib/seo/json-ld";
 import { loadEventDetail, type AroundEventSuggestion } from "@/lib/events/around-event";
+import { buildAffiliateDeeplink } from "@/lib/monetization/affiliate-deeplinks";
 import { categoryAccent } from "@/lib/events/categories";
 import { plannerEventLabel } from "@/lib/planner";
 import type { PlannerEventCategory } from "@/lib/planner/types";
@@ -143,6 +144,23 @@ export default async function EventDetailPage({ params }: { params: Promise<Para
 
   const hasTimeline = detail.before.length > 0 || detail.after.length > 0;
 
+  // Ticket-Link monetarisieren, wenn das Ziel ein freigeschalteter Awin-Merchant
+  // ist (z.B. Eventim): ueber den Monetization-Redirect fuer Klick-Tracking, der
+  // den Awin-Deeplink erkennt und die awc-Klick-ID anhaengt. Andere Anbieter
+  // (Ticketmaster, Reservix, …) bleiben unveraendert der rohe Ticket-Link.
+  const rawTicketUrl = event.ticket_url;
+  const ticketAffiliate = buildAffiliateDeeplink(rawTicketUrl);
+  const ticketHref = ticketAffiliate
+    ? `/api/monetization/redirect?${new URLSearchParams({
+        target: ticketAffiliate.url,
+        eventType: "click",
+        plannerEventId: eventId,
+        citySlug: city,
+        surface: "event_detail_ticket",
+        source: ticketAffiliate.provider,
+      }).toString()}`
+    : rawTicketUrl;
+
   return (
     <main className="pd24-page-standard px-4 pb-20 pt-6">
       <JsonLd
@@ -258,17 +276,26 @@ export default async function EventDetailPage({ params }: { params: Promise<Para
             <Link href={plannerHref} className="pd24-btn pd24-btn-primary">
               Tag um dieses Event planen
             </Link>
-            {event.ticket_url ? (
+            {rawTicketUrl ? (
               // Quellen-Attribution: Die Ticketmaster-API-Terms verlangen,
               // dass Ticketmaster als Quelle erkennbar ist — der Anbietername
-              // gehört deshalb an den Link, nicht nur in dessen Ziel.
+              // gehört deshalb an den Link, nicht nur in dessen Ziel. Bei einem
+              // Affiliate-Ziel (Awin) trägt der Link rel="sponsored".
               <a
-                href={event.ticket_url}
+                href={ticketHref ?? rawTicketUrl}
                 target="_blank"
-                rel="noopener noreferrer nofollow"
+                rel={
+                  ticketAffiliate
+                    ? "noopener noreferrer nofollow sponsored"
+                    : "noopener noreferrer nofollow"
+                }
                 className="pd24-btn pd24-btn-secondary"
               >
-                {event.source === "ticketmaster" ? "Tickets bei Ticketmaster" : "Tickets"}
+                {ticketAffiliate
+                  ? `Tickets bei ${ticketAffiliate.provider}`
+                  : event.source === "ticketmaster"
+                    ? "Tickets bei Ticketmaster"
+                    : "Tickets"}
               </a>
             ) : null}
           </div>
