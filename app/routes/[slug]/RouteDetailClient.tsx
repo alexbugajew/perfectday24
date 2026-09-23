@@ -55,6 +55,7 @@ import {
 } from "@/lib/routes/personalize-creator-route";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
 import { renderableImageUrl } from "@/lib/renderable-image-url";
+import { stopPhotoFallback } from "@/lib/stop-photo-fallback";
 import ImageAttribution from "@/components/ImageAttribution";
 import CommunityPhotoSubmission from "@/components/media/CommunityPhotoSubmission";
 import { loadRouteMediaBundle, type MediaGalleryItem } from "@/lib/media/gallery";
@@ -210,6 +211,25 @@ const GROUP_INVITE_STORAGE_KEY = "pd24_group_invites";
 function routeHref(route: Pick<UserRouteRow, "slug" | "title">) {
   if (route.slug) return `/routes/${route.slug}`;
   return null;
+}
+
+// Fallback-Kategorie fuer das Stockfoto eines Stops ohne eigenes Bild.
+// Route-Stops tragen keine category-Spalte, aber der personalization-kind
+// (food/nightlife/activity/ambience) reicht fuer ein stimmiges Motiv; der Rest
+// laeuft in den neutralen Default-Pool.
+function fallbackCategoryForKind(kind: PersonalizationKind): string | null {
+  switch (kind) {
+    case "food_swap":
+      return "restaurant";
+    case "nightlife_swap":
+      return "nightlife";
+    case "activity_swap":
+      return "activity";
+    case "ambience_swap":
+      return "cafe";
+    default:
+      return null;
+  }
 }
 
 function inferTemplateInterests(route: UserRouteRow) {
@@ -1975,7 +1995,20 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
   const stopCoverImageUrl = renderableImageUrl(
     firstStopWithPhoto ? routeStopPrimaryMap.get(firstStopWithPhoto.id) ?? firstStopWithPhoto.photo_url : null
   );
-  const heroCover = routeCoverImageUrl || stopCoverImageUrl || null;
+  // Letzter Fallback: ein Kategorie-Stockfoto des ersten Stops, damit der Hero
+  // nie als blanker Farbverlauf erscheint (kein eigenes Cover, kein Stop-Foto).
+  const heroFallbackImage =
+    stops.length > 0
+      ? stopPhotoFallback({
+          category: fallbackCategoryForKind(
+            inferPersonalizationKind({ title: stops[0].title, note: stops[0].note, location: null })
+          ),
+          seed: stops[0].id,
+          width: 1200,
+          height: 480,
+        })
+      : null;
+  const heroCover = routeCoverImageUrl || stopCoverImageUrl || heroFallbackImage;
   const heroAttributionMeta = routeCoverImageUrl ? route?.meta : stopCoverImageUrl ? firstStopWithPhoto?.meta : null;
   const routeBadges = inferPublicRouteBadges(route ?? {});
   const routeMeta =
@@ -2788,9 +2821,20 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
                 ((adjustable ? displayCandidate.external_url : stop.external_url) ?? null);
               const primaryStopMediaUrl = routeStopPrimaryMap.get(stop.id) ?? null;
               const rawStopPhotoUrl = primaryStopMediaUrl ?? (adjustable ? displayCandidate.photo_url : stop.photo_url);
-              const stopPhotoUrl = renderableImageUrl(rawStopPhotoUrl);
+              const realStopPhotoUrl = renderableImageUrl(rawStopPhotoUrl);
+              // Wie im Planner: Stops ohne eigenes Foto bekommen ein deterministisches
+              // Kategorie-Stockfoto, damit die Detailansicht nie halb-leer wirkt.
+              const stopPhotoUrl =
+                realStopPhotoUrl ??
+                stopPhotoFallback({
+                  category: fallbackCategoryForKind(personalizationKind),
+                  seed: stop.id,
+                  width: 600,
+                  height: 320,
+                });
+              // Namensnennung nur fuer echte eigene Fotos, nie fuers Stockbild.
               const stopPhotoAttributionMeta =
-                !primaryStopMediaUrl && rawStopPhotoUrl && rawStopPhotoUrl === stop.photo_url ? stop.meta : null;
+                realStopPhotoUrl && !primaryStopMediaUrl && rawStopPhotoUrl === stop.photo_url ? stop.meta : null;
               return (
               <div key={stop.id} className="rounded-2xl border border-[var(--line-subtle)] bg-white p-4 shadow-sm">
                 <div className="flex flex-col gap-4 sm:flex-row">

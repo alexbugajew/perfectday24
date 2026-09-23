@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { loadResolvedRouteCoverMap } from "@/lib/media/resolved-covers";
+import { renderableImageUrl } from "@/lib/renderable-image-url";
 
 type EditorialRoute = {
   id: string;
@@ -48,16 +50,27 @@ export default function EditorialRoutesShowcase() {
         .select("id,title,slug,city_slug,cover_image_url,avg_rating,bookmark_count,stop_count")
         .eq("visibility", "public")
         .eq("creator_type", "editorial")
-        .not("cover_image_url", "is", null)
         .order("bookmark_count", { ascending: false })
-        .limit(8);
+        .limit(16);
       if (!active) return;
       if (error) {
         console.error("Editorial routes load:", error.message);
         setRoutes([]);
         return;
       }
-      setRoutes((data ?? []) as EditorialRoute[]);
+      // route_media_resolved leitet ein Cover u.a. aus Stop-Fotos ab. So zeigen
+      // wir auch Routen, die selbst kein cover_image_url gesetzt haben — bisher
+      // fielen sie durch den .not()-Filter komplett aus der Startseite.
+      const rows = (data ?? []) as EditorialRoute[];
+      const coverMap = await loadResolvedRouteCoverMap(rows.map((row) => row.id));
+      if (!active) return;
+      const withCover = rows.map((row) => ({
+        ...row,
+        cover_image_url: renderableImageUrl(coverMap.get(row.id) ?? row.cover_image_url),
+      }));
+      // Karten mit Bild zuerst, damit die Startseite gefuellt wirkt.
+      withCover.sort((a, b) => (b.cover_image_url ? 1 : 0) - (a.cover_image_url ? 1 : 0));
+      setRoutes(withCover.slice(0, 8));
     })();
     return () => {
       active = false;

@@ -133,8 +133,28 @@ async function fetchCityData(citySlug: string) {
     );
   }
 
+  // route_media_resolved leitet fehlende Cover u.a. aus Stop-Fotos ab, damit die
+  // Karten (und der Stadt-Hero) nicht auf den blanken Gradient zurueckfallen.
+  const routeRows = (routesResult.data ?? []) as RouteRow[];
+  const routeIds = routeRows.map((route) => route.id);
+  let resolvedCovers = new Map<string, string>();
+  if (routeIds.length > 0) {
+    const { data: resolvedRows } = await supabase
+      .from("route_media_resolved")
+      .select("route_id, effective_cover_url")
+      .in("route_id", routeIds);
+    resolvedCovers = new Map(
+      ((resolvedRows ?? []) as Array<{ route_id: string; effective_cover_url: string | null }>)
+        .filter((row) => row.route_id && row.effective_cover_url)
+        .map((row) => [row.route_id, row.effective_cover_url as string])
+    );
+  }
+
   return {
-    routes: (routesResult.data ?? []) as RouteRow[],
+    routes: routeRows.map((route) => ({
+      ...route,
+      cover_image_url: resolvedCovers.get(route.id) ?? route.cover_image_url,
+    })),
     creators: (creatorsResult.data ?? []) as CreatorRow[],
     cityCover: (cityCoverResult.data ?? null) as CityCover | null,
     upcomingEventCount: eventCountResult.count ?? 0,
