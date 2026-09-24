@@ -1,4 +1,5 @@
 import type { LocationCategory, LocationRow, MealType } from "./types";
+import { SOLEMN_MEMORIAL_SUBTYPES, textHasMemorialMarker } from "./memorial";
 
 export function norm(s: string | null | undefined) {
   return (s ?? "").toLowerCase().trim();
@@ -249,6 +250,16 @@ export function resolveMeal(loc: LocationRow): MealType {
   }
 
   return null;
+}
+
+/**
+ * Solemne Gedenkorte (Mahnmale, KZ-Gedenkstätten, Friedhöfe). Sie dürfen als
+ * würdiger Stop erscheinen, aber nie als fröhlicher Anker/Peak/Highlight und
+ * nicht in den Spaß-Anlässen — siehe lib/planner/memorial.ts.
+ */
+export function isSolemnMemorialCandidate(loc: LocationRow): boolean {
+  if (hasSubtype(loc, ...SOLEMN_MEMORIAL_SUBTYPES)) return true;
+  return textHasMemorialMarker(buildLocationSearchText(loc));
 }
 
 export function classify(loc: LocationRow): LocationCategory {

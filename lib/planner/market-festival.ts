@@ -1,3 +1,5 @@
+import { textHasMemorialMarker } from "./memorial";
+
 const MARKET_FESTIVAL_INTENT_RE =
   /\b(?:wochenmarkt|flohmarkt|street food|food market|farmers market|night market|bauernmarkt|night bazaar|trempelmarkt|kreativmarkt|designmarkt|kunstmarkt|market|markt|festival|japan day|fruehlingsfest|frühlingsfest|maifest|kirmes|funfair|fairground|messe|trade fair|art fair|design fair|book fair|bazaar|expo)\b/i;
 const MARKET_FESTIVAL_FAIR_INTENT_RE =
@@ -82,6 +84,16 @@ export function marketFestivalSpecificityScore(input: MarketFestivalInput) {
     hasSubtype(subtypes, "show", "concert", "theater", "performing_arts", "show_event", "live_music") ||
     MARKET_FESTIVAL_STAGE_EVENT_RE.test(text);
   const addressNoise = MARKET_FESTIVAL_ADDRESS_NOISE_RE.test(text);
+
+  // Gedenkorte (Mahnmale, Gedenkveranstaltungen, Friedhöfe) sind nie ein
+  // Markt/Festival — harte Disqualifikation, damit sie weder als Anker noch als
+  // Fallback in den market_festival-Slot rutschen. Produktentscheidung 24.09.
+  if (
+    hasSubtype(subtypes, "memorial", "cemetery", "grave_yard", "war_memorial", "mass_grave") ||
+    textHasMemorialMarker(input.text)
+  ) {
+    return -1000;
+  }
 
   let score = 0;
 
