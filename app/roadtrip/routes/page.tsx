@@ -43,23 +43,32 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
         <div className="absolute -right-10 top-4 h-24 w-24 rounded-full bg-white/10 blur-2xl transition-transform duration-500 group-hover:scale-125" />
         <div className="absolute -left-6 bottom-3 h-20 w-20 rounded-full bg-black/10 blur-2xl transition-transform duration-500 group-hover:scale-110" />
         <div className="absolute inset-0 flex flex-col justify-between p-3.5 text-white">
-          <div className="flex items-start justify-between gap-3">
-            <div className="inline-flex rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] backdrop-blur-sm">
-              {coverArt.eyebrow}
+          <div className="flex items-start justify-between gap-2">
+            <div className="inline-flex min-w-0 max-w-[58%] rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] backdrop-blur-sm">
+              <span className="truncate">{coverArt.eyebrow}</span>
             </div>
-            {route.is_featured && (
-              <div className="rounded-full bg-black/30 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
-                Featured
+            <div className="flex shrink-0 flex-col items-end gap-1.5">
+              {route.is_featured && (
+                <div className="rounded-full bg-black/30 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
+                  Featured
+                </div>
+              )}
+              <div className="flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                  <circle cx="12" cy="9" r="2.5" />
+                </svg>
+                {route.stops.length} Städte / {totalNights} Nächte
               </div>
-            )}
+            </div>
           </div>
 
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/72">
+              <div className="line-clamp-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/72">
                 {firstStop} {"->"} {lastStop}
               </div>
-              <div className="mt-1 max-w-[16rem] text-sm font-medium leading-5 text-white/92 line-clamp-3">
+              <div className="mt-1 max-w-[16rem] text-sm font-medium leading-5 text-white/92 line-clamp-2">
                 {editorial.teaser}
               </div>
             </div>
@@ -71,15 +80,6 @@ function RouteCard({ route }: { route: RoadtripRoute }) {
               <div className="mt-0.5 text-lg font-semibold leading-none text-white">{coverArt.icon}</div>
             </div>
           </div>
-        </div>
-
-        {/* Stop count badge */}
-        <div className="absolute bottom-2 left-3 flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-3 w-3">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-            <circle cx="12" cy="9" r="2.5" />
-          </svg>
-          {route.stops.length} Städte / {totalNights} Nächte
         </div>
 
       </div>
