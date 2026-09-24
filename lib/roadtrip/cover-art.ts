@@ -23,6 +23,16 @@ const FALLBACK_COVER_ART: RoadtripCoverArt = {
 };
 
 const COVER_ART_BY_SLUG: Record<string, RoadtripCoverArt> = {
+  "salzburg-maedels-jga": {
+    icon: "Baroque",
+    eyebrow: "Salzburg · Mozart & Rooftops",
+    scene: "Altstadt, Sky-Bars und eine Nacht zum Tanzen",
+    accent: "#98304f",
+    backgroundImage:
+      "linear-gradient(135deg, rgba(152, 48, 79, 0.94) 0%, rgba(40, 32, 41, 0.9) 52%, rgba(169, 127, 46, 0.72) 100%)",
+    orbImage:
+      "radial-gradient(circle at 18% 20%, rgba(255,255,255,0.24), transparent 0 24%), radial-gradient(circle at 84% 16%, rgba(217,115,143,0.3), transparent 0 20%), radial-gradient(circle at 74% 78%, rgba(220,182,98,0.22), transparent 0 24%)",
+  },
   "hanse-sea-city-loop": {
     icon: "Harbour",
     eyebrow: "Nordsee & Hansestaedte",
