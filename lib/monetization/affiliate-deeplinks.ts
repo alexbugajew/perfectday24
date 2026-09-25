@@ -29,6 +29,15 @@ const AWIN_MERCHANTS: AwinMerchant[] = [
     awinmid: "11388",
     matches: (host) => host === "eventim.de" || host.endsWith(".eventim.de"),
   },
+  {
+    // Awin-Merchant "City Game DACH" (122746) = die Domain citygame.com (Einzahl,
+    // self-guided Stadtrallye). NICHT die "citygames-*.de"-Franchise (Plural) und
+    // nicht mycityhunt.de — die sind andere Anbieter ohne Awin-Programm bei uns.
+    // Deshalb strikt auf citygame.com pruefen, sonst gingen Klicks an Fremdportale.
+    provider: "City Game",
+    awinmid: "122746",
+    matches: (host) => host === "citygame.com" || host.endsWith(".citygame.com"),
+  },
   // Kuenftig nach Awin-Freigabe, je eine Zeile:
   //   Tiqets   tiqets.com    → awinmid 8616
   //   ATG      … → 111888,  Turbopass → 11624,  Viator → 10397,  …
