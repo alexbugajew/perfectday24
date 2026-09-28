@@ -114,7 +114,21 @@ const FLAGSHIP_PATCH: Array<{ city: string; q: string; match: RegExp; score: num
   { city: "muenchen", q: "hofbräuhaus", match: /hofbr(ae|äu)haus/i, score: 45, label: "Hofbräuhaus" },
 ];
 
-type LocationRow = { id: string; name: string; lat: number | null; lng: number | null; source_refs: unknown; popularity_score: number | null; city_slug: string };
+type LocationRow = { id: string; name: string; lat: number | null; lng: number | null; source_refs: unknown; popularity_score: number | null; city_slug: string; subtypes?: unknown; description?: string | null };
+
+// Gedenkorte NICHT boosten. popularity_score wirkt anlass-BLIND (in jedem
+// Kontext, auch date/friends/party). Ein hoher Prominenz-Score wuerde Mahnmale
+// und Gedenkstaetten (Holocaust-Mahnmal, KZ-Orte, Stolpersteine) in Nicht-Anker-
+// Slots froehlicher Plaene heben — im Widerspruch zur Memorial-Sensibilitaet
+// (Planner-Guardrails, "echte Orte"). Solche Orte bleiben bewusst bei 0.
+const MEMORIAL_MARKERS = ["gedenk", "mahnmal", "holocaust", "shoah", "schoah", "stolperstein", "konzentrationslager", "kz-", "ermordet", "opfer des nationalsozialismus", "ns-opfer", "zwangsarbeit", "deportation", "pogrom", "euthanasie", "kriegsgraeber", "kriegsgräber", "gestapo", "sa-gefängnis", "volkstrauertag", "trauerfeier"];
+const MEMORIAL_SUBTYPES = ["memorial", "cemetery", "grave_yard", "war_memorial", "mass_grave"];
+function isSolemnMemorial(loc: { name: string; description?: string | null; subtypes?: unknown }): boolean {
+  const subs = Array.isArray(loc.subtypes) ? loc.subtypes.map((s) => String(s).toLowerCase()) : [];
+  if (subs.some((s) => MEMORIAL_SUBTYPES.includes(s))) return true;
+  const text = `${loc.name} ${loc.description ?? ""}`.toLowerCase();
+  return MEMORIAL_MARKERS.some((m) => text.includes(m));
+}
 
 // ---------- Wikimedia-Helfer ----------
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -300,7 +314,7 @@ function saveCheckpoint(done: Set<string>) {
 async function fetchPage(cities: string[] | null, afterId: string | null, pageSize: number): Promise<LocationRow[]> {
   let query = supabase
     .from("locations")
-    .select("id, name, lat, lng, source_refs, popularity_score, city_slug")
+    .select("id, name, lat, lng, source_refs, popularity_score, city_slug, subtypes, description")
     .eq("is_plannable", true)
     .in("category", ["culture", "activity"])
     .order("id", { ascending: true })
@@ -334,7 +348,7 @@ async function applyFlagshipPatch(cities: string[] | null): Promise<number> {
   for (const p of patches) {
     const { data } = await supabase
       .from("locations")
-      .select("id, name, lat, lng, source_refs, popularity_score, city_slug")
+      .select("id, name, lat, lng, source_refs, popularity_score, city_slug, subtypes, description")
       .eq("is_plannable", true)
       .eq("city_slug", p.city)
       .ilike("name", `%${p.q}%`)
@@ -348,7 +362,7 @@ async function applyFlagshipPatch(cities: string[] | null): Promise<number> {
       console.log(`[prominenz] Flaggschiff FEHLT in PD24: ${p.label} (${p.city}) — nicht boostbar, Location anlegen`);
       continue;
     }
-    if (hasProminenceEntry(hit.source_refs)) continue;
+    if (hasProminenceEntry(hit.source_refs) || isSolemnMemorial(hit)) continue;
     const score = Math.max(p.score, typeof hit.popularity_score === "number" ? hit.popularity_score : 0);
     console.log(`[prominenz] Flaggschiff ${p.label} → "${hit.name}" (score ${score})${WRITE ? "" : " [dry-run]"}`);
     if (WRITE) {
@@ -369,7 +383,7 @@ async function main() {
       `${WRITE ? " · WRITE-MODUS" : " · DRY-RUN (kein Write)"}`
   );
 
-  let processed = 0, matched = 0, written = 0;
+  let processed = 0, matched = 0, written = 0, memorials = 0;
   let afterId: string | null = null;
   const pageSize = 1000;
   const results: Array<{ name: string; city: string; score: number; title: string }> = [];
@@ -383,6 +397,8 @@ async function main() {
     for (const loc of rows) {
       if (LIMIT && processed >= LIMIT) break;
       if (done.has(loc.id) || hasProminenceEntry(loc.source_refs)) continue;
+      // Gedenkorte bewusst ueberspringen — kein Prominenz-Boost (s.o.).
+      if (isSolemnMemorial(loc)) { memorials += 1; done.add(loc.id); continue; }
       processed += 1;
       let r: Resolved | null = null;
       try {
@@ -422,7 +438,7 @@ async function main() {
 
   const flagged = await applyFlagshipPatch(cities);
 
-  console.log(`\n[prominenz] Fertig: ${processed} geprueft, ${matched} auto-gematcht${WRITE ? `, ${written} geschrieben` : " (DRY-RUN, nichts geschrieben)"}. Flaggschiff-Patch: ${flagged} gesetzt.`);
+  console.log(`\n[prominenz] Fertig: ${processed} geprueft, ${matched} auto-gematcht${WRITE ? `, ${written} geschrieben` : " (DRY-RUN, nichts geschrieben)"}. Flaggschiff-Patch: ${flagged} gesetzt. Gedenkorte uebersprungen: ${memorials}.`);
 }
 
 main().catch((error) => {
