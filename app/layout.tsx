@@ -8,6 +8,7 @@ import MobileBottomNav from "@/components/ui/MobileBottomNav";
 import ConsentBanner from "@/components/consent/ConsentBanner";
 import Analytics from "@/components/analytics/Analytics";
 import JsonLd from "@/components/seo/JsonLd";
+import ServiceWorkerRegistration from "@/components/pwa/ServiceWorkerRegistration";
 import { organizationJsonLd, webSiteJsonLd } from "@/lib/seo/json-ld";
 
 const geistSans = Geist({
@@ -30,6 +31,9 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  // Akzentblau aus dem Marken-Kanon; muss zum theme_color in app/manifest.ts
+  // passen, sonst blitzt die Browser-Chrome beim Start der installierten App um.
+  themeColor: "#4d6678",
 };
 
 export const metadata: Metadata = {
@@ -52,6 +56,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PerfectDay24 – Deinen Tag planen",
     description: siteDescription,
+  },
+  // iOS kennt kein Manifest-"display: standalone"; ohne diese Flags öffnet
+  // die vom Home-Bildschirm gestartete App im normalen Safari-Chrome.
+  appleWebApp: {
+    capable: true,
+    title: "PerfectDay24",
+    statusBarStyle: "default",
   },
 };
 
@@ -85,6 +96,7 @@ export default function RootLayout({
             jeweiligen Seiten und verweisen ueber @id hierher. */}
         <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />
         <Analytics />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Offline – PerfectDay24</title>
+  <!-- Statische Datei mit Inline-Styles: Die Offline-Seite darf nicht von
+       Next-Chunks oder externem CSS abhängen, die ohne Netz fehlen würden. -->
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7f4ee;
+      color: #1f2937;
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      text-align: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .card { max-width: 420px; }
+    img { width: 96px; height: 96px; margin-bottom: 16px; }
+    h1 { font-size: 22px; margin: 0 0 8px; }
+    p { font-size: 15px; line-height: 1.5; color: #4b5563; margin: 0 0 20px; }
+    a {
+      display: inline-block;
+      background: #4d6678;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="/icons/icon-192.png" alt="" />
+    <h1>Gerade keine Verbindung</h1>
+    <p>PerfectDay24 braucht Internet, um Orte und Events für deinen Tag zu laden. Sobald du wieder online bist, geht es hier weiter.</p>
+    <a href="/">Erneut versuchen</a>
+  </div>
+</body>
+</html>
