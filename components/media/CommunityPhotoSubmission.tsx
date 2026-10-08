@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import { downscaleImageFile } from "@/lib/media/downscale-image";
 import MediaReportDialog from "@/components/media/MediaReportDialog";
 
 type SubmissionEntityType =
@@ -415,10 +416,13 @@ export default function CommunityPhotoSubmission({
 
     try {
       for (const file of files) {
-        const storagePath = `${session.user.id}/${entityType}/${entityId}/${crypto.randomUUID()}.${extensionOf(file)}`;
-        const { error: uploadError } = await supabase.storage.from(BUCKET).upload(storagePath, file, {
+        // Vor dem Upload client-seitig verkleinern/komprimieren — Community-Fotos
+        // kamen bisher roh (oft mehrere MB) in den Storage und luden langsam.
+        const uploadFile = await downscaleImageFile(file);
+        const storagePath = `${session.user.id}/${entityType}/${entityId}/${crypto.randomUUID()}.${extensionOf(uploadFile)}`;
+        const { error: uploadError } = await supabase.storage.from(BUCKET).upload(storagePath, uploadFile, {
           upsert: false,
-          contentType: file.type,
+          contentType: uploadFile.type,
         });
         if (uploadError) throw uploadError;
 
@@ -434,8 +438,8 @@ export default function CommunityPhotoSubmission({
             bucket_id: BUCKET,
             storage_path: storagePath,
             public_url: publicUrl,
-            mime_type: file.type,
-            file_size_bytes: file.size,
+            mime_type: uploadFile.type,
+            file_size_bytes: uploadFile.size,
             caption: caption.trim() || null,
             credit_name: creditName.trim() || null,
             moderation_status: "submitted",
