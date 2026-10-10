@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { getInterestCatalog } from "@/lib/planner/interest";
 import type { FamilyAgeBand } from "@/lib/planner";
 
 interface PlannerSetupModalProps {
@@ -11,6 +12,7 @@ interface PlannerSetupModalProps {
     citySlug: string;
     budget: string;
     planMode: string;
+    interests: string[];
   }) => void;
 }
 
@@ -28,32 +30,62 @@ const BUDGETS = [
   { id: "high", label: "Großzügig", emoji: "💎" },
 ];
 
+const INTEREST_GROUP_LABELS: Record<string, string> = {
+  food: "Küche & Food",
+  activity: "Aktivität",
+  sightseeing: "Sightseeing & Kultur",
+  nightlife: "Nightlife & Drinks",
+  ambience: "Ambiente & Outdoor",
+};
+
 export default function PlannerSetupModal({ isOpen, cities, onSetup }: PlannerSetupModalProps) {
   const [step, setStep] = useState(1);
   const [selectedOccasion, setSelectedOccasion] = useState("date");
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [selectedBudget, setSelectedBudget] = useState("medium");
+  const [selectedInterests, setSelectedInterests] = useState<Set<string>>(new Set());
   const [citySearch, setCitySearch] = useState("");
+
+  const interestCatalog = Object.entries(getInterestCatalog()).reduce<Record<string, string[]>>(
+    (acc, [interest, spec]) => {
+      const group = spec.group;
+      if (!acc[group]) acc[group] = [];
+      acc[group].push(interest);
+      return acc;
+    },
+    {}
+  );
 
   const filteredCities = cities.filter((city) =>
     city.name.toLowerCase().includes(citySearch.toLowerCase())
   );
 
+  const toggleInterest = (interest: string) => {
+    const updated = new Set(selectedInterests);
+    if (updated.has(interest)) {
+      updated.delete(interest);
+    } else {
+      updated.add(interest);
+    }
+    setSelectedInterests(updated);
+  };
+
   const handleContinue = useCallback(() => {
     if (step === 1 && !selectedOccasion) return;
     if (step === 2 && !selectedCity) return;
-    if (step === 3) {
+    if (step === 4) {
       const planMode = selectedOccasion === "date" || selectedOccasion === "friends" ? "evening" : "midday";
       onSetup({
         occasion: selectedOccasion,
         citySlug: selectedCity!,
         budget: selectedBudget,
         planMode,
+        interests: Array.from(selectedInterests),
       });
       return;
     }
     setStep(step + 1);
-  }, [step, selectedOccasion, selectedCity, selectedBudget, onSetup]);
+  }, [step, selectedOccasion, selectedCity, selectedBudget, selectedInterests, onSetup]);
 
   if (!isOpen) return null;
 
@@ -142,6 +174,38 @@ export default function PlannerSetupModal({ isOpen, cities, onSetup }: PlannerSe
           </div>
         )}
 
+        {/* Step 4: Interests */}
+        {step === 4 && (
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Deine Interessen</h2>
+            <p className="text-sm text-slate-600 dark:text-slate-400">Wähle deine Vorlieben (optional)</p>
+            <div className="space-y-3 max-h-64 overflow-y-auto">
+              {Object.entries(interestCatalog).map(([group, interests]) => (
+                <div key={group}>
+                  <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                    {INTEREST_GROUP_LABELS[group] ?? group}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {interests.map((interest) => (
+                      <button
+                        key={interest}
+                        onClick={() => toggleInterest(interest)}
+                        className={`rounded-full px-3 py-1 text-sm transition ${
+                          selectedInterests.has(interest)
+                            ? "bg-slate-900 text-white dark:bg-blue-600"
+                            : "border border-slate-200 bg-white hover:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600"
+                        }`}
+                      >
+                        {interest}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Footer */}
         <div className="mt-6 flex gap-3">
           {step > 1 && (
@@ -160,7 +224,7 @@ export default function PlannerSetupModal({ isOpen, cities, onSetup }: PlannerSe
             }
             className="flex-1 rounded-lg bg-slate-900 px-4 py-2 font-medium text-white transition-all hover:bg-slate-800 disabled:opacity-50 dark:bg-blue-600 dark:hover:bg-blue-700"
           >
-            {step === 3 ? "Plan erstellen" : "Weiter"}
+            {step === 4 ? "Plan erstellen" : "Weiter"}
           </button>
         </div>
       </div>

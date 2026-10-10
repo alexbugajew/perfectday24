@@ -1248,14 +1248,15 @@ function PlannerPageContent() {
   ]);
 
   const handleSetupComplete = useCallback(
-    (config: { occasion: string; citySlug: string; budget: string; planMode: string }) => {
+    (config: { occasion: string; citySlug: string; budget: string; planMode: string; interests: string[] }) => {
       setOccasion(config.occasion);
       setSelectedCitySlug(config.citySlug);
       setBudget(config.budget);
       setPlanMode(config.planMode as PlanMode);
+      setInterests(config.interests);
       setShowSetupModal(false);
     },
-    []
+    [setInterests]
   );
 
   useEffect(() => {
