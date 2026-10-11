@@ -27,6 +27,21 @@ function firstNestedImageUrl(source: unknown) {
   return null;
 }
 
+// Parameter für den Kategorie-Stockfoto-Fallback. Seed = id, damit derselbe
+// Stop immer dasselbe Foto bekommt — Karten-Thumbnail und Aufklapper teilen
+// sich diese Ableitung, sonst wechselte das Bild beim Aufklappen.
+export function stopFallbackPhotoParams(stop: PlannedStop, width: number, height: number) {
+  const item = stop.item;
+  return {
+    category: item?.category ?? null,
+    type: item?.type ?? null,
+    sourcePrimary: item?.source_primary ?? null,
+    seed: String(item?.id ?? stop.label ?? stop.index),
+    width,
+    height,
+  };
+}
+
 export function plannerStopImageUrl(stop: PlannedStop) {
   const item = stop.item;
   if (!item) return null;
@@ -44,17 +59,9 @@ export function plannerStopImageUrl(stop: PlannedStop) {
 
   if (own) return own;
 
-  // Stockfoto-Fallback nach Kategorie. Seed = id, damit derselbe Stop
-  // immer dasselbe Foto bekommt.
+  // Stockfoto-Fallback nach Kategorie.
   // 600x320 passt zum full-width Hero (h-32/h-40) — 200x200 war sichtbar unscharf.
-  return stopPhotoFallback({
-    category: item.category ?? null,
-    type: item.type ?? null,
-    sourcePrimary: item.source_primary ?? null,
-    seed: String(item.id ?? stop.label ?? stop.index),
-    width: 600,
-    height: 320,
-  });
+  return stopPhotoFallback(stopFallbackPhotoParams(stop, 600, 320));
 }
 
 type StopCategoryMeta = { icon: string; label: string };

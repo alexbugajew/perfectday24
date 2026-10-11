@@ -429,7 +429,12 @@ export default function TimelineStop({
 
           {isExpanded ? (
             <div id={detailsId}>
-              <StopDetailAccordion stop={stop} />
+              <StopDetailAccordion
+                stop={stop}
+                affiliateResolution={affiliateResolution}
+                userId={userId}
+                effectiveCitySlug={effectiveCitySlug}
+              />
             </div>
           ) : null}
         </div>

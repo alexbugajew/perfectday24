@@ -358,8 +358,11 @@ export type PlannedStop = {
   } | null;
   debug?: PlannedStopDebug | null;
 
-  // Detaildaten für den „Mehr Info"-Aufklapper — bleiben leer, bis eine
-  // externe Anreicherung sie füllt.
+  // Optionale Detaildaten für den „Mehr Info"-Aufklapper. Der Aufklapper
+  // leitet Website, Telefon, Adresse, Foto und Maps-Link selbst aus den
+  // eigenen Daten ab (source_refs, media_assets) — diese Felder bleiben leer,
+  // solange keine externe Anreicherung sie füllt (Google Places ist für uns
+  // als EWR-Kunde vertraglich nicht nutzbar, Beschluss Stufe 0, 11.10.2026).
   website?: string;
   googleMapsUrl?: string;
   photos?: Array<{ url: string; attribution?: string }>;
