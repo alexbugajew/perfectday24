@@ -254,3 +254,65 @@ export function isLikelyOpen(params: {
 
   return isOpenAt(openingHoursRaw, proxy, { bufferMin: 30 });
 }
+
+const DAY_LABELS_DE = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0];
+
+function formatClock(minutes: number): string {
+  if (minutes === 24 * 60) return "24:00";
+  const dayMinutes = minutes % (24 * 60);
+  const hours = Math.floor(dayMinutes / 60);
+  return `${String(hours).padStart(2, "0")}:${String(dayMinutes % 60).padStart(2, "0")}`;
+}
+
+/**
+ * Macht aus dem OSM-String eine deutsche Anzeige („Mo–Fr 09:00–18:00 Uhr").
+ * Gibt null zurück, wenn nichts parsebar ist — die Anzeige fällt dann auf den
+ * Rohtext zurück, statt eine erfundene Angabe zu zeigen.
+ */
+export function formatOpeningHoursDe(raw: string | null | undefined): string[] | null {
+  if (!raw || typeof raw !== "string" || !raw.trim()) return null;
+  const trimmed = raw.trim();
+  if (trimmed.toLowerCase() === "24/7") return ["Täglich durchgehend geöffnet"];
+
+  // Reale Daten weichen vom OSM-Standard ab: Regeln per Komma statt Semikolon
+  // getrennt („Mo-Su 11:30-24:00, So 11:30-23:00") und Feiertage (PH) in der
+  // Tagesliste — beides würde den Parser sonst komplett aussteigen lassen.
+  // Zeiten ohne Tagesangabe („11:30-24:00") meinen jeden Tag.
+  const normalized = trimmed
+    .replace(/(\d)\s*,\s*(?=(?:Mo|Tu|We|Th|Fr|Sa|Su|Di|Mi|Do|So|PH)\b)/g, "$1; ")
+    .split(";")
+    .map((segment) => segment.trim())
+    .filter((segment) => segment && !/^PH\b/i.test(segment))
+    .map((segment) => segment.replace(/,\s*PH\b|\bPH\s*,/gi, ""))
+    .map((segment) => (/^\d{1,2}:\d{2}/.test(segment) ? `Mo-Su ${segment}` : segment))
+    .join("; ");
+  const rules = parseOpeningHours(normalized);
+  if (!rules) return null;
+
+  // Spätere Regeln überschreiben frühere — so liest auch OSM den String.
+  const byDay = new Map<number, string>();
+  for (const rule of rules) {
+    const text = rule.alwaysClosed
+      ? "geschlossen"
+      : `${rule.spans.map((span) => `${formatClock(span.startMinutes)}–${formatClock(span.endMinutes)}`).join(", ")} Uhr`;
+    for (const day of rule.days) byDay.set(day, text);
+  }
+
+  const lines: string[] = [];
+  let start = 0;
+  while (start < WEEK_ORDER.length) {
+    const text = byDay.get(WEEK_ORDER[start]);
+    let end = start;
+    while (end + 1 < WEEK_ORDER.length && byDay.get(WEEK_ORDER[end + 1]) === text) end += 1;
+    if (text) {
+      const first = DAY_LABELS_DE[WEEK_ORDER[start]];
+      const last = DAY_LABELS_DE[WEEK_ORDER[end]];
+      lines.push(`${start === end ? first : `${first}–${last}`} ${text}`);
+    }
+    start = end + 1;
+  }
+
+  if (lines.length === 1 && lines[0].startsWith("Mo–So ")) return [`Täglich ${lines[0].slice("Mo–So ".length)}`];
+  return lines.length > 0 ? lines : null;
+}

@@ -357,6 +357,15 @@ export type PlannedStop = {
     compromiseLevel?: "shared" | "balanced" | "single_preference" | null;
   } | null;
   debug?: PlannedStopDebug | null;
+
+  // Detaildaten für den „Mehr Info"-Aufklapper — bleiben leer, bis eine
+  // externe Anreicherung sie füllt.
+  website?: string;
+  googleMapsUrl?: string;
+  photos?: Array<{ url: string; attribution?: string }>;
+  menu?: Array<{ name: string; price?: number; description?: string }>;
+  openingHours?: Record<string, string>;
+  avgPrice?: number;
 };
 
 export type PlannedStopPolicyTrace = {
