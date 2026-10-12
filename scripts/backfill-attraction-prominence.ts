@@ -99,19 +99,23 @@ function resolveCitySlugs(): string[] | null {
 // kann nicht boosten, was fehlt) — die Zahl ist bewusst konservativ.
 // q = ilike-Substring fuer die Server-Suche (findet den Ort trotz grosser
 // Stadt-Menge), match = Regex zur Praezisierung, score = konservativer Mindestwert.
+// match ist bewusst auf den GANZEN Namen verankert: Fehlt der eigentliche Ort,
+// traf der Substring sonst ein Restaurant in der Naehe — der Dry-Run vom
+// 12.10.2026 haette "Marienplatz-Alm" und "El Gaucho am Viktualienmarkt"
+// geboostet. Lieber "FEHLT" loggen als den falschen Ort hochziehen.
 const FLAGSHIP_PATCH: Array<{ city: string; q: string; match: RegExp; score: number; label: string }> = [
-  { city: "berlin-berlin", q: "gedächtnis", match: /ged(ae|ä)chtnis/i, score: 45, label: "Gedächtniskirche" },
-  { city: "berlin-berlin", q: "siegessäule", match: /siegess(ae|ä)ule/i, score: 42, label: "Siegessäule" },
-  { city: "berlin-berlin", q: "neue nationalgalerie", match: /neue nationalgalerie/i, score: 45, label: "Neue Nationalgalerie" },
-  { city: "berlin-berlin", q: "gemäldegalerie", match: /gem(ae|ä)ldegalerie/i, score: 42, label: "Gemäldegalerie" },
-  { city: "hamburg-hamburg", q: "elbphilharmonie", match: /elbphilharmonie/i, score: 55, label: "Elbphilharmonie" },
-  { city: "hamburg-hamburg", q: "wunderland", match: /miniatur ?wunderland/i, score: 52, label: "Miniatur Wunderland" },
-  { city: "hamburg-hamburg", q: "landungsbrücken", match: /landungsbr(ue|ü)cken/i, score: 45, label: "Landungsbrücken" },
-  { city: "hamburg-hamburg", q: "rathaus", match: /rathaus/i, score: 42, label: "Hamburger Rathaus" },
-  { city: "muenchen", q: "marienplatz", match: /marienplatz/i, score: 50, label: "Marienplatz" },
-  { city: "muenchen", q: "englischer garten", match: /englischer garten/i, score: 48, label: "Englischer Garten" },
-  { city: "muenchen", q: "viktualienmarkt", match: /viktualienmarkt/i, score: 45, label: "Viktualienmarkt" },
-  { city: "muenchen", q: "hofbräuhaus", match: /hofbr(ae|äu)haus/i, score: 45, label: "Hofbräuhaus" },
+  { city: "berlin-berlin", q: "gedächtnis", match: /^(kaiser-wilhelm-)?ged(ae|ä)chtniskirche$/i, score: 45, label: "Gedächtniskirche" },
+  { city: "berlin-berlin", q: "siegessäule", match: /^siegess(ae|ä)ule$/i, score: 42, label: "Siegessäule" },
+  { city: "berlin-berlin", q: "neue nationalgalerie", match: /^neue nationalgalerie$/i, score: 45, label: "Neue Nationalgalerie" },
+  { city: "berlin-berlin", q: "gemäldegalerie", match: /^gem(ae|ä)ldegalerie( am kulturforum)?$/i, score: 42, label: "Gemäldegalerie" },
+  { city: "hamburg-hamburg", q: "elbphilharmonie", match: /^elbphilharmonie( hamburg)?$/i, score: 55, label: "Elbphilharmonie" },
+  { city: "hamburg-hamburg", q: "wunderland", match: /^miniatur ?wunderland( hamburg)?$/i, score: 52, label: "Miniatur Wunderland" },
+  { city: "hamburg-hamburg", q: "landungsbrücken", match: /^(st\.? ?pauli[- ])?landungsbr(ue|ü)cken$/i, score: 45, label: "Landungsbrücken" },
+  { city: "hamburg-hamburg", q: "rathaus", match: /^(hamburger )?rathaus( hamburg)?$/i, score: 42, label: "Hamburger Rathaus" },
+  { city: "muenchen", q: "marienplatz", match: /^marienplatz$/i, score: 50, label: "Marienplatz" },
+  { city: "muenchen", q: "englischer garten", match: /^englischer garten$/i, score: 48, label: "Englischer Garten" },
+  { city: "muenchen", q: "viktualienmarkt", match: /^viktualienmarkt$/i, score: 45, label: "Viktualienmarkt" },
+  { city: "muenchen", q: "hofbräuhaus", match: /^hofbr(ae|ä)uhaus( am platzl)?$/i, score: 45, label: "Hofbräuhaus" },
 ];
 
 type LocationRow = { id: string; name: string; lat: number | null; lng: number | null; source_refs: unknown; popularity_score: number | null; city_slug: string; subtypes?: unknown; description?: string | null };
