@@ -1,4 +1,4 @@
-import { textHasMemorialMarker } from "./memorial";
+import { SOLEMN_MEMORIAL_SUBTYPES, textHasMemorialMarker } from "./memorial";
 
 const MARKET_FESTIVAL_INTENT_RE =
   /\b(?:wochenmarkt|flohmarkt|street food|food market|farmers market|night market|bauernmarkt|night bazaar|trempelmarkt|kreativmarkt|designmarkt|kunstmarkt|market|markt|festival|japan day|fruehlingsfest|frühlingsfest|maifest|kirmes|funfair|fairground|messe|trade fair|art fair|design fair|book fair|bazaar|expo)\b/i;
@@ -89,7 +89,7 @@ export function marketFestivalSpecificityScore(input: MarketFestivalInput) {
   // Markt/Festival — harte Disqualifikation, damit sie weder als Anker noch als
   // Fallback in den market_festival-Slot rutschen. Produktentscheidung 24.09.
   if (
-    hasSubtype(subtypes, "memorial", "cemetery", "grave_yard", "war_memorial", "mass_grave") ||
+    hasSubtype(subtypes, ...SOLEMN_MEMORIAL_SUBTYPES) ||
     textHasMemorialMarker(input.text)
   ) {
     return -1000;

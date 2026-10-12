@@ -9,6 +9,7 @@ import type {
   SlotDefinition,
 } from "./types";
 import { buildMarketFestivalIntentText, marketFestivalSpecificityScore } from "./market-festival";
+import { textHasMemorialMarker } from "./memorial";
 
 const OFFICIAL_CITY_EVENT_SOURCES = new Set([
   "visitberlin",
@@ -366,26 +367,12 @@ const EXHIBITION_MARKERS = [
  * eine einzige davon als Festival-Tipp ausspielen. Ein Sommerfest, das
  * "Gedenkstaette" im Titel traegt, faellt hier ebenfalls heraus — das ist der
  * bewusst in Kauf genommene Preis.
+ *
+ * Die Marker selbst stehen in ./memorial.ts. Bis 10/2026 gab es hier eine
+ * eigene Kopie — zwei Listen, die beim naechsten Nachtrag still auseinander-
+ * gelaufen waeren: Ingest haette ein Gedenk-Event durchgelassen, das der
+ * Planner als Gedenkort erkennt, oder umgekehrt.
  */
-const MEMORIAL_MARKERS = [
-  "gedenk",
-  "deportation",
-  "zwangsarbeit",
-  "holocaust",
-  "shoah",
-  "schoah",
-  "stolperstein",
-  "mahnmal",
-  "volkstrauertag",
-  "pogrom",
-  "konzentrationslager",
-  "kz-gedenk",
-  "euthanasie",
-  "opfer des nationalsozialismus",
-  "trauerfeier",
-  "kriegsgraeber",
-  "kriegsgräber",
-];
 
 const COMEDY_MARKERS = [
   "comedy",
@@ -419,11 +406,7 @@ export function refinePlannerEventCategory(input: {
   // Gedenkveranstaltungen zuerst und ohne REFINABLE-Filter: Sie muessen auch
   // aus `festival` und `seasonal` heraus greifen, sonst laufen genau die
   // Faelle durch, wegen derer die Regel existiert.
-  const titleForMemorial = (input.title ?? "").toLowerCase();
-  if (
-    titleForMemorial.trim() &&
-    MEMORIAL_MARKERS.some((marker) => titleForMemorial.includes(marker))
-  ) {
+  if (textHasMemorialMarker(input.title)) {
     return "other";
   }
 
