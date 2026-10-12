@@ -14,6 +14,7 @@ import {
   buildMarketFestivalIntentText,
   isEligibleMarketFestival,
 } from "../lib/planner/market-festival";
+import { memorialNameText } from "../lib/planner/memorial";
 import { haversineKm } from "../lib/planner/travel";
 import type {
   ExperienceMode,
@@ -256,6 +257,7 @@ function isMarketFestivalCandidate(event: PlannerEventRow) {
       venue_address: event.venue_address,
       tags: event.tags,
     }),
+    name: memorialNameText(event),
     subtypes: Array.isArray(event.subtypes)
       ? event.subtypes.filter((value): value is string => typeof value === "string")
       : [],

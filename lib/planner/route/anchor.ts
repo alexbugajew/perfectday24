@@ -1,4 +1,5 @@
 import { buildLocationSearchText, bucketForCategory, classify, getSubtypes, hasSubtype, isSolemnMemorialCandidate } from "../features";
+import { memorialNameText } from "../memorial";
 import { slotInterestBoost } from "../interest";
 import {
   buildMarketFestivalIntentText,
@@ -155,6 +156,7 @@ function isMatchingEventAnchorCandidate(context: PlanningContext, candidate: Sco
     const refs = eventSourceRefs(candidate);
     return isEligibleMarketFestival({
       text: buildMarketFestivalIntentText(candidate),
+      name: memorialNameText(candidate),
       subtypes: getSubtypes(candidate),
       category: typeof refs?.eventCategory === "string" ? refs.eventCategory : null,
     });
@@ -263,6 +265,7 @@ function marketFestivalSpecificityScore(candidate: ScoredLocation) {
   const refs = eventSourceRefs(candidate);
   return marketFestivalScoreFromText({
     text: buildMarketFestivalIntentText(candidate),
+    name: memorialNameText(candidate),
     subtypes: getSubtypes(candidate),
     category: typeof refs?.eventCategory === "string" ? refs.eventCategory : null,
   });
@@ -612,6 +615,7 @@ export function chooseEventAnchor(params: {
           !hasSubtype(candidate, "editorial_summary_page") &&
           isEligibleMarketFestival({
             text: buildMarketFestivalIntentText(candidate),
+            name: memorialNameText(candidate),
             subtypes: getSubtypes(candidate),
             category:
               candidate.source_refs && typeof candidate.source_refs === "object"

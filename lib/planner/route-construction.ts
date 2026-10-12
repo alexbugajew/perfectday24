@@ -1,5 +1,13 @@
 import { buildStopReasons } from "./explanations";
-import { buildLocationSearchText, classify, getSubtypes, hasSubtype, norm } from "./features";
+import { experienceSlotIndex } from "./events";
+import {
+  buildLocationSearchText,
+  classify,
+  getSubtypes,
+  hasSubtype,
+  isSolemnMemorialCandidate,
+  norm,
+} from "./features";
 import { slotInterestBoost } from "./interest";
 import {
   clusterPolicy,
@@ -536,8 +544,17 @@ function buildTourismRelaxedFallback(params: {
   previousStop: ScoredLocation | null;
   candidates: ScoredLocation[];
   usedIds: Set<string>;
+  /** Peak-/Erlebnis-Slot: Gedenkorte ausschließen (siehe constructRoute). */
+  excludeSolemnMemorials?: boolean;
 }) {
-  const { context, slot, previousStop, candidates, usedIds } = params;
+  const {
+    context,
+    slot,
+    previousStop,
+    candidates,
+    usedIds,
+    excludeSolemnMemorials = false,
+  } = params;
   const anchorStop = previousStop ? resolveCandidateReferenceCoords(previousStop, candidates) : null;
 
   if (
@@ -554,6 +571,7 @@ function buildTourismRelaxedFallback(params: {
   const pool = candidates
     .filter((candidate) => {
       if (usedIds.has(candidate.id)) return false;
+      if (excludeSolemnMemorials && isSolemnMemorialCandidate(candidate)) return false;
 
       const category = classify(candidate);
       if (category === "restaurant" || category === "cafe" || category === "nightlife") {
@@ -773,8 +791,19 @@ function buildPostShowFallback(params: {
   previousStop: ScoredLocation | null;
   candidates: ScoredLocation[];
   usedIds: Set<string>;
+  /** Peak-/Erlebnis-Slot: Gedenkorte ausschließen (siehe constructRoute). */
+  excludeSolemnMemorials?: boolean;
 }) {
-  const { context, slot, slotIndex, eventAnchor, previousStop, candidates, usedIds } = params;
+  const {
+    context,
+    slot,
+    slotIndex,
+    eventAnchor,
+    previousStop,
+    candidates,
+    usedIds,
+    excludeSolemnMemorials = false,
+  } = params;
 
   if (!eventAnchor || slotIndex <= eventAnchor.slotIndex) return null;
   if (
@@ -796,6 +825,7 @@ function buildPostShowFallback(params: {
   const pool = candidates
     .filter((candidate) => {
       if (usedIds.has(candidate.id)) return false;
+      if (excludeSolemnMemorials && isSolemnMemorialCandidate(candidate)) return false;
       if (candidate.id === eventAnchor.candidate.id) return false;
 
       const category = classify(candidate);
@@ -899,8 +929,19 @@ function buildPreShowFallback(params: {
   previousStop: ScoredLocation | null;
   candidates: ScoredLocation[];
   usedIds: Set<string>;
+  /** Peak-/Erlebnis-Slot: Gedenkorte ausschließen (siehe constructRoute). */
+  excludeSolemnMemorials?: boolean;
 }) {
-  const { context, slot, slotIndex, eventAnchor, previousStop, candidates, usedIds } = params;
+  const {
+    context,
+    slot,
+    slotIndex,
+    eventAnchor,
+    previousStop,
+    candidates,
+    usedIds,
+    excludeSolemnMemorials = false,
+  } = params;
 
   if (!eventAnchor || slotIndex >= eventAnchor.slotIndex) return null;
   if (
@@ -938,6 +979,7 @@ function buildPreShowFallback(params: {
   const pool = candidates
     .filter((candidate) => {
       if (usedIds.has(candidate.id)) return false;
+      if (excludeSolemnMemorials && isSolemnMemorialCandidate(candidate)) return false;
       if (candidate.id === eventAnchor.candidate.id) return false;
       if (candidate.lat == null || candidate.lng == null) return false;
 
@@ -1028,6 +1070,10 @@ export function constructRoute(params: {
     slotPriorityBoost,
   });
   const peakSlotIndex = peakAnchor?.slotIndex ?? preferredPeakSlotIndex(context);
+  // Der Erlebnis-Slot ("Markt / Festival", "Event-Highlight", "Show-Moment")
+  // liegt bei date/friends nicht auf dem Peak-Slot. classic hat keinen.
+  const experienceSlot =
+    context.experienceMode === "classic" ? -1 : experienceSlotIndex(context.slotTemplate);
   const effectivePeakCandidate =
     eventAnchor &&
     (context.experienceMode === "market_festival" || context.experienceMode === "show") &&
@@ -1051,6 +1097,13 @@ export function constructRoute(params: {
     const peakLockedCandidate =
       peakAnchor && i === peakAnchor.slotIndex ? peakAnchor.candidate : null;
 
+    // choosePeakAnchor und der Event-Anker schließen Gedenkorte aus. Findet aber
+    // keiner von beiden etwas, füllt die normale Auswahl (oder ein Fallback) den
+    // Slot — und dann landete doch wieder ein Mahnmal im Peak oder unter
+    // "Markt / Festival". Deshalb gilt der Ausschluss für beide Slots auch ohne
+    // Anker. Ein ausdrücklich gewähltes Event bleibt unberührt; es kommt über
+    // eventLockedCandidate ohnehin in den Pool.
+    const isHighlightSlot = i === peakSlotIndex || i === experienceSlot;
     const initialPoolRaw = getPoolForKind(candidates, slot, planMode, context).filter(
       (candidate) =>
         !usedIds.has(candidate.id) &&
@@ -1107,8 +1160,13 @@ export function constructRoute(params: {
       isPreShowMealSlot && foodOnlyPool.length > 0 ? foodOnlyPool : initialPoolRaw;
     const eventTamedPool =
       isPostShowCloseSlot && postShowNonEventPool.length > 0 ? postShowNonEventPool : initialPool;
+    // Erst hier gefiltert, weil der Post-Show-Pool am initialPoolRaw vorbeiläuft
+    // und bei friends genau den Peak-Slot ("Ausklang / Peak") füllt.
+    const highlightSafePool = isHighlightSlot
+      ? eventTamedPool.filter((candidate) => !isSolemnMemorialCandidate(candidate))
+      : eventTamedPool;
     const basePool = filterPoolAroundPeak({
-      pool: eventTamedPool,
+      pool: highlightSafePool,
       context,
       slotKind: slot.kind,
       slotIndex: i,
@@ -1208,6 +1266,7 @@ export function constructRoute(params: {
         previousStop,
         candidates,
         usedIds,
+        excludeSolemnMemorials: isHighlightSlot,
       });
       if (tourismRelaxedFallback) {
         timeUsed +=
@@ -1323,6 +1382,7 @@ export function constructRoute(params: {
         previousStop,
         candidates,
         usedIds,
+        excludeSolemnMemorials: isHighlightSlot,
       });
       if (preShowFallback) {
         timeUsed += (preShowFallback.travelMin ?? 0) + preShowFallback.durationMin;
@@ -1723,6 +1783,7 @@ export function constructRoute(params: {
         previousStop,
         candidates,
         usedIds,
+        excludeSolemnMemorials: isHighlightSlot,
       });
       if (postShowFallback) {
         timeUsed += (postShowFallback.travelMin ?? 0) + postShowFallback.durationMin;
@@ -1770,6 +1831,7 @@ export function constructRoute(params: {
         previousStop,
         candidates,
         usedIds,
+        excludeSolemnMemorials: isHighlightSlot,
       });
       if (tourismRelaxedFallback) {
         timeUsed +=
@@ -1864,6 +1926,7 @@ export function constructRoute(params: {
         previousStop,
         candidates,
         usedIds,
+        excludeSolemnMemorials: isHighlightSlot,
       });
       if (preShowFallback) {
         timeUsed += (preShowFallback.travelMin ?? 0) + preShowFallback.durationMin;

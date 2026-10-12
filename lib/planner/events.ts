@@ -9,7 +9,7 @@ import type {
   SlotDefinition,
 } from "./types";
 import { buildMarketFestivalIntentText, marketFestivalSpecificityScore } from "./market-festival";
-import { textHasMemorialMarker } from "./memorial";
+import { memorialNameText, textHasMemorialMarker } from "./memorial";
 
 const OFFICIAL_CITY_EVENT_SOURCES = new Set([
   "visitberlin",
@@ -572,6 +572,7 @@ export function sortPlannerEventsForPlanning(
               venue_address: row.venue_address,
               tags: row.tags,
             }),
+            name: memorialNameText(row),
             subtypes: Array.isArray(row.subtypes)
               ? row.subtypes.filter((value): value is string => typeof value === "string")
               : [],
@@ -607,6 +608,25 @@ export function sortPlannerEventsForPlanning(
   });
 }
 
+/**
+ * Der Slot, den applyExperienceModeToSlotTemplate zum Erlebnis-Slot umbaut
+ * ("Markt / Festival", "Event-Highlight", "Show-Moment"): der erste Slot, der
+ * weder Mahlzeit noch Nachtleben ist.
+ *
+ * Eigene Funktion, damit route-construction genau diesen Slot wiederfindet,
+ * statt am Label-Text zu hängen. Auf dem bereits umgebauten Template liefert sie
+ * denselben Index — der Umbau macht aus dem Slot nur activity/sightseeing, und
+ * alle Slots davor sind Mahlzeit oder Nachtleben.
+ */
+export function experienceSlotIndex(slotTemplate: SlotDefinition[]) {
+  return slotTemplate.findIndex((slot) => {
+    if (slot.kind === "breakfast" || slot.kind === "lunch" || slot.kind === "dinner") {
+      return false;
+    }
+    return slot.kind !== "nightlife";
+  });
+}
+
 export function applyExperienceModeToSlotTemplate(params: {
   slotTemplate: SlotDefinition[];
   experienceMode: ExperienceMode;
@@ -618,12 +638,7 @@ export function applyExperienceModeToSlotTemplate(params: {
   if (experienceMode === "classic") return slotTemplate;
 
   const next = slotTemplate.map((slot) => ({ ...slot }));
-  const targetIndex = next.findIndex((slot) => {
-    if (slot.kind === "breakfast" || slot.kind === "lunch" || slot.kind === "dinner") {
-      return false;
-    }
-    return slot.kind !== "nightlife";
-  });
+  const targetIndex = experienceSlotIndex(next);
 
   if (targetIndex < 0) return next;
 

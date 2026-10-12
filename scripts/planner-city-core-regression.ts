@@ -24,6 +24,7 @@ import {
   buildMarketFestivalIntentText,
   isEligibleMarketFestival,
 } from "../lib/planner/market-festival";
+import { memorialNameText } from "../lib/planner/memorial";
 
 // Der Guardrail zählt eine Event-Zeile nur dann als "brauchbares" Markt/Festival,
 // wenn der Planner sie auch als solches akzeptieren würde (dieselbe Eignungs-
@@ -33,6 +34,7 @@ import {
 function isUsableMarketFestivalRow(row: PlannerEventRow): boolean {
   return isEligibleMarketFestival({
     text: buildMarketFestivalIntentText(row),
+    name: memorialNameText(row),
     subtypes: Array.isArray(row.subtypes) ? (row.subtypes as string[]) : null,
     category: row.category,
   });
