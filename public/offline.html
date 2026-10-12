@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Offline – PerfectDay24</title>
+  <!-- Öffentlich erreichbare Datei, gehört aber nicht in den Suchindex. -->
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#4d6678" />
   <!-- Statische Datei mit Inline-Styles: Die Offline-Seite darf nicht von
        Next-Chunks oder externem CSS abhängen, die ohne Netz fehlen würden. -->
   <style>
@@ -40,7 +43,15 @@
     <img src="/icons/icon-192.png" alt="" />
     <h1>Gerade keine Verbindung</h1>
     <p>PerfectDay24 braucht Internet, um Orte und Events für deinen Tag zu laden. Sobald du wieder online bist, geht es hier weiter.</p>
-    <a href="/">Erneut versuchen</a>
+    <!-- Der Service Worker liefert diese Seite unter der ursprünglich
+         angefragten URL aus; href="" lädt also genau die Seite neu, die der
+         Nutzer öffnen wollte, statt ihn auf die Startseite zu werfen. -->
+    <a href="">Erneut versuchen</a>
   </div>
+  <script>
+    // Sobald das Netz zurück ist, selbst neu laden — niemand soll auf einer
+    // Offline-Seite festhängen, die nichts mehr zu sagen hat.
+    window.addEventListener("online", function () { location.reload(); });
+  </script>
 </body>
 </html>

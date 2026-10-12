@@ -88,6 +88,19 @@ const nextConfig: NextConfig = {
               ]),
         ],
       },
+      {
+        // Steht bewusst nach dem globalen Eintrag: Bei gleichem Header-Key
+        // gewinnt der spätere. no-store, damit kein CDN- oder Browser-Cache
+        // einen alten Worker (oder den Kill-Switch) zurückhält. Die strenge
+        // CSP gilt für den Worker selbst: Er kann damit technisch keine
+        // Drittinhalte laden, auch nicht nach einer unbedachten Erweiterung.
+        source: "/sw.js",
+        headers: [
+          { key: "Content-Type", value: "application/javascript; charset=utf-8" },
+          { key: "Cache-Control", value: "no-cache, no-store, must-revalidate" },
+          { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self'" },
+        ],
+      },
     ];
   },
   /**
