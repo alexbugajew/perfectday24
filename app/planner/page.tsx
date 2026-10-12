@@ -225,7 +225,8 @@ function PlannerPageContent() {
 
   useEffect(() => setMounted(true), []);
 
-  // Guided setup modal: Show only if no URL params and not resuming a saved plan
+  // Geführtes Setup nur beim nackten Einstieg: Deep Links und gespeicherte Pläne
+  // bringen Anlass/Stadt bereits mit, ein Modal würde sie dort nur überdecken.
   useEffect(() => {
     if (!mounted) return;
     const hasUrlParams = [
@@ -2707,7 +2708,7 @@ function PlannerPageContent() {
               : ""}
       </div>
 
-      {/* Guided Setup Modal */}
+      {/* Geführtes Setup für den Einstieg ohne Parameter */}
       <PlannerSetupModal
         isOpen={showSetupModal}
         cities={cities}

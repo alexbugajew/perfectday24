@@ -2,7 +2,6 @@
 
 import { useCallback, useState } from "react";
 import { getInterestCatalog } from "@/lib/planner/interest";
-import type { FamilyAgeBand } from "@/lib/planner";
 
 interface PlannerSetupModalProps {
   isOpen: boolean;
@@ -92,7 +91,7 @@ export default function PlannerSetupModal({ isOpen, cities, onSetup }: PlannerSe
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-slate-900">
-        {/* Step 1: Occasion */}
+        {/* Schritt 1: Anlass zuerst, weil er Tagesmodus und Stop-Mix des Plans bestimmt */}
         {step === 1 && (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Was für ein Anlass?</h2>
@@ -118,14 +117,14 @@ export default function PlannerSetupModal({ isOpen, cities, onSetup }: PlannerSe
           </div>
         )}
 
-        {/* Step 2: City */}
+        {/* Schritt 2: Stadt — Pflicht, ohne sie kann der Planner nichts generieren */}
         {step === 2 && (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Welche Stadt?</h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400">Suchiere oder wähle eine Stadt</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400">Suche oder wähle eine Stadt</p>
             <input
               type="text"
-              placeholder="Stadt suchen..."
+              placeholder="Stadt suchen …"
               value={citySearch}
               onChange={(e) => setCitySearch(e.target.value)}
               className="w-full rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-700 dark:bg-slate-800"
@@ -148,7 +147,7 @@ export default function PlannerSetupModal({ isOpen, cities, onSetup }: PlannerSe
           </div>
         )}
 
-        {/* Step 3: Budget */}
+        {/* Schritt 3: Budget */}
         {step === 3 && (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Dein Budget?</h2>
@@ -174,7 +173,7 @@ export default function PlannerSetupModal({ isOpen, cities, onSetup }: PlannerSe
           </div>
         )}
 
-        {/* Step 4: Interests */}
+        {/* Schritt 4: Interessen optional, damit der Einstieg nicht an einer Pflichtauswahl hängt */}
         {step === 4 && (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Deine Interessen</h2>
@@ -206,7 +205,7 @@ export default function PlannerSetupModal({ isOpen, cities, onSetup }: PlannerSe
           </div>
         )}
 
-        {/* Footer */}
+        {/* Navigation */}
         <div className="mt-6 flex gap-3">
           {step > 1 && (
             <button
