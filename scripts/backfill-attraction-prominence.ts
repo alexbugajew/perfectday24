@@ -25,12 +25,30 @@
 //   3. Typgate ueber Wikidata instance_of (P31): Stadtteile/Strassen/Raeume/
 //      Skulpturen werden verworfen (sonst erbt ein Kleinmuseum die Bezirks-Fame).
 //
+// NIE ABSENKEN: Geschrieben wird max(alt, neu). Seed-Staedte tragen ueberall den
+// Standard 40 (neutraler Sockel, s. lib/admin/prominence-refs.ts) — ein
+// schwacher Wikipedia-Score darunter laesst den Wert stehen, statt bekannte Orte
+// unter anonyme OSM-Orte zu druecken. Gastronomie wird nie geboostet.
+//
 // DEFAULT IST DRY-RUN: ohne --write wird NICHTS geschrieben, nur ein Report
-// erzeugt. Ein popularity_score-Write verschiebt Plaene fuer alle Nutzer —
-// deshalb erst Report pruefen, dann --write auf Kernstaedte, dann check:planner
-// gegen die geaenderten Daten, dann weiter. Provenienz landet in source_refs
-// ({prominence_source: "wikipedia", ...}), damit die Writes identifizier- und
-// reversibel sind.
+// (alt → neu) erzeugt. Ein popularity_score-Write verschiebt Plaene fuer alle
+// Nutzer — deshalb erst Report pruefen, dann --write auf Kernstaedte (nur nach
+// Freigabe), dann check:planner gegen die geaenderten Daten, dann weiter.
+//
+// ZURUECKROLLEN: Jeder Write legt genau einen Eintrag {prominence_source, …,
+// previous_popularity_score} in source_refs ab; previous_popularity_score ist
+// der Wert vor dem ERSTEN Backfill-Lauf. Rueckweg (SQL-Editor, nur nach
+// Freigabe; per "and t.ref->>'prominence_source' = 'manual_flagship'" auch
+// selektiv):
+//   update public.locations l
+//      set popularity_score = (p.ref ->> 'previous_popularity_score')::numeric,
+//          source_refs = l.source_refs - p.idx
+//     from (select loc.id, t.ref, (t.ord - 1)::int as idx
+//             from public.locations loc
+//             cross join lateral jsonb_array_elements(case when jsonb_typeof(loc.source_refs) = 'array'
+//               then loc.source_refs else '[]'::jsonb end) with ordinality as t(ref, ord)
+//            where t.ref ? 'prominence_source') p
+//    where l.id = p.id;
 //
 // Usage: npm run locations:backfill:prominence -- [--city=slug,…|--all]
 //        [--write] [--limit=N] [--cap=80] [--delay-ms=150]
@@ -38,6 +56,15 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { createClient } from "@supabase/supabase-js";
+import {
+  GASTRONOMY_CATEGORIES,
+  hasProminenceEntry,
+  isBoostableCategory,
+  mergeProminenceEntry,
+  originalPopularity,
+  raisePopularity,
+  type ProminenceSource,
+} from "../lib/admin/prominence-refs";
 
 function loadEnvFile(path: string) {
   let text = "";
@@ -78,7 +105,9 @@ const CAP = Math.max(10, Math.min(100, Number(parseArg("cap") ?? "80")));
 const DELAY_MS = Math.max(0, Number(parseArg("delay-ms") ?? "150"));
 const RADIUS = Math.max(200, Number(parseArg("radius") ?? "700"));
 const CORE_CITIES = ["berlin-berlin", "hamburg-hamburg", "muenchen"];
-const UA = "PerfectDay24-ProminenceBackfill/1.0 (https://www.perfectday24.de; ab@energieaudit365.de)";
+// Wikimedia verlangt einen Kontakt im User-Agent; die Impressums-URL erfuellt
+// das, ohne eine persoenliche Mailadresse ins (oeffentliche) Repo zu schreiben.
+const UA = "PerfectDay24-ProminenceBackfill/1.1 (https://www.perfectday24.de/impressum)";
 const CHECKPOINT = resolve(process.cwd(), "tmp/prominence-backfill.json");
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
@@ -103,22 +132,29 @@ function resolveCitySlugs(): string[] | null {
 // traf der Substring sonst ein Restaurant in der Naehe — der Dry-Run vom
 // 12.10.2026 haette "Marienplatz-Alm" und "El Gaucho am Viktualienmarkt"
 // geboostet. Lieber "FEHLT" loggen als den falschen Ort hochziehen.
-const FLAGSHIP_PATCH: Array<{ city: string; q: string; match: RegExp; score: number; label: string }> = [
-  { city: "berlin-berlin", q: "gedächtnis", match: /^(kaiser-wilhelm-)?ged(ae|ä)chtniskirche$/i, score: 45, label: "Gedächtniskirche" },
-  { city: "berlin-berlin", q: "siegessäule", match: /^siegess(ae|ä)ule$/i, score: 42, label: "Siegessäule" },
-  { city: "berlin-berlin", q: "neue nationalgalerie", match: /^neue nationalgalerie$/i, score: 45, label: "Neue Nationalgalerie" },
-  { city: "berlin-berlin", q: "gemäldegalerie", match: /^gem(ae|ä)ldegalerie( am kulturforum)?$/i, score: 42, label: "Gemäldegalerie" },
-  { city: "hamburg-hamburg", q: "elbphilharmonie", match: /^elbphilharmonie( hamburg)?$/i, score: 55, label: "Elbphilharmonie" },
-  { city: "hamburg-hamburg", q: "wunderland", match: /^miniatur ?wunderland( hamburg)?$/i, score: 52, label: "Miniatur Wunderland" },
-  { city: "hamburg-hamburg", q: "landungsbrücken", match: /^(st\.? ?pauli[- ])?landungsbr(ue|ü)cken$/i, score: 45, label: "Landungsbrücken" },
-  { city: "hamburg-hamburg", q: "rathaus", match: /^(hamburger )?rathaus( hamburg)?$/i, score: 42, label: "Hamburger Rathaus" },
-  { city: "muenchen", q: "marienplatz", match: /^marienplatz$/i, score: 50, label: "Marienplatz" },
-  { city: "muenchen", q: "englischer garten", match: /^englischer garten$/i, score: 48, label: "Englischer Garten" },
-  { city: "muenchen", q: "viktualienmarkt", match: /^viktualienmarkt$/i, score: 45, label: "Viktualienmarkt" },
-  { city: "muenchen", q: "hofbräuhaus", match: /^hofbr(ae|ä)uhaus( am platzl)?$/i, score: 45, label: "Hofbräuhaus" },
+// categories = erwartete Kategorie(n) des echten Orts (Live-Stand 12.10.2026,
+// das Hamburger Rathaus steht dort als "other"/townhall). Ein Namens-Treffer in
+// einer anderen Kategorie wird nicht geboostet, sondern geloggt — gleicher Name
+// heisst nicht gleicher Ort. Gastronomie ist zusaetzlich hart ausgeschlossen
+// (GASTRONOMY_CATEGORIES). Das Hofbraeuhaus stand frueher in dieser Liste, ist
+// live aber category=restaurant: Als Wirtshaus konkurriert es in Essens-Slots,
+// und ein anlass-blinder Prominenz-Boost wuerde es in jeden Plan druecken.
+// Deshalb ist es bewusst KEIN Flaggschiff mehr.
+const FLAGSHIP_PATCH: Array<{ city: string; q: string; match: RegExp; categories: string[]; score: number; label: string }> = [
+  { city: "berlin-berlin", q: "gedächtnis", match: /^(kaiser-wilhelm-)?ged(ae|ä)chtniskirche$/i, categories: ["culture"], score: 45, label: "Gedächtniskirche" },
+  { city: "berlin-berlin", q: "siegessäule", match: /^siegess(ae|ä)ule$/i, categories: ["culture", "activity"], score: 42, label: "Siegessäule" },
+  { city: "berlin-berlin", q: "neue nationalgalerie", match: /^neue nationalgalerie$/i, categories: ["culture"], score: 45, label: "Neue Nationalgalerie" },
+  { city: "berlin-berlin", q: "gemäldegalerie", match: /^gem(ae|ä)ldegalerie( am kulturforum)?$/i, categories: ["culture"], score: 42, label: "Gemäldegalerie" },
+  { city: "hamburg-hamburg", q: "elbphilharmonie", match: /^elbphilharmonie( hamburg)?$/i, categories: ["culture"], score: 55, label: "Elbphilharmonie" },
+  { city: "hamburg-hamburg", q: "wunderland", match: /^miniatur ?wunderland( hamburg)?$/i, categories: ["culture", "activity"], score: 52, label: "Miniatur Wunderland" },
+  { city: "hamburg-hamburg", q: "landungsbrücken", match: /^(st\.? ?pauli[- ])?landungsbr(ue|ü)cken$/i, categories: ["activity", "culture", "other"], score: 45, label: "Landungsbrücken" },
+  { city: "hamburg-hamburg", q: "rathaus", match: /^(hamburger )?rathaus( hamburg)?$/i, categories: ["other", "culture"], score: 42, label: "Hamburger Rathaus" },
+  { city: "muenchen", q: "marienplatz", match: /^marienplatz$/i, categories: ["activity", "culture", "other"], score: 50, label: "Marienplatz" },
+  { city: "muenchen", q: "englischer garten", match: /^englischer garten$/i, categories: ["activity"], score: 48, label: "Englischer Garten" },
+  { city: "muenchen", q: "viktualienmarkt", match: /^viktualienmarkt$/i, categories: ["activity", "culture", "other"], score: 45, label: "Viktualienmarkt" },
 ];
 
-type LocationRow = { id: string; name: string; lat: number | null; lng: number | null; source_refs: unknown; popularity_score: number | null; city_slug: string; subtypes?: unknown; description?: string | null };
+type LocationRow = { id: string; name: string; lat: number | null; lng: number | null; source_refs: unknown; popularity_score: number | null; city_slug: string; category?: string | null; subtypes?: unknown; description?: string | null };
 
 // Gedenkorte NICHT boosten. popularity_score wirkt anlass-BLIND (in jedem
 // Kontext, auch date/friends/party). Ein hoher Prominenz-Score wuerde Mahnmale
@@ -136,10 +172,33 @@ function isSolemnMemorial(loc: { name: string; description?: string | null; subt
 
 // ---------- Wikimedia-Helfer ----------
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+// Voruebergehende Fehler (429 Rate-Limit, 5xx, Netz) duerfen NICHT wie "kein
+// Wikipedia-Artikel" behandelt werden: Sonst landet der Ort ungeprueft im
+// Checkpoint und wird nie wieder versucht. Die inneren Helfer schlucken deshalb
+// nur endgueltige Fehler (z. B. 404 "keine Pageview-Daten") und reichen
+// WikiTransientError bis in die Hauptschleife durch.
+class WikiTransientError extends Error {}
+const isTransient = (error: unknown) => error instanceof WikiTransientError;
+
 async function wiki(url: string): Promise<any> {
-  const r = await fetch(url, { headers: { "User-Agent": UA } });
-  if (!r.ok) throw new Error(`wiki ${r.status}`);
-  return r.json();
+  for (let attempt = 1; ; attempt++) {
+    let r: Response;
+    try {
+      r = await fetch(url, { headers: { "User-Agent": UA } });
+    } catch (error) {
+      if (attempt >= 3) throw new WikiTransientError(`wiki netz (${error instanceof Error ? error.message : error})`);
+      await sleep(attempt * 2000);
+      continue;
+    }
+    if (r.ok) return r.json();
+    const transient = r.status === 429 || r.status >= 500;
+    if (!transient) throw new Error(`wiki ${r.status}`);
+    if (attempt >= 3) throw new WikiTransientError(`wiki ${r.status}`);
+    // Retry-After respektieren (Wikimedia-API-Etikette), gedeckelt auf 30 s.
+    const retryAfter = Number(r.headers.get("retry-after"));
+    await sleep(Number.isFinite(retryAfter) && retryAfter > 0 ? Math.min(retryAfter, 30) * 1000 : attempt * 2000);
+  }
 }
 
 function norm(s: string) {
@@ -181,7 +240,8 @@ async function pageviews(title: string): Promise<number> {
     const pv = await wiki(`https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/de.wikipedia/all-access/all-agents/${encodeURIComponent(title.replace(/ /g, "_"))}/monthly/${fmtM(START_M)}/${fmtM(END_M)}`);
     const items: Array<{ views?: number }> = pv?.items ?? [];
     return items.length ? Math.round(items.reduce((a, i) => a + (i.views ?? 0), 0) / items.length) : 0;
-  } catch {
+  } catch (error) {
+    if (isTransient(error)) throw error;
     return 0;
   }
 }
@@ -217,7 +277,8 @@ async function wdSearch(name: string): Promise<string[]> {
   try {
     const r = await wiki(`https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(name)}&language=de&type=item&limit=4&format=json`);
     return (r?.search ?? []).map((s: any) => s.id);
-  } catch {
+  } catch (error) {
+    if (isTransient(error)) throw error;
     return [];
   }
 }
@@ -234,7 +295,7 @@ function scoreOf(sitelinks: number, avgViews: number): number {
   return Math.min(CAP, Math.round(v + l));
 }
 
-type Resolved = { score: number; sitelinks: number; views: number; title: string; wikidata: string | null; source: "wikipedia" | "manual_flagship" };
+type Resolved = { score: number; sitelinks: number; views: number; title: string; wikidata: string | null; source: ProminenceSource };
 
 async function resolveProminence(loc: LocationRow): Promise<Resolved | null> {
   if (loc.lat == null || loc.lng == null) return null;
@@ -248,8 +309,10 @@ async function resolveProminence(loc: LocationRow): Promise<Resolved | null> {
       .filter((c: any) => c.conf >= 0.5)
       .sort((a: any, b: any) => b.conf - a.conf || a.title.length - b.title.length || a.dist - b.dist)
       .slice(0, 3);
-  } catch {
-    /* Geo-Fehler -> Fallback */
+  } catch (error) {
+    // Endgueltiger Geo-Fehler -> Namens-Fallback; Rate-Limit dagegen nach oben,
+    // sonst wuerde ein leerer Fallback den Ort als "kein Treffer" abhaken.
+    if (isTransient(error)) throw error;
   }
   if (cands.length) {
     const wb = await wikibaseItems(cands.map((c) => c.title));
@@ -283,24 +346,6 @@ async function resolveProminence(loc: LocationRow): Promise<Resolved | null> {
 }
 
 // ---------- Provenienz + Checkpoint ----------
-function hasProminenceEntry(refs: unknown): boolean {
-  if (!refs) return false;
-  const entries = Array.isArray(refs) ? refs : [refs];
-  return entries.some((e) => e && typeof e === "object" && "prominence_source" in (e as object));
-}
-function mergeProvenance(refs: unknown, r: Resolved): unknown {
-  const entry = {
-    prominence_source: r.source,
-    prominence_score: r.score,
-    wikidata_id: r.wikidata,
-    matched_title: r.title,
-    sitelinks: r.sitelinks,
-    pageviews_monthly: r.views,
-  };
-  if (Array.isArray(refs)) return [...refs, entry];
-  if (refs && typeof refs === "object") return { ...(refs as Record<string, unknown>), ...entry };
-  return [entry];
-}
 function loadCheckpoint(): Set<string> {
   try {
     const parsed = JSON.parse(readFileSync(CHECKPOINT, "utf8"));
@@ -315,10 +360,12 @@ function saveCheckpoint(done: Set<string>) {
   writeFileSync(CHECKPOINT, JSON.stringify([...done]), "utf8");
 }
 
+const LOCATION_COLUMNS = "id, name, lat, lng, source_refs, popularity_score, city_slug, category, subtypes, description";
+
 async function fetchPage(cities: string[] | null, afterId: string | null, pageSize: number): Promise<LocationRow[]> {
   let query = supabase
     .from("locations")
-    .select("id, name, lat, lng, source_refs, popularity_score, city_slug, subtypes, description")
+    .select(LOCATION_COLUMNS)
     .eq("is_plannable", true)
     .in("category", ["culture", "activity"])
     .order("id", { ascending: true })
@@ -330,11 +377,22 @@ async function fetchPage(cities: string[] | null, afterId: string | null, pageSi
   return (data ?? []) as LocationRow[];
 }
 
-async function writeProminence(loc: LocationRow, r: Resolved) {
+// next ist bereits nach der Nie-absenken-Regel berechnet (raisePopularity);
+// aufgerufen wird nur, wenn er wirklich ueber dem alten Wert liegt.
+async function writeProminence(loc: LocationRow, r: Resolved, next: number) {
+  const sourceRefs = mergeProminenceEntry(loc.source_refs, {
+    prominence_source: r.source,
+    prominence_score: r.score,
+    previous_popularity_score: originalPopularity(loc.source_refs, loc.popularity_score),
+    wikidata_id: r.wikidata,
+    matched_title: r.title,
+    sitelinks: r.sitelinks,
+    pageviews_monthly: r.views,
+  });
   for (let attempt = 1; ; attempt++) {
     const { error } = await supabase
       .from("locations")
-      .update({ popularity_score: r.score, source_refs: mergeProvenance(loc.source_refs, r) })
+      .update({ popularity_score: next, source_refs: sourceRefs })
       .eq("id", loc.id);
     if (!error) return;
     if (attempt >= 4) throw new Error(`Prominenz-Write fehlgeschlagen: ${error.message}`);
@@ -342,42 +400,70 @@ async function writeProminence(loc: LocationRow, r: Resolved) {
   }
 }
 
+type ReportRow = { name: string; city: string; category: string; previous: number; next: number; raw: number; title: string };
+
 // Flaggschiffe, die der Auto-Matcher verfehlt (Plaetze/Venues/Parks), per
 // Name+Stadt auf einen Mindest-Score heben. Fehlt die Location in PD24 ganz,
 // wird das als Befund geloggt (boosten kann man nur, was existiert).
-async function applyFlagshipPatch(cities: string[] | null): Promise<number> {
+// planned = im Lauf bereits geplante Werte des Auto-Matchers. Im Write-Modus
+// stehen sie schon in der DB, im Dry-Run nur hier — so trifft der Patch in
+// beiden Modi dieselbe Entscheidung (Mindest-Score per Math.max, auch wenn der
+// Auto-Matcher den Ort schon mit Provenienz versehen hat).
+async function applyFlagshipPatch(cities: string[] | null, planned: Map<string, number>, report: ReportRow[]): Promise<number> {
   const patches = FLAGSHIP_PATCH.filter((p) => !cities || cities.includes(p.city));
-  if (patches.length === 0) return 0;
-  let set = 0;
+  let boosted = 0;
   for (const p of patches) {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("locations")
-      .select("id, name, lat, lng, source_refs, popularity_score, city_slug, subtypes, description")
+      .select(LOCATION_COLUMNS)
       .eq("is_plannable", true)
       .eq("city_slug", p.city)
       .ilike("name", `%${p.q}%`)
       .limit(50);
+    if (error) {
+      // Ohne Abfrageergebnis waere "FEHLT" eine Falschmeldung.
+      // Supabase liefert bei Cloudflare-5xx eine ganze HTML-Seite als message.
+      console.log(`[prominenz] Flaggschiff ${p.label}: Abfrage fehlgeschlagen (${error.message.replace(/\s+/g, " ").slice(0, 160)}) — uebersprungen`);
+      continue;
+    }
+    const named = ((data ?? []) as LocationRow[]).filter((row) => p.match.test(row.name));
+    for (const row of named) {
+      if (isBoostableCategory(row.category, p.categories)) continue;
+      const why = row.category && GASTRONOMY_CATEGORIES.has(row.category) ? "Gastronomie wird nie geboostet" : `erwartet ${p.categories.join("/")}`;
+      console.log(`[prominenz] Flaggschiff ${p.label}: "${row.name}" [${row.category ?? "?"}] nicht geboostet — ${why}`);
+    }
     // Kanonischen Treffer waehlen: Regex-praezise, dann kuerzester Name
     // (die Hauptattraktion heisst meist schlichter als ihre Unterbereiche).
-    const hit = ((data ?? []) as LocationRow[])
-      .filter((row) => p.match.test(row.name))
+    const hit = named
+      .filter((row) => isBoostableCategory(row.category, p.categories))
       .sort((a, b) => a.name.length - b.name.length)[0];
     if (!hit) {
       console.log(`[prominenz] Flaggschiff FEHLT in PD24: ${p.label} (${p.city}) — nicht boostbar, Location anlegen`);
       continue;
     }
-    if (hasProminenceEntry(hit.source_refs) || isSolemnMemorial(hit)) continue;
-    const score = Math.max(p.score, typeof hit.popularity_score === "number" ? hit.popularity_score : 0);
-    console.log(`[prominenz] Flaggschiff ${p.label} → "${hit.name}" (score ${score})${WRITE ? "" : " [dry-run]"}`);
-    if (WRITE) {
-      await writeProminence(hit, { score, sitelinks: 0, views: 0, title: `manual:${p.label}`, wikidata: null, source: "manual_flagship" });
-      set += 1;
-    } else {
-      set += 1;
+    if (isSolemnMemorial(hit)) {
+      console.log(`[prominenz] Flaggschiff ${p.label}: "${hit.name}" ist Gedenkort — kein Boost`);
+      continue;
     }
+    const { previous, next, raised } = raisePopularity(planned.get(hit.id) ?? hit.popularity_score, p.score);
+    if (!raised) {
+      console.log(`[prominenz] Flaggschiff ${p.label} → "${hit.name}" [${hit.category}] bleibt ${previous} (Mindestwert ${p.score} erreicht)`);
+      continue;
+    }
+    console.log(`[prominenz] Flaggschiff ${p.label} → "${hit.name}" [${hit.category}] ${previous} → ${next}${WRITE ? "" : " [dry-run]"}`);
+    report.push({ name: hit.name, city: hit.city_slug, category: hit.category ?? "?", previous, next, raw: p.score, title: `manual:${p.label}` });
+    planned.set(hit.id, next);
+    if (WRITE) {
+      await writeProminence(hit, { score: p.score, sitelinks: 0, views: 0, title: `manual:${p.label}`, wikidata: null, source: "manual_flagship" }, next);
+    }
+    boosted += 1;
   }
-  return set;
+  return boosted;
 }
+
+// Mehrere voruebergehende Fehler in Folge heissen: Wikimedia drosselt. Dann
+// abbrechen statt weiter anzuklopfen; offene Orte holt der naechste Lauf.
+const MAX_CONSECUTIVE_FAILURES = 5;
 
 async function main() {
   const cities = resolveCitySlugs();
@@ -387,12 +473,15 @@ async function main() {
       `${WRITE ? " · WRITE-MODUS" : " · DRY-RUN (kein Write)"}`
   );
 
-  let processed = 0, matched = 0, written = 0, memorials = 0;
+  let processed = 0, matched = 0, raisedCount = 0, unchanged = 0, written = 0, memorials = 0, failed = 0, consecutiveFailures = 0;
+  let aborted = false;
   let afterId: string | null = null;
   const pageSize = 1000;
-  const results: Array<{ name: string; city: string; score: number; title: string }> = [];
+  const report: ReportRow[] = [];
+  const kept: ReportRow[] = [];
+  const planned = new Map<string, number>();
 
-  for (;;) {
+  outer: for (;;) {
     if (LIMIT && processed >= LIMIT) break;
     const rows = await fetchPage(cities, afterId, pageSize);
     if (rows.length === 0) break;
@@ -407,42 +496,77 @@ async function main() {
       let r: Resolved | null = null;
       try {
         r = await resolveProminence(loc);
+        consecutiveFailures = 0;
       } catch (error) {
-        console.log(`[prominenz] ${loc.name}: Aufloesung fehlgeschlagen (${error instanceof Error ? error.message : error})`);
+        // Bewusst NICHT in den Checkpoint: Ein 429 sagt nichts ueber den Ort,
+        // der naechste Lauf soll ihn erneut versuchen.
+        failed += 1;
+        consecutiveFailures += 1;
+        console.log(`[prominenz] ${loc.name}: Aufloesung fehlgeschlagen (${error instanceof Error ? error.message : error}) — bleibt offen`);
+        if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+          console.log(`[prominenz] ${consecutiveFailures} Fehler in Folge — Abbruch, Rest im naechsten Lauf.`);
+          aborted = true;
+          break outer;
+        }
+        if (DELAY_MS > 0) await sleep(DELAY_MS);
+        continue;
       }
       if (r && r.score > 0) {
         matched += 1;
-        results.push({ name: loc.name, city: loc.city_slug, score: r.score, title: r.title });
-        if (WRITE) {
-          await writeProminence(loc, r);
-          written += 1;
+        const { previous, next, raised } = raisePopularity(loc.popularity_score, r.score);
+        const row: ReportRow = { name: loc.name, city: loc.city_slug, category: loc.category ?? "?", previous, next, raw: r.score, title: r.title };
+        if (raised) {
+          raisedCount += 1;
+          report.push(row);
+          planned.set(loc.id, next);
+          if (WRITE) {
+            await writeProminence(loc, r, next);
+            written += 1;
+          }
+        } else {
+          unchanged += 1;
+          kept.push(row);
         }
       }
       done.add(loc.id);
       if (WRITE && processed % 25 === 0) saveCheckpoint(done);
       if (DELAY_MS > 0) await sleep(DELAY_MS);
     }
-    console.log(`[prominenz] ${processed} geprueft, ${matched} mit Prominenz${WRITE ? `, ${written} geschrieben` : ""}`);
+    console.log(`[prominenz] ${processed} geprueft, ${matched} mit Prominenz, ${raisedCount} erhoeht${WRITE ? `, ${written} geschrieben` : ""}`);
     if (rows.length < pageSize) break;
   }
 
   if (WRITE) saveCheckpoint(done);
 
-  // Report: Top-Treffer je Stadt (auch fuer Dry-Run)
-  const byCity = new Map<string, typeof results>();
-  for (const r of results) {
-    if (!byCity.has(r.city)) byCity.set(r.city, []);
-    byCity.get(r.city)!.push(r);
-  }
-  for (const [city, list] of byCity) {
-    list.sort((a, b) => b.score - a.score);
-    console.log(`\n[prominenz] ${city} · Top 15 (von ${list.length} Treffern):`);
-    for (const r of list.slice(0, 15)) console.log(`   ${String(r.score).padStart(3)}  ${r.name.slice(0, 40).padEnd(41)} ← ${r.title}`);
+  // Report je Stadt (auch fuer Dry-Run): alt → neu, damit vor dem --write
+  // sichtbar ist, was sich im Ranking verschiebt — und was bewusst stehen bleibt.
+  const cityKeys = [...new Set([...report, ...kept].map((r) => r.city))];
+  for (const city of cityKeys) {
+    const up = report.filter((r) => r.city === city).sort((a, b) => b.next - a.next);
+    const same = kept.filter((r) => r.city === city).sort((a, b) => b.raw - a.raw);
+    console.log(`\n[prominenz] ${city} · erhoeht ${up.length}, unveraendert ${same.length} (neu ≤ alt):`);
+    for (const r of up.slice(0, 15)) {
+      console.log(`   ${String(r.previous).padStart(3)} → ${String(r.next).padStart(3)}  ${r.name.slice(0, 40).padEnd(41)} [${r.category}] ← ${r.title}`);
+    }
+    for (const r of same.slice(0, 5)) {
+      console.log(`   ${String(r.previous).padStart(3)} = ${String(r.next).padStart(3)}  ${r.name.slice(0, 40).padEnd(41)} [${r.category}] (roh ${r.raw}) ← ${r.title}`);
+    }
   }
 
-  const flagged = await applyFlagshipPatch(cities);
+  // Nach einem Abbruch wegen Drosselung keine weiteren Abfragen nachschieben.
+  const flagged = aborted ? 0 : await applyFlagshipPatch(cities, planned, report);
 
-  console.log(`\n[prominenz] Fertig: ${processed} geprueft, ${matched} auto-gematcht${WRITE ? `, ${written} geschrieben` : " (DRY-RUN, nichts geschrieben)"}. Flaggschiff-Patch: ${flagged} gesetzt. Gedenkorte uebersprungen: ${memorials}.`);
+  // Nachgerechnet statt behauptet: Der Abschluss belegt, dass kein Ort
+  // abgesenkt und keine Gastronomie geboostet wurde.
+  const lowered = [...report, ...kept].filter((r) => r.next < r.previous).length;
+  const gastro = report.filter((r) => GASTRONOMY_CATEGORIES.has(r.category)).length;
+  console.log(
+    `\n[prominenz] Fertig: ${processed} geprueft, ${matched} auto-gematcht, ${raisedCount} erhoeht, ${unchanged} unveraendert, ` +
+      `${failed} fehlgeschlagen (offen)${WRITE ? `, ${written} geschrieben` : " (DRY-RUN, nichts geschrieben)"}. ` +
+      `Flaggschiff-Patch: ${flagged} erhoeht. Gedenkorte uebersprungen: ${memorials}. Abgesenkt: ${lowered}. Gastronomie geboostet: ${gastro}.`
+  );
+  if (lowered > 0 || gastro > 0) throw new Error("Sicherheitsregel verletzt (Absenkung oder Gastronomie-Boost)");
+  if (aborted) process.exitCode = 2;
 }
 
 main().catch((error) => {
