@@ -166,6 +166,11 @@ export function buildPlanPrintHtml(input: PlanExportInput): string {
     .filter(Boolean)
     .join(" · ");
 
+  // QR-Code für Plan-Link (3×3cm = ~283px bei 96 DPI)
+  const qrCodeUrl = input.shareUrl
+    ? `https://api.qrserver.com/v1/create-qr-code/?size=283x283&data=${encodeURIComponent(input.shareUrl)}`
+    : null;
+
   const rows = input.stops
     .map((stop, i) => {
       const start = formatClock(stop.scheduledStartAt);
@@ -238,6 +243,11 @@ export function buildPlanPrintHtml(input: PlanExportInput): string {
   .brand-mark { width: 34px; height: 34px; border-radius: 10px; background: #171717; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
   .brand-name { font-weight: 600; letter-spacing: 0.01em; }
   .brand-sub { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8a8a8a; }
+  .header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+  .header-content { flex: 1; }
+  .qr-box { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .qr-box img { width: 110px; height: 110px; border: 1px solid #e5e5e5; border-radius: 8px; }
+  .qr-label { font-size: 11px; font-weight: 600; color: #6b6b6b; text-align: center; }
   h1 { margin-top: 26px; font-size: 26px; letter-spacing: -0.01em; }
   .meta-line { margin-top: 6px; color: #6b6b6b; font-size: 14px; }
   .share { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #e2ddd2; background: #faf8f3; border-radius: 12px; padding: 8px 14px; font-size: 12px; color: #444; }
@@ -258,24 +268,42 @@ export function buildPlanPrintHtml(input: PlanExportInput): string {
   .thumb { width: 108px; height: 82px; flex-shrink: 0; object-fit: cover; border-radius: 12px; border: 1px solid #ececec; }
   footer { margin-top: 30px; font-size: 11px; color: #9a9a9a; }
   footer a { color: #6b6b6b; }
-  @media print { body { padding: 0; } .chip { border-color: #bbb; } }
+  @media print {
+    body { padding: 0; }
+    .chip { border-color: #bbb; }
+    .header-row { page-break-inside: avoid; }
+    .qr-box { page-break-inside: avoid; }
+    .qr-box img { border-color: #999; }
+  }
 </style>
 </head>
 <body>
-  <div class="brand">
-    <div class="brand-mark">PD</div>
-    <div>
-      <div class="brand-name">PerfectDay24</div>
-      <div class="brand-sub">Refined City Planning</div>
+  <div class="header-row">
+    <div class="header-content">
+      <div class="brand">
+        <div class="brand-mark">PD</div>
+        <div>
+          <div class="brand-name">PerfectDay24</div>
+          <div class="brand-sub">Refined City Planning</div>
+        </div>
+      </div>
+      <h1>${escapeHtml(input.title)}</h1>
+      ${metaLine ? `<div class="meta-line">${escapeHtml(metaLine)}</div>` : ""}
+      ${
+        input.shareUrl
+          ? `<div class="share">Live-Plan öffnen &amp; teilen: <a href="${escapeHtml(input.shareUrl)}">${escapeHtml(input.shareUrl)}</a></div>`
+          : ""
+      }
     </div>
+    ${
+      qrCodeUrl
+        ? `<div class="qr-box">
+             <img src="${escapeHtml(qrCodeUrl)}" alt="QR-Code zum Plan" />
+             <div class="qr-label">Plan laden</div>
+           </div>`
+        : ""
+    }
   </div>
-  <h1>${escapeHtml(input.title)}</h1>
-  ${metaLine ? `<div class="meta-line">${escapeHtml(metaLine)}</div>` : ""}
-  ${
-    input.shareUrl
-      ? `<div class="share">Live-Plan öffnen &amp; teilen: <a href="${escapeHtml(input.shareUrl)}">${escapeHtml(input.shareUrl)}</a></div>`
-      : ""
-  }
   <ol>${rows}</ol>
   <footer>Erstellt mit perfectday24.de${input.shareUrl ? ` · Live-Version: <a href="${escapeHtml(input.shareUrl)}">${escapeHtml(input.shareUrl)}</a>` : ""}</footer>
   <script>
