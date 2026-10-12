@@ -145,5 +145,9 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  // sw.js ausgenommen: Die installierte App prüft den Worker bei jeder
+  // Navigation auf Updates. Durch den Proxy liefe jeder dieser Checks über
+  // einen Supabase-Auth-Roundtrip (refreshSupabaseSession), obwohl die Datei
+  // statisch und auch bei aktivem Preview-Lock öffentlich ist (.js-Allowlist).
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|sw\\.js$).*)"],
 };

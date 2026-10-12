@@ -26,9 +26,12 @@ const CACHE = `${CACHE_PREFIX}${VERSION}`;
 const OFFLINE_URL = "/offline.html";
 const OFFLINE_ASSETS = [OFFLINE_URL, "/icons/icon-192.png"];
 
-// Navigationen ohne Offline-Fallback: API-Downloads und Redirect-Flüsse
-// (OAuth, Stripe-Rückkehr, Preview-Login) sollen sich exakt wie ohne Worker
-// verhalten — inklusive des normalen Netzwerkfehlers des Browsers.
+// Navigationen ohne Offline-Fallback: Direkt aufgerufene API-Routen (Downloads,
+// Exporte) und der Preview-Login sollen sich exakt wie ohne Worker verhalten,
+// inklusive des normalen Netzwerkfehlers des Browsers. OAuth- und Stripe-
+// Rückkehr landen dagegen auf /profile und bekommen die Offline-Seite: Sie
+// steht unter der Original-URL, "Erneut versuchen" behält also ?code= bzw.
+// ?payment= und setzt den Fluss fort, sobald das Netz zurück ist.
 const NO_FALLBACK_PREFIXES = ["/api/", "/preview-login"];
 
 async function precacheOfflineAssets() {

@@ -31,9 +31,12 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  // Akzentblau aus dem Marken-Kanon; muss zum theme_color in app/manifest.ts
-  // passen, sonst blitzt die Browser-Chrome beim Start der installierten App um.
-  themeColor: "#4d6678",
+  // Browserleiste (Chrome Android, Safari) in der Farbe der hellen MainNav
+  // (--bg-surface, Basis von bg-[rgba(248,250,252,0.9)]), damit sie für
+  // normale Besucher nahtlos in die Navigation übergeht statt als dunkler
+  // Balken darüber zu stehen. Das Akzentblau aus app/manifest.ts gilt nur für
+  // Splash und Titelleiste der installierten App, bis die Seite geladen ist.
+  themeColor: "#f8fafc",
 };
 
 export const metadata: Metadata = {

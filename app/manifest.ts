@@ -13,10 +13,13 @@ export default function manifest(): MetadataRoute.Manifest {
     id: "/",
     start_url: "/",
     scope: "/",
+    // Keine orientation: Planner und Karten profitieren auf Tablets und im
+    // Querformat von der Breite; eine feste Ausrichtung sperrt das ohne Not.
     display: "standalone",
-    orientation: "portrait",
     // Farben aus dem Marken-Kanon (globals.css): warmer Canvas als
-    // Splash-Hintergrund, Akzentblau für die Browser-Chrome.
+    // Splash-Hintergrund, Akzentblau für Splash und Titelleiste beim App-Start.
+    // Sobald die Seite geladen ist, gilt deren theme-color aus app/layout.tsx
+    // (helle Navigation); der Wechsel ist der gewollte Übergang Splash → App.
     background_color: "#f7f4ee",
     theme_color: "#4d6678",
     lang: "de",
