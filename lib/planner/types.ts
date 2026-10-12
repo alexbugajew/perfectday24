@@ -357,6 +357,18 @@ export type PlannedStop = {
     compromiseLevel?: "shared" | "balanced" | "single_preference" | null;
   } | null;
   debug?: PlannedStopDebug | null;
+
+  // Optionale Detaildaten für den „Mehr Info"-Aufklapper. Der Aufklapper
+  // leitet Website, Telefon, Adresse, Foto und Maps-Link selbst aus den
+  // eigenen Daten ab (source_refs, media_assets) — diese Felder bleiben leer,
+  // solange keine externe Anreicherung sie füllt (Google Places ist für uns
+  // als EWR-Kunde vertraglich nicht nutzbar, Beschluss Stufe 0, 11.10.2026).
+  website?: string;
+  googleMapsUrl?: string;
+  photos?: Array<{ url: string; attribution?: string }>;
+  menu?: Array<{ name: string; price?: number; description?: string }>;
+  openingHours?: Record<string, string>;
+  avgPrice?: number;
 };
 
 export type PlannedStopPolicyTrace = {
