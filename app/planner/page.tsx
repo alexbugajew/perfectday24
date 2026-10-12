@@ -16,7 +16,7 @@ import {
 } from "@/lib/routes/planner-route-bridge";
 import { writePlannerRunDraft } from "@/lib/routes/planner-run-bridge";
 import { downloadPlanIcs, openPlanPrintWindow } from "@/lib/planner/plan-export";
-import { plannerStopImageUrl } from "./PlannerStopListSection";
+import { plannerStopImageUrl } from "./stopDisplay";
 import { usePremiumStatus } from "@/components/premium/usePremiumStatus";
 import UpgradeModal from "@/components/premium/UpgradeModal";
 import { trackMonetizationEvent } from "@/lib/monetization/client";
@@ -2567,7 +2567,6 @@ function PlannerPageContent() {
         plannedStops={plannedStops}
         occasion={occasion}
         plannerData={plannerData}
-        activeVariantLabel={activeVariant?.label ?? null}
         activeVariantReason={activeVariant?.reason ?? null}
         draggedStopPosition={draggedStopPosition}
         groupEnabled={groupEnabled}
