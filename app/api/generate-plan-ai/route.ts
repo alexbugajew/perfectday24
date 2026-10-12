@@ -6,7 +6,7 @@
 // 3. LLM bekommt die DB-Kandidaten zurück, baut Stop-Plan mit echten IDs
 // 4. Server resolvet IDs zu echten Locations, mapped auf PlannedStop[]
 //
-// Output kompatibel mit dem existing Stop-Card-Format aus PlannerStopListSection.
+// Output kompatibel mit dem Stop-Card-Format aus TimelineStop.
 
 import { NextResponse } from "next/server";
 import OpenAI from "openai";

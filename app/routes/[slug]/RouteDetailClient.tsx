@@ -1,6 +1,7 @@
 ﻿// app/routes/[slug]/page.tsx
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -55,6 +56,7 @@ import {
 } from "@/lib/routes/personalize-creator-route";
 import { shouldShowInternalMonetization } from "@/lib/monetization/debug";
 import { renderableImageUrl } from "@/lib/renderable-image-url";
+import { canOptimizeImageUrl } from "@/lib/next-image-hosts";
 import { stopPhotoFallback } from "@/lib/stop-photo-fallback";
 import ImageAttribution from "@/components/ImageAttribution";
 import CommunityPhotoSubmission from "@/components/media/CommunityPhotoSubmission";
@@ -348,8 +350,16 @@ function SuggestionCard({
       <div className="relative h-36 bg-gradient-to-br from-stone-100 via-white to-stone-200">
         {coverImageUrl ? (
           <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={coverImageUrl} alt={route.title} className="h-full w-full object-cover" />
+            <Image
+              src={coverImageUrl}
+              alt={route.title}
+              fill
+              // Fremde Hosts ohne remotePatterns-Eintrag wuerden den Optimizer
+              // mit 400 abweisen — dann laden wir das Bild unveraendert.
+              unoptimized={!canOptimizeImageUrl(coverImageUrl)}
+              sizes="(max-width: 768px) 100vw, 400px"
+              className="object-cover"
+            />
             <ImageAttribution
               meta={route.meta}
               compact
@@ -2266,9 +2276,18 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
 
       <section className="overflow-hidden rounded-[28px] border border-[var(--line-subtle)] bg-white shadow-sm">
         {heroCover ? (
-          <div className="relative bg-[var(--bg-surface)]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={heroCover} alt={route.title} className="h-[300px] w-full object-cover md:h-[380px]" />
+          // Feste Hoehe + relative am Container, weil <Image fill> absolut
+          // positioniert wird und sonst keine eigene Hoehe mehr mitbringt.
+          <div className="relative h-[300px] overflow-hidden bg-[var(--bg-surface)] md:h-[380px]">
+            <Image
+              src={heroCover}
+              alt={route.title}
+              fill
+              priority
+              unoptimized={!canOptimizeImageUrl(heroCover)}
+              sizes="100vw"
+              className="object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
             <ImageAttribution
               meta={heroAttributionMeta}
@@ -2840,7 +2859,10 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
                 <div className="flex flex-col gap-4 sm:flex-row">
                   {/* Bild links — mobil oben, auf sm streckt es sich auf die Texthöhe */}
                   {stopPhotoUrl ? (
-                    <div className="relative w-full overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] sm:w-[250px] sm:shrink-0 sm:self-stretch sm:min-h-[230px]">
+                    // h-[200px] mobil, weil <Image fill> absolut ist und dem
+                    // Container sonst die Hoehe fehlt; ab sm uebernimmt wieder
+                    // self-stretch/min-h die Hoehe der Textspalte.
+                    <div className="relative h-[200px] w-full overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-[var(--bg-surface)] sm:h-auto sm:w-[250px] sm:shrink-0 sm:self-stretch sm:min-h-[230px]">
                       <div className="absolute left-3 top-3 z-10">
                         {adjustable ? (
                           <div className="rounded-full border border-amber-200 bg-amber-100/95 px-2.5 py-1 text-[11px] font-medium text-amber-900 shadow-sm backdrop-blur">
@@ -2852,11 +2874,13 @@ function RouteDetailPageContent({ initial }: { initial: RouteDetailInitialData }
                           </div>
                         )}
                       </div>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={stopPhotoUrl}
                         alt={displayCandidate.title || stop.title || `Stop ${stop.stop_order}`}
-                        className="h-[200px] w-full object-cover sm:absolute sm:inset-0 sm:h-full"
+                        fill
+                        unoptimized={!canOptimizeImageUrl(stopPhotoUrl)}
+                        sizes="(max-width: 639px) 100vw, 250px"
+                        className="object-cover"
                       />
                       <ImageAttribution
                         meta={stopPhotoAttributionMeta}

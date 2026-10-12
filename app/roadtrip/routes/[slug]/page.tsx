@@ -3,7 +3,9 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
+import { canOptimizeImageUrl } from "@/lib/next-image-hosts";
 import type { PlanMapStop } from "@/components/PlanMap";
 import { supabase } from "@/lib/supabaseClient";
 import {
@@ -197,10 +199,17 @@ function RoadtripPreviewCard({
         style={{ backgroundImage: coverArt.backgroundImage }}
       >
         {editorial.coverImageUrl && (
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-[0.56]"
+          // War zuvor ein CSS-background mit der vollen Original-URL (teils
+          // mehrere MB) — ueber <Image> laeuft das Cover jetzt durch die
+          // Bildoptimierung bzw. laedt bei fremden Hosts unveraendert weiter.
+          <Image
+            src={editorial.coverImageUrl}
+            alt=""
             aria-hidden="true"
-            style={{ backgroundImage: `url("${editorial.coverImageUrl}")` }}
+            fill
+            unoptimized={!canOptimizeImageUrl(editorial.coverImageUrl)}
+            sizes="(max-width: 1024px) 100vw, 420px"
+            className="object-cover opacity-[0.56]"
           />
         )}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.2),rgba(15,23,42,0.56))]" />
@@ -542,10 +551,17 @@ export default function RoadtripRouteDetailPage() {
             style={{ backgroundImage: coverArt.backgroundImage }}
           >
             {editorial.coverImageUrl && (
-              <div
-                className="absolute inset-0 bg-cover bg-center opacity-[0.54]"
+              // Statt CSS-background mit der vollen Original-URL jetzt ueber
+              // <Image>, damit das grosse Cover optimiert ausgeliefert wird.
+              <Image
+                src={editorial.coverImageUrl}
+                alt=""
                 aria-hidden="true"
-                style={{ backgroundImage: `url("${editorial.coverImageUrl}")` }}
+                fill
+                priority
+                unoptimized={!canOptimizeImageUrl(editorial.coverImageUrl)}
+                sizes="(max-width: 1024px) 100vw, 720px"
+                className="object-cover opacity-[0.54]"
               />
             )}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.08),rgba(15,23,42,0.38))]" />
@@ -793,18 +809,22 @@ export default function RoadtripRouteDetailPage() {
             Stop-Highlights entlang der Route
           </div>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {editorial.stopSpotlights.map((spotlight, index) => (
+            {editorial.stopSpotlights.map((spotlight, index) => {
+              const spotlightCover = creatorRouteCoverMap.get(route.stops[index]?.creatorRouteId ?? "");
+              return (
               <article
                 key={`${spotlight.city}-${index}`}
                 className="overflow-hidden rounded-2xl border border-[var(--line-subtle)] bg-white shadow-[0_2px_12px_rgba(15,23,42,0.05)]"
               >
-                {creatorRouteCoverMap.get(route.stops[index]?.creatorRouteId ?? "") ? (
+                {spotlightCover ? (
                   <div className="relative h-40 overflow-hidden bg-[var(--bg-surface)]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={creatorRouteCoverMap.get(route.stops[index]?.creatorRouteId ?? "") ?? ""}
+                    <Image
+                      src={spotlightCover}
                       alt={spotlight.city}
-                      className="h-full w-full object-cover"
+                      fill
+                      unoptimized={!canOptimizeImageUrl(spotlightCover)}
+                      sizes="(max-width: 768px) 100vw, 320px"
+                      className="object-cover"
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.08),rgba(15,23,42,0.5))]" />
                     <div className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/22 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
@@ -829,7 +849,8 @@ export default function RoadtripRouteDetailPage() {
                 </p>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
         </section>
       )}
@@ -1013,12 +1034,15 @@ export default function RoadtripRouteDetailPage() {
                               className="overflow-hidden rounded-xl border border-[rgba(23,23,23,0.07)] bg-white"
                             >
                               <div className="flex h-full gap-3 p-3">
-                                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-[linear-gradient(135deg,rgba(90,118,136,0.2),rgba(183,106,67,0.15))]">
+                                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-[linear-gradient(135deg,rgba(90,118,136,0.2),rgba(183,106,67,0.15))]">
                                   {candidate.cover_image_url ? (
-                                    <img
+                                    <Image
                                       src={candidate.cover_image_url}
                                       alt={candidate.title}
-                                      className="h-full w-full object-cover"
+                                      fill
+                                      unoptimized={!canOptimizeImageUrl(candidate.cover_image_url)}
+                                      sizes="80px"
+                                      className="object-cover"
                                     />
                                   ) : (
                                     <div className="flex h-full w-full items-center justify-center text-xl opacity-40">
