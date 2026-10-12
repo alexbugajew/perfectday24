@@ -560,8 +560,12 @@ function evaluateGuardrails(
     if (availableEventCount === 0) {
       skipped.push("kein planner_event in DB fuer diese Stadt/Datum — Markt/Festival-Guardrails uebersprungen");
     } else if (usableEventCount === 0) {
+      // Seit usableRows auch isEligibleMarketFestival verlangt, gibt es zwei
+      // Gruende fuer 0 brauchbare Zeilen. Die Meldung nennt beide, sonst sucht
+      // man bei einem verworfenen "seasonal"-Termin vergeblich nach der
+      // fehlenden concrete_event_page.
       skipped.push(
-        `kein konkretes Markt/Festival-Event (${availableEventCount} Kategoriezeile(n), aber keine mit concrete_event_page) — Guardrails uebersprungen`
+        `kein konkretes, als Markt/Festival geeignetes Event (${availableEventCount} Kategoriezeile(n), aber keine mit concrete_event_page und Markt/Festival-Eignung) — Guardrails uebersprungen`
       );
     } else {
       const firstFilled = filledStops[0] ?? null;
