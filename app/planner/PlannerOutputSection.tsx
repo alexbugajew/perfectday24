@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
 import type { PlannedStop, RouteProfile } from "@/lib/planner";
-import PlannerStopListSection from "./PlannerStopListSection";
+import PlannerTimelineView from "./PlannerTimelineView";
 import {
   compareSavedPlans,
   deriveConfirmationMoment,
@@ -26,7 +26,6 @@ type PlannerOutputSectionProps = {
   plannedStops: PlannedStop[];
   occasion: string;
   plannerData: PlannerApiResponse | null;
-  activeVariantLabel: string | null;
   activeVariantReason?: string | null;
   draggedStopPosition: number | null;
   groupEnabled: boolean;
@@ -95,7 +94,6 @@ export default function PlannerOutputSection({
   plannedStops,
   occasion,
   plannerData,
-  activeVariantLabel,
   activeVariantReason,
   draggedStopPosition,
   groupEnabled,
@@ -298,12 +296,11 @@ export default function PlannerOutputSection({
         </div>
       ) : (
         <>
-          <PlannerStopListSection
+          <PlannerTimelineView
             plannedStops={plannedStops}
             occasion={occasion}
             plannerData={plannerData}
             routeProfile={routeProfile}
-            activeVariantLabel={activeVariantLabel}
             activeVariantReason={activeVariantReason}
             draggedStopPosition={draggedStopPosition}
             groupEnabled={groupEnabled}
