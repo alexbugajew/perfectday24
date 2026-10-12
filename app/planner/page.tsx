@@ -36,7 +36,6 @@ import PlannerEventCandidatesStrip from "./PlannerEventCandidatesStrip";
 import PlannerMapPanel from "./PlannerMapPanel";
 import PlannerOutputSection from "./PlannerOutputSection";
 import PlannerVariantPanel from "./PlannerVariantPanel";
-import PlannerSetupModal from "./PlannerSetupModal";
 import {
   budgetLabel,
   buildGroupPlanningSignals,
@@ -162,7 +161,6 @@ function PlannerPageContent() {
   const [showPlannerConfig, setShowPlannerConfig] = useState(false);
   const [showWeitere, setShowWeitere] = useState(false);
   const [showAiModal, setShowAiModal] = useState(false);
-  const [showSetupModal, setShowSetupModal] = useState(true);
   const [aiPlanPrompt, setAiPlanPrompt] = useState<string | null>(null);
 
   const [stopOffsets, setStopOffsets] = useState<number[]>([]);
@@ -224,19 +222,6 @@ function PlannerPageContent() {
   });
 
   useEffect(() => setMounted(true), []);
-
-  // Guided setup modal: Show only if no URL params and not resuming a saved plan
-  useEffect(() => {
-    if (!mounted) return;
-    const hasUrlParams = [
-      "citySlug", "city", "occasion", "familyAgeBand", "experienceMode", "mode",
-      "budget", "planDate", "interests", "dayStartMin",
-    ].some((key) => searchParams.has(key));
-
-    if (hasUrlParams || requestedResume) {
-      setShowSetupModal(false);
-    }
-  }, [mounted, searchParams, requestedResume]);
 
   useEffect(() => {
     try {
@@ -1246,18 +1231,6 @@ function PlannerPageContent() {
     requestedResume,
     requestedPlanId,
   ]);
-
-  const handleSetupComplete = useCallback(
-    (config: { occasion: string; citySlug: string; budget: string; planMode: string; interests: string[] }) => {
-      setOccasion(config.occasion);
-      setSelectedCitySlug(config.citySlug);
-      setBudget(config.budget);
-      setPlanMode(config.planMode as PlanMode);
-      setInterests(config.interests);
-      setShowSetupModal(false);
-    },
-    [setInterests]
-  );
 
   useEffect(() => {
     if (!requestedResume || !requestedPlanId || !plans.length) return;
@@ -2707,13 +2680,6 @@ function PlannerPageContent() {
               ? `Plan bereit: ${plannedStops.length} ${plannedStops.length === 1 ? "Stop" : "Stops"}.`
               : ""}
       </div>
-
-      {/* Guided Setup Modal */}
-      <PlannerSetupModal
-        isOpen={showSetupModal}
-        cities={cities}
-        onSetup={handleSetupComplete}
-      />
     </main>
   );
 }
