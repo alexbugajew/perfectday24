@@ -60,8 +60,13 @@ export const metadata: Metadata = {
     title: "PerfectDay24 – Deinen Tag planen",
     description: siteDescription,
   },
-  // iOS kennt kein Manifest-"display: standalone"; ohne diese Flags öffnet
-  // die vom Home-Bildschirm gestartete App im normalen Safari-Chrome.
+  // Dass die Home-Bildschirm-App auf iOS ohne Safari-Leisten startet, kommt
+  // aus dem Manifest: Safari wertet "display: standalone" aus app/manifest.ts seit iOS 11.3
+  // selbst aus. capable erzeugt in Next 16 nur noch das standardisierte
+  // <meta name="mobile-web-app-capable"> ohne apple-Präfix (siehe
+  // generate-metadata-Doku) und bleibt als explizite Absicht stehen. Für iOS
+  // zählen hier title (Name unter dem Icon) und statusBarStyle, die weiterhin
+  // als apple-mobile-web-app-* ausgegeben werden.
   appleWebApp: {
     capable: true,
     title: "PerfectDay24",

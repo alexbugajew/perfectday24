@@ -1,6 +1,6 @@
 # PWA: Service Worker, Updates und Kill-Switch
 
-Stand: 12.10.2026 · Dateien: `public/sw.js`, `public/offline.html`,
+Stand: 13.10.2026 · Dateien: `public/sw.js`, `public/offline.html`,
 `components/pwa/ServiceWorkerRegistration.tsx`, `app/manifest.ts`,
 `/sw.js`-Header in `next.config.ts`, `/sw.js` ausgenommen im `proxy.ts`-Matcher.
 
@@ -19,6 +19,12 @@ ist er nur, wenn er für einen ausdrücklich gewünschten Dienst unbedingt
 erforderlich ist (§ 25 Abs. 2 Nr. 2). Beim normalen Website-Besuch ist er das
 nicht, in der vom Nutzer installierten App mit Offline-Hinweis schon. Die
 Datenschutzerklärung (Abschnitt 4) nennt das in einem Satz.
+
+Der Aufräumcode im normalen Browser-Tab liest `getRegistrations()` und
+`caches.keys()` nur, um eigene Reste (den pd24-Worker und
+`pd24-offline-*`-Caches) zu finden und zu löschen. Er legt nichts an und
+schreibt nichts in den Gerätespeicher; fremde Worker und Caches bleiben
+unberührt.
 
 `fullscreen` zählt bewusst nicht als installiert: Der Modus greift auch im
 normalen Browser (F11, Fullscreen-API bei Videos oder der Karte). Falls eine

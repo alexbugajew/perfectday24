@@ -20,7 +20,7 @@
 // Bei jeder Änderung an offline.html oder dem Offline-Icon hochzählen. Erst ein
 // geänderter sw.js-Inhalt löst beim Browser eine Neuinstallation aus; ohne
 // neue Version bliebe die alte Offline-Seite im Cache stehen.
-const VERSION = "2026-10-12";
+const VERSION = "2026-10-13";
 const CACHE_PREFIX = "pd24-offline-";
 const CACHE = `${CACHE_PREFIX}${VERSION}`;
 const OFFLINE_URL = "/offline.html";

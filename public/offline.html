@@ -6,7 +6,10 @@
   <title>Offline – PerfectDay24</title>
   <!-- Öffentlich erreichbare Datei, gehört aber nicht in den Suchindex. -->
   <meta name="robots" content="noindex" />
-  <meta name="theme-color" content="#4d6678" />
+  <!-- Gleiche Farbe wie die helle Navigation der Website (themeColor in
+       app/layout.tsx), damit die Leiste beim Wechsel zwischen Offline-Seite
+       und App nicht als dunkler Balken aufspringt. -->
+  <meta name="theme-color" content="#f8fafc" />
   <!-- Statische Datei mit Inline-Styles: Die Offline-Seite darf nicht von
        Next-Chunks oder externem CSS abhängen, die ohne Netz fehlen würden. -->
   <style>
