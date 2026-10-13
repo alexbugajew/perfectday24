@@ -70,9 +70,30 @@ function extractAnchorHref(block: string) {
   return normalizeSourceUrl(directHref);
 }
 
+// Die Dult (Mai-, Jakobi- und Kirchweihdult am Mariahilfplatz) ist Münchens
+// traditioneller Markt: Geschirr, Trödel, Standl. Ohne eigenes Muster lief sie
+// als "other" ein — im Oktober 2026 standen neun Kirchweihdult-Termine so in
+// der DB, München hatte null Markt-Events, und der Planner bot im
+// Markt/Festival-Modus die Antikensammlung als Markt an.
+//
+// Bewusst "market" statt "fair": "fair" heißt im Planner "Kirmes" und wird im
+// Markt/Festival-Ranking abgewertet, weil viele Stadt-Parser Ausstellungen
+// dorthin sortieren. Die Dult soll als Markt vorne stehen.
+//
+// Die Wortgrenze vor "dult" ist Pflicht, sonst wird "Adult Contemporary" zum
+// Markt. Komposita ohne Wortgrenze ("Kirchweihdult") stehen deshalb einzeln
+// drin. "Kirchweih" allein reicht nicht: Das ist meist ein Gottesdienst oder
+// Pfarrfest, kein Markt.
+const DULT_RE = /\bdult|(?:mai|jakobi|kirchweih)dult/;
+
 function categoryFromText(text: string): OfficialCityEvent["category"] {
   const normalized = text.toLowerCase();
-  if (/(weihnacht|christmas|christkindl|oster|advent|markt|wochenmarkt|flohmarkt)/.test(normalized)) {
+  // Die Dult hängt am bestehenden Markt-Zweig, damit sie vor Festival, Food
+  // und Show greift — dieselbe Reihenfolge, die "markt" schon immer hatte.
+  if (
+    /(weihnacht|christmas|christkindl|oster|advent|markt|wochenmarkt|flohmarkt)/.test(normalized) ||
+    DULT_RE.test(normalized)
+  ) {
     return "market";
   }
   if (/(festival|fruehlingsfest|frühlingsfest|stadtfest|volksfest|maifest|open air kino|filmfest)/.test(normalized)) {
@@ -220,8 +241,11 @@ export function normalizeMuenchenDeEvent(
     price_max: null,
     currency: null,
     family_friendly: familyFriendly,
+    // Gleich behandelt wie "markt": Die Dult ist ein Freiluftmarkt, ohne
+    // eigenen Treffer bliebe das Feld leer.
     indoor_outdoor:
-      /(open air|park|markt|volksfest|theresienwiese|garten)/i.test(textForCategory)
+      /(open air|park|markt|volksfest|theresienwiese|garten)/i.test(textForCategory) ||
+      DULT_RE.test(textForCategory.toLowerCase())
         ? "outdoor"
         : /(theater|oper|philharmonie|halle|museum|lustspielhaus)/i.test(textForCategory)
           ? "indoor"
