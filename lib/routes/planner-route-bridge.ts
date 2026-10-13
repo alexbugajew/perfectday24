@@ -112,6 +112,11 @@ export function writePlannerRouteTemplate(value: PlannerRouteTemplate) {
   writeJson(PLANNER_ROUTE_TEMPLATE_STORAGE_KEY, value);
 }
 
+/** Prüft ohne zu verbrauchen, ob eine Routen-Vorlage auf den Planner wartet. */
+export function hasPendingPlannerRouteTemplate() {
+  return readJson<PlannerRouteTemplate>(PLANNER_ROUTE_TEMPLATE_STORAGE_KEY) !== null;
+}
+
 export function consumePlannerRouteTemplate() {
   const value = readJson<PlannerRouteTemplate>(PLANNER_ROUTE_TEMPLATE_STORAGE_KEY);
   clearJson(PLANNER_ROUTE_TEMPLATE_STORAGE_KEY);
