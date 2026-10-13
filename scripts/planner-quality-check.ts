@@ -57,6 +57,12 @@ type CityMetrics = {
   checks: Array<{
     label: string;
     passed: boolean;
+    /**
+     * Nicht bestanden, zählt aber nicht für den Exit-Code. Wird als WARN-Zeile
+     * ausgegeben. Gilt nur für die saisonale Markt/Festival-Lücke, siehe
+     * buildChecks().
+     */
+    warnOnly?: boolean;
     detail: string;
   }>;
 };
@@ -399,6 +405,7 @@ function buildChecks(
   metrics: Omit<CityMetrics, "checks" | "qualityScore">
 ): CityMetrics["checks"] {
   const thresholds = THRESHOLDS[metrics.citySlug];
+  const flexPassed = metrics.events.flex >= thresholds.minFlexEvents;
 
   return [
     {
@@ -438,7 +445,20 @@ function buildChecks(
     },
     {
       label: "Market/Festival coverage",
-      passed: metrics.events.flex >= thresholds.minFlexEvents,
+      passed: flexPassed,
+      // Märkte und Feste sind saisonal. Eine Stadt kann wochenlang wirklich
+      // null solcher Termine haben — in München etwa zwischen dem Ende der
+      // Kirchweihdult und dem Start der Christkindlmärkte. Dann liegt die
+      // Lücke im Kalender, nicht im Code, und der Lauf soll nicht rot werden.
+      // Dieselbe Logik wie das SKIP in planner-city-core-regression.ts, wenn
+      // für Stadt und Datum keine Events vorliegen.
+      //
+      // Nur bei genau null: Liegt die Zahl über null, aber unter der Schwelle,
+      // ist das ein echter Rückgang und bleibt FAIL. Und weil null genauso gut
+      // ein kaputter Parser sein kann — so war es im Oktober 2026, als die Auer
+      // Dult als "other" einlief —, wird die Warnung mit Stadt und Zahl laut
+      // ausgegeben statt still übergangen. Alle anderen Prüfungen bleiben FAIL.
+      warnOnly: !flexPassed && metrics.events.flex === 0,
       detail: `${metrics.events.flex} >= ${thresholds.minFlexEvents}`,
     },
     {
@@ -466,7 +486,11 @@ function buildMarkdownReport(metrics: CityMetrics[]) {
   lines.push("# Planner Quality Check");
   lines.push("");
   lines.push(`Generated: ${new Date().toISOString()}`);
-  lines.push(`Checks passed: ${passed} / ${allChecks.length}`);
+  const warned = allChecks.filter((check) => !check.passed && check.warnOnly).length;
+  lines.push(
+    `Checks passed: ${passed} / ${allChecks.length}` +
+      (warned > 0 ? ` (${warned} WARN, zählen nicht für den Exit-Code)` : "")
+  );
   lines.push(`Average quality score: ${avgScore}/100`);
   lines.push("");
 
@@ -490,7 +514,9 @@ function buildMarkdownReport(metrics: CityMetrics[]) {
     );
     lines.push("");
     for (const check of city.checks) {
-      lines.push(`- [${check.passed ? "x" : " "}] ${check.label}: ${check.detail}`);
+      const box = check.passed ? "x" : check.warnOnly ? "!" : " ";
+      const suffix = check.warnOnly ? " — WARN, zählt nicht für den Exit-Code" : "";
+      lines.push(`- [${box}] ${check.label}: ${check.detail}${suffix}`);
     }
     lines.push("");
   }
@@ -597,7 +623,12 @@ async function main() {
 
   const failures = metrics.flatMap((city) =>
     city.checks
-      .filter((check) => !check.passed)
+      .filter((check) => !check.passed && !check.warnOnly)
+      .map((check) => `${city.citySlug}: ${check.label} (${check.detail})`)
+  );
+  const warnings = metrics.flatMap((city) =>
+    city.checks
+      .filter((check) => !check.passed && check.warnOnly)
       .map((check) => `${city.citySlug}: ${check.label} (${check.detail})`)
   );
 
@@ -609,16 +640,35 @@ async function main() {
   console.log(`Wrote ${jsonPath}`);
   console.log(`Wrote ${mdPath}`);
   console.log(
-    `Quality checks passed: ${allChecks.filter((c) => c.passed).length} / ${allChecks.length}`
+    `Quality checks passed: ${allChecks.filter((c) => c.passed).length} / ${allChecks.length}` +
+      (warnings.length > 0 ? ` (${warnings.length} WARN, zählen nicht für den Exit-Code)` : "")
   );
   console.log(`Average quality score: ${avgScore}/100`);
   console.log("");
   for (const city of metrics) {
     const emoji = city.qualityScore >= 85 ? "🟢" : city.qualityScore >= 65 ? "🟡" : "🔴";
-    const cityFails = city.checks.filter((c) => !c.passed).length;
+    const cityFails = city.checks.filter((c) => !c.passed && !c.warnOnly).length;
+    const cityWarns = city.checks.filter((c) => !c.passed && c.warnOnly).length;
     console.log(
-      `  ${emoji} ${city.citySlug.padEnd(22)} ${String(city.qualityScore).padStart(3)}/100  missing-duration=${city.locations.missingDuration}  fails=${cityFails}`
+      `  ${emoji} ${city.citySlug.padEnd(22)} ${String(city.qualityScore).padStart(3)}/100  missing-duration=${city.locations.missingDuration}  fails=${cityFails}` +
+        (cityWarns > 0 ? `  warns=${cityWarns}` : "")
     );
+  }
+
+  // Warnungen gehen auf stderr und in GitHub Actions zusätzlich als
+  // Annotation an den PR: Eine Null bei Markt/Festival kann auch ein
+  // Parser-Fehler sein und soll auffallen, obwohl sie den Lauf nicht rot färbt.
+  if (warnings.length > 0) {
+    console.warn("");
+    console.warn("Planner quality check WARN (Exit-Code bleibt unberührt, bitte trotzdem prüfen):");
+    for (const warning of warnings) {
+      console.warn(
+        `- WARN ${warning} — null Markt/Festival-Events: saisonale Lücke oder Parser-Fehler (Kategorie "other")?`
+      );
+      if (process.env.GITHUB_ACTIONS === "true") {
+        console.log(`::warning title=Planner quality check::${warning} — null Markt/Festival-Events`);
+      }
+    }
   }
 
   if (failures.length > 0) {
