@@ -16,9 +16,13 @@
 // Moduls. Ausnahme: Ein vom Nutzer ausdrücklich gewähltes Event wird nicht
 // gefiltert.
 //
-// Geprüft wird nur die BENENNUNG: Event-Titel plus Veranstaltungsort, bei
-// Locations der Name. Nie Beschreibung, Summary oder Tags. Bis 10/2026 lief die
-// Prüfung über den ganzen Suchtext — der "Internationale Weihnachtsmarkt Essen"
+// Auf Gedenk-Wörter geprüft wird nur die BENENNUNG: Event-Titel plus
+// Veranstaltungsort, bei Locations der Name. Nie Beschreibung oder Summary.
+// Daneben zählen Subtypes, aber nur als exakter Wert. Der Planner
+// (isSolemnMemorialCandidate in features.ts) reicht dabei die Tags mit herein:
+// Ein Tag `cemetery` oder `historic_site` wirkt wie der Subtype, ein Freitext-Tag
+// wie "volkstrauertag" dagegen nicht. Bis 10/2026 lief die Prüfung über den
+// ganzen Suchtext — der "Internationale Weihnachtsmarkt Essen"
 // galt als Gedenkort, weil seine Summary nebenbei "15. November: Volkstrauertag"
 // erwähnt, und eine Kabarett-Ankündigung wegen "seit Menschengedenken". Eine
 // Beschreibung erwähnt, was rundherum passiert; der Name sagt, was der Ort ist.
@@ -117,7 +121,6 @@ const LOCATIVE_PREFIX_RE =
 // Stätte führt ("Opfer Zweiter Weltkrieg", "Den Opfern der Nationalsozialistischen
 // Gewaltherrschaft", beide München).
 const MEMORIAL_CONTEXT_MARKERS = [
-  "opfer",
   "ermordet",
   "verfolgt",
   "verfolgung",
@@ -126,7 +129,19 @@ const MEMORIAL_CONTEXT_MARKERS = [
   "widerstand",
   "deportiert",
   "sinti",
+  // Komposita, die OPFER_WORD_START_RE nicht mehr erfasst und die sonst kein
+  // Signal tragen ("Wegekreuz Fliegerbombenopfer", "Denkmal für Soldaten und
+  // zivile Bombenopfer" in München, "Grenzopfer" in Salzwedel). "Kriegsopfer"
+  // deckt "krieg" ab, "Maueropfer" steht live nur neben "Gedenk…".
+  "bombenopfer",
+  "grenzopfer",
 ] as const;
+
+// "Opfer" zählt als Kontextwort nur am Wortanfang; anders als bei "gedenk" ist
+// ein Bindestrich hier eine Wortgrenze ("NS-Opfer", "KZ-Opfer"). Als Teilstring
+// traf es "Der Steinklopfer", ein Baudenkmal in Dormagen-Zons (OSM
+// historic=yes), das ohne jeden Gedenkbezug als solemn galt.
+const OPFER_WORD_START_RE = /(?:^|[^\p{L}])opfer/u;
 
 // OSM-/Taxonomie-Subtypes, die einen Ort für sich allein als Gedenkort
 // ausweisen. Exakt verglichen, nicht als Teilstring.
@@ -199,7 +214,10 @@ function subtypeSet(subtypes: Iterable<string> | null | undefined) {
 type SolemnMemorialInput = {
   /** Die Benennung aus memorialNameText — nie der volle Suchtext. */
   name: string | null | undefined;
-  /** Exakt verglichen, nicht als Teilstring. */
+  /**
+   * Exakt verglichen, nicht als Teilstring. Der Planner übergibt Subtypes und
+   * Tags gemeinsam (features.ts, isSolemnMemorialCandidate).
+   */
   subtypes?: Iterable<string> | null | undefined;
 };
 
@@ -225,5 +243,9 @@ export function isSolemnMemorialPlace(input: SolemnMemorialInput): boolean {
   const subtypes = subtypeSet(input.subtypes);
   const memorialLike =
     subtypes.has("memorial") || subtypes.has("historic_site") || name.includes("denkmal");
-  return memorialLike && MEMORIAL_CONTEXT_MARKERS.some((marker) => name.includes(marker));
+  return (
+    memorialLike &&
+    (OPFER_WORD_START_RE.test(name) ||
+      MEMORIAL_CONTEXT_MARKERS.some((marker) => name.includes(marker)))
+  );
 }

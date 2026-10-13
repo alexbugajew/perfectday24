@@ -1,5 +1,5 @@
 // Tests für die Gedenkort-Erkennung (lib/planner/memorial.ts). Orts- und
-// Eventnamen stammen aus locations bzw. planner_events (Stand 12.10.2026).
+// Eventnamen stammen aus locations bzw. planner_events (Stand 12./13.10.2026).
 // Ausnahme sind die beiden Bühnen-Titel im ersten Block: Live stand
 // "Menschengedenken" bzw. "eingedenk" nur in der Beschreibung, die seit diesem
 // PR gar nicht mehr geprüft wird. Die Titel dort sind konstruiert, damit die
@@ -133,6 +133,36 @@ describe("isSolemnMemorialPlace", () => {
         name
       );
     }
+  });
+
+  it("bindet 'Opfer' an den Wortanfang", () => {
+    // Baudenkmal in Dormagen-Zons (OSM historic=yes), dreifach importiert
+    // (Langenfeld, Monheim, Dormagen). "opfer" steckt nur in "Klopfer".
+    assert.equal(
+      isSolemnMemorialPlace({
+        name: "Der Steinklopfer",
+        subtypes: ["attraction", "historic_site", "landmark"],
+      }),
+      false
+    );
+    // Opfer-Gedenkorte, bei denen "Opfer" das einzige Signal ist, bleiben
+    // solemn — auch hinter einem Bindestrich. Dazu die beiden Komposita, die
+    // als eigene Kontextwörter nachgezogen sind, und ein Stolperstein.
+    for (const name of [
+      "Opfer des Faschismus",
+      "Den Opfern des Rassenwahns",
+      "NS-Opfer",
+      "Denkmal für Soldaten und zivile Bombenopfer",
+      "Wegekreuz Fliegerbombenopfer",
+      "Grenzopfer",
+      "Stolperstein für Albert Hirsch",
+    ]) {
+      assert.equal(isSolemnMemorialPlace({ name, subtypes: ["historic_site"] }), true, name);
+    }
+    // Nicht abgesichert: Stolpersteine, die nur den Namen der Person tragen
+    // ("Maria Klopfer", München). Sie trafen bisher allein zufällig über
+    // "Klopfer"; der Name trägt kein Signal, und memorial=stolperstein aus OSM
+    // steht nicht in den Daten.
   });
 
   it("braucht für Kontextwörter ein Denkmal-Signal", () => {
