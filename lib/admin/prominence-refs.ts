@@ -82,6 +82,33 @@ export function originalPopularity(refs: unknown, current: unknown): number | nu
   return finiteOrNull(current);
 }
 
+export type PlannedWriteCheck = {
+  name: string;
+  category: string | null | undefined;
+  /** popularity_score in der DB vor diesem Lauf (null zählt wie 0). */
+  previous: unknown;
+  next: number;
+  /** Ergebnis der Gedenkort-Prüfung nach Name/Subtype (isSolemnMemorialName). */
+  solemn: boolean;
+};
+
+export type SafetyViolations = { lowered: string[]; gastronomy: string[]; memorials: string[] };
+
+/**
+ * Prüft die geplanten Writes gegen die drei Zusagen des Backfills — VOR dem
+ * ersten Write. Bis 10/2026 lief die Prüfung erst nach den Writes und konnte
+ * einen Verstoß nur noch melden, nicht mehr verhindern.
+ */
+export function safetyViolations(rows: readonly PlannedWriteCheck[]): SafetyViolations {
+  const out: SafetyViolations = { lowered: [], gastronomy: [], memorials: [] };
+  for (const row of rows) {
+    if (row.next < (finiteOrNull(row.previous) ?? 0)) out.lowered.push(row.name);
+    if (row.category && GASTRONOMY_CATEGORIES.has(row.category)) out.gastronomy.push(row.name);
+    if (row.solemn) out.memorials.push(row.name);
+  }
+  return out;
+}
+
 /**
  * Prominenz-Eintrag in source_refs mergen. Es gibt höchstens EINEN Eintrag pro
  * Ort (ein bestehender wird ersetzt), damit das Zurückrollen genau ein Element

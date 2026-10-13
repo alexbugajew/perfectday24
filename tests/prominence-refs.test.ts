@@ -7,6 +7,7 @@ import {
   mergeProminenceEntry,
   originalPopularity,
   raisePopularity,
+  safetyViolations,
   type ProminenceEntry,
 } from "../lib/admin/prominence-refs";
 
@@ -88,5 +89,30 @@ describe("isBoostableCategory", () => {
     assert.equal(isBoostableCategory("restaurant", ["restaurant", "culture"]), false);
     assert.equal(isBoostableCategory("nightlife", ["nightlife"]), false);
     assert.equal(isBoostableCategory("cafe", ["cafe"]), false);
+  });
+});
+
+describe("safetyViolations", () => {
+  const ok = { name: "Elbphilharmonie", category: "culture", previous: 0, next: 55, solemn: false };
+
+  it("lässt regelkonforme Writes durch", () => {
+    assert.deepEqual(safetyViolations([ok, { ...ok, name: "Englischer Garten", category: "activity", previous: 40, next: 48 }]), {
+      lowered: [],
+      gastronomy: [],
+      memorials: [],
+    });
+  });
+
+  it("meldet Absenkung, Gastronomie und Gedenkort — vor dem Write", () => {
+    const result = safetyViolations([
+      { ...ok, name: "Heimatmuseum", previous: 40, next: 16 },
+      { ...ok, name: "Hofbräuhaus", category: "restaurant" },
+      { ...ok, name: "Sowjetisches Ehrenmal Tiergarten", solemn: true },
+    ]);
+    assert.deepEqual(result, { lowered: ["Heimatmuseum"], gastronomy: ["Hofbräuhaus"], memorials: ["Sowjetisches Ehrenmal Tiergarten"] });
+  });
+
+  it("behandelt null als 0, wie raisePopularity", () => {
+    assert.deepEqual(safetyViolations([{ ...ok, previous: null, next: 0 }]).lowered, []);
   });
 });
