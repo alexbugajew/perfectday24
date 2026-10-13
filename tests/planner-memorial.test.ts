@@ -1,10 +1,14 @@
-// Tests fuer die Gedenkort-Erkennung (lib/planner/memorial.ts). Alle Namen und
-// Titel standen am 12.10.2026 so in locations bzw. planner_events.
+// Tests für die Gedenkort-Erkennung (lib/planner/memorial.ts). Orts- und
+// Eventnamen stammen aus locations bzw. planner_events (Stand 12.10.2026).
+// Ausnahme sind die beiden Bühnen-Titel im ersten Block: Live stand
+// "Menschengedenken" bzw. "eingedenk" nur in der Beschreibung, die seit diesem
+// PR gar nicht mehr geprüft wird. Die Titel dort sind konstruiert, damit die
+// Wortanfang-Regel trotzdem abgesichert ist.
 //
-// Die Negativfaelle sind die eigentliche Absicherung: Ein erster Stand von PR #35
-// pruefte den ganzen Suchtext und warf damit den Internationalen
-// Weihnachtsmarkt Essen aus allen Markt/Festival-Plaenen, weil seine Summary
-// den Volkstrauertag erwaehnt.
+// Die Negativfälle sind die eigentliche Absicherung: Ein erster Stand von PR #35
+// prüfte den ganzen Suchtext und warf damit den Internationalen
+// Weihnachtsmarkt Essen aus allen Markt/Festival-Plänen, weil seine Summary
+// den Volkstrauertag erwähnt.
 import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
 import {
@@ -21,11 +25,17 @@ describe("Gedenk-Marker im Titel", () => {
     assert.equal(textHasMemorialMarker("Gedenke, wo du stehst."), true);
     assert.equal(textHasMemorialMarker("Totengedenken am Volkstrauertag"), true);
     assert.equal(textHasMemorialMarker("KZ-Gedenkstätte Neuengamme"), true);
-    // Kabarett-Ankuendigung bzw. Komoedie, keine Gedenkveranstaltung.
+    // Kabarett bzw. Komödie, keine Gedenkveranstaltung (Titel konstruiert, s.o.).
     assert.equal(textHasMemorialMarker("Fritz Eckenga – seit Menschengedenken"), false);
     assert.equal(textHasMemorialMarker("Zwischen Sex und Ex – eingedenk der Ex"), false);
-    // Literaturmuseum: Bindestrich zaehlt nicht als Wortanfang.
+    // Literaturmuseum: Bindestrich zählt nicht als Wortanfang.
     assert.equal(textHasMemorialMarker("Lesung in der Anna-Seghers-Gedenkstätte"), false);
+  });
+
+  it("erkennt 'KZ' nur als eigenes Wort", () => {
+    assert.equal(textHasMemorialMarker("Todesmarsch KZ Dachau"), true);
+    assert.equal(textHasMemorialMarker("KZ-Steinbaracke ehem. KZ-Außenlager Dachau-Allach"), true);
+    assert.equal(textHasMemorialMarker("Kantine KZV"), false);
   });
 });
 
@@ -95,6 +105,20 @@ describe("isSolemnMemorialPlace", () => {
     }
   });
 
+  it("erkennt KZ-, Deportations- und Kriegsopfer-Orte ohne 'Gedenk' im Namen", () => {
+    for (const [name, subtypes] of [
+      ["Todesmarsch KZ Dachau", ["historic_site"]],
+      ["KZ-Steinbaracke ehem. KZ-Außenlager Dachau-Allach", ["historic_site"]],
+      ["Platz der jüdischen Deportierten", ["park"]],
+      ["Gefallene der Ukraine", ["historic_site"]],
+      ["Kriegergedächtniskapelle", ["historic_site"]],
+      ["Opfer Zweiter Weltkrieg", ["historic_site"]],
+      ["Den Opfern der Nationalsozialistischen Gewaltherrschaft", ["historic_site"]],
+    ] as const) {
+      assert.equal(isSolemnMemorialPlace({ name, subtypes }), true, name);
+    }
+  });
+
   it("zählt OSM-'memorial' nicht für sich allein", () => {
     for (const name of [
       "Lilienthal-Denkmal",
@@ -109,6 +133,11 @@ describe("isSolemnMemorialPlace", () => {
         name
       );
     }
+  });
+
+  it("braucht für Kontextwörter ein Denkmal-Signal", () => {
+    assert.equal(isSolemnMemorialPlace({ name: "Sportplatz Opferberg", subtypes: [] }), false);
+    assert.equal(isSolemnMemorialPlace({ name: "Antikriegscafé COOP", subtypes: ["cocktail_bar"] }), false);
   });
 
   it("ignoriert Friedhof und Ehrenmal als bloße Lageangabe", () => {

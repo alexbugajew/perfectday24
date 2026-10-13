@@ -432,6 +432,10 @@ function eventAnchorFlowBoost(params: {
 
 function buildCarryForwardPartyPeak(previousStop: ScoredLocation | null, slot: PlanningContext["slotTemplate"][number]) {
   if (slot.phase !== "party_peak" || !previousStop) return null;
+  // Der Party-Peak übernimmt den vorigen Stop, ohne durch den gefilterten
+  // Highlight-Pool zu laufen (siehe constructRoute, isHighlightSlot). Ein
+  // Gedenk-Event im Vorlauf würde so doch noch zum Peak.
+  if (isSolemnMemorialCandidate(previousStop)) return null;
 
   const category = classify(previousStop);
   if (category !== "nightlife" && category !== "event") {
@@ -544,7 +548,7 @@ function buildTourismRelaxedFallback(params: {
   previousStop: ScoredLocation | null;
   candidates: ScoredLocation[];
   usedIds: Set<string>;
-  /** Peak-/Erlebnis-Slot: Gedenkorte ausschließen (siehe constructRoute). */
+  /** Peak-, Erlebnis- oder Highlight-Slot: Gedenkorte ausschließen (siehe constructRoute). */
   excludeSolemnMemorials?: boolean;
 }) {
   const {
@@ -791,7 +795,7 @@ function buildPostShowFallback(params: {
   previousStop: ScoredLocation | null;
   candidates: ScoredLocation[];
   usedIds: Set<string>;
-  /** Peak-/Erlebnis-Slot: Gedenkorte ausschließen (siehe constructRoute). */
+  /** Peak-, Erlebnis- oder Highlight-Slot: Gedenkorte ausschließen (siehe constructRoute). */
   excludeSolemnMemorials?: boolean;
 }) {
   const {
@@ -929,7 +933,7 @@ function buildPreShowFallback(params: {
   previousStop: ScoredLocation | null;
   candidates: ScoredLocation[];
   usedIds: Set<string>;
-  /** Peak-/Erlebnis-Slot: Gedenkorte ausschließen (siehe constructRoute). */
+  /** Peak-, Erlebnis- oder Highlight-Slot: Gedenkorte ausschließen (siehe constructRoute). */
   excludeSolemnMemorials?: boolean;
 }) {
   const {
@@ -1043,6 +1047,15 @@ function buildPreShowFallback(params: {
   return pool[0] ?? null;
 }
 
+// Slots, deren Label den Stop als Highlight ankündigt, ohne Peak- oder
+// Erlebnis-Slot zu sein — nach den heutigen Vorlagen nur "Relaxed Highlight"
+// im Tourismus-Ganztag. Probe 13.10. auf main: Dort stand in Berlin die
+// Gedenkstätte Deutscher Widerstand, angekündigt als "Relaxed Highlight" mit
+// dem Hinweis "Park, Aussichtspunkt oder leichter Nachmittags-Stop". Bewusst am
+// sichtbaren Label statt an der Phase: Die Regel betrifft genau das, was der
+// Nutzer liest.
+const HIGHLIGHT_LABEL_RE = /highlight/i;
+
 export function constructRoute(params: {
   context: PlanningContext;
   candidates: ScoredLocation[];
@@ -1100,10 +1113,12 @@ export function constructRoute(params: {
     // choosePeakAnchor und der Event-Anker schließen Gedenkorte aus. Findet aber
     // keiner von beiden etwas, füllt die normale Auswahl (oder ein Fallback) den
     // Slot — und dann landete doch wieder ein Mahnmal im Peak oder unter
-    // "Markt / Festival". Deshalb gilt der Ausschluss für beide Slots auch ohne
-    // Anker. Ein ausdrücklich gewähltes Event bleibt unberührt; es kommt über
-    // eventLockedCandidate ohnehin in den Pool.
-    const isHighlightSlot = i === peakSlotIndex || i === experienceSlot;
+    // "Markt / Festival". Deshalb gilt der Ausschluss für diese Slots auch ohne
+    // Anker, ebenso für Slots mit "Highlight" im Label. Ein ausdrücklich
+    // gewähltes Event bleibt unberührt; es kommt über eventLockedCandidate
+    // ohnehin in den Pool.
+    const isHighlightSlot =
+      i === peakSlotIndex || i === experienceSlot || HIGHLIGHT_LABEL_RE.test(slot.label);
     const initialPoolRaw = getPoolForKind(candidates, slot, planMode, context).filter(
       (candidate) =>
         !usedIds.has(candidate.id) &&

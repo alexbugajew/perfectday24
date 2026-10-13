@@ -8,11 +8,13 @@
 // "Markt / Festival"-Höhepunkt an.
 //
 // Was der Code daraus tatsächlich macht (Stand 10/2026): Ein Gedenkort wird nie
-// Peak-Anker, nie Kandidat für den Peak-Slot, nie automatischer Event-Anker und
-// nie Markt/Festival (route/anchor.ts, route-construction.ts,
-// market-festival.ts). In den übrigen Slots bleibt er zulässig — auch in
-// party/date/friends. Ihn dort ganz aus den Pools zu nehmen, ist ein offener
-// Backlog-Punkt, kein Versprechen dieses Moduls.
+// Peak-Anker, nie Kandidat für den Peak-Slot, nie automatischer Event-Anker,
+// nie Markt/Festival und landet nie in einem Slot mit "Highlight" im Label
+// (route/anchor.ts, route-construction.ts, market-festival.ts). In den übrigen
+// Slots bleibt er zulässig — auch in party/date/friends. Ihn dort ganz aus den
+// Pools zu nehmen, ist ein offener Backlog-Punkt, kein Versprechen dieses
+// Moduls. Ausnahme: Ein vom Nutzer ausdrücklich gewähltes Event wird nicht
+// gefiltert.
 //
 // Geprüft wird nur die BENENNUNG: Event-Titel plus Veranstaltungsort, bei
 // Locations der Name. Nie Beschreibung, Summary oder Tags. Bis 10/2026 lief die
@@ -35,10 +37,13 @@
  *
  * Alle Einträge sind so spezifisch, dass sie auch mitten in einem Kompositum
  * sicher sind ("Novemberpogrom", "Holocaust-Mahnmal", "NS-Zwangsarbeit").
- * "gedenk" ist es nicht und steht deshalb separat in GEDENK_WORD_START_RE.
+ * "gedenk" und "kz" sind es nicht und stehen deshalb separat in
+ * GEDENK_WORD_START_RE bzw. KZ_WORD_RE.
  */
 export const MEMORIAL_MARKERS = [
   "deportation",
+  // "Platz der jüdischen Deportierten" (Hamburg) trägt kein "Deportation".
+  "deportiert",
   "zwangsarbeit",
   "holocaust",
   "shoah",
@@ -66,6 +71,11 @@ export const MEMORIAL_MARKERS = [
 // Holocaust-, Euthanasie-Gedenk…, Totengedenken) fangen die Marker oben ab.
 const GEDENK_WORD_START_RE = /(?:^|[^\p{L}-])gedenk/u;
 
+// "KZ" als eigenes Wort: "Todesmarsch KZ Dachau", "KZ-Steinbaracke ehem.
+// KZ-Außenlager" (beide München) tragen weder "kz-gedenk" noch
+// "Konzentrationslager". Als Teilstring wäre "kz" zu breit ("Kantine KZV").
+const KZ_WORD_RE = /(?:^|[^\p{L}])kz(?:[^\p{L}]|$)/u;
+
 /**
  * Zusätzliche Marker nur für Orts-NAMEN (Locations): Orte, die als Ort solemn
  * sind, auch wenn ihr Name kein "Gedenk" trägt.
@@ -81,7 +91,11 @@ const SOLEMN_PLACE_MARKERS = [
   "ehrenmal",
   "kriegerdenkmal",
   "kriegsdenkmal",
-  "gefallenendenkmal",
+  // Deckt "Gefallenendenkmal" ebenso ab wie Orte, die nur nach den Toten
+  // benannt sind ("Gefallene der Ukraine", "… im Weltkrieg gefallenen Söhnen").
+  "gefallene",
+  "kriegergedächtnis",
+  "krieger-gedächtnis",
   "kriegsopfer",
   "grabstätte",
   "gräberstätte",
@@ -96,9 +110,12 @@ const LOCATIVE_PREFIX_RE =
 
 // Ein Denkmal mit einem dieser Wörter im Namen ist ein Gedenkort ("Denkmal für
 // die Opfer …", "Denkmal 2. Weltkrieg", "… im Nationalsozialismus verfolgten
-// …"). Allein sind die Wörter zu breit ("Opferfest", "Krieg der Sterne"),
-// deshalb zählen sie nur zusammen mit einem Denkmal-Signal (Name oder Subtype
-// `memorial`).
+// …"). Allein sind die Wörter zu breit ("Opferfest", "Krieg der Sterne",
+// "Sportplatz Opferberg"), deshalb zählen sie nur zusammen mit einem
+// Denkmal-Signal: "denkmal" im Namen oder Subtype `memorial` bzw.
+// `historic_site`. Letzteres, weil OSM viele Gedenksteine nur als historische
+// Stätte führt ("Opfer Zweiter Weltkrieg", "Den Opfern der Nationalsozialistischen
+// Gewaltherrschaft", beide München).
 const MEMORIAL_CONTEXT_MARKERS = [
   "opfer",
   "ermordet",
@@ -150,6 +167,7 @@ export function textHasMemorialMarker(text: string | null | undefined): boolean 
   if (!value.trim()) return false;
   return (
     GEDENK_WORD_START_RE.test(value) ||
+    KZ_WORD_RE.test(value) ||
     MEMORIAL_MARKERS.some((marker) => value.includes(marker))
   );
 }
@@ -204,6 +222,8 @@ export function isSolemnMemorialPlace(input: SolemnMemorialInput): boolean {
   if (!name.trim()) return false;
   if (hasPlaceMarker(name)) return true;
 
-  const memorialLike = subtypeSet(input.subtypes).has("memorial") || name.includes("denkmal");
+  const subtypes = subtypeSet(input.subtypes);
+  const memorialLike =
+    subtypes.has("memorial") || subtypes.has("historic_site") || name.includes("denkmal");
   return memorialLike && MEMORIAL_CONTEXT_MARKERS.some((marker) => name.includes(marker));
 }

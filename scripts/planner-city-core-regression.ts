@@ -563,7 +563,7 @@ function evaluateGuardrails(
       skipped.push("kein planner_event in DB fuer diese Stadt/Datum — Markt/Festival-Guardrails uebersprungen");
     } else if (usableEventCount === 0) {
       // Seit usableRows auch isEligibleMarketFestival verlangt, gibt es zwei
-      // Gruende fuer 0 brauchbare Zeilen. Die Meldung nennt beide, sonst sucht
+      // Gründe für 0 brauchbare Zeilen. Die Meldung nennt beide, sonst sucht
       // man bei einem verworfenen "seasonal"-Termin vergeblich nach der
       // fehlenden concrete_event_page.
       skipped.push(

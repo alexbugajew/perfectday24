@@ -254,9 +254,9 @@ export function resolveMeal(loc: LocationRow): MealType {
 
 /**
  * Solemne Gedenkorte (Mahnmale, KZ-Gedenkstätten, Friedhöfe, Kriegerdenkmäler)
- * und Gedenkveranstaltungen. Sie werden nie Peak, Event-Anker oder
- * Markt/Festival; als Stop in anderen Slots bleiben sie zulässig. Details und
- * Grenzen in lib/planner/memorial.ts.
+ * und Gedenkveranstaltungen. Sie werden nie Peak, Event-Anker, Markt/Festival
+ * oder "…-Highlight"-Stop; als Stop in anderen Slots bleiben sie zulässig.
+ * Details und Grenzen in lib/planner/memorial.ts.
  *
  * Bewusst NICHT über hasSubtype/buildLocationSearchText: Beide vergleichen per
  * Teilstring über Beschreibung, Summary und Tags. Damit galt ein Weihnachtsmarkt

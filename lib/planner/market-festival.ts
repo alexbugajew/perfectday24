@@ -95,8 +95,9 @@ export function marketFestivalSpecificityScore(input: MarketFestivalInput) {
   // Fallback in den market_festival-Slot rutschen. Produktentscheidung 24.09.
   // Geprüft wird input.name, nicht input.text: Ein Weihnachtsmarkt, dessen
   // Summary nebenbei den Volkstrauertag erwähnt, bleibt ein Weihnachtsmarkt.
-  // Event-Variante, weil hier nur planner_events ankommen (Anchor, Scoring,
-  // Event-Sortierung); Locations prüft isSolemnMemorialCandidate.
+  // Event-Variante, weil hier nur Events ankommen (Anchor und Scoring filtern
+  // auf classify === "event", die Event-Sortierung bekommt planner_events);
+  // Orte prüft isSolemnMemorialCandidate.
   if (isSolemnMemorialEvent({ name: input.name, subtypes })) {
     return -1000;
   }

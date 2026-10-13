@@ -369,8 +369,8 @@ const EXHIBITION_MARKERS = [
  * bewusst in Kauf genommene Preis.
  *
  * Die Marker selbst stehen in ./memorial.ts. Bis 10/2026 gab es hier eine
- * eigene Kopie — zwei Listen, die beim naechsten Nachtrag still auseinander-
- * gelaufen waeren: Ingest haette ein Gedenk-Event durchgelassen, das der
+ * eigene Kopie — zwei Listen, die beim nächsten Nachtrag still auseinander-
+ * gelaufen wären: Ingest hätte ein Gedenk-Event durchgelassen, das der
  * Planner als Gedenkort erkennt, oder umgekehrt.
  */
 
