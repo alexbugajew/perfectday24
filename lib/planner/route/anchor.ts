@@ -1,4 +1,5 @@
-import { buildLocationSearchText, bucketForCategory, classify, getSubtypes, hasSubtype } from "../features";
+import { buildLocationSearchText, bucketForCategory, classify, getSubtypes, hasSubtype, isSolemnMemorialCandidate } from "../features";
+import { memorialNameText } from "../memorial";
 import { slotInterestBoost } from "../interest";
 import {
   buildMarketFestivalIntentText,
@@ -137,6 +138,12 @@ function isMatchingEventAnchorCandidate(context: PlanningContext, candidate: Sco
     return true;
   }
 
+  // Gedenk-Events (z.B. Deportations-Gedenkfeiern, die als "festival" vorliegen)
+  // sind nie ein automatischer Event-Anker. Produktentscheidung 24.09.
+  if (isSolemnMemorialCandidate(candidate)) {
+    return false;
+  }
+
   if (hasSubtype(candidate, "editorial_summary_page")) {
     return false;
   }
@@ -149,6 +156,7 @@ function isMatchingEventAnchorCandidate(context: PlanningContext, candidate: Sco
     const refs = eventSourceRefs(candidate);
     return isEligibleMarketFestival({
       text: buildMarketFestivalIntentText(candidate),
+      name: memorialNameText(candidate),
       subtypes: getSubtypes(candidate),
       category: typeof refs?.eventCategory === "string" ? refs.eventCategory : null,
     });
@@ -229,6 +237,7 @@ function isEventVisitPriorityCandidate(candidate: ScoredLocation) {
 }
 
 function isMarketFestivalPriorityCandidate(candidate: ScoredLocation) {
+  if (isSolemnMemorialCandidate(candidate)) return false;
   const marketLike =
     hasSubtype(candidate, "market", "weekly_market", "market_event", "food_event", "fairground") ||
     hasEventCategory(candidate, "market", "food_event");
@@ -256,6 +265,7 @@ function marketFestivalSpecificityScore(candidate: ScoredLocation) {
   const refs = eventSourceRefs(candidate);
   return marketFestivalScoreFromText({
     text: buildMarketFestivalIntentText(candidate),
+    name: memorialNameText(candidate),
     subtypes: getSubtypes(candidate),
     category: typeof refs?.eventCategory === "string" ? refs.eventCategory : null,
   });
@@ -605,6 +615,7 @@ export function chooseEventAnchor(params: {
           !hasSubtype(candidate, "editorial_summary_page") &&
           isEligibleMarketFestival({
             text: buildMarketFestivalIntentText(candidate),
+            name: memorialNameText(candidate),
             subtypes: getSubtypes(candidate),
             category:
               candidate.source_refs && typeof candidate.source_refs === "object"
@@ -859,8 +870,11 @@ export function choosePeakAnchor(params: {
   const peakSlot = context.slotTemplate[peakSlotIndex];
   if (!peakSlot) return null;
 
+  // Gedenkorte (Mahnmale, Gedenkstätten, Friedhöfe) sind nie der Höhepunkt/Anker
+  // eines Ausflugs — in keinem Anlass. Sie dürfen als würdiger Nebenstop
+  // erscheinen, aber nie als "Peak". Produktentscheidung 24.09.
   const basePool = getPoolForKind(candidates, peakSlot, planMode, context).filter(
-    (candidate) => !usedIds.has(candidate.id)
+    (candidate) => !usedIds.has(candidate.id) && !isSolemnMemorialCandidate(candidate)
   );
   if (basePool.length === 0) return null;
 

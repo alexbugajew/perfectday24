@@ -20,6 +20,25 @@ import type {
   PlannedStop,
   RouteProfile,
 } from "../lib/planner/types";
+import {
+  buildMarketFestivalIntentText,
+  isEligibleMarketFestival,
+} from "../lib/planner/market-festival";
+import { memorialNameText } from "../lib/planner/memorial";
+
+// Der Guardrail zählt eine Event-Zeile nur dann als "brauchbares" Markt/Festival,
+// wenn der Planner sie auch als solches akzeptieren würde (dieselbe Eignungs-
+// prüfung wie im Anchor). Sonst wird der Test scharf für Zeilen, die der Planner
+// zu Recht verwirft (z.B. ein reiner Datums-"seasonal"-Termin ohne Markt/Festival-
+// Signal) — und meldet fälschlich "Markt/Festival liegt nicht vorne". Fix 24.09.
+function isUsableMarketFestivalRow(row: PlannerEventRow): boolean {
+  return isEligibleMarketFestival({
+    text: buildMarketFestivalIntentText(row),
+    name: memorialNameText(row),
+    subtypes: Array.isArray(row.subtypes) ? (row.subtypes as string[]) : null,
+    category: row.category,
+  });
+}
 
 type CoreRegressionCase = {
   id: string;
@@ -411,7 +430,11 @@ async function loadActiveEventLocations(
     rows: visibleRows,
     // Zeilen, die der Planner tatsaechlich als konkretes Event akzeptiert.
     // Die blosse Existenz einer Kategoriezeile sagt darueber nichts aus.
-    usableRows: visibleRows.filter(isConcretePlannerEventRow),
+    usableRows: visibleRows.filter(
+      (row) =>
+        isConcretePlannerEventRow(row) &&
+        (testCase.experienceMode !== "market_festival" || isUsableMarketFestivalRow(row))
+    ),
     locations: visibleRows.map(plannerEventToLocationRow),
   };
 }
@@ -539,8 +562,12 @@ function evaluateGuardrails(
     if (availableEventCount === 0) {
       skipped.push("kein planner_event in DB fuer diese Stadt/Datum — Markt/Festival-Guardrails uebersprungen");
     } else if (usableEventCount === 0) {
+      // Seit usableRows auch isEligibleMarketFestival verlangt, gibt es zwei
+      // Gründe für 0 brauchbare Zeilen. Die Meldung nennt beide, sonst sucht
+      // man bei einem verworfenen "seasonal"-Termin vergeblich nach der
+      // fehlenden concrete_event_page.
       skipped.push(
-        `kein konkretes Markt/Festival-Event (${availableEventCount} Kategoriezeile(n), aber keine mit concrete_event_page) — Guardrails uebersprungen`
+        `kein konkretes, als Markt/Festival geeignetes Event (${availableEventCount} Kategoriezeile(n), aber keine mit concrete_event_page und Markt/Festival-Eignung) — Guardrails uebersprungen`
       );
     } else {
       const firstFilled = filledStops[0] ?? null;

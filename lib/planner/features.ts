@@ -1,4 +1,5 @@
 import type { LocationCategory, LocationRow, MealType } from "./types";
+import { isSolemnMemorialEvent, isSolemnMemorialPlace, memorialNameText } from "./memorial";
 
 export function norm(s: string | null | undefined) {
   return (s ?? "").toLowerCase().trim();
@@ -249,6 +250,27 @@ export function resolveMeal(loc: LocationRow): MealType {
   }
 
   return null;
+}
+
+/**
+ * Solemne Gedenkorte (Mahnmale, KZ-Gedenkstätten, Friedhöfe, Kriegerdenkmäler)
+ * und Gedenkveranstaltungen. Sie werden nie Peak, Event-Anker, Markt/Festival
+ * oder "…-Highlight"-Stop; als Stop in anderen Slots bleiben sie zulässig.
+ * Details und Grenzen in lib/planner/memorial.ts.
+ *
+ * Bewusst NICHT über hasSubtype/buildLocationSearchText: Beide vergleichen per
+ * Teilstring über Beschreibung, Summary und Tags. Damit galt ein Weihnachtsmarkt
+ * als Gedenkort, weil seine Summary den Volkstrauertag erwähnt, und jedes
+ * OSM-"memorial" (Lilienthal-Denkmal) als solemn. Hier zählen nur Name (bei
+ * Events plus Veranstaltungsort) und exakt verglichene Subtypes/Tags.
+ */
+export function isSolemnMemorialCandidate(loc: LocationRow): boolean {
+  const input = {
+    name: memorialNameText(loc),
+    subtypes: [...getSubtypes(loc), ...getTags(loc)],
+  };
+  const isEvent = loc.source_primary === "planner_event" || norm(loc.type) === "event";
+  return isEvent ? isSolemnMemorialEvent(input) : isSolemnMemorialPlace(input);
 }
 
 export function classify(loc: LocationRow): LocationCategory {

@@ -9,6 +9,7 @@ import type {
   SlotDefinition,
 } from "./types";
 import { buildMarketFestivalIntentText, marketFestivalSpecificityScore } from "./market-festival";
+import { memorialNameText, textHasMemorialMarker } from "./memorial";
 
 const OFFICIAL_CITY_EVENT_SOURCES = new Set([
   "visitberlin",
@@ -366,26 +367,12 @@ const EXHIBITION_MARKERS = [
  * eine einzige davon als Festival-Tipp ausspielen. Ein Sommerfest, das
  * "Gedenkstaette" im Titel traegt, faellt hier ebenfalls heraus — das ist der
  * bewusst in Kauf genommene Preis.
+ *
+ * Die Marker selbst stehen in ./memorial.ts. Bis 10/2026 gab es hier eine
+ * eigene Kopie — zwei Listen, die beim nächsten Nachtrag still auseinander-
+ * gelaufen wären: Ingest hätte ein Gedenk-Event durchgelassen, das der
+ * Planner als Gedenkort erkennt, oder umgekehrt.
  */
-const MEMORIAL_MARKERS = [
-  "gedenk",
-  "deportation",
-  "zwangsarbeit",
-  "holocaust",
-  "shoah",
-  "schoah",
-  "stolperstein",
-  "mahnmal",
-  "volkstrauertag",
-  "pogrom",
-  "konzentrationslager",
-  "kz-gedenk",
-  "euthanasie",
-  "opfer des nationalsozialismus",
-  "trauerfeier",
-  "kriegsgraeber",
-  "kriegsgräber",
-];
 
 const COMEDY_MARKERS = [
   "comedy",
@@ -419,11 +406,7 @@ export function refinePlannerEventCategory(input: {
   // Gedenkveranstaltungen zuerst und ohne REFINABLE-Filter: Sie muessen auch
   // aus `festival` und `seasonal` heraus greifen, sonst laufen genau die
   // Faelle durch, wegen derer die Regel existiert.
-  const titleForMemorial = (input.title ?? "").toLowerCase();
-  if (
-    titleForMemorial.trim() &&
-    MEMORIAL_MARKERS.some((marker) => titleForMemorial.includes(marker))
-  ) {
+  if (textHasMemorialMarker(input.title)) {
     return "other";
   }
 
@@ -589,6 +572,7 @@ export function sortPlannerEventsForPlanning(
               venue_address: row.venue_address,
               tags: row.tags,
             }),
+            name: memorialNameText(row),
             subtypes: Array.isArray(row.subtypes)
               ? row.subtypes.filter((value): value is string => typeof value === "string")
               : [],
@@ -624,6 +608,25 @@ export function sortPlannerEventsForPlanning(
   });
 }
 
+/**
+ * Der Slot, den applyExperienceModeToSlotTemplate zum Erlebnis-Slot umbaut
+ * ("Markt / Festival", "Event-Highlight", "Show-Moment"): der erste Slot, der
+ * weder Mahlzeit noch Nachtleben ist.
+ *
+ * Eigene Funktion, damit route-construction genau diesen Slot wiederfindet,
+ * statt am Label-Text zu hängen. Auf dem bereits umgebauten Template liefert sie
+ * denselben Index — der Umbau macht aus dem Slot nur activity/sightseeing, und
+ * alle Slots davor sind Mahlzeit oder Nachtleben.
+ */
+export function experienceSlotIndex(slotTemplate: SlotDefinition[]) {
+  return slotTemplate.findIndex((slot) => {
+    if (slot.kind === "breakfast" || slot.kind === "lunch" || slot.kind === "dinner") {
+      return false;
+    }
+    return slot.kind !== "nightlife";
+  });
+}
+
 export function applyExperienceModeToSlotTemplate(params: {
   slotTemplate: SlotDefinition[];
   experienceMode: ExperienceMode;
@@ -635,12 +638,7 @@ export function applyExperienceModeToSlotTemplate(params: {
   if (experienceMode === "classic") return slotTemplate;
 
   const next = slotTemplate.map((slot) => ({ ...slot }));
-  const targetIndex = next.findIndex((slot) => {
-    if (slot.kind === "breakfast" || slot.kind === "lunch" || slot.kind === "dinner") {
-      return false;
-    }
-    return slot.kind !== "nightlife";
-  });
+  const targetIndex = experienceSlotIndex(next);
 
   if (targetIndex < 0) return next;
 

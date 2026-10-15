@@ -15,6 +15,7 @@ import {
   isEligibleMarketFestival,
   marketFestivalSpecificityScore,
 } from "./market-festival";
+import { memorialNameText } from "./memorial";
 import { familyAgeBandBoost } from "./occasions/family";
 import type {
   CandidateLocation,
@@ -337,12 +338,15 @@ function eventExperienceBoost(context: PlanningContext, candidate: CandidateLoca
   }
 
   if (context.experienceMode === "market_festival") {
+    const marketFestivalName = memorialNameText(candidate);
     const specificity = marketFestivalSpecificityScore({
       text: marketFestivalText,
+      name: marketFestivalName,
       subtypes: getSubtypes(candidate),
     });
     const eligible = isEligibleMarketFestival({
       text: marketFestivalText,
+      name: marketFestivalName,
       subtypes: getSubtypes(candidate),
     });
 

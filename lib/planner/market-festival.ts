@@ -1,3 +1,5 @@
+import { isSolemnMemorialEvent } from "./memorial";
+
 const MARKET_FESTIVAL_INTENT_RE =
   /\b(?:wochenmarkt|flohmarkt|street food|food market|farmers market|night market|bauernmarkt|night bazaar|trempelmarkt|kreativmarkt|designmarkt|kunstmarkt|market|markt|festival|japan day|fruehlingsfest|frühlingsfest|maifest|kirmes|funfair|fairground|messe|trade fair|art fair|design fair|book fair|bazaar|expo)\b/i;
 const MARKET_FESTIVAL_FAIR_INTENT_RE =
@@ -19,6 +21,11 @@ const MARKET_FESTIVAL_ADDRESS_NOISE_RE =
 
 type MarketFestivalInput = {
   text: string | null | undefined;
+  // Nur die Benennung (Titel/Name plus Veranstaltungsort, siehe
+  // memorialNameText) — dagegen läuft die Gedenk-Prüfung. Pflichtfeld, damit
+  // kein Aufrufer sie still verliert; `text` taugt dafür nicht, weil es
+  // Summary und Beschreibung enthält.
+  name: string | null | undefined;
   subtypes?: readonly string[] | null | undefined;
   category?: string | null | undefined;
 };
@@ -82,6 +89,18 @@ export function marketFestivalSpecificityScore(input: MarketFestivalInput) {
     hasSubtype(subtypes, "show", "concert", "theater", "performing_arts", "show_event", "live_music") ||
     MARKET_FESTIVAL_STAGE_EVENT_RE.test(text);
   const addressNoise = MARKET_FESTIVAL_ADDRESS_NOISE_RE.test(text);
+
+  // Gedenkveranstaltungen und Events an Gedenkorten sind nie ein
+  // Markt/Festival — harte Disqualifikation, damit sie weder als Anker noch als
+  // Fallback in den market_festival-Slot rutschen. Produktentscheidung 24.09.
+  // Geprüft wird input.name, nicht input.text: Ein Weihnachtsmarkt, dessen
+  // Summary nebenbei den Volkstrauertag erwähnt, bleibt ein Weihnachtsmarkt.
+  // Event-Variante, weil hier nur Events ankommen (Anchor und Scoring filtern
+  // auf classify === "event", die Event-Sortierung bekommt planner_events);
+  // Orte prüft isSolemnMemorialCandidate.
+  if (isSolemnMemorialEvent({ name: input.name, subtypes })) {
+    return -1000;
+  }
 
   let score = 0;
 

@@ -15,6 +15,7 @@ import {
   isEligibleMarketFestival,
   marketFestivalSpecificityScore,
 } from "../lib/planner/market-festival";
+import { memorialNameText } from "../lib/planner/memorial";
 import { PLANNER_33_ROLLOUT } from "../lib/cities/rollout";
 import { chooseEventAnchor } from "../lib/planner/route/anchor";
 import type {
@@ -177,6 +178,7 @@ function scoreCandidateForCase(event: PlannerEventRow, caseId: AuditCaseId) {
             venue_address: event.venue_address,
             tags: event.tags,
           }),
+          name: memorialNameText(event),
           subtypes: Array.isArray(event.subtypes)
             ? event.subtypes.filter((value): value is string => typeof value === "string")
             : [],
@@ -289,6 +291,7 @@ async function findCandidateEvent(
               venue_address: row.venue_address,
               tags: row.tags,
             }),
+            name: memorialNameText(row),
             subtypes: Array.isArray(row.subtypes)
               ? row.subtypes.filter((value: unknown): value is string => typeof value === "string")
               : [],
