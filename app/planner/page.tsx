@@ -12,6 +12,7 @@ import {
 } from "@/lib/cities/planner-support";
 import {
   consumePlannerRouteTemplate,
+  hasPendingPlannerRouteTemplate,
   writeRouteBuilderDraft,
 } from "@/lib/routes/planner-route-bridge";
 import { writePlannerRunDraft } from "@/lib/routes/planner-run-bridge";
@@ -36,6 +37,7 @@ import PlannerEventCandidatesStrip from "./PlannerEventCandidatesStrip";
 import PlannerMapPanel from "./PlannerMapPanel";
 import PlannerOutputSection from "./PlannerOutputSection";
 import PlannerVariantPanel from "./PlannerVariantPanel";
+import PlannerSetupModal, { type PlannerSetupConfig } from "./PlannerSetupModal";
 import {
   budgetLabel,
   buildGroupPlanningSignals,
@@ -85,6 +87,8 @@ import {
   resolveFamilyAgeBand,
   mergeInterests,
 } from "@/lib/planner";
+
+const PLANNER_SETUP_DONE_KEY = "pd24_planner_setup_done";
 
 function PlannerPageContent() {
   const searchParams = useSearchParams();
@@ -161,6 +165,10 @@ function PlannerPageContent() {
   const [showPlannerConfig, setShowPlannerConfig] = useState(false);
   const [showWeitere, setShowWeitere] = useState(false);
   const [showAiModal, setShowAiModal] = useState(false);
+  // pending → open/done: Die Plan-Erzeugung wartet, bis feststeht, ob das
+  // geführte Setup läuft — sonst entsteht ein unsichtbarer Plan hinter dem
+  // Modal, der plan_generated/plan_intent doppelt zählt.
+  const [setupState, setSetupState] = useState<"pending" | "open" | "done">("pending");
   const [aiPlanPrompt, setAiPlanPrompt] = useState<string | null>(null);
 
   const [stopOffsets, setStopOffsets] = useState<number[]>([]);
@@ -222,6 +230,24 @@ function PlannerPageContent() {
   });
 
   useEffect(() => setMounted(true), []);
+
+  // Geführtes Setup nur beim nackten Einstieg: Deep Links, gespeicherte Pläne
+  // und Routen-Vorlagen bringen Anlass und Stadt schon mit — das Setup würde
+  // sie überdecken und beim Abschließen überschreiben. Entschieden wird einmal
+  // nach dem Mount, damit das Modal bei Deep Links nicht kurz aufblitzt; die
+  // Vorlage wird hier nur gelesen, verbraucht wird sie im Vorlagen-Effekt.
+  // Nur beim ersten Besuch: Wer das Setup einmal abgeschlossen oder
+  // übersprungen hat, landet danach direkt im Planner mit seinen Einstellungen.
+  useEffect(() => {
+    if (!mounted || setupState !== "pending") return;
+    let setupDone = false;
+    try {
+      setupDone = localStorage.getItem(PLANNER_SETUP_DONE_KEY) === "1";
+    } catch {}
+    const bareEntry =
+      !setupDone && !hasHomepageParams && !requestedResume && !requestedPlanId && !hasPendingPlannerRouteTemplate();
+    setSetupState(bareEntry ? "open" : "done");
+  }, [mounted, setupState, hasHomepageParams, requestedResume, requestedPlanId]);
 
   useEffect(() => {
     try {
@@ -889,7 +915,7 @@ function PlannerPageContent() {
     toggleVariantReaction,
   } = usePlannerGeneration({
     mounted,
-    presetsReady,
+    presetsReady: presetsReady && setupState === "done",
     effectiveCitySlug,
     hasValidPlannerOrigin,
     startPointMode: startPoint.mode,
@@ -992,6 +1018,7 @@ function PlannerPageContent() {
 
     const template = consumePlannerRouteTemplate();
     if (!template) return;
+    setSetupState("done");
 
     if (template.citySlug) setSelectedCitySlug(canonicalCitySlug(template.citySlug));
     if (template.occasion) {
@@ -1231,6 +1258,33 @@ function PlannerPageContent() {
     requestedResume,
     requestedPlanId,
   ]);
+
+  const finishSetup = useCallback(() => {
+    try {
+      localStorage.setItem(PLANNER_SETUP_DONE_KEY, "1");
+    } catch {}
+    setSetupState("done");
+  }, []);
+
+  const handleSetupComplete = useCallback(
+    (config: PlannerSetupConfig) => {
+      // Über handleOccasionChange, damit Tagesmodus und Verkehrsmittel dieselben
+      // Defaults bekommen wie beim Wechsel im Formular (Familie → Auto usw.).
+      handleOccasionChange(config.occasion);
+      if (config.citySlug !== selectedCitySlug) {
+        setSelectedCitySlug(config.citySlug);
+        // Wie beim Stadtwechsel im Formular: ein gespeicherter Startpunkt der
+        // alten Stadt würde sonst (unter 60 km) als Start des neuen Plans gelten.
+        resetStartPointForSelectedCity();
+      }
+      setBudget(config.budget);
+      // null = Schritt 4 unverändert: Profil-Interessen nicht mit einer leeren
+      // Auswahl überschreiben (sie würden sonst beim nächsten Toggle gespeichert).
+      if (config.interests !== null) setInterests(config.interests);
+      finishSetup();
+    },
+    [handleOccasionChange, selectedCitySlug, resetStartPointForSelectedCity, setInterests, finishSetup]
+  );
 
   useEffect(() => {
     if (!requestedResume || !requestedPlanId || !plans.length) return;
@@ -2679,6 +2733,17 @@ function PlannerPageContent() {
               ? `Plan bereit: ${plannedStops.length} ${plannedStops.length === 1 ? "Stop" : "Stops"}.`
               : ""}
       </div>
+
+      {/* Geführtes Setup für den Einstieg ohne Parameter */}
+      {setupState === "open" ? (
+        <PlannerSetupModal
+          cities={cities}
+          citiesLoadError={citiesLoadError}
+          initial={{ occasion, citySlug: selectedCitySlug, budget, interests }}
+          onSetup={handleSetupComplete}
+          onSkip={finishSetup}
+        />
+      ) : null}
     </main>
   );
 }
