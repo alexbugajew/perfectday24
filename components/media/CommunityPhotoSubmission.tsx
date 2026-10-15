@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import { downscaleImageFile } from "@/lib/media/downscale-image";
 import MediaReportDialog from "@/components/media/MediaReportDialog";
 
 type SubmissionEntityType =
@@ -47,7 +48,13 @@ type CommunityPhotoSubmissionProps = {
 };
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+// file_size_limit des Buckets user-media — gilt für die verkleinerte Datei.
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
+// Originale werden vor dem Upload verkleinert, deshalb dürfen sie größer sein als
+// das Bucket-Limit (aktuelle Handys liefern 12–20 MB). Die Obergrenze schützt
+// schwächere Geräte vor dem Dekodieren riesiger Bilder im Speicher.
+const MAX_INPUT_FILE_SIZE = 25 * 1024 * 1024;
+const MAX_INPUT_FILE_SIZE_LABEL = `${MAX_INPUT_FILE_SIZE / (1024 * 1024)} MB`;
 const BUCKET = "user-media";
 
 const SUBMISSION_STATUS_META: Record<
@@ -402,11 +409,11 @@ export default function CommunityPhotoSubmission({
 
     for (const file of files) {
       if (!ACCEPTED_TYPES.includes(file.type)) {
-        setError(`Dateityp nicht unterstützt: ${file.name}`);
+        setError(`Dateityp nicht unterstützt: ${file.name}. Erlaubt sind JPEG, PNG und WebP.`);
         return;
       }
-      if (file.size > MAX_FILE_SIZE) {
-        setError(`Datei zu groß: ${file.name}`);
+      if (file.size > MAX_INPUT_FILE_SIZE) {
+        setError(`Datei zu groß: ${file.name} (max. ${MAX_INPUT_FILE_SIZE_LABEL}).`);
         return;
       }
     }
@@ -414,11 +421,20 @@ export default function CommunityPhotoSubmission({
     setSubmitting(true);
 
     try {
+      // Vor dem Upload client-seitig verkleinern/komprimieren — Community-Fotos
+      // kamen bisher roh (oft mehrere MB, mit GPS im EXIF) in den Storage. Erst
+      // alle Dateien vorbereiten, dann hochladen: Scheitert ein Bild an der
+      // Verarbeitung, ist noch nichts halb eingereicht.
+      const uploadFiles: File[] = [];
       for (const file of files) {
-        const storagePath = `${session.user.id}/${entityType}/${entityId}/${crypto.randomUUID()}.${extensionOf(file)}`;
-        const { error: uploadError } = await supabase.storage.from(BUCKET).upload(storagePath, file, {
+        uploadFiles.push(await downscaleImageFile(file, { maxBytes: MAX_FILE_SIZE }));
+      }
+
+      for (const uploadFile of uploadFiles) {
+        const storagePath = `${session.user.id}/${entityType}/${entityId}/${crypto.randomUUID()}.${extensionOf(uploadFile)}`;
+        const { error: uploadError } = await supabase.storage.from(BUCKET).upload(storagePath, uploadFile, {
           upsert: false,
-          contentType: file.type,
+          contentType: uploadFile.type,
         });
         if (uploadError) throw uploadError;
 
@@ -434,8 +450,8 @@ export default function CommunityPhotoSubmission({
             bucket_id: BUCKET,
             storage_path: storagePath,
             public_url: publicUrl,
-            mime_type: file.type,
-            file_size_bytes: file.size,
+            mime_type: uploadFile.type,
+            file_size_bytes: uploadFile.size,
             caption: caption.trim() || null,
             credit_name: creditName.trim() || null,
             moderation_status: "submitted",
@@ -706,7 +722,7 @@ export default function CommunityPhotoSubmission({
                       {submitting ? "Bilder werden hochgeladen …" : "Fotos auswählen"}
                     </span>
                     <span className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
-                      JPG, PNG oder WEBP bis 10 MB pro Datei. Mehrere Bilder können in einem Schritt hochgeladen werden.
+                      JPG, PNG oder WEBP bis {MAX_INPUT_FILE_SIZE_LABEL} pro Datei. Große Fotos werden vor dem Upload verkleinert, Standortdaten (GPS) entfernt. Mehrere Bilder können in einem Schritt hochgeladen werden.
                     </span>
                     <span className="mt-4 inline-flex w-fit rounded-full bg-[var(--text-strong)] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-90">
                       {submitting ? "Upload läuft …" : "Dateien wählen"}
