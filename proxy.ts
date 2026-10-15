@@ -19,6 +19,11 @@ const PUBLIC_PATH_PREFIXES = [
   "/sitemap.xml",
   "/preview-login",
   "/api/preview-login",
+  // Statische Offline-Seite des Service Workers (public/offline.html). Ohne
+  // Freigabe würde der Worker bei aktivem Preview-Lock statt der Offline-Seite
+  // den Login-Redirect einlagern wollen; .html steht bewusst nicht in der
+  // Endungs-Allowlist unten, daher hier als exakter Pfad.
+  "/offline.html",
   // Token-basierte Teil-Links (03.08.2026): Gäste-Einladungen und geteilte
   // Pläne sind privat-by-Token (Security-Definer-RPCs, noindex) und müssen
   // auch bei aktivem Preview-Lock für Gäste und OG-Crawler (WhatsApp/Mail)
@@ -140,5 +145,9 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  // sw.js ausgenommen: Die installierte App prüft den Worker bei jeder
+  // Navigation auf Updates. Durch den Proxy liefe jeder dieser Checks über
+  // einen Supabase-Auth-Roundtrip (refreshSupabaseSession), obwohl die Datei
+  // statisch und auch bei aktivem Preview-Lock öffentlich ist (.js-Allowlist).
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|sw\\.js$).*)"],
 };

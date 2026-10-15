@@ -174,6 +174,12 @@ export default function DatenschutzPage() {
           ]}
         />
         <p>
+          Nur wenn Sie <strong>perfectday24</strong> als App auf Ihrem Gerät installieren (etwa über
+          „Zum Startbildschirm hinzufügen“), legt ein Service Worker eine Offline-Seite und das Logo
+          im Gerätespeicher ab, damit die App ohne Internetverbindung einen Hinweis anzeigen kann.
+          Nutzungsdaten werden dabei nicht gespeichert.
+        </p>
+        <p>
           Soweit diese Speicherungen für die von Ihnen ausdrücklich gewünschten Funktionen
           erforderlich sind, erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. b bzw.
           lit. f DSGVO sowie, soweit einschlägig, auf Grundlage der gesetzlichen Ausnahmen für

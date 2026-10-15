@@ -8,6 +8,7 @@ import MobileBottomNav from "@/components/ui/MobileBottomNav";
 import ConsentBanner from "@/components/consent/ConsentBanner";
 import Analytics from "@/components/analytics/Analytics";
 import JsonLd from "@/components/seo/JsonLd";
+import ServiceWorkerRegistration from "@/components/pwa/ServiceWorkerRegistration";
 import { organizationJsonLd, webSiteJsonLd } from "@/lib/seo/json-ld";
 
 const geistSans = Geist({
@@ -30,6 +31,12 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  // Browserleiste (Chrome Android, Safari) in der Farbe der hellen MainNav
+  // (--bg-surface, Basis von bg-[rgba(248,250,252,0.9)]), damit sie für
+  // normale Besucher nahtlos in die Navigation übergeht statt als dunkler
+  // Balken darüber zu stehen. Das Akzentblau aus app/manifest.ts gilt nur für
+  // Splash und Titelleiste der installierten App, bis die Seite geladen ist.
+  themeColor: "#f8fafc",
 };
 
 export const metadata: Metadata = {
@@ -52,6 +59,18 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PerfectDay24 – Deinen Tag planen",
     description: siteDescription,
+  },
+  // Dass die Home-Bildschirm-App auf iOS ohne Safari-Leisten startet, kommt
+  // aus dem Manifest: Safari wertet "display: standalone" aus app/manifest.ts seit iOS 11.3
+  // selbst aus. capable erzeugt in Next 16 nur noch das standardisierte
+  // <meta name="mobile-web-app-capable"> ohne apple-Präfix (siehe
+  // generate-metadata-Doku) und bleibt als explizite Absicht stehen. Für iOS
+  // zählen hier title (Name unter dem Icon) und statusBarStyle, die weiterhin
+  // als apple-mobile-web-app-* ausgegeben werden.
+  appleWebApp: {
+    capable: true,
+    title: "PerfectDay24",
+    statusBarStyle: "default",
   },
 };
 
@@ -85,6 +104,7 @@ export default function RootLayout({
             jeweiligen Seiten und verweisen ueber @id hierher. */}
         <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />
         <Analytics />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );
