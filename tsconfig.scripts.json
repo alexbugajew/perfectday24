@@ -44,6 +44,7 @@
     "scripts/backfill-duration-defaults.ts",
     "scripts/backfill-location-addresses.ts",
     "scripts/backfill-location-contacts.ts",
+    "scripts/backfill-attraction-prominence.ts",
     "scripts/dedup-plannable-locations.ts",
     "scripts/aggregate-usage-scores.ts",
     "lib/admin/**/*.ts",
