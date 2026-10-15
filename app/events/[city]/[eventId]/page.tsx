@@ -6,6 +6,7 @@ import { eventJsonLd, SITE_URL } from "@/lib/seo/json-ld";
 import { loadEventDetail, type AroundEventSuggestion } from "@/lib/events/around-event";
 import { buildAffiliateDeeplink } from "@/lib/monetization/affiliate-deeplinks";
 import { categoryAccent } from "@/lib/events/categories";
+import { buildEventPlannerHref } from "@/lib/events/planner-href";
 import { plannerEventLabel } from "@/lib/planner";
 import type { PlannerEventCategory } from "@/lib/planner/types";
 
@@ -125,22 +126,15 @@ export default async function EventDetailPage({ params }: { params: Promise<Para
   const categoryLabel = plannerEventLabel(event.category as PlannerEventCategory);
   const accent = categoryAccent(event.category);
 
-  // Der Übergabepunkt an den Planner: Stadt, Datum, Event und der Modus, der
-  // die Event-Kandidaten überhaupt lädt — dazu der Veranstaltungsort als
-  // Startpunkt. Ohne Startpunkt erzeugt der Planner gar keinen Plan, ohne Plan
-  // gibt es keine Event-Kandidaten und damit auch keinen Anker.
-  const startParams =
-    typeof event.lat === "number" && typeof event.lng === "number"
-      ? `&startLat=${event.lat}&startLng=${event.lng}` +
-        `&startLabel=${encodeURIComponent(event.venue_name ?? event.title)}`
-      : "";
-
-  const plannerHref =
-    `/planner?citySlug=${encodeURIComponent(city)}` +
-    `&planDate=${detail.planDate}` +
-    `&eventId=${encodeURIComponent(eventId)}` +
-    `&experienceMode=event_visit` +
-    startParams;
+  const plannerHref = buildEventPlannerHref({
+    citySlug: city,
+    eventId,
+    planDate: detail.planDate,
+    lat: event.lat,
+    lng: event.lng,
+    venueName: event.venue_name,
+    title: event.title,
+  });
 
   const hasTimeline = detail.before.length > 0 || detail.after.length > 0;
 

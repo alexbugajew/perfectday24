@@ -13,9 +13,12 @@
 
 import { cache } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { classify, localDateKey } from "@/lib/planner";
+import { classify, localDateKey, plannerEventLabel } from "@/lib/planner";
 import { haversineKm } from "@/lib/planner/travel";
+import { normalizePlannerEventTitle } from "@/lib/planner/events";
+import { buildAffiliateDeeplink } from "@/lib/monetization/affiliate-deeplinks";
 import { EVENT_CATEGORY_FILTERS } from "./categories";
+import { EVENT_MAP_HORIZON_DAYS, eventMapGroupFor, type EventMapItem } from "./event-map";
 import type {
   LocationCategory,
   LocationRow,
@@ -394,6 +397,162 @@ export const countCityEventsByCategory = cache(
     }
   }
 );
+
+/** Obergrenze je Stadt; Lübeck als größte Stadt liegt bei rund 700 in 14 Tagen. */
+const MAP_EVENT_CAP = 2000;
+
+const shortDateFormatter = new Intl.DateTimeFormat("de-DE", {
+  timeZone: "Europe/Berlin",
+  weekday: "short",
+  day: "numeric",
+  month: "short",
+});
+
+function mapWhenLabel(row: {
+  start_at: string;
+  end_at: string | null;
+  all_day: boolean | null;
+  timezone: string | null;
+}): string {
+  const start = new Date(row.start_at);
+  const end = row.end_at ? new Date(row.end_at) : null;
+  const startDay = localDateKey(row.start_at, row.timezone || "Europe/Berlin");
+  const endDay = row.end_at ? localDateKey(row.end_at, row.timezone || "Europe/Berlin") : startDay;
+
+  if (end && endDay > startDay) {
+    return `${shortDateFormatter.format(start)} – ${shortDateFormatter.format(end)}`;
+  }
+
+  const dateLabel = shortDateFormatter.format(start);
+  if (row.all_day) return `${dateLabel}, ganztägig`;
+
+  const time = timeFormatter(row.timezone).format(start);
+  // 00:00 steht bei den Stadtportalen meist für „Tag ohne Uhrzeit" — eine
+  // Mitternachtszeit als Tatsache anzuzeigen, wäre geraten.
+  if (time === "00:00") return dateLabel;
+  const endTime = end ? timeFormatter(row.timezone).format(end) : null;
+  return `${dateLabel}, ${time}${endTime && endTime !== time ? `–${endTime}` : ""} Uhr`;
+}
+
+export type CityMapEvents = {
+  items: EventMapItem[];
+  /** true, wenn die Obergrenze gegriffen hat — die Seite sagt das dann dazu. */
+  truncated: boolean;
+  /** Zeitpunkt der Abfrage — Startwert für „jetzt" im Browser. */
+  queriedAtMs: number;
+};
+
+/**
+ * Alle Veranstaltungen einer Stadt für die Event-Karte: die nächsten 14 Tage
+ * plus das, was gerade läuft (Ausstellungen, Märkte, Kirmes mit Endtermin).
+ *
+ * Anders als `listCityEvents` ohne Kategorie- und Zeitfilter und ohne
+ * 80er-Grenze — die Karte filtert im Browser, und ein Event, das an der
+ * Grenze abgeschnitten wird, wäre auf der Karte einfach nicht da.
+ */
+export const listCityMapEvents = cache(async (citySlug: string): Promise<CityMapEvents> => {
+  const now = new Date();
+  const supabase = supabaseOrNull();
+  if (!supabase) return { items: [], truncated: false, queriedAtMs: now.getTime() };
+
+  // Einen Tag Puffer über die 14 Tage hinaus: Die Fenstergrenze ist ein
+  // Berliner Kalendertag, der Server rechnet in UTC.
+  const until = new Date(now.getTime() + (EVENT_MAP_HORIZON_DAYS + 1) * 86_400_000);
+
+  type Row = {
+    id: string;
+    title: string;
+    category: string;
+    start_at: string;
+    end_at: string | null;
+    all_day: boolean | null;
+    timezone: string | null;
+    venue_name: string | null;
+    venue_address: string | null;
+    lat: number | null;
+    lng: number | null;
+    ticket_url: string | null;
+    source_url: string | null;
+    source: string;
+  };
+
+  try {
+    // Keyset statt range(), wie bei den Sitemap-Einträgen: stabile Seiten ohne Dubletten.
+    const rows: Row[] = [];
+    let afterId: string | null = null;
+    let truncated = false;
+    for (;;) {
+      let request = supabase
+        .from("planner_events")
+        .select(
+          "id, title, category, start_at, end_at, all_day, timezone, venue_name, venue_address, lat, lng, ticket_url, source_url, source"
+        )
+        .eq("city_slug", citySlug)
+        .eq("status", "scheduled")
+        .lte("start_at", until.toISOString())
+        // Was noch kommt — oder schon begonnen hat und laut Quelle noch läuft.
+        .or(`start_at.gte.${now.toISOString()},end_at.gte.${now.toISOString()}`)
+        .order("id")
+        .limit(1000);
+      if (afterId) request = request.gt("id", afterId);
+
+      const { data, error } = await request;
+      if (error) {
+        console.error(`[around-event] Karte fuer ${citySlug} fehlgeschlagen:`, error.message);
+        break;
+      }
+      const page = (data ?? []) as Row[];
+      rows.push(...page);
+      if (rows.length >= MAP_EVENT_CAP) {
+        truncated = page.length === 1000;
+        break;
+      }
+      if (page.length < 1000) break;
+      afterId = page[page.length - 1].id;
+    }
+
+    const items = rows
+      .slice(0, MAP_EVENT_CAP)
+      .map((row): EventMapItem => {
+        const startDay = localDateKey(row.start_at, row.timezone || "Europe/Berlin");
+        const affiliate = buildAffiliateDeeplink(row.ticket_url);
+        return {
+          id: row.id,
+          title: normalizePlannerEventTitle(row.title),
+          category: row.category,
+          categoryLabel: plannerEventLabel(row.category as PlannerEventCategory),
+          group: eventMapGroupFor(row.category),
+          startMs: new Date(row.start_at).getTime(),
+          endMs: row.end_at ? new Date(row.end_at).getTime() : null,
+          startDay,
+          endDay: row.end_at ? localDateKey(row.end_at, row.timezone || "Europe/Berlin") : startDay,
+          whenLabel: mapWhenLabel(row),
+          venueName: row.venue_name,
+          venueAddress: row.venue_address,
+          lat: typeof row.lat === "number" ? row.lat : null,
+          lng: typeof row.lng === "number" ? row.lng : null,
+          ticketUrl: affiliate?.url ?? row.ticket_url,
+          // Quellen-Attribution: Ticketmaster verlangt, als Quelle erkennbar zu
+          // sein — der Name gehört an den Link, wie auf der Detailseite.
+          ticketLabel: row.ticket_url
+            ? affiliate
+              ? `Tickets bei ${affiliate.provider}`
+              : row.source === "ticketmaster"
+                ? "Tickets bei Ticketmaster"
+                : "Tickets"
+            : null,
+          ticketSponsored: Boolean(affiliate),
+          sourceUrl: row.source_url && row.source_url !== row.ticket_url ? row.source_url : null,
+        };
+      })
+      .sort((a, b) => a.startMs - b.startMs);
+
+    return { items, truncated, queriedAtMs: now.getTime() };
+  } catch (err) {
+    console.error("[around-event] Karte fehlgeschlagen:", err);
+    return { items: [], truncated: false, queriedAtMs: now.getTime() };
+  }
+});
 
 export type EventSitemapEntry = {
   citySlug: string;

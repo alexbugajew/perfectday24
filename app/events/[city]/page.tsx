@@ -102,6 +102,9 @@ export default async function CityEventsPage({
           Wähle eine Veranstaltung — wir zeigen dir, was davor und danach in
           Laufnähe passt, und bauen daraus auf Wunsch einen kompletten Tag.
         </p>
+        <Link href={`/events/${city}/karte`} className="pd24-btn pd24-btn-sm pd24-btn-secondary mt-4">
+          Auf der Karte ansehen
+        </Link>
       </header>
 
       <div className="mb-8">
