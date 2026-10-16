@@ -10,6 +10,7 @@
 import { berlinInstant, berlinToday, parseYmd } from "../berlin-time";
 import { isOpenAt } from "../opening-hours";
 import type { PlanMode, PlanningContext, ScoredLocation, SlotDefinition } from "../types";
+import { familyLimitsForContext } from "./family-time";
 
 // Typische Uhrzeit pro Slot-Kind. Wird ggf. durch planMode/dayStartMin verschoben.
 const KIND_HOUR: Record<string, number> = {
@@ -48,17 +49,36 @@ function slotTypicalHour(slot: SlotDefinition, mode: PlanMode, dayStartHour: num
   return Math.max(dayStartHour, kindHour);
 }
 
+/**
+ * Familien-Abend: Slots verteilen sich gleichmäßig über das Familienfenster
+ * (family-age.ts). Mit den pauschalen 19/21 Uhr des Abend-Modus würde ein
+ * 15-Uhr-Stop gegen 21 Uhr geprüft — Orte, die um 18 Uhr schließen, fielen
+ * grundlos raus. Orte ganz ohne opening_hours_raw (z. B. LEGOLAND Discovery
+ * Centre Berlin) lässt der Filter weiter durch; dort greift die Kappung in
+ * capStopsAtFamilyLimit.
+ */
+function familyEveningSlotMinutes(slot: SlotDefinition, context: PlanningContext): number | null {
+  const limits = familyLimitsForContext(context);
+  if (!limits) return null;
+  const slotCount = Math.max(1, context.slotTemplate.length);
+  const position = Math.max(0, context.slotTemplate.findIndex((s) => s.index === slot.index));
+  const windowMin = Math.max(60, limits.latestEndMin - limits.eveningStartMin);
+  return limits.eveningStartMin + Math.round(((position + 0.5) / slotCount) * windowMin);
+}
+
 function slotTypicalDate(
   slot: SlotDefinition,
   mode: PlanMode,
   context: PlanningContext
 ): Date {
   const dayStartHour = context.dayStartMin ? Math.floor(context.dayStartMin / 60) : 10;
-  const hour = slotTypicalHour(slot, mode, dayStartHour);
+  const minutes =
+    (mode === "evening" ? familyEveningSlotMinutes(slot, context) : null) ??
+    slotTypicalHour(slot, mode, dayStartHour) * 60;
 
   // Wandzeit meint Europe/Berlin — nicht die Server-Zeitzone (Vercel = UTC).
   const ymd = parseYmd(context.planDate) ?? berlinToday();
-  return berlinInstant(ymd, hour * 60);
+  return berlinInstant(ymd, minutes);
 }
 
 /**

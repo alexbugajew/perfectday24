@@ -170,8 +170,14 @@ export function buildPlanningContext(request: PlannerRequest): PlanningContext {
       lat: request.startPoint.lat,
       lng: request.startPoint.lng,
     },
+    planMode: request.planMode,
     timeBudgetMin: timeBudgetForMode(request.planMode),
-    preferredDaytimes: preferredDaytimesForMode(request.planMode),
+    // Familien-„Abend" ist später Nachmittag plus frühes Abendessen (Grenzen
+    // in family-age.ts) — "night" würde Bars und Spätevents nach vorn holen.
+    preferredDaytimes:
+      request.occasion === "family" && request.planMode === "evening"
+        ? ["midday", "evening"]
+        : preferredDaytimesForMode(request.planMode),
     mergedInterests: merged,
     interestWeights: weights,
     groupSignals,

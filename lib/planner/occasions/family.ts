@@ -1185,27 +1185,33 @@ export function buildFamilySlotTemplate(
   }
 
   if (planMode === "evening") {
+    // Familien-„Abend" läuft vom späten Nachmittag bis zur Altersgrenze
+    // (family-age.ts, z. B. 15–19 Uhr bei 4–10 Jahren). Deshalb erst das
+    // Erlebnis, dann das frühe Abendessen — „Frühes Essen" als erster Stop
+    // lag sonst um 15 Uhr. Das Label enthält „Abendessen", damit
+    // optimizeRoute die Mahlzeit nicht hinter den Ausklang tauscht.
+    const youngBand = band === "0_6" || band === "4_10";
     return [
       {
         index: 0,
-        kind: "lunch",
-        label: "Frühes Essen",
-        hint: "Einfacher Essens-Stop ohne langes Warten",
-        phase: "pause",
-        phaseGoal: "Energie stabil halten und Überforderung vermeiden",
-      },
-      {
-        index: 1,
         kind: "activity",
-        label: "Leichte Aktivität",
+        label: youngBand ? "Nachmittags-Highlight" : "Leichte Aktivität",
         hint:
           band === "12_16"
             ? "Kino, Spot oder ruhiger Szene-Ort"
             : band === "9_14"
-              ? "Kleine Challenge oder interaktiver Abend-Stop"
+              ? "Kleine Challenge oder interaktiver Stop"
               : "Kleines Highlight mit geringer Reibung",
         phase: "light_activity",
-        phaseGoal: "Etwas Schönes erleben, aber rechtzeitig runterfahren",
+        phaseGoal: "Etwas Schönes erleben, solange die Energie noch da ist",
+      },
+      {
+        index: 1,
+        kind: "dinner",
+        label: "Frühes Abendessen",
+        hint: "Einfacher, kinderfreundlicher Essens-Stop ohne langes Warten",
+        phase: "pause",
+        phaseGoal: "Rechtzeitig essen, bevor Müdigkeit und Hunger Stress machen",
       },
       {
         index: 2,
@@ -1213,7 +1219,7 @@ export function buildFamilySlotTemplate(
         label: "Ruhiger Ausklang",
         hint: "Kurzer Spaziergang / Spielbereich / einfacher Abschluss",
         phase: "wind_down",
-        phaseGoal: "Positiv und ruhig beenden",
+        phaseGoal: "Positiv und ruhig beenden, rechtzeitig vor dem Zubettgehen",
       },
     ];
   }

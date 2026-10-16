@@ -272,6 +272,11 @@ export type PlanningContext = {
     lat: number | null;
     lng: number | null;
   };
+  /**
+   * Gewähltes Tagesfenster. Optional, weil ältere gespeicherte Kontexte es
+   * nicht kennen; der Planner leitet es sonst aus preferredDaytimes ab.
+   */
+  planMode?: PlanMode;
   timeBudgetMin: number;
   preferredDaytimes: Array<"morning" | "midday" | "evening" | "night">;
   mergedInterests: string[];

@@ -5,6 +5,8 @@ import type { PlannedStop } from "@/lib/planner";
 import { generateAiPlan, FreeLimitReachedError } from "@/lib/ai-planner/client";
 import UpgradeModal from "@/components/premium/UpgradeModal";
 import { formatPlannerTime } from "./helpers";
+import { familyTimeLimits, formatClockMinutes } from "@/lib/planner/family-age";
+import type { FamilyAgeBand } from "@/lib/planner/types";
 
 export type AiPlanContext = {
   citySlug: string | null;
@@ -18,6 +20,7 @@ export type AiPlanContext = {
   interests?: string[];
   stopsCount?: number;
   familyAgeBand?: string | null;
+  planMode?: string | null;
   groupEnabled?: boolean;
   groupSize?: number;
 };
@@ -42,6 +45,13 @@ const OCCASION_LABELS: Record<string, string> = {
   work: "Business",
 };
 
+const PLAN_MODE_LABELS: Record<string, string> = {
+  morning: "Vormittag",
+  midday: "Mittag",
+  evening: "Abend",
+  fullday: "Ganzer Tag",
+};
+
 const EXAMPLE_PROMPTS = [
   "Date-Abend mit Konzert und Drinks danach",
   "Familientag mit Museum, Park und kinderfreundlichem Lunch",
@@ -62,6 +72,7 @@ export default function AiPlanModal({
   interests,
   stopsCount,
   familyAgeBand,
+  planMode,
   groupEnabled,
   groupSize,
   onClose,
@@ -160,6 +171,7 @@ export default function AiPlanModal({
         interests: interests && interests.length > 0 ? interests : undefined,
         stopsCount,
         familyAgeBand: familyAgeBand ?? undefined,
+        planMode: planMode ?? undefined,
         groupEnabled,
         groupSize,
         signal: ac.signal,
@@ -254,6 +266,13 @@ export default function AiPlanModal({
                 if (startPointLabel) chips.push(`ab ${startPointLabel}`);
                 if (occasion) chips.push(`Anlass: ${OCCASION_LABELS[occasion] ?? occasion}`);
                 if (familyAgeBand && occasion === "family") chips.push(`Alter: ${familyAgeBand}`);
+                if (planMode && PLAN_MODE_LABELS[planMode]) chips.push(PLAN_MODE_LABELS[planMode]);
+                // Die Familiengrenze sichtbar machen — der Server hält sie hart ein.
+                if (occasion === "family") {
+                  chips.push(
+                    `bis ${formatClockMinutes(familyTimeLimits(familyAgeBand as FamilyAgeBand | null).latestEndMin)} Uhr`
+                  );
+                }
                 if (interests && interests.length > 0) chips.push(`${interests.length} Interesse${interests.length === 1 ? "" : "n"}`);
                 if (typeof stopsCount === "number" && stopsCount > 0) chips.push(`${stopsCount} Stops`);
                 if (planDate) chips.push(planDate);

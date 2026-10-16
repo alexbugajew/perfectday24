@@ -2666,6 +2666,7 @@ function PlannerPageContent() {
         interests={interests}
         stopsCount={stopsCount}
         familyAgeBand={occasion === "family" ? familyAgeBand : null}
+        planMode={planMode}
         groupEnabled={groupEnabled}
         groupSize={groupEnabled ? groupMembers.length + 1 : undefined}
         onClose={() => setShowAiModal(false)}

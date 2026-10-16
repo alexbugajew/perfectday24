@@ -2,17 +2,26 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import {
+  buildPlanningContext,
+  buildPlanVariants,
   classify,
+  familyTimeLimits,
+  formatClockMinutes,
   generatePlan,
   isConcretePlannerEventRow,
   localDateKey,
+  MAX_RETRIEVAL_CANDIDATES_API,
   plannerEventCategoriesForExperienceMode,
   plannerEventIsActive,
   plannerEventToLocationRow,
+  retrieveCandidates,
+  scoreCandidatesWithRelaxation,
   sortPlannerEventsForPlanning,
 } from "../lib/planner";
+import { berlinInstant, berlinMinutesOfDay, berlinToday, parseYmd } from "../lib/planner/berlin-time";
 import type {
   ExperienceMode,
+  FamilyAgeBand,
   LocationRow,
   OccasionKey,
   PlannerEventRow,
@@ -51,11 +60,18 @@ type CoreRegressionCase = {
   planDate: string;
   occasion: OccasionKey;
   experienceMode: ExperienceMode;
-  planMode: "midday" | "evening";
+  planMode: "midday" | "evening" | "fullday";
   routeProfile: RouteProfile;
+  /** Nur Familienfälle — dann greift der Zeitgrenzen-Guardrail statt der Event-Guardrails. */
+  familyAgeBand?: FamilyAgeBand;
 };
 
 type StopSnapshot = {
+  /** Variante (nur Familienfälle, dort werden alle Varianten geprüft). */
+  variant?: string;
+  /** Berliner Wandzeit "HH:MM". */
+  start: string | null;
+  end: string | null;
   label: string;
   name: string | null;
   category: string | null;
@@ -94,7 +110,7 @@ type CaseReport = {
   guardrails: GuardrailResult;
 };
 
-const EXPECTED_CASE_COUNT = 9;
+const EXPECTED_CASE_COUNT = 12;
 
 function loadEnvFile(path: string) {
   const text = readFileSync(path, "utf8");
@@ -342,6 +358,43 @@ function buildCases(): CoreRegressionCase[] {
       planMode: "midday",
       routeProfile: "public_transit",
     },
+    // Familien-Zeitgrenzen (Praxisfall 15.10.2026: Familientag Berlin, Kinder
+    // 4–10, „Abend" → Plan 18:00–22:23, bzw. 08:32-Frühstück vor einem
+    // 10-Uhr-Event). event_visit, weil an fast jedem Tag Erwachsenen-Events
+    // ab 19 Uhr in der DB liegen — genau die Falle.
+    {
+      id: "berlin-family-evening",
+      title: "Berlin / family 4-10 / event_visit / evening",
+      citySlug: "berlin-berlin",
+      planDate: "2026-10-17",
+      occasion: "family",
+      experienceMode: "event_visit",
+      planMode: "evening",
+      routeProfile: "car",
+      familyAgeBand: "4_10",
+    },
+    {
+      id: "berlin-family-fullday",
+      title: "Berlin / family 4-10 / event_visit / fullday",
+      citySlug: "berlin-berlin",
+      planDate: "2026-10-17",
+      occasion: "family",
+      experienceMode: "event_visit",
+      planMode: "fullday",
+      routeProfile: "car",
+      familyAgeBand: "4_10",
+    },
+    {
+      id: "muenchen-family-evening",
+      title: "Muenchen / family 4-10 / event_visit / evening",
+      citySlug: "muenchen",
+      planDate: "2026-10-17",
+      occasion: "family",
+      experienceMode: "event_visit",
+      planMode: "evening",
+      routeProfile: "car",
+      familyAgeBand: "4_10",
+    },
   ];
 }
 
@@ -485,13 +538,22 @@ async function resolvePlanDate(
   return localDateKey(row.start_at, row.timezone);
 }
 
-function toStopSnapshot(stop: PlannedStop): StopSnapshot {
+function berlinClock(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const date = new Date(value);
+  return Number.isFinite(date.getTime()) ? formatClockMinutes(berlinMinutesOfDay(date)) : null;
+}
+
+function toStopSnapshot(stop: PlannedStop, variant?: string): StopSnapshot {
   const sourceRefs =
     stop.item?.source_refs && typeof stop.item.source_refs === "object"
       ? (stop.item.source_refs as Record<string, unknown>)
       : null;
 
   return {
+    ...(variant ? { variant } : {}),
+    start: berlinClock(stop.scheduledStartAt),
+    end: berlinClock(stop.scheduledEndAt),
     label: stop.label,
     name: stop.item?.name ?? null,
     category: stop.item ? classify(stop.item) : null,
@@ -596,6 +658,76 @@ function evaluateGuardrails(
   };
 }
 
+/**
+ * Familien-Guardrail: In KEINER Variante (auch nicht „Entspannter
+ * Familientag") darf ein Stop nach der Altersgrenze enden oder ein Event nach
+ * der Event-Grenze beginnen. Im Abendfenster darf kein Stop vor dem
+ * Familienfenster liegen — das war der 08:32-„Frühes Essen"-Fall.
+ */
+function evaluateFamilyTimeGuardrails(
+  testCase: CoreRegressionCase,
+  variants: Array<{ variantId: string; stops: PlannedStop[] }>
+): GuardrailResult {
+  const failures: string[] = [];
+  const skipped: string[] = [];
+  const limits = familyTimeLimits(testCase.familyAgeBand ?? null);
+  const planYmd = parseYmd(testCase.planDate) ?? berlinToday();
+  const latestEndAt = berlinInstant(planYmd, limits.latestEndMin).getTime();
+  const earliestStartAt = berlinInstant(
+    planYmd,
+    testCase.planMode === "evening" ? limits.eveningStartMin - 60 : 7 * 60
+  ).getTime();
+  const limitLabel = formatClockMinutes(limits.latestEndMin);
+
+  if (variants.length === 0) failures.push("keine Varianten erzeugt");
+
+  for (const variant of variants) {
+    const filled = variant.stops.filter((stop) => stop.item);
+    if (filled.length < 2) {
+      failures.push(`${variant.variantId}: weniger als zwei gefüllte Stops`);
+    }
+
+    for (const stop of variant.stops) {
+      const name = stop.item?.name ?? "[leer]";
+      const start = stop.scheduledStartAt ? new Date(stop.scheduledStartAt).getTime() : null;
+      const end = stop.scheduledEndAt ? new Date(stop.scheduledEndAt).getTime() : null;
+
+      if (end != null && end > latestEndAt) {
+        failures.push(
+          `${variant.variantId}: „${name}" endet ${berlinClock(stop.scheduledEndAt)} — nach der Familiengrenze ${limitLabel}`
+        );
+      }
+      if (start != null && start < earliestStartAt) {
+        failures.push(
+          `${variant.variantId}: „${name}" beginnt ${berlinClock(stop.scheduledStartAt)} — vor dem Familienfenster`
+        );
+      }
+
+      const refs =
+        stop.item?.source_refs && typeof stop.item.source_refs === "object"
+          ? (stop.item.source_refs as Record<string, unknown>)
+          : null;
+      const eventStart =
+        stop.item?.source_primary === "planner_event" && typeof refs?.startsAt === "string"
+          ? new Date(refs.startsAt)
+          : null;
+      if (
+        eventStart &&
+        Number.isFinite(eventStart.getTime()) &&
+        berlinMinutesOfDay(eventStart) > limits.latestEventStartMin
+      ) {
+        failures.push(
+          `${variant.variantId}: Event „${name}" beginnt ${formatClockMinutes(
+            berlinMinutesOfDay(eventStart)
+          )} — nach ${formatClockMinutes(limits.latestEventStartMin)}`
+        );
+      }
+    }
+  }
+
+  return { passed: failures.length === 0, failures, skipped };
+}
+
 async function runCase(
   supabase: ReturnType<typeof getSupabaseAdmin>,
   testCase: CoreRegressionCase,
@@ -613,10 +745,14 @@ async function runCase(
     occasion: testCase.occasion,
     experienceMode: testCase.experienceMode,
     eventStrictness: testCase.experienceMode === "show" ? "required" : "hybrid",
+    familyAgeBand: testCase.familyAgeBand ?? null,
+    // Familien bekommen ihre Interessen aus dem Altersband (context.ts).
     interests:
-      testCase.experienceMode === "market_festival"
-        ? ["market", "festival", "street food", "local"]
-        : ["live music", "theater", "musical", "culture"],
+      testCase.occasion === "family"
+        ? []
+        : testCase.experienceMode === "market_festival"
+          ? ["market", "festival", "street food", "local"]
+          : ["live music", "theater", "musical", "culture"],
     group: { enabled: false, members: [] },
     stopsCount: 3,
     sortMode: "match",
@@ -629,18 +765,41 @@ async function runCase(
     loadActiveEventLocations(supabase, testCase),
   ]);
 
-  const result = generatePlan({
-    request,
-    locations: [...locations, ...eventBundle.locations],
-  });
+  const allLocations = [...locations, ...eventBundle.locations];
+  const result = generatePlan({ request, locations: allLocations });
 
-  const plannedStops = result.plannedStops.map(toStopSnapshot);
-  const guardrails = evaluateGuardrails(
-    testCase,
-    plannedStops,
-    eventBundle.rows.length,
-    eventBundle.usableRows.length
-  );
+  let plannedStops = result.plannedStops.map((stop) => toStopSnapshot(stop));
+  let guardrails: GuardrailResult;
+
+  if (testCase.occasion === "family") {
+    // Dieselbe Pipeline wie /api/planner/generate — der Nutzer sieht alle
+    // Varianten, die gemeldete war „Entspannter Familientag" (shortest_route).
+    const context = buildPlanningContext(request);
+    const retrieval = retrieveCandidates({
+      locations: allLocations,
+      context,
+      maxCandidates: MAX_RETRIEVAL_CANDIDATES_API,
+    });
+    const scoring = scoreCandidatesWithRelaxation({ context, candidates: retrieval.candidates });
+    const variants = buildPlanVariants({
+      context,
+      candidates: scoring.results,
+      planMode: testCase.planMode,
+    }).map((variant) => ({ variantId: variant.variantId, stops: variant.plannedStops }));
+    variants.unshift({ variantId: "generate-plan", stops: result.plannedStops });
+
+    plannedStops = variants.flatMap((variant) =>
+      variant.stops.map((stop) => toStopSnapshot(stop, variant.variantId))
+    );
+    guardrails = evaluateFamilyTimeGuardrails(testCase, variants);
+  } else {
+    guardrails = evaluateGuardrails(
+      testCase,
+      plannedStops,
+      eventBundle.rows.length,
+      eventBundle.usableRows.length
+    );
+  }
 
   return {
     id: testCase.id,
@@ -691,8 +850,10 @@ function buildMarkdownReport(reports: CaseReport[]) {
     lines.push("");
     lines.push("Planned stops:");
     for (const stop of report.plannedStops) {
+      const time = stop.start ? `${stop.start}–${stop.end ?? "?"} ` : "";
+      const variant = stop.variant ? `[${stop.variant}] ` : "";
       lines.push(
-        `- ${stop.label}: ${stop.name ?? "[empty]"} | ${stop.source ?? "n/a"} | ${stop.category ?? "n/a"}`
+        `- ${variant}${time}${stop.label}: ${stop.name ?? "[empty]"} | ${stop.source ?? "n/a"} | ${stop.category ?? "n/a"}`
       );
     }
     lines.push("");

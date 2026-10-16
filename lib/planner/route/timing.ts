@@ -1,6 +1,8 @@
 import { ROUTE_BUFFER_FULLDAY_MIN, ROUTE_BUFFER_PARTIALDAY_MIN } from "../constants";
 import { berlinInstant, berlinMinutesOfDay, berlinToday, parseYmd } from "../berlin-time";
 import { classify, hasSubtype } from "../features";
+import { familyEventVisitEnd } from "../family-age";
+import { capStopsAtFamilyLimit, familyLimitsForContext } from "./family-time";
 import type {
   PlanMode,
   PlannedStop,
@@ -153,10 +155,16 @@ export function maxSegmentTravelMin(
   return 50;
 }
 
-function planStartMinutes(planMode: PlanMode, occasion?: string) {
+function planStartMinutes(
+  planMode: PlanMode,
+  occasion?: string,
+  familyEveningStartMin?: number | null
+) {
   if (planMode === "morning") return 9 * 60;
   if (planMode === "midday") return 11 * 60;   // 11:00 — komfortabler Mittagsstart
-  if (planMode === "evening") return 18 * 60;
+  // Familien-„Abend" beginnt am Nachmittag, damit der Plan vor der
+  // Altersgrenze endet (family-age.ts) — 18 Uhr hieße Ausklang um 22:30.
+  if (planMode === "evening") return familyEveningStartMin ?? 18 * 60;
   // fullday – occasion-aware default as a secondary safeguard
   if (occasion === "date" || occasion === "friends") return 17 * 60 + 30; // 17:30
   if (occasion === "family") return 11 * 60;                               // 11:00
@@ -197,6 +205,9 @@ function extractEventTiming(stop: PlannedStop) {
 function pushTimingWarning(stop: PlannedStop, warning: string) {
   stop.timingWarnings = [...(stop.timingWarnings ?? []), warning];
 }
+
+/** So weit darf ein Familien-Stop vor dem geplanten Tagesbeginn liegen. */
+const FAMILY_PRE_ANCHOR_SLACK_MIN = 30;
 
 /** Ein Einlass laengstens so lange vor Beginn gilt als plausibel. */
 const MAX_DOORS_LEAD_MIN = 240;
@@ -291,8 +302,10 @@ export function applyStopSchedule(params: {
   // konstruieren (Vercel läuft auf UTC, das verschob alle Zeiten um +2h).
   const planYmd = parseYmd(context.planDate) ?? berlinToday();
 
+  const familyLimits = familyLimitsForContext(context);
   const derivedPlanMode: PlanMode =
-    context.preferredDaytimes.includes("night") && !context.preferredDaytimes.includes("morning")
+    context.planMode ??
+    (context.preferredDaytimes.includes("night") && !context.preferredDaytimes.includes("morning")
       ? "evening"
       : context.preferredDaytimes.length === 1 && context.preferredDaytimes[0] === "midday"
         ? "midday"
@@ -300,7 +313,7 @@ export function applyStopSchedule(params: {
           ? "morning"
           : context.preferredDaytimes.includes("morning")
             ? "fullday"
-            : "evening";
+            : "evening");
 
   const requestedStartMin =
     typeof context.dayStartMin === "number" && Number.isFinite(context.dayStartMin)
@@ -308,7 +321,8 @@ export function applyStopSchedule(params: {
       : null;
   const planStart = berlinInstant(
     planYmd,
-    requestedStartMin ?? planStartMinutes(derivedPlanMode, context.occasion)
+    requestedStartMin ??
+      planStartMinutes(derivedPlanMode, context.occasion, familyLimits?.eveningStartMin ?? null)
   );
   // Minimum sensible start — never earlier than 07:00 for non-event-anchored runs.
   const earliestStartMin = 7 * 60;
@@ -326,7 +340,12 @@ export function applyStopSchedule(params: {
     const timing = extractEventTiming(anchor);
     const duration = anchor.durationMin ?? anchor.item?.duration_min ?? 90;
     const eventStart = timing.startAt;
-    const eventEnd = timing.endAt ?? (eventStart ? withMinutes(eventStart, duration) : null);
+    // Familien besuchen Zeitraum-Events (Markt 11–21 Uhr) für die Stop-Dauer,
+    // nicht bis Veranstaltungsende — sonst kappte die Altersgrenze den Rest.
+    const eventEnd =
+      familyLimits && eventStart
+        ? familyEventVisitEnd(eventStart, timing.endAt, duration)
+        : timing.endAt ?? (eventStart ? withMinutes(eventStart, duration) : null);
     const entryAt =
       plausibleDoorsAt(timing.doorsAt, eventStart) ??
       (eventStart ? withMinutes(eventStart, context.experienceMode === "show" ? -20 : -10) : null);
@@ -402,6 +421,33 @@ export function applyStopSchedule(params: {
       }
 
       anchor.timingWarnings = [];
+
+      if (familyLimits) {
+        // Familien: Stops vor einem frühen Event nicht in den Morgen drücken
+        // (Praxisfall: „Ankommen" 08:32 vor einem 10-Uhr-Event im Ganztag).
+        // Dann ist das Event selbst der Tagesauftakt.
+        const preStartFloor = withMinutes(flooredPlanStart, -FAMILY_PRE_ANCHOR_SLACK_MIN).getTime();
+        const familyStops = cloned.filter((stop, i) => {
+          if (i >= anchorIndex || !stop.scheduledStartAt) return true;
+          return new Date(stop.scheduledStartAt).getTime() >= preStartFloor;
+        });
+        const firstStart = parseIsoDate(familyStops[0]?.scheduledStartAt);
+        return capStopsAtFamilyLimit({
+          stops: annotateTimingWarnings({
+            stops: familyStops,
+            context,
+            // Ein Event als erster Stop setzt den Tagesbeginn selbst — kein
+            // „startet sehr früh"-Hinweis für ein bewusst frühes Familien-Event.
+            planStart:
+              firstStart && familyStops[0]?.timingLock === "event"
+                ? new Date(Math.min(firstStart.getTime(), flooredPlanStart.getTime()))
+                : flooredPlanStart,
+          }),
+          context,
+          planYmd,
+        });
+      }
+
       return annotateTimingWarnings({
         stops: cloned,
         context,
@@ -441,9 +487,13 @@ export function applyStopSchedule(params: {
     capped = capped.slice(0, -1);
   }
 
-  return annotateTimingWarnings({
-    stops: capped,
+  return capStopsAtFamilyLimit({
+    stops: annotateTimingWarnings({
+      stops: capped,
+      context,
+      planStart: flooredPlanStart,
+    }),
     context,
-    planStart: flooredPlanStart,
+    planYmd,
   });
 }
