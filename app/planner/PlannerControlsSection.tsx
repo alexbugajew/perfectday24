@@ -11,6 +11,8 @@ import MonetizedExternalLink from "@/components/monetization/MonetizedExternalLi
 import type { PublicAffiliateResolution } from "@/lib/monetization/affiliate-shared";
 import {
   FAMILY_AGE_BAND_OPTIONS,
+  familyTimeLimits,
+  formatClockMinutes,
   getInterestCatalog,
   norm,
   type EvaluationMode,
@@ -694,7 +696,12 @@ export default function PlannerControlsSection({
                   <select value={planMode} onChange={(e) => setPlanMode(e.target.value as PlanMode)} className="mt-2 w-full bg-transparent text-base font-medium text-[var(--text-strong)] outline-none">
                     <option value="morning">Vormittag</option>
                     <option value="midday">Mittag</option>
-                    <option value="evening">Abend</option>
+                    <option value="evening">
+                      {/* Familien-„Abend" endet an der Altersgrenze (family-age.ts) — das soll man vor dem Planen sehen. */}
+                      {occasion === "family"
+                        ? `Später Nachmittag (bis ${formatClockMinutes(familyTimeLimits(familyAgeBand).latestEndMin)} Uhr)`
+                        : "Abend"}
+                    </option>
                     <option value="fullday">Ganzer Tag</option>
                   </select>
                 </label>

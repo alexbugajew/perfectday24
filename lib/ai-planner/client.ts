@@ -90,6 +90,8 @@ export async function generateAiPlan(params: {
   interests?: string[];
   stopsCount?: number;
   familyAgeBand?: string;
+  /** Tagesfenster des Planners — der Server leitet daraus u. a. die Familiengrenzen ab. */
+  planMode?: string;
   groupEnabled?: boolean;
   groupSize?: number;
   signal?: AbortSignal;
@@ -117,6 +119,7 @@ export async function generateAiPlan(params: {
       interests: params.interests,
       stopsCount: params.stopsCount,
       familyAgeBand: params.familyAgeBand,
+      planMode: params.planMode,
       groupEnabled: params.groupEnabled,
       groupSize: params.groupSize,
     }),

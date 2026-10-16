@@ -10,11 +10,36 @@
 
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-import { AI_PLANNER_TOOLS, callTool, type ToolName, type AiCandidate } from "@/lib/ai-planner/tools";
+import {
+  AI_PLANNER_TOOLS,
+  callTool,
+  type AiToolContext,
+  type ToolName,
+  type AiCandidate,
+} from "@/lib/ai-planner/tools";
 import { createClient } from "@supabase/supabase-js";
 import { getUserPremiumStatus, FREE_AI_PLANS_PER_MONTH } from "@/lib/premium/limits";
 import { isOpenAt } from "@/lib/planner/opening-hours";
 import { normalizePlannerEventTitle } from "@/lib/planner/events";
+import {
+  berlinInstant,
+  berlinMinutesOfDay,
+  berlinParts,
+  berlinToday,
+  parseYmd,
+  type BerlinYmd,
+} from "@/lib/planner/berlin-time";
+import {
+  DEFAULT_FAMILY_AGE_BAND,
+  familyAgeBandShortLabel,
+  familyEarliestEventStartMin,
+  familyTimeLimits,
+  familyTimeRuleText,
+  formatClockMinutes,
+  resolveFamilyAgeBand,
+  type FamilyTimeLimits,
+} from "@/lib/planner/family-age";
+import type { FamilyAgeBand, PlanMode } from "@/lib/planner/types";
 import { getRequestUserId } from "@/lib/security/session";
 import { enforceRateLimit, RATE_RULES } from "@/lib/security/rate-limit";
 
@@ -74,6 +99,15 @@ Sonstiges:
 - Zeitfenster realistisch: Wege ~15 Min zwischen Stops, Essen 60-90 Min, Kultur 90-120 Min, Event laut Event-Zeit.
 - Stops in chronologischer Reihenfolge.
 
+Uhrzeiten (KRITISCH):
+- Alle Uhrzeiten sind Berliner Ortszeit. scheduled_start_at IMMER als Ortszeit im Format YYYY-MM-DDTHH:MM, ohne "Z" und ohne Zeitzone.
+- Bei Events scheduled_start_at = event_start_local aus dem find_event-Ergebnis.
+- Das "Tagesfenster" aus den Constraints ist der Rahmen des Plans, außer der Wunsch nennt ausdrücklich andere Uhrzeiten.
+
+Familie (KRITISCH, gilt immer):
+- Wenn eine "Familien-Zeitregel" angegeben ist, ist sie eine harte Grenze: Kein Stop endet danach, kein Event beginnt danach. Lieber weniger Stops als zu späte.
+- Keine Abendprogramme für Erwachsene (Comedy, Clubs, Bars, Partys, Spätkonzerte). find_nightlife bei Familie nicht verwenden.
+
 Öffnungszeiten (KRITISCH):
 - Tool-Returns enthalten "opening_hours" pro Kandidat (Format: OSM z.B. "Mo-Fr 11:00-15:00,17:00-23:00" oder "24/7").
 - Vor jedem Stop pruefe die opening_hours gegen die geplante scheduled_start_at.
@@ -85,7 +119,7 @@ Sonstiges:
 
 Anlass-Voice + Vibe-Tag-Mapping (für requireTags im Tool-Call):
 - Date: romantisch, intim → requireTags: ["romantic","date-friendly","intimate","refined"]
-- Familie: kinderfreundlich, kürzere Wege → requireTags: ["family-friendly","kid-friendly","outdoor"]
+- Familie: kinderfreundlich, kürzere Wege, früher Tagesabschluss → requireTags: ["family-friendly","kid-friendly","outdoor"]
 - Freunde: gesellig, mix → requireTags: ["lively","group-friendly","casual"]
 - Tourismus: Highlights, must-see → requireTags: ["tourist-classic","iconic","view"]
 - Party: spätstart, eskalierend → requireTags: ["late-night","lively","iconic"]
@@ -98,7 +132,81 @@ Startpunkt-Regel:
 - Sonst bevorzuge Stops, die nah am angegebenen Startpunkt liegen (idealerweise <5 km Luftlinie).
 - Erster Stop sollte zeitlich/räumlich gut von dort erreichbar sein.`;
 
-async function resolveStopsFromDb(stops: AiStopPlan[]): Promise<ResolvedStop[]> {
+const VALID_PLAN_MODES: readonly PlanMode[] = ["morning", "midday", "evening", "fullday"];
+
+function pad2(value: number) {
+  return String(value).padStart(2, "0");
+}
+
+function ymdKey(ymd: BerlinYmd) {
+  return `${ymd.year}-${pad2(ymd.month)}-${pad2(ymd.day)}`;
+}
+
+/**
+ * Uhrzeit des Modells → echter Instant. Das Modell soll Berliner Ortszeit ohne
+ * Zone liefern („2026-10-17T15:00"). Ein angehängtes „Z" oder Offset wird
+ * bewusst ignoriert: Die Ziffern meinen in der Praxis immer die Wanduhr am
+ * Ort. Vorher wurde der rohe String durchgereicht — der Browser las ihn als
+ * Ortszeit, der Server (Vercel = UTC) rechnete das Ende aber in UTC. Ein
+ * 22-Uhr-Stop endete so in der Anzeige um 01:30.
+ */
+function berlinInstantFromModelTime(raw: string | null | undefined, planYmd: BerlinYmd): Date | null {
+  if (typeof raw !== "string") return null;
+  const match = /(?:(\d{4})-(\d{2})-(\d{2})[T ])?(\d{1,2}):(\d{2})/.exec(raw.trim());
+  if (!match) return null;
+  const ymd: BerlinYmd = match[1]
+    ? { year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) }
+    : planYmd;
+  const hour = Number(match[4]);
+  const minute = Number(match[5]);
+  if (hour > 23 || minute > 59) return null;
+  return berlinInstant(ymd, hour * 60 + minute);
+}
+
+function planModeWindowText(planMode: PlanMode, family: FamilyTimeLimits | null): string {
+  if (planMode === "morning") return "Vormittag (ca. 09:00–12:30)";
+  if (planMode === "midday") return "Mittag (ca. 11:00–17:00)";
+  if (planMode === "evening") {
+    return family
+      ? `später Nachmittag bis früher Abend (ca. ${formatClockMinutes(family.eveningStartMin)}–${formatClockMinutes(family.latestEndMin)})`
+      : "Abend (ab ca. 18:00)";
+  }
+  return family
+    ? `Ganzer Tag (ca. 10:00–${formatClockMinutes(family.latestEndMin)})`
+    : "Ganzer Tag";
+}
+
+/**
+ * Stops, die gegen die Familiengrenze verstoßen: Ende nach der Altersgrenze
+ * (oder am Folgetag) bzw. Event-Beginn nach der Event-Grenze.
+ */
+function familyLateStops(stops: ResolvedStop[], limits: FamilyTimeLimits): ResolvedStop[] {
+  return stops.filter((stop) => {
+    const start = stop.scheduledStartAt ? new Date(stop.scheduledStartAt) : null;
+    if (!start || !Number.isFinite(start.getTime())) return false;
+    const startDay = berlinParts(start);
+    const limitAt = berlinInstant(startDay, limits.latestEndMin).getTime();
+    const end = stop.scheduledEndAt ? new Date(stop.scheduledEndAt) : null;
+    if (end && Number.isFinite(end.getTime()) && end.getTime() > limitAt) return true;
+    if (start.getTime() >= limitAt) return true;
+    return stop.source === "event" && berlinMinutesOfDay(start) > limits.latestEventStartMin;
+  });
+}
+
+function stopListText(stops: ResolvedStop[]) {
+  return stops
+    .map((stop) => {
+      const start = stop.scheduledStartAt ? new Date(stop.scheduledStartAt) : null;
+      const clock =
+        start && Number.isFinite(start.getTime())
+          ? formatClockMinutes(berlinMinutesOfDay(start))
+          : "?";
+      return `${stop.itemName} (${clock})`;
+    })
+    .join(", ");
+}
+
+async function resolveStopsFromDb(stops: AiStopPlan[], planYmd: BerlinYmd): Promise<ResolvedStop[]> {
   if (stops.length === 0) return [];
   const sb = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -125,7 +233,7 @@ async function resolveStopsFromDb(stops: AiStopPlan[]): Promise<ResolvedStop[]> 
           // antwortete mit 42703, der Fehler wurde nicht geprueft, evMap blieb
           // leer und JEDER Event-Stop fiel unten aus dem Plan. starts_at/ends_at
           // werden hier ohnehin nicht gelesen und entfallen deshalb ganz.
-          .select("id,name:title,category,lat,lng")
+          .select("id,name:title,category,lat,lng,start_at,end_at")
           .in("id", eventIds)
       : Promise.resolve({ data: [] as Array<Record<string, unknown>>, error: null }),
   ]);
@@ -151,12 +259,16 @@ async function resolveStopsFromDb(stops: AiStopPlan[]): Promise<ResolvedStop[]> 
     const row = isEvent ? evMap.get(s.location_id) : locMap.get(s.location_id);
     if (!row) continue;
 
-    const start = s.scheduled_start_at ?? null;
-    const duration = s.duration_min ?? 60;
-    const end =
-      start && Number.isFinite(new Date(start).getTime())
-        ? new Date(new Date(start).getTime() + duration * 60_000).toISOString()
+    // Events beginnen, wann sie laut Datenbank beginnen — nicht, wann das
+    // Modell sie hingeschrieben hat.
+    const eventStart =
+      isEvent && typeof row.start_at === "string" && Number.isFinite(new Date(row.start_at).getTime())
+        ? new Date(row.start_at)
         : null;
+    const startDate = eventStart ?? berlinInstantFromModelTime(s.scheduled_start_at, planYmd);
+    const duration = s.duration_min ?? 60;
+    const start = startDate ? startDate.toISOString() : null;
+    const end = startDate ? new Date(startDate.getTime() + duration * 60_000).toISOString() : null;
 
     resolved.push({
       index: i + 1,
@@ -207,6 +319,9 @@ export async function POST(req: Request) {
       : [];
     const stopsCount = typeof body?.stopsCount === "number" ? Math.max(2, Math.min(8, body.stopsCount)) : null;
     const familyAgeBand = typeof body?.familyAgeBand === "string" ? body.familyAgeBand.trim() : "";
+    const planMode: PlanMode | null = VALID_PLAN_MODES.includes(body?.planMode)
+      ? (body.planMode as PlanMode)
+      : null;
     const groupEnabled = body?.groupEnabled === true;
     const groupSize = typeof body?.groupSize === "number" ? body.groupSize : null;
 
@@ -243,13 +358,32 @@ export async function POST(req: Request) {
       }
     }
 
+    // Familiengrenzen gelten auch ohne mitgeschicktes Altersband — dann mit
+    // dem Standardband, wie im klassischen Planner.
+    const familyBand: FamilyAgeBand | null =
+      occasion === "family" ? resolveFamilyAgeBand(familyAgeBand) ?? DEFAULT_FAMILY_AGE_BAND : null;
+    const familyLimits = familyBand ? familyTimeLimits(familyBand) : null;
+    const planYmd = parseYmd(planDate) ?? berlinToday();
+    const toolContext: AiToolContext = {
+      family: familyLimits
+        ? {
+            limits: familyLimits,
+            earliestEventStartMin: familyEarliestEventStartMin(familyLimits, planMode),
+          }
+        : null,
+    };
+
     const userLines: string[] = [
       `Stadt: ${citySlug}`,
-      `Datum: ${planDate || "(heute)"}`,
+      `Datum: ${planDate || ymdKey(planYmd)}`,
       `Budget: ${budget}`,
     ];
     if (occasion) userLines.push(`Anlass: ${occasion}`);
-    if (familyAgeBand && occasion === "family") userLines.push(`Familien-Altersband: ${familyAgeBand}`);
+    if (familyBand) {
+      userLines.push(`Familien-Altersband: Kinder ${familyAgeBandShortLabel(familyBand)}`);
+      userLines.push(`Familien-Zeitregel: ${familyTimeRuleText(familyBand)} (Berliner Ortszeit).`);
+    }
+    if (planMode) userLines.push(`Tagesfenster: ${planModeWindowText(planMode, familyLimits)}`);
     if (startPointLabel) {
       const coords =
         typeof startPointLat === "number" && typeof startPointLng === "number"
@@ -275,7 +409,47 @@ export async function POST(req: Request) {
     let totalCandidates: AiCandidate[] = [];
     const validCandidateIds = new Set<string>();
     let retriedForValidation = false;
+    // Eigene Korrekturrunde für die Familiengrenze, damit eine vorherige
+    // ID- oder Öffnungszeiten-Korrektur sie nicht verbraucht.
+    let retriedForFamilyTime = false;
+    let familyLateStopsDropped = 0;
     const TARGET_STOPS = stopsCount ?? 4;
+
+    /**
+     * Harte Nachprüfung der Familiengrenze. Erst eine Korrekturrunde, danach
+     * werden zu späte Stops serverseitig gestrichen — das Modell darf die
+     * Grenze nie durchreichen.
+     */
+    const enforceFamilyTime = (
+      resolved: ResolvedStop[]
+    ): { kind: "ok"; stops: ResolvedStop[] } | { kind: "retry"; message: string } => {
+      if (!familyLimits || !familyBand) return { kind: "ok", stops: resolved };
+      const late = familyLateStops(resolved, familyLimits);
+      if (late.length === 0) return { kind: "ok", stops: resolved };
+      if (!retriedForFamilyTime) {
+        retriedForFamilyTime = true;
+        return {
+          kind: "retry",
+          message: `Familienplan zu spät für Kinder ${familyAgeBandShortLabel(familyBand)}: ${stopListText(late)}. Regel: ${familyTimeRuleText(familyBand)}. Ersetze diese Stops durch frühere, kinderfreundliche Alternativen aus den bisherigen Tool-Returns oder lass sie weg.`,
+        };
+      }
+      const lateIds = new Set(late.map((stop) => stop.itemId));
+      familyLateStopsDropped = late.length;
+      return {
+        kind: "ok",
+        stops: resolved
+          .filter((stop) => !lateIds.has(stop.itemId))
+          .map((stop, index) => ({ ...stop, index: index + 1 })),
+      };
+    };
+    const familyEmptyPlanResponse = () =>
+      NextResponse.json(
+        {
+          error: "no family-compatible stops",
+          detail: familyBand ? familyTimeRuleText(familyBand) : null,
+        },
+        { status: 422 }
+      );
 
     const MAX_ITER = 10;
     const TOOL_BUDGET = 6; // ab dieser Iteration werden Tools gesperrt und JSON erzwungen
@@ -356,13 +530,24 @@ export async function POST(req: Request) {
           continue; // Loop läuft weiter, nächste Iteration liefert hoffentlich besseren Plan
         }
 
-        const resolved = await resolveStopsFromDb(plan.stops);
-        if (resolved.length === 0) {
+        const resolvedRaw = await resolveStopsFromDb(plan.stops, planYmd);
+        if (resolvedRaw.length === 0) {
           return NextResponse.json(
             { error: "no valid locations resolved", rawStops: plan.stops },
             { status: 500 }
           );
         }
+
+        const familyCheck = enforceFamilyTime(resolvedRaw);
+        if (familyCheck.kind === "retry") {
+          messages.push({
+            role: "user",
+            content: `${familyCheck.message}\n\nGib mir den korrigierten Plan über build_final_plan.`,
+          });
+          continue;
+        }
+        const resolved = familyCheck.stops;
+        if (resolved.length === 0) return familyEmptyPlanResponse();
 
         return NextResponse.json({
           summary: plan.summary ?? "",
@@ -373,6 +558,7 @@ export async function POST(req: Request) {
             candidatesPulled: totalCandidates.length,
             usage: completion.usage,
             retried: retriedForValidation,
+            familyLateStopsDropped,
           },
         });
       }
@@ -424,8 +610,8 @@ export async function POST(req: Request) {
           continue;
         }
 
-        const resolved = await resolveStopsFromDb(finalArgs.stops);
-        if (resolved.length === 0) {
+        const resolvedRaw = await resolveStopsFromDb(finalArgs.stops, planYmd);
+        if (resolvedRaw.length === 0) {
           return NextResponse.json(
             { error: "no valid locations resolved", rawStops: finalArgs.stops },
             { status: 500 }
@@ -435,7 +621,7 @@ export async function POST(req: Request) {
         // Post-Validation: Oeffnungszeiten. Modell weiss oft nicht ob
         // "Piccola Pizza" um 23:30 noch offen ist. Wir pruefen hier gegen
         // opening_hours_raw und schicken eine Correction-Round wenn zu.
-        const closedStops = resolved.filter((r) => {
+        const closedStops = resolvedRaw.filter((r) => {
           if (r.source === "event") return false; // Events haben starts_at, kein opening_hours-Konzept
           if (!r.scheduledStartAt) return false;
           const at = new Date(r.scheduledStartAt);
@@ -445,7 +631,8 @@ export async function POST(req: Request) {
         });
         if (closedStops.length > 0 && !retriedForValidation) {
           retriedForValidation = true;
-          const list = closedStops.map((s) => `${s.itemName} (geplant ${s.scheduledStartAt?.slice(11, 16)})`).join(", ");
+          // Uhrzeit in Ortszeit — scheduledStartAt ist seit der Normalisierung UTC.
+          const list = stopListText(closedStops);
           messages.push({
             role: "tool",
             tool_call_id: finalCall.id,
@@ -455,6 +642,20 @@ export async function POST(req: Request) {
           });
           continue;
         }
+
+        const familyCheck = enforceFamilyTime(resolvedRaw);
+        if (familyCheck.kind === "retry") {
+          messages.push({
+            role: "tool",
+            tool_call_id: finalCall.id,
+            content: JSON.stringify({
+              error: `${familyCheck.message} Ruf danach build_final_plan erneut auf.`,
+            }),
+          });
+          continue;
+        }
+        const resolved = familyCheck.stops;
+        if (resolved.length === 0) return familyEmptyPlanResponse();
 
         return NextResponse.json({
           summary: finalArgs.summary ?? "",
@@ -467,6 +668,7 @@ export async function POST(req: Request) {
             retried: retriedForValidation,
             via: "build_final_plan",
             closedStopsDropped: 0,
+            familyLateStopsDropped,
           },
         });
       }
@@ -493,7 +695,12 @@ export async function POST(req: Request) {
         }
 
         try {
-          const result = await callTool(name, args);
+          // Familien: Nachtleben ist nie ein passender Stop — leere Antwort
+          // statt Bars, damit das Modell gar nicht erst darauf baut.
+          const result =
+            familyLimits && name === "find_nightlife"
+              ? []
+              : await callTool(name, args, toolContext);
           totalCandidates = totalCandidates.concat(result);
           for (const c of result) validCandidateIds.add(c.id);
           messages.push({

@@ -40,6 +40,7 @@ import {
 import { estimateTravelMinFromKmForProfile, haversineKm } from "./travel";
 import { slotCategoryMatch } from "./slots";
 import { familyAgeBandBoost, familySlotHardReject } from "./occasions/family";
+import { filterCandidatesForFamilyTime } from "./route/family-time";
 import type {
   LocationCategory,
   PlannedStop,
@@ -1063,7 +1064,10 @@ export function constructRoute(params: {
   stopOffsets?: number[];
   variationSeed?: number;
 }): PlannedStop[] {
-  const { context, candidates, planMode, stopOffsets = [], variationSeed = 0 } = params;
+  const { context, planMode, stopOffsets = [], variationSeed = 0 } = params;
+  // Events nach der Familien-Altersgrenze (oder im Abendfenster am Vormittag)
+  // dürfen weder Anker noch Pool- oder Fallback-Stop werden.
+  const candidates = filterCandidatesForFamilyTime(context, params.candidates);
 
   const usedIds = new Set<string>();
   const usedCategories: LocationCategory[] = [];

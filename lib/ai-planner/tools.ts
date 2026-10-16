@@ -4,6 +4,8 @@
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { normalizePlannerEventTitle } from "@/lib/planner/events";
+import { berlinInstant, berlinParts, berlinToday, parseYmd } from "@/lib/planner/berlin-time";
+import { familyEventFitsTimeLimits, type FamilyTimeLimits } from "@/lib/planner/family-age";
 
 export type Daytime = "morning" | "midday" | "afternoon" | "evening" | "night";
 export type BudgetLevel = "low" | "medium" | "high" | "any";
@@ -46,6 +48,21 @@ export type AiCandidate = {
   score?: number;
   /** Curated tags, z.B. ["romantic","live-music","family-friendly"]. */
   tags?: string[];
+  /** Nur Events: Beginn/Ende als Berliner Ortszeit "YYYY-MM-DDTHH:MM". */
+  event_start_local?: string;
+  event_end_local?: string | null;
+};
+
+/**
+ * Serverseitiger Kontext für Tool-Aufrufe — kommt aus dem Request, nie aus den
+ * Tool-Argumenten des Modells, damit es die Familiengrenzen nicht aushebeln kann.
+ */
+export type AiToolContext = {
+  family?: {
+    limits: FamilyTimeLimits;
+    /** Frühester sinnvoller Event-Beginn im gewählten Tagesfenster, sonst null. */
+    earliestEventStartMin: number | null;
+  } | null;
 };
 
 function getSupabase(): SupabaseClient {
@@ -266,32 +283,68 @@ export async function findNightlife(args: {
   return applyNearAndSort((data ?? []) as LocationRow[], near(args), limit, args.requireTags);
 }
 
+function pad2(value: number) {
+  return String(value).padStart(2, "0");
+}
+
+/** Instant → "YYYY-MM-DDTHH:MM" Berliner Ortszeit (ohne Zone, für das Modell). */
+function berlinLocalIso(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return null;
+  const p = berlinParts(date);
+  return `${p.year}-${pad2(p.month)}-${pad2(p.day)}T${pad2(p.hour)}:${pad2(p.minute)}`;
+}
+
 export async function findEvent(args: {
   citySlug: string;
   date: string; // YYYY-MM-DD
   limit?: number;
-} & NearArgs & TagArgs): Promise<AiCandidate[]> {
+} & NearArgs & TagArgs, toolContext: AiToolContext = {}): Promise<AiCandidate[]> {
   const sb = getSupabase();
   const limit = Math.min(args.limit ?? 6, 12);
-  const dayStart = `${args.date}T00:00:00.000Z`;
-  const dayEnd = `${args.date}T23:59:59.999Z`;
+  // Berliner Kalendertag statt UTC-Mitternacht: Vorher fielen Events zwischen
+  // 00:00 und 02:00 Ortszeit auf den Vortag, späte Events des Vortags dafür
+  // in den gesuchten Tag.
+  const ymd = parseYmd(args.date) ?? berlinToday();
+  const dayStart = berlinInstant(ymd, 0).toISOString();
+  const dayEnd = berlinInstant(ymd, 24 * 60).toISOString();
   // Spaltennamen in planner_events: title (nicht name), start_at/end_at (nicht
   // starts_at/ends_at). Mit den falschen Namen antwortete PostgREST mit 42703,
   // und weil hier geworfen wird, ist jede Event-Suche des KI-Planners
   // abgebrochen — die Tabelle enthält knapp 34.000 Termine.
   const { data, error } = await sb
     .from("planner_events")
-    .select("id,title,category,start_at,end_at,venue_name,lat,lng,ticket_url")
+    .select("id,title,category,start_at,end_at,venue_name,lat,lng,ticket_url,family_friendly")
     .eq("city_slug", args.citySlug)
     .eq("status", "scheduled")
     .gte("start_at", dayStart)
-    .lte("start_at", dayEnd)
+    .lt("start_at", dayEnd)
     .order("start_at", { ascending: true })
     .limit(40);
   if (error) throw new Error(`findEvent: ${error.message}`);
 
   const n = near(args);
-  const candidates: AiCandidate[] = (data ?? []).map((e) => {
+  const family = toolContext.family ?? null;
+  // Familien bekommen nur Events, die vor der Altersgrenze liegen (Praxisfall
+  // Berlin Sa 17.10.: alle 11 Tages-Events 19:00–20:30, Comedy/Konzerte) —
+  // familienfreundlich markierte zuerst.
+  const rows = (data ?? [])
+    .filter(
+      (e) =>
+        !family ||
+        familyEventFitsTimeLimits({
+          limits: family.limits,
+          startAt: e.start_at ? new Date(e.start_at) : null,
+          endAt: e.end_at ? new Date(e.end_at) : null,
+          durationMin: 90,
+          earliestStartMin: family.earliestEventStartMin,
+        })
+    )
+    .sort((a, b) =>
+      family ? Number(b.family_friendly === true) - Number(a.family_friendly === true) : 0
+    );
+  const candidates: AiCandidate[] = rows.map((e) => {
     const distance =
       n && typeof e.lat === "number" && typeof e.lng === "number"
         ? Math.round(haversineKm(n.lat, n.lng, e.lat, e.lng) * 10) / 10
@@ -305,10 +358,17 @@ export async function findEvent(args: {
       category: e.category ?? "event",
       budget: null,
       duration_min: 90,
-      opening_hours: `${e.start_at} – ${e.end_at ?? "?"}${e.venue_name ? ` @ ${e.venue_name}` : ""}`,
+      // Ortszeit statt roher UTC-ISO — das Modell las "17:00:00+00:00" sonst
+      // als 17 Uhr, gemeint war 19 Uhr Berliner Zeit.
+      opening_hours: `${berlinLocalIso(e.start_at)?.slice(11) ?? "?"}–${
+        berlinLocalIso(e.end_at)?.slice(11) ?? "?"
+      } Uhr Ortszeit${e.venue_name ? ` @ ${e.venue_name}` : ""}`,
       lat: e.lat,
       lng: e.lng,
       distance_km: distance,
+      tags: e.family_friendly === true ? ["family-friendly"] : undefined,
+      event_start_local: berlinLocalIso(e.start_at) ?? undefined,
+      event_end_local: berlinLocalIso(e.end_at),
     };
   });
   let filtered = candidates;
@@ -498,7 +558,11 @@ export const AI_PLANNER_TOOLS = [
 
 export type ToolName = "find_food" | "find_culture" | "find_activity" | "find_nightlife" | "find_event";
 
-export async function callTool(name: ToolName, args: Record<string, unknown>): Promise<AiCandidate[]> {
+export async function callTool(
+  name: ToolName,
+  args: Record<string, unknown>,
+  toolContext: AiToolContext = {}
+): Promise<AiCandidate[]> {
   switch (name) {
     case "find_food":
       return findFood(args as Parameters<typeof findFood>[0]);
@@ -509,7 +573,7 @@ export async function callTool(name: ToolName, args: Record<string, unknown>): P
     case "find_nightlife":
       return findNightlife(args as Parameters<typeof findNightlife>[0]);
     case "find_event":
-      return findEvent(args as Parameters<typeof findEvent>[0]);
+      return findEvent(args as Parameters<typeof findEvent>[0], toolContext);
     default:
       throw new Error(`Unknown tool: ${name}`);
   }

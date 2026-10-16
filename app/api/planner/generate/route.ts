@@ -17,6 +17,11 @@ import {
   summarizeRoute,
 } from "@/lib/planner";
 import type { LocationRow, PlannerEventRow } from "@/lib/planner";
+import {
+  familyEarliestEventStartMin,
+  familyEventFitsTimeLimits,
+  familyTimeLimitsFor,
+} from "@/lib/planner/family-age";
 
 // ── Runtime validation ───────────────────────────────────────────────────────
 
@@ -358,8 +363,30 @@ async function loadPlannerEvents(
     })
   );
 
+  // Familien sehen in der Event-Liste nur Termine vor der Altersgrenze — der
+  // Planner verwirft spätere ohnehin, die Liste bot sie aber weiter zur Wahl an
+  // (Praxisfall 15.10.: Comedy-Club 19:00 im Familientag). Ein bereits
+  // ausdrücklich gewähltes Event bleibt sichtbar.
+  const familyLimits = familyTimeLimitsFor({
+    occasion: body.occasion,
+    familyAgeBand: body.familyAgeBand ?? null,
+  });
+  const familyEarliestStartMin = familyLimits
+    ? familyEarliestEventStartMin(familyLimits, body.planMode)
+    : null;
+  const fitsFamilyTime = (row: PlannerEventRow) =>
+    !familyLimits ||
+    row.id === body.selectedEventId ||
+    familyEventFitsTimeLimits({
+      limits: familyLimits,
+      startAt: row.start_at ? new Date(row.start_at) : null,
+      endAt: row.end_at ? new Date(row.end_at) : null,
+      durationMin: 90,
+      earliestStartMin: familyEarliestStartMin,
+    });
+
   return {
-    visibleRows: sortedRows.filter((row) => row.status === "scheduled"),
+    visibleRows: sortedRows.filter((row) => row.status === "scheduled" && fitsFamilyTime(row)),
     debugRows: sortedRows,
   };
 }
